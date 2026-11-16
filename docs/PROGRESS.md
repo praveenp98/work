@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:55) · Praveen's notes added to idea bank
+- Added P (Builder Pulse widgets, refined; AI-limit trackers crowded, open angle = phone widget + live profit + attention alerts, ~3%), Q (1,000 personal apps), R (Living story → Inkstreak feature), S (₹3,000 cohort: not eligible) and the book "Puer Who Got Enlightened" (personal, not eligible).
+
+---
+
 ## 2026-11-17 (02:45) · Homebuyer Case Builder killed for the contest
 - Wrote `docs/KILL-MEMO-HOMEBUYER.md`. Only ~1,500–2,000 RERA complaints filed per month nationwide; $15K needs ~250 buyers = 12–15% of all filers. Lawyers win on trust. Killed for the contest (OK as a slow side business).
 - Pay-once tools were assessed earlier (ideas N and O in `100k-hackathon-ideas.md`, 1–2% odds). Sharp version = pay-once alternative to one specific hated subscription.

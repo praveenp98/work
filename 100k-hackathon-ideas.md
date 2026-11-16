@@ -122,6 +122,36 @@ User screenshots their home screen + App Store/Play subscription list (or upload
 - **Possible edge:** India-first (UPI AutoPay mandates, Indian apps/OTT bundles), screenshot-in → instant shareable savings card (viral), no bank login needed.
 - **Verdict:** 🟡 fun, shareable, privacy-friendly, but crowded-ish and low-ticket for a profit contest.
 
+### P. 🟡 "Builder Pulse": attention widgets for AI builders (Praveen, Nov 17)
+Original note: a widgets app that shows sites/things needing attention for busy minds (like a stopwatch/countdown widget), but for AI builders, e.g. AI agent cost.
+**Refined:** a phone home-screen + desktop widget that shows the few numbers a solo AI builder must glance at, without opening 10 dashboards:
+- **Money in vs money out:** today's revenue / MRR (Stripe, Razorpay, Polar) minus AI spend (Anthropic, OpenAI, OpenRouter) and hosting = **live profit**
+- **Needs attention:** failed payments, refunds, new signups, failed deploys, site down, an agent stuck or looping, spend spike
+- **Limits & countdowns:** AI plan limits and reset times, launch/hackathon countdown, leaderboard rank
+- **Pinned live sites:** a mini view of any page you watch (your landing page, TrustMRR profile)
+**Competition:** AI usage/limit trackers are crowded (CodexBar, free/open source, 69 providers; TokenBar; AI Stats $7.99; TokenWatch; Trackr Bar; Claude Usage Tracker). Mostly Mac menu-bar apps for limits only.
+**Open angle:** phone widget (iOS/Android) + profit view (revenue minus AI cost) + "needs attention" alerts, sold pay-once ($19–39) to indie hackers. Audience is reachable (X, Indie Hackers, the hackathon's ~3,500 builders).
+**Risks:** low ticket; needs many integrations; App Store review time; trackers can add revenue later.
+**Odds:** P($15K+) ~3% · P(#1) <1%.
+
+### Q. 🟡 1,000 personal apps: tiny apps for your own phone (Praveen's notes)
+A website listing ~1,000 small single-purpose apps (PWAs) for personal use, grouped by category (self-mastery, habits, focus, money, relationships), each with install-to-phone steps. Pay once to unlock all, or "describe your app → AI builds it for your phone only".
+- Overlaps with N (pay-once tools suite). Same issues: commoditized, low ticket, SEO too slow for 29 days. The "AI builds a personal app just for you" version competes with vibe-coding tools.
+- **Verdict:** 🟡 nice positioning, weak for the contest.
+
+### R. 🟡 "Living story": a private place to write your life out of your head (Praveen's notes)
+A safe private space to write and update your life story; AI turns it into a "life snapshot", decision trees and next steps. Writing as release ("nothing should stay in your head").
+- **Conflict:** overlaps heavily with **Inkstreak** (Praveen's existing writing app). The contest needs a *new* business, so this belongs as an Inkstreak feature, not a contest entry.
+- Journaling apps are crowded (Day One, Rosebud, Reflection, Mindsera); hard to charge fast.
+- **Verdict:** 🟡 build into Inkstreak later; not for the contest.
+
+### S. ❌ 30-day build-in-public money challenge (₹3,000 cohort) (Praveen's notes)
+Daily 1-hour live screen recordings + prompts + WhatsApp group; "one hour a day, see money made live".
+- Same as idea I: a course/cohort/coaching = **info product, not eligible**. Could only work as a GTM tactic (build in public) for an eligible software product.
+
+### Personal project (not a hackathon idea): book "Puer Who Got Enlightened"
+Praveen's planned book: the "puer" who never grows up; Indian parents and grown children both stuck in old roles; letting adult children fall and learn; ego dying many times; integrating parental wounds; writing as release. A book is an info product, so not eligible for the contest. Keep notes in a separate writing space.
+
 ---
 
 ## 4. Recommendation (as of Nov 16)
