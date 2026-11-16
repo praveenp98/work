@@ -31,6 +31,15 @@ export const TOOLS: ToolMeta[] = [
     live: true,
   },
   {
+    slug: "bfcm-surge-plan",
+    name: "BFCM Surge Plan",
+    short: "Day-by-day Black Friday budget and bid plan, with guardrails.",
+    description:
+      "Free Black Friday and Cyber Monday 2026 ad plan for Amazon sellers: enter your daily budget and ACoS targets to get budget, winner-bid and placement changes for every day from Nov 19 to Dec 2.",
+    free: "Full 14-day schedule, CSV download, surge rules",
+    live: true,
+  },
+  {
     slug: "breakeven-acos",
     name: "Breakeven ACoS Calculator",
     short: "The ACoS where your ads stop making money.",

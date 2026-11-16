@@ -116,3 +116,20 @@ describe("bulk bids use the current bid", () => {
     expect(csv).toMatch(/Keyword,Update,113,213,421,,SP - Bamboo Board - Exact,Exact,,1\.36,charcuterie board,exact/);
   });
 });
+
+describe("aha numbers", () => {
+  const r = roast(report);
+  it("projects a lower ACoS after cutting the leak", () => {
+    expect(r.projectedAcos).toBeLessThan(r.totals.acos);
+    expect(r.projectedAcos).toBeCloseTo((r.totals.spend - r.leakTotal) / r.totals.sales, 1);
+  });
+  it("lists eaten terms by spend and computes yearly leak", () => {
+    expect(r.eaten[0].term).toBe("plastic cutting board dishwasher safe");
+    expect(r.leakYearly).toBeCloseTo(r.leakMonthly * 12, 0);
+  });
+  it("computes payback days", async () => {
+    const { paybackDays } = await import("./roast");
+    expect(paybackDays(299, 300)).toBe(30);
+    expect(paybackDays(299, 0)).toBeNull();
+  });
+});

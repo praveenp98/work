@@ -29,6 +29,12 @@ export interface RoastResult {
   headline: string;
   leaks: Leak[]; // sorted, biggest first
   win: { term: string; sales: number; acos: number } | null;
+  /** Aha numbers */
+  leakYearly: number;
+  /** ACoS if the leaked spend is cut and sales hold (sales from cut terms are ~0 by definition). */
+  projectedAcos: number;
+  /** Search terms Rocco "eats": the junk and zero-sale terms, biggest spend first (names only). */
+  eaten: { term: string; spend: number }[];
   fixes: { negatives: NegativeFix[]; harvest: HarvestFix[]; bids: BidFix[] };
   settings: RoastSettings;
   warnings: string[];
@@ -116,6 +122,9 @@ export function roast(report: ParsedReport, settings: Partial<RoastSettings> = {
     grade,
     headline,
     leaks,
+    leakYearly: round2(perMonth(leakTotal) * 12),
+    projectedAcos: totals.sales > 0 ? round2(Math.max(0, totals.spend - leakTotal) / totals.sales) : -1,
+    eaten: [...zero].sort((a, b) => b.spend - a.spend).slice(0, 8).map((t) => ({ term: t.searchTerm, spend: round2(t.spend) })),
     win: winT ? { term: winT.searchTerm, sales: round2(winT.sales), acos: round2(acos(winT)) } : null,
     fixes: { negatives, harvest, bids },
     settings: s,
@@ -128,6 +137,12 @@ function mapRound<T extends Record<string, number>>(o: T): T {
 }
 
 /** The free tier: score + top 3 leaks + counts. Full fix lists are stripped. */
+/** Days until a plan price is paid back by the monthly leak. null if no leak. */
+export function paybackDays(price: number, leakMonthly: number): number | null {
+  if (leakMonthly <= 0) return null;
+  return Math.max(1, Math.ceil(price / (leakMonthly / 30)));
+}
+
 export function freeView(r: RoastResult) {
   return {
     ...r,

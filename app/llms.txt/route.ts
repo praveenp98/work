@@ -1,3 +1,4 @@
+import { GUIDES } from "@/lib/guides";
 import { SITE } from "@/lib/site";
 import { liveTools } from "@/lib/tools";
 
@@ -13,6 +14,12 @@ export function GET() {
     "",
     "## Free tools",
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
+    "",
+    "## AI connector (MCP)",
+    `- [Connect Rocco to Claude or ChatGPT](${SITE.url}/connect): remote MCP server at ${SITE.url}/mcp (Streamable HTTP, no auth). Tools: roast_ads_report, amazon_ads_playbook, bfcm_surge_plan, breakeven_acos, coupon_profit.`,
+    "",
+    "## Guides",
+    ...GUIDES.map((g) => `- [${g.title}](${SITE.url}/guides/${g.slug}): ${g.description}`),
     "",
     "## Pricing",
     `- [Pricing](${SITE.url}/pricing): pay-once founding lifetime plans (Seller $149, Pro $299, Agency $399) and a $99 Holiday Pass.`,

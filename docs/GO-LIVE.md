@@ -20,6 +20,10 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 6. Connect Polar to TrustMRR so revenue is verified.
 - Razorpay (INR) later only if Indian buyers show up.
 
+## 3b. What to send Claude from Polar
+- Organization ID and the 4 checkout link URLs (not secret, fine to paste in chat). Claude wires them into the env/config.
+- Never paste an access token in chat; none is needed yet.
+
 ## 4. Waitlist: Supabase (5 min)
 SQL editor:
 ```sql
@@ -39,6 +43,8 @@ Fill `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (server-only, never `NEXT_PU
 - [ ] Business postal address for email footers (CAN-SPAM) and Polar.
 
 ## 7. After deploy
+- Test the connector: Claude → Settings → Connectors → Add custom connector → `https://rocco.works/mcp`.
+- List Rocco on MCP directories (Claude does the submissions text).
 - Google Search Console + Bing Webmaster: add property, submit `/sitemap.xml`.
 - Test a real purchase with a Polar test/discount code → paste key in the Ad Roast unlock box → fixes unlock.
 

@@ -6,7 +6,7 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 05:30 IST): EXECUTING. Domain rocco.works bought. v1 site built (Ad Roast, Coupon Calculator, Breakeven ACoS, pricing, legal). Go-live checklist: `docs/GO-LIVE.md`. Plan: `docs/AMAZON-BRAIN-PLAN.md`. Next: deploy, Polar checkout, Brain MCP v1, SEO pages.**
+> **STATUS (Nov 17, 2026, 07:30 IST): EXECUTING. rocco.works v2 built: mascot, redesigned site with aha moments, Ad Roast, BFCM Surge Plan, calculators, MCP connector at /mcp, 10 guides. Waiting on Polar IDs + Vercel deploy (`docs/GO-LIVE.md`). X posts: `docs/X-DAY1.md`.**
 
 ## Source-of-truth files
 | File | Purpose |
@@ -30,6 +30,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/GO-LIVE.md` | Launch checklist: deploy, payments, tracker, env vars (what Praveen must set up). |
+| `docs/X-DAY1.md` | Day-1 X posts for Rocco + Praveen, with UTMs. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
 | `docs/DECISIONS.md` | Decisions with dates and reasons. Add one whenever a choice is made. |
 

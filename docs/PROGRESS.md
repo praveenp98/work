@@ -4,6 +4,21 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (07:30) · Mascot, cooler site, aha moments, MCP connector, surge plan, 10 guides
+- **Rocco mascot v2** (`components/Rocco.tsx`): original flat-cartoon raccoon in a green hoodie, 4 poses (hero/magnifier, judge, party/coins, wave), pure SVG. New favicon. Public "Meet Rocco" page `/rocco`.
+- **Site redesign:** Bricolage Grotesque + Inter, sticky glass header, animated hero (bobbing Rocco, typing roast bubble, live Black Friday countdown), CTA band, quote wall, dark mode.
+- **Aha moments:** (1) homepage Leak Estimator: slide spend + waste % → $/year, $/day, "Rocco Pro pays for itself in N days"; (2) self-playing Live Roast Demo stamping CUT/HARVEST/BID DOWN on search terms while the leak counter climbs; (3) roast result: grade stamp, count-up yearly leak, payback days, ACoS now → after bars (sample: 30% → 21%), "Rocco ate these" chips.
+- **Brain MCP v1** at `/mcp` (Streamable HTTP, stateless, no auth): `roast_ads_report` (free summary; full fixes with license key), `amazon_ads_playbook` (judgment rules + how to work beside Amazon's Ads MCP), `bfcm_surge_plan`, `breakeven_acos`, `coupon_profit`. Tested with JSON-RPC calls. Setup page `/connect`.
+- **BFCM Surge Plan** tool (`/tools/bfcm-surge-plan`): Nov 19 – Dec 2 budget/bid/placement schedule, careful/normal/bold, CSV download, rules.
+- **10 SEO/AEO guides** at `/guides/*` with Article + FAQ JSON-LD, inline tool CTAs; in sitemap and llms.txt.
+- **Day-1 X posts:** `docs/X-DAY1.md` (15 Rocco + 5 Praveen + reply hooks, UTM'd).
+- Tests: 36 passing. Build clean (31 pages). Browser check: no console errors, no horizontal scroll on mobile.
+- **Waiting on Praveen:** Polar org ID + 4 checkout links (products with License Keys benefit), then Vercel deploy + tracker (see `docs/GO-LIVE.md`).
+- Next (Claude): deploy support once Vercel is connected; OG share images; BFCM Post-Mortem tool (needed by Nov 30); list Rocco on MCP directories (official registry, Smithery, Glama, mcp.so) after deploy.
+- Numbers: revenue $0 · marketing cost $0.
+
+---
+
 ## 2026-11-17 (05:30) · EXECUTION START: rocco.works v1 built
 - Praveen bought **rocco.works**. Built the site + first tools (Next.js 16, TypeScript). Build passes, 25 unit tests pass, browser end-to-end check passes (sample + real upload, mobile has no horizontal scroll, no console errors).
 - **Shipped (code):**

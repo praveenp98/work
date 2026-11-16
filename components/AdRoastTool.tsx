@@ -6,8 +6,10 @@ import { parseBulk, isBulkSheet, type BulkIndex } from "@/lib/parsers/bulk";
 import { detectReport, parseSearchTermReport, type ParsedReport } from "@/lib/parsers/searchTerm";
 import { download, readTables } from "@/lib/readTable";
 import { bulkSheetCsv, fixListCsv } from "@/lib/rules/export";
-import { roast } from "@/lib/rules/roast";
+import { paybackDays, roast } from "@/lib/rules/roast";
+import { CountUp } from "./CountUp";
 import { Raccoon } from "./Raccoon";
+import { Rocco } from "./Rocco";
 import { ShareCard } from "./ShareCard";
 
 const money = (c: string, n: number) => `${c}${Math.round(n).toLocaleString("en-US")}`;
@@ -60,12 +62,12 @@ export function AdRoastTool() {
     return (
       <div className="tool">
         <label
-          className={`drop${over ? " over" : ""}`}
+          className={`drop${over ? " over" : ""}${busy ? " busy" : ""}`}
           onDragOver={(e) => { e.preventDefault(); setOver(true); }}
           onDragLeave={() => setOver(false)}
           onDrop={(e) => { e.preventDefault(); setOver(false); const f = e.dataTransfer.files[0]; if (f) handle(f); }}
         >
-          <Raccoon size={56} />
+          <Rocco pose="hero" size={110} />
           <p style={{ fontWeight: 650, fontSize: 18, margin: "8px 0 4px" }}>{busy ? "Rocco is digging…" : "Drop your search term report here"}</p>
           <p className="muted" style={{ margin: 0 }}>.xlsx or .csv · Sponsored Products · last 30–60 days works best</p>
           <input type="file" accept=".csv,.tsv,.txt,.xlsx" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) handle(f); }} />
@@ -83,17 +85,56 @@ export function AdRoastTool() {
   }
 
   const r = result;
+  const payback = paybackDays(299, r.leakMonthly);
+  const scale = 100 / Math.max(60, r.totals.acos * 100 + 10); // bar scale so "now" never overflows
   const counts = { n: r.fixes.negatives.length, h: r.fixes.harvest.length, b: r.fixes.bids.length };
 
   return (
     <div className="tool">
-      <div className="score">
+      <div className="verdict">
         <div className={`grade g-${r.grade}`}>{r.grade}</div>
         <div>
-          <div className="muted" style={{ fontWeight: 600 }}>Leak Score</div>
-          <div style={{ fontSize: 22, fontWeight: 750, lineHeight: 1.25 }}>{r.headline}</div>
+          <span className="eyebrow">Leak Score</span>
+          <div className="verdict-head">{r.headline}</div>
         </div>
+        <div className="verdict-rocco"><Rocco pose={r.grade <= "B" ? "party" : "judge"} size={110} /></div>
       </div>
+
+      {r.leakTotal > 0 && (
+        <div className="aha">
+          <div className="aha-yearly">
+            <span className="eyebrow">If nothing changes, that&apos;s</span>
+            <div className="big"><CountUp value={r.leakYearly} prefix={r.currency} /><span style={{ fontSize: 20, color: "inherit", opacity: 0.7 }}> /year</span></div>
+            <p>
+              {payback !== null && <>Rocco Pro pays for itself in <b style={{ color: "var(--gold)" }}>{payback} day{payback === 1 ? "" : "s"}</b>. </>}
+              That&apos;s {money(r.currency, r.leakMonthly / 30)} a day to shoppers who never buy.
+            </p>
+          </div>
+          {r.totals.acos > 0 && r.projectedAcos >= 0 && (
+            <div className="aha-acos">
+              <span className="eyebrow">Your ACoS after the fixes</span>
+              <div className="bars">
+                <div className="bar"><span>Now</span><div className="track"><div className="fill now" style={{ width: `${Math.min(100, r.totals.acos * 100 * scale)}%` }} /></div><b>{pct(r.totals.acos)}</b></div>
+                <div className="bar"><span>After</span><div className="track"><div className="fill after" style={{ width: `${Math.min(100, r.projectedAcos * 100 * scale)}%` }} /></div><b style={{ color: "var(--accent)" }}>{pct(r.projectedAcos)}</b></div>
+              </div>
+              <p className="fine" style={{ marginTop: 10 }}>Same ad sales, minus the leaked spend. Estimate: cut terms had no sales, so cutting them shouldn&apos;t cost you orders.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {r.eaten.length > 0 && (
+        <div style={{ marginTop: 14 }}>
+          <b>Rocco ate these for you:</b>
+          <div className="eaten">
+            {r.eaten.map((e, i) => (
+              <span className="chip" key={e.term} style={{ animationDelay: `${i * 90}ms` }}>
+                <s>{e.term}</s> <b>{money(r.currency, e.spend)}</b>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="stats">
         <div className="stat"><b>{money(r.currency, r.totals.spend)}</b><span>ad spend ({r.days} days)</span></div>
         <div className="stat"><b>{money(r.currency, r.totals.sales)}</b><span>ad sales</span></div>
