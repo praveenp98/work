@@ -1,117 +1,159 @@
-# Amazon Brain MCP + mascot: reverse-engineered plan (Nov 17, 2026, 03:30 IST)
+# Amazon Brain: plan v2 (Nov 17, 2026, 03:50 IST)
 
-**Decision (Praveen):** build the hosted "Amazon brain" MCP server that runs alongside every other connector, sold at $99–400, with a Boardy-style mascot and heavy X distribution. Crowded = money is flowing; our job is to win on **ease, fun and distribution**, not features.
+**One line:** an AI Amazon operator with a mascot's personality. It plugs into Claude/ChatGPT next to Amazon's own connector (or needs no setup at all), roasts your account, and hands you the exact fixes. Sold once, $99–399.
 
-## 1. Work backwards from the goal
-| Target | Number |
-|---|---|
-| Profit goal | $15,000 by Dec 16 |
-| Average sale (lifetime/annual, $99–400) | ~$220 |
-| Sales needed | **~70** |
-| Free → paid (founding-seat urgency, 4%) | ~1,750 free roasts/scans |
-| Visitor → free scan (10%) | ~17,500 visitors |
-| Per day over ~25 selling days | ~700 visitors, 70 free scans, 3 sales |
-
-Every channel and feature below exists only to hit **70 free scans a day**.
-
-## 2. Who buys (sharpest first)
-1. **Amazon freelancers / VAs / small agencies** (India, Pakistan, Philippines, US). They run 3–20 client accounts, live on Upwork/FB groups/LinkedIn/X, and pay for leverage. One brain = more clients handled. **Best buyer for $299–399.**
-2. **Small sellers ($10K–200K/mo)** running their own ads with ChatGPT/Claude. Buy at $99–199.
-3. Not: big brands (slow, need trust and API access).
-
-## 3. Why us vs DataDoe, PPC Prophet, Agent Central, Helium 10 MCP
-They are tools for PPC pros: setup, API approval, dashboards, monthly fees. We are:
-- **Zero setup:** works on a dropped CSV/report in Claude, ChatGPT or our web page. No Amazon API approval needed on day 1.
-- **Whole account, one brain:** ads + listings + inventory + account health, in plain words.
-- **A character, not a dashboard:** the mascot talks, roasts, celebrates wins, sends a Monday brief. Grok-style ease and personality.
-- **Pay once:** founding lifetime deals vs everyone's monthly bills.
-
-## 4. The mascot
-- A named character with a face, voice and catchphrases (working names to test: "Penny the Profit Pup", "Ozzy", "Kiko"; no Amazon marks). Never Amazon's colors/logo, never implies affiliation.
-- Lives everywhere: MCP Apps widgets inside Claude/ChatGPT, its own X account, the website, short videos (made with Higgsfield), WhatsApp/Telegram later.
-- Personality: blunt, funny, on your side. "You paid $412 last month for people searching 'free'. I fixed it. You're welcome."
-
-## 5. The viral loop: "Roast my Amazon account"
-1. Seller drops a search-term report (or a listing URL/ASIN text) → free **Roast**: Leak Score (0–100), "$X/month leaking", top 3 fixes, one savage line from the mascot.
-2. Result is a **shareable card** (image + link), anonymized by default.
-3. The mascot's X account posts the best roasts daily (with permission) → people ask for theirs → loop.
-4. Paid unlock: full fix list, bulk sheet ready to upload, listing rewrites, weekly brief, unlimited accounts per plan.
-
-## 6. Pricing ($99–400, upfront so it counts in full)
-| Plan | Price | For |
-|---|---|---|
-| Free | $0 | 1 roast/month, summary only |
-| Founding Seller (lifetime, 1 brand) | $149 | Small sellers |
-| Founding Pro (lifetime, 5 brands) | $299 | Freelancers/VAs |
-| Founding Agency (lifetime, 20 brands) | $399 | Small agencies |
-Founding seats capped (e.g. 300) with a **public counter**; price rises every 50 sold. INR via Razorpay, USD via Polar → TrustMRR.
-
-## 7. Distribution (organic first, ₹10–20K boost only on winners)
-1. **X, two accounts:** mascot (roasts, memes, daily "leak of the day") + Praveen (build in public: "Day 6: $1,840 verified on TrustMRR"). Reply under Amazon/ecom creators daily. Target: the hackathon crowd for attention, sellers for money.
-2. **Freelancer communities:** FB groups and LinkedIn for Amazon VAs/PPC freelancers; Upwork-style "do 3x the clients" message. Offer free roasts in-thread where rules allow.
-3. **Reddit** (r/FulfillmentByAmazon, r/AmazonSeller): genuinely useful roast write-ups, no spam.
-4. **Affiliates:** 30% commission for Amazon YouTubers/freelancer-coaches (commission is deducted, still worth it).
-5. **Directories:** MCP registries, Claude/ChatGPT app directories, Product Hunt, launch sites (free listings).
-6. **Ads:** Higgsfield mascot videos, ₹10–20K on Meta/X only after a post proves itself organically.
-
-## 8. Build plan (ship small, fast)
-| Days | Ship |
-|---|---|
-| 1–2 (Nov 17–18) | Name, mascot, domain, X handles; Polar + Razorpay; TrustMRR tracker; landing page with waitlist + "roast me" CTA |
-| 3–5 | Web roast: upload search-term report → Leak Score card (rules engine: negatives, harvest, bid caps, wasted spend) |
-| 6–8 | Remote MCP server (OAuth, plan check per call): roast, fixes, bulk-sheet export; MCP Apps widget with mascot |
-| 9–12 | Listing roast (text input), inventory/restock check from report, Monday brief email |
-| 13–30 | Daily roasts on X, onboarding polish, affiliates, more report types; Ads API connect only if approved |
-
-## 9. Make-or-break risks
-- **X reach:** sellers are fewer on X than indie hackers. Mitigation: X for virality + build-in-public; freelancer FB/LinkedIn groups for buyers.
-- **Trust:** uploading ad data to a new brand. Mitigation: no login needed for the first roast, files auto-delete in 24h, anonymized cards.
-- **Rule 1 (new business):** no ShelfPilot/FBAmz names, clients or branding anywhere. Praveen's own experience is fine.
-- **Odds (honest):** P($15K+) ~7–9% · P(#1) ~2%. Better than most killed ideas only if the roast loop catches on in week 1.
+**Goal:** $50,000 verified profit by Dec 16 (stretch); $15,000 is the floor we must beat.
 
 ---
 
-## 10. Urgency engine: seasonal tools + X/LinkedIn playbooks (added Nov 17, 03:40 IST)
+## 1. Work backwards from $50K
+| Plan | Price | Sales target | Revenue |
+|---|---|---|---|
+| Agency lifetime (20 brands) | $399 | 50 | $19,950 |
+| Pro lifetime (5 brands) | $299 | 70 | $20,930 |
+| Seller lifetime (1 brand) | $149 | 40 | $5,960 |
+| Holiday Pass (all tools to Jan 31) | $99 | 60 | $5,940 |
+| **Total** | avg ~$240 | **~220 sales** | **~$52,800** |
+Less payment fees (~4%) and paid marketing (lead list + ₹10–20K boosts + affiliate commissions) ≈ $50K profit.
 
-### Real calendar (the urgency is real, no fake timers)
-| Date | Seller moment | Our tool / offer |
+**Funnel (Nov 20 – Dec 15, ~25 selling days):**
+| Step | Rate | Total | Per day |
+|---|---|---|---|
+| Visitors (all channels) | | ~55,000 | ~2,200 |
+| Start a free Roast / tool | 10% | ~5,500 | ~220 |
+| Buy | 4% of roasts | ~220 | ~9 |
+**Honest odds:** $15K ~8–10% · $50K ~2–3%. $50K needs one channel to break out (a viral roast format, a big affiliate, or email working well). We run everything below so at least one does.
+
+---
+
+## 2. How it works with Amazon's official connector (clear answer)
+Amazon's own Ads MCP Server (open beta since Feb 2, 2026) connects Claude/ChatGPT to the Ads API, **but only for advertisers and partners with active Amazon Ads API credentials.** Most small sellers and freelancers don't have them.
+
+So we sell **two lanes, one brain:**
+| Lane | Who | How it works | Our role |
+|---|---|---|---|
+| **Connected** | Bigger sellers, agencies with API credentials | Amazon's MCP = the **hands** (pulls data, makes changes). Our Brain MCP sits beside it = the **judgment** (what to check, what's wasting money, what to change, safe limits, approval list). | "Amazon gave your AI hands. We give it an operator's instinct." |
+| **No setup** | Everyone else (most of the market) | Drop a report into Claude/ChatGPT with our connector, or on our website. Get the roast, fixes and a ready-to-upload bulk file. | The free Roast lead magnet lives here. Zero friction = most sign-ups. |
+Later: our own approved Ads API app so anyone can click "Connect" (only if approval comes in time; not on the critical path).
+
+**Positioning line:** "Works with Amazon's official connector, or with no setup at all."
+
+## 3. Why us (vs DataDoe, PPC Prophet, Agent Central, Helium 10 MCP)
+1. **Judgment, not just access.** Others give AI more buttons; we give it the operator's playbook: rules, priorities, guardrails, plain-English why.
+2. **Whole account in one brain:** ads, listings, inventory, coupons, account health.
+3. **A character people enjoy.** The mascot roasts, fixes, celebrates wins and sends a Monday brief. Amazon work stops feeling like a chore.
+4. **No setup required** for the first result in under 2 minutes.
+5. **Pay once.** Founding lifetime deals while everyone else bills monthly.
+
+---
+
+## 4. Mascot (for US brand owners)
+**Recommendation: a raccoon.** Working name **"Rocco"** (alternates: "Bandit", "Dusty"). Final name chosen with the domain check.
+Why it fits US brand owners and X:
+- Raccoons ("trash pandas") are a huge US internet meme; instantly likable and shareable.
+- Story fits the job: **digs through your search-term trash and finds the money**; nocturnal, so it **works your account overnight**; the mask = it catches the "ad spend bandits."
+- Mischievous, so roasting feels funny, not insulting.
+- Not a dog/owl (generic), and nothing like Amazon's colors, smile arrow or logo.
+Voice: blunt, warm, a little cheeky, always on the seller's side. "You paid $412 for people searching 'free'. I ate it. You're welcome."
+Assets: 2D character sheet (6 poses: digging, celebrating, judging, sleeping-on-money, alarm, high-five), Higgsfield short videos, MCP Apps widget states.
+
+---
+
+## 5. Product shelf (each = SEO/AEO page + free lead magnet + paid unlock)
+| Tool | Free (lead magnet) | Paid unlock | Moment |
+|---|---|---|---|
+| **Ad Roast** | Leak Score, $/month leaking, top 3 leaks, share card | Full negatives/harvest/bid fixes + bulk file | Always |
+| **Coupon Planner** | Margin-after-coupon-and-fees calculator | Per-SKU coupon plan + budget + setup steps | BF week |
+| **BFCM Surge Plan** | Checklist | Bid/budget schedule for Nov 19–30 as bulk file | BF week |
+| **BFCM Post-Mortem** | Spend vs sales vs waste card | Full breakdown + January plan | **Dec 1–5** |
+| **Retargeting Builder** | Audience ideas | Sponsored Display remarketing campaigns as bulk file | December |
+| **Stockout Guard** | Days-of-cover check | Pause-ads + reorder list | Always |
+| **Listing Roast** | Score from pasted title/bullets | Rewrites for AI shopping assistants + holiday terms | Always |
+| **Breakeven ACoS / TACoS calculators** | Free forever | Upsell to Roast | SEO bait |
+Rule: we never act inside a seller's account. Tools generate plans, bulk files and steps; the seller applies them (self-serve software, rule 2; account safety, rule 6).
+
+**Pricing & urgency (real deadlines only):** founding seats capped with a public counter; prices step up **Nov 27, Dec 1, Dec 16**; Holiday Pass expires Jan 31.
+
+---
+
+## 6. Distribution: 12 engines (no ad budget, lots of AI writing, Praveen deciding)
+Everything points to one action: **"Roast my account"** (or another free tool), then the paid unlock.
+
+1. **SEO/AEO content engine (our site).**
+   - 1 page per tool + 5–10 deep guides/day drafted by Claude, reviewed by Praveen: "how to set up Amazon coupons for Black Friday", "negative keywords for [category]", "why is my ACoS high in December".
+   - **Comparison/alternative pages** (high intent): "Helium 10 MCP alternatives", "best AI for Amazon PPC 2026" (honest).
+   - **Original data:** "BFCM 2026 Leak Index" (anonymized averages from roasts). LLMs and journalists cite numbers.
+   - Technical: llms.txt + llms-full.txt, JSON-LD (FAQ, HowTo, SoftwareApplication), sitemap, fast server-rendered pages; every page ends in a tool CTA.
+2. **Public "Roast Wall":** gallery of anonymized roasts (opt-in). SEO pages + proof + entertainment.
+3. **X: mascot + Praveen** (section 7).
+4. **LinkedIn: Praveen + company page + newsletter** (section 7).
+5. **Cold email to a bought seller lead list** (section 8).
+6. **Free Claude skill / prompt pack** "Amazon PPC audit": given away on GitHub/skills directories; it points to Rocco for the full fix. Native to the MCP crowd.
+7. **MCP & AI directories:** official MCP registry, Smithery, Glama, mcp.so, Claude/ChatGPT app directories, Product Hunt, launch sites, TrustMRR listing.
+8. **Freelancer white-label:** freelancers send our roast to *their* prospects with "Powered by Rocco." Their lead magnet = our distribution.
+9. **"Powered by" on every share card and report.** Every roast is an ad.
+10. **Affiliates:** 30% of first sale for Amazon YouTubers, freelancer coaches, newsletter owners (deducted, but only paid on sales).
+11. **Communities:** Reddit (r/FulfillmentByAmazon, r/AmazonSeller, r/PPC), Amazon seller Facebook groups, Discords: genuine help + roast offers where rules allow.
+12. **Short video everywhere:** Higgsfield mascot clips → X, LinkedIn, Reels, Shorts, TikTok. ₹10–20K boosts only on clips already winning.
+Extras when there's time: X Spaces / LinkedIn Live "live roasts", a 7-day "BFCM profit challenge" email course (free, tool-led), guest posts/podcast pitches.
+
+## 7. X vs LinkedIn (different jobs)
+| | X | LinkedIn |
 |---|---|---|
-| Nov 13 (passed) | Last extended deal-submission deadline | — |
-| **Nov 19–30** | Black Friday Week; BF Nov 27, CM Nov 30 | **BFCM Panic Kit**: coupon planner, budget/bid surge plan, stockout guard |
-| **Dec 1–3** | BFCM post-mortem | **"What did BFCM really cost you?" roast**, our biggest viral moment |
-| Dec 1–24 | Christmas window, last-ship dates | Holiday listing refresh, last-ship-day alerts, retargeting builder |
-| Dec 16 | Contest ends | Founding prices end (real deadline) |
-Coupons and Prime-exclusive price discounts can still be created by sellers in Seller Central, so a coupon tool is useful for BFCM week even after deal deadlines.
+| Job | Reach, personality, virality, build in public | Trust, freelancers/agencies, B2B buyers |
+| Accounts | Rocco (mascot brand) + Praveen | Praveen + company page + newsletter |
+| Content | Roast cards, "leak of the day", memes, live-tweeting BF week, verified revenue updates, data threads | Story + data posts, carousels of anonymized roasts, "9 coupon mistakes", case breakdowns |
+| Cadence | Rocco 3–5/day, Praveen 2–3/day, 30 min replies | 1 post/day, 20–25 connection requests/day, 20 min comments |
+| CTA | "Reply ROAST" → DM link | "Comment COUPON/ROAST" → DM link |
+Only real accounts. No sock puppets (X/LinkedIn ban inauthentic behavior; disqualification risk).
 
-### Eligibility guardrails (important)
-- **We never set things up inside a seller's account.** That's a done-for-you service (rule 2) and touches live accounts (rule 6). Every "service" becomes a **self-serve generator**: the tool outputs the exact plan + bulk file/upload sheet + click-by-click steps, and the seller applies it in 2 minutes. Ads API write access only later, with per-change approval.
-- **Multiple profiles = real ones only:** Praveen (X + LinkedIn), the mascot brand account on X, a LinkedIn company page. No fake personas or sock-puppet accounts (X and LinkedIn ban inauthentic/coordinated behavior; it would also risk the contest).
+## 8. Cold email (bought seller lead list)
+- **Timing reality:** new domains need ~2–3 weeks warmup. Buy 3–5 lookalike sending domains **today**, set SPF/DKIM/DMARC, warm immediately → careful sends from ~Nov 24, full volume ~Dec 1–15 (the post-mortem window is perfect). Pre-warmed inbox providers can speed this up.
+- **Volume:** ~10 inboxes × 30–40/day ≈ 300–400/day → ~5,000–6,000 sends by Dec 15. Verify every address; bounces <2%.
+- **Offer, never a pitch:** "Rocco roasted 1,200 Amazon accounts after Black Friday. Want yours? (free, 2 min, no login)." Personalize by brand/category from the lead list only (no scraping Amazon).
+- **Compliance:** CAN-SPAM: real sender, postal address, one-click opt-out honored.
+- **Cost:** lead list + any paid sending tools logged as marketing costs (rule 4). Praveen approves before buying.
+- Expect: 1–3% replies/clicks → ~100–150 roasts → ~10–25 sales.
 
-### Tool shelf (each = one SEO/AEO page + one lead magnet + one paid unlock)
-| Tool | Free version (lead magnet) | Paid unlock |
+## 9. The machine: who does what
+| Who | Daily job |
+|---|---|
+| **Claude** | Builds tools and pages; drafts 5–10 SEO/AEO pages, 15–20 X posts, 1 LinkedIn post, email variants; builds the daily scorecard; proposes what to kill/double. Runs as a scheduled daily task. |
+| **Grok bot** | Publishes and schedules X posts, replies, pulls X metrics, finds trending Amazon/BFCM threads to reply to. |
+| **Praveen** | Reads, decides, approves (30–60 min); personal replies/DMs; voice/face clips; picks winners; closes agencies in DMs. |
+
+### Hook & lead-magnet testing loop (the core habit)
+- Every post/email/page carries a **UTM tag** → we see which hook drives roasts and sales, not just likes.
+- **Daily:** test ~10 new hooks across X/LinkedIn; kill the bottom 70%, rewrite the top 30% into new formats (thread, carousel, video, email subject).
+- **Weekly:** rotate the headline lead magnet (Roast → Coupon Planner → Post-Mortem → Listing Roast) based on what converts.
+- Scorecard columns: visitors, roasts started, roasts finished, shares, paid, revenue, cost, profit (TrustMRR).
+
+### Hook bank (starting set to test)
+- "I let a raccoon audit 100 Amazon accounts. Average leak: $X/month."
+- "Your ads are paying for people who search 'free'."
+- "Black Friday is in 10 days. Here are the 3 settings that burn the most money."
+- "Amazon gave AI hands (their MCP). Nobody gave it judgment."
+- "Roast my Amazon account" (reply-to-get)
+- "What did Black Friday really cost you?" (Dec 1)
+- "The coupon that lost $8,000" (story)
+- "I'm building this in public for a $100K hackathon. Day N: $X verified."
+
+---
+
+## 10. Real calendar
+| Date | Moment | Ship / push |
 |---|---|---|
-| Ad Roast (search-term report) | Leak Score + top 3 leaks + share card | Full negatives/harvest + bulk sheet |
-| Coupon Planner | Margin-after-coupon-and-fees calculator | Per-SKU coupon plan + budget + step-by-step setup |
-| BFCM Surge Plan | Checklist | Bid/budget schedule per campaign for Nov 19–30 as bulk sheet |
-| Retargeting Builder | What brand retargeting is + audience ideas | Sponsored Display remarketing campaigns as bulk sheet |
-| Stockout Guard | Days-of-cover check from inventory report | Pause-ads + reorder list |
-| BFCM Post-Mortem | Spend vs sales vs waste summary card | Full waste breakdown + January plan |
-| Listing Roast | Score on title/bullets (pasted text) | Rewrites for AI shopping assistants + holiday keywords |
-Pricing stays inside founding lifetime plans ($149 / $299 / $399); a single **"Holiday Pass" at $99** (all tools until Jan 31) for impulse buyers. Price steps up at real moments: Nov 27, Dec 1, Dec 16.
+| Nov 17–18 | Setup | Name, mascot, domain, handles, Polar + Razorpay, TrustMRR tracker, landing + waitlist; buy & start warming email domains |
+| **Nov 19–20** | BF week starts (Nov 19–30) | **Ad Roast + Coupon Planner live**; Rocco starts posting |
+| Nov 21–26 | Pre-BF panic | BFCM Surge Plan, Stockout Guard; Brain MCP v1 (roast + fixes + bulk file) |
+| Nov 27 | Black Friday | Live-tweet; price step 1 |
+| Nov 30 | Cyber Monday | Post-Mortem tool ready |
+| **Dec 1–5** | Post-mortem window | Biggest push: Post-Mortem roast on every channel + email at full volume; price step 2 |
+| Dec 6–15 | Christmas window | Retargeting Builder, Listing Roast, affiliates, Roast Wall, Leak Index |
+| Dec 16 | Contest ends | Founding prices end |
 
-### X playbook (speed, personality, virality)
-- **Mascot account:** 3–5 posts/day. "Leak of the day" roast cards, BFCM countdown with one tip/day, memes about Amazon pain, live-tweeting BF week ("hour 6 of Black Friday, CPCs up 40%, here's what I'm changing").
-- **Praveen account:** build in public with TrustMRR-verified numbers, the hackathon story, threads ("I analyzed 100 Amazon ad reports during BFCM: 7 patterns").
-- **Reply engine:** 30 min/day under Amazon/ecom creators and BFCM threads with useful replies + roast offers.
-- **Comment-to-get:** "Reply ROAST and I'll DM you a free audit link."
-- Boost (₹10–20K) only the 1–2 posts that already outperform, ideally Higgsfield mascot videos.
-
-### LinkedIn playbook (trust, freelancers and agencies)
-- **Praveen personal profile:** 1 post/day, story + data: "What BFCM taught 50 sellers," carousels of anonymized roasts, "the 9 coupon mistakes I keep seeing." Comment-to-DM lead magnets ("comment COUPON for the planner").
-- **Targets:** Amazon freelancers, VA agency owners, PPC managers: 20–25 personal connection requests/day with a note.
-- **LinkedIn Live / video:** weekly "live roast" of volunteer accounts.
-- **Company page + newsletter:** weekly "Amazon Brain Brief" (subscribers get notified automatically).
-
-### SEO / AEO (compounds; won't carry the contest alone)
-- One page per tool and per question sellers ask AI ("how to set up Amazon coupons for Black Friday", "Sponsored Display remarketing setup"), each with JSON-LD, FAQ, and a working free tool. llms.txt + clear answers so ChatGPT/Claude/Perplexity cite us.
-- Publish the free BFCM post-mortem benchmarks (anonymized averages) as citable data.
+## 11. Risks & guardrails
+- Sellers are fewer on X than indie hackers → X for virality + build in public; LinkedIn, email and communities for buyers.
+- Trust for a new brand → no login for the first roast, files deleted in 24h, anonymized share cards, clear "not affiliated with Amazon".
+- Rule 1: no ShelfPilot/FBAmz names, clients or branding. Praveen's own experience is fine.
+- Rule 7: no Amazon trademarks in the brand or domain; describe compatibility in plain words only.
