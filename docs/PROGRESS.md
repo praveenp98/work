@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:10) · Hunt for Amazon gaps outside the connectors
+- Praveen chose option 3 (find an Amazon problem the existing connectors don't cover). Researched and wrote `docs/AMAZON-GAPS.md`.
+- Best gap: **Amazon-only brands invisible in ChatGPT/Perplexity shopping** (Amazon blocked AI crawlers in Nov 2025) → possible "AI Shelf" product + Brand Referral Bonus angle. Partial competitors: Rithum, Ranketta, Lapis, Nembol.
+- CPSC eFiling and tariffs/HTS: real pains but already served (Comply PRO+, SupplyScope, CPCReady, CertPrepy; Avalara, Zonos, etc.).
+- Status unchanged: **ON HOLD. Do not build** until Praveen decides.
+- Praveen asked: update repo files after every discussion (standing instruction).
+
+---
+
 ## 2026-11-17 · Kill review + pivot exploration (Claude, claude.ai)
 **What happened**
 - Re-read all repo files and argued against the Amazon "AI Junior Account Manager" PRD v2. Wrote `docs/KILL-MEMO.md` (8 kill points; odds of $15K+ profit under 10%).
