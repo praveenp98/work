@@ -4,6 +4,20 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (05:30) · EXECUTION START: rocco.works v1 built
+- Praveen bought **rocco.works**. Built the site + first tools (Next.js 16, TypeScript). Build passes, 25 unit tests pass, browser end-to-end check passes (sample + real upload, mobile has no horizontal scroll, no console errors).
+- **Shipped (code):**
+  - **Ad Roast** (`/tools/ad-roast`): upload SP search term report (.xlsx/.csv) → Leak Score A–F, $/month leaking, top 3 leaks in Rocco's voice, best term, share card PNG + X/LinkedIn share. Locked: every negative, harvest and bid fix, fix-list CSV, and an upload-ready Bulksheets 2.0 file (needs the seller's bulk export for IDs). Runs 100% in the browser.
+  - Rules engine `lib/rules/` (negatives, junk-intent, harvest, bid formula ±20% cap, leak math, coupon math, breakeven ACoS) + parsers `lib/parsers/` (search term report with header detection, bulk export) + fixtures.
+  - **Coupon Profit Calculator** and **Breakeven ACoS Calculator** (free SEO bait).
+  - Landing page, tools index, pricing (Holiday $99 / Seller $149 / Pro $299 / Agency $399, price steps Nov 27 / Dec 1 / Dec 16), privacy, terms, refunds (7-day draft), waitlist API (Supabase), license unlock API (Polar), sitemap, robots, llms.txt, JSON-LD + FAQ on every tool page, tracker slot.
+- **Praveen to do (blocking launch):** see `docs/GO-LIVE.md` — Vercel deploy + DNS, Polar products + license keys, Supabase table, TrustMRR tracker snippet, hello@rocco.works inbox, X @roccoworks. Approve: 7-day refund policy, postal address for emails.
+- **Next (Claude):** Brain MCP v1 (roast + fixes tools for Claude/ChatGPT), BFCM Surge Plan, first 10 SEO/AEO pages, Day-1 X posts from the hook bank, anonymized Leak Index counter.
+- Known limits: paywall is client-side (fine for v1, sellers won't dig into JS); no .xls support; Sponsored Brands/Display reports not parsed yet.
+- Numbers: revenue $0 · marketing cost $0 (domain is not a marketing cost).
+
+---
+
 ## 2026-11-17 (04:20) · Domain options
 - raccly.ai (expensive, 2-yr), rackyy.com (cheap but spelling/slang issues), **rocco.works recommended** (keeps Rocco, built-in tagline). Waiting on purchase.
 

@@ -1,0 +1,12 @@
+Product,Entity,Operation,Campaign ID,Ad Group ID,Portfolio ID,Ad ID,Keyword ID,Product Targeting ID,Campaign Name,Ad Group Name,Campaign Name (Informational only),Ad Group Name (Informational only),State,Bid,Keyword Text,Match Type,Product Targeting Expression
+Sponsored Products,Campaign,,111,,,,,,SP - Bamboo Board - Auto,,SP - Bamboo Board - Auto,,enabled,,,,
+Sponsored Products,Ad Group,,111,211,,,,,,Auto,SP - Bamboo Board - Auto,Auto,enabled,,,,
+Sponsored Products,Product Targeting,,111,211,,,,311,,,SP - Bamboo Board - Auto,Auto,enabled,1.20,,,close-match
+Sponsored Products,Product Targeting,,111,211,,,,312,,,SP - Bamboo Board - Auto,Auto,enabled,1.00,,,loose-match
+Sponsored Products,Campaign,,112,,,,,,SP - Bamboo Board - Broad,,SP - Bamboo Board - Broad,,enabled,,,,
+Sponsored Products,Ad Group,,112,212,,,,,,Broad,SP - Bamboo Board - Broad,Broad,enabled,,,,
+Sponsored Products,Keyword,,112,212,,,411,,,,SP - Bamboo Board - Broad,Broad,enabled,1.60,cutting board,broad,
+Sponsored Products,Campaign,,113,,,,,,SP - Bamboo Board - Exact,,SP - Bamboo Board - Exact,,enabled,,,,
+Sponsored Products,Ad Group,,113,213,,,,,,Exact,SP - Bamboo Board - Exact,Exact,enabled,,,,
+Sponsored Products,Keyword,,113,213,,,421,,,,SP - Bamboo Board - Exact,Exact,enabled,1.70,charcuterie board,exact,
+Sponsored Products,Keyword,,113,213,,,422,,,,SP - Bamboo Board - Exact,Exact,enabled,1.70,bamboo cutting board set,exact,
