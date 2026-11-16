@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (04:05) · Mascot approved, launch setup planned
+- Praveen approved raccoon "Rocco" and planning email + leads. Wrote `docs/LAUNCH-SETUP.md`: domain shortlist (askrocco.com first), Smartlead + pre-warmed mailboxes (~$200 first month), SmartScout + Apollo for leads (skip scraped Amazon lists), CAN-SPAM rules.
+- Blocker: Claude can't check domain availability from the workspace; Praveen to check on a registrar (or open Chrome so Claude can).
+
+---
+
 ## 2026-11-17 (03:50) · Plan v2 rewritten
 - `docs/AMAZON-BRAIN-PLAN.md` rewritten: $50K math (~220 sales, ~5,500 roasts, ~55K visitors), two lanes vs Amazon's Ads MCP (needs API credentials), raccoon mascot "Rocco", tool shelf, 12 distribution engines (SEO/AEO content engine, Roast Wall, free Claude skill, directories, white-label, affiliates…), X vs LinkedIn, cold email plan, Claude/Grok/Praveen roles, hook-testing loop, calendar.
 - Waiting on Praveen: approve mascot/name, approve buying email domains + lead list.

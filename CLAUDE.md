@@ -13,6 +13,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/LAUNCH-SETUP.md` | Brand/domain shortlist, pre-warmed email infra, lead list sources, budget. |
 | `docs/AMAZON-BRAIN-PLAN.md` | **Current plan v2:** $50K math, two lanes (Amazon MCP + no setup), mascot, 12 distribution engines, email, testing loop. |
 | `docs/KILL-MEMO-HOMEBUYER.md` | Homebuyer Case Builder killed for contest (market ~20K filers/yr). |
 | `docs/HIGGSFIELD.md` | Higgsfield: kill as product wrapper; keep as ad-creative engine. |
