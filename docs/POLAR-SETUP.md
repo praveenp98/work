@@ -15,10 +15,11 @@ Footer text in every description: "Not affiliated with Amazon."
 1. Sign up at polar.sh (Google/email). Create organization **"Rocco Works"**, slug `roccoworks`, support email on the new domain.
 2. **Practice in sandbox first:** sandbox.polar.sh, same products, test card 4242 4242 4242 4242.
 3. **Payout account:** Settings → Finance → connect Stripe Connect Express as an **individual in India** with your **Indian bank account in INR** (Wise/Payoneer/Revolut are usually rejected). Polar is merchant of record, so Stripe being invite-only in India doesn't matter.
-4. **Products → New product** for each row above: name, description, pricing = **One-time**, fixed price, currency USD. Add the metadata. Benefits: leave empty for now (our app grants access by webhook); optionally add a "License key" benefit later for the MCP.
-5. **Checkout Links → Create** one per product. Success URL: `https://rocco.works/welcome?checkout_id={CHECKOUT_ID}`. Turn on "allow discount codes."
+4. **Products → New product** for each row above: name, description, pricing = **One-time**, fixed price, currency USD. Add the metadata.
+   **Benefit (required, the app unlocks with it):** add a **License Keys** benefit, prefix `ROCCO`, no expiry; on the Holiday Pass set expiry **Jan 31, 2027**.
+5. **Checkout Links → Create** one per product. Success URL: `https://rocco.works/tools/ad-roast?bought=1`. Turn on "allow discount codes." Paste the links into Vercel env vars `NEXT_PUBLIC_POLAR_HOLIDAY_URL`, `NEXT_PUBLIC_POLAR_SELLER_URL`, `NEXT_PUBLIC_POLAR_PRO_URL`, `NEXT_PUBLIC_POLAR_AGENCY_URL`, and set `POLAR_ORGANIZATION_ID` (Settings).
 6. **Discounts:** create `FOUNDER20` (20%, limited redemptions) for early X/LinkedIn supporters; affiliate codes later.
-7. **Settings → Developers:** create an access token + webhook to `https://rocco.works/api/polar/webhook` (events: order.paid, order.refunded). Claude wires this into the app.
+7. **Later, not needed for v1:** access token + webhook (order.paid, order.refunded) once the Brain MCP needs server-side plan checks.
 8. **TrustMRR:** connect Polar (read-only key) so revenue is verified; install the hackathon tracker on every page.
 9. **Account review:** have the live site show product, pricing, Terms, Privacy, Refund policy and contact email before sending traffic.
 
