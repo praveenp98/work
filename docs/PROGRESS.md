@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:30) · Back to drawing board: high-ticket real problems (≤$400)
+- Wrote `docs/HIGH-TICKET-SCAN.md`. Crowded: US EB-2 NIW DIY tools, India GST/IT notice reply AI, US insurance-denial appeals (free tools).
+- Open-ish: **Homebuyer Case Builder** (India RERA / Consumer Commission self-filing; ₹4,999–9,999 + ₹39,999–49,999 association plan; 10% / 2%). Runner-up: Insurance Ombudsman "Claim Fighter".
+- Status: **awaiting Praveen's reaction.**
+
+---
+
 ## 2026-11-17 (02:25) · Ad budget is only ₹10–20K
 - Constraint: ₹10–20K to start, recycle if profitable. Logged in `docs/MY-PICK.md`.
 - Consequence: US paid ads can't be the main engine; organic reels must drive sales; ads only boost proven posts in India.
