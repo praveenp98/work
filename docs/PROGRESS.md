@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:00) · Kill all → explosive new ideas
+- Praveen asked to kill all previous ideas and find new viral, contest-winning ones. Wrote `docs/EXPLOSIVE-IDEAS.md`.
+- Finding: every tested "explosive" concept already exists (pixel walls, king-of-the-hill billboards, AI wedding songs, wedding quiz games, AI office-party game shows). **The hackathon already has an official leaderboard** (3,492 builders at launch).
+- Two plays proposed: **A. Shaadi Party Kit** (live sangeet game + personalized song + invite/thank-you video, ₹2,999–4,999; 12% / 3%) and **B. Hackathon Launchpad + Throne** (entrant directory + paid boosts + escalating top spot; 9% / 2%).
+- Status: **awaiting Praveen's pick. No build yet.**
+
+---
+
 ## 2026-11-17 (01:40) · How many weddings until Dec 16?
 - Added a market timing section to `docs/KILL-MEMO-TREND-STUDIO.md`. 2026 window has only ~11 muhurat dates (Nov 21, 24, 25, 26 + 7 in Dec, last Dec 12; none Dec 13–Jan 14). Estimate ≈ 30–35 lakh weddings (my estimate from CAIT 2023–24 per-date ratios; no 2026 CAIT figure found).
 - Key insight: invites for this window are mostly already sent; sell sangeet/countdown/thank-you videos now, and **save-the-dates/invites for the Jan–Mar 2027 season, which get made in December**.

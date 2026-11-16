@@ -6,13 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve SaaS covering ads (incl. Rufus Sponsored Prompts), listings/Rufus visibility, and account health/profit.
 
-> **STATUS (Nov 17, 2026): the Amazon product is ON HOLD. Do not build anything.** Read `docs/KILL-MEMO.md` and wait for Praveen to choose the next direction.
+> **STATUS (Nov 17, 2026, 02:00 IST): no product chosen. All earlier ideas (incl. Amazon) are killed for selection. Do not build anything.** Read `docs/EXPLOSIVE-IDEAS.md` and wait for Praveen to choose.
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/EXPLOSIVE-IDEAS.md` | Latest: all old ideas killed; two new viral plays (Shaadi Party Kit, Hackathon Launchpad + Throne). Read first. |
 | `docs/ODDS-RANKING.md` | All ideas ranked by honest odds of $15K+ and of winning. |
 | `docs/KILL-MEMO-TREND-STUDIO.md` | Kill + fix for Desi AI Trend Studio → AI Shaadi & Occasion Studio. |
 | `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
