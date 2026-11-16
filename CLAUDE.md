@@ -13,6 +13,7 @@ Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve Sa
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/HIGGSFIELD.md` | Higgsfield: kill as product wrapper; keep as ad-creative engine. |
 | `docs/KILL-MEMO-ADS-TRUSTMRR.md` | Kill memo: TrustMRR-for-ads (Ad Library API can't feed it). |
 | `docs/JOBS-TO-AUTOMATE.md` | Latest: jobs AI can automate, scored on reach/convert/market. |
 | `docs/HIGH-TICKET-SCAN.md` | Latest: high-ticket real-problem scan; best = Homebuyer Case Builder (RERA). |

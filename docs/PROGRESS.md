@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:40) · Higgsfield idea
+- Wrote `docs/HIGGSFIELD.md`. Kill a Higgsfield wrapper product (Higgsfield's own Ads 2.0 / UGC Factory cover it; $1B ARR). Keep Higgsfield as our AI-UGC ad engine for whatever we sell.
+
+---
+
 ## 2026-11-17 (02:35) · Kill memo: "TrustMRR but for ads"
 - Wrote `docs/KILL-MEMO-ADS-TRUSTMRR.md`. Killed: Meta Ad Library API has no commercial ads outside EU/UK and no spend/results data; ad-spy tools crowded; verified-results leaderboards exist; cold start.
 - Parked mutation: verified "ad spend managed" profiles for media buyers (3–4% / <1%).
