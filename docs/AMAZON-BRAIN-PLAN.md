@@ -68,3 +68,50 @@ Founding seats capped (e.g. 300) with a **public counter**; price rises every 50
 - **Trust:** uploading ad data to a new brand. Mitigation: no login needed for the first roast, files auto-delete in 24h, anonymized cards.
 - **Rule 1 (new business):** no ShelfPilot/FBAmz names, clients or branding anywhere. Praveen's own experience is fine.
 - **Odds (honest):** P($15K+) ~7–9% · P(#1) ~2%. Better than most killed ideas only if the roast loop catches on in week 1.
+
+---
+
+## 10. Urgency engine: seasonal tools + X/LinkedIn playbooks (added Nov 17, 03:40 IST)
+
+### Real calendar (the urgency is real, no fake timers)
+| Date | Seller moment | Our tool / offer |
+|---|---|---|
+| Nov 13 (passed) | Last extended deal-submission deadline | — |
+| **Nov 19–30** | Black Friday Week; BF Nov 27, CM Nov 30 | **BFCM Panic Kit**: coupon planner, budget/bid surge plan, stockout guard |
+| **Dec 1–3** | BFCM post-mortem | **"What did BFCM really cost you?" roast**, our biggest viral moment |
+| Dec 1–24 | Christmas window, last-ship dates | Holiday listing refresh, last-ship-day alerts, retargeting builder |
+| Dec 16 | Contest ends | Founding prices end (real deadline) |
+Coupons and Prime-exclusive price discounts can still be created by sellers in Seller Central, so a coupon tool is useful for BFCM week even after deal deadlines.
+
+### Eligibility guardrails (important)
+- **We never set things up inside a seller's account.** That's a done-for-you service (rule 2) and touches live accounts (rule 6). Every "service" becomes a **self-serve generator**: the tool outputs the exact plan + bulk file/upload sheet + click-by-click steps, and the seller applies it in 2 minutes. Ads API write access only later, with per-change approval.
+- **Multiple profiles = real ones only:** Praveen (X + LinkedIn), the mascot brand account on X, a LinkedIn company page. No fake personas or sock-puppet accounts (X and LinkedIn ban inauthentic/coordinated behavior; it would also risk the contest).
+
+### Tool shelf (each = one SEO/AEO page + one lead magnet + one paid unlock)
+| Tool | Free version (lead magnet) | Paid unlock |
+|---|---|---|
+| Ad Roast (search-term report) | Leak Score + top 3 leaks + share card | Full negatives/harvest + bulk sheet |
+| Coupon Planner | Margin-after-coupon-and-fees calculator | Per-SKU coupon plan + budget + step-by-step setup |
+| BFCM Surge Plan | Checklist | Bid/budget schedule per campaign for Nov 19–30 as bulk sheet |
+| Retargeting Builder | What brand retargeting is + audience ideas | Sponsored Display remarketing campaigns as bulk sheet |
+| Stockout Guard | Days-of-cover check from inventory report | Pause-ads + reorder list |
+| BFCM Post-Mortem | Spend vs sales vs waste summary card | Full waste breakdown + January plan |
+| Listing Roast | Score on title/bullets (pasted text) | Rewrites for AI shopping assistants + holiday keywords |
+Pricing stays inside founding lifetime plans ($149 / $299 / $399); a single **"Holiday Pass" at $99** (all tools until Jan 31) for impulse buyers. Price steps up at real moments: Nov 27, Dec 1, Dec 16.
+
+### X playbook (speed, personality, virality)
+- **Mascot account:** 3–5 posts/day. "Leak of the day" roast cards, BFCM countdown with one tip/day, memes about Amazon pain, live-tweeting BF week ("hour 6 of Black Friday, CPCs up 40%, here's what I'm changing").
+- **Praveen account:** build in public with TrustMRR-verified numbers, the hackathon story, threads ("I analyzed 100 Amazon ad reports during BFCM: 7 patterns").
+- **Reply engine:** 30 min/day under Amazon/ecom creators and BFCM threads with useful replies + roast offers.
+- **Comment-to-get:** "Reply ROAST and I'll DM you a free audit link."
+- Boost (₹10–20K) only the 1–2 posts that already outperform, ideally Higgsfield mascot videos.
+
+### LinkedIn playbook (trust, freelancers and agencies)
+- **Praveen personal profile:** 1 post/day, story + data: "What BFCM taught 50 sellers," carousels of anonymized roasts, "the 9 coupon mistakes I keep seeing." Comment-to-DM lead magnets ("comment COUPON for the planner").
+- **Targets:** Amazon freelancers, VA agency owners, PPC managers: 20–25 personal connection requests/day with a note.
+- **LinkedIn Live / video:** weekly "live roast" of volunteer accounts.
+- **Company page + newsletter:** weekly "Amazon Brain Brief" (subscribers get notified automatically).
+
+### SEO / AEO (compounds; won't carry the contest alone)
+- One page per tool and per question sellers ask AI ("how to set up Amazon coupons for Black Friday", "Sponsored Display remarketing setup"), each with JSON-LD, FAQ, and a working free tool. llms.txt + clear answers so ChatGPT/Claude/Perplexity cite us.
+- Publish the free BFCM post-mortem benchmarks (anonymized averages) as citable data.

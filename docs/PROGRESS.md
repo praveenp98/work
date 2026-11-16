@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (03:40) · Urgency engine + channel playbooks
+- Added section 10 to `docs/AMAZON-BRAIN-PLAN.md`: real BFCM calendar (BF week Nov 19–30, post-mortem Dec 1–3), 7-tool shelf (free lead magnet + paid unlock each), $99 Holiday Pass, price steps on Nov 27 / Dec 1 / Dec 16, separate X and LinkedIn playbooks, SEO/AEO.
+- Guardrails: tools generate plans/bulk sheets, we never set up inside seller accounts (no services); only real profiles (no sock puppets).
+
+---
+
 ## 2026-11-17 (03:30) · DECISION: build Amazon Brain MCP + mascot
 - Wrote `docs/AMAZON-BRAIN-PLAN.md`: 70 sales × ~$220 = $15K → ~1,750 free roasts → ~17,500 visitors (~700/day). Buyer #1 = Amazon freelancers/VAs/small agencies. Viral loop = "Roast my Amazon account" shareable cards. Founding lifetime $149/$299/$399.
 - Next: pick mascot + name + domain, set up Polar/Razorpay/TrustMRR, landing page.
