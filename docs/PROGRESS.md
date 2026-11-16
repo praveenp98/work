@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:15) · Song gift competitors to check in ad libraries
+- Wrote `docs/SONG-GIFT-COMPETITORS.md`: ~25 AI song-gift brands (Songoven, ForeverSongs, TunedForYou, GiftSong, SongGifty, Songilingy, Popgift, Cantoro, etc.), human benchmarks (Songfinch, Songlorious), India players, and how to check ads (Meta Ad Library, TikTok Creative Center, Google Ads Transparency) plus what to note.
+- Next: Praveen reviews running ads, then decides go / no-go.
+
+---
+
 ## 2026-11-17 (02:10) · No Amazon network → consumer + paid ads
 - Praveen: no real Amazon network, so warm B2B is out; he has Meta consumer-ads experience and is split between viral consumer and SaaS.
 - Key insight logged in `docs/MY-PICK.md`: because AI costs don't count toward contest profit, **any ROAS above ~1.1 adds contest profit**, so he can outbid established competitors in a proven ad-driven category.
