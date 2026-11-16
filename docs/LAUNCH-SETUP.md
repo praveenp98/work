@@ -83,3 +83,9 @@ Rule: never use "coon" in any name (US racial slur). Avoid "beaver" (slang).
 - raccly.ai is available (GoDaddy screenshot). GoDaddy shows ₹4,716 for year 1 but bills year 2 at ~₹15,093 (mandatory 2-year term) → ~₹19,800 total.
 - .ai = Anguilla's country domain; registry wholesale is ~$80/yr with a 2-year minimum. Cheapest registrars: Spaceship ~$160, Cloudflare ~$160, Porkbun ~$165 for 2 years (~₹13.5–14K).
 - **Recommendation:** check raccly.com first (~₹1,000/yr). If .com is taken, buy raccly.ai at Porkbun/Spaceship/Cloudflare, not GoDaddy. Domain cost is not deducted from contest profit.
+
+## 1d. rackyy.com option (Nov 17, 04:15)
+- Available on GoDaddy: ₹1 year 1 with a 3-year term, then ~₹1,599/yr → ~₹3,200 total.
+- Pros: "Racky" = raccoon nickname + US slang "racks" (stacks of money): fits "finds your money". Cheap .com.
+- Cons: double "yy" is hard to spell/say (people will type racky.com); "rack" can read as crude slang in the US.
+- Recommendation: prefer raccly.com if free; otherwise rackyy.com is acceptable (mascot name "Racky"), and also check racky.ai / getracky.com to catch misspellings.
