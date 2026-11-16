@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:05) · "If you had to win, what would you build?"
+- Claude's pick, written in `docs/MY-PICK.md`: a single Amazon ad-waste + Sponsored Prompts audit tool, sold as capped Founding Lifetime seats ($299 / $799) to Praveen's warm network + LinkedIn + agencies. Reason: profit beats virality; ~50 high-ticket buyers is more reachable than ~3,000 consumer purchases; uses his only real unfair advantage.
+- Decision test for Praveen: list Amazon contacts who'd reply personally. **30+ → this; under 15 → Shaadi Party Kit.**
+- Status: **awaiting Praveen's decision.**
+
+---
+
 ## 2026-11-17 (02:00) · Kill all → explosive new ideas
 - Praveen asked to kill all previous ideas and find new viral, contest-winning ones. Wrote `docs/EXPLOSIVE-IDEAS.md`.
 - Finding: every tested "explosive" concept already exists (pixel walls, king-of-the-hill billboards, AI wedding songs, wedding quiz games, AI office-party game shows). **The hackathon already has an official leaderboard** (3,492 builders at launch).
