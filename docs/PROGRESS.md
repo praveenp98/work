@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:35) · Kill + fix: Desi AI Trend Studio
+- Wrote `docs/KILL-MEMO-TREND-STUDIO.md`. 8 kill points: the trends are free in Gemini; video API cost; India's Feb 2026 deepfake/SGI rules (labels, metadata, 2–3h takedowns); trends die in days; low ticket needs ~500 paid videos/day; payment friction; watermarks get cropped; model policies on real faces.
+- Fix: **AI Shaadi & Occasion Studio**: consent-based occasion videos (weddings, birthdays, anniversaries, New Year), Shaadi packs ₹1,999–4,999, free tier image-only, mandatory AI labels + metadata, and the wedding-invite forwarding loop (hundreds of guests per invite).
+- Updated `docs/ODDS-RANKING.md`: fixed version 12% / 3%; original killed (~5%).
+- Status: **awaiting Praveen's pick.**
+
+---
+
 ## 2026-11-17 (01:25) · All ideas ranked by honest odds
 - Wrote `docs/ODDS-RANKING.md`: 17 eligible ideas ranked by P($15K+) and P(#1). Top: (1) Desi AI Trend Studio 10% / 3%, (2) Amazon "small & warm" lifetime seats 10% / 1.5%, (3) AI Shelf 7% / 1.5%.
 - Key message: no idea beats ~1 in 10 for $15K; distribution matters most; decide today and ship something payable within 72 hours.

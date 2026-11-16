@@ -8,7 +8,8 @@
 
 | Rank | Idea | P($15K+) | P(#1) | Why |
 |---|---|---|---|---|
-| 1 | **Desi AI Trend Studio** (K): your photo in today's viral Indian AI trend, ₹49–99 via UPI; add Shaadi trailer ₹499–1,999 | 10% | 3% | Highest upside: output spreads itself, AI costs not deducted, Razorpay counts, India-specific. But hit-driven: needs one trend to catch fire; crowded globally; quality/latency risk |
+| 1 (fixed) | **AI Shaadi & Occasion Studio**: the fixed version of K (see `KILL-MEMO-TREND-STUDIO.md`): consent-based personal occasion videos, Shaadi packs ₹1,999–4,999, wedding invites forwarded to hundreds of guests | 12% | 3% | Fixes "free in Gemini", trend decay and low ticket. Still execution-heavy: video quality, picky buyers, refunds |
+| 1 (original, killed) | **Desi AI Trend Studio** (K): your photo in today's viral Indian AI trend, ₹49–99 via UPI; add Shaadi trailer ₹499–1,999 | 10% | 3% | Highest upside: output spreads itself, AI costs not deducted, Razorpay counts, India-specific. But hit-driven: needs one trend to catch fire; crowded globally; quality/latency risk |
 | 2 | **Amazon "small & warm"**: one tool (Ad Waste Finder / Sponsored Prompts audit) sold as capped Founding Lifetime seats ($299–799) to Praveen's own network | 10% | 1.5% | Fastest real money: warm buyers, high ticket, real expertise. Capped ceiling; crowded category; **eligibility risk** if buyers are agency clients (looks like recycled agency revenue) |
 | 3 | **AI Shelf** (Amazon-only brands invisible in ChatGPT shopping + Brand Referral Bonus angle) | 7% | 1.5% | Sharp, timely story; thin competition for small brands; $299–999 tickets. Proof (showing up in ChatGPT) may take 1–4 weeks; OpenAI merchant acceptance unverified |
 | 4 | **Year-end self-appraisal writer** (G) | 6% | 1% | Real deadline pain in Nov–Dec (US year-end reviews), people pay to avoid writing. Low ticket ($19–49); ChatGPT can do it free; needs a strong angle |
