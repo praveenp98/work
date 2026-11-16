@@ -4,6 +4,21 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 · Kill review + pivot exploration (Claude, claude.ai)
+**What happened**
+- Re-read all repo files and argued against the Amazon "AI Junior Account Manager" PRD v2. Wrote `docs/KILL-MEMO.md` (8 kill points; odds of $15K+ profit under 10%).
+- Explored a pivot: hosted MCP "Amazon PPC brain" for Claude/ChatGPT + MCP Apps in-chat widgets + content hub + weekly "Rufus Ads Index" + LinkedIn founder funnel + persona mascot + OAuth/plan-gated billing with capped lifetime deals.
+- Research found the MCP pivot is already crowded (DataDoe, PPC Prophet/ppcgpt, Agent Central, Helium 10 MCP, Teikametrics, Pacvue, Seller Labs, Coupler, Laurence, Adbrew, WisePPC, Amazon official).
+- Earlier the same day: competitor map (`docs/COMPETITORS.md`), Rufus renamed Alexa for Shopping (May 13, 2026), cold email warmup explained, domain keyword advice (brand > keyword; put "Amazon" in URLs/titles, not the domain).
+
+**Status:** Amazon direction **ON HOLD. Do not build.** Praveen will decide between: (1) distribution play, (2) another idea from the idea bank, (3) a non-PPC Amazon gap.
+
+**Next steps:** wait for Praveen's decision. If he returns, start from the options at the end of `docs/KILL-MEMO.md`.
+
+**Numbers:** revenue $0 · marketing costs $0 · emails sent 0 · nothing purchased (domains, lead DB, inboxes all still pending)
+
+---
+
 ## 2026-11-16 · Planning session (Claude, claude.ai)
 **What happened**
 - Read the hackathon rules (summary page; the full rules page couldn't be fetched). Key points: profit-scored; refunds, fees and paid marketing deducted; AI/hosting/software not deducted; annual plans count in full; Razorpay supported; courses, agencies and services not allowed; solo only.

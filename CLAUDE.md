@@ -6,11 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve SaaS covering ads (incl. Rufus Sponsored Prompts), listings/Rufus visibility, and account health/profit.
 
+> **STATUS (Nov 17, 2026): the Amazon product is ON HOLD. Do not build anything.** Read `docs/KILL-MEMO.md` and wait for Praveen to choose the next direction.
+
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
