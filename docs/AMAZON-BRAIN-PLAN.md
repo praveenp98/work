@@ -27,7 +27,7 @@ They are tools for PPC pros: setup, API approval, dashboards, monthly fees. We a
 - **Pay once:** founding lifetime deals vs everyone's monthly bills.
 
 ## 4. The mascot
-- A named character with a face, voice and catchphrases (working names to test: Penny, Bezo-free! no Amazon marks; e.g. "Penny the Profit Pup", "Ozzy", "Kiko"). Never Amazon's colors/logo, never implies affiliation.
+- A named character with a face, voice and catchphrases (working names to test: "Penny the Profit Pup", "Ozzy", "Kiko"; no Amazon marks). Never Amazon's colors/logo, never implies affiliation.
 - Lives everywhere: MCP Apps widgets inside Claude/ChatGPT, its own X account, the website, short videos (made with Higgsfield), WhatsApp/Telegram later.
 - Personality: blunt, funny, on your side. "You paid $412 last month for people searching 'free'. I fixed it. You're welcome."
 

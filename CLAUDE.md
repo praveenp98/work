@@ -4,7 +4,7 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 
 ## What this repo is
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
-Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve SaaS covering ads (incl. Rufus Sponsored Prompts), listings/Rufus visibility, and account health/profit.
+Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
 > **STATUS (Nov 17, 2026, 03:30 IST): CHOSEN = Amazon Brain MCP server + mascot + X distribution, $99–400 founding lifetime plans. Plan: `docs/AMAZON-BRAIN-PLAN.md`. Start with name/mascot/domain, then the web Roast, then the MCP server.**
 
