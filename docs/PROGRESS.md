@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:35) · Kill memo: "TrustMRR but for ads"
+- Wrote `docs/KILL-MEMO-ADS-TRUSTMRR.md`. Killed: Meta Ad Library API has no commercial ads outside EU/UK and no spend/results data; ad-spy tools crowded; verified-results leaderboards exist; cold start.
+- Parked mutation: verified "ad spend managed" profiles for media buyers (3–4% / <1%).
+
+---
+
 ## 2026-11-17 (02:45) · Jobs-to-automate scan
 - Wrote `docs/JOBS-TO-AUTOMATE.md`: 2026 job-market data, 8 automatable roles scored on reach / convert / market / competition.
 - Result: the most automatable roles (receptionist, telecaller, support, SDR) are red oceans of "AI employee" startups. Useful idea: job posts as buying signals + a free "Hire or AI?" job-description tool (5–7% / 1%).
