@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (03:50) · Plan v2 rewritten
+- `docs/AMAZON-BRAIN-PLAN.md` rewritten: $50K math (~220 sales, ~5,500 roasts, ~55K visitors), two lanes vs Amazon's Ads MCP (needs API credentials), raccoon mascot "Rocco", tool shelf, 12 distribution engines (SEO/AEO content engine, Roast Wall, free Claude skill, directories, white-label, affiliates…), X vs LinkedIn, cold email plan, Claude/Grok/Praveen roles, hook-testing loop, calendar.
+- Waiting on Praveen: approve mascot/name, approve buying email domains + lead list.
+
+---
+
 ## 2026-11-17 (03:40) · Urgency engine + channel playbooks
 - Added section 10 to `docs/AMAZON-BRAIN-PLAN.md`: real BFCM calendar (BF week Nov 19–30, post-mortem Dec 1–3), 7-tool shelf (free lead magnet + paid unlock each), $99 Holiday Pass, price steps on Nov 27 / Dec 1 / Dec 16, separate X and LinkedIn playbooks, SEO/AEO.
 - Guardrails: tools generate plans/bulk sheets, we never set up inside seller accounts (no services); only real profiles (no sock puppets).
