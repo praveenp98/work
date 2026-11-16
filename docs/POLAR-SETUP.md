@@ -2,6 +2,18 @@
 
 All plans are **one-time payments** (count in full for the contest). The Holiday Pass is also one-time; our app ends access on Jan 31, 2027. No subscriptions for now.
 
+## Status (Nov 17, done by Claude via the Polar API)
+| Product | Product ID | Checkout link | License benefit |
+|---|---|---|---|
+| Rocco Holiday Pass $99 | 707abd33-9580-4875-a5cb-06c1d471f05b | https://buy.polar.sh/polar_cl_xFaeeeQBVapSGg4eRy0AfHgIhKuD066ru50cO1vEiIP | `ROCCOHP-…` (3-month key; app also cuts off after Jan 31, 2027) |
+| Rocco Seller $149 | 681186b6-5c51-4e60-ad20-1cd79d831c08 | https://buy.polar.sh/polar_cl_i1r1t9j8SgizSGDc5nXDqjNIC8jojbui1Ibya2PhxaT | `ROCCO-…` lifetime |
+| Rocco Pro $299 | f3f34adb-48f7-4235-a361-e12202ee7dd1 | https://buy.polar.sh/polar_cl_KXQXBEVpNgvJ1smteiVMg55nWdka5QbePV3vx0farTi | `ROCCO-…` lifetime |
+| Rocco Agency $399 | deb74c65-bc65-41eb-b10d-8c95848d1f34 | https://buy.polar.sh/polar_cl_HV03fPpXHq2EvjJvCW7aWEQZNctNQXimD2zN83WLaG1 | `ROCCO-…` lifetime |
+- Org ID 1098166b-7605-4f08-aa7c-2800c1ca5d21 (default in `lib/polar.ts`). Benefits: lifetime 0b2ab254-2283-4d9a-a010-ee2c49b9ad88, holiday 3ea385ab-8d46-4b97-a552-f14e5e8dae15.
+- Checkout links are hard-coded defaults in `lib/site.ts` (env vars still override). Success URL: `https://rocco.works/thanks?plan=…&checkout_id={CHECKOUT_ID}`. Discount codes allowed.
+- Polar org token saved as a network secret on the cloud environment (never in the repo or chat). Scopes used: products, benefits, checkout links.
+- Still to do by Praveen: payout account (step 3), a $1 test purchase with a 100% discount code, `FOUNDER20` code (step 6), TrustMRR connection (step 8).
+
 ## Products to create
 | Product name | Price (USD, one-time) | Description (shown at checkout) | Metadata |
 |---|---|---|---|

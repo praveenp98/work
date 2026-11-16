@@ -11,18 +11,9 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 - Copy the tracker script from the TrustMRR / hackathon dashboard. Put its `src` in `NEXT_PUBLIC_TRACKER_SRC` and the site id in `NEXT_PUBLIC_TRACKER_SITE_ID`. Redeploy. If the snippet uses a different attribute name than `data-site-id` / `data-website-id`, tell Claude and it'll adjust `components/Tracker.tsx`.
 - Verify: open rocco.works → view source → script tag present → visit shows in dashboard.
 
-## 3. Payments: Polar (USD)
-1. polar.sh → new organization "Rocco". Connect payouts.
-2. Create 4 one-time products: Holiday Pass $99, Seller Lifetime $149, Pro Lifetime $299, Agency Lifetime $399.
-3. On each product add the **License Keys** benefit (prefix `ROCCO`, no expiry; Holiday Pass expiry Jan 31, 2027).
-4. Create a checkout link for each → paste into `NEXT_PUBLIC_POLAR_HOLIDAY_URL`, `_SELLER_URL`, `_PRO_URL`, `_AGENCY_URL`. Success URL: `https://rocco.works/tools/ad-roast?bought=1`.
-5. `POLAR_ORGANIZATION_ID` = org id (Settings). `POLAR_ACCESS_TOKEN` not needed yet.
-6. Connect Polar to TrustMRR so revenue is verified.
-- Razorpay (INR) later only if Indian buyers show up.
-
-## 3b. What to send Claude from Polar
-- Organization ID and the 4 checkout link URLs (not secret, fine to paste in chat). Claude wires them into the env/config.
-- Never paste an access token in chat; none is needed yet.
+## 3. Payments: Polar (USD) ✅ mostly done
+Products, license-key benefits and checkout links are set up and wired into the site (see `docs/POLAR-SETUP.md` → Status). No Polar env vars needed on Vercel.
+Left for Praveen: payout account, a test purchase (100% discount code) to see the license email and unlock flow end to end, and connecting Polar to TrustMRR.
 
 ## 4. Waitlist: Supabase (5 min)
 SQL editor:

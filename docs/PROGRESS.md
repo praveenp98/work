@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (08:00) · Polar checkout live
+- Praveen gave the org ID and saved a Polar token in the secure credential form (never in chat). Claude, via the API: verified 4 one-time products and prices; created 2 License Key benefits (lifetime `ROCCO-…`, Holiday Pass `ROCCOHP-…`) and attached them (the products had none, so buyers would have got no key); created 4 checkout links with success URL `/thanks`.
+- Code: checkout links + org ID as defaults; Holiday Pass keys rejected after Jan 31, 2027 (by benefit ID); new `/thanks` page; 5 license tests (41 total passing).
+- Next for Praveen: payouts, a test purchase with a 100% code, TrustMRR connection, Vercel deploy + tracker.
+
+---
+
 ## 2026-11-17 (07:30) · Mascot, cooler site, aha moments, MCP connector, surge plan, 10 guides
 - **Rocco mascot v2** (`components/Rocco.tsx`): original flat-cartoon raccoon in a green hoodie, 4 poses (hero/magnifier, judge, party/coins, wave), pure SVG. New favicon. Public "Meet Rocco" page `/rocco`.
 - **Site redesign:** Bricolage Grotesque + Inter, sticky glass header, animated hero (bobbing Rocco, typing roast bubble, live Black Friday countdown), CTA band, quote wall, dark mode.
