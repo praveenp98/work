@@ -78,3 +78,8 @@ Rule: never use "coon" in any name (US racial slur). Avoid "beaver" (slang).
 - leakly.ai
 - plugleak.com
 - spendbandit.com / spendbandit.ai
+
+## 1c. .ai pricing note (Nov 17, 04:15)
+- raccly.ai is available (GoDaddy screenshot). GoDaddy shows ₹4,716 for year 1 but bills year 2 at ~₹15,093 (mandatory 2-year term) → ~₹19,800 total.
+- .ai = Anguilla's country domain; registry wholesale is ~$80/yr with a 2-year minimum. Cheapest registrars: Spaceship ~$160, Cloudflare ~$160, Porkbun ~$165 for 2 years (~₹13.5–14K).
+- **Recommendation:** check raccly.com first (~₹1,000/yr). If .com is taken, buy raccly.ai at Porkbun/Spaceship/Cloudflare, not GoDaddy. Domain cost is not deducted from contest profit.
