@@ -13,6 +13,7 @@ Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve Sa
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/ODDS-RANKING.md` | All ideas ranked by honest odds of $15K+ and of winning. |
 | `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
 | `docs/AMAZON-GAPS.md` | Amazon problems outside the MCP connectors (AI-shopping invisibility, CPSC eFiling, tariffs). |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |

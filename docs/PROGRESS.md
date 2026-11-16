@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:25) · All ideas ranked by honest odds
+- Wrote `docs/ODDS-RANKING.md`: 17 eligible ideas ranked by P($15K+) and P(#1). Top: (1) Desi AI Trend Studio 10% / 3%, (2) Amazon "small & warm" lifetime seats 10% / 1.5%, (3) AI Shelf 7% / 1.5%.
+- Key message: no idea beats ~1 in 10 for $15K; distribution matters most; decide today and ship something payable within 72 hours.
+- Status: **awaiting Praveen's pick.**
+
+---
+
 ## 2026-11-17 (01:20) · "Phone app audit → pay-once alternatives" idea
 - Praveen asked: check all apps on your phone and suggest freer / one-time-fee alternatives. Added as idea **O** in `100k-hackathon-ideas.md`. Already partly built by AI subscription trackers (Subscription Track AI, Trap Scanner, Rocket Money, Bobby, Finny); low-ticket; iOS/Android can't read installed apps (screenshots needed). Possible India/UPI-AutoPay + viral savings-card angle.
 - Status unchanged: **no build decision yet.**
