@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:10) · No Amazon network → consumer + paid ads
+- Praveen: no real Amazon network, so warm B2B is out; he has Meta consumer-ads experience and is split between viral consumer and SaaS.
+- Key insight logged in `docs/MY-PICK.md`: because AI costs don't count toward contest profit, **any ROAS above ~1.1 adds contest profit**, so he can outbid established competitors in a proven ad-driven category.
+- New pick: **personalized AI song gift for Christmas (USD, Polar)** scaled with Meta ads; backup **Shaadi Party Kit** with Meta "newly engaged" targeting. X ads not recommended.
+- Status: **awaiting Praveen's go-ahead.**
+
+---
+
 ## 2026-11-17 (02:05) · "If you had to win, what would you build?"
 - Claude's pick, written in `docs/MY-PICK.md`: a single Amazon ad-waste + Sponsored Prompts audit tool, sold as capped Founding Lifetime seats ($299 / $799) to Praveen's warm network + LinkedIn + agencies. Reason: profit beats virality; ~50 high-ticket buyers is more reachable than ~3,000 consumer purchases; uses his only real unfair advantage.
 - Decision test for Praveen: list Amazon contacts who'd reply personally. **30+ → this; under 15 → Shaadi Party Kit.**
