@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:45) · Jobs-to-automate scan
+- Wrote `docs/JOBS-TO-AUTOMATE.md`: 2026 job-market data, 8 automatable roles scored on reach / convert / market / competition.
+- Result: the most automatable roles (receptionist, telecaller, support, SDR) are red oceans of "AI employee" startups. Useful idea: job posts as buying signals + a free "Hire or AI?" job-description tool (5–7% / 1%).
+- Confirms the consumer "AI paralegal" lane (RERA Homebuyer Case Builder) as best fit. **Awaiting Praveen's choice.**
+
+---
+
 ## 2026-11-17 (02:30) · Back to drawing board: high-ticket real problems (≤$400)
 - Wrote `docs/HIGH-TICKET-SCAN.md`. Crowded: US EB-2 NIW DIY tools, India GST/IT notice reply AI, US insurance-denial appeals (free tools).
 - Open-ish: **Homebuyer Case Builder** (India RERA / Consumer Commission self-filing; ₹4,999–9,999 + ₹39,999–49,999 association plan; 10% / 2%). Runner-up: Insurance Ombudsman "Claim Fighter".
