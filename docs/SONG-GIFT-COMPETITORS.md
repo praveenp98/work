@@ -40,6 +40,13 @@ Aamras (from ₹299), Melodia, Singy (free), SingDia, Vocuno, customaisongs.in
 2. **TikTok Creative Center → Top Ads:** search "custom song gift".
 3. **Google Ads Transparency Center:** adstransparency.google.com → search the domain.
 
+## Praveen's first check (Nov 17, 02:07 IST)
+- Meta Ad Library, all countries, all ads: **"custom song" ≈ 12,000 active ads**, **"song gift" ≈ 19,000 active ads**.
+- **How to read it:** keyword search matches any ad text with those words (music promos, concerts, gift shops, etc.), so the raw count overstates direct competition. It still signals a **busy, expensive auction**, and also proof that people pay for this.
+- **Verdict:** too crowded to enter as a generic "custom song gift" with a new brand in 29 days. Worth testing **only with a niche angle** the big players ignore.
+- **Best niche found so far:** the **Indian diaspora in the US, UK, Canada and Australia**: Bollywood/Punjabi-style personalized songs (Hindi/Hinglish/Punjabi lyrics) for parents' anniversaries, partners, NRI weddings and Christmas/New Year. USD pricing, narrower interest targeting (Bollywood, Punjabi music, Indian culture), and Praveen's cultural edge.
+- **Next check:** country = US, search brand names + "Hindi song", "Bollywood song", "Punjabi song" + "personalized/custom"; count advertisers running 30+ days in that niche.
+
 ## What to note for each competitor
 - **Number of active ads** (more = they're spending)
 - **How long the oldest active ads have run** (30+ days usually means they're profitable)

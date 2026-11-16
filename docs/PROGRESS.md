@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:20) · Ad Library check: "custom song" 12K ads, "song gift" 19K ads
+- Interpretation logged in `docs/SONG-GIFT-COMPETITORS.md`: counts are inflated by keyword matching but confirm a busy, expensive auction. Generic entry = too crowded; test only a niche.
+- Proposed niche: **Indian diaspora (US/UK/CA/AU) Bollywood/Punjabi personalized song gifts** in USD.
+- Next: Praveen checks US ads for Hindi/Bollywood/Punjabi custom-song advertisers.
+
+---
+
 ## 2026-11-17 (02:15) · Song gift competitors to check in ad libraries
 - Wrote `docs/SONG-GIFT-COMPETITORS.md`: ~25 AI song-gift brands (Songoven, ForeverSongs, TunedForYou, GiftSong, SongGifty, Songilingy, Popgift, Cantoro, etc.), human benchmarks (Songfinch, Songlorious), India players, and how to check ads (Meta Ad Library, TikTok Creative Center, Google Ads Transparency) plus what to note.
 - Next: Praveen reviews running ads, then decides go / no-go.
