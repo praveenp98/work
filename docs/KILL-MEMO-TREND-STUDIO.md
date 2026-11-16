@@ -46,4 +46,13 @@ Original idea: Indian users put their own photo into the day's viral AI trend (p
 
 **Remaining honest risks:** quality of face consistency in video; refund requests if a couple dislikes the result (refunds reduce score); building a reliable multi-shot pipeline in days; wedding buyers are picky.
 
+### Market timing check (researched Nov 17, 01:40 IST)
+- **Past CAIT estimates:** 2023: ~35 lakh weddings (Nov–mid Dec, 11 dates) · 2024: 48 lakh (Nov 12–Dec 16, 18 dates) · 2025: ~46 lakh (Nov 1–Dec 14).
+- **No CAIT number found for 2026 yet.** Drik Panchang lists only **11 dates** in this window: **Nov 21, 24, 25, 26** and **7 dates in December, the last on Sat Dec 12**, then **no dates from Dec 13 to Jan 14, 2027**. (Regional calendars differ slightly.)
+- **My estimate (not data):** at ~2.7–3.2 lakh weddings per auspicious date (2023–24 ratios), Nov 21–Dec 12, 2026 ≈ **30–35 lakh (3–3.5M) Hindu-calendar weddings**, plus Christian/Muslim/court weddings.
+- **Timing catch:** invites go out ~2–6 weeks before the wedding, so **most invites for Nov 21–Dec 12 weddings are already made.** What's still sellable in the contest window:
+  - for these weddings: sangeet/haldi teasers, "shaadi countdown" reels, reception and **thank-you videos**, highlight reels from family photos
+  - for the **Jan 18–Mar 2027 season** (Drik: 40 dates from Nov 21 to Mar 14): **save-the-dates and invite trailers get made in December** → squarely inside the contest window
+- **Scale check:** 300 Shaadi packs = about 1 in 10,000 of this window's weddings.
+
 **Revised odds:** P($15K+) ≈ 12% · P(#1) ≈ 3%, slightly better than the original because of higher tickets and the built-in forwarding loop, but still execution-heavy.

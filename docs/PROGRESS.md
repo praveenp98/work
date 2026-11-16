@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:40) · How many weddings until Dec 16?
+- Added a market timing section to `docs/KILL-MEMO-TREND-STUDIO.md`. 2026 window has only ~11 muhurat dates (Nov 21, 24, 25, 26 + 7 in Dec, last Dec 12; none Dec 13–Jan 14). Estimate ≈ 30–35 lakh weddings (my estimate from CAIT 2023–24 per-date ratios; no 2026 CAIT figure found).
+- Key insight: invites for this window are mostly already sent; sell sangeet/countdown/thank-you videos now, and **save-the-dates/invites for the Jan–Mar 2027 season, which get made in December**.
+
+---
+
 ## 2026-11-17 (01:35) · Kill + fix: Desi AI Trend Studio
 - Wrote `docs/KILL-MEMO-TREND-STUDIO.md`. 8 kill points: the trends are free in Gemini; video API cost; India's Feb 2026 deepfake/SGI rules (labels, metadata, 2–3h takedowns); trends die in days; low ticket needs ~500 paid videos/day; payment friction; watermarks get cropped; model policies on real faces.
 - Fix: **AI Shaadi & Occasion Studio**: consent-based occasion videos (weddings, birthdays, anniversaries, New Year), Shaadi packs ₹1,999–4,999, free tier image-only, mandatory AI labels + metadata, and the wedding-invite forwarding loop (hundreds of guests per invite).
