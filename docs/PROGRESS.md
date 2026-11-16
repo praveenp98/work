@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:25) · Ad budget is only ₹10–20K
+- Constraint: ₹10–20K to start, recycle if profitable. Logged in `docs/MY-PICK.md`.
+- Consequence: US paid ads can't be the main engine; organic reels must drive sales; ads only boost proven posts in India.
+- Best fit: **Shaadi Party Kit** and **desi personalized songs** (one shared song + video engine). Honest expectation: ₹2–5 lakh is a good outcome; contest-winning needs an organic hit.
+
+---
+
 ## 2026-11-17 (02:20) · Ad Library check: "custom song" 12K ads, "song gift" 19K ads
 - Interpretation logged in `docs/SONG-GIFT-COMPETITORS.md`: counts are inflated by keyword matching but confirm a busy, expensive auction. Generic entry = too crowded; test only a niche.
 - Proposed niche: **Indian diaspora (US/UK/CA/AU) Bollywood/Punjabi personalized song gifts** in USD.

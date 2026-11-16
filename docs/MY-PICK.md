@@ -1,3 +1,20 @@
+# UPDATE 02:25 IST: ad budget is only ₹10–20K (~$120–240) to start, recycled if profitable
+
+**What this changes**
+- **US ads are out as the main engine.** At typical US costs, $120–240 buys maybe a handful of sales: not enough data to tell a winner from luck.
+- **India ads are workable** (much cheaper reach), but ₹20K alone won't reach contest-winning numbers; recycling profit compounds too slowly in 29 days.
+- **The engine has to be organic**, and ads only **boost posts that already work** (₹500–1,000/day), with profit recycled back in.
+- **So the product must market itself with every sale**: outputs people post and forward to many others.
+
+**Best fit under this budget:** India-first, organic-reel-friendly, every sale seen by many people:
+1. **Shaadi Party Kit** (sangeet QR game + couple song + invite/thank-you video): every kit is seen by 200–500 guests; reels of the sangeet game/song are natural content.
+2. **Desi personalized songs** (Hindi/Punjabi with names) for weddings, anniversaries and parents: songs get posted on reels and statuses; the diaspora can be reached organically through Indian creators' audiences.
+These two share one engine (song + video), so start with songs and add the sangeet game for the kit.
+
+**Honest odds with this budget:** only an organic hit gets to $15K+; plan for ₹2–5 lakh as a good outcome, upside if a reel takes off.
+
+---
+
 # UPDATE 02:10 IST: Praveen has no Amazon network → Amazon pick is OUT. New pick below.
 
 ## New pick: a consumer AI gift product, scaled with paid Meta ads

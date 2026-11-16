@@ -8,6 +8,7 @@
 | 2026-11-16 | Pricing leans on annual plans (Pro $299, Brand $1,499, Agency $2,499) + small one-off fixes | Annual counts in full for the hackathon; outbound targets $1M–15M brands | Monthly-only |
 | 2026-11-16 | GTM = warm network + outbound email to a bought Amazon-brand lead DB + deep SEO/AEO; paid ads only to boost proven reels | Paid marketing reduces the score; brands are reachable by email; SEO compounds after the contest | Paid ads first |
 | 2026-11-16 | Cold email only from separate warmed sending domains, never the main domain | 2–3 week warmup needed; protects the main domain | Send from the main domain |
+| 2026-11-17 | Paid ads capped at ₹10–20K, boost-only, profit recycled | Praveen's budget; ad spend is deducted from contest profit | Big US ad push (ruled out) |
 | 2026-11-17 | Amazon warm-network path ruled out | Praveen has no Amazon network; B2B trust takes too long for 29 days | Consumer AI gift + Meta ads (pending go-ahead) |
 | 2026-11-17 | All previous ideas killed for selection (Praveen's instruction); docs kept as archive | Find genuinely viral, contest-winning plays instead | See `docs/EXPLOSIVE-IDEAS.md` (Play A Shaadi Party Kit, Play B Hackathon Launchpad + Throne) |
 | 2026-11-17 | **Amazon AI account manager (PRD v2) put ON HOLD** | Kill review: weak Rufus-ads hook, AI/free tools replace it, B2B too slow for 29 days, can't use agency credibility, scope too large (see `docs/KILL-MEMO.md`) | Continue as planned |
