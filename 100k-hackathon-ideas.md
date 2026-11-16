@@ -114,6 +114,14 @@ Many everyday consumer tools in one place, with no ads and no subscription.
 - Only sharp versions: (a) a focused **pay-once alternative to one specific hated subscription** with a big user base, or (b) free tools used as an **acquisition engine** for a paid product (a GTM tactic, not a product).
 - **Verdict:** 🟡 good positioning ("pay once, no ads"), weak as a broad product for 29 days.
 
+### O. 🟡 "Phone app audit": suggest cheaper / pay-once alternatives to your apps (discussed Nov 17)
+User screenshots their home screen + App Store/Play subscription list (or uploads a bank/UPI statement) → AI lists every app/subscription, yearly cost, and free / pay-once / cheaper alternatives + cancel steps + a shareable "your phone costs ₹X/year" card.
+- **Technical reality:** iOS apps can't read your installed-app list; Android restricts it under Play policy. Input must be screenshots or statements.
+- **Already exists (partially):** Subscription Track: AI Insight (AI suggests cheaper alternatives), AI Subscription Trap Scanner, Rocket Money (bank-linked + cancellation service), Bobby, Finny, Tilla (trackers, some pay-once); plus "one-time-purchase alternatives" listicles and AlternativeTo.
+- **Money problem:** you're recommending other people's apps. Affiliate commissions don't count on TrustMRR; only a ₹99–199 / $5–9 report fee does, so thousands of buyers are needed.
+- **Possible edge:** India-first (UPI AutoPay mandates, Indian apps/OTT bundles), screenshot-in → instant shareable savings card (viral), no bank login needed.
+- **Verdict:** 🟡 fun, shareable, privacy-friendly, but crowded-ish and low-ticket for a profit contest.
+
 ---
 
 ## 4. Recommendation (as of Nov 16)

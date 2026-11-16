@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:20) · "Phone app audit → pay-once alternatives" idea
+- Praveen asked: check all apps on your phone and suggest freer / one-time-fee alternatives. Added as idea **O** in `100k-hackathon-ideas.md`. Already partly built by AI subscription trackers (Subscription Track AI, Trap Scanner, Rocket Money, Bobby, Finny); low-ticket; iOS/Android can't read installed apps (screenshots needed). Possible India/UPI-AutoPay + viral savings-card angle.
+- Status unchanged: **no build decision yet.**
+
+---
+
 ## 2026-11-17 (01:15) · "Free daily apps, no ads, no subscriptions" idea
 - Praveen asked about free consumer apps in every field with no ads or subscriptions. Assessed and added as idea **N** in `100k-hackathon-ideas.md`: free can't win a profit contest; pay-once is the viable form; broad utility suites are commoditized; only sharp if focused on replacing one specific hated subscription.
 - Status unchanged: **ON HOLD. No build decision yet.**
