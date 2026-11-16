@@ -13,10 +13,11 @@ Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve Sa
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/KILL-MEMO-HOMEBUYER.md` | Homebuyer Case Builder killed for contest (market ~20K filers/yr). |
 | `docs/HIGGSFIELD.md` | Higgsfield: kill as product wrapper; keep as ad-creative engine. |
 | `docs/KILL-MEMO-ADS-TRUSTMRR.md` | Kill memo: TrustMRR-for-ads (Ad Library API can't feed it). |
 | `docs/JOBS-TO-AUTOMATE.md` | Latest: jobs AI can automate, scored on reach/convert/market. |
-| `docs/HIGH-TICKET-SCAN.md` | Latest: high-ticket real-problem scan; best = Homebuyer Case Builder (RERA). |
+| `docs/HIGH-TICKET-SCAN.md` | High-ticket scan (Homebuyer Case Builder later killed, see kill memo). |
 | `docs/SONG-GIFT-COMPETITORS.md` | AI song gift competitors + how to check their ads. |
 | `docs/MY-PICK.md` | Claude's own pick to win + the 15-minute decision test. Read first. |
 | `docs/EXPLOSIVE-IDEAS.md` | Latest: all old ideas killed; two new viral plays (Shaadi Party Kit, Hackathon Launchpad + Throne). Read first. |

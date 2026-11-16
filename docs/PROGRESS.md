@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (02:45) · Homebuyer Case Builder killed for the contest
+- Wrote `docs/KILL-MEMO-HOMEBUYER.md`. Only ~1,500–2,000 RERA complaints filed per month nationwide; $15K needs ~250 buyers = 12–15% of all filers. Lawyers win on trust. Killed for the contest (OK as a slow side business).
+- Pay-once tools were assessed earlier (ideas N and O in `100k-hackathon-ideas.md`, 1–2% odds). Sharp version = pay-once alternative to one specific hated subscription.
+
+---
+
 ## 2026-11-17 (02:40) · Higgsfield idea
 - Wrote `docs/HIGGSFIELD.md`. Kill a Higgsfield wrapper product (Higgsfield's own Ads 2.0 / UGC Factory cover it; $1B ARR). Keep Higgsfield as our AI-UGC ad engine for whatever we sell.
 
