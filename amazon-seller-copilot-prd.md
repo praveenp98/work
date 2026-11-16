@@ -1,176 +1,220 @@
-# PRD: AI Junior Account Manager for Amazon Sellers
+# PRD: AI Junior Account Manager for Amazon Brands
 
-Working name: **[Brand TBD]** (see section 12 for name rules)
+Working name: **[Brand TBD]** (see section 14 for name rules; shortlisted: SellerMedic, AdLeak, ListingDoc)
 Built for: Ship or Die $100K Hackathon (Nov 16 – Dec 16, 2026), then as an ongoing SaaS
-Owner: Praveen · Status: Draft v1 · Nov 16, 2026
+Owner: Praveen · Status: Draft v2 · Nov 16, 2026
+Handover: Claude Code works from this file plus `CLAUDE.md` and `docs/PROGRESS.md`
 
 ---
 
 ## 1. One-line pitch
-**"Upload one Amazon report or paste one notice, and get the fix in 60 seconds."**
-A self-serve web app that does the daily jobs of a junior Amazon account manager: shows where ad money is wasted, gets listings ready for Rufus (Amazon's AI shopping assistant), and drafts suspension appeals. No agency retainer, no API approval wait.
+**"Upload one Amazon report, or connect your ads account, and get the fix in 60 seconds."**
+A self-serve web app that does the daily jobs of a junior Amazon account manager across **ads (including Rufus ads), listings and account health**. No agency retainer, no hire.
 
 ## 2. Why this, why now
 - **Margins are being squeezed.** In a 2026 seller survey, nearly half of sellers named marketplace fees as their biggest margin concern and 46% named ad costs. A new 3.5% fuel and logistics surcharge was added this year.
-- **Rufus changed how shoppers find products.** Shoppers ask Rufus questions, and it answers using reviews, A+ content and Q&A. Amazon has also enforced a 75-character title limit in most categories since July 27, 2026.
-- **Suspensions now happen by algorithm.** Listings and accounts can be suppressed or suspended with no initial human review. Appeal agencies charge hundreds to thousands of dollars.
-- **Help is too expensive.** PPC-only agencies cost $5K–15K a month and full-service $8K–25K. An in-house team costs $200K–350K a year in salaries. A reported 67% of sellers using agencies are unhappy with the strategic guidance.
-- **Proof of demand:** an estimated 40–80 new US seller-side Amazon account manager jobs are posted per day, paying $70K–140K. The job exists; we sell the software version of its routine tasks.
-- **Founder advantage:** I already run this work by hand for clients (ShelfPilot/FBAmz setup kit: ad rules, negatives, harvesting, account guard). The rules and prompts exist; this product packages them as self-serve software.
+- **Rufus ads switched on without sellers noticing.** Sponsored Prompts (ads shown inside Rufus, Amazon's AI shopping assistant) moved from beta to general availability in the US on March 25, 2026, billed per click. All active Sponsored Products and Sponsored Brands campaigns were auto-enrolled with no opt-out. Amazon writes the prompts from your product data, and advertisers can see which prompts drove clicks and pause individual prompts at the ad-group level. Sponsored Prompts are under 1% of clicks but cost about $0.31 per click vs $0.50–0.70 for regular ads. **Most sellers are paying for them and have never looked.**
+- **AI now runs Amazon ads.** Amazon's official Ads MCP Server entered open beta on Feb 2, 2026, letting Claude, ChatGPT and Gemini pull reports and change campaigns. Amazon also added an Agent Policy to the Business Solutions Agreement (effective March 4, 2026) governing how AI interacts with Seller Central. Sellers want AI to run ads, but need guardrails and someone to set it up safely.
+- **Rufus changed listings too.** Rufus answers shopper questions using reviews, A+ content and Q&A, and a 75-character title limit applies in most categories since July 27, 2026.
+- **Algorithmic suspensions.** Accounts and listings can be suspended with no initial human review.
+- **Help is expensive.** PPC-only agencies cost $5K–15K a month and full-service $8K–25K. An in-house team costs $200K–350K a year. A reported 67% of agency clients are unhappy with the strategic guidance.
+- **Demand signal:** an estimated 40–80 new US seller-side Amazon account manager jobs are posted per day, at $70K–140K.
+- **Founder advantage:** I already do this by hand for clients (ad rules, negatives, harvesting, bids, inventory and account guard, Claude prompts). This product packages that know-how as self-serve software.
 
 ## 3. Hackathon eligibility guardrails (must follow)
-- **New brand, new domain, new product.** Do NOT reuse the ShelfPilot or FBAmz names, the fb-amz.com domain, or agency branding. Domain history is checked on the Wayback Machine.
-- **Self-serve software only.** No done-for-you service, calls or "we'll manage it for you." Agencies, consulting and client services are excluded.
-- **No payments before Nov 16** on the new product. Existing agency clients may buy it as normal new customers, but no recycled or prepaid agency money and no discounts tied to agency contracts.
-- **Profit scoring:** refunds, chargebacks, payment fees and paid marketing come off. AI/API, hosting and tool costs do NOT. Annual upfront plans count in full.
-- **Payments:** Razorpay (INR, UPI) and Polar/Stripe (USD) both count via TrustMRR. Install the hackathon traffic tracker before sending any traffic.
+- **New brand, new domain, new product.** Do NOT reuse the ShelfPilot or FBAmz names, the fb-amz.com domain, agency branding or the agency's Stripe history for this product.
+- **Self-serve software only.** No done-for-you service, consulting or "we manage it." Agencies and client services are excluded.
+- **No payments before Nov 16** on the new product. Agency clients may buy it as normal new customers, but no recycled or prepaid agency money.
+- **Profit = money in − refunds, chargebacks, payment fees and paid marketing.** AI/API, hosting, domains and software are NOT deducted. **Annual upfront plans count in full.**
+- **Paid marketing reduces the score.** Treat the bought lead database, paid ads, and probably affiliate commissions as marketing cost. Log every rupee or dollar so costs are "clearly attributed." Email-sending software is probably "software" (not deducted), but confirm in the full rules.
+- Payments: Razorpay (INR, UPI) and Polar/Stripe (USD) both count via TrustMRR. **Install the hackathon traffic tracker before any traffic.**
 
 ## 4. Target users
-| Segment | Size / profile | What they buy |
+| Segment | Profile | What they buy |
 |---|---|---|
-| **Small-to-mid private-label sellers** ($10K–500K/month, 1–30 SKUs, owner does Amazon themselves) | Largest group; no agency, no in-house hire | One-off fixes, Pro annual |
-| **In-house Amazon managers** at $1M–15M brands | One person covering ads, catalog and account health | Pro annual, paid by the company |
-| **Small agencies and freelancers** (US, India, Philippines) | Manage 5–50 seller accounts | Agency annual with white-label reports |
-| **Indian sellers on Amazon.in / exporting via Global Selling** | Price-sensitive, UPI | INR plans via Razorpay |
+| **US/UK private-label brands ($1M–15M on Amazon)** ⭐ primary for outbound | Owner or one in-house manager covering ads, catalog and account health; often unhappy with an agency | Pro / Brand annual |
+| **In-house Amazon and PPC managers** | Overloaded; want AI to do the grunt work safely | Pro annual, company card |
+| **Small agencies and freelancers** (US, India, Philippines) | Manage 5–50 accounts | Agency annual + white-label |
+| **Smaller sellers ($10K–500K/month)** | Do it themselves | One-off fixes, Pro annual |
+| **Indian sellers (Amazon.in, Global Selling)** | Price-sensitive, UPI | INR plans via Razorpay |
 
-## 5. Core jobs to be done (MVP = 3 tools)
+## 5. Product map (3 pillars, 1 account manager)
 
-### Tool 1: Ad Waste Finder 💸 (the hook: shows money lost)
-**Input:** the Sponsored Products search-term report (CSV/XLSX) from Ads Console, plus target ACoS.
-**Output in under 60 seconds:**
-- "You wasted **$X in the last 30 days** on N search terms": a big shareable number
-- Negative keyword list (exact/phrase) using the rules from my existing kit (e.g. 15+ clicks with 0 orders, adjusted for conversion rate)
-- Harvest list: converting search terms to move into exact-match campaigns
-- Bid suggestions: new bid = current × (target ACoS ÷ actual ACoS), capped at ±20%
-- **A ready-to-upload bulk sheet** (the step people actually pay for)
-- AI relevance check on terms (relevant / irrelevant / competitor brand), using prompt P1 from the kit
+### Pillar A: ADS 📈 (the money pillar for brands)
+| # | Tool | Input | Output | Tier |
+|---|---|---|---|---|
+| A1 | **Ad Waste Finder** ⭐ | Search-term report | Wasted-$ total, negatives, harvest list, bids (±20% cap), **upload-ready bulk sheet** | Free summary / Paid full |
+| A2 | **Rufus Ads (Sponsored Prompts) Auditor** ⭐ new | Sponsored Prompts report + campaign report | Proof you're auto-enrolled, prompt-level spend and conversions, "pause these prompts" list, which product-data gaps cause bad prompts, prompt-friendly listing fixes | Paid (hook: "You're already paying for Rufus ads. Here's what they're doing.") |
+| A3 | **Campaign Launch Builder** | ASIN + seed keywords + budget + target ACoS | Full launch structure (SP auto, broad, phrase, exact, SB, product targeting, brand defense, negatives) as a bulk sheet | Paid |
+| A4 | **Placement and Budget Optimizer** | Placement report + campaign budgets | Top-of-search / product-page modifier changes, budget moves from losers to capped winners | Paid |
+| A5 | **Dayparting Analyzer** | Hourly performance report | Hours that waste money, schedule suggestions | Paid |
+| A6 | **Brand Defense Checker** | Search-term + targeting reports | Competitors bidding on your brand, defense campaign bulk sheet | Paid |
+| A7 | **Profit-aware Bidding (TACoS)** | Ads reports + settlement/fees | Bids based on true margin per SKU, not just ACoS | Pro |
+| A8 | **AI Ads Copilot (Connect mode)** | Amazon Ads API / Ads MCP connection (OAuth) | Chat with your ads ("show campaigns wasting spend"), daily auto-checks, **every change queued for approval**, full change log + undo | Pro / Brand (v1.1, needs API approval) |
+| A9 | **Weekly Ads Brief** | Any of the above | Email: spend, ACoS/TACoS, what changed, what to approve | Pro |
 
-**Free tier:** shows the wasted-$ total and the top 5 terms. **Paid:** the full lists and the bulk sheet.
+### Pillar B: LISTINGS AND RUFUS VISIBILITY 🤖
+| # | Tool | Tier |
+|---|---|---|
+| B1 | **Rufus Readiness Check**: simulated shopper questions, score 0–100, 75-char title rewrite, bullets, Q&A, A+ text (labeled as a *simulation*) | Free score / Paid fixes |
+| B2 | Title checker (75-char, banned words, keyword coverage) | Free mini-tool |
+| B3 | Bullet and description rewriter | Free mini-tool |
+| B4 | Backend search-terms generator + byte counter | Free mini-tool |
+| B5 | Policy-risk scanner ("FDA approved", "best", medical claims) | Free mini-tool |
+| B6 | Review insight summarizer (top complaints → listing/product fixes) | Free mini-tool |
+| B7 | Competitor listing gap compare | Free mini-tool |
+| B8 | A+ content and Q&A generator | Paid |
 
-### Tool 2: Rufus Readiness Check 🤖 (the trend hook)
-**Input:** paste a listing (title, bullets, description, A+ text, top review snippets) or upload a category listing report / flat file. *No scraping of Amazon.*
-**Output:**
-- **Rufus Readiness Score (0–100)** with a share card
-- Simulated shopper questions ("Does it fit a cup holder?", "Is it safe for kids?") and whether the listing answers each one clearly
-- Title rewrite in **75 characters or less** with keywords kept, plus bullets that answer the top 10 shopper questions
-- Suggested Q&A entries and A+ module text
-- Flags: claims that risk policy trouble (e.g. "FDA approved", "best", unsupported medical claims)
+### Pillar C: ACCOUNT HEALTH AND PROFIT 🛡️
+| # | Tool | Tier |
+|---|---|---|
+| C1 | **Appeal / Plan of Action Writer** (root cause → corrective → preventive, document checklist, tone check) | Paid ($79) |
+| C2 | FBA fee and profit calculator with the 3.5% surcharge | Free mini-tool |
+| C3 | ACoS / TACoS / break-even calculator | Free mini-tool |
+| C4 | **Profit Leak Finder** (settlement report → true profit per SKU + actions) | Paid |
+| C5 | Restock planner (days of stock left, reorder qty = velocity × (lead days + check-in days) × safety − (available + inbound)) | Paid |
+| C6 | Stranded / aged inventory fee fixer | Paid |
+| C7 | FBA reimbursement finder + claim text | Paid |
+| C8 | Buyer message and review-request templates (policy-safe) | Free |
 
-**Honesty rule:** label the score as a *simulation* of how AI shopping assistants read a listing, not Rufus's actual ranking.
-
-### Tool 3: Appeal / Plan of Action Writer 🛡️ (the panic buy)
-**Input:** paste the Amazon notice (suspension, listing removal, IP complaint, inauthentic claim, late shipment, etc.) and answer 5–8 guided questions.
-**Output:**
-- Plan of Action in Amazon's expected structure: **root cause → corrective actions taken → preventive measures**
-- A checklist of supporting documents (invoices, LOAs, supplier info) specific to the violation type
-- Tone check that removes blame, excuses and admissions beyond what's needed
-- A version for Account Health support email and a short version for the appeal form
-
-**Disclaimers:** not legal advice, no guarantee of reinstatement, and the user submits it themselves.
-
-### v1.1 (week 3+, only if MVP converts)
-- **Profit Leak Finder:** upload the settlement report and get true profit per SKU after fees, ads and the new surcharge, with actions (raise price, move to merchant fulfillment, kill the SKU)
-- **Daily account guard via SP-API / Ads API:** automated version of the kit's workflows. API approval takes days to weeks, so it isn't a launch dependency.
-- **Weekly email brief** (prompt P2/P4 from the kit)
+**Rule for adding tools:** each tool must either bring in traffic (free + SEO page) or help sell an annual plan (paid). Otherwise skip it.
 
 ## 6. User flow
-1. Land on a tool page (each tool also works as an SEO landing page: "Amazon search term report analyzer", "Amazon POA template generator", "Amazon 75 character title checker").
-2. Upload or paste, with no signup for the free result.
-3. See the free result: the wasted-$ number, the Rufus score or the POA outline.
-4. Paywall: email, then checkout (Razorpay for India, Polar for everyone else).
-5. Unlock the full output and downloads (bulk sheet XLSX, POA DOCX/TXT, rewritten listing).
-6. Prompt to share the score card or wasted-$ card ("I found $1,240 of wasted ad spend in 60 seconds").
-7. Upsell: "Run this every week" → Pro annual.
+1. Visitor lands on a tool page (SEO, AI search, cold email link or reel).
+2. Upload a report or paste text. No signup for the free result.
+3. Free result shows the pain (wasted $, Rufus prompt spend, score).
+4. Email capture, then checkout (Razorpay in India, Polar elsewhere).
+5. Unlock full outputs and downloads (bulk sheet XLSX, PDF report, POA DOCX).
+6. Share card + "run this every week" → annual plan.
+7. Brand/Agency plans: "Connect Amazon Ads" (v1.1) → daily copilot with approvals.
 
-## 7. Pricing (built for profit scoring)
+## 7. Pricing (built for profit scoring: annual counts in full)
 | Plan | Price | Includes |
 |---|---|---|
-| Free | $0 | Wasted-$ total + top 5 terms; Rufus score; POA outline |
-| **Single fix** | $29 (₹1,499) | One full report from any one tool |
-| **Appeal Pro** | $79 (₹3,999) | Full POA + 2 revisions + document checklist (urgent buyers pay) |
-| **Pro annual** ⭐ | $299/yr (₹14,999) | Unlimited runs, up to 50 ASINs, all tools, weekly reminder |
-| **Agency annual** ⭐ | $999/yr (₹49,999) | 25 seller workspaces, white-label PDF reports, CSV exports |
+| Free | $0 | All mini-tools; Ad Waste summary; Rufus score |
+| Single fix | $29 (₹1,499) | One full report from any paid tool |
+| Appeal Pro | $79 (₹3,999) | Full POA + 2 revisions + doc checklist |
+| **Pro annual** | $299/yr (₹14,999) | 1 brand, all upload tools, weekly brief |
+| **Brand annual** ⭐ (outbound target) | $1,499/yr | Up to 3 brands/marketplaces, Ads Copilot connect mode, approvals, change log, priority support by email |
+| **Agency annual** | $2,499/yr | 25 workspaces, white-label PDF reports, CSV exports |
 
-- Show monthly prices crossed out next to annual ($39/mo vs $299/yr) so annual looks like the obvious choice. **Annual counts in full** for the hackathon.
-- Refund policy: 7 days, no questions asked (refunds reduce profit, but trust matters more in a 30-day sprint).
+- Show monthly equivalents crossed out to make annual the default.
+- 7-day refund window, clearly stated.
+- **Profit path to ~$40K in 30 days (outbound-heavy):** 12 Brand × $1,499 = ~$18K · 5 Agency × $2,499 = ~$12.5K · 25 Pro × $299 = ~$7.5K · 40 Appeal × $79 = ~$3.2K · 60 Single × $29 = ~$1.7K → **~$43K revenue**, minus fees and logged marketing costs.
 
-**Revenue target path to about $30K profit in 30 days:**
-- 12 Agency annual × $999 = ~$12K
-- 35 Pro annual × $299 = ~$10.5K
-- 60 Appeal Pro × $79 = ~$4.7K
-- 120 Single fixes × $29 = ~$3.5K
-- Total ≈ $30.7K before fees
+## 8. Go-to-market engine
 
-## 8. Distribution plan (organic first, because ad spend comes off profit)
-1. **Warm network (days 1–7):** personal messages to past and current clients, seller friends and agency contacts. Offer a free Ad Waste scan, then upsell.
-2. **"Wasted spend" content:** daily reels and LinkedIn posts with anonymized real numbers ("This seller wasted $3,180 in 30 days on 214 search terms"), plus screen recordings of the 60-second fix.
-3. **Communities:** Amazon seller Facebook groups, r/FulfillmentByAmazon, r/AmazonSeller, Indian seller WhatsApp/Telegram groups. Lead with free value, never spam.
-4. **Agencies as resellers:** the Agency plan helps them serve more clients with the same staff. Offer a commission per referred seller (note: commissions likely count as marketing cost, so keep them modest).
-5. **SEO tool pages** live on day 3 (indexing takes 1–3 weeks, so start early), with llms.txt and FAQ schema so AI assistants can cite them.
-6. **Build in public:** daily revenue posts on X, Instagram and LinkedIn tagged for the hackathon.
-7. **Paid ads:** only to boost a reel that's already working organically, capped at ₹2,000 per test.
+### 8.1 Outbound email to Amazon brands (high-ticket)
+**Hard constraint:** a brand-new sending domain needs **2–3 weeks of warmup** before real volume. Gmail, Yahoo and Microsoft enforce SPF, DKIM, DMARC, one-click unsubscribe, spam complaints under 0.3% (aim under 0.1%) and bounces under 2%. Domains can only be registered from Nov 16, so **start warmup tonight or tomorrow.**
+
+**Setup (Nov 16–17)**
+- Main brand domain = website only. **Never cold-email from it.**
+- Buy 2–3 secondary sending domains (e.g. `get[brand].com`, `try[brand].com`) with 2–3 inboxes each (Google Workspace or Microsoft 365)
+- SPF, DKIM, DMARC on each; custom tracking domain; one-click unsubscribe
+- Start automated warmup immediately (Instantly / Smartlead / similar)
+
+**Lead data**
+- Bought lead database of Amazon brands (US/UK first). Filter: brands with active Amazon storefronts, roles = Founder, CEO, Head of eCommerce, Amazon Manager, PPC Manager
+- Apollo (connected in Claude) is an alternative or enrichment source. Its credits are a cost to log
+- **Verify every email before sending** (bounces must stay under 2%)
+- **Exclude EU/UK contacts unless the GDPR basis is clear.** Follow US CAN-SPAM: honest subject lines, physical address, working unsubscribe
+- Log the database price as marketing cost
+
+**Sending schedule**
+| Dates | Volume | Why |
+|---|---|---|
+| Nov 17–23 | 0 cold; warmup only. Personal emails/DMs to warm contacts from your own inbox | Protect reputation |
+| Nov 24–30 | 10–20 per inbox per day | Ramp; watch bounces and complaints |
+| Dec 1–16 | 30–50 per inbox per day (≈300–450/day across ~9 inboxes) | ≈4,000–6,000 emails total |
+
+Expected: 2–6% reply → roughly 100–300 replies → target **15–25 annual plans**.
+
+**Message angle (personalized per brand):**
+- Subject: "[Brand] is already paying for Rufus ads"
+- Body: the auto-enrollment fact, plus "we found $X of waste in similar brands," plus a **free 60-second Ad Waste + Rufus Ads audit link**. No call needed; self-serve.
+- Follow-ups (2): a short case-style number, then "want the bulk sheet?"
+- AI-personalize the first line from the brand's storefront/category (Claude), with human spot-checks
+
+### 8.2 Deep SEO + AI search (AEO/GEO)
+Goal: rank on Google and **get cited by ChatGPT, Claude, Perplexity and Gemini** for Amazon seller questions.
+- **Technical:** server-rendered Next.js, fast Core Web Vitals, clean URLs, XML sitemap, Google Search Console **and Bing Webmaster Tools** (some AI search tools draw on Bing), IndexNow, robots.txt allowing GPTBot, ClaudeBot and PerplexityBot, `/llms.txt` + `/llms-full.txt`
+- **Structured data:** SoftwareApplication, FAQPage, HowTo, Organization, BreadcrumbList on every page
+- **Page types (programmatic + hand-written):**
+  - One landing page per tool (~25 pages): "Amazon search term report analyzer", "Amazon Sponsored Prompts report explained", "Amazon POA generator", "Amazon 75 character title checker", "FBA fee calculator 2026"
+  - Problem pages: "How to turn off / control Rufus Sponsored Prompts", "Amazon 3.5% fuel surcharge explained", "Amazon Agent Policy for AI tools"
+  - Comparison pages: "[Big tool] alternatives for small brands", "Agency vs AI tool for Amazon PPC"
+  - Glossary (ACoS, TACoS, placement modifiers, Sponsored Prompts, etc.), each with a definition box AI can quote
+- **Content style for AI citation:** direct answer in the first 2 sentences, dated facts with sources, tables, FAQ blocks, author box (founder's agency experience)
+- **Authority:** TrustMRR listing (Marc says it gives a 40+ DR backlink), launch directories, Product Hunt, Indie Hackers, guest answers in seller communities, "best Amazon tools 2026" listicle outreach
+- **Timing:** indexing takes 1–3 weeks, so ship the tool pages by Nov 20. SEO mostly pays off after the contest; outbound and warm network carry the 30 days.
+
+### 8.3 Warm and social (free, starts day 1)
+- Personal messages to past and current clients, seller friends, agency contacts (warm, not mass DM)
+- Daily build-in-public posts (X, LinkedIn, Instagram) with real anonymized numbers
+- Seller communities: lead with free value
+- Agencies as partners via the Agency plan (modest referral fee; log it as a cost)
 
 ## 9. Tech plan
 | Layer | Choice |
 |---|---|
-| App | Next.js on Vercel, pages rendered on the server (SEO pages + tools) |
-| Auth + DB | Supabase (users, runs, orders, workspaces) |
-| File parsing | SheetJS / PapaParse in the browser where possible; server for large files |
-| AI | Claude API (classification, rewriting, POA drafting). AI costs aren't deducted from contest profit |
-| Rules engine | TypeScript port of the kit's ad rules (negatives, harvest, bid formula, guardrails) |
-| Outputs | XLSX bulk sheet (SheetJS), DOCX/PDF reports, PNG share cards |
-| Payments | Razorpay (INR, UPI) + Polar (USD), both connected to TrustMRR |
-| Analytics | Hackathon traffic tracker + simple event log (upload → result → checkout → paid) |
-| Privacy | Uploaded files deleted after 24h; no Seller Central passwords ever requested |
+| App | Next.js (App Router) on Vercel; server-rendered tool and SEO pages |
+| Auth + DB | Supabase (Postgres, auth, storage with 24h auto-delete for uploads) |
+| Parsing | SheetJS / PapaParse; report-type auto-detection by header row |
+| Rules engine | TypeScript port of the existing ad rules (negatives, harvest, bid formula, guardrails, budget shifts, restock formula) |
+| AI | Claude API: term relevance, rewrites, POA, briefs, outreach first lines. AI costs aren't deducted from contest profit |
+| Ads connect (v1.1) | Amazon Ads API via Login with Amazon OAuth; optional Amazon Ads MCP Server. **Read-only by default**, writes only after user approval; respect Amazon's Agent Policy |
+| Outputs | XLSX bulk sheets, PDF reports (white-label for agencies), PNG share cards |
+| Payments | Razorpay + Polar → TrustMRR |
+| Email | Transactional: Resend/Postmark from the main domain. Cold: separate domains + sending tool |
+| Analytics | Hackathon tracker + events (upload → result → checkout → paid) + UTM per channel |
+| SEO | next-sitemap, JSON-LD components, llms.txt generator, IndexNow ping on deploy |
 
-**Data model (minimal):** `users`, `workspaces` (agency seats), `runs` (tool, input meta, result JSON, created_at), `orders` (provider, amount, plan, status), `credits` (single-fix balance).
+**Data model:** `users`, `workspaces`, `brands`, `runs` (tool, report_type, result_json), `orders`, `credits`, `connections` (ads API tokens, encrypted), `approvals` (queued change, status), `change_log` (applied change, undo payload), `leads` (outbound, never mixed with users), `marketing_costs` (date, channel, amount, note).
 
-## 10. 30-day build plan
-| Days | Ship |
-|---|---|
-| **Nov 16–17** | Brand + domain, Razorpay/Polar + TrustMRR, tracker, legal pages, waitlist landing page. Day 1 post. |
-| **Nov 18–21** | **Ad Waste Finder live** (rules + bulk sheet + paywall). First personal messages to 50 warm contacts. |
-| **Nov 22–25** | **Appeal / POA Writer live.** SEO pages for 3 tools. First paid customers expected. |
-| **Nov 26–29** | **Rufus Readiness Check live** + share cards. Black Friday/Cyber Monday angle: "Stop wasting ad spend in peak season." |
-| **Nov 30 – Dec 5** | Pro + Agency annual plans, workspaces, white-label PDF. Agency outreach push. |
-| **Dec 6–12** | Double down on the tool that converts best. Profit Leak Finder only if time allows. Testimonials and case-study posts. |
-| **Dec 13–16** | Annual-plan push ("lock 2026 pricing"), final build-in-public story, make sure TrustMRR numbers are clean. |
+## 10. 30-day build and launch plan
+| Days | Product | Growth |
+|---|---|---|
+| **Nov 16–17** | Brand, domain, Razorpay/Polar + TrustMRR, tracker, legal pages, landing page | Buy sending domains, set up inboxes, **start warmup**; buy and verify the lead DB; Day 1 post |
+| **Nov 18–20** | **A1 Ad Waste Finder** + B2/C2/C3 mini-tools + SEO page template | Warm outreach (50 personal emails/DMs); Search Console + Bing; sitemap, llms.txt |
+| **Nov 21–24** | **A2 Rufus Ads Auditor** + **B1 Rufus Readiness** + **C1 Appeal Writer** | 10 SEO pages live; write the cold sequences; start sending at 10–20 per inbox per day from Nov 24 |
+| **Nov 25–30** | A3 Launch Builder, A4 Placement/Budget, Pro/Brand/Agency plans, white-label PDF | Black Friday/Cyber Monday angle: "stop peak-season ad waste"; comparison + problem pages |
+| **Dec 1–7** | A6 Brand Defense, A9 Weekly Brief, C4 Profit Leak | Full outbound volume; reply handling within hours; case-study posts |
+| **Dec 8–12** | A8 Ads Copilot connect mode (only if the API app is approved) or C7 Reimbursements | Double down on the best-converting subject line and segment |
+| **Dec 13–16** | Polish, bug fixes, refund-proof onboarding | "Lock 2026 pricing" annual push; final build-in-public story; reconcile TrustMRR + marketing-cost log |
 
 ## 11. Success metrics
-- Activation: % of visitors who upload/paste (target 15%+ on tool pages)
-- Free → paid conversion (target 5–8% for Ad Waste, 15%+ for Appeal)
-- Share rate of result cards (target 10%)
-- Annual plans as a share of revenue (target 60%+)
-- Refund rate (keep under 5%)
-- North star: **verified profit on TrustMRR**
+- Tool page → upload: 15%+ · Free → paid: 5–8% (Ad Waste), 15%+ (Appeal)
+- Cold email: bounce under 2%, complaints under 0.1%, reply 2–6%, reply → audit 40%, audit → annual 15%
+- Annual plans ≥ 70% of revenue · refunds under 5%
+- SEO: pages indexed, impressions, AI citations (check monthly by asking ChatGPT/Perplexity/Claude target questions)
+- **North star: verified profit on TrustMRR minus logged marketing costs**
 
-## 12. Name and brand rules
-- Don't put "Amazon", "Rufus", "FBA" or other Amazon trademarks in the brand or domain. Using them to describe what the product works with ("for Amazon sellers") is fine.
-- Don't reuse ShelfPilot or FBAmz (existing business; the hackathon needs a new one).
-- Short, .com or .app, easy to say. Directions: *SellerMedic*, *ListingDoc*, *AdLeak*, *Marketmate*, *Shelfwise*. Check availability and existing trademarks before buying.
-
-## 13. Risks and mitigations
+## 12. Risks and mitigations
 | Risk | Mitigation |
 |---|---|
-| Looks like a rebranded agency during manual review | New brand, self-serve only, no services, clean payment history |
-| Amazon ToS / scraping | Only user-uploaded reports and pasted text; official APIs later |
-| Wrong advice hurts an account (bids, appeals) | Guardrails (±20% caps), human review before upload, clear disclaimers, "suggestion, not auto-apply" in MVP |
-| Rufus score seen as fake | Call it a simulation, show the reasoning, focus on concrete fixes |
-| Low trust for a new brand | Free result first, founder face and story, real anonymized case numbers, 7-day refund |
-| Crowded tools (Helium 10, Jungle Scout, PPC tools) | Position on instant fixes for the people they ignore: no subscription bloat, no setup, India pricing, agency white-label |
-| Refunds and chargebacks reduce score | Clear free preview before purchase; refund window short and clear |
+| Looks like a rebranded agency | New brand, self-serve, no services, clean payment history |
+| Cold email burns domains / spam complaints | Separate sending domains, warmup, verification, low volume, real personalization, easy unsubscribe |
+| Lead DB cost eats profit | Buy only a targeted segment; log the cost; stop if replies stay under 1% after 1,000 sends |
+| Amazon ToS / Agent Policy | Uploads + official APIs only; no scraping; human approval before changes; follow the Agent Policy |
+| Wrong ad changes hurt accounts | ±20% caps, read-only default, approval queue, change log with undo, disclaimers |
+| Rufus claims overstated | Base A2 on the advertiser's actual Sponsored Prompts report; label B1 as a simulation |
+| Ads API approval delay | Upload mode works without it; Connect mode is v1.1 |
+| Crowded PPC tools | Position on instant fixes + Rufus ads + India pricing + agency white-label, not a full PPC platform |
 
-## 14. Out of scope (for the hackathon)
-- Done-for-you management, calls, consulting (not eligible)
-- Chrome extension that scrapes Amazon pages
-- Automatic changes to live accounts without user review
-- Walmart / Shopify / TikTok Shop support (later)
+## 13. Out of scope (hackathon)
+Done-for-you management, calls/consulting, scraping extensions, auto-applying changes without approval, Walmart/Shopify/TikTok Shop.
+
+## 14. Name and brand rules
+- No "Amazon", "Rufus", "FBA" or "Sponsored Prompts" in the brand or domain. Using them in descriptions ("for Amazon sellers") is fine.
+- Don't reuse ShelfPilot or FBAmz.
+- Checked Nov 16 (not owned): sellermedic.com, adleak.com and listingdoc.com are taken. sellermedic.net and adleak.net were available ($19). Also check .app / .co / .ai at Cloudflare, Porkbun or Namecheap. **Don't buy through the Shopify connector** (it attaches domains to an unrelated store).
 
 ## 15. Open questions
-- Final brand name and domain
-- Is the Ads API / SP-API developer app from the agency reusable, or does the new business need its own? (Probably its own, to keep the businesses separate.)
-- Exact affiliate rules under the hackathon's "paid marketing" deduction
-- INR vs USD price anchoring for Indian sellers exporting to the US
+- Final brand name + domain
+- Does the new business need its own Amazon Ads API developer app? (Yes, probably, to keep the businesses separate; apply on day 1.)
+- Do lead databases, sending tools and affiliate commissions count as "paid marketing"? Check the full rules.
+- Which lead database (coverage of Amazon brands, verified emails, price)?
+- INR vs USD anchoring for Indian brands exporting to the US
 
 ---
-*Related: `100k-hackathon-ideas.md` (all ideas and verdicts).*
+*Related: `100k-hackathon-ideas.md` · `CLAUDE.md` (handover) · `docs/PROGRESS.md` (history log)*
