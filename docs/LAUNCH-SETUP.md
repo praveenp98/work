@@ -96,3 +96,14 @@ Rule: never use "coon" in any name (US racial slur). Avoid "beaver" (slang).
 - Check the renewal price before buying (.works renewals are usually ~$25–35/yr); avoid a 3-year lock-in at a high renewal.
 - Handles: @roccoworks on X/IG/TikTok/YouTube, "Rocco Works" LinkedIn page.
 - Cold-email sending domains stay separate .com lookalikes (e.g. tryroccoworks.com).
+
+## 1f. Female mascot options (Nov 17, 04:25)
+Same raccoon character (or otter), female persona: sharp, warm, "your no-nonsense ops lead".
+| Name | Why | Domains to check |
+|---|---|---|
+| **Penny** (raccoon) | Money pun: "saves every penny", "Penny found $412". Friendly to US brand owners. | penny.works, askpenny.works, pennyworks.ai, heypenny.works |
+| **Roxy** (raccoon) | Punchy, cheeky, fits roasting. | roxy.works, roxyroasts.com |
+| **Mabel** (raccoon) | Warm, slightly retro, memorable; "Mabel's on it." | mabel.works |
+| **Olive** (otter) | Soft, trustworthy; otters hold on to things (your money). | olive.works |
+Avoid "Rosie" (an AI receptionist brand already uses it).
+Note: a female mascot stands out in male-heavy Amazon tooling; set clear reply rules for the X account (mute/block, no engaging with creeps).
