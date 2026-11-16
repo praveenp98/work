@@ -18,6 +18,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (05:05) · Polar setup guide
+- Wrote `docs/POLAR-SETUP.md`: 4 one-time products (Holiday Pass $99, Seller $149, Pro $299, Agency $399), sandbox test, India payouts via Stripe Connect Express, checkout links, discounts, webhook, TrustMRR.
+
+---
+
 ## 2026-11-17 (04:20) · Domain options
 - raccly.ai (expensive, 2-yr), rackyy.com (cheap but spelling/slang issues), **rocco.works recommended** (keeps Rocco, built-in tagline). Waiting on purchase.
 
