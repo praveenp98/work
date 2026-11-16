@@ -107,3 +107,23 @@ Same raccoon character (or otter), female persona: sharp, warm, "your no-nonsens
 | **Olive** (otter) | Soft, trustworthy; otters hold on to things (your money). | olive.works |
 Avoid "Rosie" (an AI receptionist brand already uses it).
 Note: a female mascot stands out in male-heavy Amazon tooling; set clear reply rules for the X account (mute/block, no engaging with creeps).
+
+## 1g. Taglines for rocco.works (Nov 17, 04:30) — "keep it simple" direction
+Simple version: Rocco = a name + a small raccoon icon, not a big cartoon world. The voice carries the personality.
+**Hero lines**
+- Rocco works your Amazon account. You approve.
+- Rocco works the night shift on your Amazon account.
+- Your Amazon account, worked every night.
+- Rocco works. You sell.
+- The Amazon operator that never clocks out.
+**Roast / lead-magnet lines**
+- Let Rocco roast your Amazon ads. Free, 2 minutes.
+- Rocco finds the money your ads are wasting.
+- Upload one report. Rocco shows where the money leaks.
+**MCP / AI lines**
+- Amazon gave your AI hands. Rocco gives it judgment.
+- Add Rocco to Claude or ChatGPT. Your AI now knows Amazon.
+**Pricing / urgency lines**
+- Hire Rocco once. Keep him forever.
+- Cheaper than one month of a freelancer.
+Use "Amazon" only descriptively ("for Amazon sellers"), never in the brand/logo; footer: "Not affiliated with Amazon."
