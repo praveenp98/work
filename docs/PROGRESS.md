@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (01:15) · "Free daily apps, no ads, no subscriptions" idea
+- Praveen asked about free consumer apps in every field with no ads or subscriptions. Assessed and added as idea **N** in `100k-hackathon-ideas.md`: free can't win a profit contest; pay-once is the viable form; broad utility suites are commoditized; only sharp if focused on replacing one specific hated subscription.
+- Status unchanged: **ON HOLD. No build decision yet.**
+
+---
+
 ## 2026-11-17 (01:10) · Hunt for Amazon gaps outside the connectors
 - Praveen chose option 3 (find an Amazon problem the existing connectors don't cover). Researched and wrote `docs/AMAZON-GAPS.md`.
 - Best gap: **Amazon-only brands invisible in ChatGPT/Perplexity shopping** (Amazon blocked AI crawlers in Nov 2025) → possible "AI Shelf" product + Brand Referral Bonus angle. Partial competitors: Rithum, Ranketta, Lapis, Nembol.
