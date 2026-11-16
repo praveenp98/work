@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (04:10) · Rocco domains taken
+- All askrocco/heyrocco/etc. taken. Added a new shortlist (raccoon renamed, otter, owl, coined brands) to `docs/LAUNCH-SETUP.md` §1b for a bulk checker. Chrome extension not connected, so Praveen checks.
+
+---
+
 ## 2026-11-17 (04:05) · Mascot approved, launch setup planned
 - Praveen approved raccoon "Rocco" and planning email + leads. Wrote `docs/LAUNCH-SETUP.md`: domain shortlist (askrocco.com first), Smartlead + pre-warmed mailboxes (~$200 first month), SmartScout + Apollo for leads (skip scraped Amazon lists), CAN-SPAM rules.
 - Blocker: Claude can't check domain availability from the workspace; Praveen to check on a registrar (or open Chrome so Claude can).

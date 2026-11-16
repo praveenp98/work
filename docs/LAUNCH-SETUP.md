@@ -51,3 +51,30 @@ Target: US brands, $20K–500K/month revenue, running ads, 5–200 SKUs. Size: ~
 | SmartScout (1 month, plan with export) | check current price |
 | Apollo credits for ~6,000 contacts | depends on plan |
 | ₹10–20K boosts | ~$120–240 |
+
+## 1b. Rocco domains all taken (Nov 17, 04:10) → new shortlist
+Claude can't check availability from the workspace (no registrar/DNS access; Chrome extension not connected). Paste these into a **bulk checker** (Namecheap Beastmode or Porkbun bulk search) and buy the first free one you like.
+Rule: never use "coon" in any name (US racial slur). Avoid "beaver" (slang).
+
+**Raccoon (keep the character, new name)**
+- banditbrain.com / banditbrain.ai
+- nightbandit.ai
+- roccoroast.com / roastrocco.com
+- raccly.com / raccly.ai
+- maskedbrain.com
+- trashpandaads.com
+
+**Otter (tool-using, cute, "holds onto your money", cracks open data)**
+- ottly.ai / ottly.com
+- otterops.ai
+- leakotter.com
+- otterbrain.ai
+
+**Owl (wise, night shift)**
+- hootops.ai
+- nightowlops.com
+
+**Coined brand + raccoon mascot (shortest, most likely free)**
+- leakly.ai
+- plugleak.com
+- spendbandit.com / spendbandit.ai
