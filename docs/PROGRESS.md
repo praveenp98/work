@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (04:20) · Domain options
+- raccly.ai (expensive, 2-yr), rackyy.com (cheap but spelling/slang issues), **rocco.works recommended** (keeps Rocco, built-in tagline). Waiting on purchase.
+
+---
+
 ## 2026-11-17 (04:10) · Rocco domains taken
 - All askrocco/heyrocco/etc. taken. Added a new shortlist (raccoon renamed, otter, owl, coined brands) to `docs/LAUNCH-SETUP.md` §1b for a bulk checker. Chrome extension not connected, so Praveen checks.
 

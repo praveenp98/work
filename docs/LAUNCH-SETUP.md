@@ -89,3 +89,10 @@ Rule: never use "coon" in any name (US racial slur). Avoid "beaver" (slang).
 - Pros: "Racky" = raccoon nickname + US slang "racks" (stacks of money): fits "finds your money". Cheap .com.
 - Cons: double "yy" is hard to spell/say (people will type racky.com); "rack" can read as crude slang in the US.
 - Recommendation: prefer raccly.com if free; otherwise rackyy.com is acceptable (mascot name "Racky"), and also check racky.ai / getracky.com to catch misspellings.
+
+## 1e. rocco.works (Nov 17, 04:20) → recommended
+- Keeps the mascot name "Rocco" and reads as a sentence: "Rocco works your account" / "Rocco works the night shift." Short, memorable, no spelling issues.
+- Google ranks new extensions like .works the same as .com. Small cost: some people will type rocco.com by habit → always write the full "rocco.works" in posts, cards and emails.
+- Check the renewal price before buying (.works renewals are usually ~$25–35/yr); avoid a 3-year lock-in at a high renewal.
+- Handles: @roccoworks on X/IG/TikTok/YouTube, "Rocco Works" LinkedIn page.
+- Cold-email sending domains stay separate .com lookalikes (e.g. tryroccoworks.com).
