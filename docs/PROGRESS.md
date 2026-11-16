@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (03:30) · DECISION: build Amazon Brain MCP + mascot
+- Wrote `docs/AMAZON-BRAIN-PLAN.md`: 70 sales × ~$220 = $15K → ~1,750 free roasts → ~17,500 visitors (~700/day). Buyer #1 = Amazon freelancers/VAs/small agencies. Viral loop = "Roast my Amazon account" shareable cards. Founding lifetime $149/$299/$399.
+- Next: pick mascot + name + domain, set up Polar/Razorpay/TrustMRR, landing page.
+
+---
+
 ## 2026-11-17 (02:55) · Praveen's notes added to idea bank
 - Added P (Builder Pulse widgets, refined; AI-limit trackers crowded, open angle = phone widget + live profit + attention alerts, ~3%), Q (1,000 personal apps), R (Living story → Inkstreak feature), S (₹3,000 cohort: not eligible) and the book "Puer Who Got Enlightened" (personal, not eligible).
 

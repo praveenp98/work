@@ -6,13 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **AI Junior Account Manager for Amazon brands**, a self-serve SaaS covering ads (incl. Rufus Sponsored Prompts), listings/Rufus visibility, and account health/profit.
 
-> **STATUS (Nov 17, 2026, 02:00 IST): no product chosen. All earlier ideas (incl. Amazon) are killed for selection. Do not build anything.** Read `docs/EXPLOSIVE-IDEAS.md` and wait for Praveen to choose.
+> **STATUS (Nov 17, 2026, 03:30 IST): CHOSEN = Amazon Brain MCP server + mascot + X distribution, $99–400 founding lifetime plans. Plan: `docs/AMAZON-BRAIN-PLAN.md`. Start with name/mascot/domain, then the web Roast, then the MCP server.**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/AMAZON-BRAIN-PLAN.md` | **Current plan:** Amazon Brain MCP + mascot + X, reverse-engineered to 70 sales. |
 | `docs/KILL-MEMO-HOMEBUYER.md` | Homebuyer Case Builder killed for contest (market ~20K filers/yr). |
 | `docs/HIGGSFIELD.md` | Higgsfield: kill as product wrapper; keep as ad-creative engine. |
 | `docs/KILL-MEMO-ADS-TRUSTMRR.md` | Kill memo: TrustMRR-for-ads (Ad Library API can't feed it). |
