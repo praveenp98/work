@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (14:15) · Hackathon tracker installed
+- Added the Ship or Die verify.js script (site f9fac6ee…) to `<head>` on every page; verified on the production build. After deploy, press "Check installation" in the dashboard before any traffic.
+
+---
+
 ## 2026-11-17 (14:00) · Dodo products created
 - Praveen saved a Dodo API key in the secure credential form. Claude created 4 one-time products via the Dodo API (Holiday $99 with 75-day license keys, Seller $149, Pro $299, Agency $399, all with license keys, tax category SaaS) and set their IDs as live defaults in `lib/payments.ts`. Pricing buttons are live once deployed. Live license check verified (`valid:false` for a fake key).
 - Left: Dodo KYC/payouts, one real purchase + refund to test the license email, TrustMRR connection.

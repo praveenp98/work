@@ -21,6 +21,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
+      <head>
+        <Tracker />
+      </head>
       <body>
         <header className="top">
           <div className="top-in">
@@ -56,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <p className="fine">{SITE.disclaimer}</p>
           </div>
         </footer>
-        <Tracker />
       </body>
     </html>
   );

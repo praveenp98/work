@@ -1,9 +1,10 @@
-import Script from "next/script";
+/**
+ * Ship or Die hackathon traffic verification (required on every page before traffic, rule 5).
+ * Rendered inside <head> from the root layout. Env vars can override for another site id.
+ */
+const SRC = process.env.NEXT_PUBLIC_TRACKER_SRC || "https://www.ship-or-die.com/hackathon/verify.js";
+const SITE_ID = process.env.NEXT_PUBLIC_TRACKER_SITE_ID || "f9fac6eeac39ef1b81208010816a97a15278f3aa";
 
-/** Hackathon / TrustMRR traffic tracker. Configure via env; renders nothing until set. */
 export function Tracker() {
-  const src = process.env.NEXT_PUBLIC_TRACKER_SRC;
-  if (!src) return null;
-  const site = process.env.NEXT_PUBLIC_TRACKER_SITE_ID;
-  return <Script src={src} strategy="afterInteractive" data-site-id={site} data-website-id={site} />;
+  return <script defer src={SRC} data-site={SITE_ID} />;
 }

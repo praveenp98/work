@@ -14,9 +14,9 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 - `_dmarc` is `p=quarantine` with no SPF/DKIM yet: add the email provider's MX/SPF/DKIM when hello@rocco.works is set up, before sending any mail.
 - In Vercel: add rocco.works + www.rocco.works, make rocco.works primary (www redirects).
 
-## 2. Hackathon / TrustMRR tracker (must be live BEFORE any traffic, rule 5)
-- Copy the tracker script from the TrustMRR / hackathon dashboard. Put its `src` in `NEXT_PUBLIC_TRACKER_SRC` and the site id in `NEXT_PUBLIC_TRACKER_SITE_ID`. Redeploy. If the snippet uses a different attribute name than `data-site-id` / `data-website-id`, tell Claude and it'll adjust `components/Tracker.tsx`.
-- Verify: open rocco.works → view source → script tag present → visit shows in dashboard.
+## 2. Hackathon traffic tracker ✅ installed in code
+`<script defer src="https://www.ship-or-die.com/hackathon/verify.js" data-site="f9fac6eeac39ef1b81208010816a97a15278f3aa">` is rendered in `<head>` on every page (`components/Tracker.tsx` via `app/layout.tsx`). Verified on the production build (one tag per page).
+After deploy: open rocco.works, then press "Check installation" in the hackathon dashboard. Do this before sharing any link.
 
 ## 3. Payments: Dodo Payments (USD)
 Polar is out (doesn't support individuals in India). Code now uses Dodo: see `docs/DODO-SETUP.md`.
