@@ -11,7 +11,7 @@ export const revalidate = 60;
 /** Boardy-style: Rocco introduces himself, one action, nothing else. */
 export default async function Home() {
   const price = await getPriceState();
-  const optIn = process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
+  const optIn = (process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL) || undefined;
   return (
     <section className="hello">
       <div className="hello-avatar">

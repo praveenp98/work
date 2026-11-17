@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (23:00) · Opt-in env renamed
+- Vercel warned on `NEXT_PUBLIC_` + Sensitive. The opt-in link is only read server-side, so the env is now `ROCCO_OPTIN_URL` (old name still accepted).
+
+---
+
 ## 2026-11-17 (22:45) · LoopMessage wired to the real API
 - Praveen: rocco.works now primary (verified: apex 200, www→apex, MCP on apex OK); LoopMessage $20/mo shared sender + sandbox opt-in done.
 - Read LoopMessage docs (sandbox, credentials, send, webhooks, opt-in) and fixed the integration: send POST https://a.loopmessage.com/api/v1/message/send/ with `Authorization: <key>` and {contact, text, sender?}; webhook event `message_inbound` with `contact`/`text`; opt-in links via /opt-in/generate-url (sender_type shared) carrying the workspace link code → phone links automatically from the dashboard; webhook retries deduped by webhook_id; owner test-send endpoint /api/text/test (CRON_SECRET). Env: LOOPMESSAGE_API_KEY, LOOPMESSAGE_SENDER_TYPE=shared, NEXT_PUBLIC_ROCCO_OPTIN_URL, TEXT_WEBHOOK_SECRET, CRON_SECRET.

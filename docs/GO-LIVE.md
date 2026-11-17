@@ -65,7 +65,7 @@ npm test        # rules + parsers unit tests
 - `LOOPMESSAGE_SENDER_TYPE` = `shared` (you're on the shared-sender plan)
 - `TEXT_WEBHOOK_SECRET` = any long random string
 - `CRON_SECRET` = another long random string
-- `NEXT_PUBLIC_ROCCO_OPTIN_URL` = the iMessage opt-in link from the LoopMessage dashboard (homepage "Text Rocco" button)
+- `ROCCO_OPTIN_URL` = the iMessage opt-in link from the LoopMessage dashboard (homepage "Text Rocco" button)
 **LoopMessage → API → Webhook settings:**
 - Webhook URL: `https://rocco.works/api/text/inbound`
 - Webhook header: the same value as `TEXT_WEBHOOK_SECRET` (sent as the Authorization header) → Save
