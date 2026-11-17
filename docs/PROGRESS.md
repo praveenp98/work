@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (22:15) · Explained texting + Claude flow
+- Documented in `docs/BOARDY-STUDY.md`: texts read Rocco's memory; memory fills when Claude (with Amazon's connectors + Rocco's personal URL) runs a morning check; text approvals queue for the next Claude session. Freshness limit + autopilot workaround.
+
+---
+
 ## 2026-11-17 (22:00) · LIVE: rocco.works verified end to end
 - Praveen: deployed, DNS, Supabase (setup.sql), env vars, /api/health ok:true, hackathon tracker "installed", Dodo webhook set. CRON_SECRET / TEXT_WEBHOOK_SECRET not set yet (texting not live).
 - Claude (sandbox now allowed to reach rocco.works): all pages 200; tracker in <head>; /api/price live:true (reads Dodo); shared /mcp tools/list OK; personal workspace persisted in Supabase; brief → analyze (test brand "rocco-test") → apply N1 → list_changes → dashboard (link code) → calendar.ics → client report all OK on production.

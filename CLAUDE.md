@@ -13,7 +13,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** single Founding Lifetime plan on a price ladder. |
+| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** one plan, "Hire Rocco", on a price ladder. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/MOAT.md` | Moat (memory/proof, benchmarks, audience, personality), Rocco Daily content format, conversion levers. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
@@ -37,7 +37,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/GO-LIVE.md` | Launch checklist: deploy, payments, tracker, env vars (what Praveen must set up). |
 | `docs/LAUNCH-KIT.md` | Copy-paste listing text, assets and directory checklist (also live at /press; source `content/launch-kit.json`). |
 | `docs/AMAZON-API-APPLICATIONS.md` | Paste-ready Amazon Ads API + SP-API applications (for a text-only Rocco). |
-| `docs/BOARDY-STUDY.md` | How Boardy grew + plan for a texting Rocco (pending decisions). |
+| `docs/BOARDY-STUDY.md` | How Boardy grew + Text Rocco design, and how texting works with Amazon connected in Claude. |
 | `docs/X-DAY1.md` | Day-1 X posts for Rocco + Praveen, with UTMs. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
 | `docs/DECISIONS.md` | Decisions with dates and reasons. Add one whenever a choice is made. |

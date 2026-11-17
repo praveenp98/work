@@ -35,3 +35,12 @@ LoopMessage $59/mo (unlimited messages, 300 active contacts) = the messaging lin
 - One-screen homepage: "Text Rocco about your Amazon business." Big blue Text Rocco button (sms: link once `NEXT_PUBLIC_ROCCO_IMESSAGE` is set; until then captures phone/email to the waitlist as `tel:+…`), iPhone iMessage thread demo (morning numbers, teammate question, approval, wins), "or add Rocco to Claude / ChatGPT". Team positioning: founders, ads managers, ops, agency on one Rocco.
 - Text engine (`lib/text/*`): link-by-code (team: many phones per workspace), commands (numbers, brief, YES codes, undo, wins, help, STOP/START, questions answered from memory), daily numbers, approvals queue shown first in rocco_brief and cleared by apply_changes/revert_changes; LoopMessage provider with dry-run; webhook `/api/text/inbound`; daily cron `/api/cron/daily`; dashboard shows link code + team phones.
 - Before Amazon API access: texts are answered from Rocco's memory, refreshed whenever anyone on the team runs "morning check" (or the Claude Code autopilot). Daily numbers flag stale data (>2 days).
+
+## How texting works when Amazon is connected in Claude (Nov 17)
+Rocco's text engine never talks to Amazon or Claude directly; it reads Rocco's memory (Supabase).
+1. In Claude, add Rocco with the PERSONAL connector URL (rocco.works/mcp/rw_…); the shared /mcp has no memory.
+2. Link phones: text `link CODE` (code on the dashboard); teammates use the same code.
+3. "Rocco, morning check" in Claude → Claude pulls data with Amazon's connectors → Rocco analyzes → memory updated.
+4. Daily cron (needs CRON_SECRET) texts numbers from memory to every linked phone.
+5. "YES N1 N2" by text → queued → next Claude session's rocco_brief shows it first → Claude applies via Amazon's connector → apply_changes logs it.
+Limit: memory is only as fresh as the last Claude check (texts flag >2 days). Fixes: Claude Code read-only autopilot (/setup), or our own Amazon API access later.
