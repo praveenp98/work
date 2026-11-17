@@ -1,40 +1,39 @@
 import Link from "next/link";
-import { JsonLd } from "@/components/JsonLd";
-import { PhoneThread } from "@/components/home/PhoneThread";
 import { TextRoccoButton } from "@/components/home/TextRoccoButton";
+import { JsonLd } from "@/components/JsonLd";
+import { RoccoHead } from "@/components/Rocco";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
 export const revalidate = 60;
 
-/** One screen, one action: text Rocco. (Everything else lives on /connect, /setup, /pricing.) */
+/** Boardy-style: Rocco introduces himself, one action, nothing else. */
 export default async function Home() {
   const price = await getPriceState();
   const number = process.env.NEXT_PUBLIC_ROCCO_IMESSAGE || undefined;
   return (
-    <>
-      <section className="one">
-        <div className="one-copy">
-          <span className="pill">🦝 Your team&apos;s AI Amazon teammate</span>
-          <h1>Text Rocco about your Amazon business.</h1>
-          <p className="lede">Numbers every morning. Answers in seconds. Fixes approved with a reply. One Rocco for the whole team: founders, ads managers, ops and your agency.</p>
-          <div className="one-cta">
-            <TextRoccoButton number={number} />
-            <Link href="/setup" className="one-alt">or add Rocco to Claude / ChatGPT →</Link>
-          </div>
-          <p className="fine one-fine">Free to try · Founding Lifetime {dollars(price.priceCents)} once{price.salesUntilNext ? ` (goes up in ${price.salesUntilNext})` : ""} · Not affiliated with Amazon</p>
-        </div>
-        <div className="one-phone"><PhoneThread /></div>
-      </section>
-      <nav className="one-links" aria-label="More">
-        <Link href="/connect">How it works</Link>
-        <Link href="/tools/account-check">Free account check</Link>
-        <Link href="/pricing">Pricing</Link>
-        <Link href="/guides">Guides</Link>
-      </nav>
+    <section className="hello">
+      <div className="hello-avatar">
+        <svg width="112" height="92" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="hello" /></svg>
+        <span className="online" aria-hidden />
+      </div>
+      <h1>Hi, I&apos;m Rocco.</h1>
+      <p className="hello-lede">
+        I run Amazon with your team. Text me anything about your ads, sales or stock. I send your numbers every morning and fix things when you reply <b>yes</b>.
+      </p>
+      <div className="hello-cta">
+        <TextRoccoButton number={number} />
+        <Link href="/setup" className="one-alt">or use me in Claude / ChatGPT</Link>
+      </div>
+      <div className="hello-thread" aria-label="Example texts with Rocco">
+        <div className="imsg in"><span className="imsg-bubble">☀️ Morning. ACoS 21% (target 30%). 2 new search terms burning money. Reply YES N1 N2 to cut them.</span></div>
+        <div className="imsg out"><span className="imsg-bubble">yes N1 N2</span></div>
+        <div className="imsg in"><span className="imsg-bubble">Done ✅ I&apos;ll check Monday if it worked.</span></div>
+      </div>
+      <p className="fine">Free to try · {dollars(price.priceCents)} once for life · Not affiliated with Amazon</p>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />
-    </>
+    </section>
   );
 }

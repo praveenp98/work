@@ -145,3 +145,26 @@
 .typing { display: inline-flex; gap: 4px; padding: 12px 14px; }
 .typing i { width: 7px; height: 7px; border-radius: 50%; background: #9b9ba1; animation: blink 1.2s infinite; }
 .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+
+/* ---- Boardy-style minimal shell ---- */
+.top-min { background: transparent; border-bottom: 0; backdrop-filter: none; position: static; }
+.top-min .brand span { font-size: 22px; }
+.top-min nav { gap: 20px; }
+.btn.dark:hover { background: #000; }
+.foot-min { background: transparent; border-top: 0; margin-top: 0; padding: 18px 16px 28px; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.foot-min nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; font-size: 13px; }
+.foot-min nav a { color: var(--muted); text-decoration: none; }
+.foot-min nav a:hover { color: var(--ink); }
+.foot-min .fine { font-size: 12px; margin: 0; }
+
+/* ---- "Hi, I'm Rocco" homepage ---- */
+.hello { min-height: calc(100svh - 170px); max-width: 680px; margin: 0 auto; display: grid; justify-items: center; align-content: center; text-align: center; gap: 18px; padding: 10px 0 20px; }
+.hello-avatar { position: relative; width: 132px; height: 132px; border-radius: 50%; background: var(--card); display: grid; place-items: center; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.hello-avatar .online { position: absolute; right: 10px; bottom: 10px; width: 20px; height: 20px; border-radius: 50%; background: #34c759; border: 3px solid var(--bg); }
+.hello h1 { font-size: clamp(48px, 8vw, 84px); margin: 6px 0 0; }
+.hello-lede { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.45; color: var(--muted); margin: 0; max-width: 600px; }
+.hello-lede b { color: var(--ink); }
+.hello-cta { display: grid; justify-items: center; gap: 12px; margin-top: 6px; }
+.hello-cta .textcta { justify-items: center; }
+.hello-thread { width: min(420px, 100%); display: flex; flex-direction: column; gap: 6px; margin: 10px 0 2px; font: 15px/1.35 -apple-system, "SF Pro Text", system-ui, sans-serif; text-align: left; }
+.hello-thread .imsg { max-width: 88%; }

@@ -14,6 +14,15 @@ export async function POST(req: Request) {
 
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, error: "Rocco memory isn't switched on yet. Use the shared connector for now." }, { status: 503 });
-  const { token } = await createWorkspace(store);
-  return NextResponse.json({ ok: true, token, persistent: store.persistent });
+  try {
+    const { token } = await createWorkspace(store);
+    return NextResponse.json({ ok: true, token, persistent: store.persistent });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[workspace] create failed:", msg);
+    const hint = /\(40[13]\)/.test(msg) ? "Supabase rejected the key (use the secret / service_role key, not the publishable/anon key)."
+      : /\(404\)|does not exist|relation/.test(msg) ? "Rocco's tables don't exist yet. Run supabase/setup.sql in the Supabase SQL Editor."
+      : "Rocco's memory database didn't answer. Check rocco.works/api/health.";
+    return NextResponse.json({ ok: false, error: hint }, { status: 502 });
+  }
 }

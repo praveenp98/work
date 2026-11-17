@@ -25,41 +25,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Tracker />
       </head>
       <body>
-        <header className="top">
+        <header className="top top-min">
           <div className="top-in">
             <Link href="/" className="brand">
-              <Raccoon size={34} /> <span>rocco<b>.works</b></span>
+              <Raccoon size={32} /> <span>rocco</span>
             </Link>
             <nav>
-              <Link href="/connect">How it works</Link>
-              <Link href="/tools">Free tools</Link>
-              <Link href="/guides">Guides</Link>
+              <Link href="/connect" className="lg-only">How it works</Link>
               <Link href="/pricing">Pricing</Link>
-              <Link href="/setup" className="btn small"><span className="lg-only">Set up in 3 min</span><span className="sm-only">Set up</span></Link>
+              <Link href="/" className="btn small dark">Text Rocco</Link>
             </nav>
           </div>
         </header>
         <main>{children}</main>
-        <footer className="foot">
-          <div className="foot-in">
-            <div>
-              <Raccoon size={26} /> Rocco: your AI Amazon teammate.
-            </div>
-            <nav>
-              <Link href="/tools">Tools</Link>
-              <Link href="/guides">Guides</Link>
-              <Link href="/setup">Setup: Amazon + Rocco</Link>
-              <Link href="/connect">Connect to Claude / ChatGPT</Link>
-              <Link href="/pricing">Pricing</Link>
-              <Link href="/rocco">Meet Rocco</Link>
-              <Link href="/press">Press kit</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-              <Link href="/refunds">Refunds</Link>
-              <a href={`mailto:${SITE.contactEmail}`}>Contact</a>
-            </nav>
-            <p className="fine">{SITE.disclaimer}</p>
-          </div>
+        <footer className="foot foot-min">
+          <nav>
+            <Link href="/setup">Setup</Link>
+            <Link href="/connect">How it works</Link>
+            <Link href="/pricing">Pricing</Link>
+            <Link href="/tools">Free tools</Link>
+            <Link href="/guides">Guides</Link>
+            <Link href="/press">Press</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <a href={`mailto:${SITE.contactEmail}`}>Contact</a>
+          </nav>
+          <p className="fine">© 2026 Rocco Works · {SITE.disclaimer}</p>
         </footer>
       </body>
     </html>

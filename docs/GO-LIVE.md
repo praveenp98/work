@@ -28,7 +28,8 @@ Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't 
 1. Supabase project → **SQL Editor** → New query → paste all of `supabase/setup.sql` → **Run**. The last line lists the tables: actions, runs, snapshots, waitlist, workspaces.
 2. **Project Settings → API**: copy **Project URL** and the **service_role** key (secret, not the anon key).
 3. **Vercel → Project → Settings → Environment Variables** (Production): `SUPABASE_URL` = Project URL, `SUPABASE_SERVICE_ROLE_KEY` = service_role key. Never prefix with `NEXT_PUBLIC_`. Redeploy.
-4. Test: rocco.works/setup → "Create my personal Rocco" → open the dashboard link.
+4. Redeploy, then open **rocco.works/api/health**: every table should say "ok". It names the exact problem otherwise (missing URL, publishable key used instead of secret key, key rejected, tables missing).
+5. Test: rocco.works/setup → "Create my personal Rocco" → open the dashboard link.
 
 ## 5. Email + handles
 - `hello@rocco.works` (Google Workspace, Zoho or Cloudflare Email Routing → Gmail). Set SPF/DKIM/DMARC.

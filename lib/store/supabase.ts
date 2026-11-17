@@ -6,17 +6,36 @@ import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
  */
 export class SupabaseStore implements Store {
   readonly persistent = true;
-  constructor(private url: string, private key: string) {}
+  private url: string;
+  constructor(url: string, private key: string) {
+    // accept "https://x.supabase.co", with trailing slash or "/rest/v1"
+    this.url = url.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+  }
+
+  /** New-style keys (sb_secret_…) go only in `apikey`; legacy JWT keys also go in Authorization. */
+  private authHeaders(): Record<string, string> {
+    return this.key.startsWith("sb_") ? { apikey: this.key } : { apikey: this.key, Authorization: `Bearer ${this.key}` };
+  }
 
   private async q<T>(path: string, init: RequestInit = {}): Promise<T> {
     const res = await fetch(`${this.url}/rest/v1/${path}`, {
       ...init,
-      headers: { apikey: this.key, Authorization: `Bearer ${this.key}`, "Content-Type": "application/json", Prefer: "return=representation", ...(init.headers ?? {}) },
+      headers: { ...this.authHeaders(), "Content-Type": "application/json", Prefer: "return=representation", ...(init.headers ?? {}) },
       cache: "no-store",
     });
     if (!res.ok) throw new Error(`Rocco memory error (${res.status}): ${(await res.text()).slice(0, 200)}`);
     const text = await res.text();
     return (text ? JSON.parse(text) : null) as T;
+  }
+
+  /** Diagnostics for /api/health: which tables answer. */
+  async checkTables(tables: string[]): Promise<Record<string, string>> {
+    const out: Record<string, string> = {};
+    for (const t of tables) {
+      const res = await fetch(`${this.url}/rest/v1/${t}?select=*&limit=1`, { headers: this.authHeaders(), cache: "no-store" }).catch(() => null);
+      out[t] = !res ? "unreachable" : res.ok ? "ok" : res.status === 401 || res.status === 403 ? `key rejected (${res.status})` : res.status === 404 ? "missing: run supabase/setup.sql" : `error ${res.status}`;
+    }
+    return out;
   }
 
   async createWorkspace(tokenHash: string) {
