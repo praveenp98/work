@@ -45,6 +45,18 @@ const RECIPES: Record<Job, { why: string; fetch: Fetch[]; then: string }> = {
   results_check: { why: "Judge changes applied 7+ days ago.", fetch: [{ ...SEARCH_TERMS, request: { ...SEARCH_TERMS.request, timeUnit: "DAILY", columns: [...SEARCH_TERMS.request.columns.filter((c) => c !== "startDate" && c !== "endDate"), "date"], last: "since the day after the oldest open change" } }, { ...CAMPAIGNS, request: { ...CAMPAIGNS.request, timeUnit: "DAILY", columns: [...CAMPAIGNS.request.columns.filter((c) => c !== "startDate" && c !== "endDate"), "date"], last: "since the day after the oldest open change" } }], then: "Call analyze_report with each; Rocco matches the data to logged changes and reports what worked." },
 };
 
+/**
+ * Other seller tools the team may have connected in the same AI (Helium 10's official MCP, SellerSprite's MCP,
+ * or any keyword/analytics connector). Rocco doesn't replace them: it tells the AI what to pull from them, the way
+ * a senior manager uses every tool in the stack.
+ */
+const OTHER_TOOLS: Partial<Record<Job, string>> = {
+  morning_check: "Keyword/market tools (e.g. Helium 10 or SellerSprite connector), if connected: organic rank for the top 10 spending search terms, and any competitor price or Buy Box change on the hero ASINs. Mention big rank moves next to the ads fixes.",
+  search_terms: "Before negating a term, check its organic rank and search volume in a keyword tool (e.g. Helium 10 Cerebro/Magnet, SellerSprite) if connected: never cut a high-volume term where the listing ranks top 20 organically without flagging it. For harvests, prefer terms with real search volume.",
+  listings: "With a keyword tool connected (e.g. Helium 10 Cerebro reverse-ASIN on the top 3 competitors, or SellerSprite), add high-volume competitor keywords the listing is missing, then call listing_gaps with both lists.",
+  placements: "If a keyword tool shows the hero terms' organic rank dropped, keep top-of-search spend on those terms even if ACoS is high, and say why.",
+};
+
 export const JOBS = Object.keys(RECIPES) as [Job, ...Job[]];
 
 export function dataPlan(job: Job): string {
@@ -53,6 +65,7 @@ export function dataPlan(job: Job): string {
   r.fetch.forEach((f, i) => {
     L.push("", `${i + 1}. **${f.source}**`, "```json", JSON.stringify(f.request, null, 2), "```", `If that connector isn't connected: ${f.fallback}`);
   });
+  if (OTHER_TOOLS[job]) L.push("", `**Other tools in this chat:** ${OTHER_TOOLS[job]}`);
   L.push("", `Then: ${r.then}`, "", "Pass connector output straight to analyze_report as `report_json` (any JSON shape with an array of rows) or `report_csv`. Keep IDs (campaignId, adGroupId, keywordId) in the data: they let approved changes be applied back through Amazon's connector.");
   return L.join("\n");
 }

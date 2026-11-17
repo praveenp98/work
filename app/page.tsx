@@ -27,12 +27,21 @@ export default async function Home() {
       </p>
       <div className="hello-cta">
         <TextRoccoButton href={optIn} />
-        <Link href="/setup" className="one-alt">or use me in Claude / ChatGPT</Link>
+        <nav className="hello-ways" aria-label="Other ways to work with Rocco">
+          <span>or find me in</span>
+          <Link href="/setup">Claude</Link>
+          <Link href="/setup">ChatGPT</Link>
+          <Link href="/setup">Claude Code</Link>
+        </nav>
       </div>
       <div className="hello-thread" aria-label="Example texts with Rocco">
         <div className="imsg in"><span className="imsg-bubble">☀️ Morning. ACoS 21% (target 30%). 2 new search terms burning money. Reply YES N1 N2 to cut them.</span></div>
         <div className="imsg out"><span className="imsg-bubble">yes N1 N2</span></div>
         <div className="imsg in"><span className="imsg-bubble">Done ✅ I&apos;ll check Monday if it worked.</span></div>
+      </div>
+      <div className="hello-tools" aria-label="Tools Rocco works with">
+        <span>I work the tools you already pay for</span>
+        <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "+ any connector"].map((t) => <li key={t}>{t}</li>)}</ul>
       </div>
       <p className="fine">Free to try · {dollars(price.priceCents)} once for life · Not affiliated with Amazon</p>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />

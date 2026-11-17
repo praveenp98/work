@@ -35,3 +35,6 @@ Boardy-style: no wall. Texting Rocco = signing up. Teammates still join an exist
 - Setup is a one-card-at-a-time flow; raw URLs/config are hidden under "All URLs & config".
 - Teammates join by a one-tap invite link, not by typing codes.
 - Contact card is only sent with the exact number the person texted (shared lines rotate).
+
+## 2026-11-17 · Moat = senior manager in iMessage, works every tool
+Other MCPs (Amazon Seller Central/Ads, Helium 10, SellerSprite) are inputs, not competitors. Homepage shows them as tools Rocco works. Only name tools with an official connector.

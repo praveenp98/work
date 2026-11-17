@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Positioning: senior Amazon manager in your iMessages
+- Praveen: other MCPs (Amazon's, Helium 10) aren't competition; the moat is the senior manager in iMessage who works all of them.
+- Homepage: Boardy-style "or find me in Claude · ChatGPT · Claude Code" row, and "I work the tools you already pay for: Seller Central · Amazon Ads · Helium 10 · SellerSprite · + any connector".
+- rocco_plan now tells the AI how to use Helium 10 / SellerSprite / keyword tools when connected (rank check before negating, competitor keywords for listing gaps, organic-rank context in the morning check). Verified: Helium 10 has an official MCP (Diamond plan); SellerSprite has one; Jungle Scout only unofficial ones (not named).
+
+---
+
 ## 2026-11-17 (late) · Journey rebuilt after Praveen's iPhone test
 Feedback: first message "I'm in! "!9GUF"" is ugly; texts full of links to copy; "link CODE" confusing; contact card showed a different number than the one texting; /setup is a scroll of URLs, not Boardy style; mascot not real enough.
 Shipped:

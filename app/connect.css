@@ -210,3 +210,12 @@
 @media (max-width: 520px) { .start-card { padding: 22px 18px; border-radius: 22px; gap: 12px; } .start-card h2 { font-size: 26px; } .start-sub { font-size: 16px; } }
 .start-page { min-height: 0; padding-top: 4px; }
 main > section.start-page { margin-top: 12px; }
+
+/* Homepage: Boardy-style "find me" row + tools Rocco works */
+.hello-ways { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); }
+.hello-ways a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); text-decoration: none; font-weight: 600; }
+.hello-ways a:hover { border-color: var(--ink); }
+.hello-tools { display: grid; gap: 8px; justify-items: center; }
+.hello-tools > span { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.hello-tools ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-weight: 600; font-size: 15px; }
+.hello-tools li { color: var(--ink); opacity: .75; }
