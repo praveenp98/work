@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import Link from "next/link";
 import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 import "./globals.css";
 import "./connect.css";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"], display: "swap" });
+const display = Inter_Tight({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600", "700"], display: "swap" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {

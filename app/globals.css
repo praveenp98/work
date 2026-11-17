@@ -245,3 +245,10 @@ pre.code { display: block; padding: 14px 16px; overflow-x: auto; white-space: pr
 @keyframes eat { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes dig { from { transform: rotate(-6deg) translateY(0); } to { transform: rotate(6deg) translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Type v2 (Nov 17): calm, Boardy-like. Inter Tight headings at medium weight, tight tracking. */
+h1, h2 { font-weight: 500; letter-spacing: -0.04em; }
+h3, h4 { font-weight: 600; letter-spacing: -0.02em; }
+.brand { font-weight: 600; letter-spacing: -0.03em; }
+.hire-price, .est-big, .est-val, .demo-found b { font-weight: 600; }
+.btn { font-weight: 600; }
