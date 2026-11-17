@@ -33,3 +33,15 @@ Contest: $15–50K realistic, gated by distribution. Long term: the AI operating
 
 ## Build needed if approved (~1 hour)
 Dodo webhook (payment.succeeded) → count sales → update product price via Dodo API; live counter on pricing page + MCP paywall text; replace 4 products with 1 (archive others). Needs DODO_API_KEY + webhook secret in Vercel.
+
+
+## Paywall timing (Nov 17, 2026)
+Free forever: demo, setup, first numbers, the top 3 fixes per report, result checks. Rocco asks for money only at value moments (lib/paywall.ts), each throttled:
+| Moment | When | Throttle |
+|---|---|---|
+| found | a check found money and some fixes are locked ("I found ~$1,240/mo; top 3 free; 4 more (~$890/mo) unlock when you hire me") | every 3 days max |
+| worked | a proposed change was measured as working | once per win |
+| locked | someone replies YES to a locked code | always |
+| team | a second teammate joins | once |
+Shown in: texts (pitch bubble + checkout link alone), morning text, Claude/ChatGPT (rocco_brief, analyze_report), dashboard (locked row with $ value). Urgency is real: "Goes to $109 after N more hires" from the live ladder.
+Unlock: Rocco's checkout links carry metadata_ref = workspace id. The Dodo webhook fetches the payment from Dodo's API (body untrusted), and if it succeeded, unlocks that workspace and texts the team "You hired me 🎉". Pricing-page buyers text "activate <key>" or tell Rocco in Claude.

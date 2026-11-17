@@ -38,3 +38,6 @@ Boardy-style: no wall. Texting Rocco = signing up. Teammates still join an exist
 
 ## 2026-11-17 · Moat = senior manager in iMessage, works every tool
 Other MCPs (Amazon Seller Central/Ads, Helium 10, SellerSprite) are inputs, not competitors. Homepage shows them as tools Rocco works. Only name tools with an official connector.
+
+## 2026-11-17 · Paywall only at value moments
+Never paywall the demo, setup, first numbers or top-3 fixes. Ask when money is found, when a fix worked, when a locked fix is approved, or when a 2nd teammate joins. Paying unlocks automatically (no key pasting).

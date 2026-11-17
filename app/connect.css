@@ -284,3 +284,5 @@ main > section.home { margin-top: 0; }
   .stage-card { min-height: 252px; }
   .stage-body { padding: 12px 14px; }
 }
+
+.locked-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; padding: 12px 14px; border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--line)); border-radius: 14px; background: color-mix(in srgb, var(--accent) 6%, var(--card)); }

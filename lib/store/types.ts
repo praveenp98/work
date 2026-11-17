@@ -31,6 +31,8 @@ export interface Workspace {
   tokenSealed?: string;
   /** What the team told Rocco about themselves on their first text. */
   about?: string;
+  /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
+  nudges?: Record<string, string>;
 }
 
 /** A teammate's phone linked to a workspace (Text Rocco). */

@@ -188,12 +188,14 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
     const brandRuns = runs.filter((r) => r.brand === brand && !kinds.has(r.kind) && kinds.add(r.kind));
     const visible = (r: Run) => (ws.licensed ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS));
     const hidden = ws.licensed ? 0 : brandRuns.reduce((t, r) => t + Math.max(0, r.proposals.length - FREE_PROPOSALS), 0);
+    const locked: Proposal[] = ws.licensed ? [] : brandRuns.flatMap((r) => r.proposals.slice(FREE_PROPOSALS));
+    const hiddenValue = locked.reduce((t, p) => t + p.valueMonthly, 0);
     const open: Proposal[] = brandRuns.flatMap((r) => visible(r).filter((p) => !appliedCodes.has(`${r.id}:${p.code}`)));
     const stale: ReportKind[] = (["sp_search_term", "business_report", "inventory", "sp_campaign"] as ReportKind[]).filter((k) => {
       const l = latestByKind.get(k)?.[0];
       return !l || now.getTime() - new Date(l.createdAt).getTime() > 7 * DAY;
     });
-    return { brand, settings: brandSettings(ws, brand), trends, open, hidden, openValue: open.reduce((t, p) => t + p.valueMonthly, 0), stale };
+    return { brand, settings: brandSettings(ws, brand), trends, open, hidden, hiddenValue, openValue: open.reduce((t, p) => t + p.valueMonthly, 0), stale };
   });
   const iso = now.toISOString().slice(0, 10);
   const season = BFCM.find((b) => iso <= b.until)?.text ?? null;

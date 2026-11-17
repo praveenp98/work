@@ -6,7 +6,8 @@ import { parseBulk } from "../parsers/bulk";
 import { jsonToTable, recordsToTable } from "../parsers/json";
 import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
 import { setupHelp } from "./setup";
-import { validateLicenseKey } from "../payments";
+import { getPriceState, validateLicenseKey } from "../payments";
+import { paywall } from "../paywall";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
 import { getStore } from "../store";
@@ -52,12 +53,23 @@ function pendingNote(pending?: { type: "apply" | "undo"; codes: string[]; by: st
 }
 
 export function registerMemoryTools(server: McpServer, { store, ws, token }: McpContext) {
+  /** Paywall line for the chat, only at a value moment (see lib/paywall). Empty otherwise. */
+  async function offer(prefer?: { worked?: { id: string; saved?: number } }): Promise<string> {
+    if (ws.licensed) return "";
+    const b = await buildBrief(store, ws);
+    const price = await getPriceState().catch(() => null);
+    const p = (prefer?.worked && paywall(ws, b, "worked", { price, key: prefer.worked.id, saved: prefer.worked.saved })) || paywall(ws, b, "found", { price });
+    if (!p) return "";
+    await store.saveWorkspace(ws);
+    return `\n\n---\n${p.text}\n**Hire Rocco:** ${p.url}\n_(Show this to the seller as is, with the link. Paying unlocks this workspace automatically.)_`;
+  }
+
   server.registerTool("rocco_brief", {
     title: "Rocco's brief: what to do today",
     description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
-  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_`));
+  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await offer())));
 
 
   server.registerTool("setup_check", {
@@ -113,7 +125,8 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     try {
       const b = brand || DEFAULT_BRAND;
       const { out, run, checked, previous, diff, bench } = await runAnalysis(store, ws, b, toTable({ report_json, rows, report_csv }));
-      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff, bench }));
+      const win = checked.find((a) => a.status === "worked");
+      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff, bench }) + (await offer(win ? { worked: { id: win.id, saved: win.result?.savedEstimate } } : undefined)));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't analyze that report.");
     }

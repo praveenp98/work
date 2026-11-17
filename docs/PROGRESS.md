@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Paywall at the right moments
+- lib/paywall.ts: found / worked / locked / team moments with throttles; wired into texts, morning cron, MCP (brief + analyze) and dashboard. Details in docs/PRICING-MODEL.md.
+- Auto-unlock: checkout links carry the workspace; /api/dodo/webhook verifies the payment via Dodo's API and unlocks + texts the team. Text "activate <key>" also works.
+- Morning cron no longer texts teams with no data.
+- Tests 101/101. Needs the Dodo webhook URL set in Dodo (https://rocco.works/api/dodo/webhook) for auto-unlock.
+
+---
+
 ## 2026-11-17 (late) · Homepage v3, modeled on boardy.ai
 - Headline "I can run your Amazon. Try me." + a card that cycles through where Rocco works (iMessage, Claude, Amazon Ads, Helium 10, Seller Central, ChatGPT), each with one senior-manager move; tool icons orbit below; pill CTA per scene; pause button.
 - "Rocco, help me with ___" box types example asks; sending opens Messages with that first text (/api/text/start generates the LoopMessage opt-in link with the question in it).

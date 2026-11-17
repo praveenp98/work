@@ -10,6 +10,7 @@ export type Command =
   | { kind: "dashboard" }
   | { kind: "invite" }
   | { kind: "demo" }
+  | { kind: "activate"; key: string }
   | { kind: "stop" }
   | { kind: "start" }
   | { kind: "ask"; topic: "ads" | "budgets" | "placements" | "stock" | "listings" | "general"; text: string };
@@ -20,6 +21,8 @@ const codesIn = (t: string) => [...t.matchAll(CODE)].map((m) => m[1].replace(/\s
 export function parseCommand(raw: string): Command {
   const t = raw.trim();
   const lc = t.toLowerCase();
+  const act = t.match(/^(?:activate|license|key)\s*:?\s*([A-Za-z0-9-]{8,80})\s*$/i);
+  if (act) return { kind: "activate", key: act[1] };
   const link = t.match(/\b(?:link|join)\s+([A-Za-z0-9]{6})\b/i);
   if (link) return { kind: "link", code: link[1].toUpperCase() };
   if (/^(stop|unsubscribe|cancel|quit|end)\b/.test(lc)) return { kind: "stop" };

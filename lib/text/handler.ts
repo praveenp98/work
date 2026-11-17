@@ -6,6 +6,8 @@ import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
 import { optInLinks } from "./provider";
+import { paywall, type Moment } from "../paywall";
+import { getPriceState, validateLicenseKey } from "../payments";
 import { demoMorning } from "../demo";
 
 const SITE_URL = "https://rocco.works";
@@ -27,6 +29,23 @@ async function inviteReply(store: Store, ws: Workspace): Promise<Reply> {
   return url
     ? { bubbles: ["Send this to a teammate. One tap and they're on your Rocco 👇", url] }
     : { bubbles: [`Have your teammate text me: join ${code}`] };
+}
+
+/**
+ * The paywall at the right moment, as two bubbles (pitch + checkout link alone, so it previews).
+ * Picks the strongest moment that's due: a fix that just proved itself beats "I found money".
+ */
+async function nudge(store: Store, ws: Workspace, b: Awaited<ReturnType<typeof buildBrief>>, now: Date, only?: Moment): Promise<string[]> {
+  if (ws.licensed) return [];
+  const price = await getPriceState().catch(() => null);
+  const win = b.recentResults.find((a) => a.status === "worked");
+  const tries: [Moment, { key?: string; saved?: number }][] = only ? [[only, {}]] : [["worked", { key: win?.id, saved: win?.result?.savedEstimate }], ["found", {}]];
+  for (const [m, extra] of tries) {
+    if (m === "worked" && !win) continue;
+    const p = paywall(ws, b, m, { now, price, ...extra });
+    if (p) { await store.saveWorkspace(ws); return [p.text, p.url]; }
+  }
+  return [];
 }
 
 const HELP = [
@@ -72,7 +91,10 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
     const existing = await store.getPhone(phone);
     await store.savePhone({ phone, workspaceId: ws.id, optedOut: false, createdAt: existing?.createdAt ?? now.toISOString(), lastSeenAt: now.toISOString() });
     const team = (await store.listPhones({ workspaceId: ws.id })).length;
-    return bubbles(`You're in 🦝 You're on your team's Rocco${team > 1 ? ` (${team} teammates now)` : ""}. I'll text the numbers every morning. Text “help” anytime.`);
+    const hi = `You're in 🦝 You're on your team's Rocco${team > 1 ? ` (${team} teammates now)` : ""}. I'll text the numbers every morning. Text “help” anytime.`;
+    // Paywall moment: the team is growing. Told to the person who joined, once per workspace.
+    const pay = team >= 2 ? await nudge(store, ws, await buildBrief(store, ws, now), now, "team") : [];
+    return { bubbles: [hi, ...pay] };
   }
 
   let p = await store.getPhone(phone);
@@ -117,6 +139,15 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
     case "help": return bubbles(HELP);
     case "dashboard": return { bubbles: ["Your Rocco page 👇 (private to your team)", homeUrl(revealToken(ws))] };
     case "invite": return inviteReply(store, ws);
+    case "activate": {
+      if (ws.licensed) return "You already hired me 🦝 Everything's unlocked.";
+      const v = await validateLicenseKey(cmd.key);
+      if (!v.ok) return `Hmm, that key didn't work${v.error ? ` (${v.error})` : ""}. It's in your Dodo receipt email.`;
+      ws.licensed = true;
+      ws.licenseKey = cmd.key;
+      await store.saveWorkspace(ws);
+      return "You hired me 🎉🦝 Every fix is unlocked for your whole team. Text “brief” and let's get to work.";
+    }
     case "demo": {
       const d = await demoMorning(now);
       return { bubbles: [d.text, `Try it: reply YES ${d.codes.slice(0, 2).join(" ")} (demo, nothing changes).`] };
@@ -126,7 +157,7 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
       if (!b.perBrand.some((x) => x.trends.length)) return { bubbles: ["No Amazon numbers yet 🦝 Plug Amazon in here (3 min), and I'll text them every morning 👇", homeUrl(revealToken(ws)), "Want a preview? Text “demo”."] };
       const snap = b.perBrand[0]?.trends.find((t) => t.kind === "sp_search_term")?.latest;
       const bench = snap ? benchmark("sp_search_term", snap.stats, await store.peerStats("sp_search_term", ws.id)) : null;
-      return bubbles(dailyNumbers(b, { now, bench: bench?.lines, pending: ws.pending }));
+      return { bubbles: [dailyNumbers(b, { now, bench: bench?.lines, pending: ws.pending }), ...(await nudge(store, ws, b, now))] };
     }
     case "brief": {
       const b = await buildBrief(store, ws, now);
@@ -138,7 +169,7 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
       if (open.length) L.push(`Reply YES ${open.map((o) => o.code).join(" ")} to approve.`);
       if (pb?.stale.length) L.push(`• Not checked in 7+ days: ${pb.stale.map((k) => REPORT_HELP[k].name.replace("Sponsored Products ", "")).join(", ")}.`);
       if (L.length === 1) L.push("• All clear. Say “Rocco, morning check” in Claude/ChatGPT for fresh numbers.");
-      return bubbles(L.join("\n"));
+      return { bubbles: [L.join("\n"), ...(await nudge(store, ws, b, now))] };
     }
     case "wins": {
       const b = await buildBrief(store, ws, now);
@@ -164,9 +195,10 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
       if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Your AI applies ${ok.length === 1 ? "it" : "them"} through Amazon's connector next time anyone on the team opens Rocco, then I'll track the results.`);
-      if (locked.length) L.push(`🔒 ${locked.join(", ")} need you to hire me ($99 once): rocco.works/pricing`);
       if (unknown.length) L.push(`🤔 Don't recognize ${unknown.join(", ")}. Text “brief” for today's codes.`);
-      return bubbles(L.join("\n"));
+      const pay = locked.length ? await nudge(store, ws, await buildBrief(store, ws, now), now, "locked") : [];
+      if (pay.length) pay[0] = pay[0].replace("That one's", `${locked.join(", ")} ${locked.length > 1 ? "are" : "is"}`);
+      return { bubbles: [...(L.length ? [L.join("\n")] : []), ...pay] };
     }
     case "ask": {
       const kinds = TOPIC_KIND[cmd.topic];

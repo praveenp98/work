@@ -10,7 +10,7 @@ export default function Page() {
     <section style={{ textAlign: "center", maxWidth: 640, margin: "0 auto" }}>
       <Rocco pose="party" size={220} />
       <h1>You hired a raccoon. Excellent decision.</h1>
-      <p className="muted" style={{ fontSize: 18 }}>Your license key is in your Dodo Payments receipt email. It can take a minute to arrive.</p>
+      <p className="muted" style={{ fontSize: 18 }}>Bought from Rocco&apos;s link (in a text, Claude or your Rocco page)? You&apos;re already unlocked, and Rocco will text your team. Otherwise, your license key is in your receipt email.</p>
       <ol className="steps" style={{ textAlign: "left", margin: "24px auto", maxWidth: 480 }}>
         <li>Open the <Link href="/tools/ad-roast">Ad Roast</Link> and drop in your search term report.</li>
         <li>Paste your license key in the unlock box. Every fix and the bulk file unlock on this browser.</li>

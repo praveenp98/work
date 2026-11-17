@@ -11,6 +11,9 @@ import { getStore } from "@/lib/store";
 import { maskPhone } from "@/lib/text/commands";
 import { optInLinks } from "@/lib/text/provider";
 import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
+import { hireUrl } from "@/lib/paywall";
+import { getPriceState } from "@/lib/payments";
+import { dollars } from "@/lib/pricing";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your Rocco", description: "Plug in Amazon, then just ask. Your team's private Rocco page.", robots: { index: false, follow: false } };
@@ -27,6 +30,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const linkCode = await ensureLinkCode(store, ws);
+  const price = await getPriceState();
   const team = await store.listPhones({ workspaceId: ws.id });
   const personal = await optInLinks({ link: linkCode, body: `Hi Rocco, it's me 👋 [opt-in-code]` });
   const textHref = personal?.url ?? personal?.imessage;
@@ -103,7 +107,12 @@ export default async function Page({ params }: { params: Promise<{ token: string
               <ul className="md">{[...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 12).map((p) => <li key={p.code}>{proposalLine(p).replace(/^- /, "").replace(/\*\*/g, "")}</li>)}</ul>
             </>
           )}
-          {b.hidden > 0 && <p className="fine">+{b.hidden} more fixes are locked on the free plan. <Link href="/pricing?utm_source=dashboard">Unlock them</Link>.</p>}
+          {b.hidden > 0 && (
+            <div className="locked-row">
+              <span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} are waiting.</span>
+              <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once</a>
+            </div>
+          )}
           {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}. Say &ldquo;morning check&rdquo; to refresh.</p>}
         </section>
       ))}
@@ -134,8 +143,8 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <Raccoon size={90} mood="judging" />
           <div>
             <h2>Unlock every fix and full tracking</h2>
-            <p>Free workspaces get the top 3 fixes per report. A one-time license unlocks all of them plus bulk files. Then tell Rocco: &ldquo;activate my license&rdquo;.</p>
-            <Link className="btn" href="/pricing?utm_source=dashboard">Hire Rocco →</Link>
+            <p>Free workspaces get the top 3 fixes per report. Hiring Rocco unlocks all of them, bulk files and full tracking for your whole team. It unlocks this workspace automatically after you pay.</p>
+            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once →</a>
           </div>
         </section>
       )}

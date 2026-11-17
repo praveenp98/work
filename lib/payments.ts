@@ -41,6 +41,22 @@ export async function validateLicenseKey(key: string): Promise<{ ok: boolean; er
 
 interface DodoPayment { status?: string; product_cart?: { product_id: string; quantity?: number }[] | null }
 
+/**
+ * Server-only: look a payment up in Dodo (never trust a webhook body) and return the workspace it was bought for.
+ * The ref comes from checkoutUrl({ ref }) → metadata_ref on the payment.
+ */
+export async function verifiedPurchase(paymentId: string): Promise<{ ref: string } | null> {
+  const key = process.env.DODO_API_KEY;
+  if (!key || !/^[A-Za-z0-9_-]{6,80}$/.test(paymentId)) return null;
+  const res = await fetch(`${API_BASE}/payments/${paymentId}`, { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" }).catch(() => null);
+  if (!res?.ok) return null;
+  const p = (await res.json().catch(() => null)) as (DodoPayment & { metadata?: Record<string, string> }) | null;
+  if (!p || p.status !== "succeeded") return null;
+  if (PRODUCT_ID && p.product_cart && !p.product_cart.some((c) => c.product_id === PRODUCT_ID)) return null;
+  const ref = p.metadata?.ref;
+  return ref && /^[A-Za-z0-9-]{6,64}$/.test(ref) ? { ref } : null;
+}
+
 /** Count succeeded payments for the product. Null when the API key isn't configured. */
 export async function countSales(): Promise<number | null> {
   const key = process.env.DODO_API_KEY;

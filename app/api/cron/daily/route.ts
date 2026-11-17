@@ -4,6 +4,8 @@ import { getStore } from "@/lib/store";
 import { dailyNumbers } from "@/lib/text/daily";
 import { sendText } from "@/lib/text/provider";
 import { buildBrief } from "@/lib/workspace";
+import { getPriceState } from "@/lib/payments";
+import { paywall } from "@/lib/paywall";
 
 /** Morning numbers to every linked, opted-in teammate. Vercel Cron calls this (see vercel.json). */
 export const dynamic = "force-dynamic";
@@ -23,10 +25,17 @@ export async function GET(req: Request) {
     const ws = await store.getWorkspaceById(wsId);
     if (!ws) continue;
     const b = await buildBrief(store, ws);
+    if (!b.perBrand.some((x) => x.trends.length)) continue; // nothing plugged in yet: no empty "numbers" text
     const snap = b.perBrand[0]?.trends.find((t) => t.kind === "sp_search_term")?.latest;
     const bench = snap ? benchmark("sp_search_term", snap.stats, await store.peerStats("sp_search_term", ws.id)).lines : undefined;
     const msg = dailyNumbers(b, { bench, pending: ws.pending });
-    for (const to of list) (await sendText(to, msg)).ok ? sent++ : failed++;
+    // Paywall moment "found" (every 3 days at most, only when fixes are locked).
+    const pay = paywall(ws, b, "found", { price: await getPriceState().catch(() => null) });
+    if (pay) await store.saveWorkspace(ws);
+    for (const to of list) {
+      (await sendText(to, msg)).ok ? sent++ : failed++;
+      if (pay) { await sendText(to, pay.text); await sendText(to, pay.url); }
+    }
   }
   return NextResponse.json({ ok: true, workspaces: byWs.size, sent, failed });
 }
