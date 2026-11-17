@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
-import { handleInbound } from "@/lib/text/handler";
+import { respond } from "@/lib/text/handler";
 import { firstDelivery, parseInbound, sendText } from "@/lib/text/provider";
 
 /**
@@ -23,7 +24,16 @@ export async function POST(req: Request) {
 
   // Personal opt-in links carry the workspace link code → link automatically.
   const text = msg.linkCode ? `link ${msg.linkCode}` : msg.text || "hi";
-  const reply = await handleInbound(store, msg.contact, text);
-  const sent = await sendText(msg.contact, reply);
-  return NextResponse.json({ ok: true, sent: sent.ok, dryRun: sent.dryRun });
+  const reply = await respond(store, msg.contact, text);
+  // Separate bubbles, like a person texting. Then Rocco's contact card (name + photo) on the first hello.
+  let sent = { ok: true, dryRun: false };
+  for (const [i, b] of reply.bubbles.entries()) {
+    if (i) await new Promise((r) => setTimeout(r, 900));
+    sent = await sendText(msg.contact, b);
+  }
+  if (reply.card) {
+    await new Promise((r) => setTimeout(r, 900));
+    await sendText(msg.contact, "Save me so you know it's me 👇", { mediaUrl: `${SITE.url}/rocco.vcf` });
+  }
+  return NextResponse.json({ ok: true, sent: sent.ok, dryRun: sent.dryRun, bubbles: reply.bubbles.length });
 }

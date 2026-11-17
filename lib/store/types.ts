@@ -29,6 +29,8 @@ export interface Workspace {
   pending?: PendingItem[];
   /** Workspace key, encrypted (lib/vault), so Rocco can text a linked phone its links. */
   tokenSealed?: string;
+  /** What the team told Rocco about themselves on their first text. */
+  about?: string;
 }
 
 /** A teammate's phone linked to a workspace (Text Rocco). */
@@ -38,6 +40,8 @@ export interface Phone {
   optedOut: boolean;
   createdAt: string;
   lastSeenAt?: string;
+  /** "intro": Rocco asked who they are and is waiting for the answer. */
+  stage?: "intro";
 }
 
 export interface Snapshot {

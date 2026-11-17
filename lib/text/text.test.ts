@@ -4,7 +4,7 @@ import { loadFixture } from "../test-utils";
 import { applyChanges, buildBrief, clearPending, createWorkspace, ensureLinkCode, loadWorkspace, runAnalysis } from "../workspace";
 import { normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
-import { handleInbound } from "./handler";
+import { handleInbound, respond } from "./handler";
 
 describe("parseCommand", () => {
   it("understands the core commands", () => {
@@ -26,22 +26,32 @@ describe("parseCommand", () => {
 });
 
 describe("Text Rocco: brand-new number", () => {
-  it("first text gives the number its own Rocco + working links; help, numbers and dashboard all answer", async () => {
+  it("says hi with one question + contact card, saves the answer, then gives working links; help/numbers/dashboard answer", async () => {
     vi.stubEnv("ROCCO_VAULT_KEY", "test-vault");
     const store = new MemoryStore();
     const now = new Date();
-    const hi = await handleInbound(store, "+14085550123", "I'm in! \"!9GUF\"", now);
-    expect(hi).toMatch(/this number has its own Rocco/);
-    const token = hi.match(/rocco\.works\/w\/(rw_[A-Za-z0-9]{24})/)?.[1];
+    const hi = await respond(store, "+14085550123", "I'm in! \"!9GUF\"", now);
+    expect(hi.bubbles).toHaveLength(2);
+    expect(hi.bubbles[1]).toMatch(/Who am I talking to/);
+    expect(hi.card).toBe(true);
+    const intro = await respond(store, "+14085550123", "I'm Praveen, we sell kitchen gadgets", now);
+    expect(intro.bubbles[0]).toMatch(/Nice to meet you, Praveen/);
+    const all = intro.bubbles.join("\n");
+    const token = all.match(/rocco\.works\/w\/(rw_[A-Za-z0-9]{24})/)?.[1];
     expect(token).toBeTruthy();
-    expect(hi).toContain(`rocco.works/setup?t=${token}`);
-    expect(await loadWorkspace(store, token!)).not.toBeNull();
+    expect(all).toContain(`rocco.works/setup?t=${token}`);
+    const ws = await loadWorkspace(store, token!);
+    expect(ws?.about).toMatch(/kitchen gadgets/);
     expect(await handleInbound(store, "+14085550123", "Help", now)).toMatch(/numbers → today's numbers/);
     expect(await handleInbound(store, "+14085550123", "numbers", now)).toMatch(/No Amazon numbers yet.*setup\?t=rw_/s);
     expect(await handleInbound(store, "+14085550123", "dashboard", now)).toContain(`rocco.works/w/${token}`);
-    // a second text does not create another workspace
     expect((await store.listPhones({})).length).toBe(1);
     vi.unstubAllEnvs();
+  });
+  it("a command during the intro just works", async () => {
+    const store = new MemoryStore();
+    await respond(store, "+14085550124", "hey");
+    expect(await handleInbound(store, "+14085550124", "help")).toMatch(/numbers → today's numbers/);
   });
 });
 
@@ -54,7 +64,7 @@ describe("Text Rocco flow", () => {
     const now = new Date();
 
     // stranger
-    expect(await handleInbound(store, "+14155550100", "hello", now)).toMatch(/link/);
+    expect(await handleInbound(store, "+14155550100", "hello", now)).toMatch(/Who am I talking to/);
     // link with the workspace code
     const code = await ensureLinkCode(store, ws);
     expect(code).toMatch(/^[A-Z2-9]{6}$/);

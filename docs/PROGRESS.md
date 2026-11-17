@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (00:15) · Text Rocco feels like Boardy
+- First text from a new number: two short bubbles ("Hey, I'm Rocco… / Who am I talking to, and what do you sell on Amazon?") then Rocco's contact card (public/rocco.vcf: name, photo, number, site) so iPhone shows "New contact information · Add".
+- Their answer is saved (workspace.about), Rocco greets them by name and sends 3 bubbles: plug in Amazon (setup?t=KEY), dashboard, team code.
+- Replies are now multiple bubbles (respond() → {bubbles, card}); the webhook sends them ~1s apart.
+- vCard number is hardcoded to the LoopMessage shared line +1 408 636 8580; update public/rocco.vcf if the sender changes.
+- Open gap: numbers with no Claude setup need Amazon API access (apply today) or "text a screenshot" (needs ANTHROPIC_API_KEY, pending Praveen's ok).
+- Tests 94/94.
+
+---
+
 ## 2026-11-17 (23:40) · Text Rocco: first text now works
 - Bug (found by Praveen on iPhone): every text from an unlinked number got the same "text link + code" wall, and /setup had no way back to a dashboard.
 - Fix: the first text from a new number creates that number's own Rocco and replies with 3 links: plug in Amazon (rocco.works/setup?t=KEY, the wizard picks up the personal connector), dashboard, and the team code. help / numbers / dashboard all answer from then on; "numbers" with no data points to setup.
