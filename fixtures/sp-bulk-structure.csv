@@ -1,0 +1,16 @@
+Product,Entity,Operation,Campaign ID,Ad Group ID,Keyword ID,Product Targeting ID,Campaign Name,Ad Group Name,Campaign Name (Informational only),Ad Group Name (Informational only),State,Targeting Type,Daily Budget,Bid,Keyword Text,Match Type,Product Targeting Expression
+Sponsored Products,Campaign,,111,,,,SP - Auto,,SP - Auto,,enabled,Auto,15,,,,
+Sponsored Products,Ad Group,,111,211,,,,Auto,SP - Auto,Auto,enabled,,,,,,
+Sponsored Products,Product Targeting,,111,211,,311,,,SP - Auto,Auto,enabled,,,1.2,,,close-match
+Sponsored Products,Campaign,,112,,,,SP - Broad,,SP - Broad,,enabled,Manual,25,,,,
+Sponsored Products,Ad Group,,112,212,,,,Broad,SP - Broad,Broad,enabled,,,,,,
+Sponsored Products,Keyword,,112,212,411,,,,SP - Broad,Broad,enabled,,,1.6,cutting board,broad,
+Sponsored Products,Keyword,,112,212,412,,,,SP - Broad,Broad,enabled,,,1.4,bamboo cutting board,exact,
+Sponsored Products,Negative Keyword,,112,212,413,,,,SP - Broad,Broad,enabled,,,,free,negativePhrase,
+Sponsored Products,Campaign,,113,,,,SP - Exact,,SP - Exact,,enabled,Manual,12,,,,
+Sponsored Products,Ad Group,,113,213,,,,Exact,SP - Exact,Exact,enabled,,,,,,
+Sponsored Products,Keyword,,113,213,421,,,,SP - Exact,Exact,enabled,,,1.7,bamboo cutting board,exact,
+Sponsored Products,Keyword,,113,213,422,,,,SP - Exact,Exact,enabled,,,6.5,charcuterie board,exact,
+Sponsored Products,Campaign,,114,,,,SP - Auto 2,,SP - Auto 2,,enabled,Auto,10,,,,
+Sponsored Products,Ad Group,,114,214,,,,Auto2,SP - Auto 2,Auto2,enabled,,,,,,
+Sponsored Products,Negative Keyword,,114,214,431,,,,SP - Auto 2,Auto2,enabled,,,,how to,negativePhrase,

@@ -5,6 +5,7 @@ import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
 import { SITE } from "@/lib/site";
 import "./globals.css";
+import "./connect.css";
 
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"], display: "swap" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
@@ -27,11 +28,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Raccoon size={34} /> <span>rocco<b>.works</b></span>
             </Link>
             <nav>
+              <Link href="/connect">How it works</Link>
               <Link href="/tools">Free tools</Link>
               <Link href="/guides">Guides</Link>
-              <Link href="/connect">Claude &amp; ChatGPT</Link>
               <Link href="/pricing">Pricing</Link>
-              <Link href="/tools/ad-roast" className="btn small">Roast my ads</Link>
+              <Link href="/connect" className="btn small"><span className="lg-only">Add to Claude / ChatGPT</span><span className="sm-only">Add to your AI</span></Link>
             </nav>
           </div>
         </header>
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="foot">
           <div className="foot-in">
             <div>
-              <Raccoon size={26} /> Rocco works the night shift on your Amazon ads.
+              <Raccoon size={26} /> Rocco: your AI Amazon teammate.
             </div>
             <nav>
               <Link href="/tools">Tools</Link>

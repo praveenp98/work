@@ -65,3 +65,53 @@ export function parseBulk(table: unknown[][]): BulkIndex {
   }
   return idx;
 }
+
+/** Flat rows from a bulk file, for structure audits. */
+export interface BulkRow {
+  entity: string; // campaign | ad group | keyword | negative keyword | campaign negative keyword | product targeting | negative product targeting | ...
+  campaign: string;
+  adGroup: string;
+  state: string;
+  targetingType: string; // auto | manual (campaign rows)
+  budget: number;
+  bid: number;
+  keyword: string;
+  matchType: string;
+  expression: string;
+}
+
+export function parseBulkRows(table: unknown[][]): BulkRow[] {
+  const hi = table.findIndex((r) => isBulkSheet(r ?? []));
+  if (hi < 0) throw new Error("This isn't a Sponsored Products bulk file (needs Entity and Campaign ID columns).");
+  const n = table[hi].map(normHeader);
+  const col = (...names: string[]) => names.map((x) => n.indexOf(x)).find((i) => i >= 0) ?? -1;
+  const c = {
+    entity: col("entity"), campaignId: col("campaign id"), adGroupId: col("ad group id"),
+    campaign: col("campaign name informational only", "campaign name"), adGroup: col("ad group name informational only", "ad group name"),
+    state: col("state"), targetingType: col("targeting type"), budget: col("daily budget", "budget"), bid: col("bid"),
+    keyword: col("keyword text"), matchType: col("match type"), expression: col("product targeting expression"),
+  };
+  const g = (r: unknown[], i: number) => (i < 0 ? "" : String(r[i] ?? "").trim());
+  const campName = new Map<string, string>();
+  const agName = new Map<string, string>();
+  const body = table.slice(hi + 1);
+  for (const r of body) {
+    const e = g(r, c.entity).toLowerCase();
+    if (e === "campaign") campName.set(g(r, c.campaignId), g(r, c.campaign));
+    if (e === "ad group") agName.set(g(r, c.adGroupId), g(r, c.adGroup));
+  }
+  return body
+    .filter((r) => g(r, c.entity))
+    .map((r) => ({
+      entity: g(r, c.entity).toLowerCase(),
+      campaign: g(r, c.campaign) || campName.get(g(r, c.campaignId)) || "",
+      adGroup: g(r, c.adGroup) || agName.get(g(r, c.adGroupId)) || "",
+      state: g(r, c.state).toLowerCase(),
+      targetingType: g(r, c.targetingType).toLowerCase(),
+      budget: toNumber(g(r, c.budget)),
+      bid: toNumber(g(r, c.bid)),
+      keyword: g(r, c.keyword).toLowerCase(),
+      matchType: g(r, c.matchType).toLowerCase(),
+      expression: g(r, c.expression).toLowerCase(),
+    }));
+}

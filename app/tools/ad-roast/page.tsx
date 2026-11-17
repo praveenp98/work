@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AdRoastTool } from "@/components/AdRoastTool";
+import { LeakEstimator } from "@/components/home/LeakEstimator";
 import { Faq } from "@/components/Faq";
 import { ToolJsonLd } from "@/components/ToolJsonLd";
 import { toolBySlug } from "@/lib/tools";
@@ -22,6 +23,11 @@ export default function Page() {
         Upload one Sponsored Products search term report. Rocco digs through every search term and tells you how much money is leaking, where, and exactly what to change.
       </p>
       <AdRoastTool />
+
+      <section style={{ marginTop: 48 }}>
+        <h2>No report handy? Estimate the leak.</h2>
+        <LeakEstimator />
+      </section>
 
       <section className="prose">
         <h2>How to download your search term report</h2>

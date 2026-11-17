@@ -1,0 +1,68 @@
+/* Connector-first homepage + connect page */
+.hero-mcp { grid-template-columns: 1.05fr 1fr; align-items: start; padding-top: 28px; }
+@media (max-width: 900px) { .hero-mcp { grid-template-columns: 1fr; } }
+.hero-mcp h1 { font-size: clamp(36px, 5.6vw, 60px); }
+.hero-chat { position: sticky; top: 80px; }
+@media (max-width: 900px) { .hero-chat { position: static; } }
+
+.connect { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 18px; box-shadow: var(--shadow); margin-top: 20px; }
+.connect-tabs { display: inline-flex; background: var(--soft); border-radius: 999px; padding: 4px; gap: 4px; margin-bottom: 12px; }
+.connect-tabs button { border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; color: var(--muted); }
+.connect-tabs button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.connect-label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.connect-url { display: flex; gap: 8px; align-items: center; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 6px 6px 6px 14px; }
+.connect-url code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font-size: 15px; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.connect-personal { margin-top: 10px; }
+.connect-steps { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; }
+.connect-steps li::marker { color: var(--accent); font-weight: 800; }
+
+.chat { background: var(--card); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 20px 60px rgba(19,22,28,.12); overflow: hidden; }
+.chat-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--soft); }
+.chat-bar .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.chat-bar .r { background: #ff5f57; } .chat-bar .y { background: #febc2e; } .chat-bar .g { background: #28c840; }
+.chat-bar .fine { margin-left: 8px; }
+.chat-body { height: 470px; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+.chat-you { align-self: flex-end; max-width: 82%; background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 18px 18px 4px 18px; font-size: 15px; animation: eat .35s ease both; }
+.chat-file { font-size: 12px; opacity: .8; margin-bottom: 4px; }
+.chat-tool { align-self: flex-start; font-size: 12px; color: var(--muted); background: var(--soft); border: 1px dashed var(--line); padding: 4px 10px; border-radius: 999px; animation: eat .3s ease both; }
+.chat-tool code { font-weight: 700; color: var(--accent-deep); }
+.chat-rocco { align-self: flex-start; display: flex; gap: 8px; max-width: 92%; animation: eat .35s ease both; }
+.chat-rocco > div { background: var(--soft); padding: 10px 14px; border-radius: 18px 18px 18px 4px; font-size: 15px; }
+.chat-rocco p { margin: 0; font-weight: 600; }
+.chat-rocco ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px; font-size: 14px; }
+.chat-time { align-self: center; font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin: 6px 0; }
+
+.jobs { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1000px) { .jobs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .jobs { grid-template-columns: 1fr; } }
+.job { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 4px; align-content: start; }
+.job-icon { font-size: 26px; }
+.job p { margin: 0 0 6px; font-size: 15px; }
+.job .tag { justify-self: start; margin: 0; }
+
+.play { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 18px; box-shadow: var(--shadow); }
+.play-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chipbtn { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 8px 14px; font-weight: 600; cursor: pointer; font-size: 14px; }
+.chipbtn:hover { border-color: var(--accent); }
+.chipbtn.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.play-out { background: var(--bg); border-radius: 16px; padding: 16px; min-height: 160px; max-height: 560px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.md { font-size: 15px; }
+.md h3 { font-size: 20px; margin: 4px 0 6px; }
+.md h4 { font-size: 16px; margin: 14px 0 6px; font-family: var(--display); }
+.md p { margin: 0 0 8px; }
+.md ul { margin: 0 0 8px; padding-left: 20px; display: grid; gap: 4px; }
+
+.loop { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; counter-reset: l; }
+.loop li { counter-increment: l; display: grid; grid-template-columns: 36px 1fr; column-gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.loop li::before { content: counter(l); grid-row: span 2; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; }
+.loop li span { color: var(--muted); font-size: 14px; }
+
+.tools-ref { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.tools-ref .card code { font-weight: 700; color: var(--accent-deep); }
+.dash-table td, .dash-table th { font-size: 14px; }
+.status { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--soft); white-space: nowrap; }
+.status.worked { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent-deep); }
+.status.worse { background: color-mix(in srgb, var(--hot) 18%, transparent); color: var(--warn); }
+
+.sm-only { display: none; }
+@media (max-width: 640px) { .lg-only { display: none; } .sm-only { display: inline; } .top nav .btn { white-space: nowrap; } }

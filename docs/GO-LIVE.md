@@ -22,13 +22,17 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 Products, license-key benefits and checkout links are set up and wired into the site (see `docs/POLAR-SETUP.md` → Status). No Polar env vars needed on Vercel.
 Left for Praveen: payout account, a test purchase (100% discount code) to see the license email and unlock flow end to end, and connecting Polar to TrustMRR.
 
-## 4. Waitlist: Supabase (5 min)
-SQL editor:
+## 4. Supabase: memory + waitlist (REQUIRED for personal connectors)
+Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't switched on" in production. The shared `/mcp` and all web tools still work.
+1. supabase.com → New project (free tier is fine).
+2. SQL editor → run `supabase/migrations/001_rocco_memory.sql` (workspaces, snapshots, runs, actions).
+3. SQL editor → waitlist table:
 ```sql
-create table waitlist (email text primary key, source text, created_at timestamptz default now());
-alter table waitlist enable row level security; -- server uses the service role key, no public policies
+create table if not exists waitlist (email text primary key, source text, created_at timestamptz default now());
+alter table waitlist enable row level security;
 ```
-Fill `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (server-only, never `NEXT_PUBLIC_`).
+4. Vercel env vars (server-only, never `NEXT_PUBLIC_`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. Redeploy.
+5. Test: rocco.works → "Get my personal Rocco" → add that URL in Claude → "Rocco, brief me".
 
 ## 5. Email + handles
 - `hello@rocco.works` (Google Workspace, Zoho or Cloudflare Email Routing → Gmail). Set SPF/DKIM/DMARC.

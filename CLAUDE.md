@@ -6,7 +6,7 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 07:30 IST): EXECUTING. rocco.works v2 built: mascot, redesigned site with aha moments, Ad Roast, BFCM Surge Plan, calculators, MCP connector at /mcp, 10 guides. Waiting on Polar IDs + Vercel deploy (`docs/GO-LIVE.md`). X posts: `docs/X-DAY1.md`.**
+> **STATUS (Nov 17, 2026, 10:30 IST): EXECUTING. Rocco = AI Amazon teammate inside Claude/ChatGPT. Personal MCP connectors with memory (`/mcp/<key>`), 5 report analyzers, change log + result checks, dashboard `/w/<key>`. Polar checkout live. Blockers: Vercel deploy, DNS A record, Supabase migration, tracker (`docs/GO-LIVE.md`).**
 
 ## Source-of-truth files
 | File | Purpose |

@@ -1,0 +1,45 @@
+-- Rocco memory: workspaces (personal connector URLs), report snapshots, proposal runs, applied changes.
+-- Run once in Supabase → SQL editor. Server uses the service role key; no public access (RLS on, no policies).
+
+create table if not exists workspaces (
+  id uuid primary key default gen_random_uuid(),
+  token_hash text not null unique,
+  data jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists snapshots (
+  id uuid primary key,
+  workspace_id uuid not null references workspaces(id) on delete cascade,
+  brand text not null,
+  kind text not null,
+  data jsonb not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists snapshots_ws on snapshots (workspace_id, created_at desc);
+
+create table if not exists runs (
+  id uuid primary key,
+  workspace_id uuid not null references workspaces(id) on delete cascade,
+  brand text not null,
+  kind text not null,
+  data jsonb not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists runs_ws on runs (workspace_id, created_at desc);
+
+create table if not exists actions (
+  id uuid primary key,
+  workspace_id uuid not null references workspaces(id) on delete cascade,
+  brand text not null,
+  status text not null,
+  applied_at timestamptz not null,
+  follow_up_at timestamptz not null,
+  data jsonb not null
+);
+create index if not exists actions_ws on actions (workspace_id, applied_at desc);
+
+alter table workspaces enable row level security;
+alter table snapshots enable row level security;
+alter table runs enable row level security;
+alter table actions enable row level security;

@@ -1,131 +1,123 @@
 import Link from "next/link";
+import { ChatDemo } from "@/components/connect/ChatDemo";
+import { ConnectBox } from "@/components/connect/ConnectBox";
+import { Playground } from "@/components/connect/Playground";
 import { JsonLd } from "@/components/JsonLd";
-import { LeakEstimator } from "@/components/home/LeakEstimator";
-import { LiveRoastDemo } from "@/components/home/LiveRoastDemo";
-import { RoastTicker } from "@/components/home/RoastTicker";
 import { Rocco } from "@/components/Rocco";
-import { WaitlistForm } from "@/components/WaitlistForm";
 import { SITE } from "@/lib/site";
-import { liveTools } from "@/lib/tools";
-
-const daysToBF = () => {
-  const ms = new Date("2026-11-27T00:00:00-05:00").getTime() - Date.now();
-  return Math.ceil(ms / 86400000);
-};
 
 export const revalidate = 3600;
 
+const JOBS = [
+  { icon: "☀️", title: "Morning brief", text: "What changed, what's due, what to do today. Ask “Rocco, brief me.”", reads: "Memory" },
+  { icon: "🧹", title: "Search term cleanup", text: "Negatives, winners to harvest, bid changes capped at ±20%.", reads: "Search term report" },
+  { icon: "💸", title: "Budget moves", text: "Finds profitable campaigns that run out of money, and the ones burning it.", reads: "Campaign report" },
+  { icon: "📦", title: "Stockout guard", text: "Eases off ads before a SKU runs dry. Flags dead and overstocked SKUs.", reads: "Restock report" },
+  { icon: "🛒", title: "Listing & buy box check", text: "ASINs with traffic but no conversions, lost buy box, TACoS.", reads: "Business Report" },
+  { icon: "🏗️", title: "Structure audit", text: "Auto campaigns with no negatives, keywords bidding against each other, crazy bids.", reads: "Bulk file" },
+  { icon: "📒", title: "Change log + results", text: "Every approved change is logged, re-checked a week later, and undoable.", reads: "Memory" },
+  { icon: "🦃", title: "Black Friday plan", text: "Day-by-day budgets and bids for Nov 19 – Dec 2, with guardrails.", reads: "Your numbers" },
+];
+
 export default function Home() {
-  const d = daysToBF();
   return (
     <>
-      <section className="hero">
+      <section className="hero hero-mcp">
         <div>
-          <span className="pill"><span className="dot" />{d > 0 ? `Black Friday in ${d} day${d === 1 ? "" : "s"}. Your ads are already bidding.` : "Peak season is live. Your ads are bidding right now."}</span>
-          <h1>Your Amazon ads are <span className="hl">leaking money.</span> Rocco finds it.</h1>
-          <p className="lede">Drop in one report. A very blunt raccoon digs through every search term, shows you exactly where the money goes, and hands you the fixes as a file you upload in minutes.</p>
-          <div className="ctas">
-            <Link href="/tools/ad-roast?utm_source=home&utm_medium=hero" className="btn">Roast my ads, free →</Link>
-            <Link href="#estimate" className="btn ghost">What could I be losing?</Link>
-          </div>
-          <div className="trust"><span>2 minutes</span><span>No login</span><span>Your file never leaves your browser</span><span>Pay once, no subscription</span></div>
+          <span className="pill"><span className="dot" />New · works inside Claude and ChatGPT</span>
+          <h1>Meet Rocco, your new <span className="hl">AI Amazon teammate.</span></h1>
+          <p className="lede">He reads your Seller Central and Ads reports, decides what to change, drafts every change, remembers what you did and checks if it worked. You approve. Rocco does the rest.</p>
+          <ConnectBox />
+          <p className="fine" style={{ marginTop: 10 }}>No AI assistant? <Link href="/tools/ad-roast">Use Rocco on the web →</Link></p>
         </div>
-        <div className="hero-art">
-          <RoastTicker />
-          <Rocco pose="hero" size={340} className="rocco" />
-        </div>
-      </section>
-
-      <section id="estimate">
-        <div className="section-head">
-          <span className="eyebrow">Aha #1 · 10 seconds</span>
-          <h2>How much is a &ldquo;little&rdquo; ad waste, really?</h2>
-          <p>Slide it. Most sellers never do this math, which is exactly why the leak keeps running.</p>
-        </div>
-        <LeakEstimator />
-      </section>
-
-      <section className="split">
-        <div className="section-head">
-          <span className="eyebrow">Aha #2 · watch it work</span>
-          <h2>Rocco judges every search term. Out loud.</h2>
-          <p>Cut the junk. Harvest the winners hiding in auto campaigns. Lower bids that buy customers at a loss. Every verdict comes with the reason and the dollar amount.</p>
-          <p className="muted">Then you get it all as a fix list and an upload-ready bulk file. You review it, you upload it. Rocco never logs into your account.</p>
-          <Link href="/tools/ad-roast?utm_source=home&utm_medium=demo" className="btn">Roast my real account →</Link>
-        </div>
-        <LiveRoastDemo />
-      </section>
-
-      <section>
-        <div className="section-head">
-          <span className="eyebrow">How it works</span>
-          <h2>Three steps. Two minutes. One honest raccoon.</h2>
-        </div>
-        <div className="howto">
-          <div className="card lift"><Rocco pose="wave" size={120} /><div className="num">STEP 1</div><h3>Download one report</h3><p className="muted">Your Sponsored Products search term report. Two clicks in Amazon Ads; we show you where.</p></div>
-          <div className="card lift"><Rocco pose="judge" size={120} /><div className="num">STEP 2</div><h3>Get roasted</h3><p className="muted">A–F Leak Score, dollars leaking per month and per year, and the exact search terms eating your budget.</p></div>
-          <div className="card lift"><Rocco pose="party" size={120} /><div className="num">STEP 3</div><h3>Upload the fixes</h3><p className="muted">Negatives, harvested winners and bid changes capped at ±20%, in a bulk file. You stay in control.</p></div>
+        <div className="hero-chat">
+          <ChatDemo />
+          <p className="fine" style={{ textAlign: "center", marginTop: 8 }}>Example conversation with sample numbers.</p>
         </div>
       </section>
 
       <section>
         <div className="section-head">
-          <span className="eyebrow">Rocco&apos;s greatest hits</span>
-          <h2>He&apos;s on your side. He&apos;s just not nice about it.</h2>
+          <span className="eyebrow">What Rocco does</span>
+          <h2>Most of the Amazon work, minus the spreadsheets.</h2>
+          <p>Drop any of these reports into your chat. Rocco works out which one it is and gets to work.</p>
         </div>
-        <div className="quotes">
-          <div className="quote">&ldquo;You bid on &lsquo;how to clean a cutting board&rsquo;. They wanted a sponge.&rdquo;<span className="fine">on junk-intent search terms</span></div>
-          <div className="quote">&ldquo;Your auto campaign found a winner three weeks ago. You never noticed. I did.&rdquo;<span className="fine">on missed keyword harvesting</span></div>
-          <div className="quote">&ldquo;52% ACoS isn&apos;t growth. It&apos;s a very expensive hobby.&rdquo;<span className="fine">on over-target search terms</span></div>
-          <div className="quote">&ldquo;Black Friday doubles your clicks. It also doubles your mistakes. Let&apos;s fix them first.&rdquo;<span className="fine">on peak season</span></div>
-        </div>
-      </section>
-
-      <section>
-        <div className="section-head">
-          <span className="eyebrow">Free tools</span>
-          <h2>Start with whatever hurts most</h2>
-        </div>
-        <div className="grid">
-          {liveTools().map((t) => (
-            <Link className="card" href={`/tools/${t.slug}`} key={t.slug}>
-              <span className="tag live">Free</span>
-              <h3>{t.name}</h3>
-              <p className="muted">{t.short}</p>
-              <span className="more">Open →</span>
-            </Link>
+        <div className="jobs">
+          {JOBS.map((j) => (
+            <div className="job" key={j.title}>
+              <span className="job-icon" aria-hidden>{j.icon}</span>
+              <h3>{j.title}</h3>
+              <p className="muted">{j.text}</p>
+              <span className="tag">{j.reads}</span>
+            </div>
           ))}
         </div>
       </section>
 
       <section>
         <div className="section-head">
-          <span className="eyebrow">Two ways to use Rocco</span>
-          <h2>No setup, or right inside your AI</h2>
+          <span className="eyebrow">Try it now · no install</span>
+          <h2>See exactly what your AI gets back.</h2>
+          <p>These buttons call Rocco&apos;s real connector with sample reports. Or drop in one of yours.</p>
+        </div>
+        <Playground />
+      </section>
+
+      <section className="split">
+        <div className="section-head">
+          <span className="eyebrow">Rocco remembers</span>
+          <h2>A teammate, not a one-off audit.</h2>
+          <p>With your personal connector, every change you approve goes into Rocco&apos;s log with the numbers from before. When the next report comes in, he checks whether it worked, flags anything that got worse, and tells you how to undo it.</p>
+        </div>
+        <ol className="loop">
+          <li><b>Analyze</b><span>any report you drop in</span></li>
+          <li><b>Approve</b><span>by code: “N1–N4, G2”</span></li>
+          <li><b>Apply</b><span>in Ads, by bulk file, or via Amazon&apos;s own connector</span></li>
+          <li><b>Check</b><span>results vs. before, a week later</span></li>
+          <li><b>Brief</b><span>every morning: what&apos;s next</span></li>
+        </ol>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <span className="eyebrow">You stay in charge</span>
+          <h2>Rocco never touches your account on his own.</h2>
         </div>
         <div className="grid">
-          <div className="card"><span className="tag live">Live</span><h3>On this site</h3><p className="muted">Drop a report, get the roast. No API keys, no account access, nothing to install.</p><Link className="more" href="/tools/ad-roast">Roast my ads →</Link></div>
-          <div className="card"><span className="tag live">Live</span><h3>Inside Claude and ChatGPT</h3><p className="muted">Add Rocco as a connector. Your AI gets Rocco&apos;s roast, calculators and operator playbook, and works beside Amazon&apos;s own Ads connector if you have one.</p><Link className="more" href="/connect">Connect Rocco →</Link></div>
-          <div className="card"><span className="tag">Pay once</span><h3>Founding lifetime deal</h3><p className="muted">No monthly bill, ever. Founding prices step up on Nov 27, Dec 1 and Dec 16.</p><Link className="more" href="/pricing">See prices →</Link></div>
+          <div className="card"><h3>Approval by code</h3><p className="muted">Nothing is applied until you approve specific changes.</p></div>
+          <div className="card"><h3>Safe steps</h3><p className="muted">Bids move ±20% max per step. Brand terms you protect are never negated.</p></div>
+          <div className="card"><h3>Undo for everything</h3><p className="muted">Each logged change comes with the exact steps to reverse it.</p></div>
+          <div className="card"><h3>Reports, not passwords</h3><p className="muted">Rocco works from reports you share. No Seller Central login, no API keys needed.</p></div>
         </div>
       </section>
 
       <section className="band">
         <Rocco pose="party" size={170} />
         <div>
-          <h2>Find your leak before Black Friday does.</h2>
-          <p>Free roast. Two minutes. The worst that happens is Rocco says something rude about your keywords.</p>
-          <Link href="/tools/ad-roast?utm_source=home&utm_medium=band" className="btn">Roast my ads →</Link>
+          <h2>Free to add. Pay once when he earns it.</h2>
+          <p>The brief, findings and top fixes are free. Every fix, full tracking and bulk files are a one-time founding price. No subscription.</p>
+          <div className="row">
+            <Link href="/pricing" className="btn">See founding prices →</Link>
+            <Link href="/connect" className="btn ghost" style={{ background: "transparent", color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Connector guide</Link>
+          </div>
         </div>
       </section>
 
       <section>
-        <h2>Rocco&apos;s Monday brief</h2>
-        <p className="muted">One email a week: the biggest Amazon ads leak Rocco saw, and how to fix it in 5 minutes. Unsubscribe anytime.</p>
-        <WaitlistForm source="home" />
+        <div className="section-head">
+          <span className="eyebrow">Prefer the web?</span>
+          <h2>Free tools, no AI needed</h2>
+        </div>
+        <div className="grid">
+          <Link className="card" href="/tools/ad-roast"><h3>Ad Roast</h3><p className="muted">Grade your search terms A–F in your browser.</p><span className="more">Open →</span></Link>
+          <Link className="card" href="/tools/bfcm-surge-plan"><h3>BFCM Surge Plan</h3><p className="muted">Black Friday budgets and bids, day by day.</p><span className="more">Open →</span></Link>
+          <Link className="card" href="/tools/coupon-calculator"><h3>Coupon Profit Calculator</h3><p className="muted">What a coupon really leaves you after fees.</p><span className="more">Open →</span></Link>
+          <Link className="card" href="/tools/breakeven-acos"><h3>Breakeven ACoS</h3><p className="muted">The ACoS where ads stop making money.</p><span className="more">Open →</span></Link>
+        </div>
       </section>
 
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />
     </>
   );
 }

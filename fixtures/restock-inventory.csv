@@ -1,0 +1,5 @@
+Country,Product Name,FNSKU,Merchant SKU,ASIN,Condition,Supplier,Supplier part no.,Currency code,Price,Sales last 30 days,Units Sold Last 30 Days,Total Units,Inbound,Available,FC transfer,FC Processing,Customer Order,Unfulfillable,Working,Shipped,Receiving,Fulfilled by,Total Days of Supply (including units from open shipments),Days of Supply at Amazon Fulfillment Network
+US,Bamboo Cutting Board Large,X001,BB-LG,B0BAMBOO01,New,,,USD,29.99,"$15,594.80",520,260,0,240,10,5,5,0,0,0,0,Amazon,14,14
+US,Bamboo Cutting Board Set of 3,X002,BB-SET3,B0BAMBOO02,New,,,USD,39.99,"$2,559.36",64,900,0,880,10,5,5,0,0,0,0,Amazon,420,412
+US,Charcuterie Board Large,X003,CH-LG,B0CHARC001,New,,,USD,39.99,"$5,998.50",150,130,200,120,5,3,2,0,0,200,0,Amazon,66,24
+US,Mini Serving Board,X004,MINI-1,B0CHARC002,New,,,USD,19.99,$0.00,0,75,0,75,0,0,0,0,0,0,0,Amazon,,

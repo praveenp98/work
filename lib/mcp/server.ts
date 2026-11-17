@@ -8,14 +8,22 @@ import { paybackDays, roast, type RoastResult } from "../rules/roast";
 import { surgePlan } from "../rules/surge";
 import { SITE } from "../site";
 import { PLAYBOOK, PLAYBOOK_TOPICS } from "./playbook";
+import type { Store, Workspace } from "../store/types";
+import { registerMemoryTools, registerStatelessTools } from "./memoryTools";
 
 export const MAX_REPORT_CHARS = 3_000_000;
 
-const INSTRUCTIONS = `Rocco is an Amazon ads operator: a blunt, funny raccoon who is always on the seller's side.
-Use these tools to audit Amazon Sponsored Products accounts and plan changes. Tools never touch the seller's Amazon account.
-Workflow: get the search term report (attached file, pasted CSV, or Amazon's own Ads connector if the user has it) → roast_ads_report → explain the top leaks in plain English with dollar amounts → present fixes as an approval list → only apply changes through another connector after the user explicitly approves each batch.
-Call amazon_ads_playbook for Rocco's rules (negatives, harvest, bids, budgets, BFCM, guardrails).
-Keep Rocco's voice light: one cheeky line per leak is plenty. Always mention that Rocco is not affiliated with Amazon if asked.`;
+const INSTRUCTIONS_BASE = `Rocco is the seller's AI Amazon teammate: he reads their Amazon reports, decides what to change, drafts the changes, remembers what was done and checks whether it worked. The seller approves; Rocco's tools never change the Amazon account themselves.
+Personality: a blunt, funny raccoon who is always on the seller's side. One cheeky line per finding is plenty; numbers first.
+Reports Rocco reads (CSV/TSV text, header row included): Sponsored Products search term report, SP campaign report, Business Report (by child item), Restock Inventory report, SP bulk file. Pass any of them to analyze_report; it detects the type.
+Present proposed changes as an approval list using their codes (N = negative, H = harvest, B = bid, G = budget, S = stock, F = structure). Never apply anything without the seller's explicit approval of specific codes. If the seller also has Amazon's own Ads connector, you may use it to pull reports and, only after approval, apply exactly the approved codes.
+Call amazon_ads_playbook for Rocco's rules. Rocco is not affiliated with Amazon.`;
+
+const INSTRUCTIONS_MEMORY = `${INSTRUCTIONS_BASE}
+This connector has memory (a personal Rocco workspace). Start each conversation with rocco_brief. After the seller applies approved codes, call apply_changes so Rocco can check results on the next report. Use set_brand_settings when the seller mentions target ACoS, breakeven, brand terms to protect, or a new brand.`;
+
+const INSTRUCTIONS_STATELESS = `${INSTRUCTIONS_BASE}
+This is the shared connector without memory. If the seller wants Rocco to remember changes and check results, call create_workspace and tell them to add their personal connector URL.`;
 
 const money = (c: string, n: number) => `${c}${Math.round(n).toLocaleString("en-US")}`;
 const pct = (n: number) => (n < 0 ? "n/a" : `${Math.round(n * 100)}%`);
@@ -52,8 +60,21 @@ export function roastSummary(r: RoastResult, full: boolean): string {
   return lines.join("\n");
 }
 
-export function buildServer() {
-  const server = new McpServer({ name: "rocco", version: "1.0.0", title: "Rocco: Amazon ads operator" }, { instructions: INSTRUCTIONS });
+export interface McpContext {
+  store: Store;
+  ws: Workspace;
+  token: string;
+}
+
+export function buildServer(ctx?: McpContext) {
+  const server = new McpServer({ name: "rocco", version: "2.0.0", title: "Rocco: your AI Amazon teammate" }, { instructions: ctx ? INSTRUCTIONS_MEMORY : INSTRUCTIONS_STATELESS });
+  registerCoreTools(server, ctx);
+  if (ctx) registerMemoryTools(server, ctx);
+  else registerStatelessTools(server);
+  return server;
+}
+
+function registerCoreTools(server: McpServer, ctx?: McpContext) {
   const ro = { readOnlyHint: true, destructiveHint: false, openWorldHint: false };
 
   server.registerTool(
@@ -81,7 +102,7 @@ export function buildServer() {
       } catch (e) {
         return { isError: true, content: [{ type: "text" as const, text: e instanceof Error ? e.message : "Couldn't parse that report." }] };
       }
-      let full = false;
+      let full = ctx?.ws.licensed ?? false;
       let note = "";
       if (license_key) {
         const v = await validatePolarKey(license_key);
@@ -175,5 +196,5 @@ export function buildServer() {
     },
   );
 
-  return server;
 }
+

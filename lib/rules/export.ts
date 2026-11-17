@@ -1,5 +1,6 @@
 import { k, type BulkIndex } from "../parsers/bulk";
 import type { RoastResult } from "./roast";
+import type { Proposal } from "./types";
 
 const esc = (v: unknown) => {
   const s = String(v ?? "");
@@ -17,6 +18,44 @@ export function fixListCsv(r: RoastResult): string {
 }
 
 const BULK_HEADER = ["Product", "Entity", "Operation", "Campaign ID", "Ad Group ID", "Keyword ID", "Product Targeting ID", "Campaign Name (Informational only)", "Ad Group Name (Informational only)", "State", "Bid", "Keyword Text", "Match Type", "Product Targeting Expression"];
+
+/** Plain fix list from generic proposals (any report type). */
+export function proposalsCsv(ps: Proposal[]): string {
+  return toCsv([
+    ["Code", "Type", "Campaign", "Ad group", "Keyword / target / SKU", "Match type", "Current", "New", "Why", "Est. $/month", "How to undo"],
+    ...ps.map((p) => [p.code, p.kind, p.campaign, p.adGroup, p.target, p.matchType ?? "", p.current ?? "", p.proposed ?? "", p.reason, p.valueMonthly || "", p.undo]),
+  ]);
+}
+
+/**
+ * Bulksheets 2.0 rows for approved proposals using the seller's bulk-file IDs:
+ * negatives (create), bids (update, scaled from the real current bid), budgets (update).
+ * Harvests and stock/structure items stay in the fix list (they need the seller's choice of campaign).
+ */
+export function proposalsBulkCsv(ps: Proposal[], idx: BulkIndex): { csv: string; matched: number; skipped: string[] } {
+  const rows: unknown[][] = [[...BULK_HEADER, "Daily Budget"]];
+  const skipped: string[] = [];
+  for (const p of ps) {
+    const cid = idx.campaigns.get(k(p.campaign));
+    const aid = idx.adGroups.get(k(p.campaign, p.adGroup));
+    if (p.kind === "budget" && cid && p.proposed) { rows.push(["Sponsored Products", "Campaign", "Update", cid, "", "", "", p.campaign, "", "", "", "", "", "", p.proposed]); continue; }
+    if (p.kind === "negative" && cid && aid) {
+      if (p.matchType === "negative product") rows.push(["Sponsored Products", "Negative Product Targeting", "Create", cid, aid, "", "", p.campaign, p.adGroup, "enabled", "", "", "", `asin="${p.target.toUpperCase()}"`, ""]);
+      else rows.push(["Sponsored Products", "Negative Keyword", "Create", cid, aid, "", "", p.campaign, p.adGroup, "enabled", "", p.target, "negativeExact", "", ""]);
+      continue;
+    }
+    if (p.kind === "bid" && cid && aid && p.current && p.proposed) {
+      const kw = idx.keywords.get(k(p.campaign, p.adGroup, p.target, p.matchType ?? ""));
+      const tg = idx.targets.get(k(p.campaign, p.adGroup, p.target));
+      const cur = (kw ?? tg)?.bid ?? 0;
+      const bid = cur > 0 ? Math.max(0.02, Math.round(cur * (p.proposed / p.current) * 100) / 100) : p.proposed;
+      if (kw) { rows.push(["Sponsored Products", "Keyword", "Update", cid, aid, kw.id, "", p.campaign, p.adGroup, "", bid, p.target, (p.matchType ?? "").toLowerCase(), "", ""]); continue; }
+      if (tg) { rows.push(["Sponsored Products", "Product Targeting", "Update", cid, aid, "", tg.id, p.campaign, p.adGroup, "", bid, "", "", p.target, ""]); continue; }
+    }
+    skipped.push(p.code);
+  }
+  return { csv: toCsv(rows), matched: rows.length - 1, skipped };
+}
 
 /**
  * Bulksheets 2.0 rows for negatives and bid updates, using IDs from the seller's own bulk export.

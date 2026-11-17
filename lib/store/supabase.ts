@@ -1,0 +1,70 @@
+import type { Action, Run, Snapshot, Store, Workspace } from "./types";
+
+/**
+ * Supabase (PostgREST) store. Server-only: uses the service role key.
+ * Schema: supabase/migrations/001_rocco_memory.sql. Rows keep their payload in a `data` jsonb column.
+ */
+export class SupabaseStore implements Store {
+  readonly persistent = true;
+  constructor(private url: string, private key: string) {}
+
+  private async q<T>(path: string, init: RequestInit = {}): Promise<T> {
+    const res = await fetch(`${this.url}/rest/v1/${path}`, {
+      ...init,
+      headers: { apikey: this.key, Authorization: `Bearer ${this.key}`, "Content-Type": "application/json", Prefer: "return=representation", ...(init.headers ?? {}) },
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Rocco memory error (${res.status}): ${(await res.text()).slice(0, 200)}`);
+    const text = await res.text();
+    return (text ? JSON.parse(text) : null) as T;
+  }
+
+  async createWorkspace(tokenHash: string) {
+    const data = { createdAt: new Date().toISOString(), licensed: false, brands: {} };
+    const [row] = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>("workspaces", { method: "POST", body: JSON.stringify({ token_hash: tokenHash, data }) });
+    return { id: row.id, ...row.data };
+  }
+  async getWorkspace(tokenHash: string) {
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?token_hash=eq.${encodeURIComponent(tokenHash)}&select=id,data&limit=1`);
+    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+  }
+  async saveWorkspace(w: Workspace) {
+    const { id, ...data } = w;
+    await this.q(`workspaces?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ data }), headers: { Prefer: "return=minimal" } });
+  }
+
+  async addSnapshot(s: Snapshot) {
+    await this.q("snapshots", { method: "POST", body: JSON.stringify({ id: s.id, workspace_id: s.workspaceId, brand: s.brand, kind: s.kind, created_at: s.createdAt, data: s }), headers: { Prefer: "return=minimal" } });
+  }
+  async listSnapshots(id: string, o: { brand?: string; kind?: string; limit?: number } = {}) {
+    const f = [`workspace_id=eq.${id}`, o.brand ? `brand=eq.${encodeURIComponent(o.brand)}` : "", o.kind ? `kind=eq.${o.kind}` : ""].filter(Boolean).join("&");
+    const rows = await this.q<{ data: Snapshot }[]>(`snapshots?${f}&select=data&order=created_at.desc&limit=${o.limit ?? 50}`);
+    return rows.map((r) => r.data);
+  }
+
+  async addRun(r: Run) {
+    await this.q("runs", { method: "POST", body: JSON.stringify({ id: r.id, workspace_id: r.workspaceId, brand: r.brand, kind: r.kind, created_at: r.createdAt, data: r }), headers: { Prefer: "return=minimal" } });
+  }
+  async getRun(id: string, runId?: string, brand?: string) {
+    const f = [`workspace_id=eq.${id}`, runId ? `id=eq.${runId}` : "", brand ? `brand=eq.${encodeURIComponent(brand)}` : ""].filter(Boolean).join("&");
+    const rows = await this.q<{ data: Run }[]>(`runs?${f}&select=data&order=created_at.desc&limit=1`);
+    return rows[0]?.data ?? null;
+  }
+  async listRuns(id: string, o: { limit?: number } = {}) {
+    const rows = await this.q<{ data: Run }[]>(`runs?workspace_id=eq.${id}&select=data&order=created_at.desc&limit=${o.limit ?? 20}`);
+    return rows.map((r) => r.data);
+  }
+
+  async addActions(a: Action[]) {
+    if (!a.length) return;
+    await this.q("actions", { method: "POST", body: JSON.stringify(a.map((x) => ({ id: x.id, workspace_id: x.workspaceId, brand: x.brand, status: x.status, applied_at: x.appliedAt, follow_up_at: x.followUpAt, data: x }))), headers: { Prefer: "return=minimal" } });
+  }
+  async listActions(id: string, o: { brand?: string; status?: Action["status"][]; limit?: number } = {}) {
+    const f = [`workspace_id=eq.${id}`, o.brand ? `brand=eq.${encodeURIComponent(o.brand)}` : "", o.status ? `status=in.(${o.status.join(",")})` : ""].filter(Boolean).join("&");
+    const rows = await this.q<{ data: Action }[]>(`actions?${f}&select=data&order=applied_at.desc&limit=${o.limit ?? 200}`);
+    return rows.map((r) => r.data);
+  }
+  async saveAction(a: Action) {
+    await this.q(`actions?id=eq.${a.id}`, { method: "PATCH", body: JSON.stringify({ status: a.status, follow_up_at: a.followUpAt, data: a }), headers: { Prefer: "return=minimal" } });
+  }
+}

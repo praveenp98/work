@@ -4,6 +4,19 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (10:30) · Rocco becomes a daily AI teammate (MCP-first)
+- Praveen's direction: position Rocco as a new AI who does most of the Amazon work; lead the site with the connector so a seller can add it to Claude/ChatGPT and try it immediately; Rocco tracks past actions and suggests new ones.
+- **New analyzers** (auto-detected by header row, fixtures + tests): SP campaign report → budget shift (capped profitable winners +25%, losers above breakeven −20%); Business Report → traffic-but-no-conversion ASINs, buy box < 90%, TACoS (uses last ads snapshot); Restock Inventory → stockout guard (≤14 days), no-raise (≤21), overstock, dead stock; bulk file → structure audit (auto w/o negatives, duplicate keywords across campaigns, bid outliers, huge ad groups).
+- **Memory** (`lib/store`, `lib/workspace.ts`, `supabase/migrations/001_rocco_memory.sql`): personal workspaces keyed by a secret token; every analysis saves a snapshot + coded proposals (N/H/B/G/S/F); approved codes become logged changes with before-metrics, undo steps and a follow-up date; newer reports automatically judge them (worked / no effect / worse / not enough data) incl. measured savings; per-brand settings (target/breakeven ACoS, click threshold, protected brand terms never negated).
+- **MCP v2:** personal connector `rocco.works/mcp/<key>` with tools rocco_brief, analyze_report, apply_changes, list_changes, revert_changes, set_brand_settings, export_changes (fix list + Bulksheets rows with real IDs, incl. budgets), activate_license, workspace_link; shared `/mcp` keeps no-memory tools + create_workspace. Free = top 3 fixes per report (shown, tracked, briefed); license = everything + exports.
+- **Site:** homepage now leads with the connector: "Meet Rocco, your new AI Amazon teammate", copy-URL box with Claude/ChatGPT steps and one-click personal workspace, a self-playing chat demo, 8 daily jobs, a live Playground calling the real `/mcp` on sample reports (or your own file), the memory loop, guardrails. `/connect` = full guide (tools in plain English, where to download each report). `/w/<key>` dashboard: trends, open fixes, change log with results.
+- Tests: 55 passing. Build clean. Browser flow verified (playground, workspace creation, MCP apply, dashboard); no mobile horizontal scroll.
+- **Blocker for memory in production:** Supabase project + migration + 2 env vars (see `docs/GO-LIVE.md` §4).
+- Next: deploy; real-world report variants (Sponsored Brands/Display, EU marketplaces); MCP directory listings; OG images; BFCM Post-Mortem.
+- Numbers: revenue $0 · marketing cost $0.
+
+---
+
 ## 2026-11-17 (08:15) · DNS
 - Praveen shared GoDaddy DNS: www CNAME to Vercel already set. Only change left: apex `A @` from Parked → 76.76.21.21 (or Vercel's shown IP); forwarding off. Email DNS (MX/SPF/DKIM) later with the mailbox. Logged in `docs/GO-LIVE.md`.
 
