@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Rocco's brain + "text me your report"
+- lib/brain.ts (Anthropic SDK, claude-opus-5-5, effort low, server-side refusal fallback "default", cached system prompt in lib/prompts/text-reply.ts). Off until ANTHROPIC_API_KEY is set.
+- Free-text texts ("why is ACoS up?") answered from the team's context (about, brief, latest snapshots + findings, pending approvals). Screenshots (iMessage attachments) read with vision.
+- Texted CSV/TSV reports run through Rocco's own engine immediately (no key needed), also as someone's very first text (skips the intro: value first).
+- Webhook attachments parsed (strings or {url}, https only). /api/health shows brain status.
+- Tests 113/113 (brain calls stubbed).
+
+---
+
 ## 2026-11-17 (late) · Fire alarms: suppressed listings + Buy Box
 - New report kind listing_health (All Listings / Suppressed Listings report, or Listings Items API JSON with issues). Flags suppressed/inactive/incomplete listings with Amazon's reason.
 - Business Report now records Buy Box <90% counts (buyBoxLow, buyBoxWorst).

@@ -36,7 +36,7 @@ describe("LoopMessage provider (per loopmessage.com/apidocs)", () => {
 
 describe("parseInbound", () => {
   it("reads message_inbound and ignores statuses", () => {
-    expect(parseInbound({ event: "message_inbound", contact: "+13231112233", text: "numbers", webhook_id: "w1" })).toEqual({ id: "w1", contact: "+13231112233", text: "numbers", linkCode: undefined, optIn: false, line: undefined });
+    expect(parseInbound({ event: "message_inbound", contact: "+13231112233", text: "numbers", webhook_id: "w1" })).toEqual({ id: "w1", contact: "+13231112233", text: "numbers", linkCode: undefined, optIn: false, line: undefined, attachments: [] });
     expect(parseInbound({ event: "message_delivered", contact: "+1", text: "x" })).toBeNull();
   });
   it("picks up the workspace link code from opt-in parameters", () => {

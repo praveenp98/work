@@ -67,7 +67,7 @@ function line(b: Record<string, unknown>): string | undefined {
 }
 
 /** Normalize a LoopMessage webhook into what Rocco needs. Returns null for events Rocco ignores (statuses, reactions). */
-export function parseInbound(b: Record<string, unknown>): { id: string; contact: string; text: string; linkCode?: string; optIn: boolean; line?: string } | null {
+export function parseInbound(b: Record<string, unknown>): { id: string; contact: string; text: string; linkCode?: string; optIn: boolean; line?: string; attachments: string[] } | null {
   const event = String(b.event ?? b.alert_type ?? "");
   if (event !== "message_inbound") return null;
   lastInbound.keys = Object.keys(b).sort();
@@ -77,7 +77,10 @@ export function parseInbound(b: Record<string, unknown>): { id: string; contact:
   const params = (b.parameters ?? {}) as Record<string, unknown>;
   const linkCode = typeof params.link === "string" && /^[A-Za-z0-9]{6}$/.test(params.link) ? params.link.toUpperCase() : undefined;
   const text = stripOptInCode(String(b.text ?? "").slice(0, 2000));
-  return { id: String(b.webhook_id ?? b.message_id ?? ""), contact, text, linkCode, optIn: b.type === "opt_in", line: line(b) };
+  // Photos/files the person sent (https URLs; shape varies: strings or { url }).
+  const raw = Array.isArray(b.attachments) ? b.attachments : Array.isArray(b.media) ? b.media : [];
+  const attachments = raw.map((a) => (typeof a === "string" ? a : String((a as Record<string, unknown>)?.url ?? ""))).filter((u) => /^https:\/\//.test(u)).slice(0, 4);
+  return { id: String(b.webhook_id ?? b.message_id ?? ""), contact, text, linkCode, optIn: b.type === "opt_in", line: line(b), attachments };
 }
 
 /** LoopMessage retries webhooks up to 30×: remember recent ids so Rocco never answers twice (per server instance). */

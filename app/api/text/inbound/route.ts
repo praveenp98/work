@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
   // Personal opt-in links carry the workspace link code → link automatically.
   const text = msg.linkCode ? `link ${msg.linkCode}` : msg.text || "hi";
-  const reply = await respond(store, msg.contact, text);
+  const reply = await respond(store, msg.contact, text, new Date(), { attachments: msg.attachments });
   // Separate bubbles, like a person texting. Then Rocco's contact card (name + photo) on the first hello.
   let sent = { ok: true, dryRun: false };
   for (const [i, b] of reply.bubbles.entries()) {

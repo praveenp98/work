@@ -1,7 +1,7 @@
 import { REPORT_HELP, type ReportKind } from "../analyze";
 import { benchmark } from "../rules/benchmarks";
 import type { Store } from "../store/types";
-import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken } from "../workspace";
+import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken, runAnalysis } from "../workspace";
 import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
@@ -9,6 +9,9 @@ import { optInLinks } from "./provider";
 import { paywall, type Moment } from "../paywall";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { demoMorning } from "../demo";
+import { askRocco, brainOn } from "../brain";
+import { formatBrief } from "../mcp/format";
+import Papa from "papaparse";
 
 const SITE_URL = "https://rocco.works";
 /** One personal link: opens the one-step-at-a-time start page (plug in Amazon) or the dashboard once data flows. */
@@ -76,12 +79,47 @@ export async function handleInbound(store: Store, from: string, text: string, no
 
 const bubbles = (s: string): Reply => ({ bubbles: [s] });
 
-export async function respond(store: Store, from: string, text: string, now = new Date()): Promise<Reply> {
-  const r = await core(store, from, text, now);
+export async function respond(store: Store, from: string, text: string, now = new Date(), opts: { attachments?: string[] } = {}): Promise<Reply> {
+  const r = await core(store, from, text, now, opts.attachments ?? []);
   return typeof r === "string" ? bubbles(r) : r;
 }
 
-async function core(store: Store, from: string, text: string, now: Date): Promise<string | Reply> {
+/** Everything Rocco knows about a team, as plain text for the brain. */
+async function teamContext(store: Store, ws: Workspace, now: Date): Promise<string> {
+  const b = await buildBrief(store, ws, now);
+  const L = [ws.about ? `They said: ${ws.about}` : "", ws.licensed ? "Plan: hired (all fixes unlocked)." : "Plan: free (top 3 fixes per report unlocked).", formatBrief(b)];
+  const snaps = await store.listSnapshots(ws.id, { limit: 8 });
+  for (const s of snaps) {
+    const f = (s.extra?.findings ?? []).slice(0, 4).map((x) => `  • ${x.title}`).join("\n");
+    L.push(`${s.kind} (${s.createdAt.slice(0, 10)}): ${s.headline}${f ? `\n${f}` : ""}`);
+  }
+  if (ws.pending?.length) L.push(`Approved by text, waiting to be applied: ${ws.pending.flatMap((p) => p.codes).join(", ")}`);
+  return L.filter(Boolean).join("\n").slice(0, 12000);
+}
+
+const isTable = (u: string) => /\.(csv|tsv|txt)(\?|$)/i.test(u);
+
+/** A report file (CSV/TSV) texted to Rocco: run it through the same engine as Claude does. Works without the brain. */
+async function readReport(store: Store, ws: Workspace, url: string, now: Date): Promise<Reply> {
+  const res = await fetch(url).catch(() => null);
+  const body = res?.ok ? await res.text().catch(() => "") : "";
+  if (!body || body.length > 5_000_000) return { bubbles: ["I couldn't open that file. Try sending it again, or plug in Amazon and I'll pull it myself 👇", homeUrl(revealToken(ws))] };
+  try {
+    const table = Papa.parse<unknown[]>(body, { skipEmptyLines: true }).data;
+    const brand = Object.keys(ws.brands)[0] ?? DEFAULT_BRAND;
+    const { out } = await runAnalysis(store, ws, brand, table);
+    const b = await buildBrief(store, ws, now);
+    const open = [...(b.perBrand.find((x) => x.brand === brand)?.open ?? [])].sort((a, c) => c.valueMonthly - a.valueMonthly).slice(0, 3);
+    const L = [`📥 Got your ${REPORT_HELP[out.kind].name}. ${out.analysis.headline}`];
+    for (const o of open) L.push(`• ${o.code}: ${o.reason.slice(0, 90)}`);
+    if (open.length) L.push(`Reply YES ${open.map((o) => o.code).join(" ")} to approve.`);
+    return { bubbles: [L.join("\n"), ...(await nudge(store, ws, b, now))] };
+  } catch (e) {
+    return { bubbles: [e instanceof Error ? e.message : "I couldn't read that report."] };
+  }
+}
+
+async function core(store: Store, from: string, text: string, now: Date, attachments: string[] = []): Promise<string | Reply> {
   const phone = normPhone(from);
   const cmd = parseCommand(text);
 
@@ -104,8 +142,10 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
     const { token, ws } = await createWorkspace(store);
     await rememberToken(store, ws, token);
     await ensureLinkCode(store, ws);
-    await store.savePhone({ phone, workspaceId: ws.id, optedOut: false, createdAt: now.toISOString(), lastSeenAt: now.toISOString(), stage: "intro" });
-    return {
+    const value = attachments.length > 0; // they opened with a report or screenshot: answer it, skip the intro
+    p = { phone, workspaceId: ws.id, optedOut: false, createdAt: now.toISOString(), lastSeenAt: now.toISOString(), ...(value ? {} : { stage: "intro" as const }) };
+    await store.savePhone(p);
+    if (!value) return {
       bubbles: [
         "Hey, I'm Rocco 🦝 I run Amazon with your team: ads, sales and stock, right here in iMessage.",
         "Who am I talking to, and what do you sell on Amazon?",
@@ -116,6 +156,14 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
   const ws = await store.getWorkspaceById(p.workspaceId);
   if (!ws) return "I lost track of your team. Ask a teammate to text me “invite” and send you the link.";
   await store.savePhone({ ...p, stage: undefined, lastSeenAt: now.toISOString(), optedOut: cmd.kind === "stop" ? true : cmd.kind === "start" ? false : p.optedOut });
+
+  if (attachments.length && ws) {
+    const file = attachments.find(isTable);
+    if (file) return readReport(store, ws, file, now);
+    const answer = await askRocco({ question: text, context: await teamContext(store, ws, now), images: attachments });
+    if (answer) return { bubbles: [answer, ...(revealToken(ws) && !(await buildBrief(store, ws, now)).perBrand.some((x) => x.trends.length) ? ["For exact fixes, plug in Amazon 👇", homeUrl(revealToken(ws))] : [])] };
+    return { bubbles: ["Got it 🦝 I can't read screenshots yet. Text me the report as a CSV (Seller Central or Ads → Reports → Download) and I'll find the fixes, or plug in Amazon 👇", homeUrl(revealToken(ws))] };
+  }
 
   if (p.stage === "intro" && cmd.kind === "ask") {
     ws.about = text.trim().slice(0, 500);
@@ -201,6 +249,10 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
       return { bubbles: [...(L.length ? [L.join("\n")] : []), ...pay] };
     }
     case "ask": {
+      if (brainOn()) {
+        const answer = await askRocco({ question: text, context: await teamContext(store, ws, now) });
+        if (answer) return answer;
+      }
       const kinds = TOPIC_KIND[cmd.topic];
       const snaps = (await Promise.all(kinds.map((k) => store.listSnapshots(ws.id, { kind: k, limit: 1 })))).flat();
       if (!snaps.length) return `I don't have ${cmd.topic === "general" ? "any" : cmd.topic} numbers yet. In Claude/ChatGPT say “Rocco, morning check” and I'll know everything by tomorrow.`;

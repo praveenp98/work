@@ -72,3 +72,7 @@ npm test        # rules + parsers unit tests
 - Webhook alerts: Message Inbound must be on (others are fine; Rocco ignores them)
 **Test:** /api/health shows loopmessage "set". From your iPhone text Rocco "hi" → onboarding reply. Open your dashboard → "Text Rocco from this phone" (personal opt-in link, links your phone automatically) or text `link CODE` → "numbers" → "yes N1" → in Claude "Rocco, brief me" shows the text approval.
 **Sandbox notes (from LoopMessage helpdesk):** up to 5 sandbox contacts; a contact must message first, which opens a 24-hour window (resets on every inbound); while your number is in the sandbox list, all sends/webhooks for it go through the sandbox. Remove it from the sandbox list when you move to the real sender. Morning texts only reach people inside their window on sandbox/shared senders.
+
+
+## 10. Rocco's brain (optional, recommended)
+Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redeploy. Turns on: real answers to free-text texts (from the team's own data) and reading screenshots people text Rocco. Model: Claude Opus 5.5 at low effort, with Anthropic's automatic refusal fallback. Without it, Rocco uses rule-based replies, and texted CSV reports still work. Check /api/health → brain.
