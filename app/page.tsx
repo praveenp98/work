@@ -11,7 +11,7 @@ export const revalidate = 60;
 /** Boardy-style: Rocco introduces himself, one action, nothing else. */
 export default async function Home() {
   const price = await getPriceState();
-  const number = process.env.NEXT_PUBLIC_ROCCO_IMESSAGE || undefined;
+  const optIn = process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
   return (
     <section className="hello">
       <div className="hello-avatar">
@@ -23,7 +23,7 @@ export default async function Home() {
         I run Amazon with your team. Text me anything about your ads, sales or stock. I send your numbers every morning and fix things when you reply <b>yes</b>.
       </p>
       <div className="hello-cta">
-        <TextRoccoButton number={number} />
+        <TextRoccoButton href={optIn} />
         <Link href="/setup" className="one-alt">or use me in Claude / ChatGPT</Link>
       </div>
       <div className="hello-thread" aria-label="Example texts with Rocco">

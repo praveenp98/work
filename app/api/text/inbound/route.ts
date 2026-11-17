@@ -1,29 +1,29 @@
 import { NextResponse } from "next/server";
 import { getStore } from "@/lib/store";
 import { handleInbound } from "@/lib/text/handler";
-import { sendText } from "@/lib/text/provider";
+import { firstDelivery, parseInbound, sendText } from "@/lib/text/provider";
 
 /**
- * Inbound texts (LoopMessage webhook). Set the webhook's auth header to TEXT_WEBHOOK_SECRET.
- * Payload fields vary by provider; we read the sender from recipient/from/sender and the body from text/message.
+ * LoopMessage webhook. In LoopMessage → API → Webhooks, set the URL to https://rocco.works/api/text/inbound and add a
+ * custom header `Authorization: <TEXT_WEBHOOK_SECRET>`. Must answer 200 within 15s or LoopMessage retries.
  */
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const secret = process.env.TEXT_WEBHOOK_SECRET;
-  if (secret && req.headers.get("authorization") !== secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return NextResponse.json({ ok: false }, { status: 401 });
-  }
+  const got = req.headers.get("authorization");
+  if (secret && got !== secret && got !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "TEXT_WEBHOOK_SECRET not set" }, { status: 503 });
-  const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
-  const type = String(body.alert_type ?? body.type ?? "message_inbound");
-  if (!/inbound|received|message$/.test(type)) return NextResponse.json({ ok: true, ignored: type });
-  const from = String(body.recipient ?? body.from ?? body.sender ?? body.number ?? "");
-  const text = String(body.text ?? body.message ?? body.body ?? "").slice(0, 2000);
-  if (!from || !text.trim()) return NextResponse.json({ ok: true, ignored: "empty" });
+
+  const msg = parseInbound((await req.json().catch(() => ({}))) as Record<string, unknown>);
+  if (!msg) return NextResponse.json({ ok: true, ignored: true }); // statuses, reactions, etc.
+  if (!firstDelivery(msg.id)) return NextResponse.json({ ok: true, duplicate: true });
   const store = getStore();
-  if (!store) return NextResponse.json({ ok: false, error: "memory not configured" }, { status: 503 });
-  const reply = await handleInbound(store, from, text);
-  const sent = await sendText(from, reply);
-  return NextResponse.json({ ok: sent.ok, dryRun: sent.dryRun });
+  if (!store) return NextResponse.json({ ok: true, error: "memory not configured" });
+
+  // Personal opt-in links carry the workspace link code → link automatically.
+  const text = msg.linkCode ? `link ${msg.linkCode}` : msg.text || "hi";
+  const reply = await handleInbound(store, msg.contact, text);
+  const sent = await sendText(msg.contact, reply);
+  return NextResponse.json({ ok: true, sent: sent.ok, dryRun: sent.dryRun });
 }

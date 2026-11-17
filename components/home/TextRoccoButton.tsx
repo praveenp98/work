@@ -2,17 +2,14 @@
 import { useState } from "react";
 
 /**
- * The one action on the homepage. With a Rocco iMessage number configured it opens Messages
- * with a first text ready to send; until then it collects a phone/email for the launch of the line.
+ * The one action on the homepage. With LoopMessage's opt-in link configured it opens Messages with a
+ * first text (incl. the opt-in code) ready to send; until then it collects a phone/email for launch.
  */
-export function TextRoccoButton({ number }: { number?: string }) {
+export function TextRoccoButton({ href }: { href?: string }) {
   const [open, setOpen] = useState(false);
   const [contact, setContact] = useState("");
   const [state, setState] = useState<"idle" | "busy" | "done" | "error">("idle");
-  if (number) {
-    const body = encodeURIComponent("Hi Rocco 👋");
-    return <a className="btn imsg-btn" href={`sms:${number}&body=${body}`}>💬 Text Rocco</a>;
-  }
+  if (href) return <a className="btn imsg-btn" href={href}>💬 Text Rocco</a>;
   return (
     <div className="textcta">
       {!open ? (

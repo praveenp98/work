@@ -59,10 +59,16 @@ npm test        # rules + parsers unit tests
 - MCP `setup_check` tool walks sellers through whatever connector is missing from inside the chat.
 - Caveats: Amazon Ads connector needs an approved Amazon Ads API app (Login with Amazon); Selling Partner connector is beta and US-first. Verify these URLs in a real account once (Praveen).
 
-## 9. Text Rocco (iMessage) — built Nov 17, runs in dry-run until keys are set
-1. Supabase: re-run `supabase/setup.sql` (safe to re-run; adds the `phones` table).
-2. LoopMessage ($59 plan): get auth key, secret key, sender name → Vercel env `LOOPMESSAGE_AUTH_KEY`, `LOOPMESSAGE_SECRET_KEY`, `LOOPMESSAGE_SENDER`; Rocco's number/handle → `NEXT_PUBLIC_ROCCO_IMESSAGE` (turns the homepage button into a real "open Messages" link).
-3. LoopMessage webhook → `https://rocco.works/api/text/inbound`, auth header = a random string you also put in `TEXT_WEBHOOK_SECRET`.
-4. `CRON_SECRET` (random string) in Vercel; `vercel.json` sends morning numbers daily at 12:30 UTC (7:30 a.m. ET).
-5. Test from your iPhone: text "hi" → onboarding; open your dashboard → "Text Rocco now" (sends "link CODE") → "numbers" → "yes N1 N2" → in Claude say "Rocco, brief me" and see the approvals waiting.
-Verify at LoopMessage signup: send endpoint/headers (`lib/text/provider.ts`), webhook payload field names (`app/api/text/inbound/route.ts` reads recipient/from + text), outbound-first rules, SMS/Android fallback.
+## 9. Text Rocco (LoopMessage) — matched to loopmessage.com/apidocs (Nov 17)
+**Vercel → Environment Variables (Production), then Redeploy:**
+- `LOOPMESSAGE_API_KEY` = LoopMessage → API → Settings → API key
+- `LOOPMESSAGE_SENDER_TYPE` = `shared` (you're on the shared-sender plan)
+- `TEXT_WEBHOOK_SECRET` = any long random string
+- `CRON_SECRET` = another long random string
+- `NEXT_PUBLIC_ROCCO_OPTIN_URL` = the iMessage opt-in link from the LoopMessage dashboard (homepage "Text Rocco" button)
+**LoopMessage → API → Webhook settings:**
+- Webhook URL: `https://rocco.works/api/text/inbound`
+- Webhook header: the same value as `TEXT_WEBHOOK_SECRET` (sent as the Authorization header) → Save
+- Webhook alerts: Message Inbound must be on (others are fine; Rocco ignores them)
+**Test:** /api/health shows loopmessage "set". From your iPhone text Rocco "hi" → onboarding reply. Open your dashboard → "Text Rocco from this phone" (personal opt-in link, links your phone automatically) or text `link CODE` → "numbers" → "yes N1" → in Claude "Rocco, brief me" shows the text approval.
+**Sandbox notes (from LoopMessage helpdesk):** up to 5 sandbox contacts; a contact must message first, which opens a 24-hour window (resets on every inbound); while your number is in the sandbox list, all sends/webhooks for it go through the sandbox. Remove it from the sandbox list when you move to the real sender. Morning texts only reach people inside their window on sandbox/shared senders.
