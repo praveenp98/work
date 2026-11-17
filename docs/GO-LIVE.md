@@ -7,6 +7,13 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 2. Settings → Domains → add `rocco.works` and `www.rocco.works` (redirect www → apex). At the registrar, set the DNS records Vercel shows (A `76.76.21.21` for apex, CNAME `cname.vercel-dns.com` for www, or switch nameservers to Vercel).
 3. Env var: `NEXT_PUBLIC_SITE_URL=https://rocco.works`.
 
+### DNS at GoDaddy (checked Nov 17 from Praveen's screenshot)
+- `CNAME www → 4415e1e0dfd3209e.vercel-dns-017.com` ✅ already set.
+- **Change `A @` from "Parked" to `76.76.21.21`** (or the IP Vercel shows for rocco.works). This is the only change needed for the site.
+- Keep NS/SOA/_domainconnect. GoDaddy Domain → Forwarding must be off.
+- `_dmarc` is `p=quarantine` with no SPF/DKIM yet: add the email provider's MX/SPF/DKIM when hello@rocco.works is set up, before sending any mail.
+- In Vercel: add rocco.works + www.rocco.works, make rocco.works primary (www redirects).
+
 ## 2. Hackathon / TrustMRR tracker (must be live BEFORE any traffic, rule 5)
 - Copy the tracker script from the TrustMRR / hackathon dashboard. Put its `src` in `NEXT_PUBLIC_TRACKER_SRC` and the site id in `NEXT_PUBLIC_TRACKER_SITE_ID`. Redeploy. If the snippet uses a different attribute name than `data-site-id` / `data-website-id`, tell Claude and it'll adjust `components/Tracker.tsx`.
 - Verify: open rocco.works → view source → script tag present → visit shows in dashboard.
