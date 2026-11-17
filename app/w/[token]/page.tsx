@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Raccoon } from "@/components/Raccoon";
+import { WinsCard } from "@/components/WinsCard";
 import { REPORT_HELP } from "@/lib/analyze";
 import { proposalLine } from "@/lib/mcp/format";
 import { getStore } from "@/lib/store";
@@ -43,6 +44,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
         </div>
       </div>
 
+      {(brief.saved > 0 || brief.totals.worked > 0) && <div style={{ marginTop: 14 }}><WinsCard saved={brief.saved} worked={brief.totals.worked} applied={brief.totals.applied} since={ws.createdAt} /></div>}
       {brief.season && <p className="pill" style={{ marginTop: 18 }}>📅 {brief.season}</p>}
 
       {brief.perBrand.map((b) => (

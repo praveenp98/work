@@ -18,7 +18,8 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 `<script defer src="https://www.ship-or-die.com/hackathon/verify.js" data-site="f9fac6eeac39ef1b81208010816a97a15278f3aa">` is rendered in `<head>` on every page (`components/Tracker.tsx` via `app/layout.tsx`). Verified on the production build (one tag per page).
 After deploy: open rocco.works, then press "Check installation" in the hackathon dashboard. Do this before sharing any link.
 
-## 3. Payments: Dodo Payments (USD)
+## 3. Payments: Dodo Payments (USD) — single Founding Lifetime plan on a price ladder
+Vercel env: `DODO_API_KEY` (required for the ladder). Dodo webhook → `https://rocco.works/api/dodo/webhook`.
 Polar is out (doesn't support individuals in India). Code now uses Dodo: see `docs/DODO-SETUP.md`.
 ✅ Products created and wired by Claude (IDs in `docs/DODO-SETUP.md`). Praveen: finish KYC/payouts, click a checkout link once, make one real purchase (refund after) to confirm the license email + unlock, connect Dodo to TrustMRR.
 

@@ -6,6 +6,7 @@ import { validateLicenseKey } from "../payments";
 import { breakevenAcos, couponMath } from "../rules/coupon";
 import { paybackDays, roast, type RoastResult } from "../rules/roast";
 import { surgePlan } from "../rules/surge";
+import { LADDER } from "../pricing";
 import { SITE } from "../site";
 import { PLAYBOOK, PLAYBOOK_TOPICS } from "./playbook";
 import type { Store, Workspace } from "../store/types";
@@ -52,10 +53,10 @@ export function roastSummary(r: RoastResult, full: boolean): string {
     for (const b of r.fixes.bids) lines.push(`- ${b.targeting} (${b.matchType}) in ${b.campaign} / ${b.adGroup}: ${r.currency}${b.currentCpc} → ${r.currency}${b.newBid} (${b.changePct > 0 ? "+" : ""}${b.changePct}%): ${b.reason}`);
     lines.push("", "Present these as an approval list. Nothing should be applied without the seller's explicit OK.");
   } else {
-    const pb = paybackDays(299, r.leakMonthly);
+    const pb = paybackDays(LADDER.startCents / 100, r.leakMonthly);
     lines.push(
       "",
-      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco Pro would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
+      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco (from $99, once) would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
     );
   }
   return lines.join("\n");

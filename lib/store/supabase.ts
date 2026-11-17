@@ -42,6 +42,14 @@ export class SupabaseStore implements Store {
     return rows.map((r) => r.data);
   }
 
+  async peerStats(kind: string, exclude: string) {
+    const since = new Date(Date.now() - 60 * 86400000).toISOString();
+    const rows = await this.q<{ workspace_id: string; brand: string; data: Snapshot }[]>(`snapshots?kind=eq.${kind}&workspace_id=neq.${exclude}&created_at=gte.${since}&select=workspace_id,brand,data&order=created_at.desc&limit=2000`);
+    const seen = new Set<string>();
+    const out: Record<string, number | string>[] = [];
+    for (const r of rows) { const k = r.workspace_id + "|" + r.brand; if (seen.has(k)) continue; seen.add(k); out.push(r.data.stats); }
+    return out;
+  }
   async addRun(r: Run) {
     await this.q("runs", { method: "POST", body: JSON.stringify({ id: r.id, workspace_id: r.workspaceId, brand: r.brand, kind: r.kind, created_at: r.createdAt, data: r }), headers: { Prefer: "return=minimal" } });
   }

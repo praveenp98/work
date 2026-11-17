@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { analyze, REPORT_HELP, type AnalyzeOutput, type ReportKind } from "./analyze";
 import { evaluateAction, evaluateBudget } from "./rules/results";
 import { diffTerms, termSnapshot, type TermDiff } from "./rules/terms";
+import { benchmark } from "./rules/benchmarks";
 import { DEFAULT_SETTINGS } from "./rules/settings";
 import type { Proposal } from "./rules/types";
 import { hashToken, isToken, newToken } from "./store";
@@ -77,7 +78,8 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
     }
   }
   const previous = (await store.listSnapshots(ws.id, { brand, kind: out.kind, limit: 2 }))[1] ?? null;
-  return { out, run, checked, previous, diff };
+  const bench = benchmark(out.kind, out.analysis.stats, await store.peerStats(out.kind, ws.id));
+  return { out, run, checked, previous, diff, bench };
 }
 
 /** Latest proposal run per report type for a brand. Code letters are unique per type (N/H/B, G, S, F). */

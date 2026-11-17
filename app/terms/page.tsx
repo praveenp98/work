@@ -9,7 +9,7 @@ export default function Page() {
       <ul>
         <li>Rocco is self-serve software. It analyzes reports you provide and suggests changes. It does not manage your account or provide consulting.</li>
         <li>You decide which suggestions to apply and you apply them yourself. Review every change before uploading. Amazon advertising results are never guaranteed.</li>
-        <li>Lifetime plans give access to Rocco&apos;s tools for as long as the product is offered, for the number of brands in your plan. Licenses are for your own use (or your clients&apos;, on Pro and Agency plans) and may not be resold.</li>
+        <li>The Founding Lifetime license gives access to Rocco&apos;s tools for as long as the product is offered, for your own brands and your clients&apos; brands. Licenses may not be resold or shared publicly.</li>
         <li>Don&apos;t upload data you don&apos;t have the right to use, and don&apos;t try to break or abuse the service.</li>
         <li>The service is provided as is. Our total liability is limited to the amount you paid.</li>
       </ul>

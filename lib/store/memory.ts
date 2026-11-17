@@ -26,6 +26,17 @@ export class MemoryStore implements Store {
     return this.snaps.filter((s) => s.workspaceId === id && (!o.brand || s.brand === o.brand) && (!o.kind || s.kind === o.kind))
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, o.limit ?? 50).map((s) => structuredClone(s));
   }
+  async peerStats(kind: string, exclude: string) {
+    const since = Date.now() - 60 * 86400000;
+    const latest = new Map<string, Snapshot>();
+    for (const s of this.snaps) {
+      if (s.kind !== kind || s.workspaceId === exclude || new Date(s.createdAt).getTime() < since) continue;
+      const k = s.workspaceId + "\u0001" + s.brand;
+      const prev = latest.get(k);
+      if (!prev || prev.createdAt < s.createdAt) latest.set(k, s);
+    }
+    return [...latest.values()].map((s) => ({ ...s.stats }));
+  }
   async addRun(r: Run) { this.runs.push(structuredClone(r)); }
   async getRun(id: string, runId?: string, brand?: string) {
     const list = this.runs.filter((r) => r.workspaceId === id && (!runId || r.id === runId) && (!brand || r.brand === brand))

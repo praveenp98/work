@@ -23,7 +23,7 @@ export function GET() {
     ...GUIDES.map((g) => `- [${g.title}](${SITE.url}/guides/${g.slug}): ${g.description}`),
     "",
     "## Pricing",
-    `- [Pricing](${SITE.url}/pricing): pay-once founding lifetime plans (Seller $149, Pro $299, Agency $399) and a $99 Holiday Pass.`,
+    `- [Pricing](${SITE.url}/pricing): one plan, Rocco Founding Lifetime (pay once, unlimited brands). Price starts at $99 and rises $10 every 5 sales, capped at $499.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

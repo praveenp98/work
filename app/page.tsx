@@ -4,9 +4,11 @@ import { ConnectBox } from "@/components/connect/ConnectBox";
 import { Playground } from "@/components/connect/Playground";
 import { JsonLd } from "@/components/JsonLd";
 import { Rocco } from "@/components/Rocco";
+import { getPriceState } from "@/lib/payments";
+import { dollars } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const JOBS = [
   { icon: "☀️", title: "Morning check", say: "“Rocco, morning check.”", text: "Pulls yesterday's numbers, judges last week's changes, and hands you today's approval list." },
@@ -19,7 +21,8 @@ const JOBS = [
   { icon: "📄", title: "Client reports", say: "“Make the Acme report.”", text: "White-label PDF for agencies: what changed, what it saved, what's next." },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const price = await getPriceState();
   return (
     <>
       <section className="hero hero-mcp">
@@ -95,10 +98,10 @@ export default function Home() {
       <section className="band">
         <Rocco pose="party" size={170} />
         <div>
-          <h2>Free to add. Pay once when he earns it.</h2>
-          <p>The brief, findings and top fixes are free. Every fix, full tracking and bulk files are a one-time founding price. No subscription.</p>
+          <h2>Free to add. {dollars(price.priceCents)} once when he earns it.</h2>
+          <p>The brief, findings and top 3 fixes per report are free. Founding Lifetime unlocks everything, for unlimited brands, forever. {price.nextPriceCents ? `Goes to ${dollars(price.nextPriceCents)} in ${price.salesUntilNext} sale${price.salesUntilNext === 1 ? "" : "s"}.` : ""}</p>
           <div className="row">
-            <Link href="/pricing" className="btn">See founding prices →</Link>
+            <Link href="/pricing" className="btn">Become founder #{price.founderNumber} →</Link>
             <Link href="/connect" className="btn ghost" style={{ background: "transparent", color: "#fff", borderColor: "rgba(255,255,255,.5)" }}>Connector guide</Link>
           </div>
         </div>

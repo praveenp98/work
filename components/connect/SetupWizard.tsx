@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { claudeCodeCommands, CONNECTORS, mcpJson, MORNING_CHECK_COMMAND, REGIONS, type Client, type Region } from "@/lib/connectors";
+import { autopilotCron, claudeCodeCommands, CONNECTORS, mcpJson, MORNING_CHECK_COMMAND, REGIONS, type Client, type Region } from "@/lib/connectors";
 
 function Copy({ value, label = "Copy" }: { value: string; label?: string }) {
   const [ok, setOk] = useState(false);
@@ -104,6 +104,9 @@ export function SetupWizard() {
           <Block title="Terminal: add all three" code={claudeCodeCommands(region, token)} />
           <Block title=".mcp.json (project scope, alternative)" code={mcpJson(region, token)} />
           <Block title=".claude/commands/morning-check.md" code={MORNING_CHECK_COMMAND} />
+          <h3 style={{ marginTop: 22 }}>Optional: autopilot every morning</h3>
+          <p className="muted" style={{ margin: "0 0 4px" }}>A scheduled run prepares the approval list before you wake up. It&apos;s read-only: headless Claude Code can only use the tools you list, so it can&apos;t change your account. You approve in the morning.</p>
+          <Block title="crontab -e  (mkdir -p ~/rocco/briefs first)" code={autopilotCron()} />
         </>
       )}
       {client === "cursor" && (
@@ -115,6 +118,7 @@ export function SetupWizard() {
           <Block title="mcp.json" code={mcpJson(region, token, "cursor")} />
         </>
       )}
+      <p className="muted" style={{ marginTop: 14 }}>📱 <b>From your phone:</b> connectors you add on the web are usually available in the Claude and ChatGPT phone apps too. Say &ldquo;morning check&rdquo; on the train, approve codes with one reply.</p>
       <p className="fine" style={{ marginTop: 14 }}>
         No Amazon Ads API access yet? Add Seller Central + Rocco now; Rocco works with what&apos;s connected and can read an exported ads report until your API access is approved.
         Rocco never asks for your Amazon password: you sign in to Amazon&apos;s own connectors directly.

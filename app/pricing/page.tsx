@@ -1,52 +1,91 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
-import { WaitlistForm } from "@/components/WaitlistForm";
-import { checkoutUrl } from "@/lib/payments";
-import { PLANS, PRICE_STEPS } from "@/lib/site";
+import { Rocco } from "@/components/Rocco";
+import { checkoutUrl, getPriceState } from "@/lib/payments";
+import { dollars, LADDER, priceCentsForSold } from "@/lib/pricing";
 
-export const metadata: Metadata = { title: "Pricing: Founding Lifetime Deals", description: "Pay once for Rocco. Founding lifetime plans for Amazon sellers, freelancers and agencies, plus a Holiday Pass.", alternates: { canonical: "/pricing" } };
+export const metadata: Metadata = {
+  title: "Pricing: Rocco Founding Lifetime",
+  description: "One plan. Pay once, keep Rocco forever: every fix, memory, change tracking, Amazon change lists, client reports, unlimited brands. Founding price starts at $99 and rises $10 every 5 sales.",
+  alternates: { canonical: "/pricing" },
+};
+export const revalidate = 60;
 
-export default function Page() {
-  const anyLive = PLANS.some((p) => checkoutUrl(p.id));
+const INCLUDED = [
+  "Every fix Rocco finds, across search terms, bids, budgets, placements, stock, listings and structure",
+  "Memory: change log, measured results, savings, “what's new since last time”",
+  "Change lists for Amazon's Ads connector, so your AI applies exactly what you approve",
+  "Daily brief, calendar reminders, Black Friday plan",
+  "Unlimited brands and white-label client reports (agencies welcome)",
+  "Every future tool and update. No subscription, ever.",
+];
+
+export default async function Page() {
+  const s = await getPriceState();
+  const url = checkoutUrl();
+  const steps = [0, 5, 10, 25, 50, 100, 150, 200].map((n) => ({ n, p: priceCentsForSold(n) }));
   return (
     <>
-      <h1>Pay once. Keep Rocco forever.</h1>
-      <p className="muted" style={{ fontSize: 18 }}>Founding prices. They go up on {PRICE_STEPS.join(", ")}.</p>
-      <div className="plans">
-        {PLANS.map((p) => (
-          <div className={`plan${"featured" in p && p.featured ? " featured" : ""}`} key={p.id}>
-            {"featured" in p && p.featured && <span className="tag">Most popular</span>}
-            <h3>{p.name}</h3>
-            <div className="price">${p.price}<span className="fine"> {p.id === "holiday" ? "one time" : "once, lifetime"}</span></div>
-            <p className="muted">{p.blurb}</p>
-            <ul>
-              <li>Every Ad Roast fix: negatives, harvest, bids</li>
-              <li>Upload-ready bulk files</li>
-              <li>{p.brands === 1 ? "1 brand" : `Up to ${p.brands} brands`}</li>
-              <li>Every new tool (Coupon Planner, BFCM Post-Mortem, Listing Roast…)</li>
-              {p.id === "agency" && <li>White-label roast reports for your prospects</li>}
-            </ul>
-            {checkoutUrl(p.id) ? (
-              <a className="btn" href={checkoutUrl(p.id)!}>Get {p.name}</a>
-            ) : (
-              <span className="btn ghost" aria-disabled>Checkout opens soon</span>
-            )}
+      <section className="split" style={{ alignItems: "center", marginTop: 16 }}>
+        <div>
+          <span className="eyebrow">One plan · pay once</span>
+          <h1 style={{ fontSize: "clamp(36px,5.5vw,58px)" }}>Hire Rocco once. Keep him forever.</h1>
+          <p className="muted" style={{ fontSize: 18 }}>Founding price goes up {dollars(LADDER.stepCents)} every {LADDER.every} sales until it hits {dollars(LADDER.capCents)}. The earlier you join, the less you pay. That&apos;s the whole trick.</p>
+        </div>
+        <div className="plan featured" style={{ transform: "none" }}>
+          <div className="row" style={{ justifyContent: "space-between", alignItems: "center" }}>
+            <span className="tag live">Founder #{s.founderNumber}</span>
+            <Rocco pose="party" size={70} />
           </div>
-        ))}
-      </div>
-      {!anyLive && (
-        <section style={{ marginTop: 24 }}>
-          <h3>Get the founding link the moment checkout opens</h3>
-          <WaitlistForm source="pricing" cta="Save my founding price" />
-        </section>
-      )}
-      <p style={{ marginTop: 18 }}>Not sure yet? <Link href="/tools/ad-roast">Run the free roast first</Link>. You&apos;ll see your Leak Score before you pay anything.</p>
+          <h3 style={{ margin: 0 }}>Rocco Founding Lifetime</h3>
+          <div className="price">{dollars(s.priceCents)}<span className="fine"> once</span></div>
+          {s.nextPriceCents !== null && (
+            <p className="hot" style={{ fontWeight: 700, margin: 0 }}>
+              Goes to {dollars(s.nextPriceCents)} in {s.salesUntilNext} sale{s.salesUntilNext === 1 ? "" : "s"}.
+            </p>
+          )}
+          <ul>{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
+          {url ? <a className="btn" href={url} style={{ justifyContent: "center" }}>Hire Rocco for {dollars(s.priceCents)} →</a> : <span className="btn ghost">Checkout opens soon</span>}
+          <p className="fine" style={{ margin: 0 }}>Secure checkout by Dodo Payments. License key by email; activate in chat or on the site. 7-day refund if Rocco finds nothing useful.</p>
+        </div>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <span className="eyebrow">The ladder</span>
+          <h2>Public, automatic, no fake timers.</h2>
+          <p>The price updates itself after every {LADDER.every}th sale, straight from our payment provider. {s.live ? `${s.sold} founders so far.` : ""}</p>
+        </div>
+        <div className="ladder">
+          {steps.map(({ n, p }) => (
+            <div key={n} className={`rung${s.sold >= n ? " past" : ""}${priceCentsForSold(s.sold) === p ? " now" : ""}`}>
+              <b>{dollars(p)}</b><span>{n === 0 ? "first 5" : `after ${n} sales`}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="section-head">
+          <span className="eyebrow">What you&apos;re actually buying</span>
+          <h2>Not another dashboard. A teammate.</h2>
+        </div>
+        <div className="grid">
+          <div className="card"><h3>Judgment</h3><p className="muted">A senior Amazon manager&apos;s rules, applied the same way every time: thresholds, ±20% caps, protected brand terms.</p></div>
+          <div className="card"><h3>Memory &amp; proof</h3><p className="muted">&ldquo;14 changes, 11 worked, $1,240 saved.&rdquo; Every change logged with before-numbers and re-checked.</p></div>
+          <div className="card"><h3>Safety</h3><p className="muted">Approval by code, undo for everything, nothing touches your account without your OK.</p></div>
+          <div className="card"><h3>Your mornings back</h3><p className="muted">&ldquo;Rocco, morning check&rdquo; replaces an hour of reports and spreadsheets.</p></div>
+        </div>
+        <p style={{ marginTop: 18 }}>Not sure yet? <Link href="/setup">Add Rocco free</Link>. The brief, findings and top 3 fixes per report cost nothing.</p>
+      </section>
+
       <Faq items={[
-        { q: "Is this a subscription?", a: "No. Lifetime plans are a single payment. The Holiday Pass is a single payment that covers every tool until Jan 31, 2027." },
-        { q: "What does 'brand' mean?", a: "One Amazon brand or seller account whose reports you roast. Freelancers and agencies pick a plan by how many client brands they manage." },
-        { q: "Do you log into my Amazon account?", a: "No. Rocco works from reports you download. You review every fix and upload it yourself." },
-        { q: "Can I get a refund?", a: "Yes, see the refund policy. If Rocco finds nothing useful in your account, we refund you." },
+        { q: "Is this a subscription?", a: "No. One payment, lifetime access, every future update." },
+        { q: "How many brands can I use it for?", a: "Unlimited. Freelancers and agencies are welcome, and white-label client reports are included." },
+        { q: "Why does the price go up?", a: `Founding pricing rewards early users. It rises ${dollars(LADDER.stepCents)} after every ${LADDER.every} sales, automatically, until ${dollars(LADDER.capCents)}.` },
+        { q: "What's free?", a: "Adding Rocco, the daily brief, all findings, the top 3 fixes per report, the web tools and calculators." },
+        { q: "Can I get a refund?", a: "Yes. If Rocco finds nothing useful in your account, email us within 7 days for a full refund." },
       ]} />
     </>
   );

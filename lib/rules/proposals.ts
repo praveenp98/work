@@ -70,7 +70,7 @@ export function roastAnalysis(r: RoastResult, report: ParsedReport): Analysis {
     proposals: proposalsFromRoast(r, report),
     stats: {
       grade: r.grade, days: r.days, currency: r.currency, spend: r.totals.spend, sales: r.totals.sales, acosPct: r2(r.totals.acos * 100),
-      leakMonthly: r.leakMonthly, leakYearly: r.leakYearly, projectedAcosPct: r2(r.projectedAcos * 100),
+      leakMonthly: r.leakMonthly, leakYearly: r.leakYearly, projectedAcosPct: r2(r.projectedAcos * 100), leakPct: r2(r.leakPct * 100),
     },
   };
 }

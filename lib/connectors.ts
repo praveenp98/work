@@ -87,3 +87,18 @@ export function regionForMarketplace(m: string): Region {
   if (has(EU)) return "eu";
   return "na";
 }
+
+/**
+ * Daily autopilot for Claude Code, read-only by construction: headless runs can only use the tools
+ * listed in --allowedTools (anything else is denied), so it prepares the approval list but can't change the account.
+ */
+export const AUTOPILOT_PROMPT = 'Rocco, morning check. Call rocco_brief, follow rocco_plan("morning_check") to pull the data with my Amazon connectors, analyze it, and write today\'s approval list sorted by $ at stake. Do not apply or change anything.';
+
+export function autopilotCron(): string {
+  const allowed = ["mcp__rocco", "mcp__amazon-seller__search_tools", "mcp__amazon-seller__get_tool_schema", "mcp__amazon-seller__call_read_only_tool"].join(",");
+  return [
+    "# Weekdays 8:00: Rocco prepares your approval list. Read-only: only the tools below are allowed.",
+    "# Add your Amazon Ads connector's report/read tools to --allowedTools (see their names with: claude mcp list / /mcp). Never add write tools here.",
+    `0 8 * * 1-5 cd ~/rocco && claude -p '${AUTOPILOT_PROMPT.replace(/'/g, "'\\''")}' --allowedTools "${allowed}" > ~/rocco/briefs/$(date +\\%F).md 2>&1`,
+  ].join("\n");
+}

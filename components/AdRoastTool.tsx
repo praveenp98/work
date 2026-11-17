@@ -10,12 +10,14 @@ import { paybackDays, roast } from "@/lib/rules/roast";
 import { CountUp } from "./CountUp";
 import { Raccoon } from "./Raccoon";
 import { Rocco } from "./Rocco";
+import { usePrice } from "./usePrice";
 import { ShareCard } from "./ShareCard";
 
 const money = (c: string, n: number) => `${c}${Math.round(n).toLocaleString("en-US")}`;
 const pct = (n: number) => (n < 0 ? "–" : `${Math.round(n * 100)}%`);
 
 export function AdRoastTool() {
+  const price = usePrice();
   const [report, setReport] = useState<ParsedReport | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -85,7 +87,7 @@ export function AdRoastTool() {
   }
 
   const r = result;
-  const payback = paybackDays(299, r.leakMonthly);
+  const payback = paybackDays(price, r.leakMonthly);
   const scale = 100 / Math.max(60, r.totals.acos * 100 + 10); // bar scale so "now" never overflows
   const counts = { n: r.fixes.negatives.length, h: r.fixes.harvest.length, b: r.fixes.bids.length };
 
@@ -106,7 +108,7 @@ export function AdRoastTool() {
             <span className="eyebrow">If nothing changes, that&apos;s</span>
             <div className="big"><CountUp value={r.leakYearly} prefix={r.currency} /><span style={{ fontSize: 20, color: "inherit", opacity: 0.7 }}> /year</span></div>
             <p>
-              {payback !== null && <>Rocco Pro pays for itself in <b style={{ color: "var(--gold)" }}>{payback} day{payback === 1 ? "" : "s"}</b>. </>}
+              {payback !== null && <>Rocco (${price}, once) pays for itself in <b style={{ color: "var(--gold)" }}>{payback} day{payback === 1 ? "" : "s"}</b>. </>}
               That&apos;s {money(r.currency, r.leakMonthly / 30)} a day to shoppers who never buy.
             </p>
           </div>

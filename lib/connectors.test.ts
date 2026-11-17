@@ -18,3 +18,14 @@ describe("connector setup", () => {
     expect(regionForMarketplace("United States")).toBe("na");
   });
 });
+
+describe("autopilot cron", () => {
+  it("is read-only: only Rocco and Seller Central read tools are allowed", async () => {
+    const { autopilotCron } = await import("./connectors");
+    const c = autopilotCron();
+    expect(c).toContain('--allowedTools "mcp__rocco,mcp__amazon-seller__search_tools,mcp__amazon-seller__get_tool_schema,mcp__amazon-seller__call_read_only_tool"');
+    expect(c).not.toContain("call_write_tool");
+    expect(c).toContain("Do not apply or change anything");
+    expect(c).toMatch(/0 8 \* \* 1-5 /);
+  });
+});

@@ -1,4 +1,4 @@
-# Pricing model discussion (Nov 17, 2026) — PROPOSAL, awaiting Praveen's OK
+# Pricing model (Nov 17, 2026) — APPROVED by Praveen: $99, +$10 every 5 sales, cap $499 — LIVE in code
 
 ## Praveen's idea
 One plan, everything lifetime, price goes up every 5 sales.

@@ -6,14 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 13:30 IST): EXECUTING. Rocco = connector-first AI Amazon teammate: orchestrates Amazon's Ads MCP + SP-API connectors in Claude/ChatGPT (`rocco_plan`), analyzes 6 data types, memory + result checks, client reports, calendar. Payments = Dodo, 4 products live (`docs/DODO-SETUP.md`). Blockers: Dodo KYC/payouts + test purchase, Supabase migration, Vercel deploy + DNS; tracker is in code, verify after deploy (`docs/GO-LIVE.md`).**
+> **STATUS (Nov 17, 2026, 16:30 IST): EXECUTING. Rocco = connector-first AI Amazon teammate (Amazon Ads MCP + Selling Partner + Rocco in Claude/ChatGPT/Claude Code; `/setup`). One plan: Founding Lifetime $99, +$10 every 5 sales, cap $499 (auto from Dodo). Benchmarks, read-only autopilot, wins cards, client reports. Blockers: Vercel deploy + DNS + env (`DODO_API_KEY`, Supabase), Dodo KYC + webhook, tracker check (`docs/GO-LIVE.md`).**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/PRICING-MODEL.md` | Proposal: single lifetime plan with a price ladder (+$10 every 5 sales). Pending Praveen's OK. |
+| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** single Founding Lifetime plan on a price ladder. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
 | `docs/LAUNCH-SETUP.md` | Brand/domain shortlist, pre-warmed email infra, lead list sources, budget. |

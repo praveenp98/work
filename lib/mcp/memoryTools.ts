@@ -103,8 +103,8 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
   }, async ({ report_json, rows, report_csv, brand }) => {
     try {
       const b = brand || DEFAULT_BRAND;
-      const { out, run, checked, previous, diff } = await runAnalysis(store, ws, b, toTable({ report_json, rows, report_csv }));
-      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff }));
+      const { out, run, checked, previous, diff, bench } = await runAnalysis(store, ws, b, toTable({ report_json, rows, report_csv }));
+      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff, bench }));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't analyze that report.");
     }

@@ -69,6 +69,8 @@ export interface Store {
   saveWorkspace(ws: Workspace): Promise<void>;
   addSnapshot(s: Snapshot): Promise<void>;
   listSnapshots(workspaceId: string, opts?: { brand?: string; kind?: string; limit?: number }): Promise<Snapshot[]>; // newest first
+  /** Latest snapshot stats of this kind from OTHER workspaces (last 60 days), for anonymized benchmarks. */
+  peerStats(kind: string, excludeWorkspaceId: string): Promise<Record<string, number | string>[]>;
   addRun(r: Run): Promise<void>;
   getRun(workspaceId: string, runId?: string, brand?: string): Promise<Run | null>; // latest when no id
   listRuns(workspaceId: string, opts?: { limit?: number }): Promise<Run[]>; // newest first

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { usePrice } from "../usePrice";
 
 const STEPS = [500, 1000, 2000, 3000, 5000, 7500, 10000, 15000, 20000, 30000, 50000, 75000, 100000];
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -12,7 +13,8 @@ export function LeakEstimator() {
   const spend = STEPS[i];
   const monthly = (spend * pct) / 100;
   const yearly = monthly * 12;
-  const payback = monthly > 0 ? Math.max(1, Math.ceil(299 / (monthly / 30))) : null;
+  const price = usePrice();
+  const payback = monthly > 0 ? Math.max(1, Math.ceil(price / (monthly / 30))) : null;
   return (
     <div className="estimator">
       <div className="est-inputs">
@@ -34,7 +36,7 @@ export function LeakEstimator() {
         <ul>
           <li><b>{fmt(monthly)}</b> every month, on clicks that never buy</li>
           <li><b>{fmt(monthly / 30)}</b> gone every single day</li>
-          {payback && <li>Rocco Pro would pay for itself in <b>{payback} day{payback === 1 ? "" : "s"}</b></li>}
+          {payback && <li>Rocco (${price}, once) would pay for itself in <b>{payback} day{payback === 1 ? "" : "s"}</b></li>}
         </ul>
         <Link href="/tools/ad-roast?utm_source=home&utm_medium=estimator" className="btn">Find my real number →</Link>
       </div>

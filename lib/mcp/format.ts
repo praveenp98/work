@@ -1,5 +1,6 @@
 import { REPORT_HELP, type AnalyzeOutput, type ReportKind } from "../analyze";
 import type { Proposal } from "../rules/types";
+import type { BenchLine } from "../rules/benchmarks";
 import type { TermDiff } from "../rules/terms";
 import type { Action, Snapshot } from "../store/types";
 import type { buildBrief } from "../workspace";
@@ -21,10 +22,14 @@ export function proposalLine(p: Proposal): string {
   return `- **${p.code}** ${change}. ${p.reason}${p.valueMonthly ? ` (~${$(p.valueMonthly)}/mo)` : ""}`;
 }
 
-export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId?: string; checked?: Action[]; previous?: Snapshot | null; memory: boolean; diff?: TermDiff | null }): string {
+export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId?: string; checked?: Action[]; previous?: Snapshot | null; memory: boolean; diff?: TermDiff | null; bench?: { lines: BenchLine[]; n: number; ready: boolean } }): string {
   const a = out.analysis;
   const lines = [`## Rocco · ${REPORT_HELP[out.kind].name}`, a.headline];
   if (o.previous) lines.push(`_Last time (${o.previous.createdAt.slice(0, 10)}): ${o.previous.headline}_`);
+  if (o.bench?.ready) {
+    lines.push("", `### vs. other Rocco accounts (anonymized, ${o.bench.n} accounts)`);
+    for (const b of o.bench.lines) lines.push(`- ${b.label}: ${b.value}${b.unit} (median ${b.median}${b.unit}) → better than ${b.betterThanPct}% of accounts`);
+  }
   if (o.checked?.length) {
     lines.push("", "### How your past changes did");
     for (const c of o.checked) lines.push(`- ${statusIcon(c.status)} **${c.code}** ${c.result?.summary}`);

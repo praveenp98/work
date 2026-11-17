@@ -91,3 +91,11 @@
 .setup-block-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
 .setup-block pre { margin: 0; white-space: pre; overflow-x: auto; }
 .setup-conns .card .tag { justify-self: start; }
+
+/* price ladder */
+.ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+.rung { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; display: grid; gap: 2px; text-align: center; }
+.rung b { font-family: var(--display); font-size: 24px; }
+.rung span { font-size: 12px; color: var(--muted); }
+.rung.past { opacity: .45; }
+.rung.now { border: 2px solid var(--accent); opacity: 1; background: color-mix(in srgb, var(--accent) 8%, var(--card)); }

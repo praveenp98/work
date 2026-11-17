@@ -4,6 +4,20 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (16:30) · Single plan live + "max Rocco" audit
+- **Pricing (approved):** one product "Rocco Founding Lifetime" (`pdt_0Ns7dcv01gDgTlIQC1O1b`, $99, license keys, unlimited brands, client reports). 4 old products archived. Ladder +$10/5 sales, cap $499: sales counted from Dodo API, price PATCHed automatically (page render + webhook `/api/dodo/webhook`), `/api/price`. Pricing page rebuilt (founder #, "goes to $X in N sales", public ladder, what you're buying); all old tier references removed (site, MCP paywall, estimator, roast, llms.txt, terms). Verified live against Dodo from the sandbox.
+- **Audit vs. "max Rocco" (judgment + memory/proof + safety + time + agencies + benchmarks + autopilot):** closed the gaps:
+  - Benchmarks: anonymized percentiles vs. other Rocco accounts (leak %, ACoS, conversion, TACoS), shown only with 10+ peer accounts.
+  - Autopilot: read-only Claude Code cron (headless run can only use whitelisted read tools) + phone approvals note on /setup.
+  - Proof that spreads: "Rocco saved me $X" wins card + X post on the dashboard (shown once there's a real win).
+  - Homepage band shows live price + founder number.
+- Already covered: judgment (playbook, rules), memory (change log, results, what's new), safety (approval codes, undo, ±20%), time (morning check, setup wizard), agencies (multi-brand, white-label reports).
+- Still not built (post-contest): per-brand subscription, team seats, Amazon-API-backed autopilot that applies approved changes on a schedule.
+- Tests 78. Build clean.
+- **Praveen to do:** Vercel env `DODO_API_KEY`; Dodo webhook URL; KYC; Supabase; deploy + DNS; tracker check.
+
+---
+
 ## 2026-11-17 (15:30) · Pricing model discussion
 - Praveen proposed one lifetime plan with price rising every 5 sales. Claude agrees for the contest; proposal in `docs/PRICING-MODEL.md` ($99 start, +$10/5 sales, cap $499 → ~$49K at 180 sales). **Awaiting Praveen's OK before changing products/pricing.**
 

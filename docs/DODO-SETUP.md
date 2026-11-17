@@ -4,19 +4,14 @@
 
 All plans are **one-time payments** (count in full for the contest).
 
-## Status (Nov 17, done by Claude via the Dodo API)
-| Plan | Product ID | Price | License key |
-|---|---|---|---|
-| Holiday Pass | pdt_0Ns7Zc5lFQHVFnYExlr5z | $99 one-time | ON, expires 75 days after purchase |
-| Seller (Founding Lifetime) | pdt_0Ns7Za6Lp7MYYQrZ0NqU8 | $149 one-time | ON, no expiry |
-| Pro (Founding Lifetime) | pdt_0Ns7ZcDvQBdEniXZdlBae | $299 one-time | ON, no expiry |
-| Agency (Founding Lifetime) | pdt_0Ns7ZcZYNa2yAaulMiwhq | $399 one-time | ON, no expiry |
-- Tax category: SaaS. Activation message tells buyers how to activate in Claude/ChatGPT or on the site.
-- IDs are live-mode defaults in `lib/payments.ts` (no Vercel env vars needed). Env vars still override.
-- Checkout links: `https://checkout.dodopayments.com/buy/<id>?quantity=1&redirect_url=https://rocco.works/thanks?plan=<plan>`
-- The Dodo API key is stored only as a network secret on the cloud environment (never in the repo or chat).
-- License check verified live: a fake key returns `{"valid": false}`.
-- **Left for Praveen:** KYC + payout account, open one checkout link to see it render, a real purchase (refund it after) to confirm the license email and unlock, connect Dodo to TrustMRR.
+## Status (Nov 17, single plan — done by Claude via the Dodo API)
+- **One live product: Rocco Founding Lifetime** `pdt_0Ns7dcv01gDgTlIQC1O1b`, starts $99 one-time, license keys ON, tax category SaaS. Default in `lib/payments.ts`.
+- The 4 earlier products (Holiday/Seller/Pro/Agency) are **archived**.
+- **Price ladder:** +$10 every 5 sales, cap $499 (`lib/pricing.ts`). The site counts succeeded payments from the Dodo API and PATCHes the product price automatically (on page render, cached 60s, and on every Dodo webhook).
+- **Praveen must add in Vercel:** `DODO_API_KEY` (same key; server-only). Without it the site shows $99 and the price never steps up.
+- **Praveen must add in Dodo → Webhooks:** endpoint `https://rocco.works/api/dodo/webhook`, events payment.succeeded (+ refund events). The body isn't trusted; it only triggers a re-count.
+- Verified live from the sandbox: payments count (0), price read, sync, license check (fake key rejected).
+- Left: KYC/payouts (in review ~72h), support email on the business, one real purchase + refund, TrustMRR connection.
 
 ## 1. Products (reference)
 | Product | Price (USD, one-time) | License keys | Env var for its product ID |

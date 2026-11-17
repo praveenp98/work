@@ -90,3 +90,20 @@ describe("budget result checks", () => {
     expect(res.checked[0].status).toBe("worked");
   });
 });
+
+describe("benchmarks across workspaces", () => {
+  it("shows anonymized percentiles once 10+ other accounts exist", async () => {
+    const store = new MemoryStore();
+    const first = await createWorkspace(store);
+    const early = await runAnalysis(store, first.ws, "main", loadFixture("sp-search-term-report.csv"));
+    expect(early.bench.ready).toBe(false);
+    for (let i = 0; i < 10; i++) {
+      const { ws } = await createWorkspace(store);
+      await runAnalysis(store, ws, "main", loadFixture("sp-search-term-report.csv"));
+    }
+    const late = await runAnalysis(store, first.ws, "main", loadFixture("sp-search-term-report.csv"));
+    expect(late.bench.ready).toBe(true);
+    expect(late.bench.n).toBe(10);
+    expect(late.bench.lines[0].median).toBeCloseTo(31, 0);
+  });
+});
