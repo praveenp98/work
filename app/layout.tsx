@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: `${SITE.name}: ${SITE.tagline}`, template: `%s · ${SITE.name}` },
   description: SITE.description,
-  openGraph: { siteName: SITE.name, type: "website" },
-  twitter: { card: "summary_large_image", site: "@roccoworks" },
+  openGraph: { siteName: SITE.name, type: "website", images: [{ url: "/og.png", width: 1200, height: 630, alt: "Rocco: your AI Amazon teammate" }] },
+  twitter: { card: "summary_large_image", site: "@roccoworks", images: ["/og.png"] },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -52,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/connect">Connect to Claude / ChatGPT</Link>
               <Link href="/pricing">Pricing</Link>
               <Link href="/rocco">Meet Rocco</Link>
+              <Link href="/press">Press kit</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/terms">Terms</Link>
               <Link href="/refunds">Refunds</Link>

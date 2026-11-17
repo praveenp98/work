@@ -1,0 +1,14 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "works.rocco/rocco",
+  "title": "Rocco",
+  "description": "AI Amazon teammate: analyzes Amazon Ads & Seller Central data, approval lists, change memory.",
+  "version": "2.0.0",
+  "websiteUrl": "https://rocco.works",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://rocco.works/mcp"
+    }
+  ]
+}

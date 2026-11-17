@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (17:15) · Launch kit + Supabase steps
+- Praveen: found Dodo Live mode, set up TrustMRR, created a Supabase project.
+- Built a launch kit: `/press` page (copy buttons + char counts for names, taglines ≤40/60/140, descriptions ≤260/500/long, tags, categories, pricing, maker comment, Show HN title/body, X bio; downloadable assets; directory checklist) from `content/launch-kit.json`, mirrored in `docs/LAUNCH-KIT.md`.
+- Assets in `public/brand/`: transparent logos (240/512/1024), wordmark, 4 mascot poses, 4 screenshots (1280×800); `public/og.png` social image now set as OG/Twitter image; apple-icon added.
+- `server.json` for the official MCP Registry (works.rocco/rocco → https://rocco.works/mcp).
+- `supabase/setup.sql`: one paste creates memory tables + waitlist and lists them.
+- Next for Praveen: run setup.sql, add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY + DODO_API_KEY in Vercel, deploy, DNS A record, tracker check, then list on directories from /press.
+
+---
+
 ## 2026-11-17 (16:30) · Single plan live + "max Rocco" audit
 - **Pricing (approved):** one product "Rocco Founding Lifetime" (`pdt_0Ns7dcv01gDgTlIQC1O1b`, $99, license keys, unlimited brands, client reports). 4 old products archived. Ladder +$10/5 sales, cap $499: sales counted from Dodo API, price PATCHed automatically (page render + webhook `/api/dodo/webhook`), `/api/price`. Pricing page rebuilt (founder #, "goes to $X in N sales", public ladder, what you're buying); all old tier references removed (site, MCP paywall, estimator, roast, llms.txt, terms). Verified live against Dodo from the sandbox.
 - **Audit vs. "max Rocco" (judgment + memory/proof + safety + time + agencies + benchmarks + autopilot):** closed the gaps:
