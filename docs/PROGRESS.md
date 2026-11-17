@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (00:30) · Discussion: engagement before Amazon API access, price
+- Recommendation: keep $99 (price isn't the blocker, data is). Hooks before API access: free account check from a texted screenshot/export (needs ANTHROPIC_API_KEY), Seller Central connector (open beta) + Rocco in Claude, daily Rocco Daily texts (deadlines, fee/policy changes, benchmarks), team/agency angle. Optional: money-back if Rocco doesn't find $99+ of waste in 14 days (needs Praveen's ok; refunds cut profit).
+- Listed every MCP tool for Praveen (13 on the personal connector, 3 on shared /mcp).
+
+---
+
 ## 2026-11-17 (00:15) · Text Rocco feels like Boardy
 - First text from a new number: two short bubbles ("Hey, I'm Rocco… / Who am I talking to, and what do you sell on Amazon?") then Rocco's contact card (public/rocco.vcf: name, photo, number, site) so iPhone shows "New contact information · Add".
 - Their answer is saved (workspace.about), Rocco greets them by name and sends 3 bubbles: plug in Amazon (setup?t=KEY), dashboard, team code.
