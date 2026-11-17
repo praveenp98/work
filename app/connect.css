@@ -168,3 +168,14 @@
 .hello-cta .textcta { justify-items: center; }
 .hello-thread { width: min(420px, 100%); display: flex; flex-direction: column; gap: 6px; margin: 10px 0 2px; font: 15px/1.35 -apple-system, "SF Pro Text", system-ui, sans-serif; text-align: left; }
 .hello-thread .imsg { max-width: 88%; }
+
+/* ---- Hire Rocco (pricing) ---- */
+.hire { max-width: 640px; margin: 0 auto; display: grid; justify-items: center; text-align: center; gap: 16px; padding: 20px 0 10px; }
+.hire h1 { font-size: clamp(44px, 7vw, 72px); margin: 4px 0 0; }
+.hire-card { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 26px 24px; box-shadow: var(--shadow); text-align: left; }
+.hire-price { font-family: var(--display); font-weight: 800; font-size: 64px; letter-spacing: -.03em; line-height: 1; margin-bottom: 8px; }
+.hire-price span { font-size: 20px; color: var(--muted); font-weight: 600; letter-spacing: 0; }
+.hire-list { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 8px; }
+.hire-list li { padding-left: 28px; position: relative; }
+.hire-list li::before { content: "✓"; position: absolute; left: 4px; color: var(--accent); font-weight: 800; }
+.hire-btn { width: 100%; justify-content: center; }

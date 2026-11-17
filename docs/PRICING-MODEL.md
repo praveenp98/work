@@ -1,4 +1,4 @@
-# Pricing model (Nov 17, 2026) — APPROVED by Praveen: $99, +$10 every 5 sales, cap $499 — LIVE in code
+# Pricing model (Nov 17, 2026) — APPROVED: one plan named **"Hire Rocco"** (renamed from Founding Lifetime), $99, +$10 every 5 sales, cap $499 — LIVE
 
 ## Praveen's idea
 One plan, everything lifetime, price goes up every 5 sales.

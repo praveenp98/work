@@ -5,7 +5,7 @@
 All plans are **one-time payments** (count in full for the contest).
 
 ## Status (Nov 17, single plan — done by Claude via the Dodo API)
-- **One live product: Rocco Founding Lifetime** `pdt_0Ns7dcv01gDgTlIQC1O1b`, starts $99 one-time, license keys ON, tax category SaaS. Default in `lib/payments.ts`.
+- **One live product: "Hire Rocco"** (renamed Nov 17 from Rocco Founding Lifetime) `pdt_0Ns7dcv01gDgTlIQC1O1b`, starts $99 one-time, license keys ON, tax category SaaS. Default in `lib/payments.ts`.
 - The 4 earlier products (Holiday/Seller/Pro/Agency) are **archived**.
 - **Price ladder:** +$10 every 5 sales, cap $499 (`lib/pricing.ts`). The site counts succeeded payments from the Dodo API and PATCHes the product price automatically (on page render, cached 60s, and on every Dodo webhook).
 - **Praveen must add in Vercel:** `DODO_API_KEY` (same key; server-only). Without it the site shows $99 and the price never steps up.

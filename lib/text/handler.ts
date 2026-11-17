@@ -89,7 +89,7 @@ export async function handleInbound(store: Store, from: string, text: string, no
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
       if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Your AI applies ${ok.length === 1 ? "it" : "them"} through Amazon's connector next time anyone on the team opens Rocco, then I'll track the results.`);
-      if (locked.length) L.push(`🔒 ${locked.join(", ")} need Founding Lifetime: rocco.works/pricing`);
+      if (locked.length) L.push(`🔒 ${locked.join(", ")} need you to hire me ($99 once): rocco.works/pricing`);
       if (unknown.length) L.push(`🤔 Don't recognize ${unknown.join(", ")}. Text “brief” for today's codes.`);
       return L.join("\n");
     }

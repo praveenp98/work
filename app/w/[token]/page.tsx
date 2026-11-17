@@ -109,7 +109,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <div>
             <h2>Unlock every fix and full tracking</h2>
             <p>Free workspaces get the top 3 fixes per report. A one-time license unlocks all of them plus bulk files. Then tell Rocco: &ldquo;activate my license&rdquo;.</p>
-            <Link className="btn" href="/pricing?utm_source=dashboard">See founding prices →</Link>
+            <Link className="btn" href="/pricing?utm_source=dashboard">Hire Rocco →</Link>
           </div>
         </section>
       )}

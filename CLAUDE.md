@@ -6,7 +6,7 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 19:30 IST): EXECUTING. Rocco = your team's AI Amazon teammate: text him (iMessage, Boardy-style one-screen homepage) or use him in Claude/ChatGPT next to Amazon's connectors. One plan: Founding Lifetime $99 +$10/5 sales (cap $499). Text engine built (dry-run until LoopMessage keys). Blockers: Vercel deploy + DNS + env (Supabase, DODO_API_KEY, LoopMessage, secrets), Dodo KYC + webhook, tracker check, Amazon API applications (`docs/GO-LIVE.md`).**
+> **STATUS (Nov 17, 2026, 19:30 IST): EXECUTING. Rocco = your team's AI Amazon teammate: text him (iMessage, Boardy-style one-screen homepage) or use him in Claude/ChatGPT next to Amazon's connectors. One plan: "Hire Rocco" $99 +$10/5 sales (cap $499). Text engine built (dry-run until LoopMessage keys). Blockers: Vercel deploy + DNS + env (Supabase, DODO_API_KEY, LoopMessage, secrets), Dodo KYC + webhook, tracker check, Amazon API applications (`docs/GO-LIVE.md`).**
 
 ## Source-of-truth files
 | File | Purpose |

@@ -1,5 +1,5 @@
 /**
- * Founding Lifetime price ladder: $99, +$10 every 5 sales, capped at $499.
+ * Hire Rocco price ladder: $99, +$10 every 5 sales, capped at $499.
  * Source of truth for sales = Dodo's payments API (succeeded payments for the product).
  */
 export const LADDER = { startCents: 9900, stepCents: 1000, every: 5, capCents: 49900 } as const;

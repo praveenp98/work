@@ -1,6 +1,6 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * One product, "Rocco Founding Lifetime", sold on a price ladder (lib/pricing.ts).
+ * One product, "Hire Rocco", sold on a price ladder (lib/pricing.ts).
  * - Checkout: Dodo static payment link.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
  * - Ladder: count succeeded payments via the Dodo API (DODO_API_KEY, server only) and PATCH the product price.

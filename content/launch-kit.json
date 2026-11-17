@@ -1,59 +1,250 @@
 {
   "fields": [
-    { "id": "name", "label": "Product name", "text": "Rocco" },
-    { "id": "name_long", "label": "Name with descriptor", "text": "Rocco: your AI Amazon teammate" },
-    { "id": "url", "label": "Website", "text": "https://rocco.works" },
-    { "id": "mcp", "label": "MCP server URL (Streamable HTTP, no auth)", "text": "https://rocco.works/mcp" },
-    { "id": "setup", "label": "Setup page", "text": "https://rocco.works/setup" },
-    { "id": "pricing", "label": "Pricing page", "text": "https://rocco.works/pricing" },
-    { "id": "x", "label": "X / Twitter", "text": "https://x.com/roccoworks" },
-    { "id": "email", "label": "Contact email", "text": "hello@rocco.works" },
-    { "id": "tagline_short", "label": "Tagline (≤ 40 chars)", "text": "Your AI Amazon teammate" },
-    { "id": "tagline_60", "label": "Tagline (≤ 60 chars)", "text": "The AI teammate that runs your Amazon ads with you" },
-    { "id": "tagline_140", "label": "One-liner (≤ 140 chars)", "text": "Rocco plugs into Claude or ChatGPT next to Amazon's official connectors, finds wasted ad spend, drafts fixes and tracks if they worked." },
-    { "id": "desc_260", "label": "Short description (≤ 260 chars)", "text": "Rocco is an AI teammate for Amazon sellers and agencies. Connect Amazon's official Ads and Seller Central connectors plus Rocco in Claude or ChatGPT, say \"morning check\", and approve the fixes. Rocco remembers every change and checks if it worked." },
-    { "id": "desc_500", "label": "Medium description (≤ 500 chars)", "text": "Rocco is an AI Amazon teammate that lives inside Claude, ChatGPT and Claude Code. It works next to Amazon's official Ads and Seller Central connectors: it tells your AI what to pull, finds wasted ad spend, money-losing campaigns, placements, stockout risks and listing gaps, and turns them into an approval list. You approve by code; your AI applies the changes through Amazon's connector. Rocco logs every change, re-checks it a week later and reports what it saved." },
-    { "id": "desc_long", "label": "Long description", "text": "Amazon gave AI hands with its official Ads and Seller Central connectors. Rocco gives it the judgment and memory of a senior Amazon manager.\n\nAdd Rocco to Claude, ChatGPT or Claude Code next to Amazon's connectors and say \"Rocco, morning check\". Rocco tells your AI exactly which reports to pull, then:\n- finds search terms that waste money, winners to harvest, and bids to move (never more than ±20% at a time)\n- flags profitable campaigns that run out of budget and campaigns above breakeven\n- tunes placements (Top of search, Rest of search, Product pages)\n- warns before a SKU runs out of stock and eases off its ads\n- spots ASINs with traffic but no sales, lost buy box, and converting keywords missing from your listing\n\nEverything comes back as an approval list with codes. Nothing changes without your OK. Approved changes are logged with before-numbers and an undo, re-checked a week later, and summarized in a daily brief. Agencies get white-label client reports and unlimited brands.\n\nFree to add: the brief, findings and top 3 fixes per report. Founding Lifetime is a one-time payment that starts at $99 and rises $10 every 5 sales." },
-    { "id": "tags", "label": "Tags / topics", "text": "Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, MCP, Claude, ChatGPT, AI agents, marketing automation, agencies" },
-    { "id": "categories", "label": "Categories", "text": "E-commerce · Marketing · Artificial Intelligence · Productivity · Developer Tools (MCP)" },
-    { "id": "pricing_text", "label": "Pricing summary", "text": "Free to add (brief, findings, top 3 fixes per report). Founding Lifetime: one-time payment, starts at $99, +$10 every 5 sales, capped at $499. Unlimited brands, no subscription." },
-    { "id": "founder", "label": "Maker bio", "text": "Praveen builds tools for Amazon sellers and has spent years in Amazon ads. Rocco is being built in public for the Ship or Die hackathon." },
-    { "id": "maker_comment", "label": "Maker first comment (Product Hunt / launch sites)", "text": "Hey everyone 👋\n\nAmazon just shipped official AI connectors for Ads and Seller Central. That gives Claude and ChatGPT access to your account, but not the judgment to run it.\n\nRocco is that judgment, with a memory. Add him next to Amazon's connectors, say \"Rocco, morning check\", and you get one approval list: junk search terms to cut, winners to harvest, budgets that run dry by noon, placements to fix, SKUs about to stock out. You approve by code, your AI applies it, and Rocco re-checks every change a week later.\n\nIt's free to add. Founding Lifetime starts at $99 once and goes up $10 every 5 sales.\n\nI'd love brutal feedback, especially from anyone running Amazon ads for clients. 🦝" },
-    { "id": "show_hn_title", "label": "Show HN title", "text": "Show HN: Rocco – an MCP server that gives Claude an Amazon ads manager's judgment" },
-    { "id": "show_hn_body", "label": "Show HN text", "text": "Amazon now has official MCP servers for Amazon Ads and Seller Central. They let an LLM pull reports and make changes, but the model still improvises what to check and how far to move a bid.\n\nRocco is a remote MCP server (https://rocco.works/mcp, Streamable HTTP) that sits next to them. It has a tool that tells the model which Ads API / SP-API reports and columns to pull for a job, deterministic analyzers for six data types (search terms, campaigns, placements, sales & traffic, restock, bulk files), and a memory layer: proposals get codes, approved changes are logged with before-metrics, and newer data is used to grade each change (worked / no effect / worse). Bid moves are capped at ±20% and nothing is applied without explicit approval of specific codes.\n\nThe rules engine is plain TypeScript with fixture tests; no LLM in the analysis path. Personal connectors are capability URLs (no login) backed by Supabase. Happy to answer questions about MCP tool design or the Amazon side." },
-    { "id": "x_bio", "label": "X bio for @roccoworks", "text": "Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connectors. Finds wasted ad spend, drafts the fixes, remembers what worked. rocco.works" }
+    {
+      "id": "name",
+      "label": "Product name",
+      "text": "Rocco"
+    },
+    {
+      "id": "name_long",
+      "label": "Name with descriptor",
+      "text": "Rocco: your AI Amazon teammate"
+    },
+    {
+      "id": "url",
+      "label": "Website",
+      "text": "https://rocco.works"
+    },
+    {
+      "id": "mcp",
+      "label": "MCP server URL (Streamable HTTP, no auth)",
+      "text": "https://rocco.works/mcp"
+    },
+    {
+      "id": "setup",
+      "label": "Setup page",
+      "text": "https://rocco.works/setup"
+    },
+    {
+      "id": "pricing",
+      "label": "Pricing page",
+      "text": "https://rocco.works/pricing"
+    },
+    {
+      "id": "x",
+      "label": "X / Twitter",
+      "text": "https://x.com/roccoworks"
+    },
+    {
+      "id": "email",
+      "label": "Contact email",
+      "text": "hello@rocco.works"
+    },
+    {
+      "id": "tagline_short",
+      "label": "Tagline (≤ 40 chars)",
+      "text": "Your AI Amazon teammate"
+    },
+    {
+      "id": "tagline_60",
+      "label": "Tagline (≤ 60 chars)",
+      "text": "The AI teammate that runs your Amazon ads with you"
+    },
+    {
+      "id": "tagline_140",
+      "label": "One-liner (≤ 140 chars)",
+      "text": "Rocco plugs into Claude or ChatGPT next to Amazon's official connectors, finds wasted ad spend, drafts fixes and tracks if they worked."
+    },
+    {
+      "id": "desc_260",
+      "label": "Short description (≤ 260 chars)",
+      "text": "Rocco is an AI teammate for Amazon sellers and agencies. Connect Amazon's official Ads and Seller Central connectors plus Rocco in Claude or ChatGPT, say \"morning check\", and approve the fixes. Rocco remembers every change and checks if it worked."
+    },
+    {
+      "id": "desc_500",
+      "label": "Medium description (≤ 500 chars)",
+      "text": "Rocco is an AI Amazon teammate that lives inside Claude, ChatGPT and Claude Code. It works next to Amazon's official Ads and Seller Central connectors: it tells your AI what to pull, finds wasted ad spend, money-losing campaigns, placements, stockout risks and listing gaps, and turns them into an approval list. You approve by code; your AI applies the changes through Amazon's connector. Rocco logs every change, re-checks it a week later and reports what it saved."
+    },
+    {
+      "id": "desc_long",
+      "label": "Long description",
+      "text": "Amazon gave AI hands with its official Ads and Seller Central connectors. Rocco gives it the judgment and memory of a senior Amazon manager.\n\nAdd Rocco to Claude, ChatGPT or Claude Code next to Amazon's connectors and say \"Rocco, morning check\". Rocco tells your AI exactly which reports to pull, then:\n- finds search terms that waste money, winners to harvest, and bids to move (never more than ±20% at a time)\n- flags profitable campaigns that run out of budget and campaigns above breakeven\n- tunes placements (Top of search, Rest of search, Product pages)\n- warns before a SKU runs out of stock and eases off its ads\n- spots ASINs with traffic but no sales, lost buy box, and converting keywords missing from your listing\n\nEverything comes back as an approval list with codes. Nothing changes without your OK. Approved changes are logged with before-numbers and an undo, re-checked a week later, and summarized in a daily brief. Agencies get white-label client reports and unlimited brands.\n\nFree to add: the brief, findings and top 3 fixes per report. Hire Rocco is a one-time payment that starts at $99 and rises $10 every 5 hires."
+    },
+    {
+      "id": "tags",
+      "label": "Tags / topics",
+      "text": "Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, MCP, Claude, ChatGPT, AI agents, marketing automation, agencies"
+    },
+    {
+      "id": "categories",
+      "label": "Categories",
+      "text": "E-commerce · Marketing · Artificial Intelligence · Productivity · Developer Tools (MCP)"
+    },
+    {
+      "id": "pricing_text",
+      "label": "Pricing summary",
+      "text": "Free to add (brief, findings, top 3 fixes per report). Hire Rocco: one-time payment, starts at $99, +$10 every 5 sales, capped at $499. Unlimited brands, no subscription."
+    },
+    {
+      "id": "founder",
+      "label": "Maker bio",
+      "text": "Praveen builds tools for Amazon sellers and has spent years in Amazon ads. Rocco is being built in public for the Ship or Die hackathon."
+    },
+    {
+      "id": "maker_comment",
+      "label": "Maker first comment (Product Hunt / launch sites)",
+      "text": "Hey everyone 👋\n\nAmazon just shipped official AI connectors for Ads and Seller Central. That gives Claude and ChatGPT access to your account, but not the judgment to run it.\n\nRocco is that judgment, with a memory. Add him next to Amazon's connectors, say \"Rocco, morning check\", and you get one approval list: junk search terms to cut, winners to harvest, budgets that run dry by noon, placements to fix, SKUs about to stock out. You approve by code, your AI applies it, and Rocco re-checks every change a week later.\n\nIt's free to add. Hiring Rocco starts at $99 once and goes up $10 every 5 hires.\n\nI'd love brutal feedback, especially from anyone running Amazon ads for clients. 🦝"
+    },
+    {
+      "id": "show_hn_title",
+      "label": "Show HN title",
+      "text": "Show HN: Rocco – an MCP server that gives Claude an Amazon ads manager's judgment"
+    },
+    {
+      "id": "show_hn_body",
+      "label": "Show HN text",
+      "text": "Amazon now has official MCP servers for Amazon Ads and Seller Central. They let an LLM pull reports and make changes, but the model still improvises what to check and how far to move a bid.\n\nRocco is a remote MCP server (https://rocco.works/mcp, Streamable HTTP) that sits next to them. It has a tool that tells the model which Ads API / SP-API reports and columns to pull for a job, deterministic analyzers for six data types (search terms, campaigns, placements, sales & traffic, restock, bulk files), and a memory layer: proposals get codes, approved changes are logged with before-metrics, and newer data is used to grade each change (worked / no effect / worse). Bid moves are capped at ±20% and nothing is applied without explicit approval of specific codes.\n\nThe rules engine is plain TypeScript with fixture tests; no LLM in the analysis path. Personal connectors are capability URLs (no login) backed by Supabase. Happy to answer questions about MCP tool design or the Amazon side."
+    },
+    {
+      "id": "x_bio",
+      "label": "X bio for @roccoworks",
+      "text": "Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connectors. Finds wasted ad spend, drafts the fixes, remembers what worked. rocco.works"
+    }
   ],
   "assets": [
-    { "file": "/brand/rocco-logo-512.png", "label": "Logo mark (512×512, transparent)" },
-    { "file": "/brand/rocco-logo-1024.png", "label": "Logo mark (1024×1024, transparent)" },
-    { "file": "/brand/rocco-logo-240.png", "label": "Logo mark (240×240, for directories)" },
-    { "file": "/brand/rocco-wordmark.png", "label": "Logo + wordmark (transparent)" },
-    { "file": "/brand/rocco-hero.png", "label": "Mascot: hero pose" },
-    { "file": "/brand/rocco-party.png", "label": "Mascot: celebrating" },
-    { "file": "/brand/rocco-judge.png", "label": "Mascot: judging" },
-    { "file": "/brand/rocco-wave.png", "label": "Mascot: waving" },
-    { "file": "/og.png", "label": "Social / OG image (1200×630)" },
-    { "file": "/brand/screenshot-home.png", "label": "Screenshot: homepage (1280×800)" },
-    { "file": "/brand/screenshot-setup.png", "label": "Screenshot: setup wizard (1280×800)" },
-    { "file": "/brand/screenshot-playground.png", "label": "Screenshot: Rocco's analysis (1280×800)" },
-    { "file": "/brand/screenshot-pricing.png", "label": "Screenshot: pricing (1280×800)" }
+    {
+      "file": "/brand/rocco-logo-512.png",
+      "label": "Logo mark (512×512, transparent)"
+    },
+    {
+      "file": "/brand/rocco-logo-1024.png",
+      "label": "Logo mark (1024×1024, transparent)"
+    },
+    {
+      "file": "/brand/rocco-logo-240.png",
+      "label": "Logo mark (240×240, for directories)"
+    },
+    {
+      "file": "/brand/rocco-wordmark.png",
+      "label": "Logo + wordmark (transparent)"
+    },
+    {
+      "file": "/brand/rocco-hero.png",
+      "label": "Mascot: hero pose"
+    },
+    {
+      "file": "/brand/rocco-party.png",
+      "label": "Mascot: celebrating"
+    },
+    {
+      "file": "/brand/rocco-judge.png",
+      "label": "Mascot: judging"
+    },
+    {
+      "file": "/brand/rocco-wave.png",
+      "label": "Mascot: waving"
+    },
+    {
+      "file": "/og.png",
+      "label": "Social / OG image (1200×630)"
+    },
+    {
+      "file": "/brand/screenshot-home.png",
+      "label": "Screenshot: homepage (1280×800)"
+    },
+    {
+      "file": "/brand/screenshot-setup.png",
+      "label": "Screenshot: setup wizard (1280×800)"
+    },
+    {
+      "file": "/brand/screenshot-playground.png",
+      "label": "Screenshot: Rocco's analysis (1280×800)"
+    },
+    {
+      "file": "/brand/screenshot-pricing.png",
+      "label": "Screenshot: pricing (1280×800)"
+    }
   ],
   "directories": [
-    { "name": "TrustMRR", "url": "https://trustmrr.com", "note": "Done (Praveen). Keep Dodo connected for verified revenue." },
-    { "name": "Official MCP Registry", "url": "https://registry.modelcontextprotocol.io", "note": "Publish server.json (repo root) with the mcp-publisher CLI; verify rocco.works via DNS TXT." },
-    { "name": "Smithery", "url": "https://smithery.ai", "note": "Add remote server URL https://rocco.works/mcp." },
-    { "name": "Glama", "url": "https://glama.ai/mcp/servers", "note": "Submit remote MCP server." },
-    { "name": "mcp.so", "url": "https://mcp.so", "note": "Submit server." },
-    { "name": "PulseMCP", "url": "https://www.pulsemcp.com", "note": "Submit server." },
-    { "name": "Product Hunt", "url": "https://www.producthunt.com", "note": "Use tagline_60, desc_260, maker_comment, screenshots. Launch on a Tue–Thu, 12:01 a.m. PT." },
-    { "name": "Hacker News (Show HN)", "url": "https://news.ycombinator.com/submit", "note": "show_hn_title + show_hn_body. Link https://rocco.works/connect." },
-    { "name": "Indie Hackers", "url": "https://www.indiehackers.com", "note": "Product page + build-in-public post." },
-    { "name": "BetaList", "url": "https://betalist.com", "note": "desc_260 + screenshots." },
-    { "name": "There's An AI For That", "url": "https://theresanaiforthat.com", "note": "Category: Amazon / e-commerce." },
-    { "name": "Futurepedia", "url": "https://www.futurepedia.io", "note": "desc_500." },
-    { "name": "SaaSHub", "url": "https://www.saashub.com", "note": "Alternatives: Helium 10, Perpetua, Teikametrics." },
-    { "name": "AlternativeTo", "url": "https://alternativeto.net", "note": "List as alternative to Amazon PPC tools." },
-    { "name": "Uneed", "url": "https://www.uneed.best", "note": "Launch day listing." },
-    { "name": "Peerlist", "url": "https://peerlist.io", "note": "Launchpad." }
+    {
+      "name": "TrustMRR",
+      "url": "https://trustmrr.com",
+      "note": "Done (Praveen). Keep Dodo connected for verified revenue."
+    },
+    {
+      "name": "Official MCP Registry",
+      "url": "https://registry.modelcontextprotocol.io",
+      "note": "Publish server.json (repo root) with the mcp-publisher CLI; verify rocco.works via DNS TXT."
+    },
+    {
+      "name": "Smithery",
+      "url": "https://smithery.ai",
+      "note": "Add remote server URL https://rocco.works/mcp."
+    },
+    {
+      "name": "Glama",
+      "url": "https://glama.ai/mcp/servers",
+      "note": "Submit remote MCP server."
+    },
+    {
+      "name": "mcp.so",
+      "url": "https://mcp.so",
+      "note": "Submit server."
+    },
+    {
+      "name": "PulseMCP",
+      "url": "https://www.pulsemcp.com",
+      "note": "Submit server."
+    },
+    {
+      "name": "Product Hunt",
+      "url": "https://www.producthunt.com",
+      "note": "Use tagline_60, desc_260, maker_comment, screenshots. Launch on a Tue–Thu, 12:01 a.m. PT."
+    },
+    {
+      "name": "Hacker News (Show HN)",
+      "url": "https://news.ycombinator.com/submit",
+      "note": "show_hn_title + show_hn_body. Link https://rocco.works/connect."
+    },
+    {
+      "name": "Indie Hackers",
+      "url": "https://www.indiehackers.com",
+      "note": "Product page + build-in-public post."
+    },
+    {
+      "name": "BetaList",
+      "url": "https://betalist.com",
+      "note": "desc_260 + screenshots."
+    },
+    {
+      "name": "There's An AI For That",
+      "url": "https://theresanaiforthat.com",
+      "note": "Category: Amazon / e-commerce."
+    },
+    {
+      "name": "Futurepedia",
+      "url": "https://www.futurepedia.io",
+      "note": "desc_500."
+    },
+    {
+      "name": "SaaSHub",
+      "url": "https://www.saashub.com",
+      "note": "Alternatives: Helium 10, Perpetua, Teikametrics."
+    },
+    {
+      "name": "AlternativeTo",
+      "url": "https://alternativeto.net",
+      "note": "List as alternative to Amazon PPC tools."
+    },
+    {
+      "name": "Uneed",
+      "url": "https://www.uneed.best",
+      "note": "Launch day listing."
+    },
+    {
+      "name": "Peerlist",
+      "url": "https://peerlist.io",
+      "note": "Launchpad."
+    }
   ]
 }

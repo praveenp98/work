@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (20:45) · Plan renamed "Hire Rocco"
+- Dodo product renamed "Hire Rocco" (price unchanged, $99). Pricing page rebuilt as one centered card ("Hire Rocco. Pay once. I work for your team forever.", next price, hire #, 5 inclusions, button, 4 FAQs). All copy updated (chat/text paywall, terms, llms.txt, launch kit).
+
+---
+
 ## 2026-11-17 (20:30) · Memory fix + "Hi, I'm Rocco" homepage
 - Memory button failing in production: fixed likely causes in code: new Supabase `sb_secret_…` keys now sent only as `apikey` (legacy JWT keys keep Authorization); URL normalized; accepts SUPABASE_URL/NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY/SUPABASE_SECRET_KEY/SUPABASE_SERVICE_KEY/SUPABASE_KEY; workspace API returns a specific hint (key rejected / tables missing). New `/api/health` shows what's set and whether each table answers (no secret values). Reminder: Vercel env changes need a redeploy.
 - Site simplified Boardy-style (couldn't load boardy.ai from the sandbox): minimal header (logo · How it works · Pricing · Text Rocco), one-line footer, homepage = Rocco avatar + "Hi, I'm Rocco." + one sentence + Text Rocco + 3 example texts.

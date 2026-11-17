@@ -80,7 +80,7 @@ Rocco is an AI teammate for Amazon sellers and agencies. Connect Amazon's offici
 Rocco is an AI Amazon teammate that lives inside Claude, ChatGPT and Claude Code. It works next to Amazon's official Ads and Seller Central connectors: it tells your AI what to pull, finds wasted ad spend, money-losing campaigns, placements, stockout risks and listing gaps, and turns them into an approval list. You approve by code; your AI applies the changes through Amazon's connector. Rocco logs every change, re-checks it a week later and reports what it saved.
 ```
 
-## Long description  (1144 chars)
+## Long description  (1137 chars)
 
 ```
 Amazon gave AI hands with its official Ads and Seller Central connectors. Rocco gives it the judgment and memory of a senior Amazon manager.
@@ -94,7 +94,7 @@ Add Rocco to Claude, ChatGPT or Claude Code next to Amazon's connectors and say 
 
 Everything comes back as an approval list with codes. Nothing changes without your OK. Approved changes are logged with before-numbers and an undo, re-checked a week later, and summarized in a daily brief. Agencies get white-label client reports and unlimited brands.
 
-Free to add: the brief, findings and top 3 fixes per report. Founding Lifetime is a one-time payment that starts at $99 and rises $10 every 5 sales.
+Free to add: the brief, findings and top 3 fixes per report. Hire Rocco is a one-time payment that starts at $99 and rises $10 every 5 hires.
 ```
 
 ## Tags / topics  (123 chars)
@@ -109,10 +109,10 @@ Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, MCP, Claude, ChatGPT
 E-commerce · Marketing · Artificial Intelligence · Productivity · Developer Tools (MCP)
 ```
 
-## Pricing summary  (177 chars)
+## Pricing summary  (170 chars)
 
 ```
-Free to add (brief, findings, top 3 fixes per report). Founding Lifetime: one-time payment, starts at $99, +$10 every 5 sales, capped at $499. Unlimited brands, no subscription.
+Free to add (brief, findings, top 3 fixes per report). Hire Rocco: one-time payment, starts at $99, +$10 every 5 sales, capped at $499. Unlimited brands, no subscription.
 ```
 
 ## Maker bio  (136 chars)
@@ -121,7 +121,7 @@ Free to add (brief, findings, top 3 fixes per report). Founding Lifetime: one-ti
 Praveen builds tools for Amazon sellers and has spent years in Amazon ads. Rocco is being built in public for the Ship or Die hackathon.
 ```
 
-## Maker first comment (Product Hunt / launch sites)  (687 chars)
+## Maker first comment (Product Hunt / launch sites)  (682 chars)
 
 ```
 Hey everyone 👋
@@ -130,7 +130,7 @@ Amazon just shipped official AI connectors for Ads and Seller Central. That give
 
 Rocco is that judgment, with a memory. Add him next to Amazon's connectors, say "Rocco, morning check", and you get one approval list: junk search terms to cut, winners to harvest, budgets that run dry by noon, placements to fix, SKUs about to stock out. You approve by code, your AI applies it, and Rocco re-checks every change a week later.
 
-It's free to add. Founding Lifetime starts at $99 once and goes up $10 every 5 sales.
+It's free to add. Hiring Rocco starts at $99 once and goes up $10 every 5 hires.
 
 I'd love brutal feedback, especially from anyone running Amazon ads for clients. 🦝
 ```
@@ -195,4 +195,4 @@ Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connec
 | [Peerlist](https://peerlist.io) | Launchpad. | ☐ |
 
 ## Official MCP Registry
-`server.json` is at the repo root (name `works.rocco/rocco`, remote `https://rocco.works/mcp`). Publish with Anthropic/MCP's `mcp-publisher` CLI: `mcp-publisher login dns --domain rocco.works` (adds a DNS TXT record), then `mcp-publisher publish`. Check the current schema with `mcp-publisher init` first; registry schemas change.
+`server.json` is at the repo root (name `works.rocco/rocco`, remote `https://rocco.works/mcp`). Publish with the `mcp-publisher` CLI: `mcp-publisher login dns --domain rocco.works` (adds a DNS TXT record), then `mcp-publisher publish`. Check the current schema with `mcp-publisher init` first.
