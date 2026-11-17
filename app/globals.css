@@ -252,3 +252,46 @@ h3, h4 { font-weight: 600; letter-spacing: -0.02em; }
 .brand { font-weight: 600; letter-spacing: -0.03em; }
 .hire-price, .est-big, .est-val, .demo-found b { font-weight: 600; }
 .btn { font-weight: 600; }
+
+
+/* ===================== Boardy look (Nov 17) =====================
+   Warm light gray page, near-white cards, navy ink, one blue. Calm type, pill buttons, soft shadows. */
+:root {
+  --bg: #f4f2ee; --bg2: #ece9e3; --card: #fcfbf9; --ink: #1c2433; --muted: #5d6676; --line: #e2ddd5;
+  --accent: #1f6feb; --accent-deep: #1559c7; --accent-ink: #ffffff; --soft: #efece6;
+  --shadow: 0 1px 2px rgba(28, 36, 51, .04), 0 12px 32px rgba(28, 36, 51, .07);
+  --radius: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #11151c; --bg2: #161b23; --card: #1a2029; --ink: #eef1f6; --muted: #a3acba; --line: #2a313c; --accent: #4a8dff; --accent-deep: #2f74ec; --soft: #1d232c; }
+}
+body { letter-spacing: -0.005em; }
+h1, h2, .display { color: var(--ink); }
+.top-b { border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); background: color-mix(in srgb, var(--bg) 88%, transparent); }
+.top-b .top-in { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 12px 16px; }
+.top-b .brand { justify-self: center; font-weight: 600; font-size: 24px; letter-spacing: -.03em; color: var(--ink); }
+.top-left { display: flex; gap: 20px; font-size: 15px; color: var(--muted); }
+.top-left a { text-decoration: none; }
+.top-left a:hover { color: var(--ink); }
+.top-right { justify-self: end; }
+.chat-fab { width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 40%, transparent); transition: transform .15s; }
+.chat-fab:hover { transform: translateY(-1px); }
+@media (max-width: 640px) { .top-left { display: none; } .top-b .brand { font-size: 22px; } .chat-fab { width: 44px; height: 44px; } }
+.btn { background: var(--accent); box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 28%, transparent); font-weight: 600; }
+.btn:hover { background: var(--accent-deep); transform: translateY(-1px); }
+.btn.ghost { background: var(--card); }
+.btn.dark { background: var(--ink); color: var(--bg); }
+.card, .start-card, .stage-card { background: var(--card); border-color: var(--line); border-radius: var(--radius); }
+.eyebrow { color: var(--accent); letter-spacing: .06em; font-weight: 600; }
+.foot { background: transparent; border-top: 1px solid var(--line); }
+.foot-min, .foot-in { text-align: left; }
+.foot-brand { font-weight: 600; font-size: 26px; letter-spacing: -.03em; text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+.foot-tag { color: var(--muted); font-size: 18px; margin: 4px 0 14px; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 10px 20px; color: var(--muted); }
+.foot nav a { text-decoration: none; }
+.foot nav a:hover { color: var(--ink); }
+.start-dots span.on { background: var(--accent); }
+.home-how li::before { color: var(--accent); }
+.askbox button, .imsg-btn { background: var(--accent); }
+.askbox { border-color: color-mix(in srgb, var(--ink) 40%, transparent); }
+.locked-row { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: color-mix(in srgb, var(--accent) 5%, var(--card)); }

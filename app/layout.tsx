@@ -25,21 +25,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Tracker />
       </head>
       <body>
-        <header className="top top-min">
+        <header className="top top-b">
           <div className="top-in">
-            <Link href="/" className="brand">
-              <Raccoon size={32} /> <span>rocco</span>
-            </Link>
-            <nav>
-              <Link href="/connect" className="lg-only">How it works</Link>
+            <nav className="top-left" aria-label="Main">
+              <Link href="/setup">Setup</Link>
               <Link href="/pricing">Pricing</Link>
-              <Link href="/" className="btn small dark">Text Rocco</Link>
+              <Link href="/answers">Answers</Link>
             </nav>
+            <Link href="/" className="brand">
+              <Raccoon size={34} /> <span>Rocco</span>
+            </Link>
+            <div className="top-right">
+              <Link href="/#text" className="chat-fab" aria-label="Text Rocco">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" d="M12 3.5c-4.8 0-8.5 3.2-8.5 7.2 0 2.2 1.1 4.1 2.9 5.4l-.6 3.4 3.4-1.8c.9.2 1.8.3 2.8.3 4.8 0 8.5-3.2 8.5-7.3S16.8 3.5 12 3.5z" /></svg>
+              </Link>
+            </div>
           </div>
         </header>
         <main>{children}</main>
         <footer className="foot foot-min">
+          <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>
+          <p className="foot-tag">The AI Amazon manager in your iMessages.</p>
           <nav>
+            <Link href="/answers">Answers</Link>
             <Link href="/setup">Setup</Link>
             <Link href="/connect">How it works</Link>
             <Link href="/pricing">Pricing</Link>
