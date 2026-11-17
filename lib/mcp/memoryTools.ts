@@ -8,11 +8,12 @@ import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
 import { setupHelp } from "./setup";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { paywall } from "../paywall";
+import { optInLinks } from "../text/provider";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
 import { getStore } from "../store";
 import type { ActionStatus } from "../store/types";
-import { applyChanges, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, revertChanges, runAnalysis, setBrandSettings } from "../workspace";
+import { applyChanges, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, ensureLinkCode, revertChanges, runAnalysis, setBrandSettings } from "../workspace";
 import { listingGaps } from "../rules/terms";
 import { FREE_PROPOSALS, formatActions, formatAnalysis, formatBrief, proposalLine } from "./format";
 import type { McpContext } from "./server";
@@ -53,6 +54,14 @@ function pendingNote(pending?: { type: "apply" | "undo"; codes: string[]; by: st
 }
 
 export function registerMemoryTools(server: McpServer, { store, ws, token }: McpContext) {
+  /** Until someone on the team texts Rocco: a one-tap link that joins their phone to this workspace. */
+  async function textMe(): Promise<string> {
+    if ((await store.listPhones({ workspaceId: ws.id })).length) return "";
+    const l = await optInLinks({ link: await ensureLinkCode(store, ws), body: "Hi Rocco 👋 it's me [opt-in-code]" }).catch(() => null);
+    const url = l?.url ?? l?.imessage;
+    return url ? `\n\n📱 **Get these numbers by text every morning:** ${url} (tap on your iPhone, send the message: your phone joins this Rocco).` : "";
+  }
+
   /** Paywall line for the chat, only at a value moment (see lib/paywall). Empty otherwise. */
   async function offer(prefer?: { worked?: { id: string; saved?: number } }): Promise<string> {
     if (ws.licensed) return "";
@@ -69,7 +78,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
-  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await offer())));
+  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await textMe()) + (await offer())));
 
 
   server.registerTool("setup_check", {

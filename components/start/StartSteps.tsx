@@ -52,7 +52,9 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
   }, [initial]);
   useEffect(() => { store(key, `${ai}:${step}`); }, [key, ai, step]);
 
-  const connector = token ? `https://rocco.works/mcp/${token}` : null;
+  // With a key (their Rocco page or a text link): the private URL, no sign-in. Otherwise: sign-in URL, and
+  // Claude/ChatGPT open Rocco's Connect page, which creates their Rocco.
+  const connector = token ? `https://rocco.works/mcp/${token}` : "https://rocco.works/mcp/login";
   const go = (s: Step) => { setStep(s); setCopied(""); setErr(""); };
   const next = () => go(ORDER[Math.min(ORDER.indexOf(step) + 1, ORDER.length - 1)]);
   const back = () => go(ORDER[Math.max(ORDER.indexOf(step) - 1, 0)]);
@@ -62,12 +64,8 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
     catch { window.prompt("Copy this:", text); setCopied(label); }
   }
 
-  async function pickAi(a: AI) {
+  function pickAi(a: AI) {
     setAi(a);
-    if (!token) {
-      const d = await fetch("/api/workspace", { method: "POST" }).then((r) => r.json()).catch(() => null);
-      if (d?.ok) setToken(d.token); else setErr("Couldn't create your Rocco right now. Try again in a minute.");
-    }
     go("rocco");
   }
 
@@ -93,7 +91,7 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
         </div>
       )}
 
-      {step === "rocco" && connector && (
+      {step === "rocco" && (
         <div className="start-card">
           <h2>Add Rocco to {name}</h2>
           {ai === "claude_code" ? (
@@ -105,14 +103,14 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
             <>
               <p className="start-sub">
                 {ai === "claude"
-                  ? <>Copy your Rocco link, then in Claude: <b>Add custom connector</b> → name it <b>Rocco</b> → paste → <b>Add</b>.</>
-                  : <>Copy your Rocco link, then in ChatGPT: <b>Settings → Apps &amp; Connectors → Advanced</b> → turn on <b>Developer mode</b> → <b>Create</b> → paste (no sign-in).</>}
+                  ? <>Copy your Rocco link, then in Claude: <b>Add custom connector</b> → name it <b>Rocco</b> → paste → <b>Add</b>.{token ? "" : <> Tap <b>Connect</b> when Rocco asks.</>}</>
+                  : <>Copy your Rocco link, then in ChatGPT: <b>Settings → Apps &amp; Connectors → Advanced</b> → turn on <b>Developer mode</b> → <b>Create</b> → paste{token ? " (no sign-in)" : <>, then tap <b>Connect</b> when Rocco asks</>}.</>}
               </p>
               <button className="btn start-main" onClick={() => copy(connector, "rocco")}>{copied === "rocco" ? "Copied ✓ Now open " + name : "1. Copy my Rocco link"}</button>
               <a className="btn ghost start-second" href={OPEN[ai].connectors} target="_blank" rel="noreferrer">2. Open {name} connectors ↗</a>
             </>
           )}
-          <p className="fine">This link is your team&apos;s private Rocco. It remembers every change and checks if it worked.</p>
+          <p className="fine">{token ? "This link is your team's private Rocco." : "Connecting creates your team's private Rocco."} It remembers every change and checks if it worked.</p>
           <Nav back={back} next={next} nextLabel="I added Rocco →" />
         </div>
       )}
@@ -157,7 +155,7 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
       {step === "done" && (
         <div className="start-card">
           <h2>You&apos;re set 🦝</h2>
-          <p className="start-sub">Every morning, say &ldquo;{ASK}&rdquo; (or let your team text Rocco). Your change log, results and money saved show up {token && !initial ? <a href={`/w/${token}`}>on your Rocco page</a> : "right here"}.</p>
+          <p className="start-sub">Every morning, say &ldquo;{ASK}&rdquo; (or let your team text Rocco). Your change log, results and money saved show up {initial ? "right here" : "on your Rocco page (Rocco gives you the link in Claude)"}.</p>
           <button className="linkbtn" onClick={() => go("ai")}>Start over</button>
         </div>
       )}

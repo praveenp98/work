@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Sign up by adding Rocco in Claude (MCP OAuth)
+- New connector URL https://rocco.works/mcp/login. Claude/ChatGPT get a 401 + OAuth metadata, open Rocco's one-button Connect page, which creates the team's Rocco (or reuses it from a pasted Rocco page link), and return signed in. Stateless (sealed client ids/codes/refresh tokens), PKCE S256, dynamic client registration. Access token = workspace key.
+- /setup now hands out the sign-in URL (no workspace created for page views); personal pages keep their private URL.
+- First rocco_brief includes a one-tap "get these numbers by text" link until a phone joins.
+- Fonts: Inter Tight medium headings (Boardy-like) instead of Bricolage.
+- Tests 104/104 (OAuth flow end to end incl. bad verifier and foreign redirect).
+- Next: submit Rocco to Claude's connector directory with /mcp/login.
+
+---
+
 ## 2026-11-17 (late) · Paywall at the right moments
 - lib/paywall.ts: found / worked / locked / team moments with throttles; wired into texts, morning cron, MCP (brief + analyze) and dashboard. Details in docs/PRICING-MODEL.md.
 - Auto-unlock: checkout links carry the workspace; /api/dodo/webhook verifies the payment via Dodo's API and unlocks + texts the team. Text "activate <key>" also works.
