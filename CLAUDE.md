@@ -15,6 +15,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
 | `docs/PRICING-MODEL.md` | **Pricing (approved, live):** single Founding Lifetime plan on a price ladder. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
+| `docs/MOAT.md` | Moat (memory/proof, benchmarks, audience, personality), Rocco Daily content format, conversion levers. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
 | `docs/LAUNCH-SETUP.md` | Brand/domain shortlist, pre-warmed email infra, lead list sources, budget. |
 | `docs/AMAZON-BRAIN-PLAN.md` | **Current plan v2:** $50K math, two lanes (Amazon MCP + no setup), mascot, 12 distribution engines, email, testing loop. |
