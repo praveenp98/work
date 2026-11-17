@@ -6,7 +6,8 @@ import { WinsCard } from "@/components/WinsCard";
 import { REPORT_HELP } from "@/lib/analyze";
 import { proposalLine } from "@/lib/mcp/format";
 import { getStore } from "@/lib/store";
-import { buildBrief, loadWorkspace } from "@/lib/workspace";
+import { maskPhone } from "@/lib/text/commands";
+import { buildBrief, ensureLinkCode, loadWorkspace } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your Rocco workspace", robots: { index: false, follow: false } };
@@ -21,6 +22,9 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const ws = await loadWorkspace(store, token);
   if (!ws) notFound();
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
+  const linkCode = await ensureLinkCode(store, ws);
+  const team = await store.listPhones({ workspaceId: ws.id });
+  const roccoNumber = process.env.NEXT_PUBLIC_ROCCO_IMESSAGE;
   const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
   const connector = `https://rocco.works/mcp/${token}`;
 
@@ -45,6 +49,12 @@ export default async function Page({ params }: { params: Promise<{ token: string
       </div>
 
       {(brief.saved > 0 || brief.totals.worked > 0) && <div style={{ marginTop: 14 }}><WinsCard saved={brief.saved} worked={brief.totals.worked} applied={brief.totals.applied} since={ws.createdAt} /></div>}
+      <section className="card" style={{ marginTop: 18 }}>
+        <h3 style={{ marginTop: 0 }}>💬 Text Rocco from your phone (whole team)</h3>
+        <p style={{ margin: "0 0 8px" }}>Each teammate texts <b className="code">link {linkCode}</b> to Rocco{roccoNumber ? <> at <b>{roccoNumber}</b></> : " (iMessage line opening this week)"}. Morning numbers, answers, and approvals with a reply.</p>
+        {roccoNumber && <a className="btn small imsg-btn" style={{ fontSize: 15, padding: "9px 16px" }} href={`sms:${roccoNumber}&body=${encodeURIComponent(`Hi Rocco, link ${linkCode}`)}`}>💬 Text Rocco now</a>}
+        <p className="fine" style={{ margin: "8px 0 0" }}>{team.length ? `On this line: ${team.map((t) => maskPhone(t.phone) + (t.optedOut ? " (paused)" : "")).join(", ")}` : "No phones linked yet."}{ws.pending?.length ? ` · Waiting for your AI to apply: ${ws.pending.flatMap((p) => p.codes).join(", ")}` : ""}</p>
+      </section>
       {brief.season && <p className="pill" style={{ marginTop: 18 }}>📅 {brief.season}</p>}
 
       {brief.perBrand.map((b) => (

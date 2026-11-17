@@ -1,4 +1,4 @@
-import type { Action, Run, Snapshot, Store, Workspace } from "./types";
+import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
 
 /**
  * Supabase (PostgREST) store. Server-only: uses the service role key.
@@ -33,6 +33,26 @@ export class SupabaseStore implements Store {
     await this.q(`workspaces?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ data }), headers: { Prefer: "return=minimal" } });
   }
 
+  async getWorkspaceById(id: string) {
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?id=eq.${encodeURIComponent(id)}&select=id,data&limit=1`);
+    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+  }
+  async findWorkspaceByLinkCode(code: string) {
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>linkCode=eq.${encodeURIComponent(code.toUpperCase())}&select=id,data&limit=1`);
+    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+  }
+  async getPhone(phone: string) {
+    const rows = await this.q<{ data: Phone }[]>(`phones?phone=eq.${encodeURIComponent(phone)}&select=data&limit=1`);
+    return rows[0]?.data ?? null;
+  }
+  async savePhone(p: Phone) {
+    await this.q("phones", { method: "POST", body: JSON.stringify({ phone: p.phone, workspace_id: p.workspaceId, opted_out: p.optedOut, data: p }), headers: { Prefer: "resolution=merge-duplicates,return=minimal" } });
+  }
+  async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {
+    const f = [o.workspaceId ? `workspace_id=eq.${o.workspaceId}` : "", o.optedIn ? "opted_out=eq.false" : ""].filter(Boolean).join("&");
+    const rows = await this.q<{ data: Phone }[]>(`phones?${f}${f ? "&" : ""}select=data&limit=5000`);
+    return rows.map((r) => r.data);
+  }
   async addSnapshot(s: Snapshot) {
     await this.q("snapshots", { method: "POST", body: JSON.stringify({ id: s.id, workspace_id: s.workspaceId, brand: s.brand, kind: s.kind, created_at: s.createdAt, data: s }), headers: { Prefer: "return=minimal" } });
   }

@@ -4,9 +4,12 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
-  const email = String(body?.email ?? "").trim().toLowerCase();
+  const raw = String(body?.email ?? body?.contact ?? "").trim();
   const source = String(body?.source ?? "site").slice(0, 60);
-  if (!EMAIL.test(email) || email.length > 200) return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
+  const digits = raw.replace(/[^\d+]/g, "");
+  // email, or a phone number stored as "tel:+…" (same column; keeps the table simple)
+  const email = EMAIL.test(raw) ? raw.toLowerCase() : /^\+?\d{10,15}$/.test(digits) ? `tel:${digits.startsWith("+") ? digits : (digits.length === 10 ? "+1" : "+") + digits}` : "";
+  if (!email || email.length > 200) return NextResponse.json({ ok: false, error: "Enter an email or phone number" }, { status: 400 });
 
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;

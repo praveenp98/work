@@ -6,7 +6,8 @@ import { benchmark } from "./rules/benchmarks";
 import { DEFAULT_SETTINGS } from "./rules/settings";
 import type { Proposal } from "./rules/types";
 import { hashToken, isToken, newToken } from "./store";
-import type { Action, BrandSettings, Run, Store, Workspace } from "./store/types";
+import { randomInt } from "node:crypto";
+import type { Action, BrandSettings, PendingItem, Run, Store, Workspace } from "./store/types";
 
 export const DEFAULT_BRAND = "main";
 /** Free workspaces see and track the top N proposals per report. */
@@ -142,7 +143,8 @@ export function expandCodes(codes: string[]): string[] {
 
 export async function revertChanges(store: Store, ws: Workspace, ids: string[]) {
   const all = await store.listActions(ws.id);
-  const hit = all.filter((a) => ids.includes(a.id) || ids.includes(a.id.slice(0, 8)));
+  const want = new Set(ids.map((i) => i.toUpperCase()));
+  const hit = all.filter((a) => ids.includes(a.id) || ids.includes(a.id.slice(0, 8)) || (a.status !== "reverted" && want.has(a.code.toUpperCase())));
   for (const a of hit) { a.status = "reverted"; await store.saveAction(a); }
   return hit;
 }
@@ -188,3 +190,28 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
 }
 
 export { REPORT_HELP };
+
+const CODE_ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+/** The 6-char code teammates text to link their phone. Created on first use. */
+export async function ensureLinkCode(store: Store, ws: Workspace): Promise<string> {
+  if (ws.linkCode) return ws.linkCode;
+  for (let i = 0; i < 5; i++) {
+    const code = Array.from({ length: 6 }, () => CODE_ALPHA[randomInt(CODE_ALPHA.length)]).join("");
+    if (!(await store.findWorkspaceByLinkCode(code))) { ws.linkCode = code; await store.saveWorkspace(ws); return code; }
+  }
+  throw new Error("Couldn't create a link code");
+}
+
+/** Approvals/undos sent by text wait here until the team's AI applies them. */
+export async function queuePending(store: Store, ws: Workspace, item: PendingItem) {
+  ws.pending = [...(ws.pending ?? []), item];
+  await store.saveWorkspace(ws);
+}
+
+/** Remove codes from the queue once they're applied (apply_changes / revert_changes). */
+export async function clearPending(store: Store, ws: Workspace, type: PendingItem["type"], codes: string[]) {
+  if (!ws.pending?.length) return;
+  const done = new Set(codes.map((c) => c.toUpperCase()));
+  ws.pending = ws.pending.map((p) => (p.type === type ? { ...p, codes: p.codes.filter((c) => !done.has(c.toUpperCase())) } : p)).filter((p) => p.codes.length);
+  await store.saveWorkspace(ws);
+}

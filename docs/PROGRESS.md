@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (19:30) · Boardy-style homepage + Text Rocco engine
+- Homepage is now one screen: "Text Rocco about your Amazon business", big Text Rocco button, iPhone iMessage demo, team positioning; long sections moved off the homepage (still on /connect, /setup, /pricing).
+- Text Rocco works end to end in dry-run (no LoopMessage keys yet): link code per workspace (whole team can link phones), morning numbers (spend, sales, ACoS vs target, leak + trend, new money-burners, stock risk, wins, benchmark, fixes with "Reply YES"), approvals by text queued for the team's AI (shown first in rocco_brief), undo, wins, STOP/START, questions from memory. Webhook + daily cron + vercel.json. Supabase `phones` table (re-run setup.sql).
+- Tests 82. Build clean. Verified via simulated webhook + cron on a production build.
+- Next: Praveen signs up for LoopMessage ($59) → env vars + webhook (GO-LIVE §9) → real iPhone test.
+
+---
+
 ## 2026-11-17 (18:15) · iMessage infra scoped
 - LoopMessage $59 plan = messaging line only; full checklist (signup-by-text, webhook, commands, approval queue, daily cron, Supabase, email fallback, optional LLM) in `docs/BOARDY-STUDY.md`. Waiting on Praveen's signup + API credentials.
 

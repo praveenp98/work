@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { Action, Run, Snapshot, Store, Workspace } from "./types";
+import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
 
 /** In-process store for dev and tests. Not durable across server instances. */
 export class MemoryStore implements Store {
@@ -8,6 +8,7 @@ export class MemoryStore implements Store {
   private snaps: Snapshot[] = [];
   private runs: Run[] = [];
   private actions: Action[] = [];
+  private phones = new Map<string, Phone>();
 
   async createWorkspace(tokenHash: string) {
     const w: Workspace = { id: randomUUID(), createdAt: new Date().toISOString(), licensed: false, brands: {} };
@@ -20,6 +21,19 @@ export class MemoryStore implements Store {
   }
   async saveWorkspace(w: Workspace) {
     for (const [h, v] of this.ws) if (v.id === w.id) this.ws.set(h, structuredClone(w));
+  }
+  async getWorkspaceById(id: string) {
+    for (const w of this.ws.values()) if (w.id === id) return structuredClone(w);
+    return null;
+  }
+  async findWorkspaceByLinkCode(code: string) {
+    for (const w of this.ws.values()) if (w.linkCode && w.linkCode === code.toUpperCase()) return structuredClone(w);
+    return null;
+  }
+  async getPhone(phone: string) { const p = this.phones.get(phone); return p ? structuredClone(p) : null; }
+  async savePhone(p: Phone) { this.phones.set(p.phone, structuredClone(p)); }
+  async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {
+    return [...this.phones.values()].filter((p) => (!o.workspaceId || p.workspaceId === o.workspaceId) && (!o.optedIn || !p.optedOut)).map((p) => structuredClone(p));
   }
   async addSnapshot(s: Snapshot) { this.snaps.push(structuredClone(s)); }
   async listSnapshots(id: string, o: { brand?: string; kind?: string; limit?: number } = {}) {

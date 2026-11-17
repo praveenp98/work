@@ -11,7 +11,7 @@ import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/ex
 import { SITE } from "../site";
 import { getStore } from "../store";
 import type { ActionStatus } from "../store/types";
-import { applyChanges, buildBrief, createWorkspace, DEFAULT_BRAND, revertChanges, runAnalysis, setBrandSettings } from "../workspace";
+import { applyChanges, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, revertChanges, runAnalysis, setBrandSettings } from "../workspace";
 import { listingGaps } from "../rules/terms";
 import { FREE_PROPOSALS, formatActions, formatAnalysis, formatBrief, proposalLine } from "./format";
 import type { McpContext } from "./server";
@@ -42,13 +42,22 @@ function toTable(a: { report_json?: string; rows?: Record<string, unknown>[]; re
 const brandArg = z.string().max(80).optional().describe(`Brand / seller account name. Defaults to "${DEFAULT_BRAND}".`);
 const reportList = Object.values(REPORT_HELP).map((h) => `${h.name} (${h.where})`).join("; ");
 
+/** Approvals the team sent by text: the AI should apply these first. */
+function pendingNote(pending?: { type: "apply" | "undo"; codes: string[]; by: string; at: string }[]): string {
+  if (!pending?.length) return "";
+  const L = ["## 📱 Approved by text, waiting for you"];
+  for (const p of pending) L.push(`- ${p.type === "apply" ? "APPLY" : "UNDO"} ${p.codes.join(", ")} (by ${p.by}, ${p.at.slice(0, 10)})`);
+  L.push("Do these first: for APPLY, call export_changes for those codes, apply exactly them with the seller's Amazon Ads connector, then apply_changes. For UNDO, follow revert_changes. Confirm with the seller in one line before applying.", "", "");
+  return L.join("\n");
+}
+
 export function registerMemoryTools(server: McpServer, { store, ws, token }: McpContext) {
   server.registerTool("rocco_brief", {
     title: "Rocco's brief: what to do today",
     description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
-  }, async () => text(formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_`));
+  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_`));
 
 
   server.registerTool("setup_check", {
@@ -125,6 +134,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       let runId = run_id;
       if (runId && runId.length < 36) runId = (await store.listRuns(ws.id, { limit: 50 })).find((r) => r.id.startsWith(runId!))?.id;
       const res = await applyChanges(store, ws, codes, { runId, brand: brand || undefined, note, freeLimit: ws.licensed ? undefined : FREE_PROPOSALS });
+      await clearPending(store, ws, "apply", [...res.actions.map((x) => x.code), ...res.dupes]);
       const L = [`Logged ${res.actions.length} change${res.actions.length === 1 ? "" : "s"} for ${res.brand}. Rocco will re-check them after ${res.actions[0]?.followUpAt.slice(0, 10) ?? "–"} (just ask "did last week's changes work?" and he'll pull fresh data with rocco_plan("results_check")).`];
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
@@ -149,12 +159,13 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 
   server.registerTool("revert_changes", {
     title: "Undo changes",
-    description: "Mark logged changes as reverted and return the exact steps to undo each one in Amazon Ads. Use the 8-character ids from list_changes.",
+    description: "Mark logged changes as reverted and return the exact steps to undo each one in Amazon Ads. Use the 8-character ids from list_changes, or the codes a teammate asked to undo by text.",
     inputSchema: { change_ids: z.array(z.string().max(40)).min(1).max(100) },
     annotations: rw,
   }, async ({ change_ids }) => {
     const hit = await revertChanges(store, ws, change_ids);
     if (!hit.length) return fail("No matching changes. Use the ids from list_changes.");
+    await clearPending(store, ws, "undo", [...hit.map((x) => x.code), ...change_ids]);
     return text(["Marked as reverted. To undo in Amazon Ads:", ...hit.map((a) => `- **${a.code}** ${a.proposal.undo}`)].join("\n"));
   });
 

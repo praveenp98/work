@@ -9,12 +9,33 @@ export interface BrandSettings {
   notes?: string;
 }
 
+export interface PendingItem {
+  type: "apply" | "undo";
+  codes: string[]; // proposal codes (apply) or change ids / codes (undo)
+  brand: string;
+  at: string;
+  by: string; // masked phone of the teammate who approved by text
+}
+
 export interface Workspace {
   id: string;
   createdAt: string;
   licenseKey?: string | null;
   licensed: boolean;
   brands: Record<string, BrandSettings>;
+  /** 6-char code teammates text to link their phone ("link R7K2QX"). */
+  linkCode?: string;
+  /** Approvals/undos sent by text, waiting for the team's AI (with Amazon's connector) to apply. */
+  pending?: PendingItem[];
+}
+
+/** A teammate's phone linked to a workspace (Text Rocco). */
+export interface Phone {
+  phone: string; // E.164-ish, digits with leading +
+  workspaceId: string;
+  optedOut: boolean;
+  createdAt: string;
+  lastSeenAt?: string;
 }
 
 export interface Snapshot {
@@ -67,6 +88,11 @@ export interface Store {
   createWorkspace(tokenHash: string): Promise<Workspace>;
   getWorkspace(tokenHash: string): Promise<Workspace | null>;
   saveWorkspace(ws: Workspace): Promise<void>;
+  getWorkspaceById(id: string): Promise<Workspace | null>;
+  findWorkspaceByLinkCode(code: string): Promise<Workspace | null>;
+  getPhone(phone: string): Promise<Phone | null>;
+  savePhone(p: Phone): Promise<void>;
+  listPhones(opts?: { workspaceId?: string; optedIn?: boolean }): Promise<Phone[]>;
   addSnapshot(s: Snapshot): Promise<void>;
   listSnapshots(workspaceId: string, opts?: { brand?: string; kind?: string; limit?: number }): Promise<Snapshot[]>; // newest first
   /** Latest snapshot stats of this kind from OTHER workspaces (last 60 days), for anonymized benchmarks. */

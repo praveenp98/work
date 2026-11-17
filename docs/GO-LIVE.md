@@ -57,3 +57,11 @@ npm test        # rules + parsers unit tests
 - `/setup` wizard: pick AI app (Claude, Claude Code, ChatGPT, Cursor) + marketplace region → official Amazon Ads MCP URL for the region (advertising-ai[-eu|-fe].amazon.com/mcp), Amazon Selling Partner connector (sellingpartner-ai.amazon.com/mcp, beta, Claude directory), Rocco URL (personal with one click), Claude Code `claude mcp add` commands, `.mcp.json`, Cursor `mcp.json`, and a `/morning-check` Claude Code command.
 - MCP `setup_check` tool walks sellers through whatever connector is missing from inside the chat.
 - Caveats: Amazon Ads connector needs an approved Amazon Ads API app (Login with Amazon); Selling Partner connector is beta and US-first. Verify these URLs in a real account once (Praveen).
+
+## 9. Text Rocco (iMessage) — built Nov 17, runs in dry-run until keys are set
+1. Supabase: re-run `supabase/setup.sql` (safe to re-run; adds the `phones` table).
+2. LoopMessage ($59 plan): get auth key, secret key, sender name → Vercel env `LOOPMESSAGE_AUTH_KEY`, `LOOPMESSAGE_SECRET_KEY`, `LOOPMESSAGE_SENDER`; Rocco's number/handle → `NEXT_PUBLIC_ROCCO_IMESSAGE` (turns the homepage button into a real "open Messages" link).
+3. LoopMessage webhook → `https://rocco.works/api/text/inbound`, auth header = a random string you also put in `TEXT_WEBHOOK_SECRET`.
+4. `CRON_SECRET` (random string) in Vercel; `vercel.json` sends morning numbers daily at 12:30 UTC (7:30 a.m. ET).
+5. Test from your iPhone: text "hi" → onboarding; open your dashboard → "Text Rocco now" (sends "link CODE") → "numbers" → "yes N1 N2" → in Claude say "Rocco, brief me" and see the approvals waiting.
+Verify at LoopMessage signup: send endpoint/headers (`lib/text/provider.ts`), webhook payload field names (`app/api/text/inbound/route.ts` reads recipient/from + text), outbound-first rules, SMS/Android fallback.
