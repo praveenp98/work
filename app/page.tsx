@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { TextRoccoButton } from "@/components/home/TextRoccoButton";
 import { JsonLd } from "@/components/JsonLd";
-import { RoccoHead } from "@/components/Rocco";
+import { RoccoStage } from "@/components/home/RoccoStage";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
@@ -15,35 +14,42 @@ export default async function Home() {
   // Our own first message (LoopMessage needs its short code in it); falls back to the dashboard's opt-in link.
   const gen = await optInLinks({ body: "Hey Rocco 👋 Show me what you can do [opt-in-code]" }).catch(() => null);
   const optIn = gen?.url || gen?.imessage || process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
+  const apps = [
+    { label: "iMessage", href: optIn ?? "#text", glyph: "imsg" },
+    { label: "Claude", href: "/setup", glyph: "✻" },
+    { label: "ChatGPT", href: "/setup", glyph: "GPT" },
+    { label: "Claude Code", href: "/setup", glyph: ">_" },
+  ];
   return (
-    <section className="hello">
-      <div className="hello-avatar">
-        <svg width="112" height="92" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="hello" /></svg>
-        <span className="online" aria-hidden />
+    <section className="home">
+      <div className="home-hero">
+        <h1>I can run your Amazon.<br />Try me.</h1>
+        <RoccoStage optIn={optIn} />
+        <p className="fine">Free to try · {dollars(price.priceCents)} once for life · Not affiliated with Amazon</p>
       </div>
-      <h1>Hi, I&apos;m Rocco.</h1>
-      <p className="hello-lede">
-        I run Amazon with your team. Text me anything about your ads, sales or stock. I send your numbers every morning and fix things when you reply <b>yes</b>.
-      </p>
-      <div className="hello-cta">
+
+      <div className="home-how">
+        <h2>How I work.</h2>
+        <ol>
+          <li><b>You ask</b><span>Text me the way you&apos;d text your best Amazon manager. Or just wait for my morning numbers.</span></li>
+          <li><b>I dig in</b><span>Seller Central, Amazon Ads, Helium 10: I find the wasted spend, the stockouts and the missed keywords.</span></li>
+          <li><b>You say yes</b><span>I make the change, log it, and check a week later that it worked. Undo anytime.</span></li>
+        </ol>
+      </div>
+
+      <div className="home-msg" id="text">
+        <h2>Message me.</h2>
+        <p className="hello-lede">Tell me what you sell and what&apos;s bugging you. Your whole team can text me.</p>
         <TextRoccoButton href={optIn} />
-        <nav className="hello-ways" aria-label="Other ways to work with Rocco">
-          <span>or find me in</span>
-          <Link href="/setup">Claude</Link>
-          <Link href="/setup">ChatGPT</Link>
-          <Link href="/setup">Claude Code</Link>
-        </nav>
+        <p className="home-apps-label">Or find me in your favorite app.</p>
+        <div className="home-apps">
+          {apps.map((a) => <a key={a.label} href={a.href}><span className={`app-tile${a.glyph === "✻" ? " claude" : ""}`}>{a.glyph === "imsg" ? <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden><path fill="#0a84ff" d="M12 3C6.5 3 2 6.8 2 11.5c0 2.6 1.4 4.9 3.6 6.5L5 21.5l4-2.1c.9.2 1.9.3 3 .3 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" /></svg> : a.glyph}</span>{a.label}</a>)}
+        </div>
+        <div className="hello-tools" aria-label="Tools Rocco works with">
+          <span>I work the tools you already pay for</span>
+          <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "+ any connector"].map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
       </div>
-      <div className="hello-thread" aria-label="Example texts with Rocco">
-        <div className="imsg in"><span className="imsg-bubble">☀️ Morning. ACoS 21% (target 30%). 2 new search terms burning money. Reply YES N1 N2 to cut them.</span></div>
-        <div className="imsg out"><span className="imsg-bubble">yes N1 N2</span></div>
-        <div className="imsg in"><span className="imsg-bubble">Done ✅ I&apos;ll check Monday if it worked.</span></div>
-      </div>
-      <div className="hello-tools" aria-label="Tools Rocco works with">
-        <span>I work the tools you already pay for</span>
-        <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "+ any connector"].map((t) => <li key={t}>{t}</li>)}</ul>
-      </div>
-      <p className="fine">Free to try · {dollars(price.priceCents)} once for life · Not affiliated with Amazon</p>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />
     </section>

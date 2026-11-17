@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Homepage v3, modeled on boardy.ai
+- Headline "I can run your Amazon. Try me." + a card that cycles through where Rocco works (iMessage, Claude, Amazon Ads, Helium 10, Seller Central, ChatGPT), each with one senior-manager move; tool icons orbit below; pill CTA per scene; pause button.
+- "Rocco, help me with ___" box types example asks; sending opens Messages with that first text (/api/text/start generates the LoopMessage opt-in link with the question in it).
+- Below: "How I work." (ask → I dig in → you say yes) and "Message me." with an app grid (iMessage, Claude, ChatGPT, Claude Code) and the tools Rocco works.
+- Skipped on purpose: testimonials, intro counters, globe (no real data yet; add when real).
+- Tool tiles are text monograms, not brand logos.
+
+---
+
 ## 2026-11-17 (late) · Positioning: senior Amazon manager in your iMessages
 - Praveen: other MCPs (Amazon's, Helium 10) aren't competition; the moat is the senior manager in iMessage who works all of them.
 - Homepage: Boardy-style "or find me in Claude · ChatGPT · Claude Code" row, and "I work the tools you already pay for: Seller Central · Amazon Ads · Helium 10 · SellerSprite · + any connector".
