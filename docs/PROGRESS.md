@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (09:55) · Payments blocker
+- Polar's Stripe payout onboarding blocks Indian *individuals* from international payments (Stripe India rule). Options: Dodo Payments (individuals OK, TrustMRR-supported) now; Udyam registration → sole proprietorship as backup. Details in `docs/POLAR-SETUP.md`.
+
+---
+
 ## 2026-11-17 (10:30) · Rocco becomes a daily AI teammate (MCP-first)
 - Praveen's direction: position Rocco as a new AI who does most of the Amazon work; lead the site with the connector so a seller can add it to Claude/ChatGPT and try it immediately; Rocco tracks past actions and suggests new ones.
 - **New analyzers** (auto-detected by header row, fixtures + tests): SP campaign report → budget shift (capped profitable winners +25%, losers above breakeven −20%); Business Report → traffic-but-no-conversion ASINs, buy box < 90%, TACoS (uses last ads snapshot); Restock Inventory → stockout guard (≤14 days), no-raise (≤21), overstock, dead stock; bulk file → structure audit (auto w/o negatives, duplicate keywords across campaigns, bid outliers, huge ad groups).

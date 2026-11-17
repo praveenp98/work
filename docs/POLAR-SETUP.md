@@ -40,3 +40,11 @@ Edit prices on Nov 27, Dec 1 and Dec 16 (Praveen approves each change). Founding
 
 ## INR buyers
 Razorpay for INR (later), also connected to TrustMRR.
+
+## ⚠️ Blocker found (Nov 17, 09:55): Indian individuals can't take international payments via Polar's Stripe payout account
+Stripe India allows international payments only for registered businesses (sole proprietorship, LLP, company), not individuals. Polar payouts run through Stripe Connect Express, so the "Individual" type is blocked.
+
+**Options**
+1. **Switch to Dodo Payments (recommended now):** Merchant of Record built for Indian founders; onboards unregistered individuals for international payments (identity + business verification forms). Supported by TrustMRR. Needs a code swap (checkout links + license-key unlock).
+2. **Get Udyam (MSME) registration** (free, online with Aadhaar + PAN) → re-onboard Polar/Stripe as a **Sole Proprietorship** (Stripe accepts the Udyam certificate). Slower; may also need an IEC code and a bank account matching the business.
+Decision pending from Praveen. Doing 1 now and 2 in parallel as backup is the safest path.
