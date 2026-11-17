@@ -41,6 +41,10 @@ describe("checkoutUrl", () => {
     const u = new URL(checkoutUrl("pro")!);
     expect(u.origin + u.pathname).toBe("https://checkout.dodopayments.com/buy/pdt_abc123");
     expect(u.searchParams.get("redirect_url")).toMatch(/\/thanks\?plan=pro$/);
-    expect(checkoutUrl("agency")).toBeNull();
+    expect(checkoutUrl("agency")).toContain("/buy/pdt_0Ns7ZcZYNa2yAaulMiwhq"); // live default
+    vi.stubEnv("DODO_MODE", "test");
+    vi.resetModules();
+    const t = await import("./payments");
+    expect(t.checkoutUrl("agency")).toBeNull(); // no test product configured
   });
 });

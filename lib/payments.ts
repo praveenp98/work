@@ -12,11 +12,12 @@ const API_BASE = DODO_MODE === "test" ? "https://test.dodopayments.com" : "https
 const CHECKOUT_BASE = DODO_MODE === "test" ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
 
 /** Dodo product IDs (pdt_…), one per plan. Set in Vercel env; not secret. */
+/** Defaults are the live products created Nov 17, 2026; env vars override (e.g. test-mode products). */
 export const DODO_PRODUCTS: Record<PlanId, string | undefined> = {
-  holiday: process.env.DODO_PRODUCT_HOLIDAY,
-  seller: process.env.DODO_PRODUCT_SELLER,
-  pro: process.env.DODO_PRODUCT_PRO,
-  agency: process.env.DODO_PRODUCT_AGENCY,
+  holiday: process.env.DODO_PRODUCT_HOLIDAY || (DODO_MODE === "live" ? "pdt_0Ns7Zc5lFQHVFnYExlr5z" : undefined),
+  seller: process.env.DODO_PRODUCT_SELLER || (DODO_MODE === "live" ? "pdt_0Ns7Za6Lp7MYYQrZ0NqU8" : undefined),
+  pro: process.env.DODO_PRODUCT_PRO || (DODO_MODE === "live" ? "pdt_0Ns7ZcDvQBdEniXZdlBae" : undefined),
+  agency: process.env.DODO_PRODUCT_AGENCY || (DODO_MODE === "live" ? "pdt_0Ns7ZcZYNa2yAaulMiwhq" : undefined),
 };
 
 /** Static payment link for a plan, or null until the product ID is configured. */

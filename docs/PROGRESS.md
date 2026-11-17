@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (14:00) · Dodo products created
+- Praveen saved a Dodo API key in the secure credential form. Claude created 4 one-time products via the Dodo API (Holiday $99 with 75-day license keys, Seller $149, Pro $299, Agency $399, all with license keys, tax category SaaS) and set their IDs as live defaults in `lib/payments.ts`. Pricing buttons are live once deployed. Live license check verified (`valid:false` for a fake key).
+- Left: Dodo KYC/payouts, one real purchase + refund to test the license email, TrustMRR connection.
+
+---
+
 ## 2026-11-17 (13:30) · Dodo payments + connector-first Rocco + pro hooks
 - **Payments → Dodo** (Polar/Stripe don't onboard individuals in India). `lib/payments.ts`: static payment links per plan from `DODO_PRODUCT_*` env (pdt_ IDs), license check via Dodo's public `/licenses/validate`; Polar code removed; `docs/DODO-SETUP.md`. TrustMRR verifies Dodo revenue (rule 5 OK). Waiting on Praveen's 4 product IDs.
 - **No more "download a spreadsheet"** (Praveen: pros don't). Rocco is now connector-first: the seller connects Amazon's official Ads connector (+ SP-API / other Amazon tools) next to Rocco and just asks. New `rocco_plan(job)` tool tells the AI exactly which Ads API v3 / SP-API reports and columns to pull; `analyze_report` takes connector JSON (`report_json`/`rows`), flattens nested SP-API JSON, understands camelCase API fields (campaignName, sales7d, purchases7d, campaignBudgetAmount, placementClassification…). Amazon IDs flow into proposals; `export_changes(format: "amazon_ads_api")` returns the exact change list for Amazon's connector to apply after approval (free for the top 3 per report). Exported files remain a fallback.

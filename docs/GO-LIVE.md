@@ -20,7 +20,7 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 
 ## 3. Payments: Dodo Payments (USD)
 Polar is out (doesn't support individuals in India). Code now uses Dodo: see `docs/DODO-SETUP.md`.
-Praveen: create the 4 one-time products with License keys ON, paste the 4 `pdt_` IDs (chat or Vercel env `DODO_PRODUCT_*`), finish KYC/payouts, do a test-mode purchase, connect Dodo to TrustMRR.
+✅ Products created and wired by Claude (IDs in `docs/DODO-SETUP.md`). Praveen: finish KYC/payouts, click a checkout link once, make one real purchase (refund after) to confirm the license email + unlock, connect Dodo to TrustMRR.
 
 ## 4. Supabase: memory + waitlist (REQUIRED for personal connectors)
 Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't switched on" in production. The shared `/mcp` and all web tools still work.

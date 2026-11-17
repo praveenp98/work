@@ -4,7 +4,21 @@
 
 All plans are **one-time payments** (count in full for the contest).
 
-## 1. Products (Dodo dashboard → Products → Create)
+## Status (Nov 17, done by Claude via the Dodo API)
+| Plan | Product ID | Price | License key |
+|---|---|---|---|
+| Holiday Pass | pdt_0Ns7Zc5lFQHVFnYExlr5z | $99 one-time | ON, expires 75 days after purchase |
+| Seller (Founding Lifetime) | pdt_0Ns7Za6Lp7MYYQrZ0NqU8 | $149 one-time | ON, no expiry |
+| Pro (Founding Lifetime) | pdt_0Ns7ZcDvQBdEniXZdlBae | $299 one-time | ON, no expiry |
+| Agency (Founding Lifetime) | pdt_0Ns7ZcZYNa2yAaulMiwhq | $399 one-time | ON, no expiry |
+- Tax category: SaaS. Activation message tells buyers how to activate in Claude/ChatGPT or on the site.
+- IDs are live-mode defaults in `lib/payments.ts` (no Vercel env vars needed). Env vars still override.
+- Checkout links: `https://checkout.dodopayments.com/buy/<id>?quantity=1&redirect_url=https://rocco.works/thanks?plan=<plan>`
+- The Dodo API key is stored only as a network secret on the cloud environment (never in the repo or chat).
+- License check verified live: a fake key returns `{"valid": false}`.
+- **Left for Praveen:** KYC + payout account, open one checkout link to see it render, a real purchase (refund it after) to confirm the license email and unlock, connect Dodo to TrustMRR.
+
+## 1. Products (reference)
 | Product | Price (USD, one-time) | License keys | Env var for its product ID |
 |---|---|---|---|
 | Rocco Holiday Pass | $99 | ON, expiry **75 days** (≈ through Jan 31, 2027 from a Nov 17 purchase) | `DODO_PRODUCT_HOLIDAY` |
