@@ -27,6 +27,8 @@ export interface Workspace {
   linkCode?: string;
   /** Approvals/undos sent by text, waiting for the team's AI (with Amazon's connector) to apply. */
   pending?: PendingItem[];
+  /** Workspace key, encrypted (lib/vault), so Rocco can text a linked phone its links. */
+  tokenSealed?: string;
 }
 
 /** A teammate's phone linked to a workspace (Text Rocco). */

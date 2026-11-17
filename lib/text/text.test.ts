@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { MemoryStore } from "../store/memory";
 import { loadFixture } from "../test-utils";
-import { applyChanges, buildBrief, clearPending, createWorkspace, ensureLinkCode, runAnalysis } from "../workspace";
+import { applyChanges, buildBrief, clearPending, createWorkspace, ensureLinkCode, loadWorkspace, runAnalysis } from "../workspace";
 import { normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
 import { handleInbound } from "./handler";
@@ -22,6 +22,26 @@ describe("parseCommand", () => {
   it("normalizes phone numbers", () => {
     expect(normPhone("(415) 555-0100")).toBe("+14155550100");
     expect(normPhone("+44 7700 900123")).toBe("+447700900123");
+  });
+});
+
+describe("Text Rocco: brand-new number", () => {
+  it("first text gives the number its own Rocco + working links; help, numbers and dashboard all answer", async () => {
+    vi.stubEnv("ROCCO_VAULT_KEY", "test-vault");
+    const store = new MemoryStore();
+    const now = new Date();
+    const hi = await handleInbound(store, "+14085550123", "I'm in! \"!9GUF\"", now);
+    expect(hi).toMatch(/this number has its own Rocco/);
+    const token = hi.match(/rocco\.works\/w\/(rw_[A-Za-z0-9]{24})/)?.[1];
+    expect(token).toBeTruthy();
+    expect(hi).toContain(`rocco.works/setup?t=${token}`);
+    expect(await loadWorkspace(store, token!)).not.toBeNull();
+    expect(await handleInbound(store, "+14085550123", "Help", now)).toMatch(/numbers → today's numbers/);
+    expect(await handleInbound(store, "+14085550123", "numbers", now)).toMatch(/No Amazon numbers yet.*setup\?t=rw_/s);
+    expect(await handleInbound(store, "+14085550123", "dashboard", now)).toContain(`rocco.works/w/${token}`);
+    // a second text does not create another workspace
+    expect((await store.listPhones({})).length).toBe(1);
+    vi.unstubAllEnvs();
   });
 });
 

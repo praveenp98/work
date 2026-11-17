@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { seal, unseal } from "./vault";
 import { analyze, REPORT_HELP, type AnalyzeOutput, type ReportKind } from "./analyze";
 import { evaluateAction, evaluateBudget } from "./rules/results";
 import { diffTerms, termSnapshot, type TermDiff } from "./rules/terms";
@@ -19,6 +20,16 @@ export async function createWorkspace(store: Store) {
   const ws = await store.createWorkspace(hashToken(token));
   return { token, ws };
 }
+
+/** Keep an encrypted copy of the key so Rocco can text it back later (once per workspace). */
+export async function rememberToken(store: Store, ws: Workspace, token: string) {
+  if (ws.tokenSealed && unseal(ws.tokenSealed) === token) return;
+  const sealed = seal(token);
+  if (!sealed) return;
+  ws.tokenSealed = sealed;
+  await store.saveWorkspace(ws);
+}
+export const revealToken = (ws: Workspace) => unseal(ws.tokenSealed);
 
 export async function loadWorkspace(store: Store, token: string): Promise<Workspace | null> {
   if (!isToken(token)) return null;

@@ -8,7 +8,7 @@ import { proposalLine } from "@/lib/mcp/format";
 import { getStore } from "@/lib/store";
 import { maskPhone } from "@/lib/text/commands";
 import { optInLinks } from "@/lib/text/provider";
-import { buildBrief, ensureLinkCode, loadWorkspace } from "@/lib/workspace";
+import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your Rocco workspace", robots: { index: false, follow: false } };
@@ -22,6 +22,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   if (!store) return <section className="prose"><h1>Memory isn&apos;t switched on yet</h1><p>Rocco&apos;s workspace storage isn&apos;t configured on this server.</p></section>;
   const ws = await loadWorkspace(store, token);
   if (!ws) notFound();
+  if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const linkCode = await ensureLinkCode(store, ws);
   const team = await store.listPhones({ workspaceId: ws.id });

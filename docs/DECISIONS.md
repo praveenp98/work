@@ -26,3 +26,6 @@
 | 2026-11-17 | Mascot = original flat-cartoon raccoon in a green hoodie, drawn as code (SVG, 4 poses); MCP server is stateless, no-auth, read-only, with paid fixes gated by Polar license key passed as a tool argument | SVG = crisp at any size, no image costs, easy new poses; no-auth keeps 'add connector' to 1 step; license-in-argument avoids building OAuth before launch | Commissioned illustration (slow), OAuth for MCP (later if needed) |
 | 2026-11-17 | Domain = **rocco.works** (purchased by Praveen). Build v1 as a Next.js site: Ad Roast runs fully in the browser (file never uploaded), paid unlock via Polar license key, bulk file built from the seller's own bulk export IDs | Keeps the mascot name; in-browser parsing = strongest privacy promise + no 24h-deletion job; bulk export IDs are the only way to make a truly upload-ready file without the Ads API | Server-side parsing (Vercel 4.5 MB body limit, storage/deletion burden); fix list only |
 | 2026-11-16 | New brand; ShelfPilot/FBAmz kept fully separate | Hackathon requires a new business; agencies excluded | Rebrand the agency kit |
+
+## 2026-11-17 · New numbers get their own Rocco on the first text
+Boardy-style: no wall. Texting Rocco = signing up. Teammates still join an existing team with "link CODE". Reason: Praveen's first test hit a loop of identical onboarding replies.

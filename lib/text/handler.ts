@@ -1,11 +1,24 @@
 import { REPORT_HELP, type ReportKind } from "../analyze";
 import { benchmark } from "../rules/benchmarks";
 import type { Store } from "../store/types";
-import { buildBrief, DEFAULT_BRAND, expandCodes, FREE_PROPOSALS, latestRuns, queuePending } from "../workspace";
+import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken } from "../workspace";
+import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
 
 const SETUP = "rocco.works/setup";
+const setupUrl = (t: string | null) => (t ? `${SETUP}?t=${t}` : SETUP);
+const dashUrl = (t: string | null) => (t ? `rocco.works/w/${t}` : null);
+
+/** The links a phone needs: connect Amazon, the dashboard, and the team code. */
+function linksText(ws: Workspace, code: string) {
+  const t = revealToken(ws);
+  const L = [`1️⃣ Plug in Amazon (3 min): ${setupUrl(t)}`];
+  if (t) L.push(`2️⃣ Your dashboard: ${dashUrl(t)}`);
+  L.push(`${t ? "3️⃣" : "2️⃣"} Teammates text me: link ${code}`);
+  if (t) L.push("Those links are private to your team.");
+  return L.join("\n");
+}
 const HELP = [
   "Text me anytime 🦝",
   "• numbers → today's numbers",
@@ -13,6 +26,7 @@ const HELP = [
   "• YES N1 N2 → approve fixes",
   "• undo B3 → queue an undo",
   "• wins → what I've saved you",
+  "• dashboard → your links",
   "• ask anything: “how's stock?”, “why is ACoS up?”",
   "• STOP → pause texts",
 ].join("\n");
@@ -36,9 +50,22 @@ export async function handleInbound(store: Store, from: string, text: string, no
     return `You're in 🦝 Linked to your team's Rocco${team > 1 ? ` (${team} teammates on this line)` : ""}. I'll text your numbers every morning.\n\n${HELP}`;
   }
 
-  const p = await store.getPhone(phone);
+  let p = await store.getPhone(phone);
   if (!p) {
-    return "Hey, I'm Rocco 🦝 your team's AI Amazon teammate. I text you the numbers every morning and you approve fixes with a reply.\n\nAlready set up? Text “link” + your 6-letter code from your Rocco dashboard.\nNew? Start here (3 min): " + SETUP;
+    if (cmd.kind === "stop") return "Okay, I won't text you. Text me anytime if you change your mind.";
+    // First text from a new number: give them their own Rocco right away (Boardy-style, no wall).
+    const { token, ws } = await createWorkspace(store);
+    await rememberToken(store, ws, token);
+    const code = await ensureLinkCode(store, ws);
+    p = { phone, workspaceId: ws.id, optedOut: false, createdAt: now.toISOString(), lastSeenAt: now.toISOString() };
+    await store.savePhone(p);
+    return [
+      "Hey, I'm Rocco 🦝 your team's AI Amazon teammate. You're all set: this number has its own Rocco now.",
+      "",
+      linksText(ws, code),
+      "",
+      "Once Amazon is plugged in, I text your numbers every morning and you approve fixes with a reply. Text “help” for everything I do.",
+    ].join("\n");
   }
   const ws = await store.getWorkspaceById(p.workspaceId);
   if (!ws) return "I lost track of your workspace. Text “link” + your code from your Rocco dashboard.";
@@ -48,8 +75,10 @@ export async function handleInbound(store: Store, from: string, text: string, no
     case "stop": return "Paused. I won't text you unless you text me. Text START to resume.";
     case "start": return "Back on 🦝 Morning numbers resume tomorrow.";
     case "help": return HELP;
+    case "dashboard": return `Here you go 🦝\n${linksText(ws, await ensureLinkCode(store, ws))}${revealToken(ws) ? "" : "\n(Your dashboard link is in Claude/ChatGPT: ask “Rocco, what's my dashboard link?”)"}`;
     case "numbers": {
       const b = await buildBrief(store, ws, now);
+      if (!b.perBrand.some((x) => x.trends.length)) return `No Amazon numbers yet 🦝 Plug Amazon into Claude or ChatGPT (3 min): ${setupUrl(revealToken(ws))}\nThen say “Rocco, morning check” and I'll text you the numbers every morning.`;
       const snap = b.perBrand[0]?.trends.find((t) => t.kind === "sp_search_term")?.latest;
       const bench = snap ? benchmark("sp_search_term", snap.stats, await store.peerStats("sp_search_term", ws.id)) : null;
       return dailyNumbers(b, { now, bench: bench?.lines, pending: ws.pending });

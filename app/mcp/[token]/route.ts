@@ -1,7 +1,7 @@
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { buildServer } from "@/lib/mcp/server";
 import { getStore } from "@/lib/store";
-import { loadWorkspace } from "@/lib/workspace";
+import { loadWorkspace, rememberToken } from "@/lib/workspace";
 
 /**
  * Personal Rocco connector: https://rocco.works/mcp/<workspace key>.
@@ -17,6 +17,7 @@ async function handle(req: Request, { params }: { params: Promise<{ token: strin
   if (!store) return Response.json({ error: "Rocco memory isn't configured yet." }, { status: 503 });
   const ws = await loadWorkspace(store, token);
   if (!ws) return Response.json({ error: "Unknown Rocco workspace. Create one at https://rocco.works/connect" }, { status: 404 });
+  if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
   const server = buildServer({ store, ws, token });
   const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
   await server.connect(transport);

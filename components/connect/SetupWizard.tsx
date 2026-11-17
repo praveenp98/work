@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { autopilotCron, claudeCodeCommands, CONNECTORS, mcpJson, MORNING_CHECK_COMMAND, REGIONS, type Client, type Region } from "@/lib/connectors";
 
 function Copy({ value, label = "Copy" }: { value: string; label?: string }) {
@@ -35,6 +35,11 @@ export function SetupWizard() {
   const [token, setToken] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  // Arriving from a Rocco text (rocco.works/setup?t=rw_…): use that personal workspace.
+  useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get("t");
+    if (t && /^rw_[A-Za-z0-9]{24}$/.test(t)) setToken(t);
+  }, []);
 
   async function personal() {
     setBusy(true); setErr("");

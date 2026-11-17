@@ -7,6 +7,7 @@ export type Command =
   | { kind: "numbers" }
   | { kind: "wins" }
   | { kind: "help" }
+  | { kind: "dashboard" }
   | { kind: "stop" }
   | { kind: "start" }
   | { kind: "ask"; topic: "ads" | "budgets" | "placements" | "stock" | "listings" | "general"; text: string };
@@ -25,6 +26,7 @@ export function parseCommand(raw: string): Command {
   if (codes.length && /\b(undo|revert|roll ?back)\b/.test(lc)) return { kind: "undo", codes };
   if (codes.length && /\b(yes|yep|ok|okay|approve[ds]?|go|do it|ship it|👍)/i.test(t)) return { kind: "approve", codes };
   if (codes.length && /^[\sA-Z0-9,\-]+$/i.test(t) && !/[a-z]{3,}/i.test(t.replace(/\band\b/gi, ""))) return { kind: "approve", codes };
+  if (/^(dashboard|setup|connect|login|log in|my links?|links?)\b/.test(lc)) return { kind: "dashboard" };
   if (/^(help|\?|commands|menu|hi|hey|hello)\b/.test(lc)) return { kind: "help" };
   if (/\b(numbers|stats|daily|today'?s numbers|kpis?)\b/.test(lc)) return { kind: "numbers" };
   if (/\b(wins?|saved|savings|results?)\b/.test(lc)) return { kind: "wins" };

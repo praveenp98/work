@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (23:40) · Text Rocco: first text now works
+- Bug (found by Praveen on iPhone): every text from an unlinked number got the same "text link + code" wall, and /setup had no way back to a dashboard.
+- Fix: the first text from a new number creates that number's own Rocco and replies with 3 links: plug in Amazon (rocco.works/setup?t=KEY, the wizard picks up the personal connector), dashboard, and the team code. help / numbers / dashboard all answer from then on; "numbers" with no data points to setup.
+- Workspace key is kept AES-256-GCM sealed (lib/vault.ts, key = ROCCO_VAULT_KEY or the Supabase key) so "dashboard" can resend it; old workspaces backfill when their connector or dashboard is used.
+- Tests 93/93.
+
+---
+
 ## 2026-11-17 (23:00) · Opt-in env renamed
 - Vercel warned on `NEXT_PUBLIC_` + Sensitive. The opt-in link is only read server-side, so the env is now `ROCCO_OPTIN_URL` (old name still accepted).
 
