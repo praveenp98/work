@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · SEO/AEO: Answers
+- /answers + 14 answer pages (lib/answers.ts): connect Seller Central / Amazon Ads to Claude & ChatGPT, Amazon Ads MCP, Helium 10 with Claude, can AI manage PPC, good ACoS, lower ACoS fast, clicks before negating, TACoS, top-of-search adjustments, suppressed listings, Buy Box, FBA restock quantity, where to find the search term report.
+- Each page: direct 40-70 word answer first (what answer engines quote), steps, FAQ, related links; FAQPage + HowTo + BreadcrumbList JSON-LD; "Ask Rocco about my account" opens Messages with the question prefilled.
+- Sitemap includes all answers; llms.txt rewritten for the current product (iMessage + connector + OAuth URL, all answers/guides/tools, pricing). Header nav: Setup · Pricing · Answers.
+- Next for SEO: submit sitemap in Google Search Console + Bing Webmaster (Praveen), add 2-3 answers per week from real texts people send Rocco.
+
+---
+
 ## 2026-11-17 (late) · Boardy look site-wide + Pro analytics
 - Look: Boardy palette (warm gray #f4f2ee, near-white cards, navy ink, blue #1f6feb), centered "Rocco" header with round message button, Boardy footer ("The AI Amazon manager in your iMessages."), lighter headings.
 - Pro analytics at /w/KEY/analytics: KPI tiles with deltas vs last check, ad spend vs sales, ACoS vs target (dashed target), waste per month, conversion, money saved per change, SKUs at risk, listings not selling. Server-rendered SVG, hover titles, table view per chart, series colors validated light+dark (dataviz validator). Free plan sees tiles + blurred charts behind a "Hire Rocco" card (personal checkout link, auto-unlock).
