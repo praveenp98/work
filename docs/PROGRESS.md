@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (22:00) · LIVE: rocco.works verified end to end
+- Praveen: deployed, DNS, Supabase (setup.sql), env vars, /api/health ok:true, hackathon tracker "installed", Dodo webhook set. CRON_SECRET / TEXT_WEBHOOK_SECRET not set yet (texting not live).
+- Claude (sandbox now allowed to reach rocco.works): all pages 200; tracker in <head>; /api/price live:true (reads Dodo); shared /mcp tools/list OK; personal workspace persisted in Supabase; brief → analyze (test brand "rocco-test") → apply N1 → list_changes → dashboard (link code) → calendar.ics → client report all OK on production.
+- Issue: Vercel primary domain is www (rocco.works 308-redirects to www). All links/connector URLs use rocco.works → set rocco.works as primary in Vercel (redirect www → apex). POSTs to /mcp on the apex currently get a 308.
+- Fixed: /api/health garbled arrows in Safari (charset + ASCII).
+- Amazon API approval: no official SLA found; Ads API needs an account with ad spend and two portals (LWA security profile + Ads Partner Network console).
+
+---
+
 ## 2026-11-17 (21:00) · Launch readiness
 - Wrote `docs/E2E-TEST.md` (ordered end-to-end checklist: infra → tracker → site → memory/connector → Amazon connectors → payments → texting). Added texting/phone + STOP section to the privacy page.
 - Code done; remaining = Praveen's setup (deploy, DNS, env + redeploy, setup.sql, tracker check, Dodo KYC + webhook, LoopMessage, Amazon API access) and the real-world tests that need them.
