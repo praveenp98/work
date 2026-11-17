@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (18:00) · Amazon API applications + iMessage costs
+- Praveen will apply for Amazon Ads API + SP-API today; paste-ready answers and steps in `docs/AMAZON-API-APPLICATIONS.md`.
+- iMessage provider costs researched (cheapest shared AI sender ~$20–39/mo; dedicated lines ~$100–289/mo). Channel decision pending.
+
+---
+
 ## 2026-11-17 (17:45) · Boardy study
 - Researched how Boardy grew (no app; phone/WhatsApp/email; every intro recruits a user; founder demos; free + $100/mo Pro). Written up in `docs/BOARDY-STUDY.md` with a plan: Boardy-style one-screen homepage + "Rocco texts you, reply to approve" now; text-only Rocco after Amazon API access. Awaiting Praveen's channel + API decisions.
 

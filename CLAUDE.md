@@ -35,6 +35,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/GO-LIVE.md` | Launch checklist: deploy, payments, tracker, env vars (what Praveen must set up). |
 | `docs/LAUNCH-KIT.md` | Copy-paste listing text, assets and directory checklist (also live at /press; source `content/launch-kit.json`). |
+| `docs/AMAZON-API-APPLICATIONS.md` | Paste-ready Amazon Ads API + SP-API applications (for a text-only Rocco). |
 | `docs/BOARDY-STUDY.md` | How Boardy grew + plan for a texting Rocco (pending decisions). |
 | `docs/X-DAY1.md` | Day-1 X posts for Rocco + Praveen, with UTMs. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |

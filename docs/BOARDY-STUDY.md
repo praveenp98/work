@@ -17,3 +17,11 @@
 ## Decisions pending (Praveen)
 1. Text channel to start with (and OK to pay for the provider).
 2. Apply now for Amazon Ads API + SP-API developer access (Praveen's account, free) so a text-only Rocco can follow.
+
+## iMessage cost (Nov 17, from comparison sites; confirm on providers' pricing pages)
+- Sendblue: ~$100/mo per line for an inbound-only AI-agent tier; outbound needs a custom quote (reported $50–$1,000+/line).
+- LoopMessage: plans quoted from ~$60–$99/mo; number $15/mo + $15 once; new-contact outbound add-on ~$30/mo; shared sender for AI assistants ~$20/mo.
+- Blooio: shared number from ~$39/mo; dedicated line ~$289/mo. Photon: ~$250/line/mo.
+- Contest note: this is software cost, not paid marketing (rule 3), so it doesn't reduce contest profit; still Praveen's approval needed before spending.
+
+## Decision (Praveen, Nov 17): will apply for Amazon Ads API + SP-API today → `docs/AMAZON-API-APPLICATIONS.md`. Text channel: pending cost review.
