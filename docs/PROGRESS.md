@@ -9,6 +9,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (11:30) · Moat + Rocco Daily
+- Wrote `docs/MOAT.md`: moats = memory/proof loop, anonymized benchmarks, audience, personality. Praveen's daily-news idea → "Rocco Daily" (Leak Index from Rocco data + Amazon changes + leak of the day + one-minute fix + CTA). Flagged risk: Ads connector needs an approved Ads API app, so the no-setup upload lane must stay front and center.
+
+---
+
 ## 2026-11-17 (17:15) · Launch kit + Supabase steps
 - Praveen: found Dodo Live mode, set up TrustMRR, created a Supabase project.
 - Built a launch kit: `/press` page (copy buttons + char counts for names, taglines ≤40/60/140, descriptions ≤260/500/long, tags, categories, pricing, maker comment, Show HN title/body, X bio; downloadable assets; directory checklist) from `content/launch-kit.json`, mirrored in `docs/LAUNCH-KIT.md`.
