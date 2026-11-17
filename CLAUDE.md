@@ -13,6 +13,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
+| `docs/PRICING-MODEL.md` | Proposal: single lifetime plan with a price ladder (+$10 every 5 sales). Pending Praveen's OK. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
 | `docs/LAUNCH-SETUP.md` | Brand/domain shortlist, pre-warmed email infra, lead list sources, budget. |

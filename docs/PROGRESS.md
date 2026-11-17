@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (15:30) · Pricing model discussion
+- Praveen proposed one lifetime plan with price rising every 5 sales. Claude agrees for the contest; proposal in `docs/PRICING-MODEL.md` ($99 start, +$10/5 sales, cap $499 → ~$49K at 180 sales). **Awaiting Praveen's OK before changing products/pricing.**
+
+---
+
 ## 2026-11-17 (15:00) · One-stop setup for Amazon connectors
 - Researched official connectors: Amazon Selling Partner (Seller Central) = https://sellingpartner-ai.amazon.com/mcp (Claude directory, by Amazon, beta, approve every action). Amazon Ads MCP = https://advertising-ai.amazon.com/mcp (EU: advertising-ai-eu, FE: advertising-ai-fe), open beta, needs an approved Ads API app via Login with Amazon (multiple sources; not yet tested in a real account).
 - Built `/setup` wizard (app × region → URLs, copy buttons, Claude Code commands, .mcp.json, Cursor config, `/morning-check` command, one-click personal Rocco), `lib/connectors.ts` (+ tests), MCP `setup_check` tool, instructions telling the AI to guide setup when Amazon tools are missing. Nav CTA → "Set up in 3 min". Mobile overflow fixed. 67 tests.
