@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/tools`, lastModified: now, priority: 0.9 },
     ...liveTools().map((t) => ({ url: `${SITE.url}/tools/${t.slug}`, lastModified: now, priority: 0.9 })),
     { url: `${SITE.url}/connect`, lastModified: now, priority: 0.8 },
+    { url: `${SITE.url}/setup`, lastModified: now, priority: 0.9 },
     { url: `${SITE.url}/rocco`, lastModified: now, priority: 0.5 },
     { url: `${SITE.url}/guides`, lastModified: now, priority: 0.8 },
     ...GUIDES.map((g) => ({ url: `${SITE.url}/guides/${g.slug}`, lastModified: new Date(g.updated), priority: 0.7 })),

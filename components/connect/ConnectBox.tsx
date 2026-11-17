@@ -68,6 +68,7 @@ export function ConnectBox({ compact = false }: { compact?: boolean }) {
         <ol className="connect-steps">
           {STEPS[app].map((s) => <li key={s}>{s}</li>)}
           <li>Say <b>&ldquo;Rocco, morning check.&rdquo;</b> That&apos;s it.</li>
+          <li className="fine"><Link href="/setup">Exact Amazon connector URLs for your region, Claude Code commands and config →</Link></li>
         </ol>
       )}
     </div>

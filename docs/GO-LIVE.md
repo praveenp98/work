@@ -56,3 +56,8 @@ npm install
 npm run dev     # http://localhost:3000
 npm test        # rules + parsers unit tests
 ```
+
+## 8. Seller onboarding (built Nov 17)
+- `/setup` wizard: pick AI app (Claude, Claude Code, ChatGPT, Cursor) + marketplace region → official Amazon Ads MCP URL for the region (advertising-ai[-eu|-fe].amazon.com/mcp), Amazon Selling Partner connector (sellingpartner-ai.amazon.com/mcp, beta, Claude directory), Rocco URL (personal with one click), Claude Code `claude mcp add` commands, `.mcp.json`, Cursor `mcp.json`, and a `/morning-check` Claude Code command.
+- MCP `setup_check` tool walks sellers through whatever connector is missing from inside the chat.
+- Caveats: Amazon Ads connector needs an approved Amazon Ads API app (Login with Amazon); Selling Partner connector is beta and US-first. Verify these URLs in a real account once (Praveen).

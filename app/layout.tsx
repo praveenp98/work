@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/tools">Free tools</Link>
               <Link href="/guides">Guides</Link>
               <Link href="/pricing">Pricing</Link>
-              <Link href="/connect" className="btn small"><span className="lg-only">Add to Claude / ChatGPT</span><span className="sm-only">Add to your AI</span></Link>
+              <Link href="/setup" className="btn small"><span className="lg-only">Set up in 3 min</span><span className="sm-only">Set up</span></Link>
             </nav>
           </div>
         </header>
@@ -48,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav>
               <Link href="/tools">Tools</Link>
               <Link href="/guides">Guides</Link>
+              <Link href="/setup">Setup: Amazon + Rocco</Link>
               <Link href="/connect">Connect to Claude / ChatGPT</Link>
               <Link href="/pricing">Pricing</Link>
               <Link href="/rocco">Meet Rocco</Link>

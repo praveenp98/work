@@ -28,6 +28,7 @@ export default function Home() {
           <h1>Meet Rocco, your new <span className="hl">AI Amazon teammate.</span></h1>
           <p className="lede">Connect Amazon&apos;s official Ads connector and Rocco in Claude or ChatGPT, then just ask. Rocco pulls the data, decides what to change, applies what you approve, remembers it, and checks if it worked.</p>
           <ConnectBox />
+          <p style={{ marginTop: 12 }}><Link className="btn" href="/setup">Set up Amazon Ads + Seller Central + Rocco (3 min) →</Link></p>
           <p className="fine" style={{ marginTop: 10 }}>No Amazon Ads API access yet? Rocco also reads exported reports. <Link href="/tools/account-check">Or try the web account check →</Link></p>
         </div>
         <div className="hero-chat">

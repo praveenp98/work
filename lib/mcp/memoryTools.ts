@@ -5,6 +5,7 @@ import { analyze, REPORT_HELP } from "../analyze";
 import { parseBulk } from "../parsers/bulk";
 import { jsonToTable, recordsToTable } from "../parsers/json";
 import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
+import { setupHelp } from "./setup";
 import { validateLicenseKey } from "../payments";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
@@ -48,6 +49,19 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     inputSchema: {},
     annotations: ro,
   }, async () => text(formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_`));
+
+
+  server.registerTool("setup_check", {
+    title: "Connect Amazon Ads & Seller Central",
+    description: "Use when the seller hasn't connected Amazon's official Ads or Selling Partner (Seller Central) connectors yet, or asks how. Tell it which Amazon tools you can currently see. Returns the exact URLs for their marketplace region and the steps for their AI app.",
+    inputSchema: {
+      client: z.enum(["claude", "claude_code", "chatgpt", "cursor"]).default("claude"),
+      marketplace: z.string().max(60).default("US").describe("e.g. US, UK, Germany, Japan"),
+      has_amazon_ads_connector: z.boolean().default(false),
+      has_seller_central_connector: z.boolean().default(false),
+    },
+    annotations: ro,
+  }, async (a) => text(setupHelp({ client: a.client, marketplace: a.marketplace, hasAds: a.has_amazon_ads_connector, hasSeller: a.has_seller_central_connector, token: token })));
 
   server.registerTool("rocco_plan", {
     title: "What data to pull for a job",
@@ -248,6 +262,19 @@ export function registerStatelessTools(server: McpServer) {
     inputSchema: { job: z.enum(JOBS).default("morning_check") },
     annotations: ro,
   }, async ({ job }) => text(dataPlan(job as Job) + "\n\n" + APPLY_GUIDE));
+
+
+  server.registerTool("setup_check", {
+    title: "Connect Amazon Ads & Seller Central",
+    description: "Use when the seller hasn't connected Amazon's official Ads or Selling Partner (Seller Central) connectors yet, or asks how. Tell it which Amazon tools you can currently see. Returns the exact URLs for their marketplace region and the steps for their AI app.",
+    inputSchema: {
+      client: z.enum(["claude", "claude_code", "chatgpt", "cursor"]).default("claude"),
+      marketplace: z.string().max(60).default("US").describe("e.g. US, UK, Germany, Japan"),
+      has_amazon_ads_connector: z.boolean().default(false),
+      has_seller_central_connector: z.boolean().default(false),
+    },
+    annotations: ro,
+  }, async (a) => text(setupHelp({ client: a.client, marketplace: a.marketplace, hasAds: a.has_amazon_ads_connector, hasSeller: a.has_seller_central_connector, token: undefined })));
 
   server.registerTool("create_workspace", {
     title: "Create a personal Rocco workspace",

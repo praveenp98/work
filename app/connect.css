@@ -79,3 +79,15 @@
   main { padding: 0; }
   .cr-block, .stat { break-inside: avoid; }
 }
+
+/* setup wizard */
+.setup { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 20px; box-shadow: var(--shadow); margin-top: 18px; }
+.setup-pick { display: grid; gap: 18px; }
+.setup-conns { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+.setup-conns .card { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; align-content: start; min-width: 0; }
+.connect-url { min-width: 0; }
+.setup-conns .connect-url code { font-size: 13px; }
+.setup-block { margin-top: 14px; }
+.setup-block-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+.setup-block pre { margin: 0; white-space: pre; overflow-x: auto; }
+.setup-conns .card .tag { justify-self: start; }
