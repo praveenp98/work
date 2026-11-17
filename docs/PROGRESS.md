@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (17:45) · Boardy study
+- Researched how Boardy grew (no app; phone/WhatsApp/email; every intro recruits a user; founder demos; free + $100/mo Pro). Written up in `docs/BOARDY-STUDY.md` with a plan: Boardy-style one-screen homepage + "Rocco texts you, reply to approve" now; text-only Rocco after Amazon API access. Awaiting Praveen's channel + API decisions.
+
+---
+
 ## 2026-11-17 (17:15) · Launch kit + Supabase steps
 - Praveen: found Dodo Live mode, set up TrustMRR, created a Supabase project.
 - Built a launch kit: `/press` page (copy buttons + char counts for names, taglines ≤40/60/140, descriptions ≤260/500/long, tags, categories, pricing, maker comment, Show HN title/body, X bio; downloadable assets; directory checklist) from `content/launch-kit.json`, mirrored in `docs/LAUNCH-KIT.md`.
