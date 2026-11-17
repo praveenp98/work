@@ -62,7 +62,7 @@ const HELP = [
 ].join("\n");
 
 const TOPIC_KIND: Record<string, ReportKind[]> = {
-  ads: ["sp_search_term"], budgets: ["sp_campaign"], placements: ["sp_placement"], stock: ["inventory"], listings: ["business_report"],
+  ads: ["sp_search_term"], budgets: ["sp_campaign"], placements: ["sp_placement"], stock: ["inventory"], listings: ["listing_health", "business_report"],
   general: ["sp_search_term", "sp_campaign", "inventory", "business_report"],
 };
 

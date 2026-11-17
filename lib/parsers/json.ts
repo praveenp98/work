@@ -16,6 +16,9 @@ function flatten(o: Obj, out: Obj = {}, prefix = ""): Obj {
       } else flatten(v, out, prefix ? `${prefix}.${k}` : k);
     } else if (!Array.isArray(v)) {
       out[k in out ? `${prefix}.${k}` : k] = v;
+    } else if (/issue|message|reason|status/i.test(k) && v.length) {
+      // Keep short lists that carry meaning (listing issues, status lists) as text: "Price is missing; …"
+      out[k] = v.map((x) => (isObj(x) ? [x.severity, x.message ?? x.code].filter(Boolean).join(": ") : String(x))).join("; ");
     }
   }
   return out;

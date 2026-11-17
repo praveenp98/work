@@ -12,9 +12,11 @@ import { roast, type RoastResult } from "./rules/roast";
 import { DEFAULT_SETTINGS } from "./rules/settings";
 import { analyzeStock } from "./rules/stock";
 import { analyzeStructure } from "./rules/structure";
+import { isListingsReport, parseListingsReport } from "./parsers/listings";
+import { analyzeListings } from "./rules/listings";
 import type { Analysis } from "./rules/types";
 
-export type ReportKind = "sp_search_term" | "sp_campaign" | "sp_placement" | "business_report" | "inventory" | "bulk";
+export type ReportKind = "sp_search_term" | "sp_campaign" | "sp_placement" | "business_report" | "inventory" | "listing_health" | "bulk";
 
 export const REPORT_HELP: Record<ReportKind, { name: string; where: string }> = {
   sp_search_term: { name: "Sponsored Products search term report", where: "Amazon Ads → Measurement & Reporting → Sponsored ads reports → Sponsored Products → Search term → Summary, last 30–60 days" },
@@ -22,6 +24,7 @@ export const REPORT_HELP: Record<ReportKind, { name: string; where: string }> = 
   sp_placement: { name: "Sponsored Products placement report", where: "Amazon Ads → Sponsored ads reports → Sponsored Products → Placement (or Campaign → by placement) → Summary, last 30 days" },
   business_report: { name: "Business Report (by child item)", where: "Seller Central → Reports → Business Reports → Detail Page Sales and Traffic by Child Item, last 30 days → Download (.csv)" },
   inventory: { name: "Restock Inventory report", where: "Seller Central → Inventory → FBA Inventory → Restock Inventory → Download" },
+  listing_health: { name: "Listings report (suppressed / inactive)", where: "Seller Central → Inventory → Inventory Reports → All Listings report, or Inventory → Fix your products → Suppressed listings → Download" },
   bulk: { name: "Sponsored Products bulk file", where: "Amazon Ads → Bulk operations → Create spreadsheet → Sponsored Products, last 30 days" },
 };
 
@@ -30,6 +33,7 @@ export function detectKind(table: unknown[][]): ReportKind | null {
   if (detectReport(table)) return "sp_search_term";
   if (isBusinessReport(table)) return "business_report";
   if (isInventoryReport(table)) return "inventory";
+  if (isListingsReport(table)) return "listing_health";
   if (isPlacementReport(table)) return "sp_placement";
   if (isCampaignReport(table)) return "sp_campaign";
   return null;
@@ -81,5 +85,6 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
   if (kind === "sp_placement") return { kind, analysis: analyzePlacements(parsePlacementReport(table), { targetAcos: target, breakevenAcos: breakeven }) };
   if (kind === "business_report") return { kind, analysis: analyzeBusiness(parseBusinessReport(table), { adSpend: s.adSpend, adSales: s.adSales }) };
   if (kind === "inventory") return { kind, analysis: analyzeStock(parseInventoryReport(table)) };
+  if (kind === "listing_health") return { kind, analysis: analyzeListings(parseListingsReport(table)) };
   return { kind, analysis: analyzeStructure(parseBulkRows(table)) };
 }

@@ -17,6 +17,11 @@ export function dailyNumbers(b: Brief, o: { now?: Date; bench?: BenchLine[]; pen
   const pb = b.perBrand[0];
   const latest = (k: string): Snapshot | undefined => pb?.trends.find((t) => t.kind === k)?.latest;
   const prev = (k: string): Snapshot | null | undefined => pb?.trends.find((t) => t.kind === k)?.previous;
+  // 🚨 First: anything on fire (suppressed listings, lost Buy Box).
+  const lh = latest("listing_health");
+  if (lh && Number(lh.stats.problems) > 0) L.push(`🚨 ${lh.stats.problems} listing${Number(lh.stats.problems) === 1 ? "" : "s"} not selling${Number(lh.stats.suppressed) ? ` (${lh.stats.suppressed} suppressed)` : ""}${lh.stats.worst ? `: ${lh.stats.worst}` : ""}. Pause their ads and fix in Seller Central.`);
+  const bb = latest("business_report");
+  if (bb && Number(bb.stats.buyBoxLow) > 0) L.push(`⚠️ Buy Box below 90% on ${bb.stats.buyBoxLow} ASIN${Number(bb.stats.buyBoxLow) === 1 ? "" : "s"}${bb.stats.buyBoxWorst ? ` (worst: ${bb.stats.buyBoxWorst})` : ""}. Ads there may pay for someone else's sale.`);
   const st = latest("sp_search_term");
   if (st) {
     const s = st.stats;

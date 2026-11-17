@@ -15,7 +15,7 @@ Status: ✅ built · 🟡 partly · ⬜ not yet (build order in brackets)
 | Spend / sales / ACoS vs target, yesterday vs trend | Ads | ✅ morning numbers |
 | Stock that runs out in <14 days; restock qty | SC | ✅ S-codes |
 | Total sales, sessions, conversion, TACoS | SC | ✅ |
-| Lost Buy Box / suppressed or inactive listings | SC | ⬜ [1] |
+| Lost Buy Box / suppressed or inactive listings | SC | ✅ 🚨 alerts |
 | Account health and policy warnings | SC | ⬜ [2] |
 | Price changed (yours or competitor-triggered) | SC | ⬜ [6] |
 | New 1–3★ reviews / rating drop | SC | ⬜ [7] |

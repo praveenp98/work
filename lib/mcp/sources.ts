@@ -3,7 +3,7 @@
  * (Amazon's official Ads MCP server / Amazon Ads API, Selling Partner API connectors, other Amazon tools)
  * so nobody downloads spreadsheets. Field names follow Amazon Ads API v3 reporting and SP-API report types.
  */
-export type Job = "morning_check" | "search_terms" | "budgets" | "placements" | "listings" | "stock" | "results_check";
+export type Job = "morning_check" | "search_terms" | "budgets" | "placements" | "listings" | "stock" | "listing_health" | "results_check";
 type Fetch = { source: string; request: Record<string, unknown>; fallback: string };
 
 const SEARCH_TERMS: Fetch & { request: { columns: string[] } } = {
@@ -35,13 +35,20 @@ const STOCK: Fetch = {
   fallback: "Seller Central → Inventory → FBA Inventory → Restock Inventory → Download.",
 };
 
+const LISTING_HEALTH: Fetch = {
+  source: "Selling Partner API connector (Listings Items API, or Reports API)",
+  request: { preferred: "Listings Items API: for each SKU, get status and issues (includedData: summaries, issues)", alternative: { reportType: "GET_MERCHANT_LISTINGS_ALL_DATA" }, pass: "rows of { sku, asin, status, issues } (issues as the API returns them)" },
+  fallback: "Seller Central → Inventory → Inventory Reports → All Listings report (or Fix your products → Suppressed → Download).",
+};
+
 const RECIPES: Record<Job, { why: string; fetch: Fetch[]; then: string }> = {
-  morning_check: { why: "Full daily check: ads waste, budgets, placements, listings, stock.", fetch: [SEARCH_TERMS, CAMPAIGNS, PLACEMENTS, BUSINESS, STOCK], then: "Call analyze_report once per dataset (search terms first, so the Business Report can compute TACoS), then rocco_brief, and present one combined approval list sorted by $ at stake." },
+  morning_check: { why: "Full daily check: anything on fire (suppressed listings, lost Buy Box), ads waste, budgets, placements, listings, stock.", fetch: [LISTING_HEALTH, SEARCH_TERMS, CAMPAIGNS, PLACEMENTS, BUSINESS, STOCK], then: "Call analyze_report once per dataset (search terms first, so the Business Report can compute TACoS), then rocco_brief, and present one combined approval list sorted by $ at stake." },
   search_terms: { why: "Negatives, harvests and bid changes.", fetch: [SEARCH_TERMS], then: "Call analyze_report with the rows." },
   budgets: { why: "Profitable campaigns running out of budget; campaigns above breakeven.", fetch: [CAMPAIGNS], then: "Call analyze_report with the rows." },
   placements: { why: "Top of search / rest of search / product pages adjustments.", fetch: [PLACEMENTS], then: "Call analyze_report with the rows." },
   listings: { why: "Conversion, buy box and TACoS by ASIN; listing keyword gaps.", fetch: [BUSINESS], then: "Call analyze_report with the rows. For keyword gaps, also fetch the listing's title, bullets and backend search terms (Listings Items API) and call listing_gaps." },
   stock: { why: "Stockout risk, overstock, dead stock.", fetch: [STOCK], then: "Call analyze_report with the rows." },
+  listing_health: { why: "Suppressed, inactive or incomplete listings (they sell nothing; ads on them burn money).", fetch: [LISTING_HEALTH], then: "Call analyze_report with the rows. Lead with any problem listing and pause its ads until it's fixed." },
   results_check: { why: "Judge changes applied 7+ days ago.", fetch: [{ ...SEARCH_TERMS, request: { ...SEARCH_TERMS.request, timeUnit: "DAILY", columns: [...SEARCH_TERMS.request.columns.filter((c) => c !== "startDate" && c !== "endDate"), "date"], last: "since the day after the oldest open change" } }, { ...CAMPAIGNS, request: { ...CAMPAIGNS.request, timeUnit: "DAILY", columns: [...CAMPAIGNS.request.columns.filter((c) => c !== "startDate" && c !== "endDate"), "date"], last: "since the day after the oldest open change" } }], then: "Call analyze_report with each; Rocco matches the data to logged changes and reports what worked." },
 };
 

@@ -10,7 +10,7 @@ import { buildBrief, createWorkspace, runAnalysis } from "./workspace";
  * A sample brand Rocco can show anyone in seconds, before Amazon is plugged in.
  * Same engine as real accounts, run on the public sample reports (public/samples).
  */
-const FILES = ["sp-search-term-report.csv", "restock-inventory.csv", "business-report.csv"];
+const FILES = ["listings-health.csv", "sp-search-term-report.csv", "restock-inventory.csv", "business-report.csv"];
 
 async function sample(name: string): Promise<string | null> {
   const local = path.join(process.cwd(), "public", "samples", name);

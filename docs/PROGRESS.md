@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Fire alarms: suppressed listings + Buy Box
+- New report kind listing_health (All Listings / Suppressed Listings report, or Listings Items API JSON with issues). Flags suppressed/inactive/incomplete listings with Amazon's reason.
+- Business Report now records Buy Box <90% counts (buyBoxLow, buyBoxWorst).
+- Morning text leads with 🚨 listings not selling and ⚠️ Buy Box below 90%. morning_check data plan pulls listing health first; new rocco_plan job listing_health.
+- Demo brand includes a suppressed listing, so the demo opens with the alarm.
+- Tests 108/108.
+
+---
+
 ## 2026-11-17 (late) · Sign up by adding Rocco in Claude (MCP OAuth)
 - New connector URL https://rocco.works/mcp/login. Claude/ChatGPT get a 401 + OAuth metadata, open Rocco's one-button Connect page, which creates the team's Rocco (or reuses it from a pasted Rocco page link), and return signed in. Stateless (sealed client ids/codes/refresh tokens), PKCE S256, dynamic client registration. Access token = workspace key.
 - /setup now hands out the sign-in URL (no workspace created for page views); personal pages keep their private URL.

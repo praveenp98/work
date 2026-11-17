@@ -18,7 +18,7 @@ import { dollars } from "@/lib/pricing";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your Rocco", description: "Plug in Amazon, then just ask. Your team's private Rocco page.", robots: { index: false, follow: false } };
 
-const KIND: Record<string, string> = { sp_search_term: "Search terms", sp_campaign: "Budgets", business_report: "Business Report", inventory: "Inventory", bulk: "Structure" };
+const KIND: Record<string, string> = { listing_health: "Listings", sp_search_term: "Search terms", sp_campaign: "Budgets", business_report: "Business Report", inventory: "Inventory", bulk: "Structure" };
 const STATUS: Record<string, string> = { applied: "⏳ waiting", worked: "✅ worked", no_effect: "➖ no effect", worse: "⚠️ worse", not_enough_data: "⏳ more data", reverted: "↩️ reverted" };
 
 export default async function Page({ params }: { params: Promise<{ token: string }> }) {
