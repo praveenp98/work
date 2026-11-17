@@ -11,7 +11,7 @@ export interface Finding {
   valueMonthly: number;
 }
 
-export type ProposalKind = "negative" | "harvest" | "bid" | "budget" | "ads_down" | "structure";
+export type ProposalKind = "negative" | "harvest" | "bid" | "budget" | "placement" | "ads_down" | "structure";
 
 export interface Metrics {
   spendPerDay: number;
@@ -35,6 +35,10 @@ export interface Proposal {
   valueMonthly: number;
   before?: Metrics;
   undo: string;
+  /** Amazon IDs when known (data pulled through the Ads API), so the change can be applied by Amazon's connector. */
+  ids?: { campaignId?: string; adGroupId?: string; keywordId?: string };
+  /** Bid moves as a % so the AI can apply them to the live bid. */
+  changePct?: number;
 }
 
 export interface Analysis {

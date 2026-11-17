@@ -15,6 +15,8 @@ export interface SearchTermRow {
   orders: number;
   date: Date | null;
   endDate: Date | null;
+  /** Amazon IDs when the data came from the Ads API (lets approved changes be applied by Amazon's connector). */
+  ids?: { campaignId?: string; adGroupId?: string; keywordId?: string };
 }
 
 export interface ParsedReport {
@@ -25,7 +27,7 @@ export interface ParsedReport {
   warnings: string[];
 }
 
-type Field = keyof Omit<SearchTermRow, "date" | "endDate"> | "date" | "startDate" | "endDate" | "currency";
+type Field = keyof Omit<SearchTermRow, "date" | "endDate" | "ids"> | "date" | "startDate" | "endDate" | "currency" | "campaignId" | "adGroupId" | "keywordId";
 
 /** Header synonyms, matched against normHeader() output. First exact match wins, then prefix match. */
 const FIELDS: Record<Field, string[]> = {
@@ -37,8 +39,11 @@ const FIELDS: Record<Field, string[]> = {
   impressions: ["impressions"],
   clicks: ["clicks"],
   spend: ["spend", "cost", "total cost"],
-  sales: ["7 day total sales", "14 day total sales", "total sales", "sales", "7 day sales", "14 day sales"],
-  orders: ["7 day total orders", "14 day total orders", "total orders", "orders", "purchases", "7 day total orders"],
+  sales: ["7 day total sales", "14 day total sales", "total sales", "sales 7d", "sales 14d", "attributed sales 7d", "sales", "7 day sales", "14 day sales"],
+  orders: ["7 day total orders", "14 day total orders", "total orders", "purchases 7d", "purchases 14d", "orders 7d", "orders", "purchases"],
+  campaignId: ["campaign id"],
+  adGroupId: ["ad group id"],
+  keywordId: ["keyword id", "target id", "targeting id"],
   date: ["date"],
   startDate: ["start date"],
   endDate: ["end date"],
@@ -79,6 +84,8 @@ export function detectReport(table: unknown[][]): { type: ReportType; headerRow:
 }
 
 const CURRENCY_SYMBOL: Record<string, string> = { USD: "$", CAD: "C$", GBP: "£", EUR: "€", INR: "₹", AUD: "A$", MXN: "MX$", JPY: "¥" };
+
+const str = (v: unknown) => { const s = String(v ?? "").trim(); return s || undefined; };
 
 export function parseSearchTermReport(table: unknown[][]): ParsedReport {
   const det = detectReport(table);
@@ -125,6 +132,9 @@ export function parseSearchTermReport(table: unknown[][]): ParsedReport {
       orders,
       date: d1,
       endDate: d2,
+      ...(cols.campaignId !== undefined || cols.adGroupId !== undefined || cols.keywordId !== undefined
+        ? { ids: { campaignId: str(get(r, "campaignId")), adGroupId: str(get(r, "adGroupId")), keywordId: str(get(r, "keywordId")) } }
+        : {}),
     });
   }
   if (rows.length === 0) throw new Error("Found the header row but no data rows.");

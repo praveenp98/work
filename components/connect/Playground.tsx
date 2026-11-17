@@ -5,11 +5,12 @@ import { readTables } from "@/lib/readTable";
 import { Md } from "../Md";
 
 const SAMPLES = [
-  { id: "search", label: "Search terms", file: "/samples/sp-search-term-report.csv", says: "Analyze my search term report" },
+  { id: "search", label: "Search terms", file: "/samples/sp-search-term-report.csv", says: "Clean up my search terms" },
   { id: "campaign", label: "Budgets", file: "/samples/sp-campaign-report.csv", says: "Which campaigns need budget changes?" },
-  { id: "business", label: "Business Report", file: "/samples/business-report.csv", says: "Why aren't my listings converting?" },
-  { id: "inventory", label: "Inventory", file: "/samples/restock-inventory.csv", says: "Am I about to run out of anything?" },
-  { id: "bulk", label: "Bulk file", file: "/samples/sp-bulk-structure.csv", says: "Audit my campaign structure" },
+  { id: "placement", label: "Placements", file: "/samples/sp-placement-report.csv", says: "Fix my placement adjustments" },
+  { id: "business", label: "Listings", file: "/samples/business-report.csv", says: "Why aren't my listings converting?" },
+  { id: "inventory", label: "Stock", file: "/samples/restock-inventory.csv", says: "Am I about to run out of anything?" },
+  { id: "bulk", label: "Structure", file: "/samples/sp-bulk-structure.csv", says: "Audit my campaign structure" },
 ];
 
 async function callTool(name: string, args: Record<string, unknown>): Promise<string> {
@@ -45,7 +46,7 @@ export function Playground() {
             onClick={() => run(s.label, s.says, async () => (await fetch(s.file)).text())}>{s.label}</button>
         ))}
         <label className={`chipbtn${active === "yours" ? " on" : ""}`}>
-          📎 Your own report
+          📎 Try your own export
           <input type="file" accept=".csv,.tsv,.txt,.xlsx" hidden onChange={(e) => {
             const f = e.target.files?.[0];
             if (f) run("yours", `Analyze ${f.name}`, async () => {

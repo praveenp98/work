@@ -4,6 +4,7 @@ import { toDate, toNumber } from "./normalize";
 /** Sponsored Products campaign report (Summary or Daily). */
 export interface CampaignRow {
   campaign: string;
+  campaignId?: string;
   status: string;
   budget: number;
   impressions: number;
@@ -22,8 +23,9 @@ const SPEC = {
   impressions: ["impressions"],
   clicks: ["clicks"],
   spend: ["spend", "cost", "total cost"],
-  sales: ["7 day total sales", "14 day total sales", "total sales", "sales"],
-  orders: ["7 day total orders", "14 day total orders", "total orders", "orders", "purchases"],
+  sales: ["7 day total sales", "14 day total sales", "total sales", "sales 7d", "sales 14d", "sales"],
+  orders: ["7 day total orders", "14 day total orders", "total orders", "purchases 7d", "purchases 14d", "orders", "purchases"],
+  campaignId: ["campaign id"],
   date: ["date", "start date"],
   endDate: ["end date"],
   searchTerm: ["customer search term", "search term"],
@@ -52,6 +54,7 @@ export function parseCampaignReport(table: unknown[][]): { rows: CampaignRow[]; 
     for (const d of [d1, d2]) if (d) { const t = d.getTime(); min = min === null ? t : Math.min(min, t); max = max === null ? t : Math.max(max, t); }
     rows.push({
       campaign,
+      campaignId: String(g(r, c.campaignId) ?? "").trim() || undefined,
       status: String(g(r, c.status) ?? "").trim().toLowerCase(),
       budget: toNumber(g(r, c.budget)),
       impressions: toNumber(g(r, c.impressions)),

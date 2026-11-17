@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (13:30) · Dodo payments + connector-first Rocco + pro hooks
+- **Payments → Dodo** (Polar/Stripe don't onboard individuals in India). `lib/payments.ts`: static payment links per plan from `DODO_PRODUCT_*` env (pdt_ IDs), license check via Dodo's public `/licenses/validate`; Polar code removed; `docs/DODO-SETUP.md`. TrustMRR verifies Dodo revenue (rule 5 OK). Waiting on Praveen's 4 product IDs.
+- **No more "download a spreadsheet"** (Praveen: pros don't). Rocco is now connector-first: the seller connects Amazon's official Ads connector (+ SP-API / other Amazon tools) next to Rocco and just asks. New `rocco_plan(job)` tool tells the AI exactly which Ads API v3 / SP-API reports and columns to pull; `analyze_report` takes connector JSON (`report_json`/`rows`), flattens nested SP-API JSON, understands camelCase API fields (campaignName, sales7d, purchases7d, campaignBudgetAmount, placementClassification…). Amazon IDs flow into proposals; `export_changes(format: "amazon_ads_api")` returns the exact change list for Amazon's connector to apply after approval (free for the top 3 per report). Exported files remain a fallback.
+- **Pro hooks:** placement analyzer (P codes: raise profitable Top/Rest/Product pages, zero losers); "new since last report" (new money-burning terms, new winners, burners that stopped); `listing_gaps` (converting search-term words missing from title/bullets/backend); calendar feed `/w/<key>/calendar.ics` (follow-ups, Monday brief, BFCM dates); white-label printable client report `/w/<key>/report?brand=&by=`; web **Account Check** (`/tools/account-check`: drop up to 6 reports → Rocco Score, $ at stake, top actions).
+- Site copy rewritten: hero = connect Amazon's Ads connector + Rocco → "Rocco, morning check"; jobs shown as things you say; chat demo shows Rocco orchestrating Amazon Ads + Seller Central connectors and applying approved changes; /connect has "Where Rocco gets data" instead of a download table.
+- Tests: 64 passing (incl. Ads API + SP-API shaped JSON). Build clean. Browser + MCP flow verified.
+- Blockers: Dodo product IDs + KYC; Supabase migration (memory); Vercel deploy + DNS A record; tracker.
+- Numbers: revenue $0 · marketing cost $0.
+
+---
+
 ## 2026-11-17 (09:55) · Payments blocker
 - Polar's Stripe payout onboarding blocks Indian *individuals* from international payments (Stripe India rule). Options: Dodo Payments (individuals OK, TrustMRR-supported) now; Udyam registration → sole proprietorship as backup. Details in `docs/POLAR-SETUP.md`.
 

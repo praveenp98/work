@@ -1,3 +1,5 @@
+> **OBSOLETE (Nov 17, 2026):** Polar can't onboard Praveen as an individual. Payments moved to Dodo Payments: see `docs/DODO-SETUP.md`. The Polar products/links below are unused; archive them.
+
 # Polar setup for Rocco Works (Nov 17, 2026)
 
 All plans are **one-time payments** (count in full for the contest). The Holiday Pass is also one-time; our app ends access on Jan 31, 2027. No subscriptions for now.

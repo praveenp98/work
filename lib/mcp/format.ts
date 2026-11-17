@@ -1,5 +1,6 @@
 import { REPORT_HELP, type AnalyzeOutput, type ReportKind } from "../analyze";
 import type { Proposal } from "../rules/types";
+import type { TermDiff } from "../rules/terms";
 import type { Action, Snapshot } from "../store/types";
 import type { buildBrief } from "../workspace";
 
@@ -7,25 +8,32 @@ import { FREE_PROPOSALS } from "../workspace";
 export { FREE_PROPOSALS };
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const ICON: Record<string, string> = { high: "🔴", medium: "🟠", low: "⚪", win: "🟢" };
-const KIND_NAME: Record<string, string> = { sp_search_term: "Search terms", sp_campaign: "Budgets", business_report: "Business Report", inventory: "Inventory", bulk_structure: "Structure", bulk: "Structure" };
+const KIND_NAME: Record<string, string> = { sp_search_term: "Search terms", sp_campaign: "Budgets", sp_placement: "Placements", business_report: "Business Report", inventory: "Inventory", bulk_structure: "Structure", bulk: "Structure" };
 
 export function proposalLine(p: Proposal): string {
   const change = p.kind === "negative" ? `add ${p.matchType} "${p.target}" in ${p.campaign} / ${p.adGroup}`
     : p.kind === "harvest" ? `add "${p.target}" as ${p.matchType} keyword, start bid $${p.proposed}`
     : p.kind === "bid" ? `${p.target} (${p.matchType}) in ${p.campaign} / ${p.adGroup}: bid → $${p.proposed} (avg CPC $${p.current})`
     : p.kind === "budget" ? `${p.campaign}: daily budget $${p.current} → $${p.proposed}`
+    : p.kind === "placement" ? `${p.campaign}: ${p.target} placement adjustment ${p.proposed ? `+${p.proposed} points` : "→ 0%"}`
     : p.kind === "ads_down" ? `lower ad pressure on SKU ${p.target}`
     : `${p.target}`;
   return `- **${p.code}** ${change}. ${p.reason}${p.valueMonthly ? ` (~${$(p.valueMonthly)}/mo)` : ""}`;
 }
 
-export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId?: string; checked?: Action[]; previous?: Snapshot | null; memory: boolean }): string {
+export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId?: string; checked?: Action[]; previous?: Snapshot | null; memory: boolean; diff?: TermDiff | null }): string {
   const a = out.analysis;
   const lines = [`## Rocco · ${REPORT_HELP[out.kind].name}`, a.headline];
   if (o.previous) lines.push(`_Last time (${o.previous.createdAt.slice(0, 10)}): ${o.previous.headline}_`);
   if (o.checked?.length) {
     lines.push("", "### How your past changes did");
     for (const c of o.checked) lines.push(`- ${statusIcon(c.status)} **${c.code}** ${c.result?.summary}`);
+  }
+  if (o.diff && (o.diff.newBurners.length || o.diff.newWinners.length || o.diff.stoppedBurning.length)) {
+    lines.push("", "### New since your last report");
+    for (const t of o.diff.newBurners.slice(0, 5)) lines.push(`- 🔥 new money-burner "${t.t}": ${t.c} clicks, $${t.s}, 0 orders`);
+    for (const t of o.diff.newWinners.slice(0, 5)) lines.push(`- 🌱 new winner "${t.t}": ${t.o} orders, $${t.sa}`);
+    if (o.diff.stoppedBurning.length) lines.push(`- ✅ ${o.diff.stoppedBurning.length} old money-burners stopped spending (${o.diff.stoppedBurning.slice(0, 3).map((t) => `"${t.t}"`).join(", ")}${o.diff.stoppedBurning.length > 3 ? "…" : ""})`);
   }
   if (a.findings.length) {
     lines.push("", "### What Rocco found");
@@ -39,7 +47,7 @@ export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId
       lines.push(`- …and ${a.proposals.length - shown.length} more. The full list plus upload-ready bulk files come with a Rocco license (rocco.works/pricing). Call activate_license once you have a key.`);
     }
     lines.push("", o.memory
-      ? "Ask the seller which codes to approve (e.g. \"N1-N4, B2\"). Once they've applied them (in Amazon Ads, by bulk file, or through Amazon's own connector with their OK), call apply_changes so Rocco tracks them and checks results on the next report."
+      ? "Ask the seller which codes to approve (e.g. \"N1-N4, B2\"). Then get the change list with export_changes, apply exactly those codes with the seller's Amazon Ads connector (or the seller applies them by hand), and call apply_changes so Rocco tracks them and re-checks results."
       : "Present these as an approval list. For memory (tracking changes and checking results), set up a personal connector with create_workspace.");
   }
   return lines.join("\n");
@@ -64,21 +72,21 @@ export function formatBrief(b: Awaited<ReturnType<typeof buildBrief>>): string {
   }
   if (b.due.length) {
     L.push("", `### Due for a check (${b.due.length})`);
-    L.push(`Changes from ${[...new Set(b.due.map((a) => a.appliedAt.slice(0, 10)))].join(", ")} are ready to judge. Download a search term report (Daily, starting the day after the change) and analyze it.`);
+    L.push(`Changes from ${[...new Set(b.due.map((a) => a.appliedAt.slice(0, 10)))].join(", ")} are ready to judge. Follow rocco_plan("results_check") to pull daily data since then, and Rocco will grade each change.`);
   }
   for (const pb of b.perBrand) {
     L.push("", `### ${pb.brand}${pb.settings.targetAcos ? ` · target ACoS ${Math.round(pb.settings.targetAcos * 100)}%` : ""}`);
-    for (const t of pb.trends) L.push(`- ${KIND_NAME[t.kind] ?? t.kind} (${t.latest.createdAt.slice(0, 10)}): ${t.latest.headline}${trend(t.latest, t.previous)}`);
+    for (const t of pb.trends) L.push(`- ${KIND_NAME[t.kind] ?? t.kind} (${t.latest.createdAt.slice(0, 10)}): ${t.latest.headline}${trend(t.latest, t.previous)}${Number(t.latest.stats.newBurners) > 0 ? ` · 🔥 ${t.latest.stats.newBurners} new money-burning terms` : ""}${Number(t.latest.stats.newWinners) > 0 ? ` · 🌱 ${t.latest.stats.newWinners} new winners` : ""}`);
     if (pb.open.length) {
       L.push(`- **${pb.open.length} proposed changes not applied yet**${pb.openValue ? ` (~${$(pb.openValue)}/mo at stake)` : ""}:`);
       L.push(...[...pb.open].sort((a, b) => b.valueMonthly - a.valueMonthly).slice(0, 5).map((p) => "  " + proposalLine(p)));
     }
     if (pb.hidden) L.push(`- +${pb.hidden} more fixes locked. A Rocco license unlocks them (rocco.works/pricing).`);
-    const todo = pb.stale.map((k: ReportKind) => `${REPORT_HELP[k].name} (${REPORT_HELP[k].where})`);
-    if (todo.length) L.push(`- Rocco would like fresh reports: ${todo.join("; ")}.`);
+    const todo = pb.stale;
+    if (todo.length) L.push(`- Not checked in 7+ days: ${pb.stale.map((k: ReportKind) => REPORT_HELP[k].name).join(", ")}. Say "morning check" and Rocco will pull them (rocco_plan).`);
   }
   if (!b.totals.applied && b.perBrand.every((p) => !p.trends.length)) {
-    L.push("", "Nothing to brief yet. Attach a search term report and say \"analyze this\" to get started.");
+    L.push("", "Nothing to brief yet. Follow rocco_plan(\"morning_check\") to pull the account data, then analyze it.");
   }
   return L.join("\n");
 }

@@ -6,7 +6,7 @@ export interface BudgetSettings {
   breakevenAcos: number;
 }
 
-interface Camp { campaign: string; budget: number; spend: number; sales: number; orders: number; clicks: number }
+interface Camp { campaign: string; campaignId?: string; budget: number; spend: number; sales: number; orders: number; clicks: number }
 
 /**
  * Budget shift: find winners that run out of budget (missing sales) and losers above breakeven,
@@ -18,6 +18,7 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
     if (r.status && !["enabled", "enabled ", "delivering", "running", ""].includes(r.status) && r.spend === 0) continue;
     const c = map.get(r.campaign) ?? { campaign: r.campaign, budget: 0, spend: 0, sales: 0, orders: 0, clicks: 0 };
     c.budget = Math.max(c.budget, r.budget);
+    if (r.campaignId) c.campaignId = r.campaignId;
     c.spend += r.spend; c.sales += r.sales; c.orders += r.orders; c.clicks += r.clicks;
     map.set(r.campaign, c);
   }
@@ -39,7 +40,7 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
       const newBudget = r2(Math.max(1, Math.min(c.budget, perDay(c.spend)) * 0.8));
       if (newBudget < c.budget) freed += c.budget - newBudget;
       g++;
-      proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed: newBudget, reason: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "∞"} is above breakeven ${Math.round(s.breakevenAcos * 100)}%; ${Math.round(util * 100)}% of budget used. Cut budget and fix bids/negatives first.`, valueMonthly: r2(loss), before: before(c), undo: `Set the daily budget back to ${c.budget}.` });
+      proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed: newBudget, reason: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "∞"} is above breakeven ${Math.round(s.breakevenAcos * 100)}%; ${Math.round(util * 100)}% of budget used. Cut budget and fix bids/negatives first.`, valueMonthly: r2(loss), before: before(c), ids: c.campaignId ? { campaignId: c.campaignId } : undefined, undo: `Set the daily budget back to ${c.budget}.` });
       findings.push({ severity: "high", title: `${c.campaign} loses money`, detail: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "with no sales"} vs breakeven ${Math.round(s.breakevenAcos * 100)}%. About $${Math.round(loss)}/month above breakeven.`, line: `${c.campaign} is a money furnace with a campaign name.`, valueMonthly: r2(loss) });
     }
   }
@@ -50,7 +51,7 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
       const proposed = r2(c.budget * 1.25);
       const extraSales = ((proposed - c.budget) * 30) / a;
       g++;
-      proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed, reason: `Uses ${Math.round(util * 100)}% of its budget at ${Math.round(a * 100)}% ACoS (under target). It's running out of money while profitable.`, valueMonthly: r2(extraSales), before: before(c), undo: `Set the daily budget back to ${c.budget}.` });
+      proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed, reason: `Uses ${Math.round(util * 100)}% of its budget at ${Math.round(a * 100)}% ACoS (under target). It's running out of money while profitable.`, valueMonthly: r2(extraSales), before: before(c), ids: c.campaignId ? { campaignId: c.campaignId } : undefined, undo: `Set the daily budget back to ${c.budget}.` });
       findings.push({ severity: "medium", title: `${c.campaign} runs out of budget while profitable`, detail: `${Math.round(util * 100)}% budget used at ${Math.round(a * 100)}% ACoS. Raising budget 25% could add ~$${Math.round(extraSales)}/month in sales at the same ACoS.`, line: `${c.campaign} is your best worker and you keep sending it home at lunch.`, valueMonthly: r2(extraSales) });
     }
   }

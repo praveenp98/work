@@ -15,7 +15,7 @@ export interface BusinessRow {
 const SPEC = {
   asin: ["(child) asin", "child asin", "asin"],
   title: ["title", "product name"],
-  sessions: ["sessions - total", "sessions total", "sessions"],
+  sessions: ["sessions - total", "sessions total", "sessions", "browser sessions"],
   pageViews: ["page views - total", "page views total", "page views"],
   units: ["units ordered", "units ordered total"],
   sales: ["ordered product sales", "ordered product sales total"],

@@ -13,16 +13,15 @@ export const metadata: Metadata = {
 };
 
 const TOOLS = [
-  { name: "rocco_brief", say: "“Rocco, brief me.”", does: "Today's to-do list: results of past changes, what's due, open fixes, which reports to refresh, seasonal reminders.", memory: true },
-  { name: "analyze_report", say: "“Analyze this.” (attach any report)", does: "Detects the report type, finds problems, returns an approval list with codes, and checks earlier changes against the new data." },
-  { name: "apply_changes", say: "“Approve N1–N4 and G2, I applied them.”", does: "Logs approved changes with before-numbers and a follow-up date.", memory: true },
-  { name: "list_changes", say: "“What did we change this month?”", does: "Your change log with results: worked, no effect, worse, or still waiting.", memory: true },
-  { name: "revert_changes", say: "“Undo B3.”", does: "Marks it reverted and gives the exact undo steps.", memory: true },
-  { name: "set_brand_settings", say: "“Target ACoS 25%, never negate ‘acme’.”", does: "Per-brand target and breakeven ACoS, click threshold, protected brand terms.", memory: true },
-  { name: "export_changes", say: "“Give me the bulk file for N1–N6.” (attach bulk file)", does: "Fix list CSV, plus Bulksheets 2.0 rows with your real IDs, ready to upload.", memory: true },
-  { name: "bfcm_surge_plan", say: "“Plan my Black Friday budgets.”", does: "Day-by-day budget, bid and placement plan for Nov 19 – Dec 2." },
-  { name: "amazon_ads_playbook", say: "“What are Rocco's rules for bids?”", does: "Rocco's operator rules: negatives, harvest, bids, budgets, guardrails, working beside Amazon's own connector." },
-  { name: "breakeven_acos · coupon_profit", say: "“What's my breakeven ACoS?”", does: "The margin math, done right." },
+  { name: "rocco_plan", say: "“Rocco, morning check.”", does: "Tells your AI exactly which reports and columns to pull from Amazon's Ads connector and your Seller Central connector for the job." },
+  { name: "analyze_report", say: "(called for you after the pull)", does: "Reads the pulled data (any of six types), finds problems, flags what's new since last time, queues coded changes, and judges earlier changes." },
+  { name: "rocco_brief", say: "“What should I do today?”", does: "Results of past changes, what's due, open fixes ranked by $, seasonal reminders.", memory: true },
+  { name: "export_changes", say: "“Approve N1–N4 and G2.”", does: "Exact change list for Amazon's Ads connector (IDs included), so your AI applies only what you approved.", memory: true },
+  { name: "apply_changes", say: "(called after the changes go through)", does: "Logs each change with before-numbers, undo steps and a follow-up date.", memory: true },
+  { name: "list_changes · revert_changes", say: "“Did last week's changes work?” · “Undo B3.”", does: "Change log with measured results; exact steps to reverse anything.", memory: true },
+  { name: "listing_gaps", say: "“What keywords is my listing missing?”", does: "Converting search terms whose words aren't in your title, bullets or backend keywords.", memory: true },
+  { name: "set_brand_settings", say: "“Target ACoS 25%, never negate ‘acme’.”", does: "Per-brand targets, click threshold and protected brand terms.", memory: true },
+  { name: "bfcm_surge_plan · amazon_ads_playbook", say: "“Plan my Black Friday budgets.”", does: "Day-by-day peak-season plan; Rocco's operator rules and guardrails." },
 ];
 
 export default function Page() {
@@ -32,7 +31,7 @@ export default function Page() {
         <div>
           <span className="eyebrow">MCP connector · Claude &amp; ChatGPT</span>
           <h1>Add Rocco in 60 seconds.</h1>
-          <p className="lede">One URL turns your AI into an Amazon teammate who knows the job: what to check, what to cut, what to fund, and what you changed last week.</p>
+          <p className="lede">Amazon&apos;s official connector gives your AI hands. Rocco gives it the judgment and memory of a senior Amazon manager: what to pull, what to cut, what to fund, and what you changed last week.</p>
           <ConnectBox />
         </div>
         <div className="hero-chat"><ChatDemo /></div>
@@ -65,17 +64,24 @@ export default function Page() {
 
       <section>
         <div className="section-head">
-          <span className="eyebrow">Feed Rocco</span>
-          <h2>Which reports, and where to find them</h2>
-          <p>Download, then drag into your chat. Rocco detects the type. Fresh reports weekly keep his brief sharp.</p>
+          <span className="eyebrow">Where Rocco gets data</span>
+          <h2>From the connectors you already use</h2>
+          <p>Rocco doesn&apos;t log in anywhere. He tells your AI what to pull from your connected Amazon tools, then does the thinking.</p>
         </div>
         <div className="tablewrap">
           <table className="fixes">
-            <thead><tr><th>Report</th><th>Where</th></tr></thead>
-            <tbody>{Object.values(REPORT_HELP).map((r) => <tr key={r.name}><td><b>{r.name}</b></td><td>{r.where}</td></tr>)}</tbody>
+            <thead><tr><th>Job</th><th>Pulled from</th><th>No API access?</th></tr></thead>
+            <tbody>
+              <tr><td><b>Search terms, bids, harvests</b></td><td>Amazon&apos;s official Ads connector (search term report)</td><td>{REPORT_HELP.sp_search_term.where}</td></tr>
+              <tr><td><b>Budgets</b></td><td>Amazon Ads connector (campaign report)</td><td>{REPORT_HELP.sp_campaign.where}</td></tr>
+              <tr><td><b>Placements</b></td><td>Amazon Ads connector (campaign × placement)</td><td>{REPORT_HELP.sp_placement.where}</td></tr>
+              <tr><td><b>Conversion, buy box, TACoS</b></td><td>Selling Partner API connector (Sales &amp; Traffic)</td><td>{REPORT_HELP.business_report.where}</td></tr>
+              <tr><td><b>Stockout guard</b></td><td>Selling Partner API connector (Restock report)</td><td>{REPORT_HELP.inventory.where}</td></tr>
+              <tr><td><b>Keyword research</b></td><td>Any keyword tool you&apos;ve connected (e.g. Helium 10, if you use it)</td><td>Optional</td></tr>
+            </tbody>
           </table>
         </div>
-        <p className="fine" style={{ marginTop: 8 }}>For result checks, use Daily reports that start the day after you applied changes.</p>
+        <p className="fine" style={{ marginTop: 8 }}>Amazon&apos;s Ads connector needs Amazon Ads API access. Without it, attach an exported report and Rocco reads that instead.</p>
       </section>
 
       <section className="prose">
@@ -87,8 +93,9 @@ export default function Page() {
       <Faq items={[
         { q: "Is Rocco free to add?", a: "Yes. The brief, findings, and the top 3 fixes per report are free, including tracking those changes. A one-time license unlocks every fix, full tracking and bulk files." },
         { q: "What's the difference between the shared URL and my personal URL?", a: "rocco.works/mcp works for anyone, with no memory. Your personal URL (rocco.works/mcp/your-key) adds memory: change log, result checks, brand settings and the daily brief. Keep it private." },
-        { q: "Does Rocco change my Amazon account?", a: "No. Rocco reads reports and proposes changes. You (or Amazon's own connector, with your approval) apply them." },
-        { q: "What does Rocco store?", a: "With a personal connector: report summaries (totals, headlines), the proposed changes, and the changes you approved. Not the raw report files." },
+        { q: "Does Rocco change my Amazon account?", a: "Rocco never touches it directly. Your AI applies only the codes you approve, through Amazon's own connector, and Rocco logs them with undo steps." },
+        { q: "Do I need Amazon's Ads connector?", a: "It's the best way: Rocco plans the pull, your AI fetches the data and applies approved changes through it. Without API access, Rocco reads exported reports instead." },
+        { q: "What does Rocco store?", a: "With a personal connector: summaries (totals, headlines, top search terms), the proposed changes, and the changes you approved. Not your raw data dumps, and never passwords." },
         { q: "Does it work for multiple brands?", a: "Yes. Tell Rocco the brand name when you share a report and he keeps separate settings and history per brand." },
       ]} />
     </>

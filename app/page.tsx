@@ -9,14 +9,14 @@ import { SITE } from "@/lib/site";
 export const revalidate = 3600;
 
 const JOBS = [
-  { icon: "☀️", title: "Morning brief", text: "What changed, what's due, what to do today. Ask “Rocco, brief me.”", reads: "Memory" },
-  { icon: "🧹", title: "Search term cleanup", text: "Negatives, winners to harvest, bid changes capped at ±20%.", reads: "Search term report" },
-  { icon: "💸", title: "Budget moves", text: "Finds profitable campaigns that run out of money, and the ones burning it.", reads: "Campaign report" },
-  { icon: "📦", title: "Stockout guard", text: "Eases off ads before a SKU runs dry. Flags dead and overstocked SKUs.", reads: "Restock report" },
-  { icon: "🛒", title: "Listing & buy box check", text: "ASINs with traffic but no conversions, lost buy box, TACoS.", reads: "Business Report" },
-  { icon: "🏗️", title: "Structure audit", text: "Auto campaigns with no negatives, keywords bidding against each other, crazy bids.", reads: "Bulk file" },
-  { icon: "📒", title: "Change log + results", text: "Every approved change is logged, re-checked a week later, and undoable.", reads: "Memory" },
-  { icon: "🦃", title: "Black Friday plan", text: "Day-by-day budgets and bids for Nov 19 – Dec 2, with guardrails.", reads: "Your numbers" },
+  { icon: "☀️", title: "Morning check", say: "“Rocco, morning check.”", text: "Pulls yesterday's numbers, judges last week's changes, and hands you today's approval list." },
+  { icon: "🧹", title: "Search term cleanup", say: "“Clean up my search terms.”", text: "Junk searches to negate, hidden winners to harvest, bids to move (±20% max)." },
+  { icon: "💸", title: "Budget moves", say: "“Who's running out of budget?”", text: "Funds profitable campaigns that run dry by noon, cuts the ones above breakeven." },
+  { icon: "🎯", title: "Placements", say: "“Fix my placements.”", text: "Top of search, rest of search, product pages: raise what works, zero what doesn't." },
+  { icon: "📦", title: "Stockout guard", say: "“Am I running out of anything?”", text: "Eases off ads before a SKU runs dry. Flags dead and overstocked stock." },
+  { icon: "🛒", title: "Listings & buy box", say: "“Why isn't this ASIN converting?”", text: "Traffic without sales, lost buy box, TACoS, and converting keywords missing from your listing." },
+  { icon: "📒", title: "Change log + results", say: "“Did last week's changes work?”", text: "Every approved change is logged with before-numbers, re-checked, and undoable." },
+  { icon: "📄", title: "Client reports", say: "“Make the Acme report.”", text: "White-label PDF for agencies: what changed, what it saved, what's next." },
 ];
 
 export default function Home() {
@@ -26,9 +26,9 @@ export default function Home() {
         <div>
           <span className="pill"><span className="dot" />New · works inside Claude and ChatGPT</span>
           <h1>Meet Rocco, your new <span className="hl">AI Amazon teammate.</span></h1>
-          <p className="lede">He reads your Seller Central and Ads reports, decides what to change, drafts every change, remembers what you did and checks if it worked. You approve. Rocco does the rest.</p>
+          <p className="lede">Connect Amazon&apos;s official Ads connector and Rocco in Claude or ChatGPT, then just ask. Rocco pulls the data, decides what to change, applies what you approve, remembers it, and checks if it worked.</p>
           <ConnectBox />
-          <p className="fine" style={{ marginTop: 10 }}>No AI assistant? <Link href="/tools/ad-roast">Use Rocco on the web →</Link></p>
+          <p className="fine" style={{ marginTop: 10 }}>No Amazon Ads API access yet? Rocco also reads exported reports. <Link href="/tools/account-check">Or try the web account check →</Link></p>
         </div>
         <div className="hero-chat">
           <ChatDemo />
@@ -39,16 +39,16 @@ export default function Home() {
       <section>
         <div className="section-head">
           <span className="eyebrow">What Rocco does</span>
-          <h2>Most of the Amazon work, minus the spreadsheets.</h2>
-          <p>Drop any of these reports into your chat. Rocco works out which one it is and gets to work.</p>
+          <h2>Most of the Amazon work. No spreadsheets.</h2>
+          <p>Just ask. Rocco tells your AI what to pull from Amazon&apos;s connector, does the analysis, and queues the changes for your OK.</p>
         </div>
         <div className="jobs">
           {JOBS.map((j) => (
             <div className="job" key={j.title}>
               <span className="job-icon" aria-hidden>{j.icon}</span>
               <h3>{j.title}</h3>
+              <p className="job-say">{j.say}</p>
               <p className="muted">{j.text}</p>
-              <span className="tag">{j.reads}</span>
             </div>
           ))}
         </div>
@@ -57,8 +57,8 @@ export default function Home() {
       <section>
         <div className="section-head">
           <span className="eyebrow">Try it now · no install</span>
-          <h2>See exactly what your AI gets back.</h2>
-          <p>These buttons call Rocco&apos;s real connector with sample reports. Or drop in one of yours.</p>
+          <h2>See exactly what Rocco hands your AI.</h2>
+          <p>These buttons run Rocco&apos;s real connector on a sample account&apos;s data, the same way it runs on yours.</p>
         </div>
         <Playground />
       </section>
@@ -67,12 +67,12 @@ export default function Home() {
         <div className="section-head">
           <span className="eyebrow">Rocco remembers</span>
           <h2>A teammate, not a one-off audit.</h2>
-          <p>With your personal connector, every change you approve goes into Rocco&apos;s log with the numbers from before. When the next report comes in, he checks whether it worked, flags anything that got worse, and tells you how to undo it.</p>
+          <p>With your personal connector, every change you approve goes into Rocco&apos;s log with the numbers from before. Next time he pulls the data, he checks whether it worked, flags anything that got worse, and tells you how to undo it.</p>
         </div>
         <ol className="loop">
-          <li><b>Analyze</b><span>any report you drop in</span></li>
+          <li><b>Pull</b><span>fresh data through Amazon&apos;s connector</span></li>
           <li><b>Approve</b><span>by code: “N1–N4, G2”</span></li>
-          <li><b>Apply</b><span>in Ads, by bulk file, or via Amazon&apos;s own connector</span></li>
+          <li><b>Apply</b><span>your AI makes the approved changes via Amazon&apos;s connector</span></li>
           <li><b>Check</b><span>results vs. before, a week later</span></li>
           <li><b>Brief</b><span>every morning: what&apos;s next</span></li>
         </ol>
@@ -87,7 +87,7 @@ export default function Home() {
           <div className="card"><h3>Approval by code</h3><p className="muted">Nothing is applied until you approve specific changes.</p></div>
           <div className="card"><h3>Safe steps</h3><p className="muted">Bids move ±20% max per step. Brand terms you protect are never negated.</p></div>
           <div className="card"><h3>Undo for everything</h3><p className="muted">Each logged change comes with the exact steps to reverse it.</p></div>
-          <div className="card"><h3>Reports, not passwords</h3><p className="muted">Rocco works from reports you share. No Seller Central login, no API keys needed.</p></div>
+          <div className="card"><h3>Official connectors only</h3><p className="muted">Data and changes go through Amazon&apos;s own connector in your AI. Rocco never sees your passwords.</p></div>
         </div>
       </section>
 

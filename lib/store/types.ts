@@ -1,4 +1,5 @@
-import type { Metrics, Proposal } from "../rules/types";
+import type { TermLite } from "../rules/terms";
+import type { Finding, Metrics, Proposal } from "../rules/types";
 
 export interface BrandSettings {
   targetAcos?: number; // fraction
@@ -24,6 +25,8 @@ export interface Snapshot {
   createdAt: string;
   headline: string;
   stats: Record<string, number | string>;
+  /** Search-term memory (top spenders + converters) and top findings, for diffs, listing gaps and client reports. */
+  extra?: { terms?: TermLite[]; findings?: Finding[] };
 }
 
 export interface Run {

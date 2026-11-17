@@ -30,6 +30,10 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <span className="eyebrow">Your Rocco workspace{ws.licensed ? " · licensed" : " · free"}</span>
           <h1 style={{ fontSize: "clamp(32px,5vw,48px)" }}>Here&apos;s what Rocco knows.</h1>
           <p className="muted">Connector: <code className="code">{connector}</code></p>
+          <p className="row" style={{ gap: 8, margin: "10px 0" }}>
+            <a className="btn small" href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Add reminders to my calendar</a>
+            <Link className="btn ghost small" href={`/w/${token}/report`}>📄 Client report (PDF)</Link>
+          </p>
           <p className="fine">Private link. Anyone with it can see and use this workspace.{!store.persistent && " (Demo mode: memory resets when the server restarts.)"}</p>
         </div>
         <div className="stats" style={{ margin: 0 }}>
@@ -54,7 +58,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
                 </div>
               ))}
             </div>
-          ) : <p className="muted">No reports yet. In your AI chat, attach a report and say &ldquo;analyze this&rdquo;.</p>}
+          ) : <p className="muted">No data yet. In Claude or ChatGPT, say &ldquo;Rocco, morning check&rdquo;.</p>}
           {b.open.length > 0 && (
             <>
               <h3 style={{ marginTop: 22 }}>Proposed, not applied yet ({b.open.length}{b.openValue ? ` · ~${$(b.openValue)}/mo at stake` : ""})</h3>
@@ -62,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
             </>
           )}
           {b.hidden > 0 && <p className="fine">+{b.hidden} more fixes are locked on the free plan. <Link href="/pricing?utm_source=dashboard">Unlock them</Link>.</p>}
-          {b.stale.length > 0 && <p className="fine">Rocco wants fresh: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
+          {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}. Say &ldquo;morning check&rdquo; to refresh.</p>}
         </section>
       ))}
 

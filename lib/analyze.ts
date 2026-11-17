@@ -2,6 +2,8 @@ import { isBulkSheet, parseBulkRows } from "./parsers/bulk";
 import { isBusinessReport, parseBusinessReport } from "./parsers/business";
 import { isCampaignReport, parseCampaignReport, type CampaignRow } from "./parsers/campaign";
 import { isInventoryReport, parseInventoryReport } from "./parsers/inventory";
+import { isPlacementReport, parsePlacementReport } from "./parsers/placement";
+import { analyzePlacements } from "./rules/placement";
 import { detectReport, parseSearchTermReport, type ParsedReport } from "./parsers/searchTerm";
 import { analyzeBudgets } from "./rules/budget";
 import { analyzeBusiness } from "./rules/business";
@@ -12,11 +14,12 @@ import { analyzeStock } from "./rules/stock";
 import { analyzeStructure } from "./rules/structure";
 import type { Analysis } from "./rules/types";
 
-export type ReportKind = "sp_search_term" | "sp_campaign" | "business_report" | "inventory" | "bulk";
+export type ReportKind = "sp_search_term" | "sp_campaign" | "sp_placement" | "business_report" | "inventory" | "bulk";
 
 export const REPORT_HELP: Record<ReportKind, { name: string; where: string }> = {
   sp_search_term: { name: "Sponsored Products search term report", where: "Amazon Ads → Measurement & Reporting → Sponsored ads reports → Sponsored Products → Search term → Summary, last 30–60 days" },
   sp_campaign: { name: "Sponsored Products campaign report", where: "Amazon Ads → Sponsored ads reports → Sponsored Products → Campaign → Summary, last 30 days" },
+  sp_placement: { name: "Sponsored Products placement report", where: "Amazon Ads → Sponsored ads reports → Sponsored Products → Placement (or Campaign → by placement) → Summary, last 30 days" },
   business_report: { name: "Business Report (by child item)", where: "Seller Central → Reports → Business Reports → Detail Page Sales and Traffic by Child Item, last 30 days → Download (.csv)" },
   inventory: { name: "Restock Inventory report", where: "Seller Central → Inventory → FBA Inventory → Restock Inventory → Download" },
   bulk: { name: "Sponsored Products bulk file", where: "Amazon Ads → Bulk operations → Create spreadsheet → Sponsored Products, last 30 days" },
@@ -27,6 +30,7 @@ export function detectKind(table: unknown[][]): ReportKind | null {
   if (detectReport(table)) return "sp_search_term";
   if (isBusinessReport(table)) return "business_report";
   if (isInventoryReport(table)) return "inventory";
+  if (isPlacementReport(table)) return "sp_placement";
   if (isCampaignReport(table)) return "sp_campaign";
   return null;
 }
@@ -74,6 +78,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
     const { rows, days } = parseCampaignReport(table);
     return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven }), campaigns: { rows, days } };
   }
+  if (kind === "sp_placement") return { kind, analysis: analyzePlacements(parsePlacementReport(table), { targetAcos: target, breakevenAcos: breakeven }) };
   if (kind === "business_report") return { kind, analysis: analyzeBusiness(parseBusinessReport(table), { adSpend: s.adSpend, adSales: s.adSales }) };
   if (kind === "inventory") return { kind, analysis: analyzeStock(parseInventoryReport(table)) };
   return { kind, analysis: analyzeStructure(parseBulkRows(table)) };

@@ -6,14 +6,15 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 10:30 IST): EXECUTING. Rocco = AI Amazon teammate inside Claude/ChatGPT. Personal MCP connectors with memory (`/mcp/<key>`), 5 report analyzers, change log + result checks, dashboard `/w/<key>`. Polar checkout live. Blockers: Vercel deploy, DNS A record, Supabase migration, tracker (`docs/GO-LIVE.md`).**
+> **STATUS (Nov 17, 2026, 13:30 IST): EXECUTING. Rocco = connector-first AI Amazon teammate: orchestrates Amazon's Ads MCP + SP-API connectors in Claude/ChatGPT (`rocco_plan`), analyzes 6 data types, memory + result checks, client reports, calendar. Payments = Dodo (`docs/DODO-SETUP.md`). Blockers: Dodo product IDs/KYC, Supabase migration, Vercel deploy + DNS, tracker (`docs/GO-LIVE.md`).**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/POLAR-SETUP.md` | Polar products (all one-time), checkout links, payouts, webhooks. |
+| `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
+| `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
 | `docs/LAUNCH-SETUP.md` | Brand/domain shortlist, pre-warmed email infra, lead list sources, budget. |
 | `docs/AMAZON-BRAIN-PLAN.md` | **Current plan v2:** $50K math, two lanes (Amazon MCP + no setup), mascot, 12 distribution engines, email, testing loop. |
 | `docs/KILL-MEMO-HOMEBUYER.md` | Homebuyer Case Builder killed for contest (market ~20K filers/yr). |
@@ -40,7 +41,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 2. **Self-serve software only.** No services, consulting, "done for you" or call-booking flows.
 3. **Profit = revenue − refunds − chargebacks − payment fees − paid marketing.** AI/API, hosting and software costs are not deducted. Annual upfront plans count in full, so prefer annual plans.
 4. **Log every marketing cost** (lead DB, ads, commissions, Apollo credits) in `marketing_costs` / `docs/PROGRESS.md`.
-5. Payments only via providers TrustMRR supports (Razorpay for INR, Polar/Stripe for USD). The hackathon traffic tracker must be installed on every page before traffic.
+5. Payments only via providers TrustMRR supports (Dodo Payments for USD; Razorpay for INR). The hackathon traffic tracker must be installed on every page before traffic.
 6. No scraping Amazon. Inputs are user uploads or official Amazon APIs. Any account change needs explicit user approval, is logged, and is reversible. Follow Amazon's Agent Policy.
 7. Don't put Amazon trademarks (Amazon, Rufus, FBA, Sponsored Prompts) in the brand or domain.
 8. Don't use the Shopify connector for this project (it's tied to an unrelated store).

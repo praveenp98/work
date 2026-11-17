@@ -13,7 +13,7 @@ export default function Page() {
       <h2>What we collect</h2>
       <ul>
         <li><b>Email</b>, if you join the list or buy. Used to send the brief, receipts and product updates. Unsubscribe anytime.</li>
-        <li><b>Purchase data</b> handled by our payment provider (Polar or Razorpay). We never see your full card number.</li>
+        <li><b>Purchase data</b> handled by our payment provider (Dodo Payments, our merchant of record). We never see your full card number.</li>
         <li><b>Anonymous usage analytics</b> (pages visited, referrer, device type) to see what works.</li>
       </ul>
       <h2>What we never do</h2>

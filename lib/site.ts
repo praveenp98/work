@@ -11,10 +11,10 @@ export const SITE = {
 };
 
 export const PLANS = [
-  { id: "holiday", name: "Holiday Pass", price: 99, brands: 1, blurb: "Every tool, one brand, until Jan 31, 2027.", envUrl: process.env.NEXT_PUBLIC_POLAR_HOLIDAY_URL || "https://buy.polar.sh/polar_cl_xFaeeeQBVapSGg4eRy0AfHgIhKuD066ru50cO1vEiIP" },
-  { id: "seller", name: "Seller Lifetime", price: 149, brands: 1, blurb: "One brand. Every tool, every update. Pay once.", envUrl: process.env.NEXT_PUBLIC_POLAR_SELLER_URL || "https://buy.polar.sh/polar_cl_i1r1t9j8SgizSGDc5nXDqjNIC8jojbui1Ibya2PhxaT" },
-  { id: "pro", name: "Pro Lifetime", price: 299, brands: 5, blurb: "Up to 5 brands. For growing sellers and freelancers.", envUrl: process.env.NEXT_PUBLIC_POLAR_PRO_URL || "https://buy.polar.sh/polar_cl_KXQXBEVpNgvJ1smteiVMg55nWdka5QbePV3vx0farTi", featured: true },
-  { id: "agency", name: "Agency Lifetime", price: 399, brands: 20, blurb: "Up to 20 brands, white-label roast reports.", envUrl: process.env.NEXT_PUBLIC_POLAR_AGENCY_URL || "https://buy.polar.sh/polar_cl_HV03fPpXHq2EvjJvCW7aWEQZNctNQXimD2zN83WLaG1" },
+  { id: "holiday", name: "Holiday Pass", price: 99, brands: 1, blurb: "Every tool, one brand, through Jan 31, 2027." },
+  { id: "seller", name: "Seller Lifetime", price: 149, brands: 1, blurb: "One brand. Every tool, every update. Pay once." },
+  { id: "pro", name: "Pro Lifetime", price: 299, brands: 5, blurb: "Up to 5 brands. For growing sellers and freelancers.", featured: true },
+  { id: "agency", name: "Agency Lifetime", price: 399, brands: 20, blurb: "Up to 20 brands, white-label client reports." },
 ] as const;
 
 /** Founding prices step up on these dates (real deadlines only). */

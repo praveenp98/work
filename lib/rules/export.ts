@@ -19,6 +19,33 @@ export function fixListCsv(r: RoastResult): string {
 
 const BULK_HEADER = ["Product", "Entity", "Operation", "Campaign ID", "Ad Group ID", "Keyword ID", "Product Targeting ID", "Campaign Name (Informational only)", "Ad Group Name (Informational only)", "State", "Bid", "Keyword Text", "Match Type", "Product Targeting Expression"];
 
+/**
+ * Approved changes as a change list for Amazon's Ads connector (Ads API v3 shapes).
+ * Bids are given as a % change so they apply to the live bid; harvests need the seller's chosen campaign/ad group.
+ */
+export function proposalsApiChanges(ps: Proposal[]) {
+  return ps.map((p) => {
+    const ids = p.ids ?? {};
+    const base = { code: p.code, campaign: p.campaign, adGroup: p.adGroup, target: p.target };
+    switch (p.kind) {
+      case "negative":
+        return p.matchType === "negative product"
+          ? { ...base, action: "create", entity: "sp negative targeting clause", body: { campaignId: ids.campaignId, adGroupId: ids.adGroupId, expression: [{ type: "ASIN_SAME_AS", value: p.target.toUpperCase() }], state: "ENABLED" } }
+          : { ...base, action: "create", entity: "sp negative keyword", body: { campaignId: ids.campaignId, adGroupId: ids.adGroupId, keywordText: p.target, matchType: "NEGATIVE_EXACT", state: "ENABLED" } };
+      case "bid":
+        return { ...base, action: "update", entity: ids.keywordId && p.matchType && p.matchType !== "-" ? "sp keyword" : "sp target", body: { id: ids.keywordId, bidChangePercent: p.changePct, suggestedBidFromAvgCpc: p.proposed }, note: "Read the live bid, apply bidChangePercent (never more than ±20%)." };
+      case "budget":
+        return { ...base, action: "update", entity: "sp campaign", body: { campaignId: ids.campaignId, budget: { budget: p.proposed, budgetType: "DAILY" } } };
+      case "placement":
+        return { ...base, action: "update", entity: "sp campaign placement bidding", body: { campaignId: ids.campaignId, placement: p.target === "Top of search" ? "PLACEMENT_TOP" : p.target === "Rest of search" ? "PLACEMENT_REST_OF_SEARCH" : "PLACEMENT_PRODUCT_PAGE", percentageChangePoints: p.proposed === 0 ? "set to 0" : `+${p.proposed}` } };
+      case "harvest":
+        return { ...base, action: "create", entity: p.matchType === "product" ? "sp target" : "sp keyword", body: { keywordText: p.target, matchType: p.matchType === "product" ? undefined : "EXACT", bid: p.proposed, campaignId: "<seller's manual exact campaign>", adGroupId: "<chosen ad group>" }, note: "Ask the seller which manual campaign/ad group to use. Then add the term as a negative exact in the source ad group." };
+      default:
+        return { ...base, action: "manual", note: p.reason };
+    }
+  });
+}
+
 /** Plain fix list from generic proposals (any report type). */
 export function proposalsCsv(ps: Proposal[]): string {
   return toCsv([

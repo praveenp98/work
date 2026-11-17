@@ -1,6 +1,8 @@
 /** Normalize a header cell: lowercase, drop currency/units in brackets, keep letters+digits. */
 export function normHeader(h: unknown): string {
   return String(h ?? "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([a-zA-Z])(\d)/g, "$1 $2")
     .toLowerCase()
     .replace(/\(.*?\)/g, " ")
     .replace(/[^a-z0-9]+/g, " ")

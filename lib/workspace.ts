@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { analyze, REPORT_HELP, type AnalyzeOutput, type ReportKind } from "./analyze";
 import { evaluateAction, evaluateBudget } from "./rules/results";
+import { diffTerms, termSnapshot, type TermDiff } from "./rules/terms";
 import { DEFAULT_SETTINGS } from "./rules/settings";
 import type { Proposal } from "./rules/types";
 import { hashToken, isToken, newToken } from "./store";
@@ -45,7 +46,17 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
   }
   const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, adSpend, adSales });
   const now = new Date().toISOString();
-  await store.addSnapshot({ id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, headline: out.analysis.headline, stats: out.analysis.stats });
+  const terms = out.report ? termSnapshot(out.report.rows) : undefined;
+  let diff: TermDiff | null = null;
+  if (terms) {
+    const prevTerms = (await store.listSnapshots(ws.id, { brand, kind: "sp_search_term", limit: 1 }))[0]?.extra?.terms;
+    if (prevTerms?.length) {
+      diff = diffTerms(prevTerms, terms);
+      out.analysis.stats.newBurners = diff.newBurners.length;
+      out.analysis.stats.newWinners = diff.newWinners.length;
+    }
+  }
+  await store.addSnapshot({ id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, headline: out.analysis.headline, stats: out.analysis.stats, extra: { terms, findings: out.analysis.findings.slice(0, 10) } });
   let run: Run | null = null;
   if (out.analysis.proposals.length) {
     run = { id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, proposals: out.analysis.proposals };
@@ -66,7 +77,7 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
     }
   }
   const previous = (await store.listSnapshots(ws.id, { brand, kind: out.kind, limit: 2 }))[1] ?? null;
-  return { out, run, checked, previous };
+  return { out, run, checked, previous, diff };
 }
 
 /** Latest proposal run per report type for a brand. Code letters are unique per type (N/H/B, G, S, F). */

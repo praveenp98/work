@@ -63,6 +63,14 @@ export const PLAYBOOK: Record<string, { title: string; body: string }> = {
       "Don't negate brand terms or your own ASINs without asking.",
     ].join("\n"),
   },
+  connectors: {
+    title: "Getting data without spreadsheets",
+    body: [
+      "Use the seller's connected Amazon connectors for data: Amazon's official Ads MCP server (Amazon Ads API) for campaigns, search terms and placements; a Selling Partner API connector for Sales & Traffic, inventory and listings; any keyword research tool the seller connected for search volume.",
+      "Call rocco_plan(job) for the exact report types and columns, then pass the rows to analyze_report as report_json. Keep campaignId/adGroupId/keywordId so changes can be applied back.",
+      "Only if no connector can provide the data, ask the seller for an export.",
+    ].join("\n"),
+  },
   with_amazon_ads_mcp: {
     title: "Working beside Amazon's Ads MCP connector",
     body: [

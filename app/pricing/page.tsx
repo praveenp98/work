@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
 import { WaitlistForm } from "@/components/WaitlistForm";
+import { checkoutUrl } from "@/lib/payments";
 import { PLANS, PRICE_STEPS } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Pricing: Founding Lifetime Deals", description: "Pay once for Rocco. Founding lifetime plans for Amazon sellers, freelancers and agencies, plus a Holiday Pass.", alternates: { canonical: "/pricing" } };
 
 export default function Page() {
-  const anyLive = PLANS.some((p) => p.envUrl);
+  const anyLive = PLANS.some((p) => checkoutUrl(p.id));
   return (
     <>
       <h1>Pay once. Keep Rocco forever.</h1>
@@ -26,8 +27,8 @@ export default function Page() {
               <li>Every new tool (Coupon Planner, BFCM Post-Mortem, Listing Roast…)</li>
               {p.id === "agency" && <li>White-label roast reports for your prospects</li>}
             </ul>
-            {p.envUrl ? (
-              <a className="btn" href={p.envUrl}>Get {p.name}</a>
+            {checkoutUrl(p.id) ? (
+              <a className="btn" href={checkoutUrl(p.id)!}>Get {p.name}</a>
             ) : (
               <span className="btn ghost" aria-disabled>Checkout opens soon</span>
             )}

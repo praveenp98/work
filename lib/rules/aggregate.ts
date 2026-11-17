@@ -11,12 +11,14 @@ export interface TermStats {
   spend: number;
   sales: number;
   orders: number;
+  ids?: { campaignId?: string; adGroupId?: string; keywordId?: string };
 }
 
 export const acos = (s: { spend: number; sales: number }) => (s.sales > 0 ? s.spend / s.sales : Infinity);
 export const cpc = (s: { spend: number; clicks: number }) => (s.clicks > 0 ? s.spend / s.clicks : 0);
 
 function add(into: TermStats, r: SearchTermRow | TermStats) {
+  if (r.ids && !into.ids) into.ids = { ...r.ids };
   into.impressions += r.impressions;
   into.clicks += r.clicks;
   into.spend += r.spend;
@@ -46,7 +48,7 @@ export function aggregateTargets(terms: TermStats[]): TermStats[] {
     const k = [t.campaign, t.adGroup, t.targeting, t.matchType].join("\u0001");
     let a = map.get(k);
     if (!a) {
-      a = { ...t, searchTerm: "", impressions: 0, clicks: 0, spend: 0, sales: 0, orders: 0 };
+      a = { ...t, searchTerm: "", impressions: 0, clicks: 0, spend: 0, sales: 0, orders: 0, ids: undefined };
       map.set(k, a);
     }
     add(a, t);

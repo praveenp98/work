@@ -31,6 +31,7 @@ export function proposalsFromRoast(r: RoastResult, report: ParsedReport): Propos
       code: `N${i + 1}`, kind: "negative", campaign: n.campaign, adGroup: n.adGroup, target: n.keyword,
       matchType: n.matchType === "NEGATIVE_PRODUCT" ? "negative product" : "negative exact",
       reason: n.reason, valueMonthly: perMonth(n.spend), before: t ? metricsOf(t, d) : undefined,
+      ids: t?.ids ? { campaignId: t.ids.campaignId, adGroupId: t.ids.adGroupId } : undefined,
       undo: `Archive the negative "${n.keyword}" in ${n.campaign} / ${n.adGroup}.`,
     });
   });
@@ -51,6 +52,7 @@ export function proposalsFromRoast(r: RoastResult, report: ParsedReport): Propos
       code: `B${i + 1}`, kind: "bid", campaign: b.campaign, adGroup: b.adGroup, target: b.targeting, matchType: b.matchType,
       current: b.currentCpc, proposed: b.newBid, reason: `${b.reason} (${b.changePct > 0 ? "+" : ""}${b.changePct}% vs avg CPC)`,
       valueMonthly: perMonth(saving * Math.min(1, Math.abs(b.changePct) / 100 * 2)), before: t ? metricsOf(t, d) : undefined,
+      ids: t?.ids, changePct: b.changePct,
       undo: `Set the bid on ${b.targeting} back to its previous value (avg CPC was ${b.currentCpc}).`,
     });
   });

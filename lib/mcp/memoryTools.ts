@@ -3,12 +3,15 @@ import Papa from "papaparse";
 import { z } from "zod";
 import { analyze, REPORT_HELP } from "../analyze";
 import { parseBulk } from "../parsers/bulk";
-import { validatePolarKey } from "../polar";
-import { proposalsBulkCsv, proposalsCsv } from "../rules/export";
+import { jsonToTable, recordsToTable } from "../parsers/json";
+import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
+import { validateLicenseKey } from "../payments";
+import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
 import { getStore } from "../store";
 import type { ActionStatus } from "../store/types";
 import { applyChanges, buildBrief, createWorkspace, DEFAULT_BRAND, revertChanges, runAnalysis, setBrandSettings } from "../workspace";
+import { listingGaps } from "../rules/terms";
 import { FREE_PROPOSALS, formatActions, formatAnalysis, formatBrief, proposalLine } from "./format";
 import type { McpContext } from "./server";
 
@@ -18,6 +21,23 @@ const rw = { readOnlyHint: false, destructiveHint: false, idempotentHint: true, 
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }] });
 const fail = (t: string) => ({ isError: true, content: [{ type: "text" as const, text: t }] });
 const parse = (csv: string) => Papa.parse<unknown[]>(csv, { skipEmptyLines: true }).data;
+
+/** Rows from another connector (JSON) or an exported file (CSV/TSV) → table. */
+const dataArgs = {
+  report_json: z.string().max(MAX_CSV).optional().describe("Data from another connector (e.g. Amazon Ads API report rows, SP-API report JSON). Any JSON containing an array of rows."),
+  rows: z.array(z.record(z.string(), z.unknown())).max(50000).optional().describe("Rows as objects, if you already have them parsed."),
+  report_csv: z.string().max(MAX_CSV).optional().describe("Fallback: an exported report as CSV/TSV text with its header row."),
+};
+function toTable(a: { report_json?: string; rows?: Record<string, unknown>[]; report_csv?: string }): unknown[][] {
+  if (a.rows?.length) return recordsToTable(a.rows);
+  const raw = (a.report_json ?? a.report_csv ?? "").trim();
+  if (!raw) throw new Error("Pass the data as report_json (from a connector) or report_csv.");
+  if (raw.startsWith("{") || raw.startsWith("[")) {
+    const t = jsonToTable(raw);
+    if (t) return t;
+  }
+  return parse(raw);
+}
 const brandArg = z.string().max(80).optional().describe(`Brand / seller account name. Defaults to "${DEFAULT_BRAND}".`);
 const reportList = Object.values(REPORT_HELP).map((h) => `${h.name} (${h.where})`).join("; ");
 
@@ -27,21 +47,50 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
-  }, async () => text(formatBrief(await buildBrief(store, ws))));
+  }, async () => text(formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_`));
+
+  server.registerTool("rocco_plan", {
+    title: "What data to pull for a job",
+    description: `Rocco's data plan for a job: which reports/columns to pull from the seller's connected Amazon connectors (Amazon Ads API, SP-API), then what to do. Jobs: ${JOBS.join(", ")}. Use morning_check for "check my account".`,
+    inputSchema: { job: z.enum(JOBS).default("morning_check") },
+    annotations: ro,
+  }, async ({ job }) => text(dataPlan(job as Job) + "\n\n" + APPLY_GUIDE));
+
+  server.registerTool("listing_gaps", {
+    title: "Listing keyword gaps",
+    description: "Compare the seller's listing (title, bullets, backend search terms) with the search terms that actually convert in their ads (from Rocco's memory of the latest search term report). Returns words to add to the title or backend keywords.",
+    inputSchema: {
+      title: z.string().min(3).max(500),
+      bullets: z.string().max(5000).optional(),
+      backend_keywords: z.string().max(1000).optional(),
+      brand: brandArg,
+    },
+    annotations: ro,
+  }, async ({ title, bullets, backend_keywords, brand }) => {
+    const snap = (await store.listSnapshots(ws.id, { brand: brand || DEFAULT_BRAND, kind: "sp_search_term", limit: 1 }))[0];
+    if (!snap?.extra?.terms?.length) return fail("Rocco needs a search term report first. Attach one and say \"analyze this\".");
+    const gaps = listingGaps(snap.extra.terms, { title, bullets, backend: backend_keywords });
+    if (!gaps.length) return text("Your listing already covers the words in every converting search term. Nice. 🦝");
+    const title5 = gaps.filter((g) => g.where === "title");
+    const back = gaps.filter((g) => g.where === "backend");
+    const L = [`## Listing gaps (from ${snap.createdAt.slice(0, 10)} search terms)`];
+    if (title5.length) { L.push("", "### Worth putting in the title (top converting terms)"); L.push(...title5.map((g) => `- "${g.term}" (${g.orders} orders, $${Math.round(g.sales)}): missing **${g.missing.join(", ")}**`)); }
+    if (back.length) { L.push("", "### Add to backend search terms"); L.push(...back.map((g) => `- "${g.term}" (${g.orders} orders): missing **${g.missing.join(", ")}**`)); }
+    const words = [...new Set(back.flatMap((g) => g.missing))];
+    if (words.length) L.push("", `Backend keyword line to paste (under 250 bytes): \`${words.join(" ").slice(0, 249)}\``);
+    return text(L.join("\n"));
+  });
 
   server.registerTool("analyze_report", {
     title: "Analyze any Amazon report",
-    description: `Analyze an Amazon report (CSV/TSV text with header row). Auto-detects: ${reportList}. Saves a snapshot to memory, returns findings and an approval list of coded changes, and checks past changes against newer data.`,
-    inputSchema: {
-      report_csv: z.string().min(20).max(MAX_CSV).describe("The report as CSV or TSV text, including the header row."),
-      brand: brandArg,
-    },
+    description: `Analyze Amazon data pulled from the seller's connectors (Amazon Ads API / SP-API rows as JSON) or an exported report. Auto-detects: search terms, campaigns, placements, Sales & Traffic, restock, bulk. Saves a snapshot to memory, returns findings + an approval list of coded changes, flags what's new since last time, and checks past changes against the new data.`,
+    inputSchema: { ...dataArgs, brand: brandArg },
     annotations: rw,
-  }, async ({ report_csv, brand }) => {
+  }, async ({ report_json, rows, report_csv, brand }) => {
     try {
       const b = brand || DEFAULT_BRAND;
-      const { out, run, checked, previous } = await runAnalysis(store, ws, b, parse(report_csv));
-      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true }));
+      const { out, run, checked, previous, diff } = await runAnalysis(store, ws, b, toTable({ report_json, rows, report_csv }));
+      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff }));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't analyze that report.");
     }
@@ -62,7 +111,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       let runId = run_id;
       if (runId && runId.length < 36) runId = (await store.listRuns(ws.id, { limit: 50 })).find((r) => r.id.startsWith(runId!))?.id;
       const res = await applyChanges(store, ws, codes, { runId, brand: brand || undefined, note, freeLimit: ws.licensed ? undefined : FREE_PROPOSALS });
-      const L = [`Logged ${res.actions.length} change${res.actions.length === 1 ? "" : "s"} for ${res.brand}. Rocco will check them after ${res.actions[0]?.followUpAt.slice(0, 10) ?? "–"} using a newer search term report (Daily, starting the day after today).`];
+      const L = [`Logged ${res.actions.length} change${res.actions.length === 1 ? "" : "s"} for ${res.brand}. Rocco will re-check them after ${res.actions[0]?.followUpAt.slice(0, 10) ?? "–"} (just ask "did last week's changes work?" and he'll pull fresh data with rocco_plan("results_check")).`];
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
       if (res.unknown.length) L.push(`Unknown codes: ${res.unknown.join(", ")}.`);
@@ -123,15 +172,23 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       codes: z.array(z.string().max(40)).max(200).optional().describe("Only these codes. Default: all from the latest run."),
       brand: brandArg,
       bulk_csv: z.string().max(MAX_CSV).optional().describe("Sponsored Products bulk file as CSV (for campaign/ad group/keyword IDs)."),
+      format: z.enum(["amazon_ads_api", "csv"]).default("amazon_ads_api").describe("amazon_ads_api: change list to apply with the seller's Amazon Ads connector. csv: fix list (+ bulk rows if bulk_csv given)."),
     },
     annotations: ro,
-  }, async ({ codes, brand, bulk_csv }) => {
-    if (!ws.licensed) return fail(`Exports need a Rocco license. Get one at ${SITE.url}/pricing, then call activate_license.`);
-    const run = await store.getRun(ws.id, undefined, brand || undefined);
-    if (!run) return fail("No proposals yet. Analyze a report first.");
-    const { expandCodes } = await import("../workspace");
+  }, async ({ codes, brand, bulk_csv, format }) => {
+    const { expandCodes, latestRuns } = await import("../workspace");
+    const runs = await latestRuns(store, ws, brand || DEFAULT_BRAND);
+    if (!runs.length) return fail("No proposals yet. Analyze some data first.");
+    if (!ws.licensed && format !== "amazon_ads_api") return fail(`File exports need a Rocco license (${SITE.url}/pricing). The Amazon Ads change list for your free top ${FREE_PROPOSALS} fixes per report is free.`);
     const want = codes?.length ? new Set(expandCodes(codes)) : null;
-    const ps = run.proposals.filter((p) => !want || want.has(p.code));
+    const pool = runs.flatMap((r) => (ws.licensed ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS)));
+    const ps = pool.filter((p) => !want || want.has(p.code));
+    if (!ps.length) return fail(ws.licensed ? "No matching codes." : `Those codes are locked on the free plan (top ${FREE_PROPOSALS} per report are free). ${SITE.url}/pricing`);
+    if (format === "amazon_ads_api") {
+      const missingIds = ps.filter((p) => ["negative", "bid", "budget", "placement"].includes(p.kind) && !p.ids?.campaignId).map((p) => p.code);
+      return text([`### Change list for Amazon's Ads connector (${ps.length})`, "Apply only the codes the seller approved. Then call apply_changes with the same codes.", "```json", JSON.stringify(proposalsApiChanges(ps), null, 2), "```",
+        missingIds.length ? `IDs unknown for ${missingIds.join(", ")} (data came from a file). Look them up by campaign/ad group name with the Amazon Ads connector before applying.` : ""].join("\n"));
+    }
     const out = [`### Fix list (${ps.length} changes)`, "```csv", proposalsCsv(ps), "```"];
     if (bulk_csv) {
       try {
@@ -148,7 +205,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     inputSchema: { license_key: z.string().min(4).max(200) },
     annotations: rw,
   }, async ({ license_key }) => {
-    const v = await validatePolarKey(license_key);
+    const v = await validateLicenseKey(license_key);
     if (!v.ok) return fail(v.error ?? "That key didn't work.");
     ws.licensed = true;
     ws.licenseKey = license_key.trim();
@@ -168,22 +225,29 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 export function registerStatelessTools(server: McpServer) {
   server.registerTool("analyze_report", {
     title: "Analyze any Amazon report",
-    description: `Analyze an Amazon report (CSV/TSV text with header row). Auto-detects: ${reportList}. Returns findings and an approval list. No memory on this shared connector.`,
+    description: `Analyze Amazon data pulled from the seller's connectors (Amazon Ads API / SP-API rows as JSON) or an exported report. Auto-detects the type. Returns findings and an approval list. No memory on this shared connector.`,
     inputSchema: {
-      report_csv: z.string().min(20).max(MAX_CSV),
+      ...dataArgs,
       target_acos_percent: z.number().min(1).max(200).optional(),
       license_key: z.string().max(200).optional(),
     },
     annotations: ro,
-  }, async ({ report_csv, target_acos_percent, license_key }) => {
+  }, async ({ report_json, rows, report_csv, target_acos_percent, license_key }) => {
     try {
-      const out = analyze(parse(report_csv), { targetAcos: target_acos_percent ? target_acos_percent / 100 : undefined });
-      const licensed = license_key ? (await validatePolarKey(license_key)).ok : false;
+      const out = analyze(toTable({ report_json, rows, report_csv }), { targetAcos: target_acos_percent ? target_acos_percent / 100 : undefined });
+      const licensed = license_key ? (await validateLicenseKey(license_key)).ok : false;
       return text(formatAnalysis(out, { licensed, memory: false }));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't analyze that report.");
     }
   });
+
+  server.registerTool("rocco_plan", {
+    title: "What data to pull for a job",
+    description: `Rocco's data plan: which reports/columns to pull from the seller's connected Amazon connectors for a job (${JOBS.join(", ")}).`,
+    inputSchema: { job: z.enum(JOBS).default("morning_check") },
+    annotations: ro,
+  }, async ({ job }) => text(dataPlan(job as Job) + "\n\n" + APPLY_GUIDE));
 
   server.registerTool("create_workspace", {
     title: "Create a personal Rocco workspace",

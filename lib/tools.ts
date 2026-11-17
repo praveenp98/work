@@ -11,6 +11,16 @@ export interface ToolMeta {
 
 export const TOOLS: ToolMeta[] = [
   {
+    slug: "account-check",
+    name: "Amazon Account Check",
+    short: "Score your whole account: ads, budgets, placements, listings, stock.",
+    description:
+      "Free Amazon account check: drop in your search term, campaign, placement, business, restock and bulk reports to get a Rocco Score, the money at stake per month, and what to fix first. Runs in your browser.",
+    free: "Rocco Score, $ at stake, top 5 actions, area-by-area findings",
+    paid: "Every action, tracked and re-checked inside Claude or ChatGPT",
+    live: true,
+  },
+  {
     slug: "ad-roast",
     name: "Amazon Ad Roast",
     short: "Upload a search term report. Get your Leak Score and the fixes.",

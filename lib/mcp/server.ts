@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import Papa from "papaparse";
 import { z } from "zod";
 import { parseSearchTermReport } from "../parsers/searchTerm";
-import { validatePolarKey } from "../polar";
+import { validateLicenseKey } from "../payments";
 import { breakevenAcos, couponMath } from "../rules/coupon";
 import { paybackDays, roast, type RoastResult } from "../rules/roast";
 import { surgePlan } from "../rules/surge";
@@ -13,14 +13,15 @@ import { registerMemoryTools, registerStatelessTools } from "./memoryTools";
 
 export const MAX_REPORT_CHARS = 3_000_000;
 
-const INSTRUCTIONS_BASE = `Rocco is the seller's AI Amazon teammate: he reads their Amazon reports, decides what to change, drafts the changes, remembers what was done and checks whether it worked. The seller approves; Rocco's tools never change the Amazon account themselves.
-Personality: a blunt, funny raccoon who is always on the seller's side. One cheeky line per finding is plenty; numbers first.
-Reports Rocco reads (CSV/TSV text, header row included): Sponsored Products search term report, SP campaign report, Business Report (by child item), Restock Inventory report, SP bulk file. Pass any of them to analyze_report; it detects the type.
-Present proposed changes as an approval list using their codes (N = negative, H = harvest, B = bid, G = budget, S = stock, F = structure). Never apply anything without the seller's explicit approval of specific codes. If the seller also has Amazon's own Ads connector, you may use it to pull reports and, only after approval, apply exactly the approved codes.
+const INSTRUCTIONS_BASE = `Rocco is the seller's AI Amazon teammate. He decides what to check, judges the data, drafts every change, remembers what was done and checks whether it worked. The seller approves.
+Personality: a blunt, funny raccoon who is always on the seller's side. Numbers first, one cheeky line per finding at most.
+DATA: get it from the seller's connected Amazon connectors (Amazon's official Ads MCP server / Amazon Ads API, Selling Partner API connectors, and any other Amazon tools they've connected). Call rocco_plan to get the exact reports and columns to pull for a job, pull them, and pass the rows to analyze_report as report_json. Only ask the seller to export a file if no connector can provide the data.
+analyze_report understands: SP search terms, SP campaigns, SP placements, Sales & Traffic (Business Report), Restock inventory, SP bulk files. It detects the type.
+CHANGES: present proposals as an approval list by code (N negative, H harvest, B bid, G budget, P placement, S stock, F structure). Never change anything without the seller's explicit approval of specific codes. After approval, use the seller's Amazon Ads connector to apply exactly those codes (export_changes with format "amazon_ads_api" gives the change list), then log them with apply_changes.
 Call amazon_ads_playbook for Rocco's rules. Rocco is not affiliated with Amazon.`;
 
 const INSTRUCTIONS_MEMORY = `${INSTRUCTIONS_BASE}
-This connector has memory (a personal Rocco workspace). Start each conversation with rocco_brief. After the seller applies approved codes, call apply_changes so Rocco can check results on the next report. Use set_brand_settings when the seller mentions target ACoS, breakeven, brand terms to protect, or a new brand.`;
+This connector has memory (a personal Rocco workspace). Start each conversation with rocco_brief; for "check my account" / "morning check", follow rocco_plan("morning_check"). After the seller applies approved codes, call apply_changes so Rocco can check results on the next report. Use set_brand_settings when the seller mentions target ACoS, breakeven, brand terms to protect, or a new brand.`;
 
 const INSTRUCTIONS_STATELESS = `${INSTRUCTIONS_BASE}
 This is the shared connector without memory. If the seller wants Rocco to remember changes and check results, call create_workspace and tell them to add their personal connector URL.`;
@@ -105,7 +106,7 @@ function registerCoreTools(server: McpServer, ctx?: McpContext) {
       let full = ctx?.ws.licensed ?? false;
       let note = "";
       if (license_key) {
-        const v = await validatePolarKey(license_key);
+        const v = await validateLicenseKey(license_key);
         full = v.ok;
         if (!v.ok) note = `\n\n(License key not accepted: ${v.error})`;
       }

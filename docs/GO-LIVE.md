@@ -18,9 +18,9 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 - Copy the tracker script from the TrustMRR / hackathon dashboard. Put its `src` in `NEXT_PUBLIC_TRACKER_SRC` and the site id in `NEXT_PUBLIC_TRACKER_SITE_ID`. Redeploy. If the snippet uses a different attribute name than `data-site-id` / `data-website-id`, tell Claude and it'll adjust `components/Tracker.tsx`.
 - Verify: open rocco.works → view source → script tag present → visit shows in dashboard.
 
-## 3. Payments: Polar (USD) ✅ mostly done
-Products, license-key benefits and checkout links are set up and wired into the site (see `docs/POLAR-SETUP.md` → Status). No Polar env vars needed on Vercel.
-Left for Praveen: payout account, a test purchase (100% discount code) to see the license email and unlock flow end to end, and connecting Polar to TrustMRR.
+## 3. Payments: Dodo Payments (USD)
+Polar is out (doesn't support individuals in India). Code now uses Dodo: see `docs/DODO-SETUP.md`.
+Praveen: create the 4 one-time products with License keys ON, paste the 4 `pdt_` IDs (chat or Vercel env `DODO_PRODUCT_*`), finish KYC/payouts, do a test-mode purchase, connect Dodo to TrustMRR.
 
 ## 4. Supabase: memory + waitlist (REQUIRED for personal connectors)
 Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't switched on" in production. The shared `/mcp` and all web tools still work.

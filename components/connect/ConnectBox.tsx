@@ -19,8 +19,8 @@ function Copy({ value, label = "Copy" }: { value: string; label?: string }) {
 }
 
 const STEPS = {
-  claude: ["Open Claude → Settings → Connectors", "Click “Add custom connector”, name it Rocco, paste the URL", "In a chat, turn Rocco on in the tools menu"],
-  chatgpt: ["Open ChatGPT → Settings → Apps & Connectors → Advanced → turn on Developer mode", "Create a connector: name Rocco, paste the URL, authentication none", "In a chat, pick Rocco from the tools"],
+  claude: ["Connect Amazon's official Ads connector in Claude (Settings → Connectors), plus any Seller Central or other Amazon tools you use", "Click “Add custom connector”, name it Rocco, paste the URL above", "In a chat, turn on Amazon Ads + Rocco in the tools menu"],
+  chatgpt: ["Turn on Developer mode (Settings → Apps & Connectors → Advanced) and connect Amazon's official Ads connector, plus your other Amazon tools", "Create a connector: name Rocco, paste the URL above, authentication none", "In a chat, pick Amazon Ads + Rocco from the tools"],
 };
 
 /** The hero's main action: copy the connector URL (shared or personal) and add it to Claude or ChatGPT. */
@@ -67,7 +67,7 @@ export function ConnectBox({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <ol className="connect-steps">
           {STEPS[app].map((s) => <li key={s}>{s}</li>)}
-          <li>Say <b>&ldquo;Rocco, brief me&rdquo;</b> or attach any Amazon report and say <b>&ldquo;analyze this&rdquo;</b>.</li>
+          <li>Say <b>&ldquo;Rocco, morning check.&rdquo;</b> That&apos;s it.</li>
         </ol>
       )}
     </div>
