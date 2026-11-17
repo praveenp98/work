@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (18:15) · iMessage infra scoped
+- LoopMessage $59 plan = messaging line only; full checklist (signup-by-text, webhook, commands, approval queue, daily cron, Supabase, email fallback, optional LLM) in `docs/BOARDY-STUDY.md`. Waiting on Praveen's signup + API credentials.
+
+---
+
 ## 2026-11-17 (18:00) · Amazon API applications + iMessage costs
 - Praveen will apply for Amazon Ads API + SP-API today; paste-ready answers and steps in `docs/AMAZON-API-APPLICATIONS.md`.
 - iMessage provider costs researched (cheapest shared AI sender ~$20–39/mo; dedicated lines ~$100–289/mo). Channel decision pending.

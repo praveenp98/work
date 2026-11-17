@@ -25,3 +25,8 @@
 - Contest note: this is software cost, not paid marketing (rule 3), so it doesn't reduce contest profit; still Praveen's approval needed before spending.
 
 ## Decision (Praveen, Nov 17): will apply for Amazon Ads API + SP-API today → `docs/AMAZON-API-APPLICATIONS.md`. Text channel: pending cost review.
+
+## iMessage infrastructure checklist (Nov 17)
+LoopMessage $59/mo (unlimited messages, 300 active contacts) = the messaging line only. Full setup:
+- LoopMessage plan (Praveen) · link-by-text signup (user texts "Hi Rocco, link CODE" first → phone↔workspace, avoids outbound-first add-on) · inbound webhook + reply sender · commands (brief, YES N1 N2, undo, wins, help, STOP) · approval queue surfaced in rocco_brief so the seller's AI applies text-approved codes · daily brief scheduler (Vercel Cron) · Supabase tables (phones, opt-outs, message log) · email fallback for Android · optional Anthropic API key for free-form questions · live data by text after Amazon API approval.
+- To verify at signup: outbound-first allowed on $59? SMS/Android fallback? shared vs own sender number? does "active contacts" reset monthly?
