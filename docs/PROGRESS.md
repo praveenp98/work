@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (21:00) · Launch readiness
+- Wrote `docs/E2E-TEST.md` (ordered end-to-end checklist: infra → tracker → site → memory/connector → Amazon connectors → payments → texting). Added texting/phone + STOP section to the privacy page.
+- Code done; remaining = Praveen's setup (deploy, DNS, env + redeploy, setup.sql, tracker check, Dodo KYC + webhook, LoopMessage, Amazon API access) and the real-world tests that need them.
+
+---
+
 ## 2026-11-17 (20:45) · Plan renamed "Hire Rocco"
 - Dodo product renamed "Hire Rocco" (price unchanged, $99). Pricing page rebuilt as one centered card ("Hire Rocco. Pay once. I work for your team forever.", next price, hire #, 5 inclusions, button, 4 FAQs). All copy updated (chat/text paywall, terms, llms.txt, launch kit).
 

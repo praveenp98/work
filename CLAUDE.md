@@ -33,6 +33,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/AMAZON-GAPS.md` | Amazon problems outside the MCP connectors (AI-shopping invisibility, CPSC eFiling, tariffs). |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
+| `docs/E2E-TEST.md` | Ordered end-to-end launch test checklist. |
 | `docs/GO-LIVE.md` | Launch checklist: deploy, payments, tracker, env vars (what Praveen must set up). |
 | `docs/LAUNCH-KIT.md` | Copy-paste listing text, assets and directory checklist (also live at /press; source `content/launch-kit.json`). |
 | `docs/AMAZON-API-APPLICATIONS.md` | Paste-ready Amazon Ads API + SP-API applications (for a text-only Rocco). |
