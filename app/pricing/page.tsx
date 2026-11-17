@@ -15,6 +15,7 @@ export const revalidate = 60;
 const INCLUDED = [
   "Every fix I find: search terms, bids, budgets, placements, stock, listings",
   "I remember every change, check if it worked, and report what it saved",
+  "Pro analytics: spend, sales, ACoS, waste, stock and listing health over time, for every brand",
   "Text me or use me in Claude / ChatGPT. Whole team, unlimited brands",
   "Client reports for agencies",
   "Every future update. No subscription, ever",

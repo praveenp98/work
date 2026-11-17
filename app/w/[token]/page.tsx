@@ -66,6 +66,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <p className="row" style={{ gap: 8, margin: "10px 0" }}>
             <a className="btn small" href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Add reminders to my calendar</a>
             <Link className="btn ghost small" href={`/w/${token}/report`}>📄 Client report (PDF)</Link>
+            <Link className="btn small" href={`/w/${token}/analytics`}>📈 Analytics{ws.licensed ? "" : " (Pro)"}</Link>
           </p>
           <p className="fine">Private link. Anyone with it can see and use this workspace.{!store.persistent && " (Demo mode: memory resets when the server restarts.)"}</p>
         </div>

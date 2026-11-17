@@ -291,3 +291,52 @@ main > section.home { margin-top: 0; }
 .foot-min { max-width: 1120px; margin: 40px auto 0; padding: 36px 16px 40px; justify-items: start; text-align: left; border-top: 1px solid var(--line); gap: 8px; }
 .foot-min nav { justify-content: flex-start; font-size: 14px; }
 .home-hero h1, .start-page h1, .hello h1 { font-weight: 400; }
+
+/* ===== Charts (Pro analytics). Series colors validated light + dark (dataviz validator). ===== */
+:root { --series-1: #2a78d6; --series-2: #eb6834; --status-critical: #d03b3b; --chart-grid: color-mix(in srgb, var(--ink) 9%, transparent); }
+@media (prefers-color-scheme: dark) { :root { --series-1: #3987e5; --series-2: #d95926; } }
+.ana-head { margin: 18px 0 8px; }
+.ana-head h1 { margin: 6px 0; font-size: clamp(32px, 5vw, 48px); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0 22px; }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; display: grid; gap: 2px; }
+.kpi span { color: var(--muted); font-size: 13px; }
+.kpi b { font-family: var(--display); font-weight: 500; font-size: 30px; letter-spacing: -.03em; }
+.kpi small { color: var(--muted); font-size: 12.5px; }
+.kpi small.up-good::after { content: " · better"; }
+.kpi small.up-bad::after { content: " · worse"; }
+.ana-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 14px; }
+.chart { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 16px 16px 10px; min-width: 0; }
+.chart figcaption { display: grid; gap: 2px; margin-bottom: 6px; }
+.chart figcaption b { font-weight: 600; }
+.chart figcaption span { color: var(--muted); font-size: 13px; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.chart-axis { fill: var(--muted); font-size: 12px; }
+.chart-label { fill: var(--ink); font-size: 13px; font-weight: 600; }
+.chart-target { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.chart-dot { stroke: var(--card); stroke-width: 2; }
+.chart-pt:hover .chart-dot { r: 6; }
+.chart-legend { list-style: none; margin: 0 0 6px; padding: 0; display: flex; gap: 14px; font-size: 13px; color: var(--muted); }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.chart-table { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.chart-table summary { cursor: pointer; }
+.chart-table table { width: 100%; border-collapse: collapse; margin-top: 6px; color: var(--ink); }
+.chart-table th, .chart-table td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+.bars { list-style: none; margin: 4px 0 6px; padding: 0; display: grid; gap: 10px; }
+.bars li { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 14px; }
+.bars-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bars-label em { display: block; font-style: normal; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.bars-track { height: 12px; }
+.bars-fill { display: block; height: 12px; border-radius: 0 4px 4px 0; }
+.bars-val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ana-lock { position: relative; }
+.ana-lock > .ana-grid { filter: blur(6px); opacity: .55; pointer-events: none; user-select: none; max-height: 760px; overflow: hidden; }
+.ana-lock-card { position: absolute; inset: 40px 0 auto; margin: 0 auto; width: min(440px, calc(100% - 24px)); background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 26px; text-align: center; box-shadow: var(--shadow); display: grid; gap: 10px; justify-items: center; }
+.ana-lock-card h2 { margin: 0; font-size: 32px; }
+.ana-lock-card p { margin: 0; color: var(--muted); }
+
+.issues { list-style: none; margin: 4px 0 6px; padding: 0; display: grid; gap: 12px; }
+.issues li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; }
+.issues li > span { color: var(--status-critical); font-size: 16px; line-height: 1.3; }
+.issues b { display: block; font-weight: 600; font-size: 14.5px; }
+.issues small { color: var(--muted); font-size: 13px; }

@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Boardy look site-wide + Pro analytics
+- Look: Boardy palette (warm gray #f4f2ee, near-white cards, navy ink, blue #1f6feb), centered "Rocco" header with round message button, Boardy footer ("The AI Amazon manager in your iMessages."), lighter headings.
+- Pro analytics at /w/KEY/analytics: KPI tiles with deltas vs last check, ad spend vs sales, ACoS vs target (dashed target), waste per month, conversion, money saved per change, SKUs at risk, listings not selling. Server-rendered SVG, hover titles, table view per chart, series colors validated light+dark (dataviz validator). Free plan sees tiles + blurred charts behind a "Hire Rocco" card (personal checkout link, auto-unlock).
+- Linked from the Rocco page; listed on /pricing.
+
+---
+
 ## 2026-11-17 (late) · Rocco's brain + "text me your report"
 - lib/brain.ts (Anthropic SDK, claude-opus-5-5, effort low, server-side refusal fallback "default", cached system prompt in lib/prompts/text-reply.ts). Off until ANTHROPIC_API_KEY is set.
 - Free-text texts ("why is ACoS up?") answered from the team's context (about, brief, latest snapshots + findings, pending approvals). Screenshots (iMessage attachments) read with vision.
