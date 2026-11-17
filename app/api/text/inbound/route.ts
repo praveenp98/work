@@ -9,6 +9,8 @@ import { firstDelivery, parseInbound, sendText } from "@/lib/text/provider";
  * custom header `Authorization: <TEXT_WEBHOOK_SECRET>`. Must answer 200 within 15s or LoopMessage retries.
  */
 export const dynamic = "force-dynamic";
+/** A dedicated Rocco number, if you have one. Shared lines differ per conversation, so then the card uses the line from the webhook. */
+const DEDICATED_LINE = process.env.ROCCO_PHONE;
 
 export async function POST(req: Request) {
   const secret = process.env.TEXT_WEBHOOK_SECRET;
@@ -31,9 +33,11 @@ export async function POST(req: Request) {
     if (i) await new Promise((r) => setTimeout(r, 900));
     sent = await sendText(msg.contact, b);
   }
-  if (reply.card) {
+  // Only send the card when we know the exact number they texted: a card with the wrong number is worse than none.
+  const line = DEDICATED_LINE ?? msg.line;
+  if (reply.card && line) {
     await new Promise((r) => setTimeout(r, 900));
-    await sendText(msg.contact, "Save me so you know it's me 👇", { mediaUrl: `${SITE.url}/rocco.vcf` });
+    await sendText(msg.contact, "Save me so you know it's me 👇", { mediaUrl: `${SITE.url}/card/${line.replace(/\D/g, "")}.vcf` });
   }
   return NextResponse.json({ ok: true, sent: sent.ok, dryRun: sent.dryRun, bubbles: reply.bubbles.length });
 }

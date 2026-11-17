@@ -5,13 +5,16 @@ import { RoccoHead } from "@/components/Rocco";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
+import { optInLinks } from "@/lib/text/provider";
 
 export const revalidate = 60;
 
 /** Boardy-style: Rocco introduces himself, one action, nothing else. */
 export default async function Home() {
   const price = await getPriceState();
-  const optIn = (process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL) || undefined;
+  // Our own first message (LoopMessage needs its short code in it); falls back to the dashboard's opt-in link.
+  const gen = await optInLinks({ body: "Hey Rocco 👋 Show me what you can do [opt-in-code]" }).catch(() => null);
+  const optIn = gen?.url || gen?.imessage || process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
   return (
     <section className="hello">
       <div className="hello-avatar">

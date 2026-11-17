@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { firstDelivery, optInLinks, parseInbound, sendText } from "./provider";
+import { firstDelivery, optInLinks, parseInbound, sendText, stripOptInCode } from "./provider";
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
@@ -36,12 +36,18 @@ describe("LoopMessage provider (per loopmessage.com/apidocs)", () => {
 
 describe("parseInbound", () => {
   it("reads message_inbound and ignores statuses", () => {
-    expect(parseInbound({ event: "message_inbound", contact: "+13231112233", text: "numbers", webhook_id: "w1" })).toEqual({ id: "w1", contact: "+13231112233", text: "numbers", linkCode: undefined, optIn: false });
+    expect(parseInbound({ event: "message_inbound", contact: "+13231112233", text: "numbers", webhook_id: "w1" })).toEqual({ id: "w1", contact: "+13231112233", text: "numbers", linkCode: undefined, optIn: false, line: undefined });
     expect(parseInbound({ event: "message_delivered", contact: "+1", text: "x" })).toBeNull();
   });
   it("picks up the workspace link code from opt-in parameters", () => {
     const m = parseInbound({ event: "message_inbound", type: "opt_in", contact: "+1555", text: "Hi Rocco", parameters: { link: "dbzj7f" }, webhook_id: "w2" });
     expect(m).toMatchObject({ linkCode: "DBZJ7F", optIn: true });
+  });
+  it("hides LoopMessage's opt-in code and reads the line they texted", () => {
+    expect(stripOptInCode('I\'m in!\n\n"!9GUF"')).toBe("I'm in!");
+    expect(stripOptInCode("Hey Rocco 👋 Show me what you can do !AB12")).toBe("Hey Rocco 👋 Show me what you can do");
+    expect(parseInbound({ event: "message_inbound", contact: "+1555", text: "hi", sender_name: "+1 (786) 645-7348" })?.line).toBe("+17866457348");
+    expect(parseInbound({ event: "message_inbound", contact: "+1555", text: "hi", sender_name: "rocco@imsg" })?.line).toBeUndefined();
   });
   it("dedupes retried webhooks", () => {
     expect(firstDelivery("dup-1")).toBe(true);

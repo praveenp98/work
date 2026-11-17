@@ -4,6 +4,19 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-17 (late) · Journey rebuilt after Praveen's iPhone test
+Feedback: first message "I'm in! "!9GUF"" is ugly; texts full of links to copy; "link CODE" confusing; contact card showed a different number than the one texting; /setup is a scroll of URLs, not Boardy style; mascot not real enough.
+Shipped:
+- Homepage button generates its own first message: "Hey Rocco 👋 Show me what you can do" (LoopMessage code still appended, Rocco strips it).
+- First reply: hello + one question + contact card. Card is built per number (/card/<number>.vcf) and only sent when the webhook tells us which Rocco number they texted (or ROCCO_PHONE is set for a dedicated line). /api/health shows the webhook's field names to confirm.
+- After they answer: a demo brand's morning numbers (real engine on sample reports), then ONE link alone in its own bubble (rich preview, one tap) to their Rocco page.
+- No codes to type: "invite" sends a one-tap join link for teammates; "join CODE" still works. "demo", "link" commands. YES before data explains what would happen.
+- Their Rocco page (/w/KEY) with no data = one job: a 4-step, one-card-at-a-time flow (pick AI → add Rocco → plug in Seller Central → "Open Claude and ask"). /setup uses the same flow; all URLs/config moved into a collapsed section.
+- docs/MANAGER-CADENCE.md: daily/weekly/monthly manager jobs vs what Rocco covers, build order.
+Open: realistic raccoon avatar (Praveen to generate), dedicated LoopMessage number for a stable card, Anthropic key for real conversation + screenshot reading, Claude connector directory listing + OAuth sign-in.
+
+---
+
 ## 2026-11-17 (00:30) · Discussion: engagement before Amazon API access, price
 - Recommendation: keep $99 (price isn't the blocker, data is). Hooks before API access: free account check from a texted screenshot/export (needs ANTHROPIC_API_KEY), Seller Central connector (open beta) + Rocco in Claude, daily Rocco Daily texts (deadlines, fee/policy changes, benchmarks), team/agency angle. Optional: money-back if Rocco doesn't find $99+ of waste in 14 days (needs Praveen's ok; refunds cut profit).
 - Listed every MCP tool for Praveen (13 on the personal connector, 3 on shared /mcp).

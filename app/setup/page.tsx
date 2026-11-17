@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SetupWizard } from "@/components/connect/SetupWizard";
 import { Faq } from "@/components/Faq";
-import { Rocco } from "@/components/Rocco";
+import { StartSteps } from "@/components/start/StartSteps";
 
 export const metadata: Metadata = {
   title: "Connect Amazon Ads & Seller Central to Claude, ChatGPT or Claude Code",
@@ -12,15 +12,15 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className="split" style={{ alignItems: "center", marginTop: 12 }}>
-        <div>
-          <span className="eyebrow">Setup · about 3 minutes</span>
-          <h1 style={{ fontSize: "clamp(34px,5vw,54px)" }}>Plug Amazon into your AI. Then just ask.</h1>
-          <p className="muted" style={{ fontSize: 18 }}>Amazon&apos;s official connectors give your AI access to Ads and Seller Central. Rocco gives it the judgment: what to pull, what to change, and what happened last time. Pick your app and marketplace; we&apos;ll give you the exact steps.</p>
-        </div>
-        <div style={{ justifySelf: "center" }}><Rocco pose="wave" size={190} /></div>
-      </div>
-      <SetupWizard />
+      <section className="start-page">
+        <h1>Plug Amazon into your AI.</h1>
+        <StartSteps />
+        <p className="start-extra"><span>Rather text? <a href="/">Text Rocco</a></span><a href="#all">All URLs &amp; config files</a></p>
+      </section>
+      <details id="all" className="card" style={{ marginTop: 30 }}>
+        <summary><b>All connector URLs, config files and the Claude Code autopilot</b></summary>
+        <div style={{ marginTop: 16 }}><SetupWizard /></div>
+      </details>
       <Faq items={[
         { q: "Is it safe to connect Amazon to my AI?", a: "You sign in to Amazon's own connectors directly (Rocco never sees your password). Amazon's Seller Central connector asks you to approve every action, and Rocco only proposes changes; nothing is applied until you approve specific codes." },
         { q: "What if I don't have Amazon Ads API access?", a: "Amazon's Ads connector requires it. Until it's approved, connect Seller Central and Rocco; Rocco can read an exported ads report in the meantime." },

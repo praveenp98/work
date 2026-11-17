@@ -51,16 +51,33 @@ export async function optInLinks(opts: { link?: string; body?: string } = {}): P
   return (await res.json().catch(() => null)) as { imessage?: string; sms?: string; whatsapp?: string; url?: string } | null;
 }
 
+/** Field names of the last inbound webhook (no values), shown on /api/health to confirm LoopMessage's payload shape. */
+export const lastInbound: { keys: string[]; at?: string } = { keys: [] };
+
+/** LoopMessage's opt-in code, e.g. `"!9GUF"`, rides along in the first text. Rocco never shows or reads it. */
+export const stripOptInCode = (t: string) => t.replace(/["“”']?![A-Za-z0-9]{3,8}["“”']?/g, "").replace(/\s+/g, " ").trim();
+
+/** Which Rocco number they texted (shared senders rotate per conversation), when the payload says so. */
+function line(b: Record<string, unknown>): string | undefined {
+  for (const k of ["sender_name", "sender", "from_number", "line", "to"]) {
+    const v = b[k];
+    if (typeof v === "string" && /^\+?\d[\d\s().-]{7,}$/.test(v.trim())) return "+" + v.replace(/\D/g, "");
+  }
+  return undefined;
+}
+
 /** Normalize a LoopMessage webhook into what Rocco needs. Returns null for events Rocco ignores (statuses, reactions). */
-export function parseInbound(b: Record<string, unknown>): { id: string; contact: string; text: string; linkCode?: string; optIn: boolean } | null {
+export function parseInbound(b: Record<string, unknown>): { id: string; contact: string; text: string; linkCode?: string; optIn: boolean; line?: string } | null {
   const event = String(b.event ?? b.alert_type ?? "");
   if (event !== "message_inbound") return null;
+  lastInbound.keys = Object.keys(b).sort();
+  lastInbound.at = new Date().toISOString();
   const contact = String(b.contact ?? b.recipient ?? "").trim();
   if (!contact) return null;
   const params = (b.parameters ?? {}) as Record<string, unknown>;
   const linkCode = typeof params.link === "string" && /^[A-Za-z0-9]{6}$/.test(params.link) ? params.link.toUpperCase() : undefined;
-  const text = String(b.text ?? "").slice(0, 2000);
-  return { id: String(b.webhook_id ?? b.message_id ?? ""), contact, text, linkCode, optIn: b.type === "opt_in" };
+  const text = stripOptInCode(String(b.text ?? "").slice(0, 2000));
+  return { id: String(b.webhook_id ?? b.message_id ?? ""), contact, text, linkCode, optIn: b.type === "opt_in", line: line(b) };
 }
 
 /** LoopMessage retries webhooks up to 30×: remember recent ids so Rocco never answers twice (per server instance). */

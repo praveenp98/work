@@ -26,25 +26,29 @@ describe("parseCommand", () => {
 });
 
 describe("Text Rocco: brand-new number", () => {
-  it("says hi with one question + contact card, saves the answer, then gives working links; help/numbers/dashboard answer", async () => {
+  it("hello + one question + card; the answer gets a demo morning and ONE link on its own; commands answer", async () => {
     vi.stubEnv("ROCCO_VAULT_KEY", "test-vault");
     const store = new MemoryStore();
     const now = new Date();
-    const hi = await respond(store, "+14085550123", "I'm in! \"!9GUF\"", now);
+    const hi = await respond(store, "+14085550123", "Hey Rocco 👋 Show me what you can do", now);
     expect(hi.bubbles).toHaveLength(2);
     expect(hi.bubbles[1]).toMatch(/Who am I talking to/);
     expect(hi.card).toBe(true);
-    const intro = await respond(store, "+14085550123", "I'm Praveen, we sell kitchen gadgets", now);
+    const intro = await respond(store, "+14085550123", "Praveen here. I sell journals.", now);
     expect(intro.bubbles[0]).toMatch(/Nice to meet you, Praveen/);
-    const all = intro.bubbles.join("\n");
-    const token = all.match(/rocco\.works\/w\/(rw_[A-Za-z0-9]{24})/)?.[1];
-    expect(token).toBeTruthy();
-    expect(all).toContain(`rocco.works/setup?t=${token}`);
-    const ws = await loadWorkspace(store, token!);
-    expect(ws?.about).toMatch(/kitchen gadgets/);
-    expect(await handleInbound(store, "+14085550123", "Help", now)).toMatch(/numbers → today's numbers/);
-    expect(await handleInbound(store, "+14085550123", "numbers", now)).toMatch(/No Amazon numbers yet.*setup\?t=rw_/s);
-    expect(await handleInbound(store, "+14085550123", "dashboard", now)).toContain(`rocco.works/w/${token}`);
+    expect(intro.bubbles[1]).toMatch(/Demo brand · Rocco's numbers/);
+    expect(intro.bubbles[1]).toMatch(/Reply YES/);
+    const link = intro.bubbles.at(-1)!;
+    expect(link).toMatch(/^https:\/\/rocco\.works\/w\/rw_[A-Za-z0-9]{24}$/); // alone in its bubble → rich preview, one tap
+    expect(intro.bubbles.join(" ")).not.toMatch(/link [A-Z0-9]{6}/); // no codes to type
+    const token = link.split("/w/")[1];
+    expect((await loadWorkspace(store, token))?.about).toMatch(/journals/);
+    expect(await handleInbound(store, "+14085550123", "Help", now)).toMatch(/invite → add a teammate/);
+    const nums = await respond(store, "+14085550123", "numbers", now);
+    expect(nums.bubbles[1]).toBe(link);
+    expect((await respond(store, "+14085550123", "yes N1", now)).bubbles[0]).toMatch(/That's the move/);
+    expect((await respond(store, "+14085550123", "link", now)).bubbles[1]).toBe(link);
+    expect(await handleInbound(store, "+14085550123", "invite", now)).toMatch(/join [A-Z2-9]{6}/); // dry run: no LoopMessage key
     expect((await store.listPhones({})).length).toBe(1);
     vi.unstubAllEnvs();
   });
@@ -52,6 +56,9 @@ describe("Text Rocco: brand-new number", () => {
     const store = new MemoryStore();
     await respond(store, "+14085550124", "hey");
     expect(await handleInbound(store, "+14085550124", "help")).toMatch(/numbers → today's numbers/);
+  });
+  it("teammates join with 'join CODE' too", () => {
+    expect(parseCommand("join R7K2QX")).toEqual({ kind: "link", code: "R7K2QX" });
   });
 });
 

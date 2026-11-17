@@ -5,35 +5,40 @@ import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes
 import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
+import { optInLinks } from "./provider";
+import { demoMorning } from "../demo";
 
-const SETUP = "rocco.works/setup";
-const setupUrl = (t: string | null) => (t ? `${SETUP}?t=${t}` : SETUP);
+const SITE_URL = "https://rocco.works";
+/** One personal link: opens the one-step-at-a-time start page (plug in Amazon) or the dashboard once data flows. */
+const homeUrl = (t: string | null) => (t ? `${SITE_URL}/w/${t}` : `${SITE_URL}/setup`);
+
 /** "I'm Praveen, we sell..." → "Praveen". */
 function firstName(t: string): string | null {
   const m = t.match(/\b(?:i'?m|i am|this is|it'?s|name'?s|my name is)\s+([A-Z][a-z]{1,20})\b/i) ?? t.match(/^\s*([A-Z][a-z]{1,20})\s*(?:here|[,.!-])/);
   const n = m?.[1];
   return n && !/^(a|an|the|we|selling|from|on|in|just|looking|trying|not)$/i.test(n) ? n[0].toUpperCase() + n.slice(1).toLowerCase() : null;
 }
-const dashUrl = (t: string | null) => (t ? `rocco.works/w/${t}` : null);
 
-/** The links a phone needs: connect Amazon, the dashboard, and the team code. */
-function linksText(ws: Workspace, code: string) {
-  const t = revealToken(ws);
-  const L = [`1️⃣ Plug in Amazon (3 min): ${setupUrl(t)}`];
-  if (t) L.push(`2️⃣ Your dashboard: ${dashUrl(t)}`);
-  L.push(`${t ? "3️⃣" : "2️⃣"} Teammates text me: link ${code}`);
-  if (t) L.push("Those links are private to your team.");
-  return L.join("\n");
+/** A teammate invite: a link that opens Messages with a ready first text, so they join with one tap. */
+async function inviteReply(store: Store, ws: Workspace): Promise<Reply> {
+  const code = await ensureLinkCode(store, ws);
+  const l = await optInLinks({ link: code, body: "Hi Rocco 👋 I'm joining my team [opt-in-code]" });
+  const url = l?.url ?? l?.imessage;
+  return url
+    ? { bubbles: ["Send this to a teammate. One tap and they're on your Rocco 👇", url] }
+    : { bubbles: [`Have your teammate text me: join ${code}`] };
 }
+
 const HELP = [
   "Text me anytime 🦝",
   "• numbers → today's numbers",
   "• brief → what to do today",
   "• YES N1 N2 → approve fixes",
-  "• undo B3 → queue an undo",
+  "• undo B3 → undo a change",
   "• wins → what I've saved you",
-  "• dashboard → your links",
-  "• ask anything: “how's stock?”, “why is ACoS up?”",
+  "• invite → add a teammate",
+  "• demo → see a sample brand",
+  "• link → your Rocco page",
   "• STOP → pause texts",
 ].join("\n");
 
@@ -63,11 +68,11 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
 
   if (cmd.kind === "link") {
     const ws = await store.findWorkspaceByLinkCode(cmd.code);
-    if (!ws) return `Hmm, ${cmd.code} isn't a Rocco code I know. Your code is on your Rocco dashboard (${SETUP} → your workspace).`;
+    if (!ws) return `Hmm, ${cmd.code} isn't a team code I know. Ask your teammate to text me “invite” and send you the link.`;
     const existing = await store.getPhone(phone);
     await store.savePhone({ phone, workspaceId: ws.id, optedOut: false, createdAt: existing?.createdAt ?? now.toISOString(), lastSeenAt: now.toISOString() });
     const team = (await store.listPhones({ workspaceId: ws.id })).length;
-    return bubbles(`You're in 🦝 Linked to your team's Rocco${team > 1 ? ` (${team} teammates on this line)` : ""}. I'll text your numbers every morning.\n\n${HELP}`);
+    return bubbles(`You're in 🦝 You're on your team's Rocco${team > 1 ? ` (${team} teammates now)` : ""}. I'll text the numbers every morning. Text “help” anytime.`);
   }
 
   let p = await store.getPhone(phone);
@@ -87,31 +92,38 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
     };
   }
   const ws = await store.getWorkspaceById(p.workspaceId);
-  if (!ws) return "I lost track of your workspace. Text “link” + your code from your Rocco dashboard.";
+  if (!ws) return "I lost track of your team. Ask a teammate to text me “invite” and send you the link.";
   await store.savePhone({ ...p, stage: undefined, lastSeenAt: now.toISOString(), optedOut: cmd.kind === "stop" ? true : cmd.kind === "start" ? false : p.optedOut });
 
   if (p.stage === "intro" && cmd.kind === "ask") {
     ws.about = text.trim().slice(0, 500);
     await store.saveWorkspace(ws);
-    const code = await ensureLinkCode(store, ws);
-    const t = revealToken(ws);
+    const name = firstName(text);
+    const demo = await demoMorning(now);
     return {
       bubbles: [
-        `Love it. Saved 🦝 ${firstName(text) ? `Nice to meet you, ${firstName(text)}.` : ""}`.trim(),
-        `To see your numbers I need Amazon plugged in. Takes 3 minutes: ${setupUrl(t)}`,
-        [t ? `Your dashboard: ${dashUrl(t)}` : null, `Teammates can text me “link ${code}” to join.`, "Then I text your numbers every morning. Text “help” anytime."].filter(Boolean).join("\n"),
+        `${name ? `Nice to meet you, ${name}` : "Love it"} 🦝 Here's what your mornings look like with me. This is a sample brand:`,
+        demo.text,
+        "Ready for your own numbers? Plug in Amazon here, one step at a time 👇",
+        homeUrl(revealToken(ws)),
       ],
     };
   }
+
 
   switch (cmd.kind) {
     case "stop": return bubbles("Paused. I won't text you unless you text me. Text START to resume.");
     case "start": return bubbles("Back on 🦝 Morning numbers resume tomorrow.");
     case "help": return bubbles(HELP);
-    case "dashboard": return bubbles(`Here you go 🦝\n${linksText(ws, await ensureLinkCode(store, ws))}${revealToken(ws) ? "" : "\n(Your dashboard link is in Claude/ChatGPT: ask “Rocco, what's my dashboard link?”)"}`);
+    case "dashboard": return { bubbles: ["Your Rocco page 👇 (private to your team)", homeUrl(revealToken(ws))] };
+    case "invite": return inviteReply(store, ws);
+    case "demo": {
+      const d = await demoMorning(now);
+      return { bubbles: [d.text, `Try it: reply YES ${d.codes.slice(0, 2).join(" ")} (demo, nothing changes).`] };
+    }
     case "numbers": {
       const b = await buildBrief(store, ws, now);
-      if (!b.perBrand.some((x) => x.trends.length)) return `No Amazon numbers yet 🦝 Plug Amazon into Claude or ChatGPT (3 min): ${setupUrl(revealToken(ws))}\nThen say “Rocco, morning check” and I'll text you the numbers every morning.`;
+      if (!b.perBrand.some((x) => x.trends.length)) return { bubbles: ["No Amazon numbers yet 🦝 Plug Amazon in here (3 min), and I'll text them every morning 👇", homeUrl(revealToken(ws)), "Want a preview? Text “demo”."] };
       const snap = b.perBrand[0]?.trends.find((t) => t.kind === "sp_search_term")?.latest;
       const bench = snap ? benchmark("sp_search_term", snap.stats, await store.peerStats("sp_search_term", ws.id)) : null;
       return bubbles(dailyNumbers(b, { now, bench: bench?.lines, pending: ws.pending }));
@@ -143,6 +155,7 @@ async function core(store: Store, from: string, text: string, now: Date): Promis
         return bubbles(`Queued undo for ${wanted.join(", ")} ↩️ Your AI will reverse it next time someone opens Rocco in Claude/ChatGPT.`);
       }
       const runs = await latestRuns(store, ws, brand);
+      if (!runs.length) return { bubbles: [`That's the move ✅ On your account I'd queue ${wanted.join(", ")}, your AI applies it through Amazon's connector, and I check next week if it worked.`, "Plug in Amazon to do it for real 👇", homeUrl(revealToken(ws))] };
       const allowed = new Map<string, boolean>();
       for (const r of runs) r.proposals.forEach((pp, i) => allowed.set(pp.code, ws.licensed || i < FREE_PROPOSALS));
       const ok = wanted.filter((c) => allowed.get(c));

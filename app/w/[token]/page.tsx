@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Raccoon } from "@/components/Raccoon";
 import { WinsCard } from "@/components/WinsCard";
+import { RoccoHead } from "@/components/Rocco";
+import { StartSteps } from "@/components/start/StartSteps";
 import { REPORT_HELP } from "@/lib/analyze";
 import { proposalLine } from "@/lib/mcp/format";
 import { getStore } from "@/lib/store";
@@ -11,7 +13,7 @@ import { optInLinks } from "@/lib/text/provider";
 import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Your Rocco workspace", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Your Rocco", description: "Plug in Amazon, then just ask. Your team's private Rocco page.", robots: { index: false, follow: false } };
 
 const KIND: Record<string, string> = { sp_search_term: "Search terms", sp_campaign: "Budgets", business_report: "Business Report", inventory: "Inventory", bulk: "Structure" };
 const STATUS: Record<string, string> = { applied: "⏳ waiting", worked: "✅ worked", no_effect: "➖ no effect", worse: "⚠️ worse", not_enough_data: "⏳ more data", reverted: "↩️ reverted" };
@@ -30,6 +32,25 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const textHref = personal?.url ?? personal?.imessage;
   const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
   const connector = `https://rocco.works/mcp/${token}`;
+
+  const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
+  if (empty) {
+    // Nothing plugged in yet: one job on this page. Plug in Amazon, one step at a time.
+    return (
+      <section className="start-page">
+        <div className="start-head">
+          <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
+          <h1>Let&apos;s plug in Amazon.</h1>
+        </div>
+        <StartSteps token={token} />
+        <p className="start-extra">
+          {textHref && <a href={textHref}>💬 Text Rocco from this phone</a>}
+          <span>Teammates: text Rocco &ldquo;invite&rdquo; to get a one-tap join link</span>
+        </p>
+        <p className="fine">Private page for your team. Anyone with the link can use it.</p>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -54,11 +75,12 @@ export default async function Page({ params }: { params: Promise<{ token: string
       {(brief.saved > 0 || brief.totals.worked > 0) && <div style={{ marginTop: 14 }}><WinsCard saved={brief.saved} worked={brief.totals.worked} applied={brief.totals.applied} since={ws.createdAt} /></div>}
       <section className="card" style={{ marginTop: 18 }}>
         <h3 style={{ marginTop: 0 }}>💬 Text Rocco from your phone (whole team)</h3>
-        <p style={{ margin: "0 0 8px" }}>{textHref ? "Tap the button on your iPhone and send the message: your phone joins this workspace automatically. Share this page with teammates so they can do the same." : <>Each teammate texts <b className="code">link {linkCode}</b> to Rocco (iMessage line opening soon).</>} Morning numbers, answers, and approvals with a reply.</p>
+        <p style={{ margin: "0 0 8px" }}>{textHref ? "Tap the button on your iPhone and send the message: your phone joins this workspace automatically. Share this page with teammates so they can do the same." : <>Teammates text Rocco &ldquo;join {linkCode}&rdquo;.</>} Morning numbers, answers, and approvals with a reply.</p>
         {textHref && <a className="btn small imsg-btn" style={{ fontSize: 15, padding: "9px 16px" }} href={textHref}>💬 Text Rocco from this phone</a>}
-        {textHref && <p className="fine" style={{ margin: "6px 0 0" }}>Or text <b className="code">link {linkCode}</b> to Rocco from any phone that already talks to him.</p>}
+        {textHref && <p className="fine" style={{ margin: "6px 0 0" }}>Or text Rocco &ldquo;invite&rdquo; and forward the link he sends.</p>}
         <p className="fine" style={{ margin: "8px 0 0" }}>{team.length ? `On this line: ${team.map((t) => maskPhone(t.phone) + (t.optedOut ? " (paused)" : "")).join(", ")}` : "No phones linked yet."}{ws.pending?.length ? ` · Waiting for your AI to apply: ${ws.pending.flatMap((p) => p.codes).join(", ")}` : ""}</p>
       </section>
+      <details className="card" style={{ marginTop: 18 }}><summary><b>Setup steps</b> (add Rocco or Amazon to another app)</summary><div style={{ marginTop: 14 }}><StartSteps token={token} compact /></div></details>
       {brief.season && <p className="pill" style={{ marginTop: 18 }}>📅 {brief.season}</p>}
 
       {brief.perBrand.map((b) => (

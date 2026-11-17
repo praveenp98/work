@@ -29,3 +29,9 @@
 
 ## 2026-11-17 · New numbers get their own Rocco on the first text
 Boardy-style: no wall. Texting Rocco = signing up. Teammates still join an existing team with "link CODE". Reason: Praveen's first test hit a loop of identical onboarding replies.
+
+## 2026-11-17 · Journey: demo first, one link, one action per screen
+- New texters see a demo brand's morning before any setup (immediate value), then get one link to their Rocco page.
+- Setup is a one-card-at-a-time flow; raw URLs/config are hidden under "All URLs & config".
+- Teammates join by a one-tap invite link, not by typing codes.
+- Contact card is only sent with the exact number the person texted (shared lines rotate).

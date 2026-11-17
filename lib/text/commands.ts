@@ -8,6 +8,8 @@ export type Command =
   | { kind: "wins" }
   | { kind: "help" }
   | { kind: "dashboard" }
+  | { kind: "invite" }
+  | { kind: "demo" }
   | { kind: "stop" }
   | { kind: "start" }
   | { kind: "ask"; topic: "ads" | "budgets" | "placements" | "stock" | "listings" | "general"; text: string };
@@ -18,15 +20,17 @@ const codesIn = (t: string) => [...t.matchAll(CODE)].map((m) => m[1].replace(/\s
 export function parseCommand(raw: string): Command {
   const t = raw.trim();
   const lc = t.toLowerCase();
-  const link = t.match(/\blink\s+([A-Za-z0-9]{6})\b/i) ?? t.match(/\b([A-HJ-NP-Z2-9]{6})\b/);
-  if (/\blink\b/i.test(t) && link) return { kind: "link", code: link[1].toUpperCase() };
+  const link = t.match(/\b(?:link|join)\s+([A-Za-z0-9]{6})\b/i);
+  if (link) return { kind: "link", code: link[1].toUpperCase() };
   if (/^(stop|unsubscribe|cancel|quit|end)\b/.test(lc)) return { kind: "stop" };
   if (/^(start|unstop|resume)\b/.test(lc)) return { kind: "start" };
   const codes = codesIn(t);
   if (codes.length && /\b(undo|revert|roll ?back)\b/.test(lc)) return { kind: "undo", codes };
   if (codes.length && /\b(yes|yep|ok|okay|approve[ds]?|go|do it|ship it|👍)/i.test(t)) return { kind: "approve", codes };
   if (codes.length && /^[\sA-Z0-9,\-]+$/i.test(t) && !/[a-z]{3,}/i.test(t.replace(/\band\b/gi, ""))) return { kind: "approve", codes };
-  if (/^(dashboard|setup|connect|login|log in|my links?|links?)\b/.test(lc)) return { kind: "dashboard" };
+  if (/^(dashboard|setup|connect|login|log in|my links?|links?|my page)\b/.test(lc)) return { kind: "dashboard" };
+  if (/^(invite|add (a )?teammate|team|share)\b/.test(lc)) return { kind: "invite" };
+  if (/^(demo|sample|show me|example)\b/.test(lc)) return { kind: "demo" };
   if (/^(help|\?|commands|menu|hi|hey|hello)\b/.test(lc)) return { kind: "help" };
   if (/\b(numbers|stats|daily|today'?s numbers|kpis?)\b/.test(lc)) return { kind: "numbers" };
   if (/\b(wins?|saved|savings|results?)\b/.test(lc)) return { kind: "wins" };
