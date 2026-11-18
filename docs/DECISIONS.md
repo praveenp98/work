@@ -62,3 +62,6 @@ The private-key URL triggers Claude's 'no sign-in' warning, so setup uses /mcp/l
 
 ## 2026-11-18 · Hire-first homepage
 Praveen: main CTA = Hire Rocco → paywall (trial sheet) → checkout. Texting is secondary. Below the fold: animated approvals feed (sample brand, labeled; no fake customer data).
+
+## 2026-11-18 · No trial; +$10 with every hire; email then pay then set up
+Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" and the localseo.to flow (ask, sign in, pay, then set up). Ladder step changed from every 5 hires to every hire (confirm if he meant every 5).

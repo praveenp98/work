@@ -38,7 +38,7 @@ describe("Rocco reads what you text him", () => {
     const store = new MemoryStore();
     const r = await respond(store, "+14155550900", "", new Date(), { attachments: ["https://files.example/report.csv"] });
     expect(r.bubbles[0]).toMatch(/📥 Got your Sponsored Products search term report/);
-    expect(r.bubbles.join("\n")).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*3-day free trial/s); // no free plan: teaser + trial link
+    expect(r.bubbles.join("\n")).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*Hire me/s); // no free plan: teaser + hire link
     expect((await store.listPhones({})).length).toBe(1);
   });
 

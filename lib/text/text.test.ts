@@ -35,7 +35,7 @@ describe("Text Rocco: brand-new number", () => {
     expect(hi.bubbles[1]).toMatch(/Who am I talking to/);
     expect(hi.card).toBe(true);
     const intro = await respond(store, "+14085550123", "Praveen here. I sell journals.", now);
-    expect(intro.bubbles.at(-2)).toMatch(/3-day free trial/);
+    expect(intro.bubbles.at(-2)).toMatch(/hire me/);
     await grantTrial(store, (await wsOfPhone(store, "+14085550123"))!.id);
     expect(intro.bubbles[0]).toMatch(/Nice to meet you, Praveen/);
     expect(intro.bubbles[1]).toMatch(/Demo brand · Rocco's numbers/);

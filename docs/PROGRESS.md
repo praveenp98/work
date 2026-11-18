@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Direct pay, +$10 per hire, email step
+- No trial: $99/year up front. Ladder +$10 with every hire (cap $499 at hire #41). Hire sheet asks for work email → checkout prefilled + tagged → welcome → setup. All trial copy removed (homepage, sheet, pricing, dashboard, analytics, texts, MCP, llms.txt, connect FAQ, launch kit). Tests 123/123.
+
+---
+
 ## 2026-11-18 · Hire-first homepage + "Watch me work" feed
 - Main CTA is now **Hire Rocco** (hero, "Hire me." section, pricing). Tap → Boardy bottom sheet (3-day free trial, then $99/year, cancel anytime) → POST /api/hire (human-gated) creates the team's Rocco (or reuses this browser's), sets the sealed rocco_team cookie, returns the Dodo checkout tagged with the team (metadata_ref = workspace id, redirect /welcome; the key never goes to Dodo) → /welcome opens their Rocco page with "🎉 You're in" + setup.
 - Texting stays as the secondary option ("Text me on iMessage" pill, "Or text me first").

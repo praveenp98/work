@@ -563,3 +563,8 @@ h1, h2, .display { font-family: var(--display); }
 .feed-val { font-weight: 600; font-size: 13px; color: #1f9d63; white-space: nowrap; }
 .feed-who { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); white-space: nowrap; }
 @media (max-width: 420px) { .feed li { grid-template-columns: 30px 1fr; } .feed-side { grid-column: 2; justify-items: start; grid-auto-flow: column; justify-content: start; gap: 8px; } }
+.sheet-form { display: grid; gap: 8px; }
+.sheet-form label { font-size: 14px; font-weight: 600; }
+.sheet-form input { width: 100%; padding: 15px 16px; border-radius: 16px; border: 1.5px solid color-mix(in srgb, var(--ink) 30%, var(--line)); background: var(--card); font: 500 17px/1.2 var(--font-body), system-ui, sans-serif; color: var(--ink); }
+.sheet-form input:focus { outline: 2px solid #1f6feb; outline-offset: 1px; }
+.sheet-form .sheet-btn { width: 100%; }

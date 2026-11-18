@@ -1,6 +1,6 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * One product, "Hire Rocco": a yearly subscription with a 3-day free trial (card required), sold on a price ladder
+ * One product, "Hire Rocco": a yearly subscription ($99/year, no trial), sold on a price ladder
  * (lib/pricing.ts). The ladder counts unique paying customers only (trials and renewals don't move it).
  * - Checkout: Dodo static payment link (DODO_PRODUCT_ID = the subscription product), tagged with the workspace.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
@@ -16,7 +16,7 @@ const CHECKOUT_BASE = DODO_MODE === "test" ? "https://test.checkout.dodopayments
 /** The single live product (created Nov 17, 2026). Env overrides for test mode. */
 /** The original one-time "Hire Rocco" product (Nov 17). Its buyers keep lifetime access and count as hires. */
 export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
-/** The live product: set DODO_PRODUCT_ID to the $99/year subscription with the 3-day trial. */
+/** The live product: set DODO_PRODUCT_ID to the $99/year subscription (no trial). */
 export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
 
 export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string } = {}): string | null {

@@ -44,7 +44,7 @@ export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; siz
 
 const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : a === "openai" ? "ChatGPT" : BRAND_ICONS[a].title);
 
-export function RoccoStage({ price = "$99" }: { price?: string }) {
+export function RoccoStage({ price = "$99", next }: { price?: string; next?: string }) {
   const [phase, setPhase] = useState(0); // 0 row, 1 gather, 2 card, 3 live
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -126,8 +126,8 @@ export function RoccoStage({ price = "$99" }: { price?: string }) {
       </div>
 
       <div className="hero-cta">
-        <HireButton price={price} label="Hire Rocco" className="btn hire-cta" />
-        <span className="fine">3-day free trial · then {price}/year for your whole team</span>
+        <HireButton price={price} next={next} label="Hire Rocco" className="btn hire-cta" />
+        <span className="fine">{price}/year for your whole team · +$10 with every hire</span>
       </div>
     </div>
   );

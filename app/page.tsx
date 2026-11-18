@@ -32,14 +32,14 @@ export default async function Home() {
     <section className="home">
       <div className="home-hero">
         <h1>I can run your Amazon<br />business, try me.</h1>
-        <RoccoStage price={dollars(price.priceCents)} />
+        <RoccoStage price={dollars(price.priceCents)} next={price.nextPriceCents ? dollars(price.nextPriceCents) : undefined} />
       </div>
 
       <div className="home-feed">
         <h2>Watch me work.</h2>
         <p className="home-lede">Stock, ads, listings, budgets, reports. Your team approves with a reply; I do the rest.</p>
         <ApprovalFeed />
-        <HireButton price={dollars(price.priceCents)} label="Hire Rocco · 3-day free trial" />
+        <HireButton price={dollars(price.priceCents)} next={price.nextPriceCents ? dollars(price.nextPriceCents) : undefined} label={`Hire Rocco · ${dollars(price.priceCents)}/year`} />
       </div>
 
       <div className="home-flow">
@@ -68,8 +68,8 @@ export default async function Home() {
 
       <div className="home-msg" id="text">
         <h2>Hire me.</h2>
-        <p className="home-lede">3 days free, then one plan for your whole team. Or text me first and I&apos;ll show you a sample brand&apos;s morning.</p>
-        <HireButton price={dollars(price.priceCents)} label="Hire Rocco · 3-day free trial" />
+        <p className="home-lede">One plan for your whole team. Or text me first and I&apos;ll show you a sample brand&apos;s morning.</p>
+        <HireButton price={dollars(price.priceCents)} next={price.nextPriceCents ? dollars(price.nextPriceCents) : undefined} label={`Hire Rocco · ${dollars(price.priceCents)}/year`} />
         <TextRoccoButton label="💬 Or text me first" />
         <p className="home-apps-label">Or find me in your favorite app.</p>
         <div className="home-apps">
@@ -81,7 +81,7 @@ export default async function Home() {
         <h2>I work the tools you already pay for.</h2>
         <p className="home-lede">I sit next to Amazon&apos;s official Seller Central and Ads connectors, and use Helium 10, SellerSprite or any other connector in the same chat.</p>
         <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "Any MCP connector"].map((t) => <li key={t}>{t}</li>)}</ul>
-        <p className="fine">3-day free trial · then {dollars(price.priceCents)}/year for your whole team · Not affiliated with Amazon or Helium 10</p>
+        <p className="fine">{dollars(price.priceCents)}/year for your whole team · the price goes up $10 with every hire · Not affiliated with Amazon or Helium 10</p>
       </div>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />

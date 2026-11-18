@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <div className="ana-lock-card">
             <h2>Pro analytics</h2>
             <p>Every trend across every check, what each change saved, stock and listing health over time. For every brand you run.</p>
-            <a className="btn" href={hireUrl(ws)}>Start 3-day free trial</a>
+            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
             <p className="fine">Then {dollars(price.priceCents)}/year for the whole team. Unlocks the moment you start.</p>
           </div>
         </div>

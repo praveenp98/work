@@ -19,13 +19,13 @@ async function seeded() {
 }
 
 describe("no free plan: trial offer at the right moments", () => {
-  it("without a plan every fix is locked and 'found' pitches the trial, at most every 3 days", async () => {
+  it("without a plan every fix is locked and 'found' pitches hiring, at most every 3 days", async () => {
     const { store, ws } = await seeded();
     const b = await buildBrief(store, ws);
     expect(b.perBrand[0].open).toHaveLength(0);
     expect(b.perBrand[0].hidden).toBeGreaterThan(0);
     const now = new Date("2026-11-18T09:00:00Z");
-    expect(paywall(ws, b, "found", { now })?.text).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes in your account\. Start your 3-day free trial, then \$99\/year/);
+    expect(paywall(ws, b, "found", { now })?.text).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes in your account\. Hire me: \$99\/year for the whole team/);
     expect(paywall(ws, b, "found", { now: new Date("2026-11-20T09:00:00Z") })).toBeNull();
     expect(paywall(ws, b, "found", { now: new Date("2026-11-21T10:00:00Z") })).not.toBeNull();
   });
@@ -39,14 +39,14 @@ describe("no free plan: trial offer at the right moments", () => {
     expect((await buildBrief(s.store, ws)).perBrand[0].hidden).toBe(0);
   });
 
-  it("texts without a plan: numbers, brief and YES all get the teaser + trial link (checkout tagged with the team)", async () => {
+  it("texts without a plan: numbers, brief and YES all get the teaser + hire link (checkout tagged with the team)", async () => {
     vi.stubEnv("DODO_API_KEY", "");
     const { store, ws } = await seeded();
     const code = await ensureLinkCode(store, ws);
     await respond(store, "+14155550111", `link ${code}`);
     for (const t of ["numbers", "brief", "yes N1"]) {
       const r = await respond(store, "+14155550111", t);
-      expect(r.bubbles[0]).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*3-day free trial/);
+      expect(r.bubbles[0]).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*Hire me/);
       expect(r.bubbles[1]).toMatch(/^https:\/\/checkout\.dodopayments\.com\/buy\/.+metadata_ref=/);
     }
     expect((await respond(store, "+14155550111", "help")).bubbles[0]).toMatch(/numbers → today's numbers/); // help still works

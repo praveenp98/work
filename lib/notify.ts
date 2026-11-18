@@ -81,7 +81,7 @@ export function morningNudge(ws: Workspace, latestAt: string | null, now = new D
     if (n >= 3 || (last && now.getTime() - new Date(last).getTime() < 2 * 86_400_000)) return null;
     ws.nudges = { ...(ws.nudges ?? {}), setup: now.toISOString(), setupCount: String(n + 1) };
     const t = revealToken(ws);
-    return ["Morning ☀️ Want me on your Amazon? Start your 3-day free trial and connect once in Claude or ChatGPT (2 minutes). I'll text your numbers every day 👇", t ? `https://rocco.works/w/${t}` : "https://rocco.works/setup"];
+    return ["Morning ☀️ Want me on your Amazon? Hire me and connect once in Claude or ChatGPT (2 minutes). I'll text your numbers every day 👇", t ? `https://rocco.works/w/${t}` : "https://rocco.works/setup"];
   }
   if (!ws.connectedAt) return null; // data came from texted reports, not their AI: just send the numbers we have
   const link = askLink(ws.ai);

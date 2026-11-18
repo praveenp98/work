@@ -28,7 +28,7 @@ export function GET() {
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: 3-day free trial (card required), then $99/year. The price for new hires rises $10 every 5 paying customers, capped at $499. No free plan; the demo is free.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: $99/year, paid up front (no trial, no free plan). The price for new hires rises $10 with every paying customer, capped at $499. No free plan; the demo is free.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

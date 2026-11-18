@@ -24,8 +24,8 @@ const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 export const hireUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id }) ?? `${SITE.url}/pricing`;
 
 function urgency(p?: PriceState | null): string {
-  if (!p?.nextPriceCents || p.salesUntilNext == null) return "";
-  return ` Goes to ${dollars(p.nextPriceCents)} after ${p.salesUntilNext} more hire${p.salesUntilNext === 1 ? "" : "s"}.`;
+  if (!p?.nextPriceCents) return "";
+  return ` The price goes up $10 with every hire (next one pays ${dollars(p.nextPriceCents)}).`;
 }
 
 export function paywall(
@@ -47,7 +47,7 @@ export function paywall(
 
   const price = dollars(o.price?.priceCents ?? 9900);
   const total = `~${$(freeValue + hiddenValue)}/mo across ${hidden} fix${hidden === 1 ? "" : "es"}`;
-  const offer = `Start your 3-day free trial, then ${price}/year for the whole team. Cancel anytime.${urgency(o.price)}`;
+  const offer = `Hire me: ${price}/year for the whole team.${urgency(o.price)}`;
   const text = {
     found: `💰 I found ${total} in your account. ${offer}`,
     worked: `✅ That fix worked${o.saved ? `: ~${$(o.saved)}/mo saved` : ""}. Keep me on: ${offer}`,

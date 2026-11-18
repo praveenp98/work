@@ -17,7 +17,7 @@ export default async function Page() {
   return (
     <section className="start-page">
       <h1>You&apos;re in 🎉</h1>
-      <p className="hello-lede">Your trial is on. Open the Rocco link from your receipt email, or text Rocco from your iPhone to get started.</p>
+      <p className="hello-lede">You hired Rocco. Open your Rocco link (it's in this browser), or text Rocco from your iPhone to get started.</p>
       <Link className="btn" href="/text">💬 Text Rocco</Link>
     </section>
   );

@@ -1,8 +1,8 @@
 /**
- * Hire Rocco price ladder: $99, +$10 every 5 sales, capped at $499.
+ * Hire Rocco price ladder: $99/year, +$10 with every hire (Nov 18), capped at $499.
  * Source of truth for sales = Dodo's payments API (succeeded payments for the product).
  */
-export const LADDER = { startCents: 9900, stepCents: 1000, every: 5, capCents: 49900 } as const;
+export const LADDER = { startCents: 9900, stepCents: 1000, every: 1, capCents: 49900 } as const;
 
 export function priceCentsForSold(sold: number): number {
   return Math.min(LADDER.capCents, LADDER.startCents + LADDER.stepCents * Math.floor(Math.max(0, sold) / LADDER.every));

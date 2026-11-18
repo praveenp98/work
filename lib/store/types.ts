@@ -27,6 +27,8 @@ export interface Workspace {
   trialEndsAt?: string;
   subscriptionId?: string;
   subStatus?: string;
+  /** The account email (entered at Hire Rocco, prefilled at checkout). */
+  ownerEmail?: string;
   brands: Record<string, BrandSettings>;
   /** 6-char code teammates text to link their phone ("link R7K2QX"). */
   linkCode?: string;

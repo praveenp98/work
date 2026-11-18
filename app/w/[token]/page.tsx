@@ -54,7 +54,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
-        {sp.welcome && <p className="trial-note">🎉 You&apos;re in. {access === "none" ? "Your trial turns on in a moment (refresh if this page still shows the offer)." : "Your trial is on."} Three steps and I&apos;m working.</p>}
+        {sp.welcome && <p className="trial-note">🎉 You&apos;re in. {access === "none" ? "Your plan turns on in a moment (refresh if this page still shows the offer)." : "Rocco is on."} Three steps and I&apos;m working.</p>}
         <StartSteps token={token} trial={sp.welcome ? undefined : trial} />
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
@@ -101,8 +101,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         return (
           <>
             <div className="trial-banner">
-              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Start your 3-day free trial to see and approve every fix. Then {dollars(price.priceCents)}/year for the whole team.</span></div>
-              <a className="btn" href={trial.url}>Start free trial</a>
+              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Hire me to see and approve every fix: {dollars(price.priceCents)}/year for the whole team.</span></div>
+              <a className="btn" href={trial.url}>Hire Rocco</a>
             </div>
             <TrialSheet url={trial.url} price={trial.price} open found={found} />
           </>
@@ -121,7 +121,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {b.hidden > 0 && (
         <div className="locked-row">
           <span>🔒 <b>{b.hidden} fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} ready for you.</span>
-          <a className="btn small" href={hireUrl(ws)}>Start 3-day free trial</a>
+          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
         </div>
       )}
 

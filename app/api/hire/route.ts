@@ -18,6 +18,8 @@ export async function POST(req: Request) {
   const why = h.get("x-rocco-tap") !== "1" ? "no tap" : !fromOurSite(h, SITE.domain) ? "not from rocco.works" : looksLikeBot(h);
   if (why) return NextResponse.json({ ok: false, error: why }, { status: 403 });
   if (!allow(`hire:${clientIp(h)}`, 6, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
+  const body = (await req.json().catch(() => ({}))) as { email?: unknown };
+  const email = typeof body.email === "string" && /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,24}$/.test(body.email.trim()) ? body.email.trim().toLowerCase() : undefined;
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, url: "/pricing" });
 
@@ -32,7 +34,8 @@ export async function POST(req: Request) {
     token = c.token;
     ws = c.ws;
   }
-  const url = checkoutUrl({ ref: ws.id, redirect: `${SITE.url}/welcome` });
+  if (email && ws.ownerEmail !== email) { ws.ownerEmail = email; await store.saveWorkspace(ws); }
+  const url = checkoutUrl({ ref: ws.id, email, redirect: `${SITE.url}/welcome` });
   const res = NextResponse.json({ ok: !!url, url: url ?? "/pricing" });
   const sealed = seal(token!);
   if (sealed) res.cookies.set("rocco_team", sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 180 * 86_400 });

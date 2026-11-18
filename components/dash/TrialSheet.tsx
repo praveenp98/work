@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import { RoccoHead } from "@/components/Rocco";
 
 /**
- * Boardy-style bottom sheet: "Start your 3-day free trial". Opens when `open` turns true (after the setup steps),
+ * Boardy-style bottom sheet: "Hire Rocco". Step 1 email (the account), step 2 checkout. Opens when `open` turns true,
  * closable with "Maybe later". No free plan, so this is the gate to using Rocco.
  */
-export function TrialSheet({ url, price, open, found, onClose, onStart }: { url?: string; price: string; open: boolean; found?: string; onClose?: () => void; onStart?: () => Promise<void> }) {
+export function TrialSheet({ url, price, open, found, onClose, onStart, next }: { url?: string; price: string; open: boolean; found?: string; onClose?: () => void; onStart?: (email: string) => Promise<void>; next?: string }) {
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [email, setEmail] = useState("");
   useEffect(() => { setShow(open); }, [open]);
   if (!show) return null;
   const close = () => { setShow(false); onClose?.(); };
   return (
-    <div className="sheet-bg" role="dialog" aria-modal="true" aria-label="Start your free trial" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
+    <div className="sheet-bg" role="dialog" aria-modal="true" aria-label="Hire Rocco" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
       <div className="sheet">
         <span className="sheet-grab" aria-hidden />
         <button className="sheet-x" aria-label="Close" onClick={close}>×</button>
@@ -27,10 +28,14 @@ export function TrialSheet({ url, price, open, found, onClose, onStart }: { url?
           <li>Morning numbers by text and Slack, for the whole team</li>
           <li>I check every change a week later and keep score</li>
         </ul>
-        {onStart
-          ? <button className="btn sheet-btn" disabled={busy} onClick={async () => { setBusy(true); await onStart(); }}>{busy ? "Opening checkout…" : "Start my 3-day free trial"}</button>
-          : <a className="btn sheet-btn" href={url}>Start my 3-day free trial</a>}
-        <p className="fine">Then {price}/year for your whole team. I&apos;ll text you before you&apos;re charged. Reply CANCEL anytime.</p>
+        {onStart ? (
+          <form className="sheet-form" onSubmit={async (e) => { e.preventDefault(); setBusy(true); await onStart(email.trim()); setBusy(false); }}>
+            <label htmlFor="hire-email">Your work email</label>
+            <input id="hire-email" type="email" required autoComplete="email" placeholder="you@brand.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <button className="btn sheet-btn" disabled={busy}>{busy ? "Opening checkout…" : `Continue to payment · ${price}/year`}</button>
+          </form>
+        ) : <a className="btn sheet-btn" href={url}>Hire Rocco · {price}/year</a>}
+        <p className="fine">{price}/year for your whole team.{next ? ` The price goes up $10 with every hire: the next one pays ${next}.` : ""} Then set me up in 2 minutes.</p>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>
     </div>

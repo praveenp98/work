@@ -65,9 +65,9 @@ describe("price ladder sync", () => {
     }));
     const { getPriceState } = await import("./payments");
     const s = await getPriceState({ fresh: true });
-    expect(s).toMatchObject({ sold: 6, priceCents: 10900, salesUntilNext: 4, live: true });
+    expect(s).toMatchObject({ sold: 6, priceCents: 15900, salesUntilNext: 1, live: true });
     const patch = calls.find(([, i]) => i?.method === "PATCH")!;
-    expect(JSON.parse(String(patch[1]!.body)).price.price).toBe(10900);
+    expect(JSON.parse(String(patch[1]!.body)).price.price).toBe(15900);
   });
   it("falls back to the start price without an API key", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));

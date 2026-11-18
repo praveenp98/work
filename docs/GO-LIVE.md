@@ -87,7 +87,7 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 
 
 ## 12. Switch Dodo to the yearly plan with a 3-day trial (Nov 18)
-1. Dodo (live mode) → Products → Add product → **Subscription**: name "Hire Rocco", price **$99**, billing **every 1 year**, **free trial 3 days**, tax category SaaS. Save and copy the product id (pdt_…).
+1. Dodo (live mode) → Products → Add product → **Subscription**: name "Hire Rocco", price **$99**, billing **every 1 year**, **no trial**, tax category SaaS. Save and copy the product id (pdt_…).
 2. Vercel → env `DODO_PRODUCT_ID` = that id → redeploy. (The old one-time product stays as legacy; its buyers keep lifetime access.)
 3. Dodo → Developer → Webhooks → endpoint `https://rocco.works/api/dodo/webhook`, events: all `subscription.*` and `payment.*`.
 4. Test in test mode first if possible: start a trial with a test card → your Rocco page shows "Free trial: 3 days left" and the team gets "🎉 Your 3-day free trial is on". Then text CANCEL → "Cancelled ✅".

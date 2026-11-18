@@ -55,3 +55,15 @@ Unlock: Rocco's checkout links carry metadata_ref = workspace id. The Dodo webho
 - **Reminder:** ~1 day before the trial ends: "⏰ Your free trial ends tomorrow… Reply CANCEL." CANCEL text cancels the Dodo subscription.
 - **Billing sync:** lib/billing.ts verifies every webhook with Dodo's API (subscription active → trial; payment succeeded → paid for a year; failed/expired/on_hold → access ends; cancelled → runs to period end).
 - **To verify in Dodo test mode:** trial field + card collection, metadata_ref carried onto subscriptions, PATCH status=cancelled, and whether renewals keep the original price after the ladder raises the product price (don't promise a locked price until confirmed).
+
+
+## Nov 18, 2026 (later, approved by Praveen): no trial, +$10 with every hire, email before checkout
+- **$99/year, paid up front** (no trial, no free plan). Dodo subscription product without a trial period.
+- **Ladder: +$10 after every single hire** (was every 5), cap $499 (reached at hire #41). Counts paying customers only.
+  | Hires | Last price | Revenue |
+  |---|---|---|
+  | 40 | $489 | $11,760 |
+  | 100 | $499 | $41,700 |
+  | 200 | $499 | $91,600 |
+- **Flow (like localseo.to):** Hire Rocco → sheet asks work email (the account) → Dodo checkout prefilled + tagged with the team → /welcome → their Rocco page → setup. Email confirmation link comes when Resend is added; until then the Dodo receipt confirms it.
+- Copy everywhere: "$99/year for your whole team · +$10 with every hire".
