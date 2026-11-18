@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Test workspaces on production + owner trial switch
+- Created test workspaces on rocco.works for Praveen to click through (keys in chat, not in the repo).
+- GET /api/admin/trial?t=<key>&key=<CRON_SECRET> grants a workspace a 3-day trial (no payment) to preview the full dashboard; &off=1 removes it.
+
+---
+
 ## 2026-11-18 · Yearly plan + 3-day card trial, no free plan
 - lib/access.ts (paid / trial / none), lib/billing.ts (Dodo subscription → state, verified via API), webhook rewritten, ladder counts unique paying customers, price sync keeps the recurring price object, CANCEL text, trial-ends-tomorrow reminder.
 - Gating everywhere: buildBrief (no access = all locked, teaser totals), text commands (numbers/brief/wins/YES/undo/ask → teaser + trial link), dashboard approvals, MCP tools/export/apply, analytics, morning cron (teaser max 3, no numbers), bridge push (teaser instead of numbers).
