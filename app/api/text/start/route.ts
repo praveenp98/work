@@ -17,7 +17,8 @@ export async function POST(req: Request) {
   const why = h.get("x-rocco-tap") !== "1" ? "no tap" : !fromOurSite(h, SITE.domain) ? "not from rocco.works" : looksLikeBot(h);
   if (why) return NextResponse.json({ ok: false, error: why }, { status: 403 });
   const ip = clientIp(h);
-  if (!allow(`ip:${ip}`, 4, 10 * 60_000) || !allow("site", 150, 60 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
+  // LoopMessage counts a contact on the first message sent, not on link opens, so no site-wide cap (ads must never be blocked).
+  if (!allow(`ip:${ip}`, 10, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
 
   const b = (await req.json().catch(() => ({}))) as { q?: unknown; t?: unknown; join?: unknown };
   const q = String(b.q ?? "").replace(/[\[\]<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 90);

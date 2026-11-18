@@ -50,3 +50,6 @@ Headline "I can run your Amazon business, try me." (Praveen). Slack added as a f
 
 ## 2026-11-18 · iMessage data via the Claude bridge first
 Until Amazon approves Rocco's API apps (on hold, Praveen to submit), the team's AI pulls through Amazon's connectors and Rocco pushes to iMessage/Slack. Pull triggers push; a one-tap morning link covers apps without scheduled tasks.
+
+## 2026-11-18 · One dashboard per team; approve from the web
+One Rocco = one team (solo = team of one; agencies: one per client, brand tabs inside). Dashboard approvals use the same queue as texts. No site-wide cap on opt-in taps (contacts count on first message sent).

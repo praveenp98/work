@@ -34,7 +34,7 @@ describe("LoopMessage opt-in links are only made for people", () => {
     const ok = await start(req({ "user-agent": iphone, origin: "https://rocco.works", "x-rocco-tap": "1", "x-forwarded-for": "9.9.9.9" }, { q: "my ACoS" }));
     expect(await ok.json()).toMatchObject({ ok: true, url: "https://opt-in.imsg.link/x" });
     expect(made).toBe(1);
-    for (let i = 0; i < 3; i++) await start(req({ "user-agent": iphone, origin: "https://rocco.works", "x-rocco-tap": "1", "x-forwarded-for": "9.9.9.9" }));
+    for (let i = 0; i < 9; i++) await start(req({ "user-agent": iphone, origin: "https://rocco.works", "x-rocco-tap": "1", "x-forwarded-for": "9.9.9.9" }));
     expect((await start(req({ "user-agent": iphone, origin: "https://rocco.works", "x-rocco-tap": "1", "x-forwarded-for": "9.9.9.9" }))).status).toBe(429);
   });
 });

@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Dashboard v2 + approvals from the web; ad-safe opt-in limits
+- LoopMessage counts a contact on the first message sent (Praveen), so the 150/hour site cap is gone (ads never blocked); per-visitor limit 10 per 10 min; bot/prefetch filter stays.
+- Rocco page (one per team; solo seller = team of one; agency = one Rocco per client, brand tabs for multi-brand):
+  - Before data: the 5-step setup (unchanged). After: headline "N fixes waiting, ~$X/mo." + freshness, today chips (🚨 listings, ⚠️ Buy Box, ads, sales, conversion, 📦 stock), fix cards with Approve / Approve all / Cancel (same queue as texting YES; free plan top 3, locked row → Hire), Wins card, Team card (AI connected, phones, Slack, copy invite link, text from this phone), links row (Analytics, Change log, Client report, Calendar, Setup).
+  - Change log moved to /w/KEY/log. Approvals: POST /api/w/approve.
+- Tests 121/121.
+
+---
+
 ## 2026-11-18 · Bot-proof LoopMessage contacts
 - Problem: each opened opt-in link can cost a LoopMessage contact. Raw links were in page HTML (crawlers/prefetch), generated server-side every minute on the homepage, and sent in texts/Slack (Apple/Slack link previews).
 - Now: the opt-in link is created only by POST /api/text/start on a real tap (x-rocco-tap header from our JS, same-origin, not a bot/preview/prefetch UA, 4 per visitor per 10 min, 150/hour site-wide). No page HTML contains one (verified on /, /text, /answers, /pricing).

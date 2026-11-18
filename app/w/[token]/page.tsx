@@ -1,46 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Raccoon } from "@/components/Raccoon";
-import { WinsCard } from "@/components/WinsCard";
+import { CopyLink } from "@/components/dash/CopyLink";
+import { FixCards, type FixCard } from "@/components/dash/FixCards";
+import { TextLink } from "@/components/home/TextLink";
 import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
 import { REPORT_HELP } from "@/lib/analyze";
-import { proposalLine } from "@/lib/mcp/format";
+import { getPriceState } from "@/lib/payments";
+import { hireUrl } from "@/lib/paywall";
+import { dollars } from "@/lib/pricing";
+import type { Proposal } from "@/lib/rules/types";
+import { slackConfigured } from "@/lib/slack";
 import { getStore } from "@/lib/store";
+import type { Snapshot } from "@/lib/store/types";
 import { maskPhone } from "@/lib/text/commands";
 import { textingConfigured } from "@/lib/text/provider";
-import { TextLink } from "@/components/home/TextLink";
 import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
-import { hireUrl } from "@/lib/paywall";
-import { slackConfigured } from "@/lib/slack";
-import { getPriceState } from "@/lib/payments";
-import { dollars } from "@/lib/pricing";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Your Rocco", description: "Plug in Amazon, then just ask. Your team's private Rocco page.", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Your Rocco", description: "Your team's Rocco: today's numbers, fixes to approve, wins and team.", robots: { index: false, follow: false } };
 
-const KIND: Record<string, string> = { listing_health: "Listings", sp_search_term: "Search terms", sp_campaign: "Budgets", business_report: "Business Report", inventory: "Inventory", bulk: "Structure" };
-const STATUS: Record<string, string> = { applied: "⏳ waiting", worked: "✅ worked", no_effect: "➖ no effect", worse: "⚠️ worse", not_enough_data: "⏳ more data", reverted: "↩️ reverted" };
+const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+const TITLE: Record<Proposal["kind"], string> = { negative: "Cut a money-burner", harvest: "Promote a winner to exact", bid: "Adjust a bid", budget: "Raise a budget", placement: "Tune a placement", ads_down: "Ease ads, stock is low", structure: "Clean up structure" };
+const AI_NAME = { claude: "Claude", chatgpt: "ChatGPT", claude_code: "Claude Code" } as const;
 
-export default async function Page({ params }: { params: Promise<{ token: string }> }) {
+/** One team, one Rocco. Before data: the setup steps. After: today, fixes to approve, wins, team. */
+export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string }> }) {
   const { token } = await params;
+  const sp = await searchParams;
   const store = getStore();
   if (!store) return <section className="prose"><h1>Memory isn&apos;t switched on yet</h1><p>Rocco&apos;s workspace storage isn&apos;t configured on this server.</p></section>;
   const ws = await loadWorkspace(store, token);
   if (!ws) notFound();
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
-  const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
+  const [brief, actions, price] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 }), getPriceState()]);
   const linkCode = await ensureLinkCode(store, ws);
-  const price = await getPriceState();
-  const team = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
-  const textHref = textingConfigured();
-  const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
-  const connector = `https://rocco.works/mcp/${token}`;
+  const phones = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
+  const texting = textingConfigured();
 
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
   if (empty) {
-    // Nothing plugged in yet: one job on this page. Plug in Amazon, one step at a time.
     return (
       <section className="start-page">
         <div className="start-head">
@@ -49,113 +49,90 @@ export default async function Page({ params }: { params: Promise<{ token: string
         </div>
         <StartSteps token={token} />
         <p className="start-extra">
-          {textHref && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
-          <span>Teammates: text Rocco &ldquo;invite&rdquo; to get a one-tap join link</span>
+          {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
+          <span>Teammates: share rocco.works/j/{linkCode}</span>
         </p>
         <p className="fine">Private page for your team. Anyone with the link can use it.</p>
       </section>
     );
   }
 
+  const brands = brief.perBrand.filter((b) => b.trends.length || b.open.length);
+  const b = brands.find((x) => x.brand === sp.brand) ?? brands[0] ?? brief.perBrand[0];
+  const latest = (k: string): Snapshot | undefined => b.trends.find((t) => t.kind === k)?.latest;
+  const st = latest("sp_search_term"), biz = latest("business_report"), inv = latest("inventory"), lh = latest("listing_health");
+  const lastCheck = b.trends.map((t) => t.latest.createdAt).sort().at(-1);
+  const daysOld = lastCheck ? Math.floor((Date.now() - new Date(lastCheck).getTime()) / 86_400_000) : null;
+  const chips: { k: string; v: string; alert?: boolean }[] = [];
+  if (lh && Number(lh.stats.problems) > 0) chips.push({ k: "Listings", v: `🚨 ${lh.stats.problems} not selling`, alert: true });
+  if (biz && Number(biz.stats.buyBoxLow) > 0) chips.push({ k: "Buy Box", v: `⚠️ low on ${biz.stats.buyBoxLow}`, alert: true });
+  if (st) chips.push({ k: "Ad spend", v: $(Number(st.stats.spend)) }, { k: "Ad sales", v: $(Number(st.stats.sales)) }, { k: "ACoS", v: `${Math.round(Number(st.stats.acosPct))}% · target ${Math.round(b.settings.targetAcos * 100)}%` }, { k: "Wasted", v: `${$(Number(st.stats.leakMonthly))}/mo` });
+  if (biz) chips.push({ k: "Total sales", v: $(Number(biz.stats.sales)) }, { k: "Conversion", v: `${Number(biz.stats.conversionPct).toFixed(1)}%` });
+  if (inv && Number(inv.stats.atRisk) > 0) chips.push({ k: "Stock", v: `📦 ${inv.stats.atRisk} running low`, alert: true });
+
+  const fixes: FixCard[] = [...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 12).map((p) => ({
+    code: p.code, title: TITLE[p.kind] ?? "Fix", value: p.valueMonthly,
+    target: p.kind === "budget" || p.kind === "placement" ? p.campaign : p.target,
+    reason: p.reason,
+  }));
+  const queued = (ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes);
+  const invite = `https://rocco.works/j/${linkCode}`;
+
   return (
-    <>
-      <div className="split" style={{ alignItems: "center", marginTop: 20 }}>
-        <div>
-          <span className="eyebrow">Your Rocco workspace{ws.licensed ? " · licensed" : " · free"}</span>
-          <h1 style={{ fontSize: "clamp(32px,5vw,48px)" }}>Here&apos;s what Rocco knows.</h1>
-          <p className="muted">Connector: <code className="code">{connector}</code></p>
-          <p className="row" style={{ gap: 8, margin: "10px 0" }}>
-            <a className="btn small" href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Add reminders to my calendar</a>
-            <Link className="btn ghost small" href={`/w/${token}/report`}>📄 Client report (PDF)</Link>
-            <Link className="btn small" href={`/w/${token}/analytics`}>📈 Analytics{ws.licensed ? "" : " (Pro)"}</Link>
-          </p>
-          <p className="fine">Private link. Anyone with it can see and use this workspace.{!store.persistent && " (Demo mode: memory resets when the server restarts.)"}</p>
-        </div>
-        <div className="stats" style={{ margin: 0 }}>
-          <div className="stat"><b>{brief.totals.applied}</b><span>changes logged</span></div>
-          <div className="stat"><b>{brief.totals.worked}</b><span>confirmed working</span></div>
-          <div className="stat"><b style={{ color: "var(--accent)" }}>{$(brief.saved)}</b><span>saved (measured)</span></div>
-        </div>
+    <section className="dash">
+      {brands.length > 1 && (
+        <nav className="brand-tabs" aria-label="Brands">
+          {brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}
+        </nav>
+      )}
+      <div className="dash-head">
+        <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{ws.licensed ? " · hired" : ""}</span>
+        <h1 className="dash-h1">{fixes.length ? `${fixes.length} fix${fixes.length === 1 ? "" : "es"} waiting${b.openValue ? `, ~${$(b.openValue)}/mo` : ""}.` : "All clear today."}</h1>
+        <p className="muted">{lastCheck ? `From ${daysOld === 0 ? "today's" : daysOld === 1 ? "yesterday's" : `a ${daysOld}-day-old`} check.` : ""} {daysOld && daysOld > 1 ? <>Say &ldquo;Rocco, morning check&rdquo; in your AI to refresh.</> : null}</p>
       </div>
 
-      {(brief.saved > 0 || brief.totals.worked > 0) && <div style={{ marginTop: 14 }}><WinsCard saved={brief.saved} worked={brief.totals.worked} applied={brief.totals.applied} since={ws.createdAt} /></div>}
-      <section className="card" style={{ marginTop: 18 }}>
-        <h3 style={{ marginTop: 0 }}>💬 Text Rocco from your phone (whole team)</h3>
-        <p style={{ margin: "0 0 8px" }}>{textHref ? "Tap the button on your iPhone and send the message: your phone joins this workspace automatically. Share this page with teammates so they can do the same." : <>Teammates text Rocco &ldquo;join {linkCode}&rdquo;.</>} Morning numbers, answers, and approvals with a reply.</p>
-        {textHref && <TextLink t={token} className="btn small imsg-btn">💬 Text Rocco from this phone</TextLink>}
-        {textHref && <p className="fine" style={{ margin: "6px 0 0" }}>Or text Rocco &ldquo;invite&rdquo; and forward the link he sends.</p>}
-        <p className="fine" style={{ margin: "8px 0 0" }}>{team.length ? `On this line: ${team.map((t) => maskPhone(t.phone) + (t.optedOut ? " (paused)" : "")).join(", ")}` : "No phones linked yet."}{ws.pending?.length ? ` · Waiting for your AI to apply: ${ws.pending.flatMap((p) => p.codes).join(", ")}` : ""}</p>
-      </section>
-      <details className="card" style={{ marginTop: 18 }}><summary><b>Setup steps</b> (add Rocco or Amazon to another app)</summary><div style={{ marginTop: 14 }}><StartSteps token={token} compact /></div></details>
-      <section className="card slack-card" style={{ marginTop: 14 }}>
-        <h3 style={{ marginTop: 0 }}>Rocco in Slack</h3>
-        {ws.slack
-          ? <p style={{ margin: 0 }}>Connected to <b>{ws.slack.teamName ?? "your Slack"}</b>{ws.slack.channelName ? <> · posting in <b>{ws.slack.channelName}</b></> : null}. Mention <b>@Rocco</b> or DM him: &ldquo;yes N1 N2&rdquo;, &ldquo;how&apos;s stock?&rdquo;.</p>
-          : <p style={{ margin: 0 }}>Morning numbers in your team channel, approvals with <b>@Rocco yes N1</b>. {slackConfigured() ? <a className="btn small" style={{ marginLeft: 6 }} href={`/api/slack/install?t=${token}`}>Add to Slack</a> : <span className="fine">(Slack opens soon.)</span>}</p>}
-      </section>
-      {brief.season && <p className="pill" style={{ marginTop: 18 }}>📅 {brief.season}</p>}
+      <ul className="today">{chips.map((c) => <li key={c.k} className={c.alert ? "alert" : ""}><span>{c.k}</span><b>{c.v}</b></li>)}</ul>
 
-      {brief.perBrand.map((b) => (
-        <section key={b.brand} style={{ marginTop: 40 }}>
-          <h2 style={{ marginTop: 0 }}>{b.brand} <span className="fine">target ACoS {Math.round(b.settings.targetAcos * 100)}% · breakeven {Math.round(b.settings.breakevenAcos * 100)}%{b.settings.protectedTerms?.length ? ` · protected: ${b.settings.protectedTerms.join(", ")}` : ""}</span></h2>
-          {b.trends.length ? (
-            <div className="grid">
-              {b.trends.map((t) => (
-                <div className="card" key={t.kind}>
-                  <span className="tag">{KIND[t.kind] ?? t.kind} · {t.latest.createdAt.slice(0, 10)}</span>
-                  <p style={{ margin: 0, fontWeight: 600 }}>{t.latest.headline}</p>
-                  {t.previous && <p className="fine" style={{ margin: "6px 0 0" }}>Before: {t.previous.headline}</p>}
-                </div>
-              ))}
-            </div>
-          ) : <p className="muted">No data yet. In Claude or ChatGPT, say &ldquo;Rocco, morning check&rdquo;.</p>}
-          {b.open.length > 0 && (
-            <>
-              <h3 style={{ marginTop: 22 }}>Proposed, not applied yet ({b.open.length}{b.openValue ? ` · ~${$(b.openValue)}/mo at stake` : ""})</h3>
-              <ul className="md">{[...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 12).map((p) => <li key={p.code}>{proposalLine(p).replace(/^- /, "").replace(/\*\*/g, "")}</li>)}</ul>
-            </>
-          )}
-          {b.hidden > 0 && (
-            <div className="locked-row">
-              <span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} are waiting.</span>
-              <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once</a>
-            </div>
-          )}
-          {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}. Say &ldquo;morning check&rdquo; to refresh.</p>}
-        </section>
-      ))}
-
-      <section style={{ marginTop: 48 }}>
-        <h2 style={{ marginTop: 0 }}>Change log</h2>
-        {actions.length === 0 ? <p className="muted">Nothing logged yet. Approve codes in chat (&ldquo;approve N1–N3&rdquo;) and Rocco records them here.</p> : (
-          <div className="tablewrap">
-            <table className="fixes dash-table">
-              <thead><tr><th>Applied</th><th>Code</th><th>Change</th><th>Result</th></tr></thead>
-              <tbody>
-                {actions.map((a) => (
-                  <tr key={a.id}>
-                    <td>{a.appliedAt.slice(0, 10)}<div className="fine">{a.brand}</div></td>
-                    <td><b>{a.code}</b><div className="fine">{a.id.slice(0, 8)}</div></td>
-                    <td>{proposalLine(a.proposal).replace(/^- \*\*\w+\*\* /, "").replace(/\*\*/g, "")}</td>
-                    <td><span className={`status ${a.status}`}>{STATUS[a.status]}</span><div className="fine">{a.result?.summary ?? `check after ${a.followUpAt.slice(0, 10)}`}</div></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      {!ws.licensed && (
-        <section className="band">
-          <Raccoon size={90} mood="judging" />
-          <div>
-            <h2>Unlock every fix and full tracking</h2>
-            <p>Free workspaces get the top 3 fixes per report. Hiring Rocco unlocks all of them, bulk files and full tracking for your whole team. It unlocks this workspace automatically after you pay.</p>
-            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once →</a>
-          </div>
-        </section>
+      {fixes.length > 0 && <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} />}
+      {b.hidden > 0 && (
+        <div className="locked-row">
+          <span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} unlock when you hire me.</span>
+          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once</a>
+        </div>
       )}
-    </>
+
+      <div className="dash-grid">
+        <section className="dcard">
+          <h3>Wins</h3>
+          <p className="big">{brief.saved > 0 ? `${$(brief.saved)}/mo saved` : "Keeping score"}</p>
+          <p className="fine">{brief.totals.applied ? `${brief.totals.worked} of ${brief.totals.applied} changes worked. ` : "Approve a fix and I check a week later whether it worked. "}<Link href={`/w/${token}/log`}>Change log →</Link></p>
+        </section>
+
+        <section className="dcard">
+          <h3>Team</h3>
+          <ul className="team">
+            <li>{ws.connectedAt ? `✅ ${ws.ai ? AI_NAME[ws.ai] : "Your AI"} connected` : "⏳ AI not connected yet"}</li>
+            <li>{phones.length ? `💬 ${phones.map((p) => maskPhone(p.phone) + (p.optedOut ? " (paused)" : "")).join(", ")}` : "💬 No phones yet"}</li>
+            <li>{ws.slack ? `# Slack: ${ws.slack.channelName ?? ws.slack.teamName ?? "connected"}` : slackConfigured() ? <a href={`/api/slack/install?t=${token}`}>+ Add to Slack</a> : "# Slack: soon"}</li>
+          </ul>
+          <div className="row" style={{ gap: 8, flexWrap: "wrap" }}>
+            <CopyLink value={invite} label="Copy invite link" />
+            {texting && <TextLink t={token} className="btn ghost small">💬 Text from this phone</TextLink>}
+          </div>
+        </section>
+      </div>
+
+      <nav className="dash-links" aria-label="More">
+        <Link href={`/w/${token}/analytics`}>📈 Analytics{ws.licensed ? "" : " (Pro)"}</Link>
+        <Link href={`/w/${token}/log`}>🧾 Change log</Link>
+        <Link href={`/w/${token}/report`}>📄 Client report</Link>
+        <a href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Calendar</a>
+        <details><summary>⚙️ Setup</summary><div style={{ marginTop: 12 }}><StartSteps token={token} compact /></div></details>
+      </nav>
+
+      {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
+      {brief.season && <p className="fine">📅 {brief.season}</p>}
+      <p className="fine">Private page for your team. Anyone with the link can use it.{!store.persistent && " (Demo mode: memory resets when the server restarts.)"}</p>
+    </section>
   );
 }
