@@ -41,3 +41,6 @@ Other MCPs (Amazon Seller Central/Ads, Helium 10, SellerSprite) are inputs, not 
 
 ## 2026-11-17 · Paywall only at value moments
 Never paywall the demo, setup, first numbers or top-3 fixes. Ask when money is found, when a fix worked, when a locked fix is approved, or when a 2nd teammate joins. Paying unlocks automatically (no key pasting).
+
+## 2026-11-18 · Homepage orbit = channels, not tools; no Amazon/Helium 10 logos
+The circle shows where Rocco lives (iMessage, Claude, ChatGPT, Claude Code, Cursor, Calendar) with real logos. Amazon and Helium 10 marks aren't used (Simple Icons removed Amazon at Amazon's request; avoids implying affiliation). Tools are listed by name below.

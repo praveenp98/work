@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter, Raleway } from "next/font/google";
 import Link from "next/link";
+import { ChatFab } from "@/components/home/ChatFab";
 import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 import "./connect.css";
 
-const display = Inter_Tight({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600", "700"], display: "swap" });
+const display = Raleway({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600"], display: "swap" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
@@ -36,9 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Raccoon size={34} /> <span>Rocco</span>
             </Link>
             <div className="top-right">
-              <Link href="/#text" className="chat-fab" aria-label="Text Rocco">
-                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" d="M12 3.5c-4.8 0-8.5 3.2-8.5 7.2 0 2.2 1.1 4.1 2.9 5.4l-.6 3.4 3.4-1.8c.9.2 1.8.3 2.8.3 4.8 0 8.5-3.2 8.5-7.3S16.8 3.5 12 3.5z" /></svg>
-              </Link>
+              <ChatFab />
             </div>
           </div>
         </header>

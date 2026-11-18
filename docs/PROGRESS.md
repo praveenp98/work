@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Homepage v4, matched to Boardy's screen recording
+- Studied Praveen's Boardy recording frame by frame. Matched: Raleway 500 headline in one sentence ("I can run your Amazon, try me."), small centered card (76vw, max 340px) with a soft colored glow per app, apps on a dotted circle centred below the card (45° apart, active app bottom-centre, larger, glowing; top half empty), pill + pause, "Rocco, help me with ___" box, header with small centred logo + name and the round message button that appears only after scrolling.
+- Opening animation like Boardy: grey row of app icons slides together, the card grows out of it, apps settle on the circle, then messages appear.
+- Real logos (Simple Icons, CC0): iMessage, Claude, ChatGPT/OpenAI, Cursor, Google Calendar; Claude Code drawn as a terminal tile. Amazon and Helium 10 logos deliberately not used (trademark/affiliation); tools moved below as names.
+- Scenes now show Rocco across channels doing the whole Amazon job (ads, Seller Central, suppressed listing + stock, multi-brand Claude Code check, calendar follow-up on a change, listing keyword gaps).
+- New sections: "Everything your Amazon needs, one teammate." (Ads, Seller Central, Inventory, Listings, Results, Your team) → How I work → Message me (real app logos) → I work the tools you already pay for.
+
+---
+
 ## 2026-11-17 (late) · SEO/AEO: Answers
 - /answers + 14 answer pages (lib/answers.ts): connect Seller Central / Amazon Ads to Claude & ChatGPT, Amazon Ads MCP, Helium 10 with Claude, can AI manage PPC, good ACoS, lower ACoS fast, clicks before negating, TACoS, top-of-search adjustments, suppressed listings, Buy Box, FBA restock quantity, where to find the search term report.
 - Each page: direct 40-70 word answer first (what answer engines quote), steps, FAQ, related links; FAQPage + HowTo + BreadcrumbList JSON-LD; "Ask Rocco about my account" opens Messages with the question prefilled.

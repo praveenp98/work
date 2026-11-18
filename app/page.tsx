@@ -1,6 +1,6 @@
 import { TextRoccoButton } from "@/components/home/TextRoccoButton";
 import { JsonLd } from "@/components/JsonLd";
-import { RoccoStage } from "@/components/home/RoccoStage";
+import { AppIcon, RoccoStage } from "@/components/home/RoccoStage";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
@@ -14,41 +14,58 @@ export default async function Home() {
   // Our own first message (LoopMessage needs its short code in it); falls back to the dashboard's opt-in link.
   const gen = await optInLinks({ body: "Hey Rocco 👋 Show me what you can do [opt-in-code]" }).catch(() => null);
   const optIn = gen?.url || gen?.imessage || process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
-  const apps = [
-    { label: "iMessage", href: optIn ?? "#text", glyph: "imsg" },
-    { label: "Claude", href: "/setup", glyph: "✻" },
-    { label: "ChatGPT", href: "/setup", glyph: "GPT" },
-    { label: "Claude Code", href: "/setup", glyph: ">_" },
+  const apps: { label: string; href: string; app: "imessage" | "claude" | "openai" | "claudecode" | "cursor" }[] = [
+    { label: "iMessage", href: optIn ?? "#text", app: "imessage" },
+    { label: "Claude", href: "/setup", app: "claude" },
+    { label: "ChatGPT", href: "/setup", app: "openai" },
+    { label: "Claude Code", href: "/setup", app: "claudecode" },
+    { label: "Cursor", href: "/setup", app: "cursor" },
+  ];
+  const jobs = [
+    { t: "Ads", d: "Negatives, harvests, bids, budgets and placements, every day. Capped, logged, reversible." },
+    { t: "Seller Central", d: "Sales, conversion, TACoS, Buy Box and suppressed listings, before they cost you." },
+    { t: "Inventory", d: "Stockout warnings, restock quantities, and ads eased off SKUs about to run dry." },
+    { t: "Listings", d: "Keywords your best search terms prove you're missing from titles and bullets." },
+    { t: "Results", d: "Every change checked a week later: what worked, what to undo, what you saved." },
+    { t: "Your team", d: "Everyone texts the same Rocco. Morning numbers, approvals with a YES, client reports." },
   ];
   return (
     <section className="home">
       <div className="home-hero">
-        <h1>I can run your Amazon.<br />Try me.</h1>
+        <h1>I can run your Amazon,<br />try me.</h1>
         <RoccoStage optIn={optIn} />
-        <p className="fine">Free to try · {dollars(price.priceCents)} once for life · Not affiliated with Amazon</p>
+      </div>
+
+      <div className="home-sec">
+        <h2>Everything your Amazon needs, one teammate.</h2>
+        <p className="home-lede">Ads, Seller Central, stock, listings and reports. I do the work a senior Amazon manager does, from iMessage, Claude or ChatGPT.</p>
+        <ul className="home-jobs">{jobs.map((j) => <li key={j.t}><b>{j.t}</b><span>{j.d}</span></li>)}</ul>
       </div>
 
       <div className="home-how">
         <h2>How I work.</h2>
         <ol>
           <li><b>You ask</b><span>Text me the way you&apos;d text your best Amazon manager. Or just wait for my morning numbers.</span></li>
-          <li><b>I dig in</b><span>Seller Central, Amazon Ads, Helium 10: I find the wasted spend, the stockouts and the missed keywords.</span></li>
-          <li><b>You say yes</b><span>I make the change, log it, and check a week later that it worked. Undo anytime.</span></li>
+          <li><b>I dig in</b><span>I pull your numbers through Amazon&apos;s own connectors and find the wasted spend, stockouts and missed keywords.</span></li>
+          <li><b>You say yes</b><span>Reply YES and the change is made, logged, and checked a week later. Undo anytime.</span></li>
         </ol>
       </div>
 
       <div className="home-msg" id="text">
         <h2>Message me.</h2>
-        <p className="hello-lede">Tell me what you sell and what&apos;s bugging you. Your whole team can text me.</p>
+        <p className="home-lede">Tell me what you sell and what&apos;s bugging you. Your whole team can text me.</p>
         <TextRoccoButton href={optIn} />
         <p className="home-apps-label">Or find me in your favorite app.</p>
         <div className="home-apps">
-          {apps.map((a) => <a key={a.label} href={a.href}><span className={`app-tile${a.glyph === "✻" ? " claude" : ""}`}>{a.glyph === "imsg" ? <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden><path fill="#0a84ff" d="M12 3C6.5 3 2 6.8 2 11.5c0 2.6 1.4 4.9 3.6 6.5L5 21.5l4-2.1c.9.2 1.9.3 3 .3 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" /></svg> : a.glyph}</span>{a.label}</a>)}
+          {apps.map((a) => <a key={a.label} href={a.href}><span className="app-tile"><AppIcon app={a.app} size={30} /></span>{a.label}</a>)}
         </div>
-        <div className="hello-tools" aria-label="Tools Rocco works with">
-          <span>I work the tools you already pay for</span>
-          <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "+ any connector"].map((t) => <li key={t}>{t}</li>)}</ul>
-        </div>
+      </div>
+
+      <div className="home-tools">
+        <h2>I work the tools you already pay for.</h2>
+        <p className="home-lede">I sit next to Amazon&apos;s official Seller Central and Ads connectors, and use Helium 10, SellerSprite or any other connector in the same chat.</p>
+        <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "Any MCP connector"].map((t) => <li key={t}>{t}</li>)}</ul>
+        <p className="fine">Free to try · {dollars(price.priceCents)} once for your whole team · Not affiliated with Amazon or Helium 10</p>
       </div>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />

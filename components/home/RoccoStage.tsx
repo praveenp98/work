@@ -1,128 +1,133 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { RoccoHead } from "@/components/Rocco";
+import { BRAND_ICONS, type BrandIcon } from "@/lib/brand-icons";
 
 /**
- * Boardy-style hero: one card that cycles through every place Rocco works (iMessage, Claude, ChatGPT,
- * Amazon's own connectors, Helium 10), each showing one real senior-manager move. Below it, a box that
- * types what people ask Rocco for; sending it opens Messages with that first text.
+ * Boardy-style hero stage. On load: a row of grey app icons slides into the middle, the card grows out of it,
+ * then the apps settle on a dotted circle around the card. Every ~4.5s the circle turns to the next app and the
+ * card shows Rocco doing one piece of the Amazon job there (ads, Seller Central, stock, listings, reports, team).
  */
-type Tile = { id: string; label: string; glyph: React.ReactNode; bg?: string };
-type Scene = { tile: string; head: string; sub: string; lines: { who: "me" | "rocco" | "note"; text: string }[]; pill: string; href?: string };
-
-const BUBBLE = <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden><path fill="#0a84ff" d="M12 3C6.5 3 2 6.8 2 11.5c0 2.6 1.4 4.9 3.6 6.5L5 21.5l4-2.1c.9.2 1.9.3 3 .3 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" /></svg>;
-const mono = (t: string, color: string) => <span className="tile-mono" style={{ color }}>{t}</span>;
-
-const TILES: Tile[] = [
-  { id: "imessage", label: "iMessage", glyph: BUBBLE },
-  { id: "claude", label: "Claude", glyph: <span className="tile-mono" style={{ color: "#d97757", fontSize: 34 }}>✻</span> },
-  { id: "ads", label: "Amazon Ads", glyph: mono("Ads", "#e47911") },
-  { id: "h10", label: "Helium 10", glyph: mono("H10", "#2563eb") },
-  { id: "sc", label: "Seller Central", glyph: mono("SC", "#232f3e") },
-  { id: "chatgpt", label: "ChatGPT", glyph: mono("GPT", "#10a37f") },
-];
+type Scene = { app: BrandIcon | "claudecode"; head: string; sub: string; glow: string; pill: string; href: string; lines: { me?: boolean; text: string }[] };
 
 const SCENES: Scene[] = [
-  { tile: "imessage", head: "Rocco", sub: "online", pill: "Text me on iMessage",
-    lines: [{ who: "me", text: "how'd we do yesterday?" }, { who: "rocco", text: "$4,120 sales, ACoS 24%. 2 search terms burned $63 with no sales. Reply YES N1 N2 to cut them." }] },
-  { tile: "claude", head: "Claude", sub: "with Rocco + Seller Central", pill: "Use me in Claude",
-    lines: [{ who: "me", text: "Rocco, morning check" }, { who: "rocco", text: "Pulled Ads + Seller Central. 7 fixes worth ~$1,240/mo. Nothing changes until you approve." }] },
-  { tile: "ads", head: "Amazon Ads", sub: "change applied", pill: "I make the changes you approve",
-    lines: [{ who: "note", text: "✅ B3 · bid $1.20 → $0.96 on “bamboo cutting board”" }, { who: "rocco", text: "Done. I'll check Monday if it worked, and undo it if it didn't." }] },
-  { tile: "h10", head: "Helium 10", sub: "checked before cutting", pill: "I work the tools you pay for",
-    lines: [{ who: "me", text: "cut “cutting board set”?" }, { who: "rocco", text: "Not that one: you rank #4 organically and it's 38K searches/mo. Cutting “plastic chopping mat” instead." }] },
-  { tile: "sc", head: "Seller Central", sub: "stock watch", pill: "I watch stock while you sleep",
-    lines: [{ who: "rocco", text: "📦 Kitchen Set Blue runs out in 9 days. Send 340 units this week to stay in stock for Black Friday." }, { who: "me", text: "do it" }] },
-  { tile: "chatgpt", head: "ChatGPT", sub: "with Rocco", pill: "Use me in ChatGPT",
-    lines: [{ who: "me", text: "why did ACoS jump on Tuesday?" }, { who: "rocco", text: "Top-of-search went +50% Tuesday and doubled CPC. Undo P2?" }] },
+  { app: "imessage", head: "Rocco", sub: "online", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
+    lines: [{ me: true, text: "how'd we do yesterday?" }, { text: "$4,120 sales, ACoS 24%. 2 search terms burned $63 with no sales. Reply YES N1 N2 to cut them." }] },
+  { app: "claude", head: "Claude", sub: "with Rocco + Seller Central", glow: "#d97757", pill: "Use me in Claude", href: "/setup",
+    lines: [{ me: true, text: "Rocco, morning check" }, { text: "Checked Ads and Seller Central. 7 fixes worth ~$1,240/mo. Nothing changes until you approve." }] },
+  { app: "openai", head: "ChatGPT", sub: "with Rocco", glow: "#10a37f", pill: "Use me in ChatGPT", href: "/setup",
+    lines: [{ me: true, text: "why did ACoS jump on Tuesday?" }, { text: "Top-of-search went +50% and doubled your CPC. Undo P2?" }] },
+  { app: "imessage", head: "Rocco", sub: "online", glow: "#2f7cf6", pill: "I watch stock and listings", href: "#text",
+    lines: [{ text: "🚨 Bamboo Board S is suppressed (main image background). Kitchen Set Blue runs out in 9 days: send 340 units." }, { me: true, text: "on it, thanks" }] },
+  { app: "claudecode", head: "Claude Code", sub: "/morning-check", glow: "#1c2433", pill: "Run me in Claude Code", href: "/setup",
+    lines: [{ me: true, text: "/morning-check all brands" }, { text: "5 brands checked. 1 Buy Box drop, 2 listings down, 11 fixes ready. Client report saved." }] },
+  { app: "calendar", head: "Calendar", sub: "Rocco follow-up", glow: "#4285f4", pill: "I check if every change worked", href: "#text",
+    lines: [{ text: "📅 Mon 9:00 · Did B3 work?" }, { text: "Yes ✅ Lower bid on “bamboo board” saved $86/mo, sales held." }] },
+  { app: "cursor", head: "Cursor", sub: "with Rocco", glow: "#6b7280", pill: "Or any AI app with connectors", href: "/setup",
+    lines: [{ me: true, text: "which listings miss keywords?" }, { text: "3 of your best converting search terms aren't in the Large board's title. Want the new title?" }] },
 ];
 
-const ASKS = ["my wasted ad spend", "restock before Q4", "my Black Friday plan", "why ACoS jumped", "all 5 of my brands", "my weekly client report"];
+const APPS: (BrandIcon | "claudecode")[] = ["imessage", "claude", "openai", "claudecode", "calendar", "cursor"];
+const ASKS = ["my wasted ad spend", "restock before Q4", "a suppressed listing", "why ACoS jumped", "all 5 of my brands", "my weekly client report"];
+
+export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; size?: number }) {
+  if (app === "claudecode") {
+    return <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden><rect width="24" height="24" rx="6" fill="#1c2433" /><path d="M6.5 8.5 10 12l-3.5 3.5M12 16h5.5" fill="none" stroke="#f0eee9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+  }
+  const b = BRAND_ICONS[app];
+  return <svg viewBox="0 0 24 24" width={size} height={size} aria-label={b.title} role="img"><path d={b.path} fill={b.hex} /></svg>;
+}
+
+const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : a === "openai" ? "ChatGPT" : BRAND_ICONS[a].title);
 
 export function RoccoStage({ optIn }: { optIn?: string }) {
+  const [phase, setPhase] = useState(0); // 0 row, 1 gather, 2 card, 3 live
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const [typed, setTyped] = useState("");
   const [own, setOwn] = useState(false);
   const [busy, setBusy] = useState(false);
-  const input = useRef<HTMLInputElement>(null);
+  const reduced = useRef(false);
 
   useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setI((x) => (x + 1) % SCENES.length), 3800);
-    return () => clearInterval(t);
-  }, [paused]);
+    reduced.current = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    if (reduced.current) { setPhase(3); return; }
+    const t = [setTimeout(() => setPhase(1), 900), setTimeout(() => setPhase(2), 1500), setTimeout(() => setPhase(3), 2200)];
+    return () => t.forEach(clearTimeout);
+  }, []);
 
-  // Typewriter for the ask box until the visitor types their own.
+  useEffect(() => {
+    if (paused || phase < 3) return;
+    const t = setInterval(() => setI((x) => (x + 1) % SCENES.length), 4500);
+    return () => clearInterval(t);
+  }, [paused, phase]);
+
   useEffect(() => {
     if (own) return;
     let k = 0, pos = 0, dir = 1;
     const t = setInterval(() => {
       const w = ASKS[k];
       pos += dir;
-      if (pos > w.length + 12) dir = -1;
+      if (pos > w.length + 14) dir = -1;
       if (pos <= 0) { dir = 1; k = (k + 1) % ASKS.length; }
       setTyped(w.slice(0, Math.max(0, Math.min(pos, w.length))));
-    }, 70);
+    }, 75);
     return () => clearInterval(t);
   }, [own]);
 
   const s = SCENES[i];
-  const activeTile = TILES.findIndex((t) => t.id === s.tile);
-  const href = (sc: Scene) => (sc.tile === "imessage" ? optIn : "/setup");
+  const active = APPS.indexOf(s.app);
+  const href = (sc: Scene) => (sc.href === "#text" ? optIn ?? "#text" : sc.href);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
-    const q = own ? typed : ASKS[0];
     setBusy(true);
-    const d = await fetch("/api/text/start", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ q }) }).then((r) => r.json()).catch(() => null);
+    const d = await fetch("/api/text/start", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ q: own ? typed : ASKS[0] }) }).then((r) => r.json()).catch(() => null);
     setBusy(false);
-    const url = d?.url || optIn;
-    if (url) window.location.href = url; else window.location.href = "/setup";
+    window.location.href = d?.url || optIn || "/setup";
   }
 
   return (
-    <div className="stage">
-      <div className="stage-card" key={i} aria-live="polite">
-        <div className="stage-head">
-          {s.tile === "imessage" || s.tile === "sc" || s.tile === "ads"
-            ? <span className="stage-av"><svg width="30" height="25" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id={`st${i}`} /></svg></span>
-            : <span className="stage-av tile-sm">{TILES[activeTile].glyph}</span>}
-          <div><b>{s.head}</b><span className={s.sub === "online" ? "on" : ""}>{s.sub}</span></div>
-          <span className="stage-badge">{TILES[activeTile].glyph}</span>
+    <div className={`bstage p${phase}`} style={{ ["--glow" as string]: s.glow }}>
+      <div className="bstage-area">
+        <div className="bstage-glow" aria-hidden />
+        <div className="bstage-ring" aria-hidden />
+        {/* Opening: grey row of apps that gathers into the middle */}
+        <div className="bstage-row" aria-hidden>{[...APPS, ...APPS.slice(0, 2)].map((a, k) => <span key={k} style={{ ["--k" as string]: k - 3.5 }}><AppIcon app={a} size={14} /></span>)}</div>
+        <div className="bstage-card" key={phase >= 3 ? i : "intro"} aria-live="polite">
+          <div className="bstage-head">
+            <span className="bstage-av">{s.app === "imessage" ? <svg width="26" height="22" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id={`bs${i}`} /></svg> : <AppIcon app={s.app} size={20} />}</span>
+            <div><b>{s.head}</b><small className={s.sub === "online" ? "on" : ""}>{s.sub}</small></div>
+            <span className="bstage-badge"><AppIcon app={s.app} size={18} /></span>
+          </div>
+          <div className="bstage-body">
+            {phase >= 3 && s.lines.map((l, k) => <div key={k} className={`bl${l.me ? " me" : ""}`} style={{ animationDelay: `${0.35 + k * 0.9}s` }}><span>{l.text}</span></div>)}
+          </div>
         </div>
-        <div className="stage-body">
-          {s.lines.map((l, k) => (
-            <div key={k} className={`stage-line ${l.who}`} style={{ animationDelay: `${0.25 + k * 0.7}s` }}><span>{l.text}</span></div>
-          ))}
-        </div>
-      </div>
-
-      <div className="orbit" aria-hidden>
-        {TILES.map((t, k) => {
-          const off = ((k - activeTile + TILES.length + 2) % TILES.length) - 2; // -2..3, active at 0
-          const x = off * 70, y = Math.abs(off) * 14 - (off === 0 ? 8 : 0);
+        {APPS.map((a, k) => {
+          const off = ((k - active + APPS.length + 3) % APPS.length) - 3; // -3..2, 0 = bottom center
+          const ang = (90 + off * 45) * (Math.PI / 180);
           return (
-            <button key={t.id} tabIndex={-1} className={`orbit-tile${off === 0 ? " on" : ""}`} style={{ transform: `translate(${x}px, ${y}px) scale(${off === 0 ? 1.18 : 0.86})`, opacity: Math.abs(off) > 2 ? 0 : 1 }}
-              onClick={() => { const n = SCENES.findIndex((sc) => sc.tile === t.id); if (n >= 0) { setI(n); setPaused(true); } }}>
-              {t.glyph}
+            <button key={a} type="button" className={`bstage-app${off === 0 ? " on" : ""}${Math.abs(off) > 2 ? " hide" : ""}`} aria-label={appName(a)}
+              style={{ ["--x" as string]: `${Math.cos(ang) * 1}`, ["--y" as string]: `${Math.sin(ang) * 1}` }}
+              onClick={() => { const n = SCENES.findIndex((sc) => sc.app === a); if (n >= 0) { setI(n); setPaused(true); } }}>
+              <AppIcon app={a} size={off === 0 ? 30 : 24} />
             </button>
           );
         })}
       </div>
 
-      <div className="stage-pillrow">
-        {href(s) ? (s.tile === "imessage" ? <a className="stage-pill" href={href(s)}><span className="tile-sm">{TILES[activeTile].glyph}</span>{s.pill}</a>
-          : <Link className="stage-pill" href="/setup"><span className="tile-sm">{TILES[activeTile].glyph}</span>{s.pill}</Link>)
-          : <span className="stage-pill"><span className="tile-sm">{TILES[activeTile].glyph}</span>{s.pill}</span>}
-        <button className="stage-pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? "Play" : "Pause"}>{paused ? "▷" : "❚❚"}</button>
+      <div className="bstage-pillrow">
+        <a className="bstage-pill" href={href(s)}><span><AppIcon app={s.app} size={16} /></span>{s.pill}</a>
+        <button className="bstage-pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? "Play" : "Pause"}>{paused ? "▷" : "❚❚"}</button>
       </div>
 
-      <form className="askbox" onSubmit={send}>
+      <form className="bask" onSubmit={send}>
         <label htmlFor="ask">Rocco, help me with</label>
-        <input id="ask" ref={input} value={typed} onFocus={() => { if (!own) { setOwn(true); setTyped(""); } }} onChange={(e) => { setOwn(true); setTyped(e.target.value); }} placeholder="my wasted ad spend" autoComplete="off" />
-        <button aria-label="Text Rocco" disabled={busy}>{busy ? "…" : "↑"}</button>
+        <input id="ask" value={typed} onFocus={() => { if (!own) { setOwn(true); setTyped(""); } }} onChange={(e) => { setOwn(true); setTyped(e.target.value); }} placeholder="my wasted ad spend" autoComplete="off" />
+        <button aria-label="Text Rocco" disabled={busy}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
       </form>
     </div>
   );
