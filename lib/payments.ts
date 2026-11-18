@@ -19,9 +19,9 @@ export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
 /** The live product: set DODO_PRODUCT_ID to the $99/year subscription with the 3-day trial. */
 export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
 
-export function checkoutUrl(opts: { email?: string; ref?: string } = {}): string | null {
+export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string } = {}): string | null {
   if (!PRODUCT_ID || !/^pdt_[A-Za-z0-9]+$/.test(PRODUCT_ID)) return null;
-  const q = new URLSearchParams({ quantity: "1", redirect_url: `${SITE.url}/thanks` });
+  const q = new URLSearchParams({ quantity: "1", redirect_url: opts.redirect ?? `${SITE.url}/thanks` });
   if (opts.email) q.set("email", opts.email);
   if (opts.ref) q.set("metadata_ref", opts.ref);
   return `${CHECKOUT_BASE}/buy/${PRODUCT_ID}?${q.toString()}`;

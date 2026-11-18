@@ -29,7 +29,7 @@ const TITLE: Record<Proposal["kind"], string> = { negative: "Cut a money-burner"
 const AI_NAME = { claude: "Claude", chatgpt: "ChatGPT", claude_code: "Claude Code" } as const;
 
 /** One team, one Rocco. Before data: the setup steps. After: today, fixes to approve, wins, team. */
-export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string }> }) {
+export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string; welcome?: string }> }) {
   const { token } = await params;
   const sp = await searchParams;
   const store = getStore();
@@ -54,7 +54,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
-        <StartSteps token={token} trial={trial} />
+        {sp.welcome && <p className="trial-note">🎉 You&apos;re in. {access === "none" ? "Your trial turns on in a moment (refresh if this page still shows the offer)." : "Your trial is on."} Three steps and I&apos;m working.</p>}
+        <StartSteps token={token} trial={sp.welcome ? undefined : trial} />
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: share rocco.works/j/{linkCode}</span>

@@ -6,9 +6,10 @@ import { RoccoHead } from "@/components/Rocco";
  * Boardy-style bottom sheet: "Start your 3-day free trial". Opens when `open` turns true (after the setup steps),
  * closable with "Maybe later". No free plan, so this is the gate to using Rocco.
  */
-export function TrialSheet({ url, price, open, found, onClose }: { url: string; price: string; open: boolean; found?: string; onClose?: () => void }) {
+export function TrialSheet({ url, price, open, found, onClose, onStart }: { url?: string; price: string; open: boolean; found?: string; onClose?: () => void; onStart?: () => Promise<void> }) {
   const [show, setShow] = useState(false);
-  useEffect(() => { if (open) setShow(true); }, [open]);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { setShow(open); }, [open]);
   if (!show) return null;
   const close = () => { setShow(false); onClose?.(); };
   return (
@@ -26,7 +27,9 @@ export function TrialSheet({ url, price, open, found, onClose }: { url: string; 
           <li>Morning numbers by text and Slack, for the whole team</li>
           <li>I check every change a week later and keep score</li>
         </ul>
-        <a className="btn sheet-btn" href={url}>Start my 3-day free trial</a>
+        {onStart
+          ? <button className="btn sheet-btn" disabled={busy} onClick={async () => { setBusy(true); await onStart(); }}>{busy ? "Opening checkout…" : "Start my 3-day free trial"}</button>
+          : <a className="btn sheet-btn" href={url}>Start my 3-day free trial</a>}
         <p className="fine">Then {price}/year for your whole team. I&apos;ll text you before you&apos;re charged. Reply CANCEL anytime.</p>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>

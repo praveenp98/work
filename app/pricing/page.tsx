@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
+import { HireButton } from "@/components/home/HireButton";
 import { RoccoHead } from "@/components/Rocco";
 import { checkoutUrl, getPriceState } from "@/lib/payments";
 import { dollars, LADDER } from "@/lib/pricing";
@@ -42,7 +43,7 @@ export default async function Page() {
         )}
         <p className="fine" style={{ margin: "0 0 14px" }}>You&apos;d be hire #{s.founderNumber}. The price rises {dollars(LADDER.stepCents)} every {LADDER.every} hires until {dollars(LADDER.capCents)}, automatically.</p>
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
-        {url ? <a className="btn imsg-btn hire-btn" href={url}>Start my 3-day free trial</a> : <span className="btn ghost">Checkout opens soon</span>}
+        {url ? <HireButton price={dollars(s.priceCents)} label="Start my 3-day free trial" className="btn imsg-btn hire-btn" direct /> : <span className="btn ghost">Checkout opens soon</span>}
         <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Reminder before you're charged · Reply CANCEL anytime</p>
       </div>
       <p className="fine">Want to see me work first? <Link href="/">Text me</Link> and I&apos;ll show you a demo brand&apos;s morning.</p>

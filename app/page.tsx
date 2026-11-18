@@ -1,4 +1,6 @@
 import { TextRoccoButton } from "@/components/home/TextRoccoButton";
+import { HireButton } from "@/components/home/HireButton";
+import { ApprovalFeed } from "@/components/home/ApprovalFeed";
 import { JsonLd } from "@/components/JsonLd";
 import { AppIcon, RoccoStage } from "@/components/home/RoccoStage";
 import { getPriceState } from "@/lib/payments";
@@ -30,7 +32,14 @@ export default async function Home() {
     <section className="home">
       <div className="home-hero">
         <h1>I can run your Amazon<br />business, try me.</h1>
-        <RoccoStage />
+        <RoccoStage price={dollars(price.priceCents)} />
+      </div>
+
+      <div className="home-feed">
+        <h2>Watch me work.</h2>
+        <p className="home-lede">Stock, ads, listings, budgets, reports. Your team approves with a reply; I do the rest.</p>
+        <ApprovalFeed />
+        <HireButton price={dollars(price.priceCents)} label="Hire Rocco · 3-day free trial" />
       </div>
 
       <div className="home-flow">
@@ -58,9 +67,10 @@ export default async function Home() {
       </div>
 
       <div className="home-msg" id="text">
-        <h2>Message me.</h2>
-        <p className="home-lede">Tell me what you sell and what&apos;s bugging you. Your whole team can text me.</p>
-        <TextRoccoButton />
+        <h2>Hire me.</h2>
+        <p className="home-lede">3 days free, then one plan for your whole team. Or text me first and I&apos;ll show you a sample brand&apos;s morning.</p>
+        <HireButton price={dollars(price.priceCents)} label="Hire Rocco · 3-day free trial" />
+        <TextRoccoButton label="💬 Or text me first" />
         <p className="home-apps-label">Or find me in your favorite app.</p>
         <div className="home-apps">
           {apps.map((a) => <a key={a.label} href={a.href} rel={a.href === "/text" ? "nofollow" : undefined}><span className="app-tile"><AppIcon app={a.app} size={30} /></span>{a.label}</a>)}

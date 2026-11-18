@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { RoccoHead } from "@/components/Rocco";
 import { startText } from "@/lib/client/startText";
+import { HireButton } from "@/components/home/HireButton";
 import { BRAND_ICONS, type BrandIcon } from "@/lib/brand-icons";
 
 /**
@@ -43,7 +44,7 @@ export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; siz
 
 const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : a === "openai" ? "ChatGPT" : BRAND_ICONS[a].title);
 
-export function RoccoStage() {
+export function RoccoStage({ price = "$99" }: { price?: string }) {
   const [phase, setPhase] = useState(0); // 0 row, 1 gather, 2 card, 3 live
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -124,13 +125,10 @@ export function RoccoStage() {
         <a className="bstage-pill" href={href(s)} rel={s.href === "#text" ? "nofollow" : undefined} onClick={async (ev) => { if (s.href !== "#text") return; ev.preventDefault(); if (!(await startText())) window.location.href = "/text?closed=1"; }}><span><AppIcon app={s.app} size={16} /></span>{s.pill}</a>
       </div>
 
-      <form className="bask" onSubmit={send}>
-        <label htmlFor="ask">Rocco, help me with</label>
-        <input id="ask" value={typed} onFocus={() => { if (!own) { setOwn(true); setTyped(""); } }} onChange={(e) => { setOwn(true); setTyped(e.target.value); }} placeholder="my wasted ad spend" autoComplete="off" />
-        <button aria-label="Text Rocco" disabled={busy}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        </button>
-      </form>
+      <div className="hero-cta">
+        <HireButton price={price} label="Hire Rocco" className="btn hire-cta" />
+        <span className="fine">3-day free trial · then {price}/year for your whole team</span>
+      </div>
     </div>
   );
 }

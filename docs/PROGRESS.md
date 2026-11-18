@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Hire-first homepage + "Watch me work" feed
+- Main CTA is now **Hire Rocco** (hero, "Hire me." section, pricing). Tap → Boardy bottom sheet (3-day free trial, then $99/year, cancel anytime) → POST /api/hire (human-gated) creates the team's Rocco (or reuses this browser's), sets the sealed rocco_team cookie, returns the Dodo checkout tagged with the team (metadata_ref = workspace id, redirect /welcome; the key never goes to Dodo) → /welcome opens their Rocco page with "🎉 You're in" + setup.
+- Texting stays as the secondary option ("Text me on iMessage" pill, "Or text me first").
+- Below the fold: "Watch me work." animated approvals feed (stock sends, cuts, bid moves, suppressed listing, budget moves, result checks, client reports, by teammates via iMessage/Slack/Claude/ChatGPT), labeled as a sample brand.
+- Tests 123/123.
+
+---
+
 ## 2026-11-18 · Real connect test (Praveen): sign-in + Amazon "primary user" gate
 - Found: (1) the private-key connector link makes Claude show "No sign-in … anyone with the URL can use this connector": scary. (2) Amazon Selling Partner connector requires the account's primary user to enable AI agents (Settings → Manage Agents) before secondary users can connect.
 - Fixed (1): setup now always hands out https://rocco.works/mcp/login (OAuth). Opening your Rocco page remembers the team in that browser (sealed httpOnly cookie via /api/w/remember); Rocco's Connect page then offers "Connect Claude to <your team>" (or "Start a new Rocco instead"). Verified end to end locally: token returned = the remembered team.
