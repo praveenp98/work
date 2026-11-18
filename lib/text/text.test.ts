@@ -48,7 +48,7 @@ describe("Text Rocco: brand-new number", () => {
     expect(nums.bubbles[1]).toBe(link);
     expect((await respond(store, "+14085550123", "yes N1", now)).bubbles[0]).toMatch(/That's the move/);
     expect((await respond(store, "+14085550123", "link", now)).bubbles[1]).toBe(link);
-    expect(await handleInbound(store, "+14085550123", "invite", now)).toMatch(/join [A-Z2-9]{6}/); // dry run: no LoopMessage key
+    expect(await handleInbound(store, "+14085550123", "invite", now)).toMatch(/https:\/\/rocco\.works\/j\/[A-Z2-9]{6}$/); // our invite page, never a raw opt-in link
     expect((await store.listPhones({})).length).toBe(1);
     vi.unstubAllEnvs();
   });

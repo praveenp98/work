@@ -9,7 +9,6 @@ import { setupHelp } from "./setup";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { paywall } from "../paywall";
 import { later, onFreshCheck } from "../notify";
-import { optInLinks } from "../text/provider";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
 import { getStore } from "../store";
@@ -57,11 +56,10 @@ function pendingNote(pending?: { type: "apply" | "undo"; codes: string[]; by: st
 export function registerMemoryTools(server: McpServer, { store, ws, token }: McpContext) {
   /** Until someone on the team texts Rocco: a one-tap link that joins their phone to this workspace. */
   async function textMe(): Promise<string> {
-    if ((await store.listPhones({ workspaceId: ws.id })).length) return "";
-    const l = await optInLinks({ link: await ensureLinkCode(store, ws), body: "Hi Rocco 👋 it's me [opt-in-code]" }).catch(() => null);
-    const url = l?.url ?? l?.imessage;
-    return url ? `\n\n📱 **Get these numbers by text every morning:** ${url} (tap on your iPhone, send the message: your phone joins this Rocco).` : "";
+    if ((await store.listPhones({ workspaceId: ws.id })).some((p) => p.phone.startsWith("+"))) return "";
+    return `\n\n📱 **Get these numbers by text every morning:** ${SITE.url}/j/${await ensureLinkCode(store, ws)} (open on your iPhone, tap, send: your phone joins this Rocco).`;
   }
+
 
   /** Paywall line for the chat, only at a value moment (see lib/paywall). Empty otherwise. */
   async function offer(prefer?: { worked?: { id: string; saved?: number } }): Promise<string> {

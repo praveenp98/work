@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { RoccoHead } from "@/components/Rocco";
+import { startText } from "@/lib/client/startText";
 import { BRAND_ICONS, type BrandIcon } from "@/lib/brand-icons";
 
 /**
@@ -42,7 +43,7 @@ export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; siz
 
 const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : a === "openai" ? "ChatGPT" : BRAND_ICONS[a].title);
 
-export function RoccoStage({ optIn }: { optIn?: string }) {
+export function RoccoStage() {
   const [phase, setPhase] = useState(0); // 0 row, 1 gather, 2 card, 3 live
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -79,14 +80,14 @@ export function RoccoStage({ optIn }: { optIn?: string }) {
 
   const s = SCENES[i];
   const active = APPS.indexOf(s.app);
-  const href = (sc: Scene) => (sc.href === "#text" ? optIn ?? "#text" : sc.href);
+  const href = (sc: Scene) => (sc.href === "#text" ? "/text" : sc.href);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const d = await fetch("/api/text/start", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ q: own ? typed : ASKS[0] }) }).then((r) => r.json()).catch(() => null);
+    const ok = await startText({ q: own ? typed : ASKS[0] });
     setBusy(false);
-    window.location.href = d?.url || optIn || "/setup";
+    if (!ok) window.location.href = "/text?closed=1";
   }
 
   return (
@@ -120,7 +121,7 @@ export function RoccoStage({ optIn }: { optIn?: string }) {
       </div>
 
       <div className="bstage-pillrow">
-        <a className="bstage-pill" href={href(s)}><span><AppIcon app={s.app} size={16} /></span>{s.pill}</a>
+        <a className="bstage-pill" href={href(s)} rel={s.href === "#text" ? "nofollow" : undefined} onClick={async (ev) => { if (s.href !== "#text") return; ev.preventDefault(); if (!(await startText())) window.location.href = "/text?closed=1"; }}><span><AppIcon app={s.app} size={16} /></span>{s.pill}</a>
       </div>
 
       <form className="bask" onSubmit={send}>

@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Bot-proof LoopMessage contacts
+- Problem: each opened opt-in link can cost a LoopMessage contact. Raw links were in page HTML (crawlers/prefetch), generated server-side every minute on the homepage, and sent in texts/Slack (Apple/Slack link previews).
+- Now: the opt-in link is created only by POST /api/text/start on a real tap (x-rocco-tap header from our JS, same-origin, not a bot/preview/prefetch UA, 4 per visitor per 10 min, 150/hour site-wide). No page HTML contains one (verified on /, /text, /answers, /pricing).
+- Buttons (homepage, hero pill, ask box, app grid, answers, Rocco page) use startText(); no-JS fallback /text. Invites and the Claude "get it by text" line now point to rocco.works/j/CODE (our page, safe for link previews); the teammate taps there.
+- robots.txt disallows /text, /j/, /oauth/ too. Tests 120/120.
+
+---
+
 ## 2026-11-18 · Claude bridge: connect once, Rocco texts the team
 - iMessage/Slack onboarding ends with one link: "Let's turn me on for your Amazon. Connect once in Claude or ChatGPT, 2 minutes" → the step-by-step page (now 5 steps: AI → add Rocco → Seller Central → first check → Make it daily).
 - Make it daily: scheduled task "Rocco, morning check" where the AI app supports it; Claude Code gets the cron line; otherwise Rocco's morning text is a one-tap link that opens Claude/ChatGPT with the prompt typed (AI choice saved via /api/workspace/prefs).

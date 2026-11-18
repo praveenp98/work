@@ -9,7 +9,8 @@ import { REPORT_HELP } from "@/lib/analyze";
 import { proposalLine } from "@/lib/mcp/format";
 import { getStore } from "@/lib/store";
 import { maskPhone } from "@/lib/text/commands";
-import { optInLinks } from "@/lib/text/provider";
+import { textingConfigured } from "@/lib/text/provider";
+import { TextLink } from "@/components/home/TextLink";
 import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
 import { hireUrl } from "@/lib/paywall";
 import { slackConfigured } from "@/lib/slack";
@@ -33,8 +34,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const linkCode = await ensureLinkCode(store, ws);
   const price = await getPriceState();
   const team = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
-  const personal = await optInLinks({ link: linkCode, body: `Hi Rocco, it's me 👋 [opt-in-code]` });
-  const textHref = personal?.url ?? personal?.imessage;
+  const textHref = textingConfigured();
   const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
   const connector = `https://rocco.works/mcp/${token}`;
 
@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
         </div>
         <StartSteps token={token} />
         <p className="start-extra">
-          {textHref && <a href={textHref}>💬 Text Rocco from this phone</a>}
+          {textHref && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: text Rocco &ldquo;invite&rdquo; to get a one-tap join link</span>
         </p>
         <p className="fine">Private page for your team. Anyone with the link can use it.</p>
@@ -82,7 +82,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
       <section className="card" style={{ marginTop: 18 }}>
         <h3 style={{ marginTop: 0 }}>💬 Text Rocco from your phone (whole team)</h3>
         <p style={{ margin: "0 0 8px" }}>{textHref ? "Tap the button on your iPhone and send the message: your phone joins this workspace automatically. Share this page with teammates so they can do the same." : <>Teammates text Rocco &ldquo;join {linkCode}&rdquo;.</>} Morning numbers, answers, and approvals with a reply.</p>
-        {textHref && <a className="btn small imsg-btn" style={{ fontSize: 15, padding: "9px 16px" }} href={textHref}>💬 Text Rocco from this phone</a>}
+        {textHref && <TextLink t={token} className="btn small imsg-btn">💬 Text Rocco from this phone</TextLink>}
         {textHref && <p className="fine" style={{ margin: "6px 0 0" }}>Or text Rocco &ldquo;invite&rdquo; and forward the link he sends.</p>}
         <p className="fine" style={{ margin: "8px 0 0" }}>{team.length ? `On this line: ${team.map((t) => maskPhone(t.phone) + (t.optedOut ? " (paused)" : "")).join(", ")}` : "No phones linked yet."}{ws.pending?.length ? ` · Waiting for your AI to apply: ${ws.pending.flatMap((p) => p.codes).join(", ")}` : ""}</p>
       </section>

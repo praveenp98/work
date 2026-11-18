@@ -5,7 +5,6 @@ import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes
 import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
-import { optInLinks } from "./provider";
 import { paywall, type Moment } from "../paywall";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { demoMorning } from "../demo";
@@ -27,11 +26,8 @@ function firstName(t: string): string | null {
 /** A teammate invite: a link that opens Messages with a ready first text, so they join with one tap. */
 async function inviteReply(store: Store, ws: Workspace): Promise<Reply> {
   const code = await ensureLinkCode(store, ws);
-  const l = await optInLinks({ link: code, body: "Hi Rocco 👋 I'm joining my team [opt-in-code]" });
-  const url = l?.url ?? l?.imessage;
-  return url
-    ? { bubbles: ["Send this to a teammate. One tap and they're on your Rocco 👇", url] }
-    : { bubbles: [`Have your teammate text me: join ${code}`] };
+  // Our own invite page: link previews never touch a LoopMessage opt-in link (each one can cost a contact).
+  return { bubbles: ["Send this to a teammate. One tap and they're on your Rocco 👇", `https://rocco.works/j/${code}`] };
 }
 
 /**
