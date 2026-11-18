@@ -36,6 +36,15 @@ export default async function Home() {
         <RoccoStage optIn={optIn} />
       </div>
 
+      <div className="home-flow">
+        <h2>How it fits together.</h2>
+        <ol className="flow">
+          <li><span className="flow-k">Your data</span><b>Amazon&apos;s own connectors</b><small>Seller Central and Amazon Ads, signed in with your Amazon login. No scraping, no passwords shared.</small></li>
+          <li><span className="flow-k">The manager</span><b>Rocco</b><small>Decides what to change, remembers every change, checks a week later if it worked.</small></li>
+          <li><span className="flow-k">Where you talk</span><b>iMessage, Claude, ChatGPT</b><small>Same Rocco, same memory, whole team. You reply YES, nothing changes without it.</small></li>
+        </ol>
+      </div>
+
       <div className="home-sec">
         <h2>Everything your Amazon needs, one teammate.</h2>
         <p className="home-lede">Ads, Seller Central, stock, listings and reports. I do the work a senior Amazon manager does, from iMessage, Claude or ChatGPT.</p>

@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Hero v5 + iMessage data plan
+- Hero: smaller card (68vw, max 290px), all apps on the lower half of the circle under the card, smaller pill, pause button removed, consistent labels ("Rocco + Amazon's connectors" everywhere; iMessage "online · Amazon connected").
+- New "How it fits together." strip: Amazon's own connectors (your data) → Rocco (the manager) → iMessage/Claude/ChatGPT (where you talk).
+- docs/IMESSAGE-DATA-PLAN.md: how iMessage gets real Amazon data (direct Amazon API connection, Claude scheduled bridge, texted reports, forwarded report emails) + the Claude tool-use layer for texts. Recommendation awaiting Praveen's go.
+
+---
+
 ## 2026-11-18 · Homepage v4, matched to Boardy's screen recording
 - Studied Praveen's Boardy recording frame by frame. Matched: Raleway 500 headline in one sentence ("I can run your Amazon, try me."), small centered card (76vw, max 340px) with a soft colored glow per app, apps on a dotted circle centred below the card (45° apart, active app bottom-centre, larger, glowing; top half empty), pill + pause, "Rocco, help me with ___" box, header with small centred logo + name and the round message button that appears only after scrolling.
 - Opening animation like Boardy: grey row of app icons slides together, the card grows out of it, apps settle on the circle, then messages appear.

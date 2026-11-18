@@ -11,19 +11,19 @@ import { BRAND_ICONS, type BrandIcon } from "@/lib/brand-icons";
 type Scene = { app: BrandIcon | "claudecode"; head: string; sub: string; glow: string; pill: string; href: string; lines: { me?: boolean; text: string }[] };
 
 const SCENES: Scene[] = [
-  { app: "imessage", head: "Rocco", sub: "online", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
+  { app: "imessage", head: "Rocco", sub: "online · Amazon connected", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
     lines: [{ me: true, text: "how'd we do yesterday?" }, { text: "$4,120 sales, ACoS 24%. 2 search terms burned $63 with no sales. Reply YES N1 N2 to cut them." }] },
-  { app: "claude", head: "Claude", sub: "with Rocco + Seller Central", glow: "#d97757", pill: "Use me in Claude", href: "/setup",
+  { app: "claude", head: "Claude", sub: "Rocco + Amazon's connectors", glow: "#d97757", pill: "Use me in Claude", href: "/setup",
     lines: [{ me: true, text: "Rocco, morning check" }, { text: "Checked Ads and Seller Central. 7 fixes worth ~$1,240/mo. Nothing changes until you approve." }] },
-  { app: "openai", head: "ChatGPT", sub: "with Rocco", glow: "#10a37f", pill: "Use me in ChatGPT", href: "/setup",
+  { app: "openai", head: "ChatGPT", sub: "Rocco + Amazon's connectors", glow: "#10a37f", pill: "Use me in ChatGPT", href: "/setup",
     lines: [{ me: true, text: "why did ACoS jump on Tuesday?" }, { text: "Top-of-search went +50% and doubled your CPC. Undo P2?" }] },
-  { app: "imessage", head: "Rocco", sub: "online", glow: "#2f7cf6", pill: "I watch stock and listings", href: "#text",
+  { app: "imessage", head: "Rocco", sub: "online · Amazon connected", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
     lines: [{ text: "🚨 Bamboo Board S is suppressed (main image background). Kitchen Set Blue runs out in 9 days: send 340 units." }, { me: true, text: "on it, thanks" }] },
-  { app: "claudecode", head: "Claude Code", sub: "/morning-check", glow: "#1c2433", pill: "Run me in Claude Code", href: "/setup",
+  { app: "claudecode", head: "Claude Code", sub: "Rocco + Amazon's connectors", glow: "#1c2433", pill: "Use me in Claude Code", href: "/setup",
     lines: [{ me: true, text: "/morning-check all brands" }, { text: "5 brands checked. 1 Buy Box drop, 2 listings down, 11 fixes ready. Client report saved." }] },
-  { app: "calendar", head: "Calendar", sub: "Rocco follow-up", glow: "#4285f4", pill: "I check if every change worked", href: "#text",
+  { app: "calendar", head: "Calendar", sub: "Rocco checks every change", glow: "#4285f4", pill: "Follow-ups in your calendar", href: "#text",
     lines: [{ text: "📅 Mon 9:00 · Did B3 work?" }, { text: "Yes ✅ Lower bid on “bamboo board” saved $86/mo, sales held." }] },
-  { app: "cursor", head: "Cursor", sub: "with Rocco", glow: "#6b7280", pill: "Or any AI app with connectors", href: "/setup",
+  { app: "cursor", head: "Cursor", sub: "Rocco + Amazon's connectors", glow: "#6b7280", pill: "Use me in Cursor", href: "/setup",
     lines: [{ me: true, text: "which listings miss keywords?" }, { text: "3 of your best converting search terms aren't in the Large board's title. Want the new title?" }] },
 ];
 
@@ -111,7 +111,7 @@ export function RoccoStage({ optIn }: { optIn?: string }) {
             <button key={a} type="button" className={`bstage-app${off === 0 ? " on" : ""}${Math.abs(off) > 2 ? " hide" : ""}`} aria-label={appName(a)}
               style={{ ["--x" as string]: `${Math.cos(ang) * 1}`, ["--y" as string]: `${Math.sin(ang) * 1}` }}
               onClick={() => { const n = SCENES.findIndex((sc) => sc.app === a); if (n >= 0) { setI(n); setPaused(true); } }}>
-              <AppIcon app={a} size={off === 0 ? 30 : 24} />
+              <AppIcon app={a} size={off === 0 ? 28 : 22} />
             </button>
           );
         })}
@@ -119,7 +119,6 @@ export function RoccoStage({ optIn }: { optIn?: string }) {
 
       <div className="bstage-pillrow">
         <a className="bstage-pill" href={href(s)}><span><AppIcon app={s.app} size={16} /></span>{s.pill}</a>
-        <button className="bstage-pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? "Play" : "Pause"}>{paused ? "▷" : "❚❚"}</button>
       </div>
 
       <form className="bask" onSubmit={send}>

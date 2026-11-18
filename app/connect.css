@@ -454,3 +454,31 @@ h1, h2, .display { font-family: var(--display); }
 .home-hero { overflow-x: clip; }
 .top-b { background: var(--bg); }
 .bstage-glow { width: min(120%, 620px); }
+/* v5: smaller card, every app under the card (lower half of the circle only), smaller pill, no pause */
+.bstage-area { --cy: 92px; --r: min(39vw, 152px); --cc: calc(var(--cy) + 112px); height: 390px; }
+.bstage-card { top: var(--cy); width: min(68vw, 290px); border-radius: 20px; z-index: 2; }
+.bstage-head { padding: 7px 10px; gap: 8px; }
+.bstage-head b { font-size: 13.5px; }
+.bstage-head small { font-size: 11px; }
+.bstage-av { width: 28px; height: 28px; }
+.bstage-body { min-height: 96px; padding: 10px; gap: 5px; font-size: 12.5px; line-height: 1.28; }
+.bl span { padding: 6px 10px; border-radius: 15px; }
+.bstage-ring, .bstage-app { top: var(--cc); }
+.bstage-glow { top: calc(var(--cy) + 70px); }
+.bstage-row { top: var(--cy); }
+.bstage-app { width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 13px; }
+.bstage-app.on { width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 17px; }
+.bstage-pillrow { margin-top: -26px; }
+.bstage-pill { font-size: 13px; padding: 4px 14px 4px 4px; gap: 8px; }
+.bstage-pill > span { width: 26px; height: 26px; border-radius: 8px; }
+@media (min-width: 900px) { .bstage-area { --cy: 120px; --r: 200px; --cc: calc(var(--cy) + 140px); height: 480px; } .bstage-card { width: 340px; } .bstage-body { min-height: 120px; font-size: 14px; } }
+.home-flow { max-width: 640px; margin: 0 auto; padding: 56px 0 0; width: 100%; }
+.home-flow h2 { font-family: var(--display); font-weight: 500; font-size: clamp(32px, 8vw, 56px); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 16px; }
+.flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.flow li { position: relative; display: grid; gap: 2px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; }
+.flow li + li { margin-top: 26px; }
+.flow li + li::before { content: "↓"; position: absolute; top: -24px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 18px; }
+.flow li:nth-child(2) { border-color: color-mix(in srgb, #1f6feb 35%, var(--line)); box-shadow: 0 10px 28px rgba(31, 111, 235, .10); }
+.flow-k { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #1f6feb; }
+.flow b { font-size: 19px; font-weight: 600; }
+.flow small { color: var(--muted); font-size: 15px; }
