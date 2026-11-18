@@ -11,6 +11,7 @@ type AI = "claude" | "chatgpt" | "claude_code";
 type Step = "ai" | "rocco" | "seller" | "ask" | "daily" | "done";
 const ORDER: Step[] = ["ai", "rocco", "seller", "ask", "daily", "done"];
 const ASK = "Rocco, morning check";
+const OWNER_MSG = "Hi! Can you switch on AI agents in Seller Central for me? Seller Central → Settings → Manage Agents → connect your AI agent and enable the \"Amazon Selling Partner\" plugin for my login. Takes a minute, once. It's so Rocco (rocco.works) can check our ads, stock and listings every morning. Thanks!";
 
 const AIS: { id: AI; label: string; sub: string }[] = [
   { id: "claude", label: "Claude", sub: "web, desktop or phone" },
@@ -55,7 +56,9 @@ export function StartSteps({ token: initial, compact, trial }: { token?: string 
 
   // With a key (their Rocco page or a text link): the private URL, no sign-in. Otherwise: sign-in URL, and
   // Claude/ChatGPT open Rocco's Connect page, which creates their Rocco.
-  const connector = token ? `https://rocco.works/mcp/${token}` : "https://rocco.works/mcp/login";
+  // Always the sign-in link: Claude/ChatGPT show "Sign in", and Rocco's Connect page recognises this team (cookie).
+  const connector = ai === "claude_code" && token ? `https://rocco.works/mcp/${token}` : "https://rocco.works/mcp/login";
+  const [owner, setOwner] = useState(false);
   const go = (s: Step) => { setStep(s); setCopied(""); setErr(""); };
   const next = () => go(ORDER[Math.min(ORDER.indexOf(step) + 1, ORDER.length - 1)]);
   const back = () => go(ORDER[Math.max(ORDER.indexOf(step) - 1, 0)]);
@@ -109,14 +112,14 @@ export function StartSteps({ token: initial, compact, trial }: { token?: string 
             <>
               <p className="start-sub">
                 {ai === "claude"
-                  ? <>Copy your Rocco link, then in Claude: <b>Add custom connector</b> → name it <b>Rocco</b> → paste → <b>Add</b>.{token ? "" : <> Tap <b>Connect</b> when Rocco asks.</>}</>
-                  : <>Copy your Rocco link, then in ChatGPT: <b>Settings → Apps &amp; Connectors → Advanced</b> → turn on <b>Developer mode</b> → <b>Create</b> → paste{token ? " (no sign-in)" : <>, then tap <b>Connect</b> when Rocco asks</>}.</>}
+                  ? <>Copy the link, then in Claude: <b>Add custom connector</b> → name it <b>Rocco</b> → paste → <b>Add</b>. Claude opens Rocco: tap <b>Connect</b>.</>
+                  : <>Copy the link, then in ChatGPT: <b>Settings → Apps &amp; Connectors → Advanced</b> → turn on <b>Developer mode</b> → <b>Create</b> → paste, then tap <b>Connect</b> when Rocco opens.</>}
               </p>
               <button className="btn start-main" onClick={() => copy(connector, "rocco")}>{copied === "rocco" ? "Copied ✓ Now open " + name : "1. Copy my Rocco link"}</button>
               <a className="btn ghost start-second" href={OPEN[ai].connectors} target="_blank" rel="noreferrer">2. Open {name} connectors ↗</a>
             </>
           )}
-          <p className="fine">{token ? "This link is your team's private Rocco." : "Connecting creates your team's private Rocco."} It remembers every change and checks if it worked.</p>
+          <p className="fine">{token ? "Connect links it to this team's Rocco, same memory for everyone." : "Connecting creates your team's private Rocco."} It remembers every change and checks if it worked.</p>
           <Nav back={back} next={next} nextLabel="I added Rocco →" />
         </div>
       )}
@@ -143,6 +146,18 @@ export function StartSteps({ token: initial, compact, trial }: { token?: string 
             </>
           )}
           <p className="fine">Amazon&apos;s official connector. Rocco never sees your password, and nothing changes without your approval. Have Amazon Ads API access? <a href="/setup#all">Add the Ads connector too</a>.</p>
+          <button className="linkbtn" onClick={() => setOwner((o) => !o)}>Amazon says &ldquo;ask the primary user&rdquo;? {owner ? "▲" : "▼"}</button>
+          {owner && (
+            <div className="owner-box">
+              <p className="start-sub">Only your account&apos;s <b>primary user</b> can switch AI agents on. It takes them a minute, once. Send them this:</p>
+              <pre className="owner-msg">{OWNER_MSG}</pre>
+              <div className="row" style={{ gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+                <button className="btn small" onClick={() => copy(OWNER_MSG, "owner")}>{copied === "owner" ? "Copied ✓" : "Copy message"}</button>
+                <a className="btn ghost small" href={`sms:&body=${encodeURIComponent(OWNER_MSG)}`}>Text it</a>
+              </div>
+              <p className="fine">Meanwhile: text Rocco a report file (Seller Central → Reports → download) and he&apos;ll work from that.</p>
+            </div>
+          )}
           <Nav back={back} next={next} nextLabel="Done →" skip={next} />
         </div>
       )}

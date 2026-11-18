@@ -56,3 +56,6 @@ One Rocco = one team (solo = team of one; agencies: one per client, brand tabs i
 
 ## 2026-11-18 · $99/year after a 3-day card trial; no free plan; ladder counts paid charges only
 Praveen: "I don't want to offer free plan. Better stay offsite than not paying and using." Yearly $99 with 3-day trial, price hike ladder kept, only paid charges count. Supersedes the one-time 'Hire Rocco $99 once' model and the free top-3 tier.
+
+## 2026-11-18 · Sign-in connector everywhere; target owner-operators first
+The private-key URL triggers Claude's 'no sign-in' warning, so setup uses /mcp/login (OAuth) and recognises the team via cookie. Amazon's SP connector needs the primary user to enable agents: owner-operators connect directly; teams send the owner a one-time message.

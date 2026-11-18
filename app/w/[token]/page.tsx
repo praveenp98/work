@@ -7,6 +7,7 @@ import { TextLink } from "@/components/home/TextLink";
 import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
 import { TrialSheet } from "@/components/dash/TrialSheet";
+import { RememberTeam } from "@/components/dash/RememberTeam";
 import { accessOf, trialHoursLeft } from "@/lib/access";
 import { REPORT_HELP } from "@/lib/analyze";
 import { getPriceState } from "@/lib/payments";
@@ -48,6 +49,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (empty) {
     return (
       <section className="start-page">
+        <RememberTeam t={token} />
         <div className="start-head">
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
@@ -85,6 +87,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
   return (
     <section className="dash">
+      <RememberTeam t={token} />
       {brands.length > 1 && (
         <nav className="brand-tabs" aria-label="Brands">
           {brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}

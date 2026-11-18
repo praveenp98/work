@@ -1,4 +1,6 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { unseal } from "@/lib/vault";
 import { issueCode, readClient } from "@/lib/oauth";
 import { getStore, isToken } from "@/lib/store";
 import { createWorkspace, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
@@ -16,6 +18,11 @@ export async function POST(req: Request) {
   let token: string | null = null;
   const existing = get("existing").match(/rw_[A-Za-z0-9]{24}/)?.[0];
   if (existing && isToken(existing) && (await loadWorkspace(store, existing))) token = existing;
+  // The team remembered in this browser (opened their Rocco page), unless they chose "Start a new Rocco".
+  if (!token && get("team") === "1" && !get("fresh")) {
+    const remembered = unseal((await cookies()).get("rocco_team")?.value);
+    if (remembered && isToken(remembered) && (await loadWorkspace(store, remembered))) token = remembered;
+  }
   if (!token) {
     const c = await createWorkspace(store);
     await rememberToken(store, c.ws, c.token);

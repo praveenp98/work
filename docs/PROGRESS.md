@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Real connect test (Praveen): sign-in + Amazon "primary user" gate
+- Found: (1) the private-key connector link makes Claude show "No sign-in … anyone with the URL can use this connector": scary. (2) Amazon Selling Partner connector requires the account's primary user to enable AI agents (Settings → Manage Agents) before secondary users can connect.
+- Fixed (1): setup now always hands out https://rocco.works/mcp/login (OAuth). Opening your Rocco page remembers the team in that browser (sealed httpOnly cookie via /api/w/remember); Rocco's Connect page then offers "Connect Claude to <your team>" (or "Start a new Rocco instead"). Verified end to end locally: token returned = the remembered team.
+- Fixed (2): Seller Central step has "Amazon says ask the primary user?" with a copy/text-ready message for the owner (Settings → Manage Agents → enable Amazon Selling Partner plugin for my login) + fallback: text Rocco a report.
+- GTM implication: lead with owner-operators (they're the primary user, connect directly); agencies/teams need the owner once (and the owner is the buyer).
+
+---
+
 ## 2026-11-18 · Test workspaces on production + owner trial switch
 - Created test workspaces on rocco.works for Praveen to click through (keys in chat, not in the repo).
 - GET /api/admin/trial?t=<key>&key=<CRON_SECRET> grants a workspace a 3-day trial (no payment) to preview the full dashboard; &off=1 removes it.
