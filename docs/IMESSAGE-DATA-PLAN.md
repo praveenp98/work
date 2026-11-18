@@ -20,3 +20,7 @@ Texts go to Claude with **tools** over the team's data: `get_numbers(range)`, `s
 ## Homepage honesty until option 1 is live
 - iMessage card label: "online · Amazon connected" is true only for teams with a daily check (2) or direct connection (1). The first-run text explains how to connect.
 - Morning texts always show data freshness ("from this morning's check" / "last checked 2 days ago").
+
+## Status (Nov 18)
+- Option 2 (Claude bridge) shipped: connect link in onboarding, 🔔 on first use, push on fresh check, one-tap morning link, setup reminders.
+- Option 1 on hold until the Amazon API applications are submitted.

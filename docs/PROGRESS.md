@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Claude bridge: connect once, Rocco texts the team
+- iMessage/Slack onboarding ends with one link: "Let's turn me on for your Amazon. Connect once in Claude or ChatGPT, 2 minutes" → the step-by-step page (now 5 steps: AI → add Rocco → Seller Central → first check → Make it daily).
+- Make it daily: scheduled task "Rocco, morning check" where the AI app supports it; Claude Code gets the cron line; otherwise Rocco's morning text is a one-tap link that opens Claude/ChatGPT with the prompt typed (AI choice saved via /api/workspace/prefs).
+- The bing (lib/notify.ts): first tool call from the team's AI → "🔔 I'm on!" to every phone + Slack. First finished check (rocco_brief after analyses) → "✅ Amazon is connected" + numbers pushed immediately; after that, numbers push the moment each day's check lands (once per day).
+- Morning cron: skip teams already pushed today; no check yet → one-tap link; not connected → setup reminder (max 3, 2 days apart); texted-CSV teams still get numbers from their last report.
+- Direct Amazon API connection on hold until Praveen submits the applications.
+- Tests 117/117.
+
+---
+
 ## 2026-11-18 · Headline + Rocco in Slack
 - Headline: "I can run your Amazon business, try me." (two lines on iPhone).
 - Slack: Add to Slack (OAuth v2, sealed state, bot token sealed), welcome post in the chosen channel, @Rocco mentions (thread replies) and DMs answered by the same handler as iMessage (approvals queue, brief, wins, paywall moments), morning numbers posted to the channel by the daily cron. Identity reuses the phones table (slack-team:/slack: keys). Signature verification + dedupe; replies posted after the 200 (next/server after).

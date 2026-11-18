@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { SELLING_PARTNER_URL } from "@/lib/connectors";
+import { autopilotCron, SELLING_PARTNER_URL } from "@/lib/connectors";
 
 /**
  * Boardy-style setup: one card, one action, one step at a time. Used on a person's Rocco page (/w/<key>)
  * and on /setup. Nothing to scroll, no wall of URLs: tap, paste, done.
  */
 type AI = "claude" | "chatgpt" | "claude_code";
-type Step = "ai" | "rocco" | "seller" | "ask" | "done";
-const ORDER: Step[] = ["ai", "rocco", "seller", "ask", "done"];
+type Step = "ai" | "rocco" | "seller" | "ask" | "daily" | "done";
+const ORDER: Step[] = ["ai", "rocco", "seller", "ask", "daily", "done"];
 const ASK = "Rocco, morning check";
 
 const AIS: { id: AI; label: string; sub: string }[] = [
@@ -66,6 +66,7 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
 
   function pickAi(a: AI) {
     setAi(a);
+    if (token) void fetch("/api/workspace/prefs", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, ai: a }) }).catch(() => {});
     go("rocco");
   }
 
@@ -74,7 +75,7 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
 
   return (
     <section className={`start${compact ? " compact" : ""}`} aria-live="polite">
-      {step !== "done" && <div className="start-dots" aria-label={`Step ${n + 1} of 4`}>{[0, 1, 2, 3].map((i) => <span key={i} className={i <= n ? "on" : ""} />)}</div>}
+      {step !== "done" && <div className="start-dots" aria-label={`Step ${n + 1} of 5`}>{[0, 1, 2, 3, 4].map((i) => <span key={i} className={i <= n ? "on" : ""} />)}</div>}
 
       {step === "ai" && (
         <div className="start-card">
@@ -147,8 +148,27 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
           <p className="start-sub">Say <b>&ldquo;{ASK}&rdquo;</b>. Rocco pulls your numbers, finds the waste and gives you fixes to approve with one reply.</p>
           {ai === "claude_code"
             ? <button className="btn start-main" onClick={() => copy(ASK, "ask")}>{copied === "ask" ? "Copied ✓" : "Copy “" + ASK + "”"}</button>
-            : <a className="btn start-main" href={OPEN[ai].chat} target="_blank" rel="noreferrer" onClick={() => setTimeout(() => go("done"), 400)}>Open {name} and ask ↗</a>}
+            : <a className="btn start-main" href={OPEN[ai].chat} target="_blank" rel="noreferrer" onClick={() => setTimeout(() => go("daily"), 400)}>Open {name} and ask ↗</a>}
           <Nav back={back} next={next} nextLabel="I asked →" />
+        </div>
+      )}
+
+      {step === "daily" && (
+        <div className="start-card">
+          <h2>Make it daily</h2>
+          {ai === "claude_code" ? (
+            <>
+              <p className="start-sub">Add this to your crontab. Every weekday morning Claude Code runs the check, and I text everyone the numbers.</p>
+              <button className="btn start-main" onClick={() => copy(autopilotCron(), "cron")}>{copied === "cron" ? "Copied ✓" : "Copy the cron line"}</button>
+            </>
+          ) : (
+            <>
+              <p className="start-sub">If {name} has scheduled tasks on your plan, add one: <b>&ldquo;{ASK}&rdquo;</b> every weekday at 8:00. If not, skip it: I&apos;ll text you a one-tap link each morning, and push the numbers to your team the moment it runs.</p>
+              <button className="btn start-main" onClick={() => copy(ASK, "daily")}>{copied === "daily" ? "Copied ✓" : `Copy “${ASK}”`}</button>
+            </>
+          )}
+          <p className="fine">You&apos;ll get a 🔔 text the moment I&apos;m on.</p>
+          <Nav back={back} next={next} nextLabel="Done →" skip={next} />
         </div>
       )}
 

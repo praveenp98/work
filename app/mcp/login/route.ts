@@ -2,6 +2,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { buildServer } from "@/lib/mcp/server";
 import { CORS, RESOURCE_METADATA } from "@/lib/oauth";
 import { getStore } from "@/lib/store";
+import { later, onFirstUse } from "@/lib/notify";
 import { loadWorkspace } from "@/lib/workspace";
 
 /**
@@ -25,6 +26,11 @@ async function handle(req: Request): Promise<Response> {
   if (!store) return Response.json({ error: "Rocco memory isn't configured yet." }, { status: 503 });
   const ws = await loadWorkspace(store, token);
   if (!ws) return unauthorized();
+  // The bing: first real tool call from the team's AI turns Rocco "on" and tells the team.
+  if (!ws.connectedAt) {
+    const rpc = (await req.clone().json().catch(() => null)) as { method?: string } | { method?: string }[] | null;
+    if ([rpc].flat().some((m) => m?.method === "tools/call")) later(() => onFirstUse(store, ws));
+  }
   const server = buildServer({ store, ws, token });
   const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
   await server.connect(transport);

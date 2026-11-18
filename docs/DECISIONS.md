@@ -47,3 +47,6 @@ The circle shows where Rocco lives (iMessage, Claude, ChatGPT, Claude Code, Curs
 
 ## 2026-11-18 · Headline and Slack
 Headline "I can run your Amazon business, try me." (Praveen). Slack added as a full two-way channel (Praveen approved), sharing the iMessage brain and memory.
+
+## 2026-11-18 · iMessage data via the Claude bridge first
+Until Amazon approves Rocco's API apps (on hold, Praveen to submit), the team's AI pulls through Amazon's connectors and Rocco pushes to iMessage/Slack. Pull triggers push; a one-tap morning link covers apps without scheduled tasks.

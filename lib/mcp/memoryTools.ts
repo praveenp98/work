@@ -8,6 +8,7 @@ import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
 import { setupHelp } from "./setup";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { paywall } from "../paywall";
+import { later, onFreshCheck } from "../notify";
 import { optInLinks } from "../text/provider";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
@@ -78,7 +79,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
-  }, async () => text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await textMe()) + (await offer())));
+  }, async () => { later(() => onFreshCheck(store, ws)); return text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await textMe()) + (await offer())); });
 
 
   server.registerTool("setup_check", {

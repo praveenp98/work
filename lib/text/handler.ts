@@ -174,7 +174,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       bubbles: [
         `${name ? `Nice to meet you, ${name}` : "Love it"} 🦝 Here's what your mornings look like with me. This is a sample brand:`,
         demo.text,
-        "Ready for your own numbers? Plug in Amazon here, one step at a time 👇",
+        "Let's turn me on for your Amazon. Connect once in Claude or ChatGPT, 2 minutes, and I'll text your numbers every morning 👇",
         homeUrl(revealToken(ws)),
       ],
     };

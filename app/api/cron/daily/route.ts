@@ -7,6 +7,7 @@ import { buildBrief } from "@/lib/workspace";
 import { getPriceState } from "@/lib/payments";
 import { paywall } from "@/lib/paywall";
 import { postSlack } from "@/lib/slack";
+import { morningNudge, notifyTeam } from "@/lib/notify";
 
 /** Morning numbers to every linked, opted-in teammate. Vercel Cron calls this (see vercel.json). */
 export const dynamic = "force-dynamic";
@@ -26,6 +27,16 @@ export async function GET(req: Request) {
   for (const [wsId, list] of byWs) {
     const ws = await store.getWorkspaceById(wsId);
     if (!ws) continue;
+    // Already pushed today (the team's check ran and numbers went out the moment they landed).
+    if (ws.lastPushDay === new Date().toISOString().slice(0, 10)) continue;
+    const latest = (await store.listSnapshots(ws.id, { limit: 1 }))[0]?.createdAt ?? null;
+    const nudge = morningNudge(ws, latest);
+    if (nudge && (!latest || new Date(latest).getTime() < Date.now() - 20 * 3600_000)) {
+      // No check today: one-tap link to run it (or a setup reminder). Numbers follow the moment it runs.
+      await store.saveWorkspace(ws);
+      sent += await notifyTeam(store, ws, nudge);
+      continue;
+    }
     const b = await buildBrief(store, ws);
     if (!b.perBrand.some((x) => x.trends.length)) continue; // nothing plugged in yet: no empty "numbers" text
     const snap = b.perBrand[0]?.trends.find((t) => t.kind === "sp_search_term")?.latest;

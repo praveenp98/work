@@ -35,6 +35,11 @@ export interface Workspace {
   nudges?: Record<string, string>;
   /** Rocco in the team's Slack (lib/slack). Bot token is sealed. */
   slack?: import("../slack").SlackLink;
+  /** Claude bridge (lib/notify): when the team's AI first used Rocco, first data, last day numbers were pushed, which AI they use. */
+  connectedAt?: string;
+  firstDataAt?: string;
+  lastPushDay?: string;
+  ai?: "claude" | "chatgpt" | "claude_code";
 }
 
 /** A teammate's phone linked to a workspace (Text Rocco). */
