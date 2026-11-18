@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Headline + Rocco in Slack
+- Headline: "I can run your Amazon business, try me." (two lines on iPhone).
+- Slack: Add to Slack (OAuth v2, sealed state, bot token sealed), welcome post in the chosen channel, @Rocco mentions (thread replies) and DMs answered by the same handler as iMessage (approvals queue, brief, wins, paywall moments), morning numbers posted to the channel by the daily cron. Identity reuses the phones table (slack-team:/slack: keys). Signature verification + dedupe; replies posted after the 200 (next/server after).
+- Rocco page: "Rocco in Slack" card (Add to Slack / connected to #channel). Homepage: Slack scene (#amazon-team morning post + "@Rocco yes N1 B1"), Slack in the app grid and the flow strip.
+- docs/slack-manifest.yml + GO-LIVE §11. Tests 115/115.
+
+---
+
 ## 2026-11-18 · Hero v5 + iMessage data plan
 - Hero: smaller card (68vw, max 290px), all apps on the lower half of the circle under the card, smaller pill, pause button removed, consistent labels ("Rocco + Amazon's connectors" everywhere; iMessage "online · Amazon connected").
 - New "How it fits together." strip: Amazon's own connectors (your data) → Rocco (the manager) → iMessage/Claude/ChatGPT (where you talk).

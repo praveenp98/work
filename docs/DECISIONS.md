@@ -44,3 +44,6 @@ Never paywall the demo, setup, first numbers or top-3 fixes. Ask when money is f
 
 ## 2026-11-18 · Homepage orbit = channels, not tools; no Amazon/Helium 10 logos
 The circle shows where Rocco lives (iMessage, Claude, ChatGPT, Claude Code, Cursor, Calendar) with real logos. Amazon and Helium 10 marks aren't used (Simple Icons removed Amazon at Amazon's request; avoids implying affiliation). Tools are listed by name below.
+
+## 2026-11-18 · Headline and Slack
+Headline "I can run your Amazon business, try me." (Praveen). Slack added as a full two-way channel (Praveen approved), sharing the iMessage brain and memory.

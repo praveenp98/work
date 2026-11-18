@@ -12,6 +12,7 @@ import { maskPhone } from "@/lib/text/commands";
 import { optInLinks } from "@/lib/text/provider";
 import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
 import { hireUrl } from "@/lib/paywall";
+import { slackConfigured } from "@/lib/slack";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 
@@ -31,7 +32,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const linkCode = await ensureLinkCode(store, ws);
   const price = await getPriceState();
-  const team = await store.listPhones({ workspaceId: ws.id });
+  const team = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
   const personal = await optInLinks({ link: linkCode, body: `Hi Rocco, it's me 👋 [opt-in-code]` });
   const textHref = personal?.url ?? personal?.imessage;
   const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -86,6 +87,12 @@ export default async function Page({ params }: { params: Promise<{ token: string
         <p className="fine" style={{ margin: "8px 0 0" }}>{team.length ? `On this line: ${team.map((t) => maskPhone(t.phone) + (t.optedOut ? " (paused)" : "")).join(", ")}` : "No phones linked yet."}{ws.pending?.length ? ` · Waiting for your AI to apply: ${ws.pending.flatMap((p) => p.codes).join(", ")}` : ""}</p>
       </section>
       <details className="card" style={{ marginTop: 18 }}><summary><b>Setup steps</b> (add Rocco or Amazon to another app)</summary><div style={{ marginTop: 14 }}><StartSteps token={token} compact /></div></details>
+      <section className="card slack-card" style={{ marginTop: 14 }}>
+        <h3 style={{ marginTop: 0 }}>Rocco in Slack</h3>
+        {ws.slack
+          ? <p style={{ margin: 0 }}>Connected to <b>{ws.slack.teamName ?? "your Slack"}</b>{ws.slack.channelName ? <> · posting in <b>{ws.slack.channelName}</b></> : null}. Mention <b>@Rocco</b> or DM him: &ldquo;yes N1 N2&rdquo;, &ldquo;how&apos;s stock?&rdquo;.</p>
+          : <p style={{ margin: 0 }}>Morning numbers in your team channel, approvals with <b>@Rocco yes N1</b>. {slackConfigured() ? <a className="btn small" style={{ marginLeft: 6 }} href={`/api/slack/install?t=${token}`}>Add to Slack</a> : <span className="fine">(Slack opens soon.)</span>}</p>}
+      </section>
       {brief.season && <p className="pill" style={{ marginTop: 18 }}>📅 {brief.season}</p>}
 
       {brief.perBrand.map((b) => (

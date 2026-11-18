@@ -33,6 +33,8 @@ export interface Workspace {
   about?: string;
   /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
   nudges?: Record<string, string>;
+  /** Rocco in the team's Slack (lib/slack). Bot token is sealed. */
+  slack?: import("../slack").SlackLink;
 }
 
 /** A teammate's phone linked to a workspace (Text Rocco). */

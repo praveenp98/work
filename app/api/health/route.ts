@@ -18,6 +18,7 @@ export async function GET() {
     ok: !!(tables && Object.values(tables).every((v) => v === "ok")),
     memory,
     brain: process.env.ANTHROPIC_API_KEY ? "set (free-text replies + screenshot reading on)" : "off (add ANTHROPIC_API_KEY for free-text replies and screenshots; CSV reports work without it)",
+    slack: process.env.SLACK_CLIENT_ID && process.env.SLACK_CLIENT_SECRET && process.env.SLACK_SIGNING_SECRET ? "set" : "off (create the app from docs/slack-manifest.yml, then add SLACK_CLIENT_ID, SLACK_CLIENT_SECRET, SLACK_SIGNING_SECRET)",
     payments: { dodoApiKey: process.env.DODO_API_KEY ? "set" : "missing (price ladder stays at $99)" },
     texting: { lastInboundFields: lastInbound.keys.length ? lastInbound.keys.join(", ") : "none seen on this server instance yet",  loopmessage: textingConfigured() ? "set" : "dry-run (add LOOPMESSAGE_API_KEY)", optInUrl: (process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL) ? "set" : "missing (homepage Text Rocco collects contacts instead)", webhookSecret: process.env.TEXT_WEBHOOK_SECRET ? "set" : "missing", cronSecret: process.env.CRON_SECRET ? "set" : "missing" },
     note: "After changing Vercel environment variables, redeploy (Deployments > ... > Redeploy) for them to take effect.",

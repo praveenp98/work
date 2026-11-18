@@ -1,0 +1,33 @@
+# Create the Rocco Slack app in one step: api.slack.com/apps → Create New App → From an app manifest → paste this.
+# Then: Basic Information → copy Client ID, Client Secret, Signing Secret into Vercel as
+# SLACK_CLIENT_ID, SLACK_CLIENT_SECRET, SLACK_SIGNING_SECRET → redeploy. Upload public/rocco-avatar.png as the app icon.
+display_information:
+  name: Rocco
+  description: Your AI Amazon manager. Morning numbers, fixes you approve with a reply.
+  background_color: "#1c2433"
+features:
+  bot_user:
+    display_name: Rocco
+    always_online: true
+  app_home:
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+oauth_config:
+  redirect_urls:
+    - https://rocco.works/api/slack/oauth
+  scopes:
+    bot:
+      - app_mentions:read
+      - chat:write
+      - im:history
+      - im:write
+      - incoming-webhook
+settings:
+  event_subscriptions:
+    request_url: https://rocco.works/api/slack/events
+    bot_events:
+      - app_mention
+      - message.im
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

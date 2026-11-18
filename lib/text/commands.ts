@@ -49,6 +49,7 @@ export function parseCommand(raw: string): Command {
 
 /** Normalize a phone number from a provider payload: keep + and digits. */
 export const normPhone = (p: string) => {
+  if (p.startsWith("slack:")) return p; // Slack teammate id, not a phone
   const d = p.replace(/[^\d+]/g, "");
   return d.startsWith("+") ? d : d.length === 10 ? `+1${d}` : `+${d}`;
 };

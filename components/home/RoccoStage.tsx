@@ -19,6 +19,8 @@ const SCENES: Scene[] = [
     lines: [{ me: true, text: "why did ACoS jump on Tuesday?" }, { text: "Top-of-search went +50% and doubled your CPC. Undo P2?" }] },
   { app: "imessage", head: "Rocco", sub: "online · Amazon connected", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
     lines: [{ text: "🚨 Bamboo Board S is suppressed (main image background). Kitchen Set Blue runs out in 9 days: send 340 units." }, { me: true, text: "on it, thanks" }] },
+  { app: "slack", head: "#amazon-team", sub: "Rocco + Amazon's connectors", glow: "#611f69", pill: "Add me to Slack", href: "/setup",
+    lines: [{ text: "☀️ Spend $1,570 · sales $5,307 · ACoS 30%. 3 fixes ready (~$206/mo). Reply @Rocco yes N1 B1 B7." }, { me: true, text: "@Rocco yes N1 B1" }] },
   { app: "claudecode", head: "Claude Code", sub: "Rocco + Amazon's connectors", glow: "#1c2433", pill: "Use me in Claude Code", href: "/setup",
     lines: [{ me: true, text: "/morning-check all brands" }, { text: "5 brands checked. 1 Buy Box drop, 2 listings down, 11 fixes ready. Client report saved." }] },
   { app: "calendar", head: "Calendar", sub: "Rocco checks every change", glow: "#4285f4", pill: "Follow-ups in your calendar", href: "#text",
@@ -27,7 +29,7 @@ const SCENES: Scene[] = [
     lines: [{ me: true, text: "which listings miss keywords?" }, { text: "3 of your best converting search terms aren't in the Large board's title. Want the new title?" }] },
 ];
 
-const APPS: (BrandIcon | "claudecode")[] = ["imessage", "claude", "openai", "claudecode", "calendar", "cursor"];
+const APPS: (BrandIcon | "claudecode")[] = ["imessage", "claude", "openai", "slack", "claudecode", "calendar", "cursor"];
 const ASKS = ["my wasted ad spend", "restock before Q4", "a suppressed listing", "why ACoS jumped", "all 5 of my brands", "my weekly client report"];
 
 export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; size?: number }) {

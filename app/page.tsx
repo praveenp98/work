@@ -14,10 +14,11 @@ export default async function Home() {
   // Our own first message (LoopMessage needs its short code in it); falls back to the dashboard's opt-in link.
   const gen = await optInLinks({ body: "Hey Rocco 👋 Show me what you can do [opt-in-code]" }).catch(() => null);
   const optIn = gen?.url || gen?.imessage || process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL || undefined;
-  const apps: { label: string; href: string; app: "imessage" | "claude" | "openai" | "claudecode" | "cursor" }[] = [
+  const apps: { label: string; href: string; app: "imessage" | "claude" | "openai" | "slack" | "claudecode" | "cursor" }[] = [
     { label: "iMessage", href: optIn ?? "#text", app: "imessage" },
     { label: "Claude", href: "/setup", app: "claude" },
     { label: "ChatGPT", href: "/setup", app: "openai" },
+    { label: "Slack", href: "/setup", app: "slack" },
     { label: "Claude Code", href: "/setup", app: "claudecode" },
     { label: "Cursor", href: "/setup", app: "cursor" },
   ];
@@ -32,7 +33,7 @@ export default async function Home() {
   return (
     <section className="home">
       <div className="home-hero">
-        <h1>I can run your Amazon,<br />try me.</h1>
+        <h1>I can run your Amazon<br />business, try me.</h1>
         <RoccoStage optIn={optIn} />
       </div>
 
@@ -41,7 +42,7 @@ export default async function Home() {
         <ol className="flow">
           <li><span className="flow-k">Your data</span><b>Amazon&apos;s own connectors</b><small>Seller Central and Amazon Ads, signed in with your Amazon login. No scraping, no passwords shared.</small></li>
           <li><span className="flow-k">The manager</span><b>Rocco</b><small>Decides what to change, remembers every change, checks a week later if it worked.</small></li>
-          <li><span className="flow-k">Where you talk</span><b>iMessage, Claude, ChatGPT</b><small>Same Rocco, same memory, whole team. You reply YES, nothing changes without it.</small></li>
+          <li><span className="flow-k">Where you talk</span><b>iMessage, Slack, Claude, ChatGPT</b><small>Same Rocco, same memory, whole team. You reply YES, nothing changes without it.</small></li>
         </ol>
       </div>
 

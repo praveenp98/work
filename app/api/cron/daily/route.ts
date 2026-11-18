@@ -6,6 +6,7 @@ import { sendText } from "@/lib/text/provider";
 import { buildBrief } from "@/lib/workspace";
 import { getPriceState } from "@/lib/payments";
 import { paywall } from "@/lib/paywall";
+import { postSlack } from "@/lib/slack";
 
 /** Morning numbers to every linked, opted-in teammate. Vercel Cron calls this (see vercel.json). */
 export const dynamic = "force-dynamic";
@@ -19,7 +20,8 @@ export async function GET(req: Request) {
   if (!store) return NextResponse.json({ ok: false, error: "memory not configured" }, { status: 503 });
   const phones = await store.listPhones({ optedIn: true });
   const byWs = new Map<string, string[]>();
-  for (const p of phones) byWs.set(p.workspaceId, [...(byWs.get(p.workspaceId) ?? []), p.phone]);
+  // Phones get texts; a "slack-team:" row means the workspace also gets the morning post in Slack.
+  for (const p of phones) if (p.phone.startsWith("+") || p.phone.startsWith("slack-team:")) byWs.set(p.workspaceId, [...(byWs.get(p.workspaceId) ?? []), p.phone]);
   let sent = 0, failed = 0;
   for (const [wsId, list] of byWs) {
     const ws = await store.getWorkspaceById(wsId);
@@ -33,6 +35,10 @@ export async function GET(req: Request) {
     const pay = paywall(ws, b, "found", { price: await getPriceState().catch(() => null) });
     if (pay) await store.saveWorkspace(ws);
     for (const to of list) {
+      if (to.startsWith("slack-team:")) {
+        if (ws.slack) (await postSlack(ws.slack, pay ? `${msg}\n\n${pay.text} ${pay.url}` : msg)) ? sent++ : failed++;
+        continue;
+      }
       (await sendText(to, msg)).ok ? sent++ : failed++;
       if (pay) { await sendText(to, pay.text); await sendText(to, pay.url); }
     }

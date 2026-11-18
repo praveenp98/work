@@ -76,3 +76,11 @@ npm test        # rules + parsers unit tests
 
 ## 10. Rocco's brain (optional, recommended)
 Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redeploy. Turns on: real answers to free-text texts (from the team's own data) and reading screenshots people text Rocco. Model: Claude Opus 5.5 at low effort, with Anthropic's automatic refusal fallback. Without it, Rocco uses rule-based replies, and texted CSV reports still work. Check /api/health → brain.
+
+
+## 11. Rocco in Slack
+1. api.slack.com/apps → Create New App → From an app manifest → paste `docs/slack-manifest.yml` → Create.
+2. Basic Information → copy Client ID, Client Secret, Signing Secret → Vercel env `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_SIGNING_SECRET` → redeploy.
+3. Display information → upload `public/rocco-avatar.png` as the app icon.
+4. Test: open your Rocco page → Add to Slack → pick a channel. Rocco says hi there; mention @Rocco with "help". Check /api/health → slack: set.
+5. Later (for other teams to install): Manage Distribution → activate public distribution (no Slack review needed unless listing in the Slack Marketplace).
