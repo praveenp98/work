@@ -91,7 +91,7 @@ export default function Page() {
       </section>
 
       <Faq items={[
-        { q: "Is Rocco free to add?", a: "Yes. The brief, findings, and the top 3 fixes per report are free, including tracking those changes. A one-time license unlocks every fix, full tracking and bulk files." },
+        { q: "What does Rocco cost?", a: "A 3-day free trial with everything, then $99/year for your whole team (unlimited brands). No free plan. Reply CANCEL anytime." },
         { q: "What's the difference between the shared URL and my personal URL?", a: "rocco.works/mcp works for anyone, with no memory. Your personal URL (rocco.works/mcp/your-key) adds memory: change log, result checks, brand settings and the daily brief. Keep it private." },
         { q: "Does Rocco change my Amazon account?", a: "Rocco never touches it directly. Your AI applies only the codes you approve, through Amazon's own connector, and Rocco logs them with undo steps." },
         { q: "Do I need Amazon's Ads connector?", a: "It's the best way: Rocco plans the pull, your AI fetches the data and applies approved changes through it. Without API access, Rocco reads exported reports instead." },

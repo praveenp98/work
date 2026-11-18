@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import { hasAccess } from "@/lib/access";
 import { getStore } from "@/lib/store";
 import { clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
 
 /**
  * Approve (or cancel) fixes from the dashboard. Same queue as texting "YES N1": the team's AI applies queued codes
- * through Amazon's connector on its next check, then Rocco logs and grades them. Free plan: top 3 per report.
+ * through Amazon's connector on its next check, then Rocco logs and grades them. Needs a trial or paid plan (no free plan).
  */
 export async function POST(req: Request) {
   const b = (await req.json().catch(() => ({}))) as { t?: string; brand?: string; codes?: unknown; cancel?: boolean };
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, cancelled: codes });
   }
   const allowed = new Map<string, boolean>();
-  for (const r of await latestRuns(store, ws, brand)) r.proposals.forEach((p, i) => allowed.set(p.code, ws.licensed || i < FREE_PROPOSALS));
+  for (const r of await latestRuns(store, ws, brand)) r.proposals.forEach((p, i) => allowed.set(p.code, hasAccess(ws) || i < FREE_PROPOSALS));
   const already = new Set((ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes));
   const ok = codes.filter((c) => allowed.get(c) && !already.has(c));
   const locked = codes.filter((c) => allowed.get(c) === false);

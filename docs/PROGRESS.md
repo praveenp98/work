@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-18 · Yearly plan + 3-day card trial, no free plan
+- lib/access.ts (paid / trial / none), lib/billing.ts (Dodo subscription → state, verified via API), webhook rewritten, ladder counts unique paying customers, price sync keeps the recurring price object, CANCEL text, trial-ends-tomorrow reminder.
+- Gating everywhere: buildBrief (no access = all locked, teaser totals), text commands (numbers/brief/wins/YES/undo/ask → teaser + trial link), dashboard approvals, MCP tools/export/apply, analytics, morning cron (teaser max 3, no numbers), bridge push (teaser instead of numbers).
+- UI: Boardy bottom-sheet trial offer after the setup steps (closable), dashboard trial banner, trial countdown note; pricing page ($99/year, 3-day trial), homepage fine print, llms.txt, connect FAQ, launch kit.
+- Praveen must: create the Dodo subscription product + set DODO_PRODUCT_ID, set webhook events (see GO-LIVE). Tests 122/122.
+
+---
+
 ## 2026-11-18 · Dashboard v2 + approvals from the web; ad-safe opt-in limits
 - LoopMessage counts a contact on the first message sent (Praveen), so the 150/hour site cap is gone (ads never blocked); per-visitor limit 10 per 10 min; bot/prefetch filter stays.
 - Rocco page (one per team; solo seller = team of one; agency = one Rocco per client, brand tabs for multi-brand):

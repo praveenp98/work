@@ -1,7 +1,8 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * One product, "Hire Rocco", sold on a price ladder (lib/pricing.ts).
- * - Checkout: Dodo static payment link.
+ * One product, "Hire Rocco": a yearly subscription with a 3-day free trial (card required), sold on a price ladder
+ * (lib/pricing.ts). The ladder counts unique paying customers only (trials and renewals don't move it).
+ * - Checkout: Dodo static payment link (DODO_PRODUCT_ID = the subscription product), tagged with the workspace.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
  * - Ladder: count succeeded payments via the Dodo API (DODO_API_KEY, server only) and PATCH the product price.
  */
@@ -13,7 +14,10 @@ const API_BASE = DODO_MODE === "test" ? "https://test.dodopayments.com" : "https
 const CHECKOUT_BASE = DODO_MODE === "test" ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
 
 /** The single live product (created Nov 17, 2026). Env overrides for test mode. */
-export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? "pdt_0Ns7dcv01gDgTlIQC1O1b" : undefined);
+/** The original one-time "Hire Rocco" product (Nov 17). Its buyers keep lifetime access and count as hires. */
+export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
+/** The live product: set DODO_PRODUCT_ID to the $99/year subscription with the 3-day trial. */
+export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
 
 export function checkoutUrl(opts: { email?: string; ref?: string } = {}): string | null {
   if (!PRODUCT_ID || !/^pdt_[A-Za-z0-9]+$/.test(PRODUCT_ID)) return null;
@@ -39,7 +43,29 @@ export async function validateLicenseKey(key: string): Promise<{ ok: boolean; er
   return { ok: false, error: "That key isn't valid (or has expired). Check your receipt email or contact us.", status: 200 };
 }
 
-interface DodoPayment { status?: string; product_cart?: { product_id: string; quantity?: number }[] | null }
+interface DodoPayment { payment_id?: string; status?: string; subscription_id?: string | null; customer?: { customer_id?: string } | null; metadata?: Record<string, string> | null; product_cart?: { product_id: string; quantity?: number }[] | null }
+export interface DodoSubscription { subscription_id: string; status?: string; product_id?: string; next_billing_date?: string | null; created_at?: string; trial_period_days?: number; metadata?: Record<string, string> | null; customer?: { customer_id?: string } | null }
+
+async function dodoGet<T>(path: string): Promise<T | null> {
+  const key = process.env.DODO_API_KEY;
+  if (!key) return null;
+  const res = await fetch(`${API_BASE}${path}`, { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" }).catch(() => null);
+  return res?.ok ? ((await res.json().catch(() => null)) as T | null) : null;
+}
+export const fetchSubscription = (id: string) => (/^[A-Za-z0-9_-]{6,80}$/.test(id) ? dodoGet<DodoSubscription>(`/subscriptions/${id}`) : Promise.resolve(null));
+export const fetchPayment = (id: string) => (/^[A-Za-z0-9_-]{6,80}$/.test(id) ? dodoGet<DodoPayment>(`/payments/${id}`) : Promise.resolve(null));
+
+/** Cancel a subscription (no further charges). Used by the "CANCEL" text and the trial reminder. */
+export async function cancelSubscription(id: string): Promise<boolean> {
+  const key = process.env.DODO_API_KEY;
+  if (!key || !/^[A-Za-z0-9_-]{6,80}$/.test(id)) return false;
+  const res = await fetch(`${API_BASE}/subscriptions/${id}`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "cancelled" }),
+  }).catch(() => null);
+  return !!res?.ok;
+}
 
 /**
  * Server-only: look a payment up in Dodo (never trust a webhook body) and return the workspace it was bought for.
@@ -57,26 +83,31 @@ export async function verifiedPurchase(paymentId: string): Promise<{ ref: string
   return ref && /^[A-Za-z0-9-]{6,64}$/.test(ref) ? { ref } : null;
 }
 
-/** Count succeeded payments for the product. Null when the API key isn't configured. */
+/**
+ * Hires so far = unique customers with a succeeded payment for Rocco (a trial that converts, or a legacy one-time
+ * purchase). Trials don't count until they're charged; yearly renewals don't count twice. Null without the API key.
+ */
 export async function countSales(): Promise<number | null> {
   const key = process.env.DODO_API_KEY;
   if (!key || !PRODUCT_ID) return null;
-  let sold = 0;
+  const buyers = new Set<string>();
+  let anon = 0;
   for (let page = 0; page < 50; page++) {
     const res = await fetch(`${API_BASE}/payments?page_size=100&page_number=${page}&status=succeeded`, {
       headers: { Authorization: `Bearer ${key}` }, cache: "no-store",
     }).catch(() => null);
-    if (!res?.ok) return page === 0 ? null : sold;
+    if (!res?.ok) return page === 0 ? null : buyers.size + anon;
     const items = ((await res.json().catch(() => ({}))) as { items?: DodoPayment[] }).items ?? [];
     for (const p of items) {
       if (p.status && p.status !== "succeeded") continue;
-      const line = p.product_cart?.find((c) => c.product_id === PRODUCT_ID);
-      if (p.product_cart && !line) continue;
-      sold += line?.quantity ?? 1;
+      const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => c.product_id === PRODUCT_ID || c.product_id === LEGACY_PRODUCT_ID);
+      if (!ours) continue;
+      const who = p.customer?.customer_id ?? p.subscription_id;
+      if (who) buyers.add(who); else anon++;
     }
     if (items.length < 100) break;
   }
-  return sold;
+  return buyers.size + anon;
 }
 
 /** Make the live Dodo price match the ladder. Idempotent: safe to call on every page render or webhook. */
@@ -85,12 +116,14 @@ export async function syncPrice(sold: number): Promise<boolean> {
   if (!key || !PRODUCT_ID) return false;
   const want = priceCentsForSold(sold);
   const cur = await fetch(`${API_BASE}/products/${PRODUCT_ID}`, { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" }).catch(() => null);
-  const have = cur?.ok ? ((await cur.json().catch(() => ({}))) as { price?: { price?: number } }).price?.price : undefined;
+  const priceObj = cur?.ok ? ((await cur.json().catch(() => ({}))) as { price?: Record<string, unknown> & { price?: number } }).price : undefined;
+  const have = priceObj?.price;
   if (have === want) return true;
   const res = await fetch(`${API_BASE}/products/${PRODUCT_ID}`, {
     method: "PATCH",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ price: { type: "one_time_price", currency: "USD", price: want, discount: 0, purchasing_power_parity: false } }),
+    // Keep the price's own shape (yearly recurring + trial days); change only the amount.
+    body: JSON.stringify({ price: priceObj ? { ...priceObj, price: want } : { type: "one_time_price", currency: "USD", price: want, discount: 0, purchasing_power_parity: false } }),
   }).catch(() => null);
   return !!res?.ok;
 }

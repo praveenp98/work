@@ -12,6 +12,7 @@ export type Command =
   | { kind: "demo" }
   | { kind: "activate"; key: string }
   | { kind: "stop" }
+  | { kind: "cancel_sub" }
   | { kind: "start" }
   | { kind: "ask"; topic: "ads" | "budgets" | "placements" | "stock" | "listings" | "general"; text: string };
 
@@ -25,7 +26,8 @@ export function parseCommand(raw: string): Command {
   if (act) return { kind: "activate", key: act[1] };
   const link = t.match(/\b(?:link|join)\s+([A-Za-z0-9]{6})\b/i);
   if (link) return { kind: "link", code: link[1].toUpperCase() };
-  if (/^(stop|unsubscribe|cancel|quit|end)\b/.test(lc)) return { kind: "stop" };
+  if (/^cancel( (my )?(trial|subscription|plan))?\s*[.!]?$/.test(lc)) return { kind: "cancel_sub" };
+  if (/^(stop|unsubscribe|quit|end)\b/.test(lc)) return { kind: "stop" };
   if (/^(start|unstop|resume)\b/.test(lc)) return { kind: "start" };
   const codes = codesIn(t);
   if (codes.length && /\b(undo|revert|roll ?back)\b/.test(lc)) return { kind: "undo", codes };

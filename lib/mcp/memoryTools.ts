@@ -7,7 +7,8 @@ import { jsonToTable, recordsToTable } from "../parsers/json";
 import { dataPlan, APPLY_GUIDE, JOBS, type Job } from "./sources";
 import { setupHelp } from "./setup";
 import { getPriceState, validateLicenseKey } from "../payments";
-import { paywall } from "../paywall";
+import { hireUrl, paywall } from "../paywall";
+import { hasAccess } from "../access";
 import { later, onFreshCheck } from "../notify";
 import { proposalsApiChanges, proposalsBulkCsv, proposalsCsv } from "../rules/export";
 import { SITE } from "../site";
@@ -63,7 +64,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 
   /** Paywall line for the chat, only at a value moment (see lib/paywall). Empty otherwise. */
   async function offer(prefer?: { worked?: { id: string; saved?: number } }): Promise<string> {
-    if (ws.licensed) return "";
+    if (hasAccess(ws)) return "";
     const b = await buildBrief(store, ws);
     const price = await getPriceState().catch(() => null);
     const p = (prefer?.worked && paywall(ws, b, "worked", { price, key: prefer.worked.id, saved: prefer.worked.saved })) || paywall(ws, b, "found", { price });
@@ -134,7 +135,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       const b = brand || DEFAULT_BRAND;
       const { out, run, checked, previous, diff, bench } = await runAnalysis(store, ws, b, toTable({ report_json, rows, report_csv }));
       const win = checked.find((a) => a.status === "worked");
-      return text(formatAnalysis(out, { licensed: ws.licensed, runId: run?.id, checked, previous, memory: true, diff, bench }) + (await offer(win ? { worked: { id: win.id, saved: win.result?.savedEstimate } } : undefined)));
+      return text(formatAnalysis(out, { licensed: hasAccess(ws), runId: run?.id, checked, previous, memory: true, diff, bench }) + (await offer(win ? { worked: { id: win.id, saved: win.result?.savedEstimate } } : undefined)));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't analyze that report.");
     }
@@ -154,13 +155,13 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     try {
       let runId = run_id;
       if (runId && runId.length < 36) runId = (await store.listRuns(ws.id, { limit: 50 })).find((r) => r.id.startsWith(runId!))?.id;
-      const res = await applyChanges(store, ws, codes, { runId, brand: brand || undefined, note, freeLimit: ws.licensed ? undefined : FREE_PROPOSALS });
+      const res = await applyChanges(store, ws, codes, { runId, brand: brand || undefined, note, freeLimit: hasAccess(ws) ? undefined : FREE_PROPOSALS });
       await clearPending(store, ws, "apply", [...res.actions.map((x) => x.code), ...res.dupes]);
       const L = [`Logged ${res.actions.length} change${res.actions.length === 1 ? "" : "s"} for ${res.brand}. Rocco will re-check them after ${res.actions[0]?.followUpAt.slice(0, 10) ?? "–"} (just ask "did last week's changes work?" and he'll pull fresh data with rocco_plan("results_check")).`];
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
       if (res.unknown.length) L.push(`Unknown codes: ${res.unknown.join(", ")}.`);
-      if (res.locked.length) L.push(`Not logged (needs a license): ${res.locked.join(", ")}. Free workspaces track the top ${FREE_PROPOSALS} changes per report; activate a license (${SITE.url}/pricing) to track everything.`);
+      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco (3-day free trial, then $99/year): ${hireUrl(ws)}. Or activate a license (${SITE.url}/pricing) to track everything.`);
       return text(L.join("\n"));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't log those changes.");
@@ -225,11 +226,11 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     const { expandCodes, latestRuns } = await import("../workspace");
     const runs = await latestRuns(store, ws, brand || DEFAULT_BRAND);
     if (!runs.length) return fail("No proposals yet. Analyze some data first.");
-    if (!ws.licensed && format !== "amazon_ads_api") return fail(`File exports need a Rocco license (${SITE.url}/pricing). The Amazon Ads change list for your free top ${FREE_PROPOSALS} fixes per report is free.`);
+    if (!hasAccess(ws) && format !== "amazon_ads_api") return fail(`File exports need a Rocco license (${SITE.url}/pricing). The Amazon Ads change list for your free top ${FREE_PROPOSALS} fixes per report is free.`);
     const want = codes?.length ? new Set(expandCodes(codes)) : null;
-    const pool = runs.flatMap((r) => (ws.licensed ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS)));
+    const pool = runs.flatMap((r) => (hasAccess(ws) ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS)));
     const ps = pool.filter((p) => !want || want.has(p.code));
-    if (!ps.length) return fail(ws.licensed ? "No matching codes." : `Those codes are locked on the free plan (top ${FREE_PROPOSALS} per report are free). ${SITE.url}/pricing`);
+    if (!ps.length) return fail(hasAccess(ws) ? "No matching codes." : `Those codes need an active Rocco (3-day free trial, then $99/year): ${hireUrl(ws)}. (top ${FREE_PROPOSALS} per report are free). ${SITE.url}/pricing`);
     if (format === "amazon_ads_api") {
       const missingIds = ps.filter((p) => ["negative", "bid", "budget", "placement"].includes(p.kind) && !p.ids?.campaignId).map((p) => p.code);
       return text([`### Change list for Amazon's Ads connector (${ps.length})`, "Apply only the codes the seller approved. Then call apply_changes with the same codes.", "```json", JSON.stringify(proposalsApiChanges(ps), null, 2), "```",

@@ -3,6 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { askRocco } from "./brain";
 import { MemoryStore } from "./store/memory";
+import { grantTrial, wsOfPhone } from "./test-utils";
 import { respond } from "./text/handler";
 import { parseInbound } from "./text/provider";
 
@@ -37,7 +38,7 @@ describe("Rocco reads what you text him", () => {
     const store = new MemoryStore();
     const r = await respond(store, "+14155550900", "", new Date(), { attachments: ["https://files.example/report.csv"] });
     expect(r.bubbles[0]).toMatch(/📥 Got your Sponsored Products search term report/);
-    expect(r.bubbles[0]).toMatch(/Reply YES N\d/);
+    expect(r.bubbles.join("\n")).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*3-day free trial/s); // no free plan: teaser + trial link
     expect((await store.listPhones({})).length).toBe(1);
   });
 
@@ -55,6 +56,7 @@ describe("Rocco reads what you text him", () => {
     const store = new MemoryStore();
     await respond(store, "+14155550902", "hi");
     await respond(store, "+14155550902", "I'm Sam, we sell journals"); // intro answer (rules)
+    await grantTrial(store, (await wsOfPhone(store, "+14155550902"))!.id);
     const r = await respond(store, "+14155550902", "why is my acos up?");
     expect(r.bubbles[0]).toMatch(/top-of-search/);
     const call = seen.find((s) => s.url.includes("api.anthropic.com"))!;

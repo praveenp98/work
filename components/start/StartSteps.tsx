@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { TrialSheet } from "@/components/dash/TrialSheet";
 import { autopilotCron, SELLING_PARTNER_URL } from "@/lib/connectors";
 
 /**
@@ -30,7 +31,7 @@ function store(key: string, v?: string): string | null {
   return null;
 }
 
-export function StartSteps({ token: initial, compact }: { token?: string | null; compact?: boolean }) {
+export function StartSteps({ token: initial, compact, trial }: { token?: string | null; compact?: boolean; trial?: { url: string; price: string } }) {
   const [token, setToken] = useState<string | null>(initial ?? null);
   const [ai, setAi] = useState<AI>("claude");
   const [step, setStep] = useState<Step>("ai");
@@ -73,8 +74,12 @@ export function StartSteps({ token: initial, compact }: { token?: string | null;
   const n = ORDER.indexOf(step);
   const name = AIS.find((x) => x.id === ai)!.label;
 
+  // No free plan: once they've read the setup steps (reached "Now just ask"), offer the trial. Closable.
+  const offerTrial = !!trial && (step === "ask" || step === "done");
+
   return (
     <section className={`start${compact ? " compact" : ""}`} aria-live="polite">
+      {trial && <TrialSheet url={trial.url} price={trial.price} open={offerTrial} />}
       {step !== "done" && <div className="start-dots" aria-label={`Step ${n + 1} of 5`}>{[0, 1, 2, 3, 4].map((i) => <span key={i} className={i <= n ? "on" : ""} />)}</div>}
 
       {step === "ai" && (

@@ -71,7 +71,7 @@ export default async function Home() {
         <h2>I work the tools you already pay for.</h2>
         <p className="home-lede">I sit next to Amazon&apos;s official Seller Central and Ads connectors, and use Helium 10, SellerSprite or any other connector in the same chat.</p>
         <ul>{["Seller Central", "Amazon Ads", "Helium 10", "SellerSprite", "Any MCP connector"].map((t) => <li key={t}>{t}</li>)}</ul>
-        <p className="fine">Free to try · {dollars(price.priceCents)} once for your whole team · Not affiliated with Amazon or Helium 10</p>
+        <p className="fine">3-day free trial · then {dollars(price.priceCents)}/year for your whole team · Not affiliated with Amazon or Helium 10</p>
       </div>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />

@@ -8,6 +8,8 @@ import { getPriceState } from "@/lib/payments";
 import { paywall } from "@/lib/paywall";
 import { postSlack } from "@/lib/slack";
 import { morningNudge, notifyTeam } from "@/lib/notify";
+import { hasAccess, trialHoursLeft } from "@/lib/access";
+import { dollars } from "@/lib/pricing";
 
 /** Morning numbers to every linked, opted-in teammate. Vercel Cron calls this (see vercel.json). */
 export const dynamic = "force-dynamic";
@@ -27,6 +29,32 @@ export async function GET(req: Request) {
   for (const [wsId, list] of byWs) {
     const ws = await store.getWorkspaceById(wsId);
     if (!ws) continue;
+    // Trial ends within a day: say so once, with the price and how to cancel (avoids surprise charges/chargebacks).
+    const left = trialHoursLeft(ws);
+    if (left !== null && left <= 30 && !ws.nudges?.trialEnd) {
+      const price = await getPriceState().catch(() => null);
+      ws.nudges = { ...(ws.nudges ?? {}), trialEnd: new Date().toISOString() };
+      await store.saveWorkspace(ws);
+      sent += await notifyTeam(store, ws, [`⏰ Your free trial ends tomorrow. Then it's ${price ? dollars(price.priceCents) : "$99"}/year for the whole team, charged automatically. Want to stop? Reply CANCEL.`]);
+    }
+    // No trial or plan: no numbers. A teaser + trial link at most 3 times (2+ days apart), or the setup reminder.
+    if (!hasAccess(ws)) {
+      const latestAt = (await store.listSnapshots(ws.id, { limit: 1 }))[0]?.createdAt ?? null;
+      if (latestAt) {
+        const b0 = await buildBrief(store, ws);
+        const n = Number(ws.nudges?.teaseCount ?? 0);
+        const pay = n < 3 ? paywall(ws, b0, "found", { price: await getPriceState().catch(() => null) }) : null;
+        if (pay) {
+          ws.nudges = { ...(ws.nudges ?? {}), teaseCount: String(n + 1) };
+          await store.saveWorkspace(ws);
+          sent += await notifyTeam(store, ws, [pay.text, pay.url]);
+        }
+      } else {
+        const nudge0 = morningNudge(ws, null);
+        if (nudge0) { await store.saveWorkspace(ws); sent += await notifyTeam(store, ws, nudge0); }
+      }
+      continue;
+    }
     // Already pushed today (the team's check ran and numbers went out the moment they landed).
     if (ws.lastPushDay === new Date().toISOString().slice(0, 10)) continue;
     const latest = (await store.listSnapshots(ws.id, { limit: 1 }))[0]?.createdAt ?? null;

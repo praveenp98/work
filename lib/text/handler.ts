@@ -8,6 +8,9 @@ import { dailyNumbers } from "./daily";
 import { paywall, type Moment } from "../paywall";
 import { getPriceState, validateLicenseKey } from "../payments";
 import { demoMorning } from "../demo";
+import { hasAccess, accessOf } from "../access";
+import { cancelSubscription } from "../payments";
+import { hireUrl } from "../paywall";
 import { askRocco, brainOn } from "../brain";
 import { formatBrief } from "../mcp/format";
 import Papa from "papaparse";
@@ -35,7 +38,7 @@ async function inviteReply(store: Store, ws: Workspace): Promise<Reply> {
  * Picks the strongest moment that's due: a fix that just proved itself beats "I found money".
  */
 async function nudge(store: Store, ws: Workspace, b: Awaited<ReturnType<typeof buildBrief>>, now: Date, only?: Moment): Promise<string[]> {
-  if (ws.licensed) return [];
+  if (hasAccess(ws)) return [];
   const price = await getPriceState().catch(() => null);
   const win = b.recentResults.find((a) => a.status === "worked");
   const tries: [Moment, { key?: string; saved?: number }][] = only ? [[only, {}]] : [["worked", { key: win?.id, saved: win?.result?.savedEstimate }], ["found", {}]];
@@ -83,7 +86,7 @@ export async function respond(store: Store, from: string, text: string, now = ne
 /** Everything Rocco knows about a team, as plain text for the brain. */
 async function teamContext(store: Store, ws: Workspace, now: Date): Promise<string> {
   const b = await buildBrief(store, ws, now);
-  const L = [ws.about ? `They said: ${ws.about}` : "", ws.licensed ? "Plan: hired (all fixes unlocked)." : "Plan: free (top 3 fixes per report unlocked).", formatBrief(b)];
+  const L = [ws.about ? `They said: ${ws.about}` : "", hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs the 3-day free trial).", formatBrief(b)];
   const snaps = await store.listSnapshots(ws.id, { limit: 8 });
   for (const s of snaps) {
     const f = (s.extra?.findings ?? []).slice(0, 4).map((x) => `  • ${x.title}`).join("\n");
@@ -170,12 +173,21 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       bubbles: [
         `${name ? `Nice to meet you, ${name}` : "Love it"} 🦝 Here's what your mornings look like with me. This is a sample brand:`,
         demo.text,
-        "Let's turn me on for your Amazon. Connect once in Claude or ChatGPT, 2 minutes, and I'll text your numbers every morning 👇",
+        "Let's turn me on for your Amazon: start your 3-day free trial, then connect once in Claude or ChatGPT (2 min). I'll text your numbers every morning 👇",
         homeUrl(revealToken(ws)),
       ],
     };
   }
 
+
+  // No free plan: without a trial or paid plan, Rocco shows a teaser and the trial link, nothing else.
+  if (!hasAccess(ws, now) && ["numbers", "brief", "wins", "approve", "undo", "ask"].includes(cmd.kind)) {
+    const b = await buildBrief(store, ws, now);
+    const n = b.perBrand.reduce((t, x) => t + x.hidden, 0);
+    const v = b.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
+    const lead = n ? `💰 I found ~$${Math.round(v).toLocaleString("en-US")}/mo across ${n} fixes in your account.` : "I'm ready when you are 🦝";
+    return { bubbles: [`${lead} Start your 3-day free trial to see and approve them, then it's $99/year for the whole team. Cancel anytime.`, hireUrl(ws)] };
+  }
 
   switch (cmd.kind) {
     case "stop": return bubbles("Paused. I won't text you unless you text me. Text START to resume.");
@@ -183,6 +195,15 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
     case "help": return bubbles(HELP);
     case "dashboard": return { bubbles: ["Your Rocco page 👇 (private to your team)", homeUrl(revealToken(ws))] };
     case "invite": return inviteReply(store, ws);
+    case "cancel_sub": {
+      if (!ws.subscriptionId) return "There's no trial or subscription to cancel on this Rocco.";
+      const ok = await cancelSubscription(ws.subscriptionId);
+      if (!ok) return "I couldn't cancel that automatically. Email hello@rocco.works and it's done today, no charge.";
+      ws.subStatus = "cancelled";
+      await store.saveWorkspace(ws);
+      const until = accessOf(ws, now) === "trial" ? ws.trialEndsAt : ws.paidUntil;
+      return `Cancelled ✅ You won't be charged again.${until ? ` I'll keep working until ${until.slice(0, 10)}.` : ""}`;
+    }
     case "activate": {
       if (ws.licensed) return "You already hired me 🦝 Everything's unlocked.";
       const v = await validateLicenseKey(cmd.key);
@@ -232,7 +253,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const runs = await latestRuns(store, ws, brand);
       if (!runs.length) return { bubbles: [`That's the move ✅ On your account I'd queue ${wanted.join(", ")}, your AI applies it through Amazon's connector, and I check next week if it worked.`, "Plug in Amazon to do it for real 👇", homeUrl(revealToken(ws))] };
       const allowed = new Map<string, boolean>();
-      for (const r of runs) r.proposals.forEach((pp, i) => allowed.set(pp.code, ws.licensed || i < FREE_PROPOSALS));
+      for (const r of runs) r.proposals.forEach((pp, i) => allowed.set(pp.code, hasAccess(ws) || i < FREE_PROPOSALS));
       const ok = wanted.filter((c) => allowed.get(c));
       const locked = wanted.filter((c) => allowed.get(c) === false);
       const unknown = wanted.filter((c) => !allowed.has(c));

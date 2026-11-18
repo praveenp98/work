@@ -6,6 +6,8 @@ import { FixCards, type FixCard } from "@/components/dash/FixCards";
 import { TextLink } from "@/components/home/TextLink";
 import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
+import { TrialSheet } from "@/components/dash/TrialSheet";
+import { accessOf, trialHoursLeft } from "@/lib/access";
 import { REPORT_HELP } from "@/lib/analyze";
 import { getPriceState } from "@/lib/payments";
 import { hireUrl } from "@/lib/paywall";
@@ -38,6 +40,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const linkCode = await ensureLinkCode(store, ws);
   const phones = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
   const texting = textingConfigured();
+  const access = accessOf(ws);
+  const trial = access === "none" ? { url: hireUrl(ws), price: dollars(price.priceCents) } : undefined;
+  const hoursLeft = trialHoursLeft(ws);
 
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
   if (empty) {
@@ -47,7 +52,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
-        <StartSteps token={token} />
+        <StartSteps token={token} trial={trial} />
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: share rocco.works/j/{linkCode}</span>
@@ -85,8 +90,23 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           {brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}
         </nav>
       )}
+      {trial && (() => {
+        const n = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
+        const v = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
+        const found = n ? `~${$(v)}/mo across ${n} fixes` : undefined;
+        return (
+          <>
+            <div className="trial-banner">
+              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Start your 3-day free trial to see and approve every fix. Then {dollars(price.priceCents)}/year for the whole team.</span></div>
+              <a className="btn" href={trial.url}>Start free trial</a>
+            </div>
+            <TrialSheet url={trial.url} price={trial.price} open found={found} />
+          </>
+        );
+      })()}
+      {hoursLeft !== null && <p className="trial-note">🎉 Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left. Then {dollars(price.priceCents)}/year. Text CANCEL anytime.</p>}
       <div className="dash-head">
-        <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{ws.licensed ? " · hired" : ""}</span>
+        <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{access === "paid" ? " · hired" : access === "trial" ? " · trial" : ""}</span>
         <h1 className="dash-h1">{fixes.length ? `${fixes.length} fix${fixes.length === 1 ? "" : "es"} waiting${b.openValue ? `, ~${$(b.openValue)}/mo` : ""}.` : "All clear today."}</h1>
         <p className="muted">{lastCheck ? `From ${daysOld === 0 ? "today's" : daysOld === 1 ? "yesterday's" : `a ${daysOld}-day-old`} check.` : ""} {daysOld && daysOld > 1 ? <>Say &ldquo;Rocco, morning check&rdquo; in your AI to refresh.</> : null}</p>
       </div>
@@ -96,8 +116,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {fixes.length > 0 && <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} />}
       {b.hidden > 0 && (
         <div className="locked-row">
-          <span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} unlock when you hire me.</span>
-          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once</a>
+          <span>🔒 <b>{b.hidden} fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} ready for you.</span>
+          <a className="btn small" href={hireUrl(ws)}>Start 3-day free trial</a>
         </div>
       )}
 
@@ -123,7 +143,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       </div>
 
       <nav className="dash-links" aria-label="More">
-        <Link href={`/w/${token}/analytics`}>📈 Analytics{ws.licensed ? "" : " (Pro)"}</Link>
+        <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
         <Link href={`/w/${token}/log`}>🧾 Change log</Link>
         <Link href={`/w/${token}/report`}>📄 Client report</Link>
         <a href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Calendar</a>

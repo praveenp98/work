@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { MemoryStore } from "../store/memory";
-import { loadFixture } from "../test-utils";
+import { grantTrial, loadFixture, wsOfPhone } from "../test-utils";
 import { applyChanges, buildBrief, clearPending, createWorkspace, ensureLinkCode, loadWorkspace, runAnalysis } from "../workspace";
 import { normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
@@ -35,6 +35,8 @@ describe("Text Rocco: brand-new number", () => {
     expect(hi.bubbles[1]).toMatch(/Who am I talking to/);
     expect(hi.card).toBe(true);
     const intro = await respond(store, "+14085550123", "Praveen here. I sell journals.", now);
+    expect(intro.bubbles.at(-2)).toMatch(/3-day free trial/);
+    await grantTrial(store, (await wsOfPhone(store, "+14085550123"))!.id);
     expect(intro.bubbles[0]).toMatch(/Nice to meet you, Praveen/);
     expect(intro.bubbles[1]).toMatch(/Demo brand · Rocco's numbers/);
     expect(intro.bubbles[1]).toMatch(/Reply YES/);
@@ -66,6 +68,7 @@ describe("Text Rocco flow", () => {
   it("links a teammate, texts numbers, queues approvals for the AI, clears them on apply", async () => {
     const store = new MemoryStore();
     const { ws } = await createWorkspace(store);
+    ws.trialEndsAt = (await grantTrial(store, ws.id)).trialEndsAt;
     await runAnalysis(store, ws, "main", loadFixture("sp-search-term-report.csv"));
     await runAnalysis(store, ws, "main", loadFixture("restock-inventory.csv"));
     const now = new Date();
@@ -86,16 +89,15 @@ describe("Text Rocco flow", () => {
     expect(nums).toMatch(/could run out/);
     expect(nums).toMatch(/Reply YES/);
 
-    // approve by text → queued (free plan: N1-N3 ok, N4 locked)
+    // approve by text → queued (on a trial everything is unlocked)
     const reply = await handleInbound(store, "+14155550100", "yes N1 N2 N4 Z9", now);
-    expect(reply).toMatch(/Approved ✅ N1, N2/);
-    expect(reply).toMatch(/🔒 N4/);
+    expect(reply).toMatch(/Approved ✅ N1, N2, N4/);
     expect(reply).toMatch(/Don't recognize Z9/);
     const fresh = (await store.getWorkspaceById(ws.id))!;
-    expect(fresh.pending?.[0]).toMatchObject({ type: "apply", codes: ["N1", "N2"], by: "•••0100" });
+    expect(fresh.pending?.[0]).toMatchObject({ type: "apply", codes: ["N1", "N2", "N4"], by: "•••0100" });
 
     // the AI applies them → queue clears
-    const res = await applyChanges(store, fresh, ["N1", "N2"]);
+    const res = await applyChanges(store, fresh, ["N1", "N2", "N4"]);
     await clearPending(store, fresh, "apply", res.actions.map((a) => a.code));
     expect((await store.getWorkspaceById(ws.id))!.pending).toEqual([]);
 
@@ -111,6 +113,7 @@ describe("Text Rocco flow", () => {
   it("warns when numbers are stale", async () => {
     const store = new MemoryStore();
     const { ws } = await createWorkspace(store);
+    ws.trialEndsAt = (await grantTrial(store, ws.id)).trialEndsAt;
     await runAnalysis(store, ws, "main", loadFixture("sp-search-term-report.csv"));
     const later = new Date(Date.now() + 4 * 86400000);
     expect(dailyNumbers(await buildBrief(store, ws, later), { now: later })).toMatch(/Last check was 4 days ago/);

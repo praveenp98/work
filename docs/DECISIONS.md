@@ -53,3 +53,6 @@ Until Amazon approves Rocco's API apps (on hold, Praveen to submit), the team's 
 
 ## 2026-11-18 · One dashboard per team; approve from the web
 One Rocco = one team (solo = team of one; agencies: one per client, brand tabs inside). Dashboard approvals use the same queue as texts. No site-wide cap on opt-in taps (contacts count on first message sent).
+
+## 2026-11-18 · $99/year after a 3-day card trial; no free plan; ladder counts paid charges only
+Praveen: "I don't want to offer free plan. Better stay offsite than not paying and using." Yearly $99 with 3-day trial, price hike ladder kept, only paid charges count. Supersedes the one-time 'Hire Rocco $99 once' model and the free top-3 tier.

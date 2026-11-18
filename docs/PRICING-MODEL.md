@@ -45,3 +45,13 @@ Free forever: demo, setup, first numbers, the top 3 fixes per report, result che
 | team | a second teammate joins | once |
 Shown in: texts (pitch bubble + checkout link alone), morning text, Claude/ChatGPT (rocco_brief, analyze_report), dashboard (locked row with $ value). Urgency is real: "Goes to $109 after N more hires" from the live ladder.
 Unlock: Rocco's checkout links carry metadata_ref = workspace id. The Dodo webhook fetches the payment from Dodo's API (body untrusted), and if it succeeded, unlocks that workspace and texts the team "You hired me 🎉". Pricing-page buyers text "activate <key>" or tell Rocco in Claude.
+
+
+## Nov 18, 2026 change (approved by Praveen): yearly plan with a 3-day card trial, no free plan
+- **Price:** $99/year for the whole team after a **3-day free trial** (card required, charged automatically on day 4). Dodo subscription product (DODO_PRODUCT_ID).
+- **Ladder stays:** +$10 every 5 hires, cap $499, counting **only paid charges** = unique paying customers (trials and renewals don't move it). Legacy one-time buyers keep lifetime access and count as hires.
+- **No free plan.** Without a trial/paid plan: the demo, setup steps, and a teaser total ("I found ~$X/mo across N fixes") with the trial link. Numbers, fixes, approvals, morning texts, Slack posts, analytics all need access.
+- **Trial moments:** closable trial sheet after the setup steps (at "Now just ask"); trial banner + sheet on the dashboard when data exists; teaser after the first check (text/Slack/Claude); max 3 teaser texts, 2+ days apart.
+- **Reminder:** ~1 day before the trial ends: "⏰ Your free trial ends tomorrow… Reply CANCEL." CANCEL text cancels the Dodo subscription.
+- **Billing sync:** lib/billing.ts verifies every webhook with Dodo's API (subscription active → trial; payment succeeded → paid for a year; failed/expired/on_hold → access ends; cancelled → runs to period end).
+- **To verify in Dodo test mode:** trial field + card collection, metadata_ref carried onto subscriptions, PATCH status=cancelled, and whether renewals keep the original price after the ladder raises the product price (don't promise a locked price until confirmed).

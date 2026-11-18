@@ -1,37 +1,37 @@
 import { NextResponse } from "next/server";
-import { getPriceState, verifiedPurchase } from "@/lib/payments";
+import { syncBilling } from "@/lib/billing";
+import { notifyTeam } from "@/lib/notify";
+import { getPriceState } from "@/lib/payments";
+import { dollars } from "@/lib/pricing";
 import { getStore } from "@/lib/store";
-import { sendText } from "@/lib/text/provider";
 
 /**
- * Dodo webhook (payment.succeeded / refund events). The body is not trusted:
- *  1. it triggers a re-count of sales from Dodo's API and a price sync (idempotent);
- *  2. if it names a payment, Rocco fetches that payment from Dodo's API, and when it's a real, succeeded purchase
- *     made from Rocco's own checkout link (metadata ref = workspace id), unlocks that workspace and tells the team.
+ * Dodo webhook (subscription.* and payment.* events). The body is not trusted: it only names a subscription or
+ * payment, which lib/billing fetches from Dodo's API. Updates the team's trial/paid state, tells the team, and
+ * re-syncs the price ladder (counts paying customers only).
  */
 let last = 0;
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => ({}))) as { type?: string; data?: { payment_id?: string } };
-  let unlocked = false;
-  const paymentId = body?.data?.payment_id;
-  if (paymentId && (!body.type || body.type.startsWith("payment."))) {
-    const buy = await verifiedPurchase(String(paymentId));
-    const store = getStore();
-    if (buy && store) {
-      const ws = await store.getWorkspaceById(buy.ref);
-      if (ws && !ws.licensed) {
-        ws.licensed = true;
-        ws.licenseKey = ws.licenseKey ?? `payment:${paymentId}`;
-        await store.saveWorkspace(ws);
-        unlocked = true;
-        const team = await store.listPhones({ workspaceId: ws.id, optedIn: true });
-        for (const p of team) await sendText(p.phone, "You hired me 🎉🦝 Every fix is unlocked for your whole team. Text “brief” and let's get to work.");
-      }
+  const body = (await req.json().catch(() => ({}))) as { type?: string; data?: { subscription_id?: string; payment_id?: string } };
+  const store = getStore();
+  let change: string | null = null;
+  if (store && (body.data?.subscription_id || body.data?.payment_id)) {
+    const r = await syncBilling(store, body);
+    change = r.change;
+    if (r.ws && r.change) {
+      const price = await getPriceState({ fresh: true }).catch(() => null);
+      const msg = {
+        trial: "🎉 Your 3-day free trial is on. Everything's unlocked for the whole team. Text “brief” and let's get to work.",
+        paid: `You hired me 🎉🦝 ${price ? `${dollars(price.priceCents)}/year` : "Yearly plan"} is active for your whole team. Text “brief” anytime.`,
+        cancelled: "Done: your plan is cancelled and you won't be charged again. I'll keep working until the end of your current period.",
+        ended: "Your Rocco is paused (the payment didn't go through). Start again anytime from your Rocco page.",
+      }[r.change];
+      await notifyTeam(store, r.ws, [msg]);
     }
   }
   if (Date.now() - last > 2000) {
     last = Date.now();
-    await getPriceState({ fresh: true });
+    await getPriceState({ fresh: true }).catch(() => null);
   }
-  return NextResponse.json({ ok: true, unlocked });
+  return NextResponse.json({ ok: true, change, unlocked: change === "trial" || change === "paid" });
 }

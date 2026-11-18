@@ -6,7 +6,7 @@ import { GET as oauth } from "../app/api/slack/oauth/route";
 import { fromSlack, installUrl, readState, toSlack, verifySlack } from "./slack";
 import { setStoreForTests } from "./store";
 import { MemoryStore } from "./store/memory";
-import { loadFixture } from "./test-utils";
+import { grantTrial, loadFixture } from "./test-utils";
 import { createWorkspace, rememberToken, runAnalysis } from "./workspace";
 
 vi.mock("next/server", async (orig) => ({ ...(await orig<typeof import("next/server")>()), after: (fn: () => Promise<void>) => { pending.push(fn()); } }));
@@ -53,6 +53,7 @@ describe("Rocco in Slack", () => {
     const store = new MemoryStore();
     setStoreForTests(store);
     const { ws, token } = await createWorkspace(store);
+    ws.trialEndsAt = (await grantTrial(store, ws.id)).trialEndsAt;
     await rememberToken(store, ws, token);
     await runAnalysis(store, ws, "main", loadFixture("sp-search-term-report.csv"));
 

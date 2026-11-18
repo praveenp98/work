@@ -520,3 +520,24 @@ h1, h2, .display { font-family: var(--display); }
 .loglist li { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; }
 .log-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .log-what { margin: 6px 0 2px; overflow-wrap: anywhere; }
+
+/* Trial sheet (Boardy-style bottom sheet) + banners */
+.sheet-bg { position: fixed; inset: 0; z-index: 60; background: rgba(28, 36, 51, .28); backdrop-filter: blur(4px); display: grid; align-items: end; justify-items: center; animation: bFade .25s ease both; }
+.sheet { position: relative; width: min(560px, 100%); background: var(--bg); border-radius: 28px 28px 0 0; padding: 14px 22px calc(22px + env(safe-area-inset-bottom)); display: grid; gap: 12px; box-shadow: 0 -10px 40px rgba(28, 36, 51, .18); animation: sheetUp .35s cubic-bezier(.2, .9, .2, 1) both; }
+@keyframes sheetUp { from { transform: translateY(40px); opacity: .4; } to { transform: none; opacity: 1; } }
+@media (min-width: 700px) { .sheet-bg { align-items: center; } .sheet { border-radius: 28px; } }
+.sheet-grab { justify-self: center; width: 44px; height: 5px; border-radius: 9px; background: var(--line); }
+.sheet-x { position: absolute; top: 14px; right: 16px; border: 0; background: none; font-size: 26px; color: var(--muted); cursor: pointer; }
+.sheet-who { display: flex; gap: 10px; align-items: center; }
+.sheet-who b { display: block; font-size: 13px; letter-spacing: .08em; }
+.sheet-who small { color: var(--muted); }
+.sheet h2 { font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.1; letter-spacing: -.02em; margin: 2px 0 0; }
+.sheet-list { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--ink); }
+.sheet-btn { justify-content: center; font-size: 17px; padding: 15px 20px; }
+.sheet-later { justify-self: center; color: var(--muted); }
+.trial-banner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: 22px; background: color-mix(in srgb, #1f6feb 7%, var(--card)); border: 1px solid color-mix(in srgb, #1f6feb 30%, var(--line)); }
+.trial-banner > div { display: grid; gap: 4px; flex: 1 1 260px; }
+.trial-banner b { font-size: 18px; font-weight: 600; }
+.trial-banner span { color: var(--muted); font-size: 15px; }
+.trial-note { margin: 0; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, #1f9d63 7%, var(--card)); border: 1px solid color-mix(in srgb, #1f9d63 30%, var(--line)); font-size: 14.5px; }
+.sheet { text-align: left; } .sheet-list { justify-self: stretch; }

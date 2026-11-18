@@ -1,6 +1,7 @@
 import { after } from "next/server";
 import { getPriceState } from "./payments";
 import { paywall } from "./paywall";
+import { hasAccess } from "./access";
 import { postSlack } from "./slack";
 import type { Store, Workspace } from "./store/types";
 import { dailyNumbers } from "./text/daily";
@@ -46,6 +47,15 @@ export async function onFirstUse(store: Store, ws: Workspace, now = new Date()) 
 export async function onFreshCheck(store: Store, ws: Workspace, now = new Date()) {
   const fresh = (await store.listSnapshots(ws.id, { limit: 1 }))[0];
   if (!fresh || fresh.createdAt.slice(0, 10) !== today(now) || ws.lastPushDay === today(now)) return false;
+  if (!hasAccess(ws, now)) {
+    // No plan yet: the teaser (total found + trial link), never the numbers.
+    ws.lastPushDay = today(now);
+    ws.connectedAt = ws.connectedAt ?? now.toISOString();
+    const pay = paywall(ws, await buildBrief(store, ws, now), "found", { now, price: await getPriceState().catch(() => null) });
+    await store.saveWorkspace(ws);
+    if (pay) await notifyTeam(store, ws, ["✅ Amazon is connected.", pay.text, pay.url]);
+    return true;
+  }
   const first = !ws.firstDataAt;
   ws.lastPushDay = today(now);
   ws.firstDataAt = ws.firstDataAt ?? now.toISOString();
@@ -71,7 +81,7 @@ export function morningNudge(ws: Workspace, latestAt: string | null, now = new D
     if (n >= 3 || (last && now.getTime() - new Date(last).getTime() < 2 * 86_400_000)) return null;
     ws.nudges = { ...(ws.nudges ?? {}), setup: now.toISOString(), setupCount: String(n + 1) };
     const t = revealToken(ws);
-    return ["Morning ☀️ Want me on your Amazon? Connect once in Claude or ChatGPT, 2 minutes, and I'll text your numbers every day 👇", t ? `https://rocco.works/w/${t}` : "https://rocco.works/setup"];
+    return ["Morning ☀️ Want me on your Amazon? Start your 3-day free trial and connect once in Claude or ChatGPT (2 minutes). I'll text your numbers every day 👇", t ? `https://rocco.works/w/${t}` : "https://rocco.works/setup"];
   }
   if (!ws.connectedAt) return null; // data came from texted reports, not their AI: just send the numbers we have
   const link = askLink(ws.ai);

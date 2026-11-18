@@ -6,7 +6,7 @@ import { setStoreForTests } from "./store";
 import { MemoryStore } from "./store/memory";
 import { respond } from "./text/handler";
 import { outbox } from "./text/provider";
-import { loadFixture } from "./test-utils";
+import { grantTrial, loadFixture } from "./test-utils";
 import Papa from "papaparse";
 import { loadWorkspace } from "./workspace";
 
@@ -33,8 +33,9 @@ describe("Claude bridge: connect once, Rocco texts the team", () => {
     // iMessage onboarding → one link to connect
     await respond(store, me, "hey");
     const intro = await respond(store, me, "I'm Sam, we sell journals");
-    expect(intro.bubbles.at(-2)).toMatch(/Connect once in Claude or ChatGPT/);
+    expect(intro.bubbles.at(-2)).toMatch(/connect once in Claude or ChatGPT/i);
     const token = intro.bubbles.at(-1)!.split("/w/")[1];
+    await grantTrial(store, (await loadWorkspace(store, token))!.id);
 
     // Their AI calls Rocco for the first time → 🔔
     await call(token, "rocco_plan", { job: "morning_check" });

@@ -1,4 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { hasAccess } from "../access";
 import Papa from "papaparse";
 import { z } from "zod";
 import { parseSearchTermReport } from "../parsers/searchTerm";
@@ -104,7 +105,7 @@ function registerCoreTools(server: McpServer, ctx?: McpContext) {
       } catch (e) {
         return { isError: true, content: [{ type: "text" as const, text: e instanceof Error ? e.message : "Couldn't parse that report." }] };
       }
-      let full = ctx?.ws.licensed ?? false;
+      let full = ctx?.ws ? hasAccess(ctx.ws) : false;
       let note = "";
       if (license_key) {
         const v = await validateLicenseKey(license_key);

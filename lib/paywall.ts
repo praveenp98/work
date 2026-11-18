@@ -1,3 +1,4 @@
+import { hasAccess } from "./access";
 import { checkoutUrl } from "./payments";
 import { dollars, type PriceState } from "./pricing";
 import { SITE } from "./site";
@@ -33,7 +34,7 @@ export function paywall(
   moment: Moment,
   o: { now?: Date; price?: PriceState | null; key?: string; saved?: number } = {},
 ): { text: string; url: string } | null {
-  if (ws.licensed) return null;
+  if (hasAccess(ws, o.now)) return null;
   const now = o.now ?? new Date();
   const hidden = b.perBrand.reduce((t, x) => t + x.hidden, 0);
   const hiddenValue = b.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
@@ -45,12 +46,13 @@ export function paywall(
   ws.nudges = { ...(ws.nudges ?? {}), [tag]: now.toISOString() };
 
   const price = dollars(o.price?.priceCents ?? 9900);
-  const more = `${hidden} more fix${hidden === 1 ? "" : "es"}${hiddenValue ? ` (~${$(hiddenValue)}/mo)` : ""}`;
+  const total = `~${$(freeValue + hiddenValue)}/mo across ${hidden} fix${hidden === 1 ? "" : "es"}`;
+  const offer = `Start your 3-day free trial, then ${price}/year for the whole team. Cancel anytime.${urgency(o.price)}`;
   const text = {
-    found: `💰 I found ~${$(freeValue + hiddenValue)}/mo. Your top 3 fixes${freeValue ? ` (~${$(freeValue)}/mo)` : ""} are free. The other ${more} unlock when you hire me: ${price} once, for life.${urgency(o.price)}`,
-    worked: `✅ That fix worked${o.saved ? `: ~${$(o.saved)}/mo saved` : ""}. ${more} like it are waiting. Hire me for ${price} once and I'll handle all of them.${urgency(o.price)}`,
-    locked: `🔒 That one's for hired Rocco. ${price} once, for life, unlocks every fix${hidden ? ` (${more})` : ""}, bulk files and full tracking.${urgency(o.price)}`,
-    team: `Your team's on Rocco now 🦝 ${more} are locked. One hire covers everyone: ${price} once.${urgency(o.price)}`,
+    found: `💰 I found ${total} in your account. ${offer}`,
+    worked: `✅ That fix worked${o.saved ? `: ~${$(o.saved)}/mo saved` : ""}. Keep me on: ${offer}`,
+    locked: `🔒 Approving fixes needs an active Rocco. ${offer}`,
+    team: `Your team's on Rocco now 🦝 One plan covers everyone. ${offer}`,
   }[moment];
   return { text, url: hireUrl(ws) };
 }

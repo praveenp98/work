@@ -22,6 +22,11 @@ export interface Workspace {
   createdAt: string;
   licenseKey?: string | null;
   licensed: boolean;
+  /** Subscription (Dodo, $99/yr after a 3-day trial): paid period end, trial end, ids, last known status. */
+  paidUntil?: string;
+  trialEndsAt?: string;
+  subscriptionId?: string;
+  subStatus?: string;
   brands: Record<string, BrandSettings>;
   /** 6-char code teammates text to link their phone ("link R7K2QX"). */
   linkCode?: string;

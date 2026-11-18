@@ -49,7 +49,7 @@ export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId
     lines.push("", `### Proposed changes (approval list)${o.runId ? ` · run ${o.runId.slice(0, 8)}` : ""}`);
     lines.push(...shown.map(proposalLine));
     if (!o.licensed && a.proposals.length > shown.length) {
-      lines.push(`- …and ${a.proposals.length - shown.length} more. The full list plus upload-ready bulk files come with a Rocco license (rocco.works/pricing). Call activate_license once you have a key.`);
+      lines.push(`- ${shown.length ? "…and " : ""}${a.proposals.length - shown.length} fixes worth ~$${Math.round(a.proposals.slice(shown.length).reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo are ready. They unlock with Rocco's 3-day free trial (then $99/year for the whole team).`);
     }
     lines.push("", o.memory
       ? "Ask the seller which codes to approve (e.g. \"N1-N4, B2\"). Then get the change list with export_changes, apply exactly those codes with the seller's Amazon Ads connector (or the seller applies them by hand), and call apply_changes so Rocco tracks them and re-checks results."
@@ -86,7 +86,7 @@ export function formatBrief(b: Awaited<ReturnType<typeof buildBrief>>): string {
       L.push(`- **${pb.open.length} proposed changes not applied yet**${pb.openValue ? ` (~${$(pb.openValue)}/mo at stake)` : ""}:`);
       L.push(...[...pb.open].sort((a, b) => b.valueMonthly - a.valueMonthly).slice(0, 5).map((p) => "  " + proposalLine(p)));
     }
-    if (pb.hidden) L.push(`- +${pb.hidden} more fixes locked. A Rocco license unlocks them (rocco.works/pricing).`);
+    if (pb.hidden) L.push(`- ${pb.hidden} fixes (~$${Math.round(pb.hiddenValue ?? 0).toLocaleString("en-US")}/mo) are ready and unlock with the 3-day free trial (then $99/year).`);
     const todo = pb.stale;
     if (todo.length) L.push(`- Not checked in 7+ days: ${pb.stale.map((k: ReportKind) => REPORT_HELP[k].name).join(", ")}. Say "morning check" and Rocco will pull them (rocco_plan).`);
   }

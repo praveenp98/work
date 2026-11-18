@@ -84,3 +84,11 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 3. Display information → upload `public/rocco-avatar.png` as the app icon.
 4. Test: open your Rocco page → Add to Slack → pick a channel. Rocco says hi there; mention @Rocco with "help". Check /api/health → slack: set.
 5. Later (for other teams to install): Manage Distribution → activate public distribution (no Slack review needed unless listing in the Slack Marketplace).
+
+
+## 12. Switch Dodo to the yearly plan with a 3-day trial (Nov 18)
+1. Dodo (live mode) → Products → Add product → **Subscription**: name "Hire Rocco", price **$99**, billing **every 1 year**, **free trial 3 days**, tax category SaaS. Save and copy the product id (pdt_…).
+2. Vercel → env `DODO_PRODUCT_ID` = that id → redeploy. (The old one-time product stays as legacy; its buyers keep lifetime access.)
+3. Dodo → Developer → Webhooks → endpoint `https://rocco.works/api/dodo/webhook`, events: all `subscription.*` and `payment.*`.
+4. Test in test mode first if possible: start a trial with a test card → your Rocco page shows "Free trial: 3 days left" and the team gets "🎉 Your 3-day free trial is on". Then text CANCEL → "Cancelled ✅".
+5. Check: does Dodo keep an existing subscriber's renewal price when the product price goes up (ladder)? Tell Claude the answer before we promise "your price stays locked".

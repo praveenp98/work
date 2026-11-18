@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { seal, unseal } from "./vault";
+import { hasAccess } from "./access";
 import { analyze, REPORT_HELP, type AnalyzeOutput, type ReportKind } from "./analyze";
 import { evaluateAction, evaluateBudget } from "./rules/results";
 import { diffTerms, termSnapshot, type TermDiff } from "./rules/terms";
@@ -12,7 +13,8 @@ import type { Action, BrandSettings, PendingItem, Run, Store, Workspace } from "
 
 export const DEFAULT_BRAND = "main";
 /** Free workspaces see and track the top N proposals per report. */
-export const FREE_PROPOSALS = 3;
+/** No free plan (Nov 18): without a trial or paid plan, every fix is locked (teaser totals only). */
+export const FREE_PROPOSALS = 0;
 const DAY = 86400000;
 
 export async function createWorkspace(store: Store) {
@@ -186,9 +188,10 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
     const trends = [...latestByKind.entries()].map(([kind, list]) => ({ kind, latest: list[0], previous: list[1] ?? null }));
     const kinds = new Set<string>();
     const brandRuns = runs.filter((r) => r.brand === brand && !kinds.has(r.kind) && kinds.add(r.kind));
-    const visible = (r: Run) => (ws.licensed ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS));
-    const hidden = ws.licensed ? 0 : brandRuns.reduce((t, r) => t + Math.max(0, r.proposals.length - FREE_PROPOSALS), 0);
-    const locked: Proposal[] = ws.licensed ? [] : brandRuns.flatMap((r) => r.proposals.slice(FREE_PROPOSALS));
+    const open_ = hasAccess(ws, now);
+    const visible = (r: Run) => (open_ ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS));
+    const hidden = open_ ? 0 : brandRuns.reduce((t, r) => t + Math.max(0, r.proposals.length - FREE_PROPOSALS), 0);
+    const locked: Proposal[] = open_ ? [] : brandRuns.flatMap((r) => r.proposals.slice(FREE_PROPOSALS));
     const hiddenValue = locked.reduce((t, p) => t + p.valueMonthly, 0);
     const open: Proposal[] = brandRuns.flatMap((r) => visible(r).filter((p) => !appliedCodes.has(`${r.id}:${p.code}`)));
     const stale: ReportKind[] = (["sp_search_term", "business_report", "inventory", "sp_campaign"] as ReportKind[]).filter((k) => {

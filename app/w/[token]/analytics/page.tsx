@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { BarList, IssueList, LineChart, Stat, type Series } from "@/components/charts/Charts";
 import { getPriceState } from "@/lib/payments";
 import { hireUrl } from "@/lib/paywall";
+import { hasAccess } from "@/lib/access";
 import { dollars } from "@/lib/pricing";
 import { getStore } from "@/lib/store";
 import type { Snapshot } from "@/lib/store/types";
@@ -37,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const st = of("sp_search_term"), biz = of("business_report"), inv = of("inventory"), lh = of("listing_health");
   const last = st.at(-1), prev = st.at(-2) ?? null;
   const worked = actions.filter((a) => a.status === "worked" && (a.result?.savedEstimate ?? 0) > 0).sort((a, b) => (b.result!.savedEstimate ?? 0) - (a.result!.savedEstimate ?? 0));
-  const pro = ws.licensed;
+  const pro = hasAccess(ws);
 
   if (!snaps.length) {
     return (
@@ -86,8 +87,8 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <div className="ana-lock-card">
             <h2>Pro analytics</h2>
             <p>Every trend across every check, what each change saved, stock and listing health over time. For every brand you run.</p>
-            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)} once</a>
-            <p className="fine">Unlocks automatically after you pay. Also unlocks every fix.</p>
+            <a className="btn" href={hireUrl(ws)}>Start 3-day free trial</a>
+            <p className="fine">Then {dollars(price.priceCents)}/year for the whole team. Unlocks the moment you start.</p>
           </div>
         </div>
       )}
