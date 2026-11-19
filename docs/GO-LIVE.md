@@ -95,9 +95,11 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 
 ## 13. Sign in with Google (Nov 19)
 Flow: Hire Rocco → Continue with Google → Dodo checkout (prefilled, tagged with the team) → /welcome → setup. Returning users: "Sign in" (top right) → their Rocco. Without the keys the sheet falls back to the work-email form.
-1. console.cloud.google.com → new project "Rocco" (your personal Google account, not the agency's).
-2. Google Auth Platform / OAuth consent screen: External; app name **Rocco**; support email; logo optional; app domain `https://rocco.works`, privacy `https://rocco.works/privacy`, terms `https://rocco.works/terms`; authorized domain `rocco.works`. Scopes: openid, email, profile only (non-sensitive, so no Google review). **Publish app** (In production), otherwise only test users can sign in.
-3. Clients → Create client → Web application. Authorized JavaScript origin `https://rocco.works`. Authorized redirect URI `https://rocco.works/api/auth/google/callback`.
-4. Vercel → Environment Variables: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (secret only in Vercel, never in chat or git). Make sure `ROCCO_VAULT_KEY` (or the Supabase service key) is set: it seals the session cookies. Redeploy.
-5. Test: open rocco.works in a private window → Hire Rocco → Continue with Google → you should land on Dodo checkout with your email filled in. Then "Sign in" from another browser should open the same Rocco.
+1. Project "Rocco" in console.cloud.google.com (personal Google account). IAM is NOT needed.
+2. Open console.cloud.google.com/auth/overview (project Rocco selected) → **Get started**: app name Rocco, support email → Audience **External** → contact email → agree → Create.
+3. console.cloud.google.com/auth/branding: authorized domain `rocco.works`, home `https://rocco.works`, privacy `https://rocco.works/privacy`, terms `https://rocco.works/terms` → Save. (No extra scopes: openid/email/profile are default.)
+4. console.cloud.google.com/auth/audience → **Publish app** → Confirm (status "In production").
+5. console.cloud.google.com/auth/clients → **Create client** → Web application, name "Rocco web"; JavaScript origin `https://rocco.works`; redirect URI `https://rocco.works/api/auth/google/callback` → Create → copy Client ID + Client secret.
+6. Vercel → Environment Variables: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (secret only in Vercel, never in chat or git). Make sure `ROCCO_VAULT_KEY` (or the Supabase service key) is set: it seals the session cookies. Redeploy.
+7. Test: open rocco.works in a private window → Hire Rocco → Continue with Google → you should land on Dodo checkout with your email filled in. Then "Sign in" from another browser should open the same Rocco.
 Note: the site must be served on `rocco.works` (not www) for the cookie + redirect URI to match; make rocco.works the primary domain in Vercel.
