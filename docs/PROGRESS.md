@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Amazon access: hold direct API, no credential shortcut
+- Ads Partner Network application needs a seller/ads account; Praveen will set up a clean Rocco business account first. Sign in with Amazon is on hold.
+- Ruled out: buying API access; inviting Praveen as a user to client accounts and pulling with his login (scraping, breaks Amazon terms and hard rules 2 and 6).
+- Allowed once Rocco has Ads API access: sellers invite a Rocco user to their ads account, then Rocco reads it through the official API. Meanwhile: Claude/ChatGPT Amazon connectors + reports sellers send (upload/text/email).
+
+---
+
 ## 2026-11-19 · Amazon Ads API application started
 - Praveen is creating the Login with Amazon security profile "Rocco". Field values + web settings recorded in docs/AMAZON-API-APPLICATIONS.md §1. Next: Web Settings → Ads API access request (paste-ready answers in the same doc) → SP-API developer registration. OAuth callbacks get built only after approval.
 - Positioning vs Amazon Ads' own agent: it lives inside the Ads console and covers ads only; Rocco is the cross-channel manager (ads + Seller Central + stock + listings) with memory, approvals and follow-ups in iMessage/Slack/Claude. Work beside it, not against it.

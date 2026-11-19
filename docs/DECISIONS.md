@@ -65,3 +65,5 @@ Praveen: main CTA = Hire Rocco → paywall (trial sheet) → checkout. Texting i
 
 ## 2026-11-18 · No trial; +$10 with every hire; email then pay then set up
 Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" and the localseo.to flow (ask, sign in, pay, then set up). Ladder step changed from every 5 hires to every hire (confirm if he meant every 5).
+| 2026-11-19 | Hold Sign in with Amazon / direct Ads API until Praveen sorts a clean (non-agency) Rocco business account for the Ads Partner application | The partner program ties access to a Seller Central + Ads account; agency accounts can't be used (hard rule 1) | Use the agency's approval (ruled out) |
+| 2026-11-19 | No buying/borrowing API access and no logging into sellers' accounts with Praveen's own credentials to pull data | Sharing API access breaks Amazon's terms; using a human login programmatically is scraping (hard rule 6); Praveen as a user in every account is a service, not self-serve (hard rule 2) | Invite-as-user + scripted console pulls (ruled out); invite a Rocco user + official Ads API (allowed once API access exists) |
