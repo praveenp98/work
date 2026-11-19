@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Buyer review: "interested, wouldn't pay yet"
+- Feedback: value = memory + prepared changes + result follow-up. Blockers: headline overpromises (buyer still drives Claude), wants a real first finding on their own account before paying, judgment too simple (negatives = 10 clicks/0 orders; needs conversion lag, product economics, campaign purpose), "saved" figures are projections, not measured savings. Recommends pausing homepage work and proving one real account end to end.
+- Verified in code: lib/rules/negatives.ts flags any term with ≥ minClicksNegative clicks and 0 orders; savedEstimate extrapolates past spend.
+- Proposed next: (1) proof run on one real account (with owner consent), (2) judgment upgrade (lag, break-even ACoS from margin, campaign intent), (3) honest "projected vs measured" wording, (4) first real finding before paywall. Waiting for Praveen's go.
+
+---
+
 ## 2026-11-19 · Quarterly pricing, light theme, Boardy-clean homepage
 - **Pricing:** $199 for the first 3 months, then $249 every 3 months (Praveen). Ladder and the automatic Dodo price PATCH removed; one PRICE copy source (lib/pricing.ts) used on pricing, homepage, dashboard, paywall texts, MCP, llms.txt. Checkout adds `discount_code` from DODO_DISCOUNT_CODE (unverified param; test one checkout). Dodo setup steps in DODO-SETUP.md.
 - **Light theme only** (dark mode removed), Boardy palette.
