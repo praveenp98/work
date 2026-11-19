@@ -1,7 +1,7 @@
 import type { Workspace } from "./store/types";
 
 /**
- * Who can use Rocco (Nov 18, 2026 decision): no free plan. $99/year after a 3-day free trial (card required,
+ * Who can use Rocco (Nov 18, 2026 decision): no free plan. Quarterly: $199 first 3 months, then $249 (legacy: 3-day trial,
  * Dodo subscription). Access = an active paid period, a running trial, or a legacy lifetime license.
  * Without access Rocco still shows the demo and a teaser total ("I found ~$X/mo across N fixes"), nothing more.
  */

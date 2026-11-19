@@ -35,7 +35,7 @@ export async function GET(req: Request) {
       const price = await getPriceState().catch(() => null);
       ws.nudges = { ...(ws.nudges ?? {}), trialEnd: new Date().toISOString() };
       await store.saveWorkspace(ws);
-      sent += await notifyTeam(store, ws, [`⏰ Your free trial ends tomorrow. Then it's ${price ? dollars(price.priceCents) : "$99"}/year for the whole team, charged automatically. Want to stop? Reply CANCEL.`]);
+      sent += await notifyTeam(store, ws, [`⏰ Your free trial ends tomorrow. Then it's $249 every 3 months for the whole team, charged automatically. Want to stop? Reply CANCEL.`]);
     }
     // No trial or plan: no numbers. A teaser + trial link at most 3 times (2+ days apart), or the setup reminder.
     if (!hasAccess(ws)) {

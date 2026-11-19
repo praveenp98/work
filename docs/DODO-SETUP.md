@@ -39,9 +39,12 @@ Activation limit: leave unlimited (Rocco checks keys with `/licenses/validate`, 
 Edit prices on Nov 27, Dec 1 and Dec 16 (Praveen approves each change).
 
 
-## Product copy for the yearly "Hire Rocco" product (Nov 19, paste into Dodo)
-The live checkout still shows the OLD one-time product (₹9,615 ≈ $99, "for life", "Claude/ChatGPT", "every 5 sales"). Create the subscription product and set `DODO_PRODUCT_ID`; until then every checkout uses the legacy one.
-- **Name:** Hire Rocco: your AI Amazon manager (1 year)
-- **Description:** A senior Amazon manager for your whole team, working inside Claude with Amazon's official connectors. Every morning: your numbers and the fixes worth making across ads, stock and listings. Your team approves with a reply; nothing changes without a YES. Rocco remembers every change and checks a week later if it worked. Unlimited teammates and brands. Renews yearly, cancel anytime. Self-serve software, not affiliated with Amazon.
-- Pricing: $99 USD, recurring every 1 year, no trial. Tax category: SaaS / digital. Turn off the license-key entitlement (not used any more).
-- **Brand (Dodo → Settings → Business / Branding):** logo = https://rocco.works/rocco-avatar.png, business name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's; logo, name, color and light/dark are what we can set.
+## Product setup for the quarterly "Hire Rocco" plan (Nov 19, paste into Dodo)
+The live checkout still shows the OLD one-time product. Until `DODO_PRODUCT_ID` points to the new product, every checkout uses the legacy one.
+1. **New product** → Subscription. Price **$249 USD**, billed **every 3 months**, no trial. Tax category SaaS / digital. No license key.
+   - **Name:** Hire Rocco: your AI Amazon manager
+   - **Description:** Your team's AI Amazon manager, working inside Claude with Amazon's official connectors. Every morning: your numbers and the fixes worth making across ads, stock and listings. Your team approves with a reply; nothing changes without a YES. Rocco remembers every change and checks a week later if it worked. Unlimited teammates and brands. $199 for your first 3 months, then $249 every 3 months. Cancel anytime. Self-serve software, not affiliated with Amazon.
+2. **Discount code** (Dodo → Discounts): code `LAUNCH50`, $50 off (or 20.08%), applies to this product, **first billing cycle only** if Dodo offers a cycles limit. Put the code in Vercel as `DODO_DISCOUNT_CODE`.
+3. Vercel: `DODO_PRODUCT_ID` = the new product id. Redeploy.
+4. Test: Hire Rocco → checkout should show $199 today, $249 renewing. If the discount isn't applied automatically, tell Claude (the link parameter may need to change).
+5. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's.

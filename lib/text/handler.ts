@@ -87,7 +87,7 @@ export async function respond(store: Store, from: string, text: string, now = ne
 /** Everything Rocco knows about a team, as plain text for the brain. */
 async function teamContext(store: Store, ws: Workspace, now: Date): Promise<string> {
   const b = await buildBrief(store, ws, now);
-  const L = [ws.about ? `They said: ${ws.about}` : "", hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring, $99/year).", formatBrief(b)];
+  const L = [ws.about ? `They said: ${ws.about}` : "", hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring, $199 first quarter, then $249/quarter).", formatBrief(b)];
   const snaps = await store.listSnapshots(ws.id, { limit: 8 });
   for (const s of snaps) {
     const f = (s.extra?.findings ?? []).slice(0, 4).map((x) => `  • ${x.title}`).join("\n");
@@ -187,7 +187,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
     const n = b.perBrand.reduce((t, x) => t + x.hidden, 0);
     const v = b.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
     const lead = n ? `💰 I found ~$${Math.round(v).toLocaleString("en-US")}/mo across ${n} fixes in your account.` : "I'm ready when you are 🦝";
-    return { bubbles: [`${lead} Hire me to see and approve them: $99/year for the whole team.`, hireUrl(ws)] };
+    return { bubbles: [`${lead} Hire me to see and approve them: $199 for your first 3 months, then $249 every 3 months.`, hireUrl(ws)] };
   }
 
   switch (cmd.kind) {

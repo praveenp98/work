@@ -48,30 +48,26 @@ describe("checkoutUrl", () => {
   });
 });
 
-describe("price ladder sync", () => {
-  it("counts succeeded payments for the product and patches the price", async () => {
+describe("hire count", () => {
+  it("counts unique paying customers and never changes the Dodo price", async () => {
     vi.stubEnv("DODO_API_KEY", "k");
     const pid = "pdt_0Ns7dcv01gDgTlIQC1O1b";
     const payments = { items: [
-      ...Array.from({ length: 6 }, () => ({ status: "succeeded", product_cart: [{ product_id: pid, quantity: 1 }] })),
+      ...Array.from({ length: 6 }, (_, i) => ({ status: "succeeded", product_cart: [{ product_id: pid, quantity: 1 }], customer: { customer_id: `c${i}` } })),
       { status: "succeeded", product_cart: [{ product_id: "pdt_other", quantity: 1 }] },
     ] };
     const calls: [string, RequestInit | undefined][] = [];
     vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
       calls.push([url, init]);
-      if (url.includes("/payments")) return new Response(JSON.stringify(payments));
-      if (init?.method === "PATCH") return new Response("", { status: 200 });
-      return new Response(JSON.stringify({ price: { price: 9900 } }));
+      return new Response(JSON.stringify(url.includes("/payments") ? payments : {}));
     }));
     const { getPriceState } = await import("./payments");
-    const s = await getPriceState({ fresh: true });
-    expect(s).toMatchObject({ sold: 6, priceCents: 15900, salesUntilNext: 1, live: true });
-    const patch = calls.find(([, i]) => i?.method === "PATCH")!;
-    expect(JSON.parse(String(patch[1]!.body)).price.price).toBe(15900);
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 6, priceCents: 19900, renewCents: 24900, live: true });
+    expect(calls.some(([, i]) => i?.method === "PATCH")).toBe(false);
   });
-  it("falls back to the start price without an API key", async () => {
+  it("falls back to the plan price without an API key", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
     const { getPriceState } = await import("./payments");
-    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 9900, live: false });
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 19900, live: false });
   });
 });

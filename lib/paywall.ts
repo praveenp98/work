@@ -1,3 +1,4 @@
+import { PRICE } from "./pricing";
 import { hasAccess } from "./access";
 import { checkoutUrl } from "./payments";
 import { dollars, type PriceState } from "./pricing";
@@ -23,11 +24,6 @@ const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 /** Checkout tagged with the workspace, so the payment unlocks it automatically (see /api/dodo/webhook). */
 export const hireUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id, email: ws.ownerEmail, redirect: `${SITE.url}/welcome` }) ?? `${SITE.url}/pricing`;
 
-function urgency(p?: PriceState | null): string {
-  if (!p?.nextPriceCents) return "";
-  return ` The price goes up $10 with every hire (next one pays ${dollars(p.nextPriceCents)}).`;
-}
-
 export function paywall(
   ws: Workspace,
   b: Brief,
@@ -45,9 +41,8 @@ export function paywall(
   if (last && now.getTime() - new Date(last).getTime() < GAP[moment]) return null;
   ws.nudges = { ...(ws.nudges ?? {}), [tag]: now.toISOString() };
 
-  const price = dollars(o.price?.priceCents ?? 9900);
   const total = `~${$(freeValue + hiddenValue)}/mo across ${hidden} fix${hidden === 1 ? "" : "es"}`;
-  const offer = `Hire me: ${price}/year for the whole team.${urgency(o.price)}`;
+  const offer = `Hire me: ${PRICE.short}, ${PRICE.then}. Whole team.`;
   const text = {
     found: `💰 I found ${total} in your account. ${offer}`,
     worked: `✅ That fix worked${o.saved ? `: ~${$(o.saved)}/mo saved` : ""}. Keep me on: ${offer}`,

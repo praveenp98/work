@@ -28,7 +28,7 @@ export function GET() {
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: $99/year, paid up front (no trial, no free plan). The price for new hires rises $10 with every paying customer, capped at $499. No free plan; the demo is free.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: $199 for the first 3 months, then $249 every 3 months (no trial, no free plan). Works in Claude with Amazon's official connectors.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

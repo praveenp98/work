@@ -25,7 +25,7 @@ describe("no free plan: trial offer at the right moments", () => {
     expect(b.perBrand[0].open).toHaveLength(0);
     expect(b.perBrand[0].hidden).toBeGreaterThan(0);
     const now = new Date("2026-11-18T09:00:00Z");
-    expect(paywall(ws, b, "found", { now })?.text).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes in your account\. Hire me: \$99\/year for the whole team/);
+    expect(paywall(ws, b, "found", { now })?.text).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes in your account\. Hire me: \$199 for your first 3 months, then \$249 every 3 months/);
     expect(paywall(ws, b, "found", { now: new Date("2026-11-20T09:00:00Z") })).toBeNull();
     expect(paywall(ws, b, "found", { now: new Date("2026-11-21T10:00:00Z") })).not.toBeNull();
   });

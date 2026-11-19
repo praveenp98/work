@@ -40,10 +40,10 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
           <form className="sheet-form" onSubmit={async (e) => { e.preventDefault(); setBusy(true); await onStart(email.trim()); setBusy(false); }}>
             <label htmlFor="hire-email">Your work email</label>
             <input id="hire-email" type="email" required autoComplete="email" placeholder="you@brand.com" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <button className="btn sheet-btn" disabled={busy}>{busy ? "Opening checkout…" : `Continue to payment · ${price}/year`}</button>
+            <button className="btn sheet-btn" disabled={busy}>{busy ? "Opening checkout…" : `Continue to payment · ${price}`}</button>
           </form>
-        ) : <a className="btn sheet-btn" href={url}>Hire Rocco · {price}/year</a>}
-        <p className="fine">{price}/year for your whole team.{next ? ` The price goes up $10 with every hire: the next one pays ${next}.` : ""} Then set me up in 2 minutes.</p>
+        ) : <a className="btn sheet-btn" href={url}>Hire Rocco · {price}</a>}
+        <p className="fine">{price} for your first 3 months, then $249 every 3 months for your whole team. Then set me up in Claude in 2 minutes.</p>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>
     </div>

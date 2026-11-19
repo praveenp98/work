@@ -1,3 +1,4 @@
+import { PRICE } from "@/lib/pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -87,8 +88,8 @@ export default async function Page({ params }: { params: Promise<{ token: string
           <div className="ana-lock-card">
             <h2>Pro analytics</h2>
             <p>Every trend across every check, what each change saved, stock and listing health over time. For every brand you run.</p>
-            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
-            <p className="fine">Then {dollars(price.priceCents)}/year for the whole team. Unlocks the moment you start.</p>
+            <a className="btn" href={hireUrl(ws)}>Hire Rocco · {PRICE.first}</a>
+            <p className="fine">{PRICE.line} Unlocks the moment you pay.</p>
           </div>
         </div>
       )}

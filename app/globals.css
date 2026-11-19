@@ -16,13 +16,6 @@
   --shadow: 0 1px 2px rgba(19, 22, 28, .04), 0 8px 30px rgba(19, 22, 28, .06);
   --display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1216; --bg2: #151a20; --card: #181d24; --ink: #f1efe9; --muted: #a2a9b4; --line: #272e38;
-    --accent: #3cc489; --accent-deep: #2aa36f; --accent-ink: #07130d; --soft: #1d232b; --hot: #ff7a5c; --warn: #ff8a66;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
-  }
-}
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -262,9 +255,7 @@ h3, h4 { font-weight: 600; letter-spacing: -0.02em; }
   --shadow: 0 1px 2px rgba(28, 36, 51, .04), 0 12px 32px rgba(28, 36, 51, .07);
   --radius: 22px;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #11151c; --bg2: #161b23; --card: #1a2029; --ink: #eef1f6; --muted: #a3acba; --line: #2a313c; --accent: #4a8dff; --accent-deep: #2f74ec; --soft: #1d232c; }
-}
+:root { color-scheme: light; } /* Boardy: one light theme on every device (Nov 19) */
 body { letter-spacing: -0.005em; }
 h1, h2, .display { color: var(--ink); }
 .top-b { border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); background: color-mix(in srgb, var(--bg) 88%, transparent); }

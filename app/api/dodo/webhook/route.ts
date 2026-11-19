@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       const price = await getPriceState({ fresh: true }).catch(() => null);
       const msg = {
         trial: "🎉 You're in. Everything's unlocked for the whole team. Text “brief” and let's get to work.",
-        paid: `You hired me 🎉🦝 ${price ? `${dollars(price.priceCents)}/year` : "Yearly plan"} is active for your whole team. Text “brief” anytime.`,
+        paid: `You hired me 🎉🦝 Your plan is active for your whole team. Text “brief” anytime.`,
         cancelled: "Done: your plan is cancelled and you won't be charged again. I'll keep working until the end of your current period.",
         ended: "Your Rocco is paused (the payment didn't go through). Start again anytime from your Rocco page.",
       }[r.change];

@@ -1,3 +1,13 @@
+# Pricing model: CURRENT (Nov 19, 2026): quarterly, $199 first 3 months, then $249 every 3 months
+
+- One plan, "Hire Rocco", whole team, unlimited brands. No free plan, no trial. No price ladder any more.
+- Dodo: one subscription product at **$249 every 3 months** + discount code **$50 off the first cycle** (env `DODO_DISCOUNT_CODE`, added to checkout links as `discount_code=`; param name still to be verified with one live checkout).
+- Contest math: profit counts payments made by Dec 16, so a new team is worth $199 (first quarter); renewals land after the contest. 50 teams = ~$9,950, 100 = ~$19,900, 250 = ~$49,750 (minus Dodo fees). Yearly upfront would book more per team; Praveen chose quarterly (Nov 19).
+- Homepage no longer compares against a manager's salary: Amazon managers are buyers too.
+
+---
+(History below.)
+
 # Pricing model (Nov 17, 2026) — APPROVED: one plan named **"Hire Rocco"** (renamed from Founding Lifetime), $99, +$10 every 5 sales, cap $499 — LIVE
 
 ## Praveen's idea

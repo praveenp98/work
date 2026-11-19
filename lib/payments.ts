@@ -1,12 +1,12 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * One product, "Hire Rocco": a yearly subscription ($99/year, no trial), sold on a price ladder
- * (lib/pricing.ts). The ladder counts unique paying customers only (trials and renewals don't move it).
+ * One product, "Hire Rocco": a quarterly subscription ($249 every 3 months) with a $50-off-first-cycle discount
+ * code (DODO_DISCOUNT_CODE) so new teams pay $199 for their first quarter (lib/pricing.ts).
  * - Checkout: Dodo static payment link (DODO_PRODUCT_ID = the subscription product), tagged with the workspace.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
- * - Ladder: count succeeded payments via the Dodo API (DODO_API_KEY, server only) and PATCH the product price.
+ * - Count: unique paying customers via the Dodo API (DODO_API_KEY, server only). Rocco never changes the Dodo price.
  */
-import { priceCentsForSold, stateFor, type PriceState } from "./pricing";
+import { stateFor, type PriceState } from "./pricing";
 import { SITE } from "./site";
 
 export const DODO_MODE: "live" | "test" = process.env.DODO_MODE === "test" ? "test" : "live";
@@ -16,7 +16,7 @@ const CHECKOUT_BASE = DODO_MODE === "test" ? "https://test.checkout.dodopayments
 /** The single live product (created Nov 17, 2026). Env overrides for test mode. */
 /** The original one-time "Hire Rocco" product (Nov 17). Its buyers keep lifetime access and count as hires. */
 export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
-/** The live product: set DODO_PRODUCT_ID to the $99/year subscription (no trial). */
+/** The live product: set DODO_PRODUCT_ID to the quarterly subscription ($249 every 3 months, no trial). */
 export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
 
 export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string } = {}): string | null {
@@ -24,6 +24,9 @@ export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: str
   const q = new URLSearchParams({ quantity: "1", redirect_url: opts.redirect ?? `${SITE.url}/thanks` });
   if (opts.email) q.set("email", opts.email);
   if (opts.ref) q.set("metadata_ref", opts.ref);
+  // $50 off the first quarter. Param name not verified against Dodo's docs yet: test one live checkout.
+  const code = process.env.DODO_DISCOUNT_CODE;
+  if (code && /^[A-Za-z0-9_-]{2,40}$/.test(code)) q.set("discount_code", code);
   return `${CHECKOUT_BASE}/buy/${PRODUCT_ID}?${q.toString()}`;
 }
 
@@ -110,32 +113,13 @@ export async function countSales(): Promise<number | null> {
   return buyers.size + anon;
 }
 
-/** Make the live Dodo price match the ladder. Idempotent: safe to call on every page render or webhook. */
-export async function syncPrice(sold: number): Promise<boolean> {
-  const key = process.env.DODO_API_KEY;
-  if (!key || !PRODUCT_ID) return false;
-  const want = priceCentsForSold(sold);
-  const cur = await fetch(`${API_BASE}/products/${PRODUCT_ID}`, { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" }).catch(() => null);
-  const priceObj = cur?.ok ? ((await cur.json().catch(() => ({}))) as { price?: Record<string, unknown> & { price?: number } }).price : undefined;
-  const have = priceObj?.price;
-  if (have === want) return true;
-  const res = await fetch(`${API_BASE}/products/${PRODUCT_ID}`, {
-    method: "PATCH",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    // Keep the price's own shape (yearly recurring + trial days); change only the amount.
-    body: JSON.stringify({ price: priceObj ? { ...priceObj, price: want } : { type: "one_time_price", currency: "USD", price: want, discount: 0, purchasing_power_parity: false } }),
-  }).catch(() => null);
-  return !!res?.ok;
-}
-
 const g = globalThis as unknown as { __roccoPrice?: { at: number; state: PriceState } };
 
-/** Current ladder state (cached 60s). Syncs the Dodo price when the count is known. */
+/** Current price + how many teams hired Rocco (cached 60s). The price itself is fixed (lib/pricing.ts). */
 export async function getPriceState(opts: { fresh?: boolean } = {}): Promise<PriceState> {
   if (!opts.fresh && g.__roccoPrice && Date.now() - g.__roccoPrice.at < 60_000) return g.__roccoPrice.state;
   const sold = await countSales();
   const state = stateFor(sold ?? 0, sold !== null);
-  if (sold !== null) await syncPrice(sold);
   g.__roccoPrice = { at: Date.now(), state };
   return state;
 }

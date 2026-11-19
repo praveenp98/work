@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Quarterly pricing, light theme, Boardy-clean homepage
+- **Pricing:** $199 for the first 3 months, then $249 every 3 months (Praveen). Ladder and the automatic Dodo price PATCH removed; one PRICE copy source (lib/pricing.ts) used on pricing, homepage, dashboard, paywall texts, MCP, llms.txt. Checkout adds `discount_code` from DODO_DISCOUNT_CODE (unverified param; test one checkout). Dodo setup steps in DODO-SETUP.md.
+- **Light theme only** (dark mode removed), Boardy palette.
+- **Homepage v4:** hero (+ "for brand owners, Amazon managers and agencies") → How a fix happens (01/02/03 with filling progress line + phone that changes per step) → Claude knows Amazon, I know your account (steps, copy-link box, Claude chat mock with Amazon tool calls + Rocco memory toast) → Built for whoever runs the account (owners, managers, agencies) → A day with me → Hire me ($199 card, one button) + floating Hire bar after the hero. No salary comparison.
+- Tests 127/127, build OK.
+
+---
+
 ## 2026-11-19 · Homepage v3 (one angle, one CTA), Claude-only setup, no access without paying
 - Praveen's live test: Google sign-up worked; unpaid users could open setup via "Your Rocco" → fixed. /welcome now verifies the Dodo payment/subscription id with Dodo's API before showing "You're in"; "Your Rocco" goes to /me (no welcome note); an unpaid team's page shows "One step left: hire me" instead of the setup steps. hireUrl now prefills the owner email and returns to /welcome.
 - Setup is Claude only (Claude is the AI with Amazon's official connectors): add Rocco → plug in Amazon → ask → make it daily.

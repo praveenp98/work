@@ -1,3 +1,4 @@
+import { PRICE } from "@/lib/pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -42,7 +43,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const phones = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
   const texting = textingConfigured();
   const access = accessOf(ws);
-  const trial = access === "none" ? { url: hireUrl(ws), price: dollars(price.priceCents) } : undefined;
+  const trial = access === "none" ? { url: hireUrl(ws), price: PRICE.first } : undefined;
   const hoursLeft = trialHoursLeft(ws);
 
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
@@ -58,8 +59,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="start-card locked-start">
             <h2>One step left: hire me.</h2>
             <p className="start-sub">Your team&apos;s Rocco is ready{ws.ownerEmail ? <> for <b>{ws.ownerEmail}</b></> : null}. Once you&apos;ve paid, setup takes 2 minutes: add me to Claude, plug in Seller Central, say &ldquo;Rocco, morning check&rdquo;.</p>
-            <a className="btn start-main" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
-            <p className="fine">{dollars(price.priceCents)}/year for your whole team. The price goes up $10 with every hire. Just paid? Refresh in a few seconds.</p>
+            <a className="btn start-main" href={hireUrl(ws)}>Hire Rocco · {PRICE.first}</a>
+            <p className="fine">{PRICE.line} Just paid? Refresh in a few seconds.</p>
           </div>
         ) : (
           <>
@@ -112,14 +113,14 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         return (
           <>
             <div className="trial-banner">
-              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Hire me to see and approve every fix: {dollars(price.priceCents)}/year for the whole team.</span></div>
+              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Hire me to see and approve every fix: {PRICE.short}, {PRICE.then}.</span></div>
               <a className="btn" href={trial.url}>Hire Rocco</a>
             </div>
             <TrialSheet url={trial.url} price={trial.price} open found={found} />
           </>
         );
       })()}
-      {hoursLeft !== null && <p className="trial-note">🎉 Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left. Then {dollars(price.priceCents)}/year. Text CANCEL anytime.</p>}
+      {hoursLeft !== null && <p className="trial-note">🎉 Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left. Then {PRICE.renew} every 3 months. Text CANCEL anytime.</p>}
       <div className="dash-head">
         <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{access === "paid" ? " · hired" : access === "trial" ? " · trial" : ""}</span>
         <h1 className="dash-h1">{fixes.length ? `${fixes.length} fix${fixes.length === 1 ? "" : "es"} waiting${b.openValue ? `, ~${$(b.openValue)}/mo` : ""}.` : "All clear today."}</h1>
@@ -132,7 +133,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {b.hidden > 0 && (
         <div className="locked-row">
           <span>🔒 <b>{b.hidden} fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} ready for you.</span>
-          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
+          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {PRICE.first}</a>
         </div>
       )}
 
