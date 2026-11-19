@@ -10,7 +10,7 @@ const r = roast(parseSearchTermReport(loadFixture("sp-search-term-report.csv")))
 describe("mcp", () => {
   it("free summary hides individual fixes and points to pricing", () => {
     const s = roastSummary(r, false);
-    expect(s).toMatch(/grade D/);
+    expect(s).toMatch(/grade C/); // stricter negatives (Nov 19)
     expect(s).toMatch(/pricing/);
     expect(s).not.toMatch(/### Negatives/);
   });

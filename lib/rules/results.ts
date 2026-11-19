@@ -39,7 +39,7 @@ export function evaluateAction(action: Action, report: ParsedReport, targetAcos:
     const before = p.before?.spendPerDay ?? 0;
     if (after.spendPerDay <= before * 0.1) {
       const saved = r2(before * days);
-      return { checkedAt: now, status: "worked", summary: `Blocked. "${p.target}" spent ${t.spend ? "$" + t.spend.toFixed(2) : "$0"} in ${days} days after the change (was ~$${before.toFixed(2)}/day). Saved ~$${saved}.`, after, savedEstimate: saved };
+      return { checkedAt: now, status: "worked", summary: `Blocked. "${p.target}" spent ${t.spend ? "$" + t.spend.toFixed(2) : "$0"} in ${days} days after the change (was ~$${before.toFixed(2)}/day). ~$${saved} of spend avoided (estimate: assumes it would have kept spending at that rate).`, after, savedEstimate: saved, basis: "estimated" };
     }
     return { checkedAt: now, status: "no_effect", summary: `"${p.target}" still spent $${t.spend.toFixed(2)} in ${days} days. Check the negative was added as ${p.matchType} in ${p.campaign} / ${p.adGroup}.`, after };
   }
@@ -93,5 +93,5 @@ export function evaluateBudget(action: Action, camp: { rows: CampaignRow[]; days
   }
   const saved = r2(Math.max(0, b.spendPerDay - after.spendPerDay) * days);
   const ok = after.spendPerDay < b.spendPerDay && (after.acos < 0 || b.acos < 0 || after.acos <= b.acos);
-  return { checkedAt: now, status: ok ? "worked" : "no_effect", summary: summary + (ok ? ` Spend down ~$${saved}.` : ""), after, savedEstimate: ok ? saved : undefined };
+  return { checkedAt: now, status: ok ? "worked" : "no_effect", summary: summary + (ok ? ` Spend down $${saved} with sales holding (measured).` : ""), after, savedEstimate: ok ? saved : undefined, basis: "measured" };
 }

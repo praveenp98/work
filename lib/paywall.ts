@@ -45,7 +45,7 @@ export function paywall(
   const offer = `Hire me: ${PRICE.short}, ${PRICE.then}. Whole team.`;
   const text = {
     found: `💰 I found ${total} in your account. ${offer}`,
-    worked: `✅ That fix worked${o.saved ? `: ~${$(o.saved)}/mo saved` : ""}. Keep me on: ${offer}`,
+    worked: `✅ That fix worked${o.saved ? ` (~${$(o.saved)} so far)` : ""}. Keep me on: ${offer}`,
     locked: `🔒 Approving fixes needs an active Rocco. ${offer}`,
     team: `Your team's on Rocco now 🦝 One plan covers everyone. ${offer}`,
   }[moment];

@@ -6,6 +6,7 @@ export interface BrandSettings {
   breakevenAcos?: number; // fraction
   minClicks?: number;
   protectedTerms?: string[]; // never negated (brand names, hero keywords)
+  protectedCampaigns?: string[]; // launch / ranking / brand-defense campaigns: never auto-negated
   notes?: string;
 }
 
@@ -89,6 +90,8 @@ export interface ActionResult {
   summary: string;
   after?: Metrics;
   savedEstimate?: number;
+  /** measured = real before/after with sales holding; estimated = spend avoided at the old daily rate (lib/savings.ts). */
+  basis?: "measured" | "estimated";
 }
 
 export interface Action {

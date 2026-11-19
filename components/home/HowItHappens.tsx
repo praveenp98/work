@@ -15,7 +15,7 @@ const MS = 5200;
 
 const CHECKS = ["Seller Central: sales & traffic", "Amazon Ads: 2,140 search terms", "Inventory: 38 SKUs", "Listings: 12 ASINs", "Last week's 3 changes"];
 const FIXES = [
-  { i: "📦", t: "Send 340 units to FBA", s: "Runs out in 9 days", v: "~$2,900 saved" },
+  { i: "📦", t: "Send 340 units to FBA", s: "Runs out in 9 days", v: "~$2,900 sales kept" },
   { i: "✂️", t: "Cut 2 money-burning terms", s: "41 clicks, 0 orders", v: "+$63/mo" },
   { i: "📈", t: "Raise bid 12% on a winner", s: "ACoS 18% vs 30% target", v: "+$210/mo" },
 ];

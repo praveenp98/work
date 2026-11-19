@@ -1,3 +1,4 @@
+import { savedPhrase } from "../savings";
 import { REPORT_HELP, type AnalyzeOutput, type ReportKind } from "../analyze";
 import type { Proposal } from "../rules/types";
 import type { BenchLine } from "../rules/benchmarks";
@@ -70,7 +71,7 @@ export function formatActions(list: Action[]): string {
 export function formatBrief(b: Awaited<ReturnType<typeof buildBrief>>): string {
   const L: string[] = ["## Rocco's brief"];
   if (b.season) L.push(`📅 ${b.season}`);
-  if (b.totals.applied) L.push(`Since you hired Rocco: ${b.totals.applied} changes logged, ${b.totals.worked} confirmed working${b.saved ? `, ~${$(b.saved)} saved so far` : ""}.`);
+  if (b.totals.applied) L.push(`Since you hired Rocco: ${b.totals.applied} changes logged, ${b.totals.worked} confirmed working${b.saved ? `, ${savedPhrase({ measured: b.savedMeasured, estimated: b.savedEstimated })} so far` : ""}.`);
   if (b.recentResults.length) {
     L.push("", "### Results since last time");
     for (const a of b.recentResults.slice(0, 8)) L.push(`- ${statusIcon(a.status)} **${a.code}** ${a.result!.summary}`);

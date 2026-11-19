@@ -31,6 +31,26 @@ describe("negatives", () => {
   it("uses negative product for ASINs", () => {
     expect(neg.find((n) => n.keyword === "b0c1abcd23")?.matchType).toBe("NEGATIVE_PRODUCT");
   });
+  it("states the math: expected orders, confidence, or junk intent", () => {
+    const n = neg.find((x) => x.keyword === "plastic cutting board dishwasher safe")!;
+    expect(n.reason).toMatch(/64 clicks, 0 orders\. At (your|this ad group's) [\d.]+% conversion rate that's [\d.]+ orders expected \(\d+% sure/);
+    expect(n.confidence).toBeGreaterThan(0.85);
+    expect(neg.find((x) => x.keyword === "bamboo board used")?.why).toBe("junk_intent");
+  });
+  it("never auto-negates inside launch / ranking / brand-defense campaigns", () => {
+    const launch = terms.map((t) => ({ ...t, campaign: t.campaign.replace("Broad", "Launch") }));
+    expect(findNegatives(launch, S).map((x) => x.keyword)).not.toContain("plastic cutting board dishwasher safe");
+    expect(findNegatives(terms, S, { protectedCampaigns: ["broad"] }).map((x) => x.keyword)).not.toContain("plastic cutting board dishwasher safe");
+  });
+  it("waits for low-volume terms instead of cutting on 10 clicks", () => {
+    const thin = [{ campaign: "C", adGroup: "A", targeting: "x", matchType: "BROAD", searchTerm: "oak board", impressions: 500, clicks: 11, spend: 9, sales: 0, orders: 0 },
+      { campaign: "C", adGroup: "A", targeting: "x", matchType: "BROAD", searchTerm: "board", impressions: 5000, clicks: 400, spend: 300, sales: 1200, orders: 30 }];
+    expect(findNegatives(thin, S)).toHaveLength(0); // 11 clicks × 7.5% = 0.8 expected orders: not proof yet
+  });
+  it("ignores the last days of a daily report (orders still landing)", () => {
+    const mature = terms.map((t) => (t.searchTerm === "plastic cutting board dishwasher safe" ? { ...t, clicks: 3 } : t));
+    expect(findNegatives(terms, S, { mature, lagDays: 3 }).map((x) => x.keyword)).not.toContain("plastic cutting board dishwasher safe");
+  });
   it("flags junk intent", () => {
     expect(isJunk("free cutting board")).toBe(true);
     expect(isJunk("how to clean cutting board")).toBe(true);

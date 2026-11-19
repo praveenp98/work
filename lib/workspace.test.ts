@@ -104,6 +104,6 @@ describe("benchmarks across workspaces", () => {
     const late = await runAnalysis(store, first.ws, "main", loadFixture("sp-search-term-report.csv"));
     expect(late.bench.ready).toBe(true);
     expect(late.bench.n).toBe(10);
-    expect(late.bench.lines[0].median).toBeCloseTo(31, 0);
+    expect(late.bench.lines[0].median).toBeCloseTo(25, 0); // stricter negatives (Nov 19): less counted as leak
   });
 });

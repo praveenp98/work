@@ -3,6 +3,7 @@ import { acos, aggregateTerms, type TermStats } from "./aggregate";
 import { findBidChanges, type BidFix } from "./bids";
 import { findHarvest, type HarvestFix } from "./harvest";
 import { findNegatives, isJunk, round2, type NegativeFix } from "./negatives";
+import type { SearchTermRow } from "../parsers/searchTerm";
 import { DEFAULT_SETTINGS, type RoastSettings } from "./settings";
 
 export type LeakKind = "zero_sale" | "junk_intent" | "over_target" | "missed_harvest";
@@ -61,12 +62,22 @@ export function roast(report: ParsedReport, settings: Partial<RoastSettings> = {
     { spend: 0, sales: 0, orders: 0, clicks: 0 },
   );
 
-  const negatives = findNegatives(terms, s);
+  // Daily reports: clicks from the last lagDays don't count as proof (orders can still be attributed).
+  const lagDays = s.lagDays ?? 0;
+  const daily = report.rows.some((r) => r.date && r.endDate && r.date.getTime() === r.endDate.getTime()) || new Set(report.rows.map((r) => r.date?.getTime())).size > 1;
+  let mature: TermStats[] | undefined;
+  if (daily && lagDays > 0) {
+    const last = Math.max(...report.rows.map((r) => r.date?.getTime() ?? 0));
+    const cut = last - lagDays * 86_400_000;
+    mature = aggregateTerms(report.rows.filter((r: SearchTermRow) => r.date && r.date.getTime() <= cut));
+  }
+  const negatives = findNegatives(terms, s, { mature, lagDays: mature ? lagDays : undefined, breakevenAcos: s.breakevenAcos, protectedCampaigns: s.protectedCampaigns });
+  const negKeys = new Set(negatives.map((n) => `${n.campaign}\u0001${n.adGroup}\u0001${n.keyword}`));
   const harvest = findHarvest(terms, s);
   const bids = findBidChanges(terms, s);
 
   // Leak 1+2: zero-sale terms past the click threshold (split junk-intent out because it's the funniest)
-  const zero = terms.filter((t) => t.orders === 0 && t.clicks >= s.minClicksNegative);
+  const zero = terms.filter((t) => negKeys.has(`${t.campaign}\u0001${t.adGroup}\u0001${t.searchTerm}`)); // same verdicts as the fixes
   const junk = zero.filter((t) => isJunk(t.searchTerm));
   const plainZero = zero.filter((t) => !isJunk(t.searchTerm));
   // Leak 3: converting but way over target — the spend above what target ACoS would allow

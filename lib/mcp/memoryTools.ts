@@ -193,13 +193,14 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 
   server.registerTool("set_brand_settings", {
     title: "Brand settings",
-    description: "Save per-brand settings Rocco uses in every analysis: target and breakeven ACoS, click threshold for negatives, and protected terms Rocco must never negate (brand names, hero keywords).",
+    description: "Save per-brand settings Rocco uses in every analysis: target and breakeven ACoS, click threshold for negatives, protected terms Rocco must never negate (brand names, hero keywords), and protected campaigns (launch, ranking, brand defense) where zero-sale terms are expected. Ask the seller for their margin to set breakeven ACoS: it makes every cut decision sharper.",
     inputSchema: {
       brand: brandArg,
       target_acos_percent: z.number().min(1).max(200).optional(),
       breakeven_acos_percent: z.number().min(-100).max(200).optional(),
       min_clicks: z.number().int().min(3).max(100).optional(),
       protected_terms: z.array(z.string().max(80)).max(100).optional(),
+      protected_campaigns: z.array(z.string().max(120)).max(100).optional().describe("Campaign names (or parts) meant to spend without immediate sales: never auto-negated."),
       notes: z.string().max(1000).optional(),
     },
     annotations: rw,
@@ -207,7 +208,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     const saved = await setBrandSettings(store, ws, a.brand || DEFAULT_BRAND, {
       targetAcos: a.target_acos_percent !== undefined ? a.target_acos_percent / 100 : undefined,
       breakevenAcos: a.breakeven_acos_percent !== undefined ? a.breakeven_acos_percent / 100 : undefined,
-      minClicks: a.min_clicks, protectedTerms: a.protected_terms, notes: a.notes,
+      minClicks: a.min_clicks, protectedTerms: a.protected_terms, protectedCampaigns: a.protected_campaigns, notes: a.notes,
     });
     return text(`Saved for ${a.brand || DEFAULT_BRAND}: ${JSON.stringify(saved)}`);
   });

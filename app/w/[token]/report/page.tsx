@@ -1,3 +1,4 @@
+import { savingsOf } from "@/lib/savings";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PrintButton } from "@/components/PrintButton";
@@ -25,7 +26,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const pb = brief.perBrand.find((b) => b.brand === brand);
   const latest = new Map<string, (typeof snaps)[number]>();
   for (const s of snaps) if (!latest.has(s.kind)) latest.set(s.kind, s);
-  const saved = actions.reduce((t, a) => t + (a.result?.savedEstimate ?? 0), 0);
+  const sv = savingsOf(actions);
   const worked = actions.filter((a) => a.status === "worked").length;
   const today = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
@@ -46,7 +47,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <section className="stats" style={{ marginTop: 20 }}>
         <div className="stat"><b>{actions.length}</b><span>changes made</span></div>
         <div className="stat"><b>{worked}</b><span>confirmed working</span></div>
-        <div className="stat"><b>${Math.round(saved).toLocaleString("en-US")}</b><span>measured savings</span></div>
+        <div className="stat"><b>${Math.round(sv.measured).toLocaleString("en-US")}</b><span>saved (measured before/after)</span></div>
+        {sv.estimated > 0 && <div className="stat"><b>~${Math.round(sv.estimated).toLocaleString("en-US")}</b><span>spend avoided (estimate)</span></div>}
         <div className="stat"><b>{pb?.open.length ?? 0}</b><span>next actions queued</span></div>
       </section>
 

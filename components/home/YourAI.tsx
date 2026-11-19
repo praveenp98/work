@@ -50,7 +50,7 @@ export function YourAI() {
         </div>
         <div className="toast">
           <span className="toast-av">🦝</span>
-          <div><b>Rocco</b><p>Last month you cut “plastic cutting mat” and saved $58/mo. Same pattern on N1, so I&apos;m confident.</p></div>
+          <div><b>Rocco</b><p>Last month you cut “plastic cutting mat”: its ~$58/mo of spend stopped and sales held. Same pattern on N1.</p></div>
         </div>
       </div>
     </div>

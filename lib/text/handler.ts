@@ -14,6 +14,7 @@ import { hireUrl } from "../paywall";
 import { askRocco, brainOn } from "../brain";
 import { formatBrief } from "../mcp/format";
 import Papa from "papaparse";
+import { savedPhrase } from "../savings";
 import { applyLink } from "../apply-link";
 
 const SITE_URL = "https://rocco.works";
@@ -57,7 +58,7 @@ const HELP = [
   "• brief → what to do today",
   "• YES N1 N2 → approve fixes",
   "• undo B3 → undo a change",
-  "• wins → what I've saved you",
+  "• wins → what worked (measured vs estimated)",
   "• invite → add a teammate",
   "• demo → see a sample brand",
   "• link → your Rocco page",
@@ -241,7 +242,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const b = await buildBrief(store, ws, now);
       if (!b.totals.applied) return "No changes logged yet. Approve a few fixes and I'll start keeping score 🏆";
       const top = b.recentResults.filter((a) => a.status === "worked").slice(0, 3).map((a) => `• ${a.code}: ${a.result!.summary.slice(0, 100)}`);
-      return bubbles([`🏆 ${b.totals.worked}/${b.totals.applied} changes worked${b.saved ? `, about $${Math.round(b.saved).toLocaleString("en-US")} saved` : ""}.`, ...top].join("\n"));
+      return bubbles([`🏆 ${b.totals.worked}/${b.totals.applied} changes worked${b.saved ? `: ${savedPhrase({ measured: b.savedMeasured, estimated: b.savedEstimated })}` : ""}.`, ...top].join("\n"));
     }
     case "approve":
     case "undo": {

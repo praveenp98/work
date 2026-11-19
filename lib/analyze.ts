@@ -44,6 +44,7 @@ export interface AnalyzeSettings {
   breakevenAcos?: number;
   minClicks?: number;
   protectedTerms?: string[];
+  protectedCampaigns?: string[];
   /** For TACoS on business reports. */
   adSpend?: number;
   adSales?: number;
@@ -71,7 +72,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
   if (kind === "sp_search_term") {
     const report = parseSearchTermReport(table);
     const protectedSet = new Set((s.protectedTerms ?? []).map((t) => t.toLowerCase().trim()).filter(Boolean));
-    const r = roast(report, { targetAcos: target, ...(s.minClicks ? { minClicksNegative: s.minClicks } : {}) });
+    const r = roast(report, { targetAcos: target, breakevenAcos: breakeven, ...(s.minClicks ? { minClicksNegative: s.minClicks } : {}), ...(s.protectedCampaigns?.length ? { protectedCampaigns: s.protectedCampaigns } : {}) });
     if (protectedSet.size) {
       const hit = (term: string) => [...protectedSet].some((p) => term.includes(p));
       r.fixes.negatives = r.fixes.negatives.filter((n) => !hit(n.keyword));

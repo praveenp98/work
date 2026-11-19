@@ -1,3 +1,4 @@
+import { basisOf } from "@/lib/savings";
 import { PRICE } from "@/lib/pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -62,7 +63,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
       {st.length > 0 && <LineChart title="ACoS vs your target" series={[{ name: "ACoS", color: "var(--series-1)", points: st.map((s) => ({ x: s.createdAt, y: num(s, "acosPct") })) }]} format={pct} target={{ value: target, label: `target ${Math.round(target)}%` }} />}
       {st.length > 0 && <LineChart title="Wasted ad spend" caption="search terms spending with no sales, per month" series={[{ name: "Waste", color: "var(--series-1)", points: st.map((s) => ({ x: s.createdAt, y: num(s, "leakMonthly") })) }]} format={$} />}
       {biz.length > 0 && <LineChart title="Conversion rate" caption="all sessions, from the Business Report" series={[{ name: "Conversion", color: "var(--series-1)", points: biz.map((s) => ({ x: s.createdAt, y: num(s, "conversionPct") })) }]} format={(n) => `${n.toFixed(1)}%`} />}
-      {worked.length > 0 && <BarList title="Money saved by each change" caption="measured a week after applying" rows={worked.slice(0, 10).map((a) => ({ label: `${a.code} · ${a.proposal.target.slice(0, 32)}`, value: a.result!.savedEstimate ?? 0 }))} format={(n) => `${$(n)}/mo`} />}
+      {worked.length > 0 && <BarList title="What each change did" caption="checked a week after applying · (est.) = spend avoided at the old daily rate, the rest is measured before/after" rows={worked.slice(0, 10).map((a) => ({ label: `${a.code} · ${a.proposal.target.slice(0, 28)}${basisOf(a) === "estimated" ? " (est.)" : ""}`, value: a.result!.savedEstimate ?? 0 }))} format={(n) => $(n)} />}
       {inv.length > 0 && <LineChart title="SKUs at risk of running out" caption="within 2 weeks" series={[{ name: "At risk", color: "var(--series-1)", points: inv.map((s) => ({ x: s.createdAt, y: num(s, "atRisk") })) }]} format={(n) => String(Math.round(n))} integer />}
       {lh.at(-1)?.extra?.findings?.length ? <IssueList title="Listings not selling" caption={`as of ${lh.at(-1)!.createdAt.slice(0, 10)} · fix in Seller Central, pause their ads`} rows={lh.at(-1)!.extra!.findings!.slice(0, 8).map((f) => ({ label: f.title.split(":")[0], note: `${f.title.split(":").slice(1).join(":").trim()} · ${f.detail.split(" Fix it")[0]}` }))} /> : null}
     </>
@@ -80,7 +81,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
         {last && <Stat label="Ad sales (30d)" value={$(num(last, "sales"))} {...(({ text, good }) => ({ delta: text, good }))(delta(last, prev, "sales"))} />}
         {last && <Stat label={`ACoS · target ${Math.round(target)}%`} value={pct(num(last, "acosPct"))} {...(({ text, good }) => ({ delta: text, good }))(delta(last, prev, "acosPct", pct, true))} />}
         {last && <Stat label="Wasted spend / mo" value={$(num(last, "leakMonthly"))} {...(({ text, good }) => ({ delta: text, good }))(delta(last, prev, "leakMonthly", $, true))} />}
-        <Stat label="Saved by Rocco" value={`${$(brief.saved)}/mo`} delta={`${brief.totals.worked}/${brief.totals.applied} changes worked`} />
+        <Stat label="Saved, measured" value={$(brief.savedMeasured)} delta={`${brief.savedEstimated ? `+ ~${$(brief.savedEstimated)} spend avoided (est.) · ` : ""}${brief.totals.worked}/${brief.totals.applied} changes worked`} />
       </div>
       {pro ? <div className="ana-grid">{charts}</div> : (
         <div className="ana-lock">

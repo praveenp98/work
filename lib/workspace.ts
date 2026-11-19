@@ -1,3 +1,4 @@
+import { savingsOf } from "./savings";
 import { randomUUID } from "node:crypto";
 import { seal, unseal } from "./vault";
 import { hasAccess } from "./access";
@@ -59,7 +60,7 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
     const last = (await store.listSnapshots(ws.id, { brand, kind: "sp_search_term", limit: 1 }))[0];
     if (last) { adSpend = Number(last.stats.spend) || undefined; adSales = Number(last.stats.sales) || undefined; }
   }
-  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, adSpend, adSales });
+  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, protectedCampaigns: s.protectedCampaigns, adSpend, adSales });
   const now = new Date().toISOString();
   const terms = out.report ? termSnapshot(out.report.rows) : undefined;
   let diff: TermDiff | null = null;
@@ -179,7 +180,8 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
 
   const due = actions.filter((a) => ["applied", "not_enough_data"].includes(a.status) && new Date(a.followUpAt) <= now);
   const recentResults = actions.filter((a) => a.result && now.getTime() - new Date(a.result.checkedAt).getTime() < 14 * DAY);
-  const saved = actions.reduce((t, a) => t + (a.result?.savedEstimate ?? 0), 0);
+  const sv = savingsOf(actions);
+  const saved = sv.total;
   const appliedCodes = new Set(actions.map((a) => `${a.runId}:${a.code}`));
 
   const perBrand = brands.map((brand) => {
@@ -202,7 +204,7 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
   });
   const iso = now.toISOString().slice(0, 10);
   const season = BFCM.find((b) => iso <= b.until)?.text ?? null;
-  return { due, recentResults, saved, perBrand, season, totals: { applied: actions.length, worked: actions.filter((a) => a.status === "worked").length } };
+  return { due, recentResults, saved, savedMeasured: sv.measured, savedEstimated: sv.estimated, perBrand, season, totals: { applied: actions.length, worked: actions.filter((a) => a.status === "worked").length } };
 }
 
 export { REPORT_HELP };

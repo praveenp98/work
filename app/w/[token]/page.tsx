@@ -1,3 +1,4 @@
+import { savedPhrase } from "@/lib/savings";
 import { PRICE } from "@/lib/pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -140,7 +141,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="dash-grid">
         <section className="dcard">
           <h3>Wins</h3>
-          <p className="big">{brief.saved > 0 ? `${$(brief.saved)}/mo saved` : "Keeping score"}</p>
+          <p className="big">{brief.savedMeasured > 0 ? `${$(brief.savedMeasured)} saved` : brief.saved > 0 ? `~${$(brief.savedEstimated)} avoided` : "Keeping score"}</p>
+          {brief.saved > 0 && <p className="fine">{savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated })}. Measured = before/after with sales holding; est. = spend a blocked term would likely have kept burning.</p>}
           <p className="fine">{brief.totals.applied ? `${brief.totals.worked} of ${brief.totals.applied} changes worked. ` : "Approve a fix and I check a week later whether it worked. "}<Link href={`/w/${token}/log`}>Change log →</Link></p>
         </section>
 

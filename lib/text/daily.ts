@@ -1,3 +1,4 @@
+import { savedPhrase } from "../savings";
 import type { buildBrief } from "../workspace";
 import type { BenchLine } from "../rules/benchmarks";
 import type { PendingItem, Snapshot } from "../store/types";
@@ -35,7 +36,7 @@ export function dailyNumbers(b: Brief, o: { now?: Date; bench?: BenchLine[]; pen
   if (biz) L.push(`🛒 ${$(Number(biz.stats.sales))} total sales · ${Number(biz.stats.conversionPct).toFixed(1)}% conversion${biz.stats.tacosPct ? ` · TACoS ${Number(biz.stats.tacosPct).toFixed(1)}%` : ""}`);
   const inv = latest("inventory");
   if (inv && Number(inv.stats.atRisk) > 0) L.push(`📦 ${inv.stats.atRisk} SKU${Number(inv.stats.atRisk) === 1 ? "" : "s"} could run out within 2 weeks`);
-  if (b.totals.applied) L.push(`✅ ${b.totals.worked}/${b.totals.applied} changes worked${b.saved ? ` · ${$(b.saved)} saved so far` : ""}`);
+  if (b.totals.applied) L.push(`✅ ${b.totals.worked}/${b.totals.applied} changes worked${b.saved ? ` · ${savedPhrase({ measured: b.savedMeasured, estimated: b.savedEstimated })}` : ""}`);
   for (const x of (o.bench ?? []).slice(0, 1)) L.push(`🏁 Better than ${x.betterThanPct}% of Rocco sellers on ${x.label}`);
   const open = pb ? [...pb.open].sort((a, c) => c.valueMonthly - a.valueMonthly).slice(0, 3) : [];
   if (open.length) {

@@ -85,7 +85,7 @@ describe("Text Rocco flow", () => {
     // daily numbers
     const nums = await handleInbound(store, "+14155550100", "numbers", now);
     expect(nums).toMatch(/Rocco's numbers/);
-    expect(nums).toMatch(/Leak: \$481\/mo/);
+    expect(nums).toMatch(/Leak: \$392\/mo/);
     expect(nums).toMatch(/could run out/);
     expect(nums).toMatch(/Reply YES/);
 
