@@ -37,3 +37,11 @@ Activation limit: leave unlimited (Rocco checks keys with `/licenses/validate`, 
 
 ## Price steps (real deadlines)
 Edit prices on Nov 27, Dec 1 and Dec 16 (Praveen approves each change).
+
+
+## Product copy for the yearly "Hire Rocco" product (Nov 19, paste into Dodo)
+The live checkout still shows the OLD one-time product (₹9,615 ≈ $99, "for life", "Claude/ChatGPT", "every 5 sales"). Create the subscription product and set `DODO_PRODUCT_ID`; until then every checkout uses the legacy one.
+- **Name:** Hire Rocco: your AI Amazon manager (1 year)
+- **Description:** A senior Amazon manager for your whole team, working inside Claude with Amazon's official connectors. Every morning: your numbers and the fixes worth making across ads, stock and listings. Your team approves with a reply; nothing changes without a YES. Rocco remembers every change and checks a week later if it worked. Unlimited teammates and brands. Renews yearly, cancel anytime. Self-serve software, not affiliated with Amazon.
+- Pricing: $99 USD, recurring every 1 year, no trial. Tax category: SaaS / digital. Turn off the license-key entitlement (not used any more).
+- **Brand (Dodo → Settings → Business / Branding):** logo = https://rocco.works/rocco-avatar.png, business name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's; logo, name, color and light/dark are what we can set.

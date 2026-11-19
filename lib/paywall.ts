@@ -21,7 +21,7 @@ const GAP: Record<Moment, number> = { found: 3 * DAY, worked: Infinity, locked: 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
 /** Checkout tagged with the workspace, so the payment unlocks it automatically (see /api/dodo/webhook). */
-export const hireUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id }) ?? `${SITE.url}/pricing`;
+export const hireUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id, email: ws.ownerEmail, redirect: `${SITE.url}/welcome` }) ?? `${SITE.url}/pricing`;
 
 function urgency(p?: PriceState | null): string {
   if (!p?.nextPriceCents) return "";

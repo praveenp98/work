@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Homepage v3 (one angle, one CTA), Claude-only setup, no access without paying
+- Praveen's live test: Google sign-up worked; unpaid users could open setup via "Your Rocco" → fixed. /welcome now verifies the Dodo payment/subscription id with Dodo's API before showing "You're in"; "Your Rocco" goes to /me (no welcome note); an unpaid team's page shows "One step left: hire me" instead of the setup steps. hireUrl now prefills the owner email and returns to /welcome.
+- Setup is Claude only (Claude is the AI with Amazon's official connectors): add Rocco → plug in Amazon → ask → make it daily.
+- Homepage rebuilt around one angle (a senior Amazon manager for $99/year) and one CTA (Hire Rocco): hero → Watch me work (small screen, 4 fixes approved in turn: send stock, cut waste, raise a bid, fix a suppressed listing) → "Claude is the hands. I'm the manager." (Amazon → Claude → Rocco diagram, what each does) → A day with me (message timeline) → Hire me ($5,000+/mo manager vs $99/yr, 4 checks, one button). Removed: text-me-first CTA, app tiles, "tools you already pay for", jobs grid. Site description no longer says ChatGPT / free.
+- Dodo checkout still runs the legacy one-time product with old copy (mentions ChatGPT, "for life"); new product copy is in DODO-SETUP.md for Praveen to paste.
+- Tests 128/128.
+
+---
+
 ## 2026-11-19 · Google sign-in + "Apply in Claude"
 - **Sign in with Google** (lib/google.ts, lib/session.ts, lib/signin.ts, /api/auth/google, /callback, /api/auth/signout). Hire Rocco → Continue with Google → checkout tagged with the team → /welcome → setup. Teams are found by owner email on any device (paid team first); a browser's ownerless team is claimed; never takes over another email's team. Sealed httpOnly cookies (rocco_user, rocco_team) + a non-secret rocco_in flag for the nav ("Sign in" / "Your Rocco"). State is sealed + bound to a nonce cookie (10 min); only verified Google emails. Falls back to the email form until GOOGLE_CLIENT_ID/SECRET are set (GO-LIVE §13). Sign out on the dashboard.
 - **Approvals → Claude**: Amazon's connectors need a preview + typed confirm inside Claude, so Rocco can't apply edits from the dashboard or iMessage. Approving (dashboard button or texting YES) queues the codes and now gives a one-tap **Apply in Claude** link (claude.ai/new with "Rocco, apply my approved fixes: N1, B2"). Claude's rocco_brief lists them, Amazon's connector shows the preview, the user confirms, Rocco logs and grades.

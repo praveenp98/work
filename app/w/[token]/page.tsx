@@ -54,8 +54,19 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
-        {sp.welcome && <p className="trial-note">🎉 You&apos;re in. {access === "none" ? "Your plan turns on in a moment (refresh if this page still shows the offer)." : "Rocco is on."} Three steps and I&apos;m working.</p>}
-        <StartSteps token={token} trial={sp.welcome ? undefined : trial} />
+        {access === "none" ? (
+          <div className="start-card locked-start">
+            <h2>One step left: hire me.</h2>
+            <p className="start-sub">Your team&apos;s Rocco is ready{ws.ownerEmail ? <> for <b>{ws.ownerEmail}</b></> : null}. Once you&apos;ve paid, setup takes 2 minutes: add me to Claude, plug in Seller Central, say &ldquo;Rocco, morning check&rdquo;.</p>
+            <a className="btn start-main" href={hireUrl(ws)}>Hire Rocco · {dollars(price.priceCents)}/year</a>
+            <p className="fine">{dollars(price.priceCents)}/year for your whole team. The price goes up $10 with every hire. Just paid? Refresh in a few seconds.</p>
+          </div>
+        ) : (
+          <>
+            {sp.welcome && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
+            <StartSteps token={token} />
+          </>
+        )}
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: share rocco.works/j/{linkCode}</span>
