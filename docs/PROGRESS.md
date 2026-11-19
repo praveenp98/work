@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Amazon Ads API application started
+- Praveen is creating the Login with Amazon security profile "Rocco". Field values + web settings recorded in docs/AMAZON-API-APPLICATIONS.md §1. Next: Web Settings → Ads API access request (paste-ready answers in the same doc) → SP-API developer registration. OAuth callbacks get built only after approval.
+- Positioning vs Amazon Ads' own agent: it lives inside the Ads console and covers ads only; Rocco is the cross-channel manager (ads + Seller Central + stock + listings) with memory, approvals and follow-ups in iMessage/Slack/Claude. Work beside it, not against it.
+
+---
+
 ## 2026-11-18 · Direct pay, +$10 per hire, email step
 - No trial: $99/year up front. Ladder +$10 with every hire (cap $499 at hire #41). Hire sheet asks for work email → checkout prefilled + tagged → welcome → setup. All trial copy removed (homepage, sheet, pricing, dashboard, analytics, texts, MCP, llms.txt, connect FAQ, launch kit). Tests 123/123.
 

@@ -5,6 +5,12 @@ Goal: Rocco gets his own read access (and, later, approved-change access) so sel
 ## 1. Amazon Ads API (advertising.amazon.com → API / "Amazon Ads API" access)
 **Steps**
 1. Sign in to Amazon Developer with the Rocco business account → **Login with Amazon** → create a **Security Profile** ("Rocco"). Allowed return URL: `https://rocco.works/api/amazon/ads/callback` (we'll build it after approval).
+   **Security profile fields (Nov 19):**
+   - Name: `Rocco`
+   - Description: `Rocco is self-serve software that reads an advertiser's Amazon Ads reports and proposes changes (negative keywords, bids, budgets). Nothing changes without the advertiser's explicit approval; every change is logged and reversible.`
+   - Consent Privacy Notice URL: `https://rocco.works/privacy`
+   - Consent logo: `https://rocco.works/rocco-avatar.png` (512×512 PNG; shown small on the consent screen)
+   - Web Settings (after saving): Allowed Origins `https://rocco.works`; Allowed Return URLs `https://rocco.works/api/amazon/ads/callback` (+ `https://rocco.works/api/amazon/sp/callback` if the same profile is reused for SP-API). Client ID can go in docs/chat; the **Client Secret goes only into Vercel** (`AMAZON_ADS_CLIENT_SECRET`), never chat or git.
 2. Submit the **Amazon Ads API access request** (apply as a tool provider / third-party application that manages advertising for other businesses).
 
 **Paste-ready answers**
