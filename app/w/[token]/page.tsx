@@ -10,7 +10,7 @@ import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
 import { ReportSteps } from "@/components/start/ReportSteps";
 import { ModeSwitch } from "@/components/start/ModeSwitch";
-import { inboxAddress } from "@/lib/inbox";
+import { inboxAddress } from "@/lib/inbox-address";
 import { howTo } from "@/lib/howto";
 import { TrialSheet } from "@/components/dash/TrialSheet";
 import { RememberTeam } from "@/components/dash/RememberTeam";
@@ -105,11 +105,11 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {trial && (() => {
         const n = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
         const v = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
-        const found = n ? `~${$(v)}/mo across ${n} fixes` : undefined;
+        const found = n ? `${n} more fix${n === 1 ? "" : "es"} worth ~${$(v)}/mo` : undefined;
         return (
           <>
             <div className="trial-banner">
-              <div><b>{found ? `💰 Plus ${found} more, waiting.` : "Turn me on for your team."}</b><span>Your top fix is below, free to approve. Hire me for the rest: {PRICE.short}, {PRICE.then}.</span></div>
+              <div><b>{found ? `💰 Plus ${found}, waiting.` : "Turn me on for your team."}</b><span>Your top fix is below, free to approve. Hire me for the rest: {PRICE.short}, {PRICE.then}.</span></div>
               <a className="btn" href={trial.url}>Hire Rocco</a>
             </div>
           </>

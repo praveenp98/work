@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { inboxAddress } from "@/lib/inbox";
+import { inboxAddress } from "@/lib/inbox-address";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 

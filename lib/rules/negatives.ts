@@ -86,14 +86,14 @@ export function findNegatives(terms: TermStats[], s: RoastSettings, ctx: Negativ
 
     const lag = mature && ctx.lagDays ? ` (not counting the last ${ctx.lagDays} days, orders can still land)` : "";
     const parts = [`${clicks} clicks, 0 orders${lag}.`];
-    if (cvr > 0) parts.push(`At ${g && g.clicks >= 50 && g.orders > 0 ? "this ad group's" : "your"} ${pct(cvr)} conversion rate that's ${expected.toFixed(1)} orders expected (${Math.round(confidence * 100)}% sure it's a dud).`);
+    if (cvr > 0) parts.push(`At ${g && g.clicks >= 50 && g.orders > 0 ? "this ad group's" : "your"} ${pct(cvr)} conversion rate that's ${expected.toFixed(1)} orders expected (${Math.min(99, Math.round(confidence * 100))}% sure it's a dud).`);
     if (econ) parts.push(`It spent ${money(t.spend)}; even one ${money(aov)} sale would be ${pct(t.spend / aov)} ACoS, over your ${pct(breakeven)} break-even.`);
     if (junk) parts.push(stat || econ ? "Junk intent too." : "The search itself shows the shopper isn't buying new (junk intent).");
     out.push({
       campaign: t.campaign, adGroup: t.adGroup, keyword: t.searchTerm,
       matchType: isAsin(t.searchTerm) ? "NEGATIVE_PRODUCT" : "NEGATIVE_EXACT",
       clicks, spend: round2(t.spend), reason: parts.join(" "),
-      confidence: Math.round(Math.max(confidence, econ ? 0.9 : 0, junk ? 0.8 : 0) * 100) / 100,
+      confidence: Math.min(0.99, Math.round(Math.max(confidence, econ ? 0.9 : 0, junk ? 0.8 : 0) * 100) / 100),
       why: stat && econ ? "both" : stat ? "expected_orders" : econ ? "unprofitable" : "junk_intent",
     });
   }

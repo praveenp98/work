@@ -5,7 +5,7 @@ import { REPORT_HELP } from "./analyze";
 import { notifyTeam } from "./notify";
 import { paywall } from "./paywall";
 import type { InboxItem, Store, Workspace } from "./store/types";
-import { buildBrief, DEFAULT_BRAND, ensureLinkCode, runAnalysis } from "./workspace";
+import { buildBrief, DEFAULT_BRAND, runAnalysis } from "./workspace";
 
 /**
  * Rocco's report inbox (outside the US, or anyone without Claude's Amazon connectors).
@@ -16,11 +16,8 @@ import { buildBrief, DEFAULT_BRAND, ensureLinkCode, runAnalysis } from "./worksp
  *    Rocco never signs in to Amazon or opens pages behind a login (no scraping).
  * Then the team gets the morning text/Slack with the top fixes. Approvals turn into a bulk file for Amazon Ads.
  */
-export const INBOX_DOMAIN = (process.env.ROCCO_INBOX_DOMAIN || "in.rocco.works").toLowerCase();
-
-export async function inboxAddress(store: Store, ws: Workspace): Promise<string> {
-  return `${(await ensureLinkCode(store, ws)).toLowerCase()}@${INBOX_DOMAIN}`;
-}
+export { INBOX_DOMAIN, inboxAddress } from "./inbox-address";
+import { INBOX_DOMAIN } from "./inbox-address";
 
 export interface InboundFile { name: string; type?: string; data: Uint8Array }
 export interface InboundMail { to: string[]; from: string; subject: string; text?: string; html?: string; files: InboundFile[] }

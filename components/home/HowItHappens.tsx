@@ -6,21 +6,29 @@ import { RoccoHead } from "@/components/Rocco";
  * Boardy-style "How an intro happens": three numbered steps on the left (the active one gets a blue line that
  * fills), a phone on the right that shows that step. Steps advance by themselves; tapping one jumps to it.
  */
-const STEPS = [
+const STEPS_US = [
   { t: "I check your account every morning", d: "Claude pulls your Seller Central and Ads numbers. I read them the way a senior Amazon manager would." },
   { t: "I find what's worth doing", d: "Stock to send, bids to move, waste to cut, listings to fix. Ranked by money, with the reason." },
   { t: "You say yes, and it's done", d: "Reply YES or tap approve. Amazon shows a preview, you confirm. I check a week later if it worked." },
 ];
+const STEPS_INTL = [
+  { t: "Amazon emails me your reports", d: "You schedule them to your Rocco inbox once. Every morning they land, and I read them the way a senior Amazon manager would." },
+  { t: "I find what's worth doing", d: "Stock to send, bids to move, waste to cut, listings to fix. Ranked by money, with the reason." },
+  { t: "You say yes, I give you the exact clicks", d: "Reply YES and I send the steps for the Ads console. Text DONE, and I check a week later if it worked." },
+];
 const MS = 5200;
 
-const CHECKS = ["Seller Central: sales & traffic", "Amazon Ads: 2,140 search terms", "Inventory: 38 SKUs", "Listings: 12 ASINs", "Last week's 3 changes"];
+const CHECKS_US = ["Seller Central: sales & traffic", "Amazon Ads: 2,140 search terms", "Inventory: 38 SKUs", "Listings: 12 ASINs", "Last week's 3 changes"];
+const CHECKS_INTL = ["📥 Amazon Ads email: search terms", "📥 Amazon Ads email: campaigns", "📥 Business report (forwarded)", "Inventory: 38 SKUs", "Last week's 3 changes"];
 const FIXES = [
   { i: "📦", t: "Send 340 units to FBA", s: "Runs out in 9 days", v: "~$2,900 sales kept" },
   { i: "✂️", t: "Cut 2 money-burning terms", s: "41 clicks, 0 orders", v: "+$63/mo" },
   { i: "📈", t: "Raise bid 12% on a winner", s: "ACoS 18% vs 30% target", v: "+$210/mo" },
 ];
 
-export function HowItHappens() {
+export function HowItHappens({ intl = false }: { intl?: boolean }) {
+  const STEPS = intl ? STEPS_INTL : STEPS_US;
+  const CHECKS = intl ? CHECKS_INTL : CHECKS_US;
   const [step, setStep] = useState(0);
   const [k, setK] = useState(0); // restarts the progress bar animation
   useEffect(() => {
@@ -73,7 +81,7 @@ export function HowItHappens() {
               <div className="pb">
                 <p className="bub">Reply YES to approve all 3.</p>
                 <p className="bub mine" style={{ animationDelay: ".6s" }}>yes</p>
-                <p className="bub" style={{ animationDelay: "1.4s" }}>Done ✅ Applied in Claude after your confirm. I&apos;ll check them Monday.</p>
+                <p className="bub" style={{ animationDelay: "1.4s" }}>{intl ? "Here are the exact clicks for each ✍️ Text DONE when they're made." : "Done ✅ Applied in Claude after your confirm. I'll check them Monday."}</p>
                 <p className="bub" style={{ animationDelay: "2.4s" }}>📅 Mon: the bid change worked. +$210/mo, ACoS held at 19%.</p>
               </div>
             )}

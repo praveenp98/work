@@ -1,4 +1,7 @@
+import { cookies, headers } from "next/headers";
 import { googleOn } from "@/lib/google";
+import { REGION_COOKIE, regionOf } from "@/lib/region";
+import { ReportsInbox } from "@/components/home/ReportsInbox";
 import { HireButton } from "@/components/home/HireButton";
 import { HowItHappens } from "@/components/home/HowItHappens";
 import { YourAI } from "@/components/home/YourAI";
@@ -9,7 +12,8 @@ import { RoccoStage } from "@/components/home/RoccoStage";
 import { PLAN, PRICE } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
-export const revalidate = 60;
+// Per visitor: US → Claude version, elsewhere → scheduled-reports version (lib/region.ts).
+export const dynamic = "force-dynamic";
 
 const WHO = [
   { e: "🧑‍💼", t: "Brand owners", d: "No time for the daily grind. Approve the morning's fixes from your phone in a minute." },
@@ -23,17 +27,18 @@ const WHO = [
  */
 export default async function Home() {
   const google = googleOn();
+  const intl = regionOf(await headers(), (await cookies()).get(REGION_COOKIE)?.value) === "intl";
   return (
     <section className="home">
       <div className="home-hero">
         <h1>I can run your Amazon<br />business, try me.</h1>
-        <p className="hero-sub">Rocco is an AI Amazon manager for brand owners, Amazon managers and agencies.</p>
+        <p className="hero-sub">Rocco is an AI Amazon manager for brand owners, Amazon managers and agencies{intl ? ", in any marketplace" : ""}.</p>
         <RoccoStage google={google} price={PRICE.first} />
       </div>
 
-      <section className="hband"><HowItHappens /></section>
+      <section className="hband"><HowItHappens intl={intl} /></section>
 
-      <section className="hband soft"><YourAI /></section>
+      <section className="hband soft">{intl ? <ReportsInbox /> : <YourAI />}</section>
 
       <section className="hband">
         <div className="center-head">
@@ -50,7 +55,7 @@ export default async function Home() {
           <div className="two-text">
             <span className="kicker">A day with me</span>
             <h2 className="big-h">Like texting your best Amazon hire.</h2>
-            <p className="two-lede">Morning numbers, fixes you approve with a reply, a heads-up before stock runs out, and proof of what worked. By iMessage, Slack or Claude.</p>
+            <p className="two-lede">Morning numbers, fixes you approve with a reply, a heads-up before stock runs out, and proof of what worked. By iMessage, Slack{intl ? " or email" : " or Claude"}.</p>
           </div>
           <div className="two-vis"><DayWithRocco /></div>
         </div>
@@ -70,7 +75,8 @@ export default async function Home() {
               <li>Unlimited teammates and brands</li>
             </ul>
             <HireButton google={google} price={PRICE.first} label="Hire Rocco" className="btn hire-cta" />
-            <p className="fine">See my first real finding on your account before you pay. Needs a Claude account. Not affiliated with Amazon.</p>
+            <p className="fine">See my first real finding on your account before you pay. {intl ? "Works with Amazon's scheduled report emails, no Claude needed." : "Needs a Claude account."} Not affiliated with Amazon.</p>
+            <p className="fine region-switch">{intl ? <>In the US with Claude? <a href="/api/region?r=us" rel="nofollow">See the Claude version</a></> : <>Outside the US, or no Claude? <a href="/api/region?r=intl" rel="nofollow">See the email-reports version</a></>}</p>
           </div>
         </div>
       </section>

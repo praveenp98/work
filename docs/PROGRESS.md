@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Two versions: US (Claude) and everywhere else (Amazon's report emails)
+- **Region split** (lib/region.ts): Vercel country header; US → Claude version, elsewhere → report-inbox version; override via /api/region?r=us|intl; teams get `mode` at sign-up and can switch on their setup page.
+- **Report inbox** (lib/inbox.ts, /api/inbound/email, workers/email-inbound.js): <code>@in.rocco.works; raw email (Cloudflare Email Worker, free) or Postmark JSON; CSV/TSV/XLSX/GZ attachments → same analysis engine; pre-signed links only (never logs in); link-only emails flagged; inbox log on the team; first report → "🔔 I'm on" text/Slack with top fixes. Setup + test plan: docs/REPORTS-INBOX.md.
+- **Reports-mode setup** (ReportSteps): inbox address → schedule Ads search term report → Seller Central files (upload) → live "waiting for your first report".
+- **Making changes without Claude:** every fix has exact Ads console clicks (lib/howto.ts); dashboard "I've made this change" and text "DONE N1" log it; results checked when the next reports land.
+- Homepage: outside the US shows "Amazon emails your reports. I read every one." (email mock + Rocco text) instead of the Claude section; switch link under the price card.
+- Amazon Quick (Sept 23, 2026, Accelerate): Amazon's own agent workspace with approve-before-act cards, Selling Partner plugin in Quick + Claude (US beta). Positioning: Rocco = memory + judgment + follow-up across ads/stock/listings, works next to it.
+- Tests 139/139, build OK. Blocked on Praveen: inbound email (Cloudflare Email Routing or Postmark) + ROCCO_INBOUND_SECRET.
+
+---
+
 ## 2026-11-19 · Proof-first changes (buyer feedback)
 - **Judgment:** negatives now need ≥2 expected orders at the ad group's (or account's) conversion rate (~86%+ confidence), or spend above one average order × break-even ACoS, or junk intent. Last 3 days of daily reports don't count (orders still landing). Launch / ranking / brand-defense / test campaigns (by name, or named by the team via set_brand_settings protected_campaigns) are never auto-negated. Every reason states the math. Leak totals use the same verdicts (fixture leak $481 → $392/mo).
 - **Honest numbers:** results carry a basis: blocked terms = spend avoided (estimate); bid/budget cuts with sales holding = measured. Dashboard, analytics, client report, texts and Claude show "measured" vs "est." separately; homepage samples reworded ("sales kept").

@@ -41,7 +41,7 @@ export function FixCards({ token, brand, fixes, queued: initial, mode = "claude"
   return (
     <div className="fixes-wrap">
       {waiting.length > 0 && (mode === "reports"
-        ? <button className="btn fixes-apply" disabled={!!busy} onClick={() => made(waiting)}>I&apos;ve made these {waiting.length} change{waiting.length === 1 ? "" : "s"} ✓</button>
+        ? <button className="btn fixes-apply" disabled={!!busy} onClick={() => made(waiting)}>{waiting.length === 1 ? "I've made this change ✓" : `I've made these ${waiting.length} changes ✓`}</button>
         : <a className="btn fixes-apply" href={applyLink(waiting)} target="_blank" rel="noreferrer">Apply {waiting.length} approved in Claude →</a>)}
       {open.length > 1 && (
         <button className="btn small fixes-all" disabled={!!busy} onClick={() => send(open.map((f) => f.code))}>
