@@ -23,6 +23,13 @@ Goal: Rocco gets his own read access (and, later, approved-change access) so sel
 - Data handling: Tokens encrypted at rest, scoped to the advertiser who authorized; report data used only to produce that advertiser's recommendations; anonymized, aggregated metrics may be used for benchmarks; advertisers can disconnect and delete their data at any time.
 - Expected volume: up to a few hundred advertisers in the first months; daily report pulls per advertiser.
 
+## 1b. Amazon Ads Partner Network application (answers used Nov 19)
+- Company details: Rocco Works, rocco.works, Praveen as contact. No agency name, agency email or agency payment details (hard rule 1).
+- Descriptions: ✅ advertising technology or software; ✅ non-advertising technology (stock/listing/sales analysis). ❌ managed advertising services (self-serve only, hard rule 2).
+- Supports: ✅ media planning and buying (Sponsored Ads bid/budget/keyword management); ✅ measurement (reports, ACoS, did-it-work checks); ✅ retail (stock, listings, Buy Box). ❌ creative, ❌ education.
+- Businesses: ✅ sell on Amazon only.
+- Products: ✅ Sponsored Products, ✅ Sponsored Brands, ✅ Sponsored Display. ❌ video, audio, Stores, Live, DSP, Attribution, AMC (not built; add later if we use them).
+
 ## 2. Selling Partner API (Seller Central → Partner Network → Develop Apps / Solution Provider Portal)
 **Steps**
 1. Register as a **public developer** (we'll serve other sellers). Complete the developer profile and the data protection / security questionnaire.
