@@ -1,3 +1,4 @@
+import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
 import { SITE } from "@/lib/site";
@@ -33,7 +34,9 @@ export async function POST(req: Request) {
     token = c.token;
     ws = c.ws;
   }
-  if (email && ws.ownerEmail !== email) { ws.ownerEmail = email; await store.saveWorkspace(ws); }
+  if (email && ws.ownerEmail !== email) ws.ownerEmail = email;
+  if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
+  await store.saveWorkspace(ws);
   // First finding before payment: open the team's page (setup), checkout comes after Rocco has found something real.
   const res = NextResponse.json({ ok: true, url: `/w/${token}` });
   const sealed = seal(token!);

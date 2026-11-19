@@ -3,6 +3,7 @@ export type Command =
   | { kind: "link"; code: string }
   | { kind: "approve"; codes: string[] }
   | { kind: "undo"; codes: string[] }
+  | { kind: "made"; codes: string[] }
   | { kind: "brief" }
   | { kind: "numbers" }
   | { kind: "wins" }
@@ -31,6 +32,7 @@ export function parseCommand(raw: string): Command {
   if (/^(start|unstop|resume)\b/.test(lc)) return { kind: "start" };
   const codes = codesIn(t);
   if (codes.length && /\b(undo|revert|roll ?back)\b/.test(lc)) return { kind: "undo", codes };
+  if (codes.length && /\b(done|made|did it|applied|changed)\b/.test(lc)) return { kind: "made", codes };
   if (codes.length && /\b(yes|yep|ok|okay|approve[ds]?|go|do it|ship it|👍)/i.test(t)) return { kind: "approve", codes };
   if (codes.length && /^[\sA-Z0-9,\-]+$/i.test(t) && !/[a-z]{3,}/i.test(t.replace(/\band\b/gi, ""))) return { kind: "approve", codes };
   if (/^(dashboard|setup|connect|login|log in|my links?|links?|my page)\b/.test(lc)) return { kind: "dashboard" };

@@ -8,6 +8,10 @@ import { FixCards, type FixCard } from "@/components/dash/FixCards";
 import { TextLink } from "@/components/home/TextLink";
 import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
+import { ReportSteps } from "@/components/start/ReportSteps";
+import { ModeSwitch } from "@/components/start/ModeSwitch";
+import { inboxAddress } from "@/lib/inbox";
+import { howTo } from "@/lib/howto";
 import { TrialSheet } from "@/components/dash/TrialSheet";
 import { RememberTeam } from "@/components/dash/RememberTeam";
 import { accessOf, trialHoursLeft } from "@/lib/access";
@@ -58,7 +62,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
         {sp.welcome && access !== "none" && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
         {access === "none" && <p className="trial-note">Set me up on your real account. I&apos;ll show you my first finding in full, free. You pay only when you&apos;ve seen it ({PRICE.short}).</p>}
-        <StartSteps token={token} />
+        {ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />}
+        <ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} />
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: share rocco.works/j/{linkCode}</span>
@@ -84,7 +89,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const fixes: FixCard[] = [...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 12).map((p) => ({
     code: p.code, title: TITLE[p.kind] ?? "Fix", value: p.valueMonthly,
     target: p.kind === "budget" || p.kind === "placement" ? p.campaign : p.target,
-    reason: p.reason,
+    reason: p.reason, how: howTo(p),
   }));
   const queued = (ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes);
   const invite = `https://rocco.works/j/${linkCode}`;
@@ -114,12 +119,12 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="dash-head">
         <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{access === "paid" ? " · hired" : access === "trial" ? " · trial" : ""}</span>
         <h1 className="dash-h1">{fixes.length ? `${fixes.length} fix${fixes.length === 1 ? "" : "es"} waiting${b.openValue ? `, ~${$(b.openValue)}/mo` : ""}.` : "All clear today."}</h1>
-        <p className="muted">{lastCheck ? `From ${daysOld === 0 ? "today's" : daysOld === 1 ? "yesterday's" : `a ${daysOld}-day-old`} check.` : ""} {daysOld && daysOld > 1 ? <>Say &ldquo;Rocco, morning check&rdquo; in your AI to refresh.</> : null}</p>
+        <p className="muted">{lastCheck ? `From ${daysOld === 0 ? "today's" : daysOld === 1 ? "yesterday's" : `a ${daysOld}-day-old`} check.` : ""} {daysOld && daysOld > 1 ? (ws.mode === "reports" ? <>No new report in {daysOld} days: check your Ads console schedule.</> : <>Say &ldquo;Rocco, morning check&rdquo; in Claude to refresh.</>) : null}</p>
       </div>
 
       <ul className="today">{chips.map((c) => <li key={c.k} className={c.alert ? "alert" : ""}><span>{c.k}</span><b>{c.v}</b></li>)}</ul>
 
-      {fixes.length > 0 && <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} />}
+      {fixes.length > 0 && <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} mode={ws.mode === "reports" ? "reports" : "claude"} />}
       {b.hidden > 0 && (
         <div className="locked-row">
           <span>🔒 <b>{b.hidden} fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} ready for you.</span>
@@ -138,7 +143,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         <section className="dcard">
           <h3>Team</h3>
           <ul className="team">
-            <li>{ws.connectedAt ? `✅ ${ws.ai ? AI_NAME[ws.ai] : "Your AI"} connected` : "⏳ AI not connected yet"}</li>
+            <li>{ws.mode === "reports" ? (ws.inbox?.length ? `📥 Last report email: ${ws.inbox[0].at.slice(0, 10)}` : "⏳ No report emails yet") : ws.connectedAt ? `✅ ${ws.ai ? AI_NAME[ws.ai] : "Claude"} connected` : "⏳ Claude not connected yet"}</li>
             <li>{phones.length ? `💬 ${phones.map((p) => maskPhone(p.phone) + (p.optedOut ? " (paused)" : "")).join(", ")}` : "💬 No phones yet"}</li>
             <li>{ws.slack ? `# Slack: ${ws.slack.channelName ?? ws.slack.teamName ?? "connected"}` : slackConfigured() ? <a href={`/api/slack/install?t=${token}`}>+ Add to Slack</a> : "# Slack: soon"}</li>
           </ul>
@@ -155,7 +160,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         <Link href={`/w/${token}/report`}>📄 Client report</Link>
         <a href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Calendar</a>
         <form action="/api/auth/signout" method="post" style={{ display: "inline" }}><button className="linkbtn">Sign out</button></form>
-        <details><summary>⚙️ Setup</summary><div style={{ marginTop: 12 }}><StartSteps token={token} compact /></div></details>
+        <details><summary>⚙️ Setup</summary><div style={{ marginTop: 12 }}>{ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} compact />}<ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} /></div></details>
       </nav>
 
       {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}

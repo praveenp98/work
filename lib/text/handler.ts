@@ -1,7 +1,7 @@
 import { REPORT_HELP, type ReportKind } from "../analyze";
 import { benchmark } from "../rules/benchmarks";
 import type { Store } from "../store/types";
-import { buildBrief, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken, runAnalysis } from "../workspace";
+import { applyChanges, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken, runAnalysis } from "../workspace";
 import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
@@ -16,6 +16,7 @@ import { formatBrief } from "../mcp/format";
 import Papa from "papaparse";
 import { savedPhrase } from "../savings";
 import { applyLink } from "../apply-link";
+import { howTo } from "../howto";
 
 const SITE_URL = "https://rocco.works";
 /** One personal link: opens the one-step-at-a-time start page (plug in Amazon) or the dashboard once data flows. */
@@ -265,7 +266,23 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       if (unknown.length) L.push(`🤔 Don't recognize ${unknown.join(", ")}. Text “brief” for today's codes.`);
       const pay = locked.length ? await nudge(store, ws, await buildBrief(store, ws, now), now, "locked") : [];
       if (pay.length) pay[0] = pay[0].replace("That one's", `${locked.join(", ")} ${locked.length > 1 ? "are" : "is"}`);
+      if (ok.length && ws.mode === "reports") {
+        const props = runs.flatMap((r) => r.proposals).filter((pp) => ok.includes(pp.code));
+        const steps = props.map((pp) => `${pp.code}: ${howTo(pp)}`).join("\n\n");
+        return { bubbles: [`Approved ✅ ${ok.join(", ")}. Make ${ok.length === 1 ? "it" : "them"} in the Ads console:`, steps.slice(0, 1500), `Text DONE ${ok.join(" ")} when it's made and I'll check the results next week.`, ...pay] };
+      }
       return { bubbles: [...(L.length ? [L.join("\n")] : []), ...(ok.length ? [applyLink(ok)] : []), ...pay] };
+    }
+    case "made": {
+      const brand = Object.keys(ws.brands)[0] ?? DEFAULT_BRAND;
+      try {
+        const res = await applyChanges(store, ws, expandCodes(cmd.codes), { brand, note: `made by hand, texted by ${maskPhone(phone)}`, freeLimit: hasAccess(ws) ? undefined : FREE_PROPOSALS });
+        await clearPending(store, ws, "apply", cmd.codes);
+        if (!res.actions.length) return res.locked.length ? `🔒 ${res.locked.join(", ")} need an active Rocco. Text “dashboard” to hire me.` : "Already logged 👍";
+        return `Logged ✅ ${res.actions.map((a) => a.code).join(", ")}. I'll check the results when your next reports land (about a week).`;
+      } catch {
+        return "I don't have fixes with those codes yet. Text “brief” for today's.";
+      }
     }
     case "ask": {
       if (brainOn()) {

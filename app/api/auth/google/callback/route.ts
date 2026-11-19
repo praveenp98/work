@@ -1,3 +1,4 @@
+import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { accessOf } from "@/lib/access";
 import { googleUser } from "@/lib/google";
@@ -30,6 +31,7 @@ export async function GET(req: Request) {
 
   const browserTeam = unseal(decodeURIComponent(cookie(TEAM) ?? ""));
   const { ws, token } = await teamForUser(store, user.email, browserTeam);
+  if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox
   // First finding before payment: everyone lands on their Rocco page; unpaid teams set up and see one real fix first.
   const res = NextResponse.redirect(`${SITE.url}/w/${token}${st.i === "hire" && accessOf(ws) === "none" ? "?start=1" : ""}`);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
