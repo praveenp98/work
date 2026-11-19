@@ -15,10 +15,8 @@ export default async function Home() {
   const apps: { label: string; href: string; app: "imessage" | "claude" | "openai" | "slack" | "claudecode" | "cursor" }[] = [
     { label: "iMessage", href: "/text", app: "imessage" },
     { label: "Claude", href: "/setup", app: "claude" },
-    { label: "ChatGPT", href: "/setup", app: "openai" },
     { label: "Slack", href: "/setup", app: "slack" },
     { label: "Claude Code", href: "/setup", app: "claudecode" },
-    { label: "Cursor", href: "/setup", app: "cursor" },
   ];
   const jobs = [
     { t: "Ads", d: "Negatives, harvests, bids, budgets and placements, every day. Capped, logged, reversible." },
@@ -47,13 +45,13 @@ export default async function Home() {
         <ol className="flow">
           <li><span className="flow-k">Your data</span><b>Amazon&apos;s own connectors</b><small>Seller Central and Amazon Ads, signed in with your Amazon login. No scraping, no passwords shared.</small></li>
           <li><span className="flow-k">The manager</span><b>Rocco</b><small>Decides what to change, remembers every change, checks a week later if it worked.</small></li>
-          <li><span className="flow-k">Where you talk</span><b>iMessage, Slack, Claude, ChatGPT</b><small>Same Rocco, same memory, whole team. You reply YES, nothing changes without it.</small></li>
+          <li><span className="flow-k">Where you talk</span><b>iMessage, Slack, Claude</b><small>Same Rocco, same memory, whole team. You reply YES, nothing changes without it.</small></li>
         </ol>
       </div>
 
       <div className="home-sec">
         <h2>Everything your Amazon needs, one teammate.</h2>
-        <p className="home-lede">Ads, Seller Central, stock, listings and reports. I do the work a senior Amazon manager does, from iMessage, Claude or ChatGPT.</p>
+        <p className="home-lede">Ads, Seller Central, stock, listings and reports. I do the work a senior Amazon manager does, from iMessage, Slack or Claude.</p>
         <ul className="home-jobs">{jobs.map((j) => <li key={j.t}><b>{j.t}</b><span>{j.d}</span></li>)}</ul>
       </div>
 
@@ -84,7 +82,7 @@ export default async function Home() {
         <p className="fine">{dollars(price.priceCents)}/year for your whole team · the price goes up $10 with every hire · Not affiliated with Amazon or Helium 10</p>
       </div>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Claude, ChatGPT, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "iMessage, Slack, Claude, Web", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }} />
     </section>
   );
 }

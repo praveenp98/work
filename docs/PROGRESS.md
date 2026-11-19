@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Homepage: Claude only (no ChatGPT/Cursor)
+- Only Claude has Amazon's official connectors, so the homepage orbit, scenes, feed and copy now show iMessage, Claude, Slack, Claude Code, Calendar. Tests 123/123.
+- Data flow explained to Praveen: Claude calls Amazon's connector, then passes those rows to Rocco's analyze_report tool; Rocco stores snapshots/proposals/actions in Supabase under the team's workspace (found from the connector's OAuth token). Next: real sign-up (account) before pay; scheduled-report email inbox as a no-API data route.
+
+---
+
 ## 2026-11-19 · Amazon access: hold direct API, no credential shortcut
 - Ads Partner Network application needs a seller/ads account; Praveen will set up a clean Rocco business account first. Sign in with Amazon is on hold.
 - Ruled out: buying API access; inviting Praveen as a user to client accounts and pulling with his login (scraping, breaks Amazon terms and hard rules 2 and 6).

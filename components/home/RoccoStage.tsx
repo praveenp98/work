@@ -17,8 +17,6 @@ const SCENES: Scene[] = [
     lines: [{ me: true, text: "how'd we do yesterday?" }, { text: "$4,120 sales, ACoS 24%. 2 search terms burned $63 with no sales. Reply YES N1 N2 to cut them." }] },
   { app: "claude", head: "Claude", sub: "Rocco + Amazon's connectors", glow: "#d97757", pill: "Use me in Claude", href: "/setup",
     lines: [{ me: true, text: "Rocco, morning check" }, { text: "Checked Ads and Seller Central. 7 fixes worth ~$1,240/mo. Nothing changes until you approve." }] },
-  { app: "openai", head: "ChatGPT", sub: "Rocco + Amazon's connectors", glow: "#10a37f", pill: "Use me in ChatGPT", href: "/setup",
-    lines: [{ me: true, text: "why did ACoS jump on Tuesday?" }, { text: "Top-of-search went +50% and doubled your CPC. Undo P2?" }] },
   { app: "imessage", head: "Rocco", sub: "online · Amazon connected", glow: "#2f7cf6", pill: "Text me on iMessage", href: "#text",
     lines: [{ text: "🚨 Bamboo Board S is suppressed (main image background). Kitchen Set Blue runs out in 9 days: send 340 units." }, { me: true, text: "on it, thanks" }] },
   { app: "slack", head: "#amazon-team", sub: "Rocco + Amazon's connectors", glow: "#611f69", pill: "Add me to Slack", href: "/setup",
@@ -27,11 +25,9 @@ const SCENES: Scene[] = [
     lines: [{ me: true, text: "/morning-check all brands" }, { text: "5 brands checked. 1 Buy Box drop, 2 listings down, 11 fixes ready. Client report saved." }] },
   { app: "calendar", head: "Calendar", sub: "Rocco checks every change", glow: "#4285f4", pill: "Follow-ups in your calendar", href: "#text",
     lines: [{ text: "📅 Mon 9:00 · Did B3 work?" }, { text: "Yes ✅ Lower bid on “bamboo board” saved $86/mo, sales held." }] },
-  { app: "cursor", head: "Cursor", sub: "Rocco + Amazon's connectors", glow: "#6b7280", pill: "Use me in Cursor", href: "/setup",
-    lines: [{ me: true, text: "which listings miss keywords?" }, { text: "3 of your best converting search terms aren't in the Large board's title. Want the new title?" }] },
 ];
 
-const APPS: (BrandIcon | "claudecode")[] = ["imessage", "claude", "openai", "slack", "claudecode", "calendar", "cursor"];
+const APPS: (BrandIcon | "claudecode")[] = ["imessage", "claude", "slack", "claudecode", "calendar"];
 const ASKS = ["my wasted ad spend", "restock before Q4", "a suppressed listing", "why ACoS jumped", "all 5 of my brands", "my weekly client report"];
 
 export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; size?: number }) {
@@ -42,7 +38,7 @@ export function AppIcon({ app, size = 26 }: { app: BrandIcon | "claudecode"; siz
   return <svg viewBox="0 0 24 24" width={size} height={size} aria-label={b.title} role="img"><path d={b.path} fill={b.hex} /></svg>;
 }
 
-const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : a === "openai" ? "ChatGPT" : BRAND_ICONS[a].title);
+const appName = (a: BrandIcon | "claudecode") => (a === "claudecode" ? "Claude Code" : BRAND_ICONS[a].title);
 
 export function RoccoStage({ price = "$99", next }: { price?: string; next?: string }) {
   const [phase, setPhase] = useState(0); // 0 row, 1 gather, 2 card, 3 live
@@ -109,7 +105,7 @@ export function RoccoStage({ price = "$99", next }: { price?: string; next?: str
           </div>
         </div>
         {APPS.map((a, k) => {
-          const off = ((k - active + APPS.length + 3) % APPS.length) - 3; // -3..2, 0 = bottom center
+          const off = ((k - active + APPS.length + 2) % APPS.length) - 2; // -2..2, 0 = bottom center
           const ang = (90 + off * 45) * (Math.PI / 180);
           return (
             <button key={a} type="button" className={`bstage-app${off === 0 ? " on" : ""}${Math.abs(off) > 2 ? " hide" : ""}`} aria-label={appName(a)}

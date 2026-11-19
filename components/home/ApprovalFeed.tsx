@@ -15,7 +15,7 @@ const EVENTS: Ev[] = [
   { icon: "🔎", what: "Analyzed 2,140 search terms", detail: "Ads + Seller Central, this morning", who: "Rocco", via: "claude" },
   { icon: "📈", what: "Bid +12% on “bamboo cutting board”", detail: "ACoS 18% vs 30% target, room to grow", who: "Sam approved", via: "imessage", value: "+$210/mo sales" },
   { icon: "🚨", what: "Bamboo Board S is suppressed", detail: "Main image background · ads paused until fixed", who: "Rocco flagged", via: "rocco" },
-  { icon: "🌱", what: "Promote “cutting board set” to exact", detail: "6 orders at 14% ACoS from auto", who: "Jen approved", via: "openai", value: "+$120/mo" },
+  { icon: "🌱", what: "Promote “cutting board set” to exact", detail: "6 orders at 14% ACoS from auto", who: "Jen approved", via: "claude", value: "+$120/mo" },
   { icon: "💰", what: "Move $15/day to Hero Exact", detail: "Out of budget by 3pm, ACoS 16%", who: "Priya approved", via: "slack", value: "+$340/mo sales" },
   { icon: "✅", what: "Last week's B3 worked", detail: "Lower bid saved $86/mo, sales held", who: "Rocco checked", via: "calendar", value: "$86/mo saved" },
   { icon: "⚠️", what: "Buy Box 72% on B0CHARC001", detail: "Another seller undercut by $1.20", who: "Rocco flagged", via: "rocco" },
