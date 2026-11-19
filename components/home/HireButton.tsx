@@ -9,17 +9,17 @@ export async function startHire(email?: string): Promise<void> {
 }
 
 /**
- * The main action: "Hire Rocco". Opens the sheet: work email (the account) → checkout (prefilled, tagged with
+ * The main action: "Hire Rocco". Opens the sheet: Continue with Google, or work email when Google sign-in is off (the account) → checkout (prefilled, tagged with
  * the team) → back to their Rocco page to set up. `direct` is kept for compatibility (same flow).
  */
-export function HireButton({ price, next, label = "Hire Rocco", className = "btn hire-cta", direct }: { price: string; next?: string; label?: string; className?: string; direct?: boolean }) {
+export function HireButton({ price, next, label = "Hire Rocco", className = "btn hire-cta", google }: { price: string; next?: string; label?: string; className?: string; direct?: boolean; google?: boolean }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const go = async (email?: string) => { setBusy(true); await startHire(email); };
   return (
     <>
       <button className={className} disabled={busy} onClick={() => setOpen(true)}>{busy ? "Opening checkout…" : label}</button>
-      <TrialSheet price={price} next={next} open={open} onStart={go} onClose={() => setOpen(false)} />
+      <TrialSheet price={price} next={next} open={open} onStart={google ? undefined : go} google={google} onClose={() => setOpen(false)} />
     </>
   );
 }

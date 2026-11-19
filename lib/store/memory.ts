@@ -30,6 +30,10 @@ export class MemoryStore implements Store {
     for (const w of this.ws.values()) if (w.linkCode && w.linkCode === code.toUpperCase()) return structuredClone(w);
     return null;
   }
+  async findWorkspacesByOwner(email: string) {
+    const e = email.toLowerCase();
+    return [...this.ws.values()].filter((w) => w.ownerEmail?.toLowerCase() === e).reverse().map((w) => structuredClone(w));
+  }
   async getPhone(phone: string) { const p = this.phones.get(phone); return p ? structuredClone(p) : null; }
   async savePhone(p: Phone) { this.phones.set(p.phone, structuredClone(p)); }
   async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {

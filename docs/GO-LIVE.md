@@ -92,3 +92,12 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 3. Dodo → Developer → Webhooks → endpoint `https://rocco.works/api/dodo/webhook`, events: all `subscription.*` and `payment.*`.
 4. Test in test mode first if possible: start a trial with a test card → your Rocco page shows "Free trial: 3 days left" and the team gets "🎉 Your 3-day free trial is on". Then text CANCEL → "Cancelled ✅".
 5. Check: does Dodo keep an existing subscriber's renewal price when the product price goes up (ladder)? Tell Claude the answer before we promise "your price stays locked".
+
+## 13. Sign in with Google (Nov 19)
+Flow: Hire Rocco → Continue with Google → Dodo checkout (prefilled, tagged with the team) → /welcome → setup. Returning users: "Sign in" (top right) → their Rocco. Without the keys the sheet falls back to the work-email form.
+1. console.cloud.google.com → new project "Rocco" (your personal Google account, not the agency's).
+2. Google Auth Platform / OAuth consent screen: External; app name **Rocco**; support email; logo optional; app domain `https://rocco.works`, privacy `https://rocco.works/privacy`, terms `https://rocco.works/terms`; authorized domain `rocco.works`. Scopes: openid, email, profile only (non-sensitive, so no Google review). **Publish app** (In production), otherwise only test users can sign in.
+3. Clients → Create client → Web application. Authorized JavaScript origin `https://rocco.works`. Authorized redirect URI `https://rocco.works/api/auth/google/callback`.
+4. Vercel → Environment Variables: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (secret only in Vercel, never in chat or git). Make sure `ROCCO_VAULT_KEY` (or the Supabase service key) is set: it seals the session cookies. Redeploy.
+5. Test: open rocco.works in a private window → Hire Rocco → Continue with Google → you should land on Dodo checkout with your email filled in. Then "Sign in" from another browser should open the same Rocco.
+Note: the site must be served on `rocco.works` (not www) for the cookie + redirect URI to match; make rocco.works the primary domain in Vercel.

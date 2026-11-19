@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import Link from "next/link";
+import { AccountLink } from "@/components/AccountLink";
 import { ChatFab } from "@/components/home/ChatFab";
+import { googleOn } from "@/lib/google";
 import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
 import { SITE } from "@/lib/site";
@@ -37,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Raccoon size={34} /> <span>Rocco</span>
             </Link>
             <div className="top-right">
+              <AccountLink google={googleOn()} />
               <ChatFab />
             </div>
           </div>

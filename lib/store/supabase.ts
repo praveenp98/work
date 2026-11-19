@@ -60,6 +60,10 @@ export class SupabaseStore implements Store {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>linkCode=eq.${encodeURIComponent(code.toUpperCase())}&select=id,data&limit=1`);
     return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
   }
+  async findWorkspacesByOwner(email: string) {
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>ownerEmail=eq.${encodeURIComponent(email.toLowerCase())}&select=id,data&order=created_at.desc&limit=10`);
+    return rows.map((r) => ({ id: r.id, ...r.data }));
+  }
   async getPhone(phone: string) {
     const rows = await this.q<{ data: Phone }[]>(`phones?phone=eq.${encodeURIComponent(phone)}&select=data&limit=1`);
     return rows[0]?.data ?? null;

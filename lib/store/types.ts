@@ -112,6 +112,8 @@ export interface Store {
   saveWorkspace(ws: Workspace): Promise<void>;
   getWorkspaceById(id: string): Promise<Workspace | null>;
   findWorkspaceByLinkCode(code: string): Promise<Workspace | null>;
+  /** Teams whose account email is this (Google sign-in), newest first. */
+  findWorkspacesByOwner(email: string): Promise<Workspace[]>;
   getPhone(phone: string): Promise<Phone | null>;
   savePhone(p: Phone): Promise<void>;
   listPhones(opts?: { workspaceId?: string; optedIn?: boolean }): Promise<Phone[]>;

@@ -1,4 +1,5 @@
 "use client";
+import { applyLink } from "@/lib/apply-link";
 import { useState } from "react";
 
 export interface FixCard { code: string; title: string; target: string; reason: string; value: number }
@@ -24,11 +25,17 @@ export function FixCards({ token, brand, fixes, queued: initial }: { token: stri
       d.cancelled?.forEach((c) => n.delete(c));
       return n;
     });
-    setNote(d.approved?.length ? `Approved ${d.approved.join(", ")}. Your AI applies ${d.approved.length === 1 ? "it" : "them"} on the next check, then I track the result.` : d.cancelled?.length ? `Cancelled ${d.cancelled.join(", ")}.` : "");
+    setNote(d.approved?.length ? `Approved ${d.approved.join(", ")}. Tap “Apply in Claude”: Amazon shows a preview, you confirm, I track the result.` : d.cancelled?.length ? `Cancelled ${d.cancelled.join(", ")}.` : "");
   }
   const open = fixes.filter((f) => !queued.has(f.code));
+  const waiting = [...queued];
   return (
     <div className="fixes-wrap">
+      {waiting.length > 0 && (
+        <a className="btn fixes-apply" href={applyLink(waiting)} target="_blank" rel="noreferrer">
+          Apply {waiting.length} approved in Claude →
+        </a>
+      )}
       {open.length > 1 && (
         <button className="btn small fixes-all" disabled={!!busy} onClick={() => send(open.map((f) => f.code))}>
           Approve all {open.length} · ~{$(open.reduce((t, f) => t + f.value, 0))}/mo
@@ -43,7 +50,7 @@ export function FixCards({ token, brand, fixes, queued: initial }: { token: stri
               <p className="fix-target">{f.target}</p>
               <p className="fix-why">{f.reason}</p>
               {on
-                ? <div className="fix-done"><span>✓ Approved · applies on the next check</span><button className="linkbtn" disabled={!!busy} onClick={() => send([f.code], true)}>Cancel</button></div>
+                ? <div className="fix-done"><span>✓ Approved · waiting for you in Claude</span><button className="linkbtn" disabled={!!busy} onClick={() => send([f.code], true)}>Cancel</button></div>
                 : <button className="btn small" disabled={!!busy} onClick={() => send([f.code])}>{busy === f.code ? "…" : "Approve"}</button>}
             </li>
           );

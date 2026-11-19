@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Google sign-in + "Apply in Claude"
+- **Sign in with Google** (lib/google.ts, lib/session.ts, lib/signin.ts, /api/auth/google, /callback, /api/auth/signout). Hire Rocco → Continue with Google → checkout tagged with the team → /welcome → setup. Teams are found by owner email on any device (paid team first); a browser's ownerless team is claimed; never takes over another email's team. Sealed httpOnly cookies (rocco_user, rocco_team) + a non-secret rocco_in flag for the nav ("Sign in" / "Your Rocco"). State is sealed + bound to a nonce cookie (10 min); only verified Google emails. Falls back to the email form until GOOGLE_CLIENT_ID/SECRET are set (GO-LIVE §13). Sign out on the dashboard.
+- **Approvals → Claude**: Amazon's connectors need a preview + typed confirm inside Claude, so Rocco can't apply edits from the dashboard or iMessage. Approving (dashboard button or texting YES) queues the codes and now gives a one-tap **Apply in Claude** link (claude.ai/new with "Rocco, apply my approved fixes: N1, B2"). Claude's rocco_brief lists them, Amazon's connector shows the preview, the user confirms, Rocco logs and grades.
+- Tests 128/128, build OK.
+
+---
+
 ## 2026-11-19 · Homepage: Claude only (no ChatGPT/Cursor)
 - Only Claude has Amazon's official connectors, so the homepage orbit, scenes, feed and copy now show iMessage, Claude, Slack, Claude Code, Calendar. Tests 123/123.
 - Data flow explained to Praveen: Claude calls Amazon's connector, then passes those rows to Rocco's analyze_report tool; Rocco stores snapshots/proposals/actions in Supabase under the team's workspace (found from the connector's OAuth token). Next: real sign-up (account) before pay; scheduled-report email inbox as a no-API data route.

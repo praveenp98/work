@@ -568,3 +568,12 @@ h1, h2, .display { font-family: var(--display); }
 .sheet-form input { width: 100%; padding: 15px 16px; border-radius: 16px; border: 1.5px solid color-mix(in srgb, var(--ink) 30%, var(--line)); background: var(--card); font: 500 17px/1.2 var(--font-body), system-ui, sans-serif; color: var(--ink); }
 .sheet-form input:focus { outline: 2px solid #1f6feb; outline-offset: 1px; }
 .sheet-form .sheet-btn { width: 100%; }
+
+/* Google sign-in (hire sheet + nav) and "Apply in Claude" */
+.top-right { display: flex; align-items: center; gap: 14px; }
+.top-acct { font-size: 15px; color: var(--muted); text-decoration: none; }
+.top-acct:hover { color: var(--ink); }
+.google-btn { width: 100%; gap: 10px; background: #fff; color: #1f1f1f; border: 1px solid #dadce0; box-shadow: none; }
+.google-btn:hover { background: #f8f9fa; }
+.sheet-step { margin-top: 10px; }
+.fixes-apply, .fixes-apply:hover { justify-self: start; background: #d97757; color: #fff; }

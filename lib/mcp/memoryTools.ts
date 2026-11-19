@@ -75,7 +75,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 
   server.registerTool("rocco_brief", {
     title: "Rocco's brief: what to do today",
-    description: "Start here. Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
+    description: "Start here (also when the seller says \"apply my approved fixes\"). Lists fixes the team approved on the dashboard or by text that are waiting to be applied, then Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
   }, async () => { later(() => onFreshCheck(store, ws)); return text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await textMe()) + (await offer())); });

@@ -14,6 +14,7 @@ import { hireUrl } from "../paywall";
 import { askRocco, brainOn } from "../brain";
 import { formatBrief } from "../mcp/format";
 import Papa from "papaparse";
+import { applyLink } from "../apply-link";
 
 const SITE_URL = "https://rocco.works";
 /** One personal link: opens the one-step-at-a-time start page (plug in Amazon) or the dashboard once data flows. */
@@ -259,11 +260,11 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const unknown = wanted.filter((c) => !allowed.has(c));
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
-      if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Your AI applies ${ok.length === 1 ? "it" : "them"} through Amazon's connector next time anyone on the team opens Rocco, then I'll track the results.`);
+      if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Tap to apply in Claude (Amazon shows you a preview to confirm), or it happens on the next check. I'll track the results.`);
       if (unknown.length) L.push(`🤔 Don't recognize ${unknown.join(", ")}. Text “brief” for today's codes.`);
       const pay = locked.length ? await nudge(store, ws, await buildBrief(store, ws, now), now, "locked") : [];
       if (pay.length) pay[0] = pay[0].replace("That one's", `${locked.join(", ")} ${locked.length > 1 ? "are" : "is"}`);
-      return { bubbles: [...(L.length ? [L.join("\n")] : []), ...pay] };
+      return { bubbles: [...(L.length ? [L.join("\n")] : []), ...(ok.length ? [applyLink(ok)] : []), ...pay] };
     }
     case "ask": {
       if (brainOn()) {

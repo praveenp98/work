@@ -151,6 +151,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         <Link href={`/w/${token}/log`}>🧾 Change log</Link>
         <Link href={`/w/${token}/report`}>📄 Client report</Link>
         <a href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Calendar</a>
+        <form action="/api/auth/signout" method="post" style={{ display: "inline" }}><button className="linkbtn">Sign out</button></form>
         <details><summary>⚙️ Setup</summary><div style={{ marginTop: 12 }}><StartSteps token={token} compact /></div></details>
       </nav>
 

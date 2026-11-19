@@ -18,6 +18,7 @@ import { buildBrief, revealToken } from "./workspace";
 export type AiApp = "claude" | "chatgpt" | "claude_code";
 export const ASK = "Rocco, morning check";
 export const askLink = (ai?: AiApp) => (ai === "chatgpt" ? `https://chatgpt.com/?q=${encodeURIComponent(ASK)}` : ai === "claude_code" ? null : `https://claude.ai/new?q=${encodeURIComponent(ASK)}`);
+export { applyAsk, applyLink } from "./apply-link";
 const today = (d = new Date()) => d.toISOString().slice(0, 10);
 
 /** Run after the response when inside a request (Next `after`), right away otherwise (tests, scripts). */

@@ -1,3 +1,4 @@
+import { googleOn } from "@/lib/google";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
@@ -42,7 +43,7 @@ export default async function Page() {
         )}
         <p className="fine" style={{ margin: "0 0 14px" }}>You&apos;d be hire #{s.founderNumber}. It keeps rising {dollars(LADDER.stepCents)} per hire until {dollars(LADDER.capCents)}, automatically.</p>
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
-        {url ? <HireButton price={dollars(s.priceCents)} next={s.nextPriceCents ? dollars(s.nextPriceCents) : undefined} label={`Hire Rocco · ${dollars(s.priceCents)}/year`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
+        {url ? <HireButton google={googleOn()} price={dollars(s.priceCents)} next={s.nextPriceCents ? dollars(s.nextPriceCents) : undefined} label={`Hire Rocco · ${dollars(s.priceCents)}/year`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
         <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Then set me up in 2 minutes · Cancel renewal anytime</p>
       </div>
       <p className="fine">Want to see me work first? <Link href="/">Text me</Link> and I&apos;ll show you a demo brand&apos;s morning.</p>
