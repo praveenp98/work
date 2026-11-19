@@ -18,6 +18,16 @@ export interface PendingItem {
   by: string; // masked phone of the teammate who approved by text
 }
 
+/** One email that landed in the team's report inbox (lib/inbox.ts). */
+export interface InboxItem {
+  at: string;
+  from: string;
+  subject: string;
+  files: { name: string; kind?: string; headline?: string; error?: string }[];
+  /** link_only: the email had only a sign-in link (Rocco never logs in); no_report: nothing to read. */
+  note?: "link_only" | "no_report";
+}
+
 export interface Workspace {
   id: string;
   createdAt: string;
@@ -28,6 +38,11 @@ export interface Workspace {
   trialEndsAt?: string;
   subscriptionId?: string;
   subStatus?: string;
+  /** How this team feeds Rocco: Claude + Amazon's connectors (US), or Amazon's scheduled report emails (elsewhere). */
+  mode?: "claude" | "reports";
+  /** Report inbox (mode "reports"): last 20 emails and when the first real report arrived. */
+  inbox?: InboxItem[];
+  reportsAt?: string;
   /** The account email (entered at Hire Rocco, prefilled at checkout). */
   ownerEmail?: string;
   brands: Record<string, BrandSettings>;
