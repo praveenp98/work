@@ -11,6 +11,7 @@ Goal: Rocco gets his own read access (and, later, approved-change access) so sel
    - Consent Privacy Notice URL: `https://rocco.works/privacy`
    - Consent logo: `https://rocco.works/rocco-avatar.png` (512×512 PNG; shown small on the consent screen)
    - Web Settings (after saving): Allowed Origins `https://rocco.works`; Allowed Return URLs `https://rocco.works/api/amazon/ads/callback` (+ `https://rocco.works/api/amazon/sp/callback` if the same profile is reused for SP-API). Client ID can go in docs/chat; the **Client Secret goes only into Vercel** (`AMAZON_ADS_CLIENT_SECRET`), never chat or git.
+   **Status Nov 19:** LWA app "Rocco" created in the Amazon Ads Advanced tools center. Client ID `amzn1.application-oa2-client.3e9494159c67414b9bbe9278d45426ee`; redirect URLs for /api/amazon/ads/callback and /api/amazon/sp/callback saved. Scopes are profile-only so far. The page says "This LWA app doesn't have access to the Amazon Ads API scopes" and "You are not an approved AAPN partner", so **Ads API access is NOT granted yet**. Login with Amazon (name + email) works today; ads data needs the access request approved first. Seller Central data is a separate approval (SP-API, §2).
 2. Submit the **Amazon Ads API access request** (apply as a tool provider / third-party application that manages advertising for other businesses).
 
 **Paste-ready answers**
