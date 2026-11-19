@@ -55,7 +55,7 @@ describe("Google routes", () => {
     expect(r.headers.get("location")).toMatch(/\/pricing\?signin=off$/);
   });
 
-  it("hire: Google → team created → checkout tagged with the team; cookies set", async () => {
+  it("hire: Google → team created → their Rocco page to set up (pay after the first finding); cookies set", async () => {
     env();
     const store = new MemoryStore(); setStoreForTests(store);
     const s = await start(new Request("https://rocco.works/api/auth/google?intent=hire"));
@@ -65,7 +65,7 @@ describe("Google routes", () => {
     const nonce = s.headers.get("set-cookie")!.match(/rocco_gstate=([^;]+)/)![1];
     google("sam@brand.com");
     const r = await callback(new Request(`https://rocco.works/api/auth/google/callback?code=c&state=${encodeURIComponent(loc.searchParams.get("state")!)}`, { headers: { cookie: `rocco_gstate=${nonce}` } }));
-    expect(r.headers.get("location")).toMatch(/^https:\/\/checkout\.dodopayments\.com\/buy\/pdt_.+metadata_ref=/);
+    expect(r.headers.get("location")).toMatch(/^https:\/\/rocco\.works\/w\/rw_\w+\?start=1$/);
     const cookies = r.headers.get("set-cookie")!;
     expect(cookies).toMatch(/rocco_user=/); expect(cookies).toMatch(/rocco_team=/); expect(cookies).toMatch(/rocco_in=1/);
     expect((await store.findWorkspacesByOwner("sam@brand.com")).length).toBe(1);

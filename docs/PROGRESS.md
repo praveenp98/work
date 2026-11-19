@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-19 · Proof-first changes (buyer feedback)
+- **Judgment:** negatives now need ≥2 expected orders at the ad group's (or account's) conversion rate (~86%+ confidence), or spend above one average order × break-even ACoS, or junk intent. Last 3 days of daily reports don't count (orders still landing). Launch / ranking / brand-defense / test campaigns (by name, or named by the team via set_brand_settings protected_campaigns) are never auto-negated. Every reason states the math. Leak totals use the same verdicts (fixture leak $481 → $392/mo).
+- **Honest numbers:** results carry a basis: blocked terms = spend avoided (estimate); bid/budget cuts with sales holding = measured. Dashboard, analytics, client report, texts and Claude show "measured" vs "est." separately; homepage samples reworded ("sales kept").
+- **First finding before payment:** Hire → Google sign-in → their Rocco page with setup (no checkout) → the top fix of each analysis is shown in full and approvable; the rest locked with "plus ~$X more" → pay from there. FREE_PROPOSALS = 1.
+- Tests 131/131.
+
+---
+
 ## 2026-11-19 · Buyer review: "interested, wouldn't pay yet"
 - Feedback: value = memory + prepared changes + result follow-up. Blockers: headline overpromises (buyer still drives Claude), wants a real first finding on their own account before paying, judgment too simple (negatives = 10 clicks/0 orders; needs conversion lag, product economics, campaign purpose), "saved" figures are projections, not measured savings. Recommends pausing homepage work and proving one real account end to end.
 - Verified in code: lib/rules/negatives.ts flags any term with ≥ minClicksNegative clicks and 0 orders; savedEstimate extrapolates past spend.

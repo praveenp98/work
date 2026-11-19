@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
 import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
-import { checkoutUrl } from "@/lib/payments";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { seal, unseal } from "@/lib/vault";
 import { createWorkspace, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 /**
- * "Hire Rocco" (homepage, pricing): payment first. On a real tap, create the team's Rocco (or reuse the one this
- * browser already has), remember it in a sealed cookie, and return the Dodo checkout tagged with it. After the
- * trial starts, Dodo sends the browser to /welcome, which opens their Rocco page. The workspace key never goes to Dodo.
+ * "Hire Rocco" without Google sign-in (fallback): on a real tap, create the team's Rocco (or reuse the one this
+ * browser already has), remember it in a sealed cookie, and open its page: set up, see the first real finding,
+ * then pay (hireUrl on that page). The workspace key never goes to Dodo.
  */
 export const dynamic = "force-dynamic";
 
@@ -35,8 +34,8 @@ export async function POST(req: Request) {
     ws = c.ws;
   }
   if (email && ws.ownerEmail !== email) { ws.ownerEmail = email; await store.saveWorkspace(ws); }
-  const url = checkoutUrl({ ref: ws.id, email, redirect: `${SITE.url}/welcome` });
-  const res = NextResponse.json({ ok: !!url, url: url ?? "/pricing" });
+  // First finding before payment: open the team's page (setup), checkout comes after Rocco has found something real.
+  const res = NextResponse.json({ ok: true, url: `/w/${token}` });
   const sealed = seal(token!);
   if (sealed) res.cookies.set("rocco_team", sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 180 * 86_400 });
   return res;

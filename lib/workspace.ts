@@ -15,7 +15,8 @@ import type { Action, BrandSettings, PendingItem, Run, Store, Workspace } from "
 export const DEFAULT_BRAND = "main";
 /** Free workspaces see and track the top N proposals per report. */
 /** No free plan (Nov 18): without a trial or paid plan, every fix is locked (teaser totals only). */
-export const FREE_PROPOSALS = 0;
+/** First real finding before payment (buyer feedback, Nov 19): the top fix of each analysis is shown in full and can be approved. */
+export const FREE_PROPOSALS = 1;
 const DAY = 86400000;
 
 export async function createWorkspace(store: Store) {

@@ -70,7 +70,7 @@ export default async function Home() {
               <li>Unlimited teammates and brands</li>
             </ul>
             <HireButton google={google} price={PRICE.first} label="Hire Rocco" className="btn hire-cta" />
-            <p className="fine">Needs a Claude account. Set up in 2 minutes. Not affiliated with Amazon.</p>
+            <p className="fine">See my first real finding on your account before you pay. Needs a Claude account. Not affiliated with Amazon.</p>
           </div>
         </div>
       </section>

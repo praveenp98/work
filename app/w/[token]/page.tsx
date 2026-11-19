@@ -56,19 +56,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
-        {access === "none" ? (
-          <div className="start-card locked-start">
-            <h2>One step left: hire me.</h2>
-            <p className="start-sub">Your team&apos;s Rocco is ready{ws.ownerEmail ? <> for <b>{ws.ownerEmail}</b></> : null}. Once you&apos;ve paid, setup takes 2 minutes: add me to Claude, plug in Seller Central, say &ldquo;Rocco, morning check&rdquo;.</p>
-            <a className="btn start-main" href={hireUrl(ws)}>Hire Rocco · {PRICE.first}</a>
-            <p className="fine">{PRICE.line} Just paid? Refresh in a few seconds.</p>
-          </div>
-        ) : (
-          <>
-            {sp.welcome && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
-            <StartSteps token={token} />
-          </>
-        )}
+        {sp.welcome && access !== "none" && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
+        {access === "none" && <p className="trial-note">Set me up on your real account. I&apos;ll show you my first finding in full, free. You pay only when you&apos;ve seen it ({PRICE.short}).</p>}
+        <StartSteps token={token} />
         <p className="start-extra">
           {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
           <span>Teammates: share rocco.works/j/{linkCode}</span>
@@ -114,10 +104,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         return (
           <>
             <div className="trial-banner">
-              <div><b>{found ? `💰 I found ${found}.` : "Turn me on for your team."}</b><span>Hire me to see and approve every fix: {PRICE.short}, {PRICE.then}.</span></div>
+              <div><b>{found ? `💰 Plus ${found} more, waiting.` : "Turn me on for your team."}</b><span>Your top fix is below, free to approve. Hire me for the rest: {PRICE.short}, {PRICE.then}.</span></div>
               <a className="btn" href={trial.url}>Hire Rocco</a>
             </div>
-            <TrialSheet url={trial.url} price={trial.price} open found={found} />
           </>
         );
       })()}

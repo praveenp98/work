@@ -44,7 +44,7 @@ export default async function Page() {
           { q: "What do I need?", a: "A Claude account (Claude has Amazon's official Seller Central and Ads connectors) and access to your Seller Central. I connect to Claude in 2 minutes." },
           { q: "How many brands and teammates?", a: "Unlimited. Brand owners, in-house Amazon managers and agencies all use the same plan; client reports included." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime by texting CANCEL.` },
-          { q: "Is there a free plan or trial?", a: "No. You can see exactly what I do on the homepage before you hire me." },
+          { q: "Is there a free plan or trial?", a: "No free plan. But you set me up on your real account first and see my top finding in full, free. You pay only after that." },
         ]} />
       </div>
     </section>

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { accessOf } from "@/lib/access";
 import { googleUser } from "@/lib/google";
-import { checkoutUrl } from "@/lib/payments";
 import { setSession, TEAM } from "@/lib/session";
 import { teamForUser } from "@/lib/signin";
 import { SITE } from "@/lib/site";
@@ -10,8 +9,7 @@ import { unseal } from "@/lib/vault";
 
 /**
  * Google sends the person back here. Verify the state, read the verified email, find or create their team, set the
- * session cookies. Then: hiring and not paid yet → checkout (prefilled, tagged with the team) → /welcome → setup.
- * Already paid, or just signing in → their Rocco page.
+ * session cookies, then open their Rocco page: set up → first real finding → pay from there.
  */
 export const dynamic = "force-dynamic";
 
@@ -32,8 +30,8 @@ export async function GET(req: Request) {
 
   const browserTeam = unseal(decodeURIComponent(cookie(TEAM) ?? ""));
   const { ws, token } = await teamForUser(store, user.email, browserTeam);
-  const pay = st.i === "hire" && accessOf(ws) === "none" ? checkoutUrl({ ref: ws.id, email: user.email, redirect: `${SITE.url}/welcome` }) : null;
-  const res = NextResponse.redirect(pay ?? `${SITE.url}/w/${token}`);
+  // First finding before payment: everyone lands on their Rocco page; unpaid teams set up and see one real fix first.
+  const res = NextResponse.redirect(`${SITE.url}/w/${token}${st.i === "hire" && accessOf(ws) === "none" ? "?start=1" : ""}`);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });
   return res;
