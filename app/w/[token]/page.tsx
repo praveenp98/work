@@ -8,6 +8,8 @@ import { FixCards, type FixCard } from "@/components/dash/FixCards";
 import { TextLink } from "@/components/home/TextLink";
 import { RoccoHead } from "@/components/Rocco";
 import { StartSteps } from "@/components/start/StartSteps";
+import { ConnectAmazon } from "@/components/start/ConnectAmazon";
+import { datadoeOn, getAccount, loadStatus } from "@/lib/datadoe";
 import { ReportSteps } from "@/components/start/ReportSteps";
 import { ModeSwitch } from "@/components/start/ModeSwitch";
 import { inboxAddress } from "@/lib/inbox-address";
@@ -35,7 +37,7 @@ const TITLE: Record<Proposal["kind"], string> = { negative: "Cut a money-burner"
 const AI_NAME = { claude: "Claude", chatgpt: "ChatGPT", claude_code: "Claude Code" } as const;
 
 /** One team, one Rocco. Before data: the setup steps. After: today, fixes to approve, wins, team. */
-export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string; welcome?: string }> }) {
+export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string; welcome?: string; amazon?: string }> }) {
   const { token } = await params;
   const sp = await searchParams;
   const store = getStore();
@@ -51,6 +53,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const trial = access === "none" ? { url: hireUrl(ws), price: PRICE.first } : undefined;
   const hoursLeft = trialHoursLeft(ws);
 
+  // Direct Amazon connection (DataDoe): accounts + live status (best effort, never blocks the page).
+  const amz = datadoeOn() ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : null;
+  const amzNote = sp.amazon === "connected" ? "🔌 Connected! Amazon is sending me your first data now. I'll text you when the first findings are ready." : sp.amazon && sp.amazon !== "connected" ? `That didn't finish (${decodeURIComponent(sp.amazon).replace(/_/g, " ").toLowerCase()}). Try again, signed in with the account owner's Amazon login.` : undefined;
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
   if (empty) {
     return (
@@ -61,6 +66,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <h1>Let&apos;s plug in Amazon.</h1>
         </div>
         {sp.welcome && access !== "none" && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
+        {amz && <ConnectAmazon token={token} accounts={amz} note={amzNote} />}
+        {amz && !amz.length && <p className="fine or-line">Or set me up another way:</p>}
         {access === "none" && <p className="trial-note">Set me up on your real account. I&apos;ll show you my first finding in full, free. You pay only when you&apos;ve seen it ({PRICE.short}).</p>}
         {ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />}
         <ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} />

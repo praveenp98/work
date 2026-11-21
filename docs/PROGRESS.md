@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-21 · DataDoe: first real account connected, Connect Amazon built
+- DataDoe API key saved via the secure form (environment network secret; for production add DATADOE_API_KEY in Vercel). Test read-only invite → Praveen connected "Habit Nest US" (Seller Central + Ads, US). DataDoe first-stage load in progress; exports unavailable until it finishes.
+- Built: lib/datadoe.ts (invite, account, status), POST /api/w/amazon (team's one-time invite, reused while valid), GET /api/datadoe/callback (only trusts our own invitationId, re-reads the account from DataDoe, links it, texts the team), Connect Amazon card on the team page (status per account), /me passes the result through. Read-only for now. Tests 141/141.
+- Next: once the load finishes, map DataDoe exports (search terms, campaigns, sales & traffic, inventory) into Rocco's engine + daily pull; then read-write invites and approved changes via Actions (dry run first).
+
+---
+
 ## 2026-11-21 · DataDoe checked: fits as Rocco's data + action layer
 - Read DataDoe's API docs (hosts app/www/api.datadoe.com allowed in this environment). Invite links via API connect unlimited Seller Central + Ads accounts into our org (any marketplace), REST exports give daily data, write Actions can apply approved bids/budgets/negatives (dry run free). $97/mo after the 14-day trial; watch data rows (+$49/10M) and AI tokens. Full notes: docs/DATADOE.md. Waiting on Praveen: go-ahead, API key (secure form, never chat), and a terms check with DataDoe.
 

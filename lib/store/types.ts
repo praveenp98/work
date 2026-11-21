@@ -43,6 +43,11 @@ export interface Workspace {
   /** Report inbox (mode "reports"): last 20 emails and when the first real report arrived. */
   inbox?: InboxItem[];
   reportsAt?: string;
+  /** Direct Amazon connection through DataDoe (lib/datadoe.ts): connected accounts + the open invite. */
+  amazon?: {
+    accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
+    invite?: { id: string; url: string; expiresAt: string };
+  };
   /** The account email (entered at Hire Rocco, prefilled at checkout). */
   ownerEmail?: string;
   brands: Record<string, BrandSettings>;

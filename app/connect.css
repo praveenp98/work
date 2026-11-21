@@ -812,3 +812,6 @@ h1, h2, .display { font-family: var(--display); }
 .inbox-list small { color: var(--muted); font-size: 13px; }
 .fix-how { margin: 2px 0 0; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 6%, #fff); font-size: 14px; line-height: 1.5; }
 .mode-switch { text-align: center; margin-top: 18px; }
+
+.amz-card { margin-bottom: 14px; }
+.or-line { text-align: center; margin: 4px 0 10px; }
