@@ -1,178 +1,186 @@
-import { savedPhrase } from "@/lib/savings";
-import { PRICE } from "@/lib/pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CopyLink } from "@/components/dash/CopyLink";
 import { FixCards, type FixCard } from "@/components/dash/FixCards";
-import { TextLink } from "@/components/home/TextLink";
-import { RoccoHead } from "@/components/Rocco";
-import { StartSteps } from "@/components/start/StartSteps";
-import { ConnectAmazon } from "@/components/start/ConnectAmazon";
-import { datadoeOn, getAccount, loadStatus } from "@/lib/datadoe";
-import { ReportSteps } from "@/components/start/ReportSteps";
-import { ModeSwitch } from "@/components/start/ModeSwitch";
-import { inboxAddress } from "@/lib/inbox-address";
-import { howTo } from "@/lib/howto";
-import { TrialSheet } from "@/components/dash/TrialSheet";
 import { RememberTeam } from "@/components/dash/RememberTeam";
+import { ConnectAmazon, ConnectButton } from "@/components/start/ConnectAmazon";
+import { ModeSwitch } from "@/components/start/ModeSwitch";
+import { ReportSteps } from "@/components/start/ReportSteps";
+import { StartSteps } from "@/components/start/StartSteps";
 import { accessOf, trialHoursLeft } from "@/lib/access";
 import { REPORT_HELP } from "@/lib/analyze";
-import { getPriceState } from "@/lib/payments";
+import { datadoeOn, getAccount, loadStatus } from "@/lib/datadoe";
+import { howTo } from "@/lib/howto";
+import { inboxAddress } from "@/lib/inbox-address";
 import { hireUrl } from "@/lib/paywall";
-import { dollars } from "@/lib/pricing";
+import { PRICE } from "@/lib/pricing";
 import type { Proposal } from "@/lib/rules/types";
-import { slackConfigured } from "@/lib/slack";
+import { savedPhrase } from "@/lib/savings";
 import { getStore } from "@/lib/store";
 import type { Snapshot } from "@/lib/store/types";
-import { maskPhone } from "@/lib/text/commands";
-import { textingConfigured } from "@/lib/text/provider";
-import { buildBrief, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
+import { buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Your Rocco", description: "Your team's Rocco: today's numbers, fixes to approve, wins and team.", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Your Rocco", description: "Today's fixes for your Amazon account, approved in one tap.", robots: { index: false, follow: false } };
 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const TITLE: Record<Proposal["kind"], string> = { negative: "Cut a money-burner", harvest: "Promote a winner to exact", bid: "Adjust a bid", budget: "Raise a budget", placement: "Tune a placement", ads_down: "Ease ads, stock is low", structure: "Clean up structure" };
-const AI_NAME = { claude: "Claude", chatgpt: "ChatGPT", claude_code: "Claude Code" } as const;
+const when = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
-/** One team, one Rocco. Before data: the setup steps. After: today, fixes to approve, wins, team. */
-export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; slack?: string; welcome?: string; amazon?: string }> }) {
+/**
+ * Your Rocco. Three states:
+ *  1. Amazon not connected → one Connect Amazon screen (DataDoe). Other ways (Claude, report emails) tucked away.
+ *  2. Connected, first data loading → progress + Check now.
+ *  3. Data in → dashboard: today's numbers, fixes to approve (Rocco makes them in Amazon), results, upcoming checks.
+ */
+export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; welcome?: string; amazon?: string }> }) {
   const { token } = await params;
   const sp = await searchParams;
   const store = getStore();
-  if (!store) return <section className="prose"><h1>Memory isn&apos;t switched on yet</h1><p>Rocco&apos;s workspace storage isn&apos;t configured on this server.</p></section>;
+  if (!store) return <section className="prose"><h1>Memory isn&apos;t switched on yet</h1><p>Rocco&apos;s storage isn&apos;t configured on this server.</p></section>;
   const ws = await loadWorkspace(store, token);
   if (!ws) notFound();
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
-  const [brief, actions, price] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 }), getPriceState()]);
-  const linkCode = await ensureLinkCode(store, ws);
-  const phones = (await store.listPhones({ workspaceId: ws.id })).filter((p) => p.phone.startsWith("+"));
-  const texting = textingConfigured();
+  const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const access = accessOf(ws);
-  const trial = access === "none" ? { url: hireUrl(ws), price: PRICE.first } : undefined;
   const hoursLeft = trialHoursLeft(ws);
-
-  // Direct Amazon connection (DataDoe): accounts + live status (best effort, never blocks the page).
-  const amz = datadoeOn() ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : null;
-  const amzNote = sp.amazon === "connected" ? "🔌 Connected! Amazon is sending me your first data now. I'll text you when the first findings are ready." : sp.amazon && sp.amazon !== "connected" ? `That didn't finish (${decodeURIComponent(sp.amazon).replace(/_/g, " ").toLowerCase()}). Try again, signed in with the account owner's Amazon login.` : undefined;
+  const direct = datadoeOn();
+  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
+  const note = sp.amazon === "connected" ? "🔌 Connected. Amazon is sending me your data now." : sp.amazon ? `That didn't finish (${decodeURIComponent(sp.amazon).replace(/_/g, " ").toLowerCase()}). Try again, signed in as the account owner.` : undefined;
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
+
+  const otherWays = (
+    <details className="rd-other">
+      <summary>Other ways to use Rocco</summary>
+      <div>
+        {ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} compact />}
+        <ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} />
+      </div>
+    </details>
+  );
+
   if (empty) {
     return (
-      <section className="start-page">
+      <section className="rc-page">
         <RememberTeam t={token} />
-        <div className="start-head">
-          <div className="hello-avatar small"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="start" /></svg><span className="online" aria-hidden /></div>
-          <h1>Let&apos;s plug in Amazon.</h1>
-        </div>
-        {sp.welcome && access !== "none" && <p className="trial-note">🎉 You&apos;re in. Three steps and I&apos;m working.</p>}
-        {amz && <ConnectAmazon token={token} accounts={amz} note={amzNote} />}
-        {amz && !amz.length && <p className="fine or-line">Or set me up another way:</p>}
-        {access === "none" && <p className="trial-note">Set me up on your real account. I&apos;ll show you my first finding in full, free. You pay only when you&apos;ve seen it ({PRICE.short}).</p>}
-        {ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />}
-        <ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} />
-        <p className="start-extra">
-          {texting && <TextLink t={token} className="">💬 Text Rocco from this phone</TextLink>}
-          <span>Teammates: share rocco.works/j/{linkCode}</span>
-        </p>
-        <p className="fine">Private page for your team. Anyone with the link can use it.</p>
+        {direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access === "none" && <p className="rc-free">Your first finding is free, in full. Pay only when you&apos;ve seen it ({PRICE.short}).</p>}
+        {direct && !accounts.length && otherWays}
+        <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>
     );
   }
 
+  // ---------- Dashboard ----------
   const brands = brief.perBrand.filter((b) => b.trends.length || b.open.length);
   const b = brands.find((x) => x.brand === sp.brand) ?? brands[0] ?? brief.perBrand[0];
   const latest = (k: string): Snapshot | undefined => b.trends.find((t) => t.kind === k)?.latest;
+  const prevOf = (k: string): Snapshot | undefined => b.trends.find((t) => t.kind === k)?.previous ?? undefined;
   const st = latest("sp_search_term"), biz = latest("business_report"), inv = latest("inventory"), lh = latest("listing_health");
   const lastCheck = b.trends.map((t) => t.latest.createdAt).sort().at(-1);
   const daysOld = lastCheck ? Math.floor((Date.now() - new Date(lastCheck).getTime()) / 86_400_000) : null;
-  const chips: { k: string; v: string; alert?: boolean }[] = [];
-  if (lh && Number(lh.stats.problems) > 0) chips.push({ k: "Listings", v: `🚨 ${lh.stats.problems} not selling`, alert: true });
-  if (biz && Number(biz.stats.buyBoxLow) > 0) chips.push({ k: "Buy Box", v: `⚠️ low on ${biz.stats.buyBoxLow}`, alert: true });
-  if (st) chips.push({ k: "Ad spend", v: $(Number(st.stats.spend)) }, { k: "Ad sales", v: $(Number(st.stats.sales)) }, { k: "ACoS", v: `${Math.round(Number(st.stats.acosPct))}% · target ${Math.round(b.settings.targetAcos * 100)}%` }, { k: "Wasted", v: `${$(Number(st.stats.leakMonthly))}/mo` });
-  if (biz) chips.push({ k: "Total sales", v: $(Number(biz.stats.sales)) }, { k: "Conversion", v: `${Number(biz.stats.conversionPct).toFixed(1)}%` });
-  if (inv && Number(inv.stats.atRisk) > 0) chips.push({ k: "Stock", v: `📦 ${inv.stats.atRisk} running low`, alert: true });
+  const delta = (k: string, f: string, down = false) => {
+    const a = Number(latest(k)?.stats[f]), p = Number(prevOf(k)?.stats[f]);
+    if (!isFinite(a) || !isFinite(p) || !p) return null;
+    const d = (a - p) / Math.abs(p);
+    return { text: `${d >= 0 ? "▲" : "▼"} ${Math.abs(Math.round(d * 100))}%`, good: down ? d <= 0 : d >= 0 };
+  };
+  const target = Math.round(b.settings.targetAcos * 100);
+  const acos = st ? Math.round(Number(st.stats.acosPct)) : null;
+  const kpis = [
+    st && { k: "Ad spend", v: $(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
+    st && { k: "Ad sales", v: $(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
+    biz && { k: "Total sales", v: $(Number(biz.stats.sales)), d: delta("business_report", "sales") },
+    st && { k: "Wasted / mo", v: $(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
+  ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
+  const alerts: string[] = [];
+  if (lh && Number(lh.stats.problems) > 0) alerts.push(`🚨 ${lh.stats.problems} listing${Number(lh.stats.problems) === 1 ? "" : "s"} not selling`);
+  if (biz && Number(biz.stats.buyBoxLow) > 0) alerts.push(`⚠️ Buy Box low on ${biz.stats.buyBoxLow} ASIN${Number(biz.stats.buyBoxLow) === 1 ? "" : "s"}`);
+  if (inv && Number(inv.stats.atRisk) > 0) alerts.push(`📦 ${inv.stats.atRisk} SKU${Number(inv.stats.atRisk) === 1 ? "" : "s"} could run out within 2 weeks`);
 
   const fixes: FixCard[] = [...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 12).map((p) => ({
-    code: p.code, title: TITLE[p.kind] ?? "Fix", value: p.valueMonthly,
-    target: p.kind === "budget" || p.kind === "placement" ? p.campaign : p.target,
+    code: p.code, kind: p.kind, title: TITLE[p.kind] ?? "Fix", value: p.valueMonthly,
+    target: p.kind === "budget" || p.kind === "placement" ? p.campaign : `“${p.target}”${p.campaign ? ` · ${p.campaign}` : ""}`,
     reason: p.reason, how: howTo(p),
   }));
   const queued = (ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes);
-  const invite = `https://rocco.works/j/${linkCode}`;
+  const mode = direct && ws.amazon?.accounts?.length ? "direct" : ws.mode === "reports" ? "reports" : "claude";
+  const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
+  const recent = actions.filter((a) => a.result).slice(0, 4);
+  const account = ws.amazon?.accounts?.find((a) => a.name === b.brand) ?? ws.amazon?.accounts?.[0];
+  const hidden = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
+  const hiddenValue = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
 
   return (
-    <section className="dash">
+    <section className="rd">
       <RememberTeam t={token} />
-      {brands.length > 1 && (
-        <nav className="brand-tabs" aria-label="Brands">
-          {brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}
-        </nav>
-      )}
-      {trial && (() => {
-        const n = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
-        const v = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
-        const found = n ? `${n} more fix${n === 1 ? "" : "es"} worth ~${$(v)}/mo` : undefined;
-        return (
-          <>
-            <div className="trial-banner">
-              <div><b>{found ? `💰 Plus ${found}, waiting.` : "Turn me on for your team."}</b><span>Your top fix is below, free to approve. Hire me for the rest: {PRICE.short}, {PRICE.then}.</span></div>
-              <a className="btn" href={trial.url}>Hire Rocco</a>
-            </div>
-          </>
-        );
-      })()}
-      {hoursLeft !== null && <p className="trial-note">🎉 Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left. Then {PRICE.renew} every 3 months. Text CANCEL anytime.</p>}
-      <div className="dash-head">
-        <span className="eyebrow">{brands.length > 1 ? b.brand : "Today"}{access === "paid" ? " · hired" : access === "trial" ? " · trial" : ""}</span>
-        <h1 className="dash-h1">{fixes.length ? `${fixes.length} fix${fixes.length === 1 ? "" : "es"} waiting${b.openValue ? `, ~${$(b.openValue)}/mo` : ""}.` : "All clear today."}</h1>
-        <p className="muted">{lastCheck ? `From ${daysOld === 0 ? "today's" : daysOld === 1 ? "yesterday's" : `a ${daysOld}-day-old`} check.` : ""} {daysOld && daysOld > 1 ? (ws.mode === "reports" ? <>No new report in {daysOld} days: check your Ads console schedule.</> : <>Say &ldquo;Rocco, morning check&rdquo; in Claude to refresh.</>) : null}</p>
-      </div>
+      <header className="rd-bar">
+        <div className="rd-acct">
+          <span className="rd-dot" aria-hidden />
+          <b>{account ? `${account.name} · ${account.country}` : b.brand === "main" ? "Your Amazon" : b.brand}</b>
+          <small>{lastCheck ? `checked ${daysOld === 0 ? "today" : daysOld === 1 ? "yesterday" : `${daysOld} days ago`}` : "not checked yet"}</small>
+        </div>
+        {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
+      </header>
 
-      <ul className="today">{chips.map((c) => <li key={c.k} className={c.alert ? "alert" : ""}><span>{c.k}</span><b>{c.v}</b></li>)}</ul>
-
-      {fixes.length > 0 && <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} mode={ws.mode === "reports" ? "reports" : "claude"} />}
-      {b.hidden > 0 && (
-        <div className="locked-row">
-          <span>🔒 <b>{b.hidden} fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null} ready for you.</span>
-          <a className="btn small" href={hireUrl(ws)}>Hire Rocco · {PRICE.first}</a>
+      {access === "none" && (
+        <div className="rd-offer">
+          <div><b>{hidden ? `Your top fix is free. ${hidden} more worth ~${$(hiddenValue)}/mo are waiting.` : "Your first finding is free."}</b><span>Hire me to unlock every fix and the daily checks: {PRICE.short}, {PRICE.then}.</span></div>
+          <a className="btn" href={hireUrl(ws)}>Hire Rocco</a>
         </div>
       )}
+      {hoursLeft !== null && <p className="rd-note">Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left.</p>}
 
-      <div className="dash-grid">
-        <section className="dcard">
-          <h3>Wins</h3>
-          <p className="big">{brief.savedMeasured > 0 ? `${$(brief.savedMeasured)} saved` : brief.saved > 0 ? `~${$(brief.savedEstimated)} avoided` : "Keeping score"}</p>
-          {brief.saved > 0 && <p className="fine">{savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated })}. Measured = before/after with sales holding; est. = spend a blocked term would likely have kept burning.</p>}
-          <p className="fine">{brief.totals.applied ? `${brief.totals.worked} of ${brief.totals.applied} changes worked. ` : "Approve a fix and I check a week later whether it worked. "}<Link href={`/w/${token}/log`}>Change log →</Link></p>
-        </section>
-
-        <section className="dcard">
-          <h3>Team</h3>
-          <ul className="team">
-            <li>{ws.mode === "reports" ? (ws.inbox?.length ? `📥 Last report email: ${ws.inbox[0].at.slice(0, 10)}` : "⏳ No report emails yet") : ws.connectedAt ? `✅ ${ws.ai ? AI_NAME[ws.ai] : "Claude"} connected` : "⏳ Claude not connected yet"}</li>
-            <li>{phones.length ? `💬 ${phones.map((p) => maskPhone(p.phone) + (p.optedOut ? " (paused)" : "")).join(", ")}` : "💬 No phones yet"}</li>
-            <li>{ws.slack ? `# Slack: ${ws.slack.channelName ?? ws.slack.teamName ?? "connected"}` : slackConfigured() ? <a href={`/api/slack/install?t=${token}`}>+ Add to Slack</a> : "# Slack: soon"}</li>
-          </ul>
-          <div className="row" style={{ gap: 8, flexWrap: "wrap" }}>
-            <CopyLink value={invite} label="Copy invite link" />
-            {texting && <TextLink t={token} className="btn ghost small">💬 Text from this phone</TextLink>}
+      <div className="rd-hero">
+        <span className="rd-kicker">Good {new Date().getHours() < 12 ? "morning" : "day"}</span>
+        <h1>{fixes.length ? <>{fixes.length} fix{fixes.length === 1 ? "" : "es"} worth <em>~{$(b.openValue)}/mo</em>.</> : "All clear today."}</h1>
+        {acos !== null && (
+          <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>
+            <div className="rd-acos-bar"><i style={{ width: `${Math.min(100, (acos / Math.max(target * 2, 1)) * 100)}%` }} className={acos > target ? "over" : ""} /><span style={{ left: "50%" }} /></div>
+            <small>ACoS <b>{acos}%</b> · target {target}%</small>
           </div>
-        </section>
+        )}
       </div>
 
-      <nav className="dash-links" aria-label="More">
-        <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
-        <Link href={`/w/${token}/log`}>🧾 Change log</Link>
-        <Link href={`/w/${token}/report`}>📄 Client report</Link>
-        <a href={`webcal://rocco.works/w/${token}/calendar.ics`}>📅 Calendar</a>
-        <form action="/api/auth/signout" method="post" style={{ display: "inline" }}><button className="linkbtn">Sign out</button></form>
-        <details><summary>⚙️ Setup</summary><div style={{ marginTop: 12 }}>{ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} compact />}<ModeSwitch token={token} mode={ws.mode === "reports" ? "reports" : "claude"} /></div></details>
-      </nav>
+      <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
+      {alerts.length > 0 && <ul className="rd-alerts">{alerts.map((a) => <li key={a}>{a}</li>)}</ul>}
 
-      {b.stale.length > 0 && <p className="fine">Not checked in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
-      {brief.season && <p className="fine">📅 {brief.season}</p>}
-      <p className="fine">Private page for your team. Anyone with the link can use it.{!store.persistent && " (Demo mode: memory resets when the server restarts.)"}</p>
+      <div className="rd-grid">
+        <div>
+          {fixes.length > 0 ? <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} mode={mode} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {b.hidden > 0 && (
+            <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.first}</a></div>
+          )}
+        </div>
+
+        <aside className="rd-side">
+          <section className="rd-card">
+            <h3>Results</h3>
+            <p className="rd-big">{brief.savedMeasured > 0 ? $(brief.savedMeasured) : brief.saved > 0 ? `~${$(brief.savedEstimated)}` : "—"}</p>
+            <p className="fine">{brief.saved > 0 ? savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated }) : "Approve a fix and I measure what it did a week later."}</p>
+            {brief.totals.applied > 0 && <p className="fine">{brief.totals.worked} of {brief.totals.applied} changes worked.</p>}
+            {recent.map((a) => <p key={a.id} className={`rd-res s-${a.status}`}><b>{a.code}</b> {a.result!.summary.slice(0, 90)}</p>)}
+          </section>
+          <section className="rd-card">
+            <h3>Coming up</h3>
+            {coming.length ? <ul className="rd-coming">{coming.map((a) => <li key={a.id}><span>{when(a.followUpAt)}</span>Check {a.code}: {a.proposal.target.slice(0, 40)}</li>)}</ul> : <p className="fine">Results checks show up here after you approve fixes.</p>}
+            {brief.season && <p className="fine">📅 {brief.season}</p>}
+          </section>
+          <nav className="rd-links" aria-label="More">
+            <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
+            <Link href={`/w/${token}/log`}>🧾 Change log</Link>
+            <Link href={`/w/${token}/report`}>📄 Report</Link>
+          </nav>
+        </aside>
+      </div>
+
+      {b.stale.length > 0 && <p className="fine">Not refreshed in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
+      <footer className="rd-foot">
+        {direct && <ConnectButton token={token} />}
+        <Link href="/setup">Also ask me in Claude or ChatGPT</Link>
+        <form action="/api/auth/signout" method="post"><button className="linkbtn muted">Sign out</button></form>
+      </footer>
     </section>
   );
 }
+
