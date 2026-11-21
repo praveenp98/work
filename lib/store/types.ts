@@ -47,6 +47,8 @@ export interface Workspace {
   amazon?: {
     accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
     invite?: { id: string; url: string; expiresAt: string };
+    /** Last daily pull: when, what came in, what failed (shown on the page while data loads). */
+    lastSync?: { at: string; kinds: string[]; errors: string[] };
   };
   /** The account email (entered at Hire Rocco, prefilled at checkout). */
   ownerEmail?: string;
@@ -140,6 +142,8 @@ export interface Store {
   getPhone(phone: string): Promise<Phone | null>;
   savePhone(p: Phone): Promise<void>;
   listPhones(opts?: { workspaceId?: string; optedIn?: boolean }): Promise<Phone[]>;
+  /** Teams with Amazon connected directly (DataDoe), for the daily pull. */
+  listAmazonWorkspaces(): Promise<Workspace[]>;
   addSnapshot(s: Snapshot): Promise<void>;
   listSnapshots(workspaceId: string, opts?: { brand?: string; kind?: string; limit?: number }): Promise<Snapshot[]>; // newest first
   /** Latest snapshot stats of this kind from OTHER workspaces (last 60 days), for anonymized benchmarks. */

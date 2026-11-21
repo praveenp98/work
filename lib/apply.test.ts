@@ -9,7 +9,7 @@ import { createWorkspace, runAnalysis } from "./workspace";
 
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
-const neg: Proposal = { code: "N1", kind: "negative", campaign: "C", adGroup: "A", target: "plastic mat", matchType: "negative exact", reason: "r", valueMonthly: 10, ids: { campaignId: "111", adGroupId: "222" } };
+const neg: Proposal = { code: "N1", kind: "negative", campaign: "C", adGroup: "A", target: "plastic mat", matchType: "negative exact", reason: "r", valueMonthly: 10, undo: "", ids: { campaignId: "111", adGroupId: "222" } };
 
 describe("approve → Rocco makes the change in Amazon", () => {
   it("maps fixes to DataDoe write actions only when Amazon's IDs are known", () => {
