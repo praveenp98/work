@@ -36,7 +36,7 @@ describe("Connect Amazon through DataDoe", () => {
     const invites = calls.filter((c) => c.url.endsWith("/invite"));
     expect(invites).toHaveLength(1);
     expect(invites[0].key).toBe("k");
-    expect(invites[0].body).toMatchObject({ tenantType: "SELLER", accessLevel: "READ_ONLY", redirectUrl: `https://rocco.works/api/datadoe/callback?ref=${ws.id}` });
+    expect(invites[0].body).toMatchObject({ tenantType: "SELLER", accessLevel: "READ_AND_WRITE", redirectUrl: `https://rocco.works/api/datadoe/callback?ref=${ws.id}` });
 
     const back = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&error=&sellerOrVendorId=${ACCOUNT.id}&sellerOrVendorName=Habit+Nest+US&sellerOrVendorMarketplaceCountryCode=US&invitationId=inv-1&invitationType=CONNECT`));
     expect(back.headers.get("location")).toBe("https://rocco.works/me?amazon=connected");

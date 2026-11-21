@@ -30,7 +30,7 @@ export function createInvite(ref: string, opts: { name?: string } = {}): Promise
     body: JSON.stringify({
       name: (opts.name || `Rocco ${ref.slice(0, 8)}`).slice(0, 80),
       tenantType: "SELLER",
-      accessLevel: "READ_ONLY", // read-and-write comes with "Rocco applies approved changes" (value to confirm in DataDoe's API docs)
+      accessLevel: "READ_AND_WRITE", // Rocco makes approved changes; every write still needs the seller's approval in Rocco
       redirectUrl: `${SITE.url}/api/datadoe/callback?ref=${encodeURIComponent(ref)}`,
     }),
   });
@@ -52,4 +52,24 @@ export function loadStatus(a: DoeAccount): string {
   const done = [sc, ads].filter(Boolean).every((c) => c!.initialLoadComplete);
   if (done) return "connected, data flowing";
   return "connected, first data loading (a few hours)";
+}
+
+export interface ActionResult { ok: boolean; id?: string; status?: string; error?: string }
+
+/**
+ * Run one DataDoe Action (POST /actions). dryRun validates for free without touching Amazon. idempotencyKey makes a
+ * retried live write safe. Write Actions need the account's DataDoe access level to be Read and write.
+ */
+export async function runAction(sellerOrVendorId: string, type: string, details: Record<string, unknown>, o: { dryRun?: boolean; idempotencyKey?: string } = {}): Promise<ActionResult> {
+  const res = await fetch(`${BASE}/actions`, {
+    method: "POST",
+    headers: { "datadoe-api-key": process.env.DATADOE_API_KEY ?? "", "content-type": "application/json" },
+    body: JSON.stringify({ type, sellerOrVendorId, details, ...(o.dryRun ? { dryRun: true } : {}), ...(o.idempotencyKey ? { idempotencyKey: o.idempotencyKey.slice(0, 120) } : {}) }),
+    cache: "no-store",
+  });
+  const body = (await res.json().catch(() => ({}))) as { id?: string; actionId?: string; status?: string; message?: unknown };
+  if (!res.ok) return { ok: false, error: `${res.status} ${JSON.stringify(body.message ?? body).slice(0, 240)}` };
+  const status = String(body.status ?? "");
+  if (/FAIL|ERROR|REJECT/i.test(status)) return { ok: false, status, error: status };
+  return { ok: true, id: body.id ?? body.actionId, status };
 }

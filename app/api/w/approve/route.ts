@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
+import { applyInAmazon, type ApplyOutcome } from "@/lib/apply";
+import { datadoeOn } from "@/lib/datadoe";
+import { howTo } from "@/lib/howto";
+import type { Proposal } from "@/lib/rules/types";
 import { getStore } from "@/lib/store";
-import { clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
+import { applyChanges, clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
 
 /**
- * Approve (or cancel) fixes from the dashboard. Same queue as texting "YES N1": the team's AI applies queued codes
- * through Amazon's connector on its next check, then Rocco logs and grades them. Needs a trial or paid plan (no free plan).
+ * Approve fixes from the dashboard.
+ *  - Amazon connected directly (DataDoe): Rocco makes each change in Amazon (dry run first), logs it, and checks the
+ *    result on a later day. Changes Rocco can't make yet come back with exact steps.
+ *  - Otherwise (Claude / report inbox teams): queued like texting "YES N1".
+ * The top fix of each check is free; the rest need a plan.
  */
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   const b = (await req.json().catch(() => ({}))) as { t?: string; brand?: string; codes?: unknown; cancel?: boolean };
   const store = getStore();
@@ -18,11 +27,29 @@ export async function POST(req: Request) {
     await clearPending(store, ws, "apply", codes);
     return NextResponse.json({ ok: true, cancelled: codes });
   }
+  const runs = await latestRuns(store, ws, brand);
   const allowed = new Map<string, boolean>();
-  for (const r of await latestRuns(store, ws, brand)) r.proposals.forEach((p, i) => allowed.set(p.code, hasAccess(ws) || i < FREE_PROPOSALS));
-  const already = new Set((ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes));
-  const ok = codes.filter((c) => allowed.get(c) && !already.has(c));
+  const props = new Map<string, { p: Proposal; runId: string }>();
+  for (const r of runs) r.proposals.forEach((p, i) => { allowed.set(p.code, hasAccess(ws) || i < FREE_PROPOSALS); props.set(p.code, { p, runId: r.id }); });
   const locked = codes.filter((c) => allowed.get(c) === false);
-  if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: new Date().toISOString(), by: "dashboard" });
-  return NextResponse.json({ ok: true, approved: ok, locked });
+  const ok = codes.filter((c) => allowed.get(c));
+
+  const account = ws.amazon?.accounts?.find((a) => a.name === brand) ?? ws.amazon?.accounts?.[0];
+  if (datadoeOn() && account && ok.length) {
+    const done = new Set((await store.listActions(ws.id, { brand })).map((a) => `${a.runId}:${a.code}`));
+    const out: (ApplyOutcome & { how?: string })[] = [];
+    for (const c of ok) {
+      const { p, runId } = props.get(c)!;
+      if (done.has(`${runId}:${c}`)) { out.push({ code: c, status: "applied" }); continue; }
+      const r = await applyInAmazon(account.id, p, `rocco:${ws.id}:${runId}:${c}`);
+      if (r.status === "applied") await applyChanges(store, ws, [c], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}` });
+      out.push(r.status === "applied" ? r : { ...r, how: howTo(p) });
+    }
+    return NextResponse.json({ ok: true, direct: true, results: out, locked });
+  }
+
+  const already = new Set((ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes));
+  const queue = ok.filter((c) => !already.has(c));
+  if (queue.length) await queuePending(store, ws, { type: "apply", codes: queue, brand, at: new Date().toISOString(), by: "dashboard" });
+  return NextResponse.json({ ok: true, approved: queue, locked });
 }
