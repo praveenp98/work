@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-21 · DataDoe checked: fits as Rocco's data + action layer
+- Read DataDoe's API docs (hosts app/www/api.datadoe.com allowed in this environment). Invite links via API connect unlimited Seller Central + Ads accounts into our org (any marketplace), REST exports give daily data, write Actions can apply approved bids/budgets/negatives (dry run free). $97/mo after the 14-day trial; watch data rows (+$49/10M) and AI tokens. Full notes: docs/DATADOE.md. Waiting on Praveen: go-ahead, API key (secure form, never chat), and a terms check with DataDoe.
+
+---
+
 ## 2026-11-19 · Two versions: US (Claude) and everywhere else (Amazon's report emails)
 - **Region split** (lib/region.ts): Vercel country header; US → Claude version, elsewhere → report-inbox version; override via /api/region?r=us|intl; teams get `mode` at sign-up and can switch on their setup page.
 - **Report inbox** (lib/inbox.ts, /api/inbound/email, workers/email-inbound.js): <code>@in.rocco.works; raw email (Cloudflare Email Worker, free) or Postmark JSON; CSV/TSV/XLSX/GZ attachments → same analysis engine; pre-signed links only (never logs in); link-only emails flagged; inbox log on the team; first report → "🔔 I'm on" text/Slack with top fixes. Setup + test plan: docs/REPORTS-INBOX.md.
