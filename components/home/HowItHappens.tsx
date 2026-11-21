@@ -7,9 +7,9 @@ import { RoccoHead } from "@/components/Rocco";
  * fills), a phone on the right that shows that step. Steps advance by themselves; tapping one jumps to it.
  */
 const STEPS_US = [
-  { t: "I check your account every morning", d: "Claude pulls your Seller Central and Ads numbers. I read them the way a senior Amazon manager would." },
+  { t: "I check your account every morning", d: "Seller Central and Amazon Ads, connected once with Amazon's own sign-in. I read them the way a senior Amazon manager would." },
   { t: "I find what's worth doing", d: "Stock to send, bids to move, waste to cut, listings to fix. Ranked by money, with the reason." },
-  { t: "You say yes, and it's done", d: "Reply YES or tap approve. Amazon shows a preview, you confirm. I check a week later if it worked." },
+  { t: "You tap approve, I make the change", d: "Right in Amazon: checked first, logged, undoable. A week later I tell you what it actually did." },
 ];
 const STEPS_INTL = [
   { t: "Amazon emails me your reports", d: "You schedule them to your Rocco inbox once. Every morning they land, and I read them the way a senior Amazon manager would." },
@@ -81,7 +81,7 @@ export function HowItHappens({ intl = false }: { intl?: boolean }) {
               <div className="pb">
                 <p className="bub">Reply YES to approve all 3.</p>
                 <p className="bub mine" style={{ animationDelay: ".6s" }}>yes</p>
-                <p className="bub" style={{ animationDelay: "1.4s" }}>{intl ? "Here are the exact clicks for each ✍️ Text DONE when they're made." : "Done ✅ Applied in Claude after your confirm. I'll check them Monday."}</p>
+                <p className="bub" style={{ animationDelay: "1.4s" }}>{intl ? "Here are the exact clicks for each ✍️ Text DONE when they're made." : "Done ✅ Made all 3 in Amazon. I'll check the results Monday."}</p>
                 <p className="bub" style={{ animationDelay: "2.4s" }}>📅 Mon: the bid change worked. +$210/mo, ACoS held at 19%.</p>
               </div>
             )}

@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-21 · New workflow: direct Amazon connection (DataDoe) end to end + redesign
+- **Apply:** approving a fix makes the change in Amazon through DataDoe write Actions: negative exact keywords (TARGETS_ADD negative) and bid changes (TARGETS_UPDATE), dry run first, idempotency key, logged for the week-later check; anything without Amazon IDs or of another kind returns exact steps. New invites are READ_AND_WRITE (Habit Nest was connected read-only: switch it in DataDoe → Sellers & Vendors if we want to test writes).
+- **Daily pull:** lib/datadoe-sync.ts (find export source per report → CSV export → column adapter → engine → morning text). /api/cron/amazon at 13:00 UTC + "Check now" (max hourly). Column mapping unverified until Habit Nest's first load finishes.
+- **Rocco page v5:** connect screen → "Amazon is sending me your data" → dashboard (account pill, hero total, ACoS bar, KPIs with deltas, alerts, fix cards with math + confidence + Approve/Skip, results, coming-up checks). Removed Team card, invite links, Slack/phones, setup modes (Claude + report inbox under "Other ways").
+- **Homepage v5:** hero with live sample dashboard (approve → "Done in Amazon"), how a fix happens, "Other tools give your AI data. I give you decisions." comparison, "ask me in Claude/ChatGPT too", price card; CTA "Connect Amazon". Nav: Setup removed. Site/footer copy updated. Pricing FAQ updated.
+- Tests 143/143, build OK.
+
+---
+
 ## 2026-11-21 · DataDoe: first real account connected, Connect Amazon built
 - DataDoe API key saved via the secure form (environment network secret; for production add DATADOE_API_KEY in Vercel). Test read-only invite → Praveen connected "Habit Nest US" (Seller Central + Ads, US). DataDoe first-stage load in progress; exports unavailable until it finishes.
 - Built: lib/datadoe.ts (invite, account, status), POST /api/w/amazon (team's one-time invite, reused while valid), GET /api/datadoe/callback (only trusts our own invitationId, re-reads the account from DataDoe, links it, texts the team), Connect Amazon card on the team page (status per account), /me passes the result through. Read-only for now. Tests 141/141.

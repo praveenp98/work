@@ -37,12 +37,13 @@ export default async function Page() {
         <p className="fine" style={{ margin: "0 0 14px" }}>Then {PRICE.renew} every 3 months. Cancel anytime.</p>
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
         {url ? <HireButton google={googleOn()} price={PRICE.first} label={`Hire Rocco · ${PRICE.first}`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
-        <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Then set me up in Claude in 2 minutes</p>
+        <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Connect Amazon in one minute</p>
       </div>
       <div style={{ width: "100%", textAlign: "left" }}>
         <Faq items={[
-          { q: "What do I need?", a: "A Claude account (Claude has Amazon's official Seller Central and Ads connectors) and access to your Seller Central. I connect to Claude in 2 minutes." },
-          { q: "How many brands and teammates?", a: "Unlimited. Brand owners, in-house Amazon managers and agencies all use the same plan; client reports included." },
+          { q: "What do I need?", a: "Your Seller Central login (the account owner or an admin) and, for ads, your Amazon Ads login. You connect once with Amazon's own sign-in, in any marketplace. No Claude needed; you can also ask me in Claude or ChatGPT if you like." },
+          { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that one change in Amazon: checked first, logged, and undoable. Nothing changes on its own." },
+          { q: "How many Amazon accounts?", a: "Connect as many seller accounts and marketplaces as you run. Client reports included for agencies." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime by texting CANCEL.` },
           { q: "Is there a free plan or trial?", a: "No free plan. But you set me up on your real account first and see my top finding in full, free. You pay only after that." },
         ]} />

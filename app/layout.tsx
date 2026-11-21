@@ -31,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="top top-b">
           <div className="top-in">
             <nav className="top-left" aria-label="Main">
-              <Link href="/setup">Setup</Link>
               <Link href="/pricing">Pricing</Link>
               <Link href="/answers">Answers</Link>
             </nav>
@@ -47,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <footer className="foot foot-min">
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>
-          <p className="foot-tag">The AI Amazon manager in your iMessages.</p>
+          <p className="foot-tag">Your AI Amazon manager. You approve, I do the rest.</p>
           <nav>
             <Link href="/answers">Answers</Link>
             <Link href="/setup">Setup</Link>
