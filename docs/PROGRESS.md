@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · First live pull from DataDoe (Habit Nest US): works end to end
+- DataDoe load reached SECOND_STAGE; export sources available. Pinned tables (DataDoe's "recommended" match was a profit table): amazon_ads_search_terms_by_campaign_by_date, amazon_ads_performance_by_campaign_by_date, amazon_sales_and_traffic_with_cogs, amazon_fba_inventory_health. Only needed columns exported; renamed to Amazon headers; campaigns rolled up per campaign (latest budget), sales & traffic summed per ASIN (page-view-weighted Buy Box), inventory = latest snapshot per SKU; Sponsored Products only.
+- Live result (30 days): ads spend $2,631, ACoS 20%, search-term grade A (~$82/mo leak); 232 campaigns; 23 ASINs; 2 SKUs could run out within 2 weeks. 87 fixes, 66 with Amazon IDs (Rocco can make negatives/bids directly). Top: lower bid on "sidekicks" (ACoS 49% vs 30% target).
+- Fixed from real data: TACoS no longer shown when total sales < ad sales (sales history still loading). Note: Node fetch needs NODE_USE_ENV_PROXY=1 in this sandbox only (not on Vercel).
+- Weak spot seen: budget fixes on campaigns using ~1% of budget ("cut budget") are low value; to improve.
+- Tests 146/146.
+
+---
+
 ## 2026-11-21 · New workflow: direct Amazon connection (DataDoe) end to end + redesign
 - **Apply:** approving a fix makes the change in Amazon through DataDoe write Actions: negative exact keywords (TARGETS_ADD negative) and bid changes (TARGETS_UPDATE), dry run first, idempotency key, logged for the week-later check; anything without Amazon IDs or of another kind returns exact steps. New invites are READ_AND_WRITE (Habit Nest was connected read-only: switch it in DataDoe → Sellers & Vendors if we want to test writes).
 - **Daily pull:** lib/datadoe-sync.ts (find export source per report → CSV export → column adapter → engine → morning text). /api/cron/amazon at 13:00 UTC + "Check now" (max hourly). Column mapping unverified until Habit Nest's first load finishes.

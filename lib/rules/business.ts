@@ -42,7 +42,10 @@ export function analyzeBusiness(rows: BusinessRow[], opts: { adSpend?: number; a
   const lowBb = rows.filter((r) => r.buyBoxPct >= 0 && r.buyBoxPct < 90 && r.sessions >= 100).sort((a, b) => a.buyBoxPct - b.buyBoxPct);
   const stats: Record<string, number | string> = { sessions, units, sales: r2(sales), conversionPct: r2(avgCvr * 100), asins: rows.length, buyBoxLow: lowBb.length, ...(lowBb[0] ? { buyBoxWorst: `${lowBb[0].asin} at ${lowBb[0].buyBoxPct}%` } : {}) };
   let headline = `${rows.length} ASINs · ${sessions.toLocaleString("en-US")} sessions · ${(avgCvr * 100).toFixed(1)}% conversion · $${Math.round(sales).toLocaleString("en-US")} sales.`;
-  if (opts.adSpend && sales > 0) {
+  // Ad-attributed sales above total sales means this sales report covers less time than the ads data (e.g. history
+  // still loading): skip TACoS rather than show a wrong one.
+  if (opts.adSales && opts.adSales > sales * 1.05) stats.salesIncomplete = 1;
+  else if (opts.adSpend && sales > 0) {
     const tacos = opts.adSpend / sales;
     stats.tacosPct = r2(tacos * 100);
     if (opts.adSales) stats.adShareOfSalesPct = r2((opts.adSales / sales) * 100);
