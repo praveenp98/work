@@ -1,4 +1,5 @@
 import { teamUrl } from "./workspace";
+import { currencyOf, localize } from "./currency";
 import { REPORT_HELP, type ReportKind } from "./analyze";
 import { notifyTeam } from "./notify";
 import { paywall } from "./paywall";
@@ -246,5 +247,6 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   } else if (codes.length) L.push(`Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon. All of today's work: ${teamUrl(ws)}`);
   const offer = paywall(fresh, b, "found", { now });
   if (offer) await store.saveWorkspace(fresh);
-  await notifyTeam(store, fresh, [L.join("\n"), ...(offer ? [offer.text, offer.url] : [])]).catch(() => 0);
+  const cur = currencyOf(ws.amazon?.accounts?.find((a) => a.name === r.account)?.country);
+  await notifyTeam(store, fresh, [localize(L.join("\n"), cur), ...(offer ? [offer.text, offer.url] : [])]).catch(() => 0);
 }

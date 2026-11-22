@@ -1,4 +1,5 @@
 "use client";
+import { money, USD, type Currency } from "@/lib/currency";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 import type { Job } from "@/lib/jobs";
@@ -18,7 +19,7 @@ const LEARN: Record<string, string> = {
   numbers: "Thanks for flagging it. I'll double-check my math on this one.",
   later: "Okay. It'll come back tomorrow if it still matters.",
 };
-const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+
 const post = (url: string, body: object) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).then((r) => r.json()).catch(() => null);
 
 /**
@@ -26,7 +27,8 @@ const post = (url: string, body: object) => fetch(url, { method: "POST", headers
  * "Restock 2 products". One Approve per job (untick anything you don't want). direct = Rocco makes it in Amazon;
  * otherwise exact steps + "I've made these changes".
  */
-export function JobCards({ token, brand, jobs, direct }: { token: string; brand: string; jobs: Job[]; direct: boolean }) {
+export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency }) {
+  const $ = (n: number) => money(n, cur);
   const [res, setRes] = useState<Record<string, Res>>({});
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   const [thanks, setThanks] = useState<{ title: string; reason: string } | null>(null);
@@ -77,7 +79,7 @@ export function JobCards({ token, brand, jobs, direct }: { token: string; brand:
         {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve all {openAuto.length} jobs · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</button>}
       </div>
       <ul className="tw-list">
-        {visible.map((j, i) => <JobCard key={j.id} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
+        {visible.map((j, i) => <JobCard key={j.id} cur={cur} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
       </ul>
       {thanks && <p className="tw-thanks" role="status"><span aria-hidden>🧠</span> <b>{thanks.title}</b>: {thanks.reason}</p>}
       <p className="fine"><b>Real work without the fluff.</b> {direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
@@ -85,7 +87,8 @@ export function JobCards({ token, brand, jobs, direct }: { token: string; brand:
   );
 }
 
-function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: (reason?: string) => void }) {
+function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { cur: Currency; job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: (reason?: string) => void }) {
+  const $ = (n: number) => money(n, cur);
   const [open, setOpen] = useState(false);
   const [on, setOn] = useState<Set<string>>(() => new Set(job.codes));
   const [how, setHow] = useState(false);

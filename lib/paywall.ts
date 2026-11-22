@@ -22,6 +22,8 @@ const GAP: Record<Moment, number> = { found: 3 * DAY, worked: Infinity, locked: 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
 /** Checkout tagged with the workspace, so the payment unlocks it automatically (see /api/dodo/webhook). */
+/** Checkout for one more Amazon account on this team (null when the product isn't set up). */
+export const extraAccountUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id, email: ws.ownerEmail ?? ws.checkoutEmail, redirect: `${SITE.url}/welcome`, plan: "extra" });
 export const hireUrl = (ws: Workspace, plan: PlanId = "annual") => checkoutUrl({ ref: ws.id, email: ws.ownerEmail ?? ws.checkoutEmail, redirect: `${SITE.url}/welcome`, plan }) ?? `${SITE.url}/pricing`;
 
 export function paywall(

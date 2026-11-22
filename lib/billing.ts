@@ -1,4 +1,4 @@
-import { fetchPayment, fetchSubscription, latestPaymentOf, ourProducts } from "./payments";
+import { extraProduct, fetchPayment, fetchSubscription, latestPaymentOf, ourProducts, type DodoSubscription } from "./payments";
 import type { Store, Workspace } from "./store/types";
 
 /**
@@ -27,6 +27,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
 
   // Only our own products unlock Rocco (another product on the same Dodo account must never grant access).
   const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
+  if (product && product === extraProduct()) return { ws: await syncExtra(store, ws, sub, pay, now), change: null };
   if (!product || !ourProducts().includes(product)) return { ws: null, change: null };
 
   let change: BillingChange = null;
@@ -71,4 +72,29 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
   // from a succeeded payment that Dodo itself reports.
   await store.saveWorkspace(ws);
   return { ws, change };
+}
+
+/**
+ * "Extra Amazon account" subscription: one slot per subscription, valid while paid (≈ a month from each payment,
+ * capped by the next billing date). Refund, dispute, failure or end → the slot goes away.
+ */
+async function syncExtra(store: Store, ws: Workspace, sub: DodoSubscription | null, pay: Awaited<ReturnType<typeof fetchPayment>>, now: Date): Promise<Workspace> {
+  const id = sub?.subscription_id ?? pay?.subscription_id ?? pay?.payment_id;
+  if (!id) return ws;
+  const slots = (ws.extraAccounts ?? []).filter((x) => x.subscriptionId !== id);
+  const bad = (pay?.refunds ?? []).some((r) => /succeed/i.test(r.status ?? "")) || (pay?.disputes ?? []).some((d) => !/won|cancel|expired/i.test(d.dispute_status ?? d.status ?? "")) || ["failed", "expired", "on_hold"].includes(sub?.status ?? "");
+  const prev = (ws.extraAccounts ?? []).find((x) => x.subscriptionId === id);
+  let until = prev?.until;
+  if (!bad && pay?.status === "succeeded") {
+    const paidAt = pay.created_at ? new Date(pay.created_at) : now;
+    const cover = new Date(paidAt.getTime() + 32 * 86_400_000);
+    const next = sub?.next_billing_date ? new Date(sub.next_billing_date) : null;
+    const u = next && next > now && next <= cover ? next : cover;
+    if (!until || new Date(until) < u) until = u.toISOString();
+  }
+  if (bad) until = now.toISOString();
+  if (until) slots.push({ subscriptionId: id, until, status: sub?.status });
+  ws.extraAccounts = slots;
+  await store.saveWorkspace(ws);
+  return ws;
 }

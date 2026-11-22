@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { HistoryButton } from "@/components/dash/HistoryButton";
 import { hasAccess } from "@/lib/access";
 import { changeLine } from "@/lib/history";
+import { currencyOf, localize, money as fmtMoney } from "@/lib/currency";
 import type { Proposal } from "@/lib/rules/types";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
@@ -49,6 +50,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
   if (!store || !ws) notFound();
   const actions = await store.listActions(ws.id, { limit: 500 });
   const accounts = ws.amazon?.accounts ?? [];
+  const curOf = (brand: string) => currencyOf(accounts.find((x) => x.name === brand)?.country);
   const tidies = accounts.flatMap((a) => { const d = ws.tidy?.[a.id]?.done; return d ? [{ a, d }] : []; });
 
   return (
@@ -70,8 +72,8 @@ export default async function Page({ params }: { params: Promise<{ token: string
           {actions.map((a) => (
             <li key={a.id}>
               <div className="log-top"><span className="fix-code">{a.code}</span><span className={`status ${a.status}`}>{STATUS[a.status]}</span><span className="fine">{when(a.appliedAt)} · {a.brand}</span></div>
-              <p className="log-what">{changeWords(a.proposal)}{a.proposal.valueMonthly > 0 && <span className="log-worth"> · worth ~${Math.round(a.proposal.valueMonthly).toLocaleString("en-US")}/mo</span>}</p>
-              <p className="fine">{source(a.note)} · {a.result?.summary ?? `I check the result after ${when(a.followUpAt)}.`}</p>
+              <p className="log-what">{localize(changeWords(a.proposal), curOf(a.brand))}{a.proposal.valueMonthly > 0 && <span className="log-worth"> · worth ~{fmtMoney(a.proposal.valueMonthly, curOf(a.brand))}/mo</span>}</p>
+              <p className="fine">{source(a.note)} · {localize(a.result?.summary ?? `I check the result after ${when(a.followUpAt)}.`, curOf(a.brand))}</p>
             </li>
           ))}
         </ul>

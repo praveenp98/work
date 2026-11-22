@@ -37,7 +37,7 @@ export function GET() {
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and every marketplace: $1,190 a year (2 months free) or $119 a month, 7-day money-back guarantee.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team, 3 Amazon accounts included (+$49/mo each extra): $1,190 a year (2 months free) or $119 a month, 7-day money-back guarantee.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

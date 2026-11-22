@@ -5,6 +5,10 @@ import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
 import { ReminderCard } from "@/components/dash/ReminderCard";
 import { TeamCard } from "@/components/dash/TeamCard";
+import { AccountsCard } from "@/components/dash/AccountsCard";
+import { slotState } from "@/lib/accounts";
+import { currencyOf, localize, money } from "@/lib/currency";
+import { extraAccountUrl } from "@/lib/paywall";
 import { googleOn } from "@/lib/google";
 import { actor, peopleOf, roleOf } from "@/lib/team";
 import { slackConfigured } from "@/lib/slack";
@@ -99,6 +103,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   // ---------- Dashboard ----------
   const brands = brief.perBrand.filter((b) => b.trends.length || b.open.length);
   const b = brands.find((x) => x.brand === sp.brand) ?? brands[0] ?? brief.perBrand[0];
+  // Money in this account's marketplace currency; Rocco's own price stays USD.
+  const cur = currencyOf(ws.amazon?.accounts?.find((a) => a.name === b.brand)?.country ?? ws.amazon?.accounts?.[0]?.country);
+  const m = (n: number) => money(n, cur);
   const latest = (k: string): Snapshot | undefined => b.trends.find((t) => t.kind === k)?.latest;
   const prevOf = (k: string): Snapshot | undefined => b.trends.find((t) => t.kind === k)?.previous ?? undefined;
   const st = latest("sp_search_term"), biz = latest("business_report"), inv = latest("inventory"), lh = latest("listing_health");
@@ -113,10 +120,10 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const target = Math.round(b.settings.targetAcos * 100);
   const acos = st ? Math.round(Number(st.stats.acosPct)) : null;
   const kpis = [
-    st && { k: "Ad spend", v: $(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
-    st && { k: "Ad sales", v: $(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
-    biz && { k: "Total sales", v: $(Number(biz.stats.sales)), d: delta("business_report", "sales") },
-    st && { k: "Wasted / mo", v: $(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
+    st && { k: "Ad spend", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
+    st && { k: "Ad sales", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
+    biz && { k: "Total sales", v: m(Number(biz.stats.sales)), d: delta("business_report", "sales") },
+    st && { k: "Wasted / mo", v: m(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
   ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
 
   // What this account taught Rocco (skips, results) decides what's shown; Claude's manager pass decides today's order.
@@ -163,7 +170,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       ))}
       {access === "none" && (
         <div className="rd-offer">
-          <div><b>{hidden ? `Your plan has ended. ${hidden} fix${hidden === 1 ? "" : "es"} worth ~${$(hiddenValue)}/mo are waiting.` : "Your plan has ended."}</b><span>Rehire me to keep the daily checks and approvals: {PRICE.short}, {PRICE.then}.</span></div>
+          <div><b>{hidden ? `Your plan has ended. ${hidden} fix${hidden === 1 ? "" : "es"} worth ~${m(hiddenValue)}/mo are waiting.` : "Your plan has ended."}</b><span>Rehire me to keep the daily checks and approvals: {PRICE.short}, {PRICE.then}.</span></div>
           <a className="btn" href={hireUrl(ws)}>Rehire Rocco</a>
         </div>
       )}
@@ -171,8 +178,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <div className="rd-hero">
         <span className="rd-kicker">Good {new Date().getHours() < 12 ? "morning" : "day"}</span>
-        <h1>{jobs.length ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{$(shownValue)}/mo</em>.</> : "All clear today."}</h1>
-        {planOk && plan!.brief && <p className="rd-brief">{plan!.brief}</p>}
+        <h1>{jobs.length ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : "All clear today."}</h1>
+        {planOk && plan!.brief && <p className="rd-brief">{localize(plan!.brief, cur)}</p>}
         {acos !== null && (
           <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>
             <div className="rd-acos-bar"><i style={{ width: `${Math.min(100, (acos / Math.max(target * 2, 1)) * 100)}%` }} className={acos > target ? "over" : ""} /><span style={{ left: "50%" }} /></div>
@@ -181,13 +188,13 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         )}
       </div>
 
-      {access !== "none" && <RoiCard saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
+      {access !== "none" && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
 
       <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
 
       <div className="rd-grid">
         <div>
-          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={jobs} direct={isDirect} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
           {isDirect && (
             <Link className="rd-tidy" href={`/w/${token}/tidy`}>
               <span aria-hidden>🗂️</span>
@@ -197,12 +204,13 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           )}
           {held > 0 && <p className="fine">I held back {held} fix{held === 1 ? "" : "es"} this account usually skips or that didn&apos;t work here before.</p>}
           {b.hidden > 0 && (
-            <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>
+            <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{m(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>
           )}
         </div>
 
         <aside className="rd-side">
           {access !== "none" && team}
+          {access !== "none" && direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
           {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
@@ -227,7 +235,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       {!direct && b.stale.length > 0 && <p className="fine">Not refreshed in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
       <footer className="rd-foot">
-        {direct && <ConnectButton token={token} />}
         <form action="/api/auth/signout" method="post"><button className="linkbtn muted">Sign out</button></form>
       </footer>
     </section>

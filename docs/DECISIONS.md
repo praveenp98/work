@@ -95,3 +95,6 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 | 2026-11-22 | Retire license keys; only the yearly/monthly Dodo products unlock Rocco; no checkout fallback to old products | One key unlocked unlimited teams forever; a fallback would sell the old $99 product as $1,190 | Keep keys with per-team binding |
 | 2026-11-22 | Money-back guarantee 7 days (was 30) (Praveen) | Results are measured a week after each change; 7 days is enough to judge the fixes and limits refund exposure | 30 days |
 | 2026-11-22 | AI is Amazon-only and can only refer to actions Rocco supports; new job types added one at a time from logged questions | Cost control and no promises Rocco can't keep | Open-ended assistant |
+| 2026-11-22 | 3 Amazon accounts per plan, +$49/mo per extra (Praveen) | DataDoe rows grow per account; agencies pay for scale | Unlimited accounts |
+| 2026-11-22 | Remove/swap allowed with a 30-day slot hold (instant if removed within a day) | Real need (wrong account, sold brand) without letting one plan rotate through unlimited clients | No removal; free swaps |
+| 2026-11-22 | Money shown in each account's marketplace currency; Rocco's price in USD with Dodo PPP at checkout | Indian/UK/EU sellers saw "$" on rupee/pound numbers | Convert everything to USD |

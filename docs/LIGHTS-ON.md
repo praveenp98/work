@@ -12,6 +12,9 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 2. **Dodo webhook**: ✅ endpoint created (receives every event). Last step: click the 👁 on "Signing secret", copy it, and paste it in Vercel as `DODO_WEBHOOK_SECRET` (Production) → Redeploy. Don't paste it in chat.
 3. **Google sign-in in production mode**: Google Cloud → APIs & Services → OAuth consent screen → **Publish app** ("In production"). In "Testing" only listed test users can sign in, everyone else gets an error. App name Rocco, support email, rocco.works privacy/terms links.
 
+4b. **Dodo: "Extra Amazon account" product** (optional but recommended): subscription, **$49 every 1 month**, name "Rocco · Extra Amazon account", localized pricing on like the others. Vercel: `DODO_PRODUCT_ID_EXTRA_ACCOUNT` = pdt_… → Redeploy. Without it, a team that wants a 4th account is told to email you.
+4c. **Supabase → SQL Editor**: paste `supabase/migrations/003_limits.sql` → Run (shared spam limits + "reply once" for texts). /api/health shows `rocco_hits: ok` when done. Until then Rocco uses per-server limits (works, just less strict).
+
 ## 🟠 Blocks "Rocco makes the change in Amazon"
 4. **DataDoe → Settings → Actions**: turn on `AMAZON_ADS_TARGETS_ADD`, `AMAZON_ADS_TARGETS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_ADD`, `AMAZON_ADS_AD_GROUPS_ADD`, `AMAZON_ADS_ADS_ADD`, `AMAZON_ADS_PORTFOLIOS_ADD`. (All are off by default; approvals fail without them.)
 5. **DataDoe → Settings → Data** (checked against the code: Rocco reads exactly these **9 tables**, nothing else):
@@ -50,13 +53,13 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 16. **Every 5 hires**: raise both Dodo products (+$10 monthly, +$100 yearly) and tell me to update `PLAN` in lib/pricing.ts (next: $129 / $1,290).
 17. Log every marketing cost in docs/PROGRESS.md (hackathon rule).
 
-## Decisions waiting on you
-- **Accounts per plan**: today one plan covers unlimited Amazon accounts. An agency could connect 30 accounts for $119/mo, and DataDoe rows grow with every account. Suggested: up to 3 accounts included, each extra +$49/mo (or "talk to us"). Your call.
-- **Currencies**: non-US accounts (India ₹, UK £, EU €…) still show "$". Needs a build (~half a day). Say go.
-- **Remove / swap an Amazon account**: not built yet (small). Say go.
+## Weekly (5 minutes)
+- Vercel → Logs → search `account removed by team` → delete those accounts in DataDoe → Accounts (DataDoe has no API for it; they keep costing rows until removed).
 
-## Known, not fixed yet (low risk at launch volume)
-- Two saves at the same instant can overwrite each other (whole-record saves). Rare; fix = field-level updates.
-- If Dodo's return link only carries a subscription id, the welcome page waits for the webhook (≤ 1 min).
-- A slow AI reply by text can occasionally be sent twice (LoopMessage retry).
-- Some spam guards (sign-up taps, text opt-in, new workspaces) count per server, not globally.
+## Decisions waiting on you
+- ✅ Accounts per plan: 3 included, +$49/mo each (built Nov 22).
+- ✅ Currencies: each account shows money in its marketplace currency (built Nov 22). Rocco's own price is USD on the site; Dodo checkout shows local prices (PPP on).
+- ✅ Remove / swap an account: owner only, slot frees after 30 days (immediately if removed within a day of connecting).
+
+## Known, not fixed yet
+- Nothing open from the audit (all fixed Nov 22).

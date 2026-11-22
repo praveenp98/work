@@ -97,7 +97,7 @@ export function HireCard({ url, monthlyUrl }: { url: string; monthlyUrl?: string
       <Urgency />
       <PlanPicker annualUrl={url} monthlyUrl={monthlyUrl ?? url} />
       <ul className="rc-trust">
-        <li>🔒 Secure checkout by Dodo Payments.</li>
+        <li>🔒 Secure checkout by Dodo Payments, in your local currency.</li>
         <li>✋ Nothing changes in Amazon without your approval. Every change is logged and undoable.</li>
       </ul>
     </div>

@@ -75,6 +75,10 @@ export interface Workspace {
   about?: string;
   /** When the team first paid, and on which plan (lib/billing.ts): the dashboard compares savings to what Rocco cost. */
   hiredAt?: string;
+  /** Extra Amazon account subscriptions (+$49/mo each, lib/accounts.ts). */
+  extraAccounts?: import("../accounts").ExtraSlot[];
+  /** Accounts the team removed (slot held 30 days; Praveen also removes them in DataDoe to stop row costs). */
+  removedAccounts?: import("../accounts").RemovedAccount[];
   /** When the "You hired me" message went out (sent once, whichever confirms the payment first). */
   hiredNotifiedAt?: string;
   plan?: "annual" | "monthly";

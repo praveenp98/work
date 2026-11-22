@@ -7,6 +7,7 @@ export function amazonNote(code?: string | null): string | undefined {
   const c = decodeURIComponent(code);
   if (c === "connected") return "🔌 Connected. I'm reading your account now: your first fixes usually show up here within a few minutes.";
   if (c === "unknown") return "That Amazon link was already used or opened in another browser. Tap Connect Amazon for a fresh one.";
+  if (c === "limit") return "Your plan's Amazon accounts are all in use, so I didn't add this one. Add another account from your dashboard (+$49/month), or remove one you don't need.";
   if (c === "taken") return "That Amazon account is already connected to another Rocco. If it's yours, write to hello@rocco.works and we'll move it over.";
   if (c === "mismatch") return "That sign-in didn't match the link I made for you, so I didn't connect anything. Tap Connect Amazon for a fresh link.";
   if (c === "unpaid") return "Your plan isn't active, so I didn't connect the account. Hire Rocco, then connect Amazon.";

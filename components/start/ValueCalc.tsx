@@ -60,7 +60,7 @@ export function ValueCalc({ plan = "annual", compact }: { plan?: "annual" | "mon
         <div className="vc-bar"><span>That time</span><i><s style={{ width: "100%" }} /></i><b>{$(team)}/mo</b></div>
         <div className="vc-bar me"><span>Rocco</span><i><s style={{ width: `${pct}%` }} /></i><b>{$(cost)}/mo</b></div>
       </div>
-      <p className="vc-note">At ${RATE} an hour. I do the daily checks and line up the changes; you or your team just approve. Brands and agencies: every account, one plan.</p>
+      <p className="vc-note">At ${RATE} an hour. I do the daily checks and line up the changes; you or your team just approve. Brands and agencies: 3 accounts included, +$49/mo each extra.</p>
       {sold !== null && sold >= 5 && <p className="vc-proof">✅ {sold} brands have hired me.</p>}
     </div>
   );

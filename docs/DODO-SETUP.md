@@ -57,3 +57,10 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
 6. Webhook: no change (same endpoint, both products count as hiring Rocco).
 7. **Money-back guarantee (7 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
 8. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's.
+
+## Extra Amazon account product (Nov 22)
+- Dodo → Products → Add product → **Subscription**. Name **Rocco · Extra Amazon account**. Price **$49 USD every 1 month**, no trial, localized pricing on.
+- Description: "One more Amazon account (marketplace) on your Rocco plan. Cancel anytime."
+- Copy the product id → Vercel `DODO_PRODUCT_ID_EXTRA_ACCOUNT` → Redeploy.
+- How it works: the dashboard's Amazon accounts card shows "Add an account · $49/mo" when the plan's 3 accounts are in use. Each paid subscription adds one slot while it's active; refund, failure or cancel at period end removes it. Extra accounts don't count as new hires on the price ladder.
+

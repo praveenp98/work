@@ -91,7 +91,7 @@ export default function Page() {
       </section>
 
       <Faq items={[
-        { q: "What does Rocco cost?", a: "$1,190 a year (2 months free) or $119 a month, for your whole team (unlimited brands). 7-day money-back guarantee. Cancel anytime." },
+        { q: "What does Rocco cost?", a: "$1,190 a year (2 months free) or $119 a month, for your whole team (3 Amazon accounts included, +$49/mo each extra). 7-day money-back guarantee. Cancel anytime." },
         { q: "What's the difference between the shared URL and my personal URL?", a: "rocco.works/mcp works for anyone, with no memory. Your personal URL (rocco.works/mcp/your-key) adds memory: change log, result checks, brand settings and the daily brief. Keep it private." },
         { q: "Does Rocco change my Amazon account?", a: "Rocco never touches it directly. Your AI applies only the codes you approve, through Amazon's own connector, and Rocco logs them with undo steps." },
         { q: "Do I need Amazon's Ads connector?", a: "It's the best way: Rocco plans the pull, your AI fetches the data and applies approved changes through it. Without API access, Rocco reads exported reports instead." },

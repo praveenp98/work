@@ -3,16 +3,42 @@ import { hasAccess } from "@/lib/access";
 import { createInvite, createReconnect, datadoeOn } from "@/lib/datadoe";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
+import { slotState, SWAP_COOLDOWN_DAYS } from "@/lib/accounts";
+import { extraAccountUrl } from "@/lib/paywall";
+import { actor, roleOf } from "@/lib/team";
 import { loadWorkspace } from "@/lib/workspace";
 
 /** "Connect Amazon": a one-time DataDoe invite for this team (reused while still valid). The page then opens it. */
 export async function POST(req: Request) {
-  const b = (await req.json().catch(() => ({}))) as { t?: string; reconnect?: string };
+  const b = (await req.json().catch(() => ({}))) as { t?: string; reconnect?: string; remove?: string };
   const store = getStore();
   const ws = store && b.t ? await loadWorkspace(store, b.t) : null;
   if (!store || !ws) return NextResponse.json({ ok: false }, { status: 400 });
   if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
   if (!datadoeOn()) return NextResponse.json({ ok: false, error: "Connecting Amazon is being switched on right now. Please try again in a few minutes." }, { status: 503 });
+  // Remove an account (owner only). Its data and change log stay; Rocco stops reading it. The slot frees right away
+  // if it was connected in the last 24 hours (wrong account), otherwise after 30 days (lib/accounts.ts).
+  if (b.remove) {
+    const me = await actor();
+    if (!me || roleOf(ws, me.email) !== "owner") return NextResponse.json({ ok: false, error: "Only the owner can remove an Amazon account. Sign in with Google as the owner." }, { status: 403 });
+    const acc = ws.amazon?.accounts?.find((a) => a.id === b.remove);
+    if (!acc) return NextResponse.json({ ok: false, error: "That account isn't connected." }, { status: 404 });
+    ws.amazon = { ...ws.amazon!, accounts: ws.amazon!.accounts.filter((a) => a.id !== acc.id) };
+    ws.removedAccounts = [...(ws.removedAccounts ?? []), { id: acc.id, name: acc.name, country: acc.country, connectedAt: acc.connectedAt, removedAt: new Date().toISOString(), by: me.email }].slice(-50);
+    await store.saveWorkspace(ws);
+    // DataDoe has no API to disconnect: delete it in DataDoe → Accounts so its rows stop costing (docs/SUPPORT.md).
+    console.warn(`[amazon] account removed by team: ${acc.name} (${acc.country}) ${acc.id} → delete in DataDoe`);
+    const st = slotState(ws);
+    return NextResponse.json({ ok: true, removed: acc.name, slots: st, note: st.held ? `Removed. Its slot frees up in ${SWAP_COOLDOWN_DAYS} days.` : "Removed. The slot is free." });
+  }
+  // A new account needs a free slot: 3 included, more at $49/mo each.
+  if (!b.reconnect) {
+    const st = slotState(ws);
+    if (!st.canAdd) {
+      const url = extraAccountUrl(ws);
+      return NextResponse.json({ ok: false, limit: true, slots: st, extraUrl: url, error: url ? `Your plan includes ${st.limit} Amazon accounts and they're all in use. Add one more for $49/month.` : `Your plan includes ${st.limit} Amazon accounts and they're all in use. Email hello@rocco.works to add more.` }, { status: 402 });
+    }
+  }
   const open0 = ws.amazon?.invite;
   const reuse = !b.reconnect && open0 && new Date(open0.expiresAt).getTime() > Date.now() + 3_600_000;
   if (!reuse && !(await spend(store, ws, "invite"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.invite }, { status: 429 });

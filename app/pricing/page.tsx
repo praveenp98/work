@@ -22,7 +22,7 @@ const INCLUDED = [
   "Day one: I read your account's change history, so I know what was tried before me",
   "Every change measured a week later, and I learn your style",
   "Reminders on iMessage, WhatsApp or Slack; approve by text",
-  "Whole team, every marketplace, Seller Central + Amazon Ads",
+  "Whole team, 3 Amazon accounts included (+$49/mo each extra), Seller Central + Amazon Ads",
 ];
 
 export default async function Page() {
@@ -53,7 +53,7 @@ export default async function Page() {
       <div className="hire-card">
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
         <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn imsg-btn hire-btn" />
-        <p className="fine" style={{ margin: "10px 0 0" }}>🛡️ {PRICE.guarantee}: if you don&apos;t like the fixes I give you, ask for your money back. Secure checkout by Dodo Payments.</p>
+        <p className="fine" style={{ margin: "10px 0 0" }}>🛡️ {PRICE.guarantee}: if you don&apos;t like the fixes I give you, ask for your money back. Prices in USD; checkout shows your local price. Secure checkout by Dodo Payments.</p>
       </div>
       <ValueCalc />
       <div style={{ width: "100%", textAlign: "left" }}>
@@ -61,7 +61,7 @@ export default async function Page() {
           { q: "What happens after I pay?", a: "You connect Amazon in about 2 minutes (Seller Central, then Amazon Ads) with Amazon's own sign-in. I start reading right away; your first jobs usually show up within hours." },
           { q: "What do I need?", a: "Your Seller Central login as the primary user (or a user with all permissions) and your Amazon Ads login. Any marketplace. No Claude or other AI needed." },
           { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that change in Amazon: checked with Amazon first, logged, and undoable. Nothing changes on its own." },
-          { q: "How many Amazon accounts?", a: "Connect every seller account and marketplace you run, on one plan." },
+          { q: "How many Amazon accounts?", a: "3 are included (each marketplace counts as one). Each extra account is +$49 a month, added from your dashboard. Agencies: same plan, add accounts as you go." },
           { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco, see today's jobs and approve them. Every approval shows who made it. You can remove someone anytime, or hand the whole Rocco to a teammate." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
           { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },

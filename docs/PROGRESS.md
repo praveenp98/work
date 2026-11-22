@@ -4,6 +4,18 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Accounts per plan, currencies, remove/swap, and the last audit items
+- **3 Amazon accounts included** (each marketplace counts), **+$49/mo per extra** (Dodo product `DODO_PRODUCT_ID_EXTRA_ACCOUNT`, one subscription per slot; refunds/failures remove the slot; not counted as hires). New accounts are blocked at the limit (connect button and DataDoe callback); teams already over keep theirs. Copy updated (pricing, help, llms, launch kit, value calculator).
+- **Remove / swap an account** (owner only, dashboard → Amazon accounts): data and change log stay; slot frees after 30 days, right away if removed within a day of connecting. Answer to "will it be misused?": yes without a cooldown (one plan rotating through client accounts), so the 30-day hold. DataDoe has no disconnect API: removed accounts are logged for Praveen to delete in DataDoe weekly.
+- **Currencies**: every amount from an account shows in its marketplace currency (₹, £, €, ¥, C$, A$…): dashboard, job cards, ROI card ("N× what I cost" compares in USD, approximate), change log, morning messages, and what Claude reads (so its brief and answers use the right symbol). Rocco's own price stays USD; Dodo checkout shows local prices (PPP on).
+- **Safe saves**: workspace saves now send only the fields a request changed, on top of the latest record, with a version check and retry (lib/store/merge.ts). Falls back to field-only save if the database rejects the version filter.
+- **Welcome page** finds the payment from a subscription id alone (Dodo list payments by subscription).
+- **Texts**: answered once across all servers (shared "first time" mark) and replied in the background so LoopMessage never retries.
+- **Shared spam limits** across servers (sign-up taps, text opt-in, new workspaces incl. the MCP tool, unsigned webhooks): Supabase `rocco_hit` (supabase/migrations/003_limits.sql, Praveen runs it once); falls back to per-server.
+- Tests 200 passing.
+
+---
+
 ## 2026-11-22 · 7-day guarantee, help center, AI scope + costs, support plan
 - **Guarantee is now 7 days** (Praveen): PLAN.guaranteeDays = 7, every page, text, MCP output, launch kit and Dodo setup doc. Dodo product note must say 7 days.
 - **Help center** /help (23 answers in 6 sections, exact steps, FAQPage/HowTo JSON-LD, in sitemap, footer and dashboard) + **/llms-full.txt** (all help in one plain file for Claude/ChatGPT/Perplexity) + llms.txt links. Sitemap no longer lists the redirected /connect and /setup.

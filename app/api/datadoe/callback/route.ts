@@ -1,5 +1,6 @@
 import { after, NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
+import { slotState } from "@/lib/accounts";
 import { getAccount, getInvitation } from "@/lib/datadoe";
 import { pullAndSave } from "@/lib/datadoe-sync";
 import { importHistory } from "@/lib/history";
@@ -41,6 +42,9 @@ export async function GET(req: Request) {
   // One Amazon account belongs to one Rocco team.
   const taken = (await store.listAmazonWorkspaces()).some((w) => w.id !== ws.id && w.amazon?.accounts?.some((x) => x.id === id));
   if (taken) return back("taken");
+  // A new account needs a free slot (an old invite could still be open after the plan's accounts filled up).
+  const isNew = !ws.amazon.accounts?.some((x) => x.id === id);
+  if (isNew && !slotState(ws).canAdd) return back("limit");
   try {
     const a = await getAccount(id); // must exist in our DataDoe organization
     const accounts = (ws.amazon.accounts ?? []).filter((x) => x.id !== a.id);

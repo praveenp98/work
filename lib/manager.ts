@@ -4,6 +4,7 @@ import { z } from "zod";
 import { hasAccess } from "./access";
 import { askRocco, brainOn } from "./brain";
 import { historyFor, historyText } from "./history";
+import { currencyOf, localize, type Currency } from "./currency";
 import { accountMemory, applyTuning, memoryText, tuning, type Priors } from "./memory";
 import { ASK_SYSTEM, MANAGER_SYSTEM, MANAGER_VERSION } from "./prompts/manager";
 import type { Proposal } from "./rules/types";
@@ -86,10 +87,10 @@ export function factsFor(b: Awaited<ReturnType<typeof buildBrief>>["perBrand"][n
 }
 
 /** One manager pass. Null when the brain is off, refuses, or fails (the dashboard uses the rules ranking). */
-export async function curate(o: { proposals: Proposal[]; facts: string; memory: string; now?: Date }): Promise<ManagerView | null> {
+export async function curate(o: { proposals: Proposal[]; facts: string; memory: string; now?: Date; cur?: Currency }): Promise<ManagerView | null> {
   if (!brainOn() || !o.proposals.length) return null;
   const top = [...o.proposals].sort((a, b) => b.valueMonthly - a.valueMonthly).slice(0, 40);
-  const input = `${o.facts}\n\n${o.memory}\n\nToday's fixes (code | type | target | campaign | value | reason):\n${top.map(fixLine).join("\n")}`;
+  const input = localize(`${o.facts}${o.cur && o.cur.code !== "USD" ? `\nCurrency: ${o.cur.code} (${o.cur.symbol.trim()})` : ""}\n\n${o.memory}\n\nToday's fixes (code | type | target | campaign | value | reason):\n${top.map(fixLine).join("\n")}`, o.cur);
   try {
     const res = await getClient().beta.messages.parse({
       model: MODEL,
@@ -124,7 +125,7 @@ export async function refreshManager(store: Store, wsId: string, o: { priors?: P
   for (const b of brief.perBrand.filter((x) => x.open.length).slice(0, 5)) {
     const { shown } = applyTuning(b.open, tune);
     if (!shown.length || (!o.force && ws.manager?.[b.brand]?.basis === basisOf(shown))) continue;
-    const view = await curate({ proposals: shown, facts: factsFor(b, accountName(ws, b.brand)), memory: [memory, historyText(historyFor(ws, b.brand))].filter(Boolean).join("\n\n") });
+    const view = await curate({ cur: currencyOf(ws.amazon?.accounts?.find((a) => a.name === b.brand)?.country), proposals: shown, facts: factsFor(b, accountName(ws, b.brand)), memory: [memory, historyText(historyFor(ws, b.brand))].filter(Boolean).join("\n\n") });
     if (view) updates[b.brand] = { ...view, basis: basisOf(shown) };
   }
   if (!Object.keys(updates).length) return 0;
@@ -152,5 +153,6 @@ export async function askAccount(store: Store, ws: Workspace, question: string, 
     historyText(historyFor(ws, b.brand)),
     brief.savedMeasured || brief.savedEstimated ? `Results so far: measured ${$(brief.savedMeasured)}, estimated ${$(brief.savedEstimated)}.` : "",
   ].filter(Boolean).join("\n\n").slice(0, 14000);
-  return askRocco({ question, context, system: ASK_SYSTEM, maxChars: 900, label: "Their question" });
+  const cur = currencyOf(ws.amazon?.accounts?.find((x) => x.name === b.brand)?.country);
+  return askRocco({ question, context: localize(cur.code === "USD" ? context : `Currency: ${cur.code} (${cur.symbol.trim()})\n${context}`, cur), system: ASK_SYSTEM, maxChars: 900, label: "Their question" });
 }

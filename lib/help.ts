@@ -102,7 +102,7 @@ export const HELP: HelpArticle[] = [
   {
     slug: "plans-and-pricing", section: "Billing", updated: U,
     q: "How much does Rocco cost?",
-    short: `${PRICE.line} One plan covers your whole team and every Amazon account you connect.`,
+    short: `${PRICE.line} One plan covers your whole team and 3 Amazon accounts (each marketplace counts as one); each extra account is +$49 a month.`,
     more: ["Prices go up every 5 hires (+$10 a month, +$100 a year). Your price is the one you pay at checkout."],
   },
   {
@@ -148,7 +148,12 @@ export const HELP: HelpArticle[] = [
   {
     slug: "currency-and-marketplaces", section: "Troubleshooting", updated: U,
     q: "Which marketplaces work?",
-    short: "Every Amazon marketplace that Seller Central and Amazon Ads support: US, Canada, Mexico, UK, Germany, France, Italy, Spain, India, Japan, Australia and more. Connect each one; each gets its own tab.",
+    short: "Every Amazon marketplace that Seller Central and Amazon Ads support: US, Canada, Mexico, UK, Germany, France, Italy, Spain, India, Japan, Australia and more. Connect each one; each gets its own tab and shows money in that marketplace's currency.",
+  },
+  {
+    slug: "remove-or-swap-account", section: "Daily work", updated: U,
+    q: "How do I remove or swap an Amazon account?",
+    short: "Dashboard → Amazon accounts → Remove (owner only). Rocco stops reading it; its change log stays. Removed within a day of connecting (wrong account)? The slot frees right away. Otherwise it frees after 30 days. Need another slot now? Add an account for $49/month.",
   },
 ];
 

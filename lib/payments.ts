@@ -28,8 +28,11 @@ export const ourProducts = () => [process.env.DODO_PRODUCT_ID_ANNUAL, process.en
 /** Old products: still counted as past hires on the price ladder, never as new access. */
 export const pastProducts = () => [PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean) as string[];
 
-export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string; plan?: PlanId } = {}): string | null {
-  const product = productFor(opts.plan);
+/** "Extra Amazon account" subscription (+$49/mo each). Unset = extra accounts are by email. */
+export const extraProduct = () => validId(process.env.DODO_PRODUCT_ID_EXTRA_ACCOUNT);
+
+export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string; plan?: PlanId | "extra" } = {}): string | null {
+  const product = opts.plan === "extra" ? extraProduct() : productFor(opts.plan);
   if (!product) return null;
   const q = new URLSearchParams({ quantity: "1", redirect_url: opts.redirect ?? `${SITE.url}/thanks` });
   if (opts.email) q.set("email", opts.email);
@@ -116,6 +119,7 @@ export async function countSales(): Promise<number | null> {
     const items = ((await res.json().catch(() => ({}))) as { items?: DodoPayment[] }).items ?? [];
     for (const p of items) {
       if (p.status && p.status !== "succeeded") continue;
+      if (p.product_cart?.some((c) => c.product_id === extraProduct())) continue; // extra accounts aren't new hires
       const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => [...ourProducts(), ...pastProducts()].includes(c.product_id));
       if (!ours) continue;
       const who = p.customer?.customer_id ?? p.subscription_id;
