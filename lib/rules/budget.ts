@@ -38,10 +38,14 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
     if (a > s.breakevenAcos && c.clicks >= 30) {
       const loss = Math.max(0, c.spend - c.sales * s.breakevenAcos) * (30 / days);
       const newBudget = r2(Math.max(1, Math.min(c.budget, perDay(c.spend)) * 0.8));
-      if (newBudget < c.budget) freed += c.budget - newBudget;
-      g++;
-      proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed: newBudget, reason: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "∞"} is above breakeven ${Math.round(s.breakevenAcos * 100)}%; ${Math.round(util * 100)}% of budget used. Cut budget and fix bids/negatives first.`, valueMonthly: r2(loss), before: before(c), ids: c.campaignId ? { campaignId: c.campaignId } : undefined, undo: `Set the daily budget back to ${c.budget}.` });
-      findings.push({ severity: "high", title: `${c.campaign} loses money`, detail: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "with no sales"} vs breakeven ${Math.round(s.breakevenAcos * 100)}%. About $${Math.round(loss)}/month above breakeven.`, line: `${c.campaign} is a money furnace with a campaign name.`, valueMonthly: r2(loss) });
+      // A budget cut only matters when the budget is what limits spend. Under ~60% use, the leak is in bids and
+      // search terms: flag it (finding) but don't propose a budget move that would change nothing.
+      if (util >= 0.6) {
+        if (newBudget < c.budget) freed += c.budget - newBudget;
+        g++;
+        proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed: newBudget, reason: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "∞"} is above breakeven ${Math.round(s.breakevenAcos * 100)}%; ${Math.round(util * 100)}% of budget used. Cut budget and fix bids/negatives first.`, valueMonthly: r2(loss), before: before(c), ids: c.campaignId ? { campaignId: c.campaignId } : undefined, undo: `Set the daily budget back to ${c.budget}.` });
+      }
+      findings.push({ severity: "high", title: `${c.campaign} loses money`, detail: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "with no sales"} vs breakeven ${Math.round(s.breakevenAcos * 100)}%. About $${Math.round(loss)}/month above breakeven.${util < 0.6 ? " Budget isn't the limit here: the fix is in its bids and search terms." : ""}`, line: `${c.campaign} is a money furnace with a campaign name.`, valueMonthly: r2(loss) });
     }
   }
   for (const c of camps) {
