@@ -38,9 +38,9 @@ export default async function Page() {
       <Urgency />
       <div className="pr-plans">
         <div className="pr-plan best">
-          <span className="plan-tag">2 months free · save $238</span>
+          <span className="plan-tag">2 months free</span>
           <b>{PRICE.annual}<small>/year</small></b>
-          <span>{PRICE.perMonthAnnual} a month, billed yearly</span>
+          <span>{PRICE.perMonthAnnual}/mo billed yearly · save $238</span>
         </div>
         <div className="pr-plan">
           <b>{PRICE.monthly}<small>/month</small></b>

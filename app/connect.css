@@ -1228,3 +1228,6 @@ h1, h2, .display { font-family: var(--display); }
 .hf-slot { display: flex; justify-content: flex-end; }
 .hf-bub, .hf-done { position: static; box-shadow: none; white-space: nowrap; }
 @media (max-width: 600px) { .hf li { grid-template-columns: auto minmax(0, 1fr) 66px; } }
+/* Plan tags sit in the card (never cover the price on narrow phones) */
+.plan-pick .plan-tag, .pr-plan .plan-tag { position: static; align-self: flex-start; justify-self: start; display: inline-block; margin: 0 0 6px; white-space: nowrap; font-size: 11px; }
+@media (max-width: 380px) { .plan-pick .plan-tag, .pr-plan .plan-tag { font-size: 10px; padding: 3px 7px; } }

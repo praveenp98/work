@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { RoccoHead } from "@/components/Rocco";
 import { LoadingText } from "@/components/LoadingText";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
@@ -16,7 +17,8 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
   useEffect(() => { setShow(open); }, [open]);
   if (!show) return null;
   const close = () => { setShow(false); onClose?.(); };
-  return (
+  // Rendered on <body>: inside the sticky bar (which animates with transform) a fixed sheet would be clipped.
+  return createPortal((
     <div className="sheet-bg" role="dialog" aria-modal="true" aria-label="Hire Rocco" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
       <div className="sheet">
         <span className="sheet-grab" aria-hidden />
@@ -29,7 +31,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
         <Urgency />
         <div className="plan-pick" role="radiogroup" aria-label="Plan">
           <button type="button" role="radio" aria-checked={plan === "annual"} className={plan === "annual" ? "on" : ""} onClick={() => setPlan("annual")}>
-            <span className="plan-tag">2 months free · save $238</span><b>$1,190<small>/year</small></b><span>$99 a month, billed yearly</span>
+            <span className="plan-tag">2 months free</span><b>$1,190<small>/year</small></b><span>$99/mo · save $238</span>
           </button>
           <button type="button" role="radio" aria-checked={plan === "monthly"} className={plan === "monthly" ? "on" : ""} onClick={() => setPlan("monthly")}>
             <b>$119<small>/month</small></b><span>billed monthly</span>
@@ -56,5 +58,5 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>
     </div>
-  );
+  ), document.body);
 }

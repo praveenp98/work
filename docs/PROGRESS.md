@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Hire sheet fixes on phones
+- Sticky "Hire Rocco" opened a clipped sheet: the sheet was rendered inside the sticky bar, whose transform traps fixed children. The sheet now renders on <body> (portal) and opens full screen from every button.
+- "2 months free · save $238" tag covered the yearly price on narrow phones: tag now sits in the card ("2 months free"), "save $238" moved to the line under the price (hire sheet + pricing page). Checked on iPhone 13 and iPhone SE (320px).
+- Note: the "$2.6K/mo · 87 fixes" line in the earlier screenshot was the previous deploy; it's removed.
+
+---
+
 ## 2026-11-22 · Hero sells the workflow in 3 seconds; small-account proof removed
 - Hero line is now an animated 4-step flow (components/home/HeroFlow.tsx): connect once → every morning I find what to fix → **you approve in your dashboard / 💬 iMessage / 🟢 WhatsApp / #️⃣ Slack** (rotating, with the reply bubble) → I make it in Amazon and check it worked (Done ✓). Screen-reader text and a static version with reduced motion.
 - Removed "Day one on a real seller account" (a $2.6K/mo account made Rocco look small) from the homepage, the calculator and the press kit.
