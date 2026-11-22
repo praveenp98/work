@@ -43,6 +43,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/MANAGER-CADENCE.md` | Daily/weekly/monthly Amazon manager jobs vs what Rocco's MCP covers, and build order. |
 | `docs/FOUNDER-TEST.md` | Praveen's no-paywall test of the full flow on Habit Nest. |
 | `docs/COSTS.md` | Real costs at 100 sellers (upfront vs per account), profit, cheaper options. |
+| `docs/ROUTINE.md` | **Praveen's daily / weekly / monthly checks** + admin commands. |
 | `docs/LIGHTS-ON.md` | **Praveen's final go-live checklist** (what's pending, in order) + open decisions. |
 | `docs/SUPPORT.md` | Predicted support tickets, macros, where to look. Customer help lives in `lib/help.ts` (/help, /llms-full.txt). |
 | `docs/AI-USAGE.md` | Every place Claude runs, limits, cost, Amazon-only scope (`lib/prompts/scope.ts`). |

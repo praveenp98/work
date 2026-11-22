@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
-import { createInvite, createReconnect, datadoeOn } from "@/lib/datadoe";
+import { createInvite, createReconnect, datadoeOn, getInvitation } from "@/lib/datadoe";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { slotState, SWAP_COOLDOWN_DAYS } from "@/lib/accounts";
@@ -39,8 +39,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, limit: true, slots: st, extraUrl: url, error: url ? `Your plan includes ${st.limit} Amazon accounts and they're all in use. Add one more for $49/month.` : `Your plan includes ${st.limit} Amazon accounts and they're all in use. Email hello@rocco.works to add more.` }, { status: 402 });
     }
   }
+  // Reuse an open link only if DataDoe says it's still unused (links are single use, even after a failed attempt).
   const open0 = ws.amazon?.invite;
-  const reuse = !b.reconnect && open0 && new Date(open0.expiresAt).getTime() > Date.now() + 3_600_000;
+  const fresh0 = !!open0 && !open0.account && new Date(open0.expiresAt).getTime() > Date.now() + 3_600_000 && (await getInvitation(open0.id).then((i) => /PENDING/i.test(i.status ?? "") && !i.sellerOrVendorId).catch(() => false));
+  if (open0 && !fresh0 && ws.amazon) ws.amazon = { ...ws.amazon, invite: undefined };
+  const reuse = !b.reconnect && fresh0;
   if (!reuse && !(await spend(store, ws, "invite"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.invite }, { status: 429 });
   if (b.reconnect) {
     if (!ws.amazon?.accounts?.some((a) => a.id === b.reconnect)) return NextResponse.json({ ok: false }, { status: 404 });
@@ -55,7 +58,7 @@ export async function POST(req: Request) {
     }
   }
   const open = ws.amazon?.invite;
-  if (open && new Date(open.expiresAt).getTime() > Date.now() + 3_600_000) return NextResponse.json({ ok: true, url: open.url });
+  if (reuse && open) return NextResponse.json({ ok: true, url: open.url });
   try {
     const inv = await createInvite(ws.id, { name: ws.ownerEmail ? `Rocco · ${ws.ownerEmail}` : undefined });
     ws.amazon = { ...(ws.amazon ?? {}), accounts: ws.amazon?.accounts ?? [], invite: { id: inv.id, url: inv.invitationUrl, expiresAt: inv.expiresAt } };

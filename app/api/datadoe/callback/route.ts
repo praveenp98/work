@@ -24,7 +24,13 @@ export async function GET(req: Request) {
   const ws = store && /^[A-Za-z0-9-]{6,64}$/.test(ref) ? await store.getWorkspaceById(ref) : null;
   const back = (state: string) => NextResponse.redirect(`${SITE.url}/me?amazon=${state}`);
   if (!store || !ws || !ws.amazon?.invite || ws.amazon.invite.id !== q.get("invitationId")) return back("unknown");
-  if (q.get("success") !== "true") return back(encodeURIComponent((q.get("error") || "failed").slice(0, 60)));
+  if (q.get("success") !== "true") {
+    // DataDoe links are single use: after a failed attempt this one is dead, so the next tap must create a new one.
+    const err = (q.get("error") || "failed").slice(0, 80);
+    console.warn(`[amazon] connect failed for team ${ws.id}: ${err}`);
+    await store.saveWorkspace({ ...ws, amazon: { ...ws.amazon, invite: undefined } });
+    return back(encodeURIComponent(err));
+  }
 
   const id = q.get("sellerOrVendorId") ?? "";
   if (!/^[0-9a-f-]{36}$/i.test(id)) return back("not_found");

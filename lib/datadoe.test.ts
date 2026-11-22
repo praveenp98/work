@@ -14,11 +14,13 @@ const ACCOUNT = {
   amazonAdsConnection: { id: "ads", name: "Ads", initialLoadComplete: false, initialLoadStage: "FIRST_STAGE", needsReauthorization: false },
 };
 
+let usedBy: string | null = null; // what DataDoe says the invite connected (null = not used yet)
 function doe() {
+  usedBy = null;
   const calls: { url: string; body?: unknown; key?: string | null }[] = [];
   vi.stubGlobal("fetch", vi.fn(async (u: string, init?: RequestInit) => {
     calls.push({ url: String(u), body: init?.body ? JSON.parse(String(init.body)) : undefined, key: new Headers(init?.headers).get("datadoe-api-key") });
-    if (String(u).includes("/invitations/")) return Response.json({ id: "inv-1", status: "COMPLETED", sellerOrVendorId: ACCOUNT.id });
+    if (String(u).includes("/invitations/")) return Response.json({ id: "inv-1", status: usedBy ? "COMPLETED" : "PENDING", sellerOrVendorId: usedBy });
     if (String(u).endsWith("/util/sellers-and-vendors/invite")) return Response.json({ id: "inv-1", invitationUrl: "https://app.datadoe.com/invitation/abc", expiresAt: new Date(Date.now() + 7 * 86_400_000).toISOString() }, { status: 201 });
     if (String(u).includes(`/util/sellers-and-vendors/${ACCOUNT.id}`)) return Response.json(ACCOUNT);
     return Response.json({ message: "nope" }, { status: 404 });
@@ -41,6 +43,7 @@ describe("Connect Amazon through DataDoe", () => {
     expect(invites[0].key).toBe("k");
     expect(invites[0].body).toMatchObject({ tenantType: "SELLER", accessLevel: "READ_AND_WRITE", redirectUrl: `https://rocco.works/api/datadoe/callback?ref=${ws.id}` });
 
+    usedBy = ACCOUNT.id;
     const back = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&error=&sellerOrVendorId=${ACCOUNT.id}&sellerOrVendorName=Habit+Nest+US&sellerOrVendorMarketplaceCountryCode=US&invitationId=inv-1&invitationType=CONNECT`));
     expect(back.headers.get("location")).toBe("https://rocco.works/me?amazon=connected");
     const w = (await store.getWorkspaceById(ws.id))!;
@@ -79,6 +82,7 @@ describe("Connect Amazon through DataDoe", () => {
     await grantTrial(store, ws.id);
     await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
     const victim = "11111111-2222-3333-4444-555555555555";
+    usedBy = ACCOUNT.id; // DataDoe: this invite connected ACCOUNT, not the victim
     const swapped = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&sellerOrVendorId=${victim}&invitationId=inv-1`));
     expect(swapped.headers.get("location")).toMatch(/amazon=mismatch/);
     expect((await store.getWorkspaceById(ws.id))!.amazon?.accounts).toHaveLength(0);
@@ -94,7 +98,22 @@ describe("Connect Amazon through DataDoe", () => {
     const { ws, token } = await createWorkspace(store);
     await grantTrial(store, ws.id);
     await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
+    usedBy = ACCOUNT.id;
     const r = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&sellerOrVendorId=${ACCOUNT.id}&invitationId=inv-1`));
     expect(r.headers.get("location")).toMatch(/amazon=taken/);
+  });
+
+  it("a failed connect forgets the used link, so the next tap gets a fresh one", async () => {
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    const calls = doe();
+    const store = new MemoryStore(); setStoreForTests(store);
+    const { ws, token } = await createWorkspace(store);
+    await grantTrial(store, ws.id);
+    const post = () => connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
+    await post();
+    await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=false&error=SELLER_ALREADY_CONNECTED&invitationId=inv-1`));
+    expect((await store.getWorkspaceById(ws.id))!.amazon?.invite).toBeUndefined();
+    await post();
+    expect(calls.filter((c) => c.url.endsWith("/invite"))).toHaveLength(2);
   });
 });

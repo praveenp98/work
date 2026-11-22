@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { adminOk } from "@/lib/security";
+import { resetLink } from "@/lib/team";
 import { getStore } from "@/lib/store";
 import { createWorkspace, ensureLinkCode, rememberToken } from "@/lib/workspace";
 
@@ -32,7 +33,13 @@ export async function GET(req: Request) {
   }
   // Fresh: old teams keep their data but no longer belong to this email (sign-in won't find them).
   // Their Amazon accounts are released too (one account = one team), so the new Rocco can connect them again.
-  for (const ws of old) { ws.ownerEmail = `archived-${now.getTime()}+${email}`; ws.ownerVerified = false; if (ws.amazon) ws.amazon = { ...ws.amazon, accounts: [], invite: undefined }; await store.saveWorkspace(ws); }
+  for (const ws of old) {
+    ws.ownerEmail = `archived-${now.getTime()}+${email}`; ws.ownerVerified = false;
+    if (ws.amazon) ws.amazon = { ...ws.amazon, accounts: [], invite: undefined };
+    if (ws.comp) { ws.paidUntil = now.toISOString(); ws.licensed = false; } // free test access ends with the old team
+    await store.saveWorkspace(ws);
+    await resetLink(store, ws); // old cookies and links stop opening it
+  }
   const c = await createWorkspace(store);
   c.ws.ownerEmail = email;
   grant(c.ws);

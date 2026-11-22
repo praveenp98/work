@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Founder test findings: connect fixes + routine list
+- Praveen ran the founder test. Findings and fixes:
+  - **Reused dead DataDoe link** ("Invitation not found"): Rocco kept an invite after a failed attempt; DataDoe links are single use. Now a failed callback forgets the link, and an open link is only reused if DataDoe says it's still PENDING.
+  - **Generic "Amazon stopped" message**: the real DataDoe error is now logged (`[amazon] connect failed`) and shown as a code; "already connected" gets its own message. Habit Nest US is already in our DataDoe organization, which is the likely cause of the first failure (not permissions).
+  - **Old test team still reachable via cookie** (team card asked to sign in): the founder reset now resets old teams' links and ends their free access.
+- Praveen did: Dodo extra-account product + Vercel env, Supabase 003_limits.sql.
+- New **docs/ROUTINE.md**: daily / weekly / monthly checks and admin commands.
+- Tests 201 passing.
+
+---
+
 ## 2026-11-22 · Accounts per plan, currencies, remove/swap, and the last audit items
 - **3 Amazon accounts included** (each marketplace counts), **+$49/mo per extra** (Dodo product `DODO_PRODUCT_ID_EXTRA_ACCOUNT`, one subscription per slot; refunds/failures remove the slot; not counted as hires). New accounts are blocked at the limit (connect button and DataDoe callback); teams already over keep theirs. Copy updated (pricing, help, llms, launch kit, value calculator).
 - **Remove / swap an account** (owner only, dashboard → Amazon accounts): data and change log stay; slot frees after 30 days, right away if removed within a day of connecting. Answer to "will it be misused?": yes without a cooldown (one plan rotating through client accounts), so the 30-day hold. DataDoe has no disconnect API: removed accounts are logged for Praveen to delete in DataDoe weekly.
