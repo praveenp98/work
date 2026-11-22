@@ -1,73 +1,86 @@
 import type { Metadata } from "next";
 import { Faq } from "@/components/Faq";
-import { HireButton } from "@/components/home/HireButton";
-import { RoccoHead } from "@/components/Rocco";
-import { PriceRise, Urgency, ValueCalc } from "@/components/start/ValueCalc";
+import { JsonLd } from "@/components/JsonLd";
+import { PricingPlans } from "@/components/PricingPlans";
+import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { googleOn } from "@/lib/google";
 import { PLAN, PRICE } from "@/lib/pricing";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Hire Rocco",
+  title: "Pricing",
   description: `Hire Rocco, your AI Amazon manager. ${PRICE.line} Every morning: today's jobs, approved in one tap and made in Amazon.`,
   alternates: { canonical: "/pricing" },
 };
 export const revalidate = 60;
 
-const INCLUDED = [
-  "Every morning: today's jobs, ranked by money, with the reason",
-  "Approve and I make the change in Amazon: checked first, logged, undoable",
-  "Negatives, bids, budgets, and new exact campaigns from proven searches",
-  "Tidy your campaigns: one naming system, one portfolio per product",
-  "Restock, listing and Buy Box alerts with the exact steps",
-  "Day one: I read your account's change history, so I know what was tried before me",
-  "Every change measured a week later, and I learn your style",
-  "Reminders on iMessage, WhatsApp or Slack; approve by text",
-  "Whole team, 3 Amazon accounts included (+$49/mo each extra), Seller Central + Amazon Ads",
+/** What's included, grouped the way a buyer thinks about it. */
+const GROUPS: { t: string; ic: string; items: string[] }[] = [
+  { t: "Every morning", ic: "☀️", items: ["Today's jobs, ranked by money, each with the reason", "Restock, listing and Buy Box alerts with the exact steps", "A one-line brief: the most important thing today"] },
+  { t: "Made in Amazon for you", ic: "✅", items: ["Block wasted searches, fix bids, move budgets", "New exact campaigns from searches that already sell", "Tidy campaigns: one naming system, one portfolio per product", "Every change checked first, logged and undoable"] },
+  { t: "Gets sharper every week", ic: "🧠", items: ["Every change measured a week later", "Learns your style from what you skip and why", "Reads your account's history on day one"] },
+  { t: "Your team, your way", ic: "💬", items: ["Teammates by email, every approval named", "Reminders on iMessage, WhatsApp or Slack", "3 Amazon accounts, every marketplace, your currency"] },
+];
+
+const STEPS = [
+  { n: "1", t: "Hire Rocco", d: "Sign up with Google, pick yearly or monthly. 1 minute." },
+  { n: "2", t: "Connect Amazon", d: "Seller Central, then Amazon Ads, on Amazon's own sign-in. 2 minutes." },
+  { n: "3", t: "Approve each morning", d: "First jobs usually within hours. Tap approve; I make the change." },
+];
+
+const FAQ = [
+  { q: "What happens after I pay?", a: "You connect Amazon in about 2 minutes (Seller Central, then Amazon Ads) with Amazon's own sign-in. I start reading right away; your first jobs usually show up within hours." },
+  { q: "What do I need?", a: "Your Seller Central login as the primary user (or a user with all permissions) and your Amazon Ads login. Any marketplace. No Claude or other AI needed." },
+  { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that change in Amazon: checked with Amazon first, logged, and undoable. Nothing changes on its own." },
+  { q: "How many Amazon accounts?", a: "3 are included (each marketplace counts as one). Each extra account is +$49 a month, added from your dashboard. Agencies: same plan, add accounts as you go." },
+  { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco. Every approval shows who made it. Remove someone anytime, or hand the whole Rocco over." },
+  { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
+  { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
+  { q: "Is there a free plan?", a: `No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the ${PLAN.guaranteeDays}-day guarantee instead.` },
 ];
 
 export default async function Page() {
-  const google = googleOn();
   return (
-    <section className="hire">
-      <div className="hello-avatar" style={{ width: 96, height: 96 }}>
-        <svg width="80" height="66" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="hire" /></svg>
-        <span className="online" aria-hidden />
-      </div>
-      <span className="h5-kicker">Real work without the fluff</span>
-      <h1>Hire Rocco.</h1>
-      <p className="hello-lede">One plan. Your whole team. Every Amazon marketplace.</p>
-      <Urgency />
-      <div className="pp-plans static">
-        <div className="on">
-          <span className="pp-tag best">2 months free</span>
-          <b>{PRICE.annual}<small>/year</small></b>
-          <span className="pp-line">{PRICE.perMonthAnnual}/mo billed yearly</span>
+    <section className="pr">
+      <header className="pr-head">
+        <span className="h5-kicker">Real work without the fluff</span>
+        <h1>One plan. A senior Amazon manager, every morning.</h1>
+        <p className="pr-sub">I find what to fix, you approve, I make the change in Amazon and check it worked.</p>
+        <Urgency />
+      </header>
+
+      <PricingPlans google={googleOn()} annual={PRICE.annual} monthly={PRICE.monthly} perMonthAnnual={PRICE.perMonthAnnual} guaranteeDays={PLAN.guaranteeDays} />
+
+      <section className="pr-sec">
+        <h2>Everything that&apos;s included</h2>
+        <div className="pr-groups">
+          {GROUPS.map((g) => (
+            <div key={g.t} className="pr-group">
+              <h3><span aria-hidden>{g.ic}</span> {g.t}</h3>
+              <ul>{g.items.map((i) => <li key={i}>{i}</li>)}</ul>
+            </div>
+          ))}
         </div>
-        <div>
-          <span className="pp-tag">Flexible</span>
-          <b>{PRICE.monthly}<small>/month</small></b>
-          <span className="pp-line">billed monthly</span>
-        </div>
-      </div>
-      <PriceRise />
-      <div className="hire-card">
-        <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
-        <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn imsg-btn hire-btn" />
-        <p className="fine" style={{ margin: "10px 0 0" }}>🛡️ {PRICE.guarantee}: if you don&apos;t like the fixes I give you, ask for your money back. Prices in USD; checkout shows your local price. Secure checkout by Dodo Payments.</p>
-      </div>
-      <ValueCalc />
-      <div style={{ width: "100%", textAlign: "left" }}>
-        <Faq items={[
-          { q: "What happens after I pay?", a: "You connect Amazon in about 2 minutes (Seller Central, then Amazon Ads) with Amazon's own sign-in. I start reading right away; your first jobs usually show up within hours." },
-          { q: "What do I need?", a: "Your Seller Central login as the primary user (or a user with all permissions) and your Amazon Ads login. Any marketplace. No Claude or other AI needed." },
-          { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that change in Amazon: checked with Amazon first, logged, and undoable. Nothing changes on its own." },
-          { q: "How many Amazon accounts?", a: "3 are included (each marketplace counts as one). Each extra account is +$49 a month, added from your dashboard. Agencies: same plan, add accounts as you go." },
-          { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco, see today's jobs and approve them. Every approval shows who made it. You can remove someone anytime, or hand the whole Rocco to a teammate." },
-          { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
-          { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
-          { q: "Is there a free plan?", a: "No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the 7-day guarantee instead." },
-        ]} />
-      </div>
+      </section>
+
+      <section className="pr-sec">
+        <h2>What happens after you pay</h2>
+        <ol className="pr-steps">{STEPS.map((s) => <li key={s.n}><span>{s.n}</span><b>{s.t}</b><p>{s.d}</p></li>)}</ol>
+      </section>
+
+      <section className="pr-sec">
+        <h2>What it&apos;s worth</h2>
+        <ValueCalc />
+      </section>
+
+      <section className="pr-sec pr-faq">
+        <h2>Questions</h2>
+        <Faq items={FAQ} title={null} />
+        <p className="fine">More answers in <a href="/help">Help</a>, or email <a href="mailto:hello@rocco.works">hello@rocco.works</a>.</p>
+      </section>
+
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "Product", name: "Rocco", description: SITE.description, brand: { "@type": "Brand", name: "Rocco" }, offers: [{ "@type": "Offer", name: "Yearly", price: (PLAN.annualCents / 100).toFixed(2), priceCurrency: "USD", url: `${SITE.url}/pricing` }, { "@type": "Offer", name: "Monthly", price: (PLAN.monthlyCents / 100).toFixed(2), priceCurrency: "USD", url: `${SITE.url}/pricing` }] }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
     </section>
   );
 }

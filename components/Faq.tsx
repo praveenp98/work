@@ -2,10 +2,10 @@ import { JsonLd } from "./JsonLd";
 
 export interface QA { q: string; a: string }
 
-export function Faq({ items }: { items: QA[] }) {
+export function Faq({ items, title = "FAQ" }: { items: QA[]; title?: string | null }) {
   return (
     <section className="faq">
-      <h2>FAQ</h2>
+      {title && <h2>{title}</h2>}
       {items.map((x) => (
         <details key={x.q}>
           <summary>{x.q}</summary>

@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · App header, example mornings while waiting, new pricing page
+- Inside the product (/w, /me, /welcome) the header shows only the logo and Help: no Pricing/Answers after paying.
+- Connect + waiting screens show "here's what your mornings will look like": the animated example dashboard (labeled example), so the hours-long first load isn't a blank wait. Order: status card → example → ping setup → team.
+- **Pricing page rebuilt** (top-SaaS pattern): headline + live countdown → Yearly/Monthly switch (yearly first, "2 months free") → one plan card ($99/mo billed yearly or $119/mo, CTA, guarantee under the button, quick ticks) → price-rise line → "Everything that's included" in 4 groups → "What happens after you pay" (3 steps) → value calculator → FAQ. Product + FAQ JSON-LD.
+- Tests 201 passing.
+
+---
+
 ## 2026-11-22 · Founder test passed connect (US + India); waiting screen + ping setup
 - Praveen connected Habit Nest US and The PlugX Method IN (with Ads) through Rocco: the real customer path works.
 - Waiting screen: one status line (the Check now answer replaces the waiting line instead of adding a second); "I'll message you" only when a phone or Slack is actually linked; accounts that skipped Amazon Ads show "Amazon Ads isn't connected… Connect Amazon Ads →" (reconnect link).

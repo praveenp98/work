@@ -5,6 +5,7 @@ import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
 import { ReminderCard } from "@/components/dash/ReminderCard";
 import { TeamCard } from "@/components/dash/TeamCard";
+import { HeroDashboard } from "@/components/home/HeroDashboard";
 import { AccountsCard } from "@/components/dash/AccountsCard";
 import { slotState } from "@/lib/accounts";
 import { currencyOf, localize, money } from "@/lib/currency";
@@ -96,6 +97,13 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <section className="rc-page">
         <RememberTeam t={token} />
         {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access !== "none" && direct && (
+          <section className="rc-example" aria-label="Example of your mornings">
+            <p className="rc-ex-k">{accounts.length ? "While Amazon sends your data: here's what your mornings will look like" : "Here's what your mornings will look like"}</p>
+            <HeroDashboard />
+            <p className="fine">Example account. Your real jobs, from your own numbers, show up right here.</p>
+          </section>
+        )}
         {access !== "none" && direct && accounts.length > 0 && <div className="rc-team"><ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} title="Ping me when my first jobs are ready" /></div>}
         {access !== "none" && <div className="rc-team">{team}</div>}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>

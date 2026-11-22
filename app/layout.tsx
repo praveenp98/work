@@ -7,6 +7,7 @@ import { googleOn } from "@/lib/google";
 import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
 import { SITE } from "@/lib/site";
+import { TopNav } from "@/components/TopNav";
 import "./globals.css";
 import "./connect.css";
 
@@ -30,11 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="top top-b">
           <div className="top-in">
-            <nav className="top-left" aria-label="Main">
-              <Link href="/pricing">Pricing</Link>
-            <Link href="/help">Help</Link>
-              <Link href="/answers">Answers</Link>
-            </nav>
+            <TopNav />
             <Link href="/" className="brand">
               <Raccoon size={34} /> <span>Rocco</span>
             </Link>
