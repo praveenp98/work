@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Q&A: teams, logins, handover (gap found)
+- Today one Rocco = one team: one owner (Google email), a secret team link (/w/rw_…), phones linked by code for texting, optional Slack. One Amazon account can belong to only one Rocco team (security rule).
+- Gap: no "add teammate by email", no roles, no remove-person, no transfer-owner, no "new link" (rotate). Teammates can only use the forwarded secret link, which can't be revoked; a teammate signing in with Google gets their own empty Rocco.
+- Proposed build (waiting on Praveen): Team card on the dashboard: invite by email (they sign in with Google and land on the same Rocco), owner/member roles, remove, transfer ownership, reset the secret link. Approvals logged with the person's name.
+
+---
+
 ## 2026-11-22 · Plan cards, live countdown, price rise line, change-log section
 - Plan cards: **$1,190/year** with "$99/mo billed yearly" under it; **$119/month** "billed monthly" (pricing page + plan step).
 - Agency-vs-Rocco bars replaced with **"your team's time vs Rocco"** (hours/day spent checking ads, bids, stock × $35/h × 22 days), so agencies aren't put off: "Brands and agencies: every account, one plan."
