@@ -20,5 +20,3 @@ export function urgencyLine(now = new Date()): { days: number; text: string } | 
   return null;
 }
 
-/** First-day result on a real connected account (Habit Nest US, Nov 22 live pull), shown anonymized. */
-export const PROOF = { adSpendMonthly: 2631, fixes: 87, line: "On a real seller account spending $2.6K/mo on ads, I found 87 fixes on day one." } as const;

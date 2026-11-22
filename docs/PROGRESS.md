@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Hero sells the workflow in 3 seconds; small-account proof removed
+- Hero line is now an animated 4-step flow (components/home/HeroFlow.tsx): connect once → every morning I find what to fix → **you approve in your dashboard / 💬 iMessage / 🟢 WhatsApp / #️⃣ Slack** (rotating, with the reply bubble) → I make it in Amazon and check it worked (Done ✓). Screen-reader text and a static version with reduced motion.
+- Removed "Day one on a real seller account" (a $2.6K/mo account made Rocco look small) from the homepage, the calculator and the press kit.
+- Google sign-in already asks Google for the account chooser (prompt=select_account). On iPhone Safari without a Google session Google can only show the email box; signed-in browsers get the chooser.
+- Tests 167/167, build OK.
+
+---
+
 ## 2026-11-22 · Whole-site buyer pass: every page current, conversion + clarity
 - **Homepage rebuilt around the product as it is today:** hero CTA is "Hire Rocco" (honest: payment comes before connecting); live demo now shows today's *jobs* (Block 6 searches, New exact campaign, Raise 2 budgets, Restock) being approved and made in Amazon, plus the "Rocco has saved you $1,284 · 13× what I cost" strip. New sections: The whole job every morning (6 job types), How a fix happens, I learn how you work (skip reasons + savings), Decisions not data, Approve on your dashboard or from messages (iMessage/WhatsApp/Slack, approve by text), real-account proof (87 fixes day one, 5 of 233 campaigns readable, 132 idle), price card with Black Friday line + calculator + guarantee, FAQ (with FAQ schema). No ChatGPT/connector talk anywhere.
 - **Pricing page:** yearly/monthly plan cards, what's included (jobs, campaign creation, Tidy, alerts, reminders), calculator, new FAQ (what happens after I pay, guarantee, no free plan and why).

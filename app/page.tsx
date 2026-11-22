@@ -1,5 +1,6 @@
 import { HireButton } from "@/components/home/HireButton";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
+import { HeroFlow } from "@/components/home/HeroFlow";
 import { HowItHappens } from "@/components/home/HowItHappens";
 import { StickyHire } from "@/components/home/StickyHire";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
@@ -47,7 +48,7 @@ export default async function Home() {
         <div className="h5-copy">
           <span className="h5-kicker">Real work without the fluff</span>
           <h1>I can run your Amazon business, try me.</h1>
-          <p className="h5-sub">Connect Seller Central and Amazon Ads once. Every morning I find what to fix. You tap approve, I make the change in Amazon and check it worked.</p>
+          <HeroFlow />
           <div className="h5-cta">
             <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn hire-cta" />
             <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime</span>
@@ -119,20 +120,6 @@ export default async function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="hband">
-        <div className="center-head">
-          <span className="kicker">On a real account</span>
-          <h2 className="big-h">Day one on a real seller account.</h2>
-        </div>
-        <ul className="hproof">
-          <li><b>87</b><span>fixes found on day one, with $2.6K/mo ad spend</span></li>
-          <li><b>233</b><span>live campaigns read and grouped by product</span></li>
-          <li><b>5 of 233</b><span>campaign names were readable before tidying</span></li>
-          <li><b>132</b><span>live campaigns with no impressions in 30 days, flagged</span></li>
-        </ul>
-        <p className="fine center">A real seller account connected on Nov 22, 2026 (name withheld).</p>
       </section>
 
       <section className="hband soft" id="price">

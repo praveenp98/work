@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { PLAN } from "@/lib/pricing";
-import { PROOF, urgencyLine } from "@/lib/urgency";
+import { urgencyLine } from "@/lib/urgency";
 
 /**
  * The paywall's case, all honest: a calculator on the seller's own ad spend (an illustration at 5% waste cut, stated
@@ -29,7 +29,7 @@ export function ValueCalc({ plan = "annual", compact }: { plan?: "annual" | "mon
       <label className="vc-q" htmlFor="vc-spend">Your monthly ad spend <b>{$(spend)}{i === STEPS.length - 1 ? "+" : ""}</b></label>
       <input id="vc-spend" type="range" min={0} max={STEPS.length - 1} step={1} value={i} onChange={(e) => setI(Number(e.target.value))} aria-valuetext={$(spend)} />
       <p className="vc-a">Cut just 5% of waste and that&apos;s <b>{$(back)}/mo</b> back. I cost {$(cost)}/mo{x >= 1 ? <> → <b className="vc-x">{x >= 10 ? Math.round(x) : x.toFixed(1)}× my price</b></> : null}.</p>
-      <p className="vc-proof">✅ {PROOF.line}{sold >= 5 ? ` ${sold} brands have hired me.` : ""}</p>
+      {sold >= 5 && <p className="vc-proof">✅ {sold} brands have hired me.</p>}
     </div>
   );
 }

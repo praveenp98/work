@@ -378,3 +378,4 @@ h1, h2, .display { color: var(--ink); }
 /* Site-wide notice (sign-in problems, offline) */
 .notice { position: sticky; top: 0; z-index: 30; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 10px 16px; background: color-mix(in srgb, #e8a33d 16%, #fff); border-bottom: 1px solid color-mix(in srgb, #e8a33d 40%, var(--line)); font-size: 14px; text-align: center; animation: lt-in .3s ease both; }
 .notice button { background: none; border: 0; font-size: 18px; line-height: 1; cursor: pointer; color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
