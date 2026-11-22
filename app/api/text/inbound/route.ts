@@ -1,15 +1,17 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { firstTime } from "@/lib/limits";
 import { secretOk } from "@/lib/security";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { respond } from "@/lib/text/handler";
-import { firstDelivery, parseInbound, sendText } from "@/lib/text/provider";
+import { parseInbound, sendText } from "@/lib/text/provider";
 
 /**
  * LoopMessage webhook. In LoopMessage → API → Webhooks, set the URL to https://rocco.works/api/text/inbound and add a
  * custom header `Authorization: <TEXT_WEBHOOK_SECRET>`. Must answer 200 within 15s or LoopMessage retries.
  */
 export const dynamic = "force-dynamic";
+export const maxDuration = 60; // the reply runs after LoopMessage already got its 200
 /** A dedicated Rocco number, if you have one. Shared lines differ per conversation, so then the card uses the line from the webhook. */
 const DEDICATED_LINE = process.env.ROCCO_PHONE;
 
@@ -21,10 +23,13 @@ export async function POST(req: Request) {
 
   const msg = parseInbound((await req.json().catch(() => ({}))) as Record<string, unknown>);
   if (!msg) return NextResponse.json({ ok: true, ignored: true }); // statuses, reactions, etc.
-  if (!firstDelivery(msg.id)) return NextResponse.json({ ok: true, duplicate: true });
+  // Once per message across every server: a LoopMessage retry never gets a second reply.
+  if (!(await firstTime(`text:${msg.id}`))) return NextResponse.json({ ok: true, duplicate: true });
   const store = getStore();
   if (!store) return NextResponse.json({ ok: true, error: "memory not configured" });
 
+  // Answer LoopMessage right away (it retries after 15s); Rocco's reply goes out in the background.
+  const work = async () => {
   // Personal opt-in links carry the workspace link code → link automatically.
   const text = msg.linkCode ? `link ${msg.linkCode}` : msg.text || "hi";
   const reply = await respond(store, msg.contact, text, new Date(), { attachments: msg.attachments });
@@ -40,5 +45,13 @@ export async function POST(req: Request) {
     await new Promise((r) => setTimeout(r, 900));
     await sendText(msg.contact, "Save me so you know it's me 👇", { mediaUrl: `${SITE.url}/card/${line.replace(/\D/g, "")}.vcf` });
   }
-  return NextResponse.json({ ok: true, sent: sent.ok, dryRun: sent.dryRun, bubbles: reply.bubbles.length });
+  return { sent: sent.ok, dryRun: sent.dryRun, bubbles: reply.bubbles.length };
+  };
+  try {
+    after(() => work().catch((e) => console.error("[text] reply failed", e)));
+    return NextResponse.json({ ok: true, queued: true });
+  } catch {
+    // Outside a request (tests): run inline.
+    return NextResponse.json({ ok: true, ...(await work()) });
+  }
 }

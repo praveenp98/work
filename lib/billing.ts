@@ -1,4 +1,4 @@
-import { fetchPayment, fetchSubscription, ourProducts } from "./payments";
+import { fetchPayment, fetchSubscription, latestPaymentOf, ourProducts } from "./payments";
 import type { Store, Workspace } from "./store/types";
 
 /**
@@ -15,9 +15,11 @@ export type BillingChange = "trial" | "paid" | "ended" | "cancelled" | null;
 
 export async function syncBilling(store: Store, body: { type?: string; data?: { subscription_id?: string; payment_id?: string } }, now = new Date()): Promise<{ ws: Workspace | null; change: BillingChange }> {
   const data = body.data ?? {};
-  const pay = data.payment_id ? await fetchPayment(String(data.payment_id)) : null;
+  let pay = data.payment_id ? await fetchPayment(String(data.payment_id)) : null;
   const subId = data.subscription_id ?? pay?.subscription_id ?? undefined;
   const sub = subId ? await fetchSubscription(String(subId)) : null;
+  // Only a subscription id (some return links): look up its latest succeeded payment so access turns on right away.
+  if (!pay && sub && ["active", "pending"].includes(sub.status ?? "")) pay = await latestPaymentOf(sub.subscription_id).catch(() => null);
   const ref = sub?.metadata?.ref ?? pay?.metadata?.ref;
   if (!ref || !/^[A-Za-z0-9-]{6,64}$/.test(ref)) return { ws: null, change: null };
   const ws = await store.getWorkspaceById(ref);

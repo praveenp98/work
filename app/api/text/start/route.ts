@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
+import { clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
+import { allowShared } from "@/lib/limits";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { optInLinks } from "@/lib/text/provider";
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
   if (why) return NextResponse.json({ ok: false, error: why }, { status: 403 });
   const ip = clientIp(h);
   // LoopMessage counts a contact on the first message sent, not on link opens, so no site-wide cap (ads must never be blocked).
-  if (!allow(`ip:${ip}`, 10, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
+  if (!(await allowShared(`optin:${ip}`, 10, 10 * 60_000))) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
 
   const b = (await req.json().catch(() => ({}))) as { q?: unknown; t?: unknown; join?: unknown; channel?: unknown };
   const q = String(b.q ?? "").replace(/[\[\]<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 90);

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { secretOk } from "@/lib/security";
+import { cleanupLimits } from "@/lib/limits";
 import { benchmark } from "@/lib/rules/benchmarks";
 import { getStore } from "@/lib/store";
 import { dailyNumbers } from "@/lib/text/daily";
@@ -22,6 +23,7 @@ export async function GET(req: Request) {
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, error: "memory not configured" }, { status: 503 });
+  await cleanupLimits().catch(() => {});
   const phones = await store.listPhones({ optedIn: true });
   const byWs = new Map<string, string[]>();
   // Phones get texts; a "slack-team:" row means the workspace also gets the morning post in Slack.

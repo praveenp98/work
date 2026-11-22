@@ -1,3 +1,4 @@
+import { changedKeys, mergeOnto, Snapshots, type Data } from "./merge";
 import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
 
 /**
@@ -6,6 +7,9 @@ import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
  */
 export class SupabaseStore implements Store {
   readonly persistent = true;
+  private snaps = new Snapshots();
+  /** Every workspace handed out is remembered as loaded, so saves send only what changed (lib/store/merge.ts). */
+  private ws = (r: { id: string; data: Omit<Workspace, "id"> }): Workspace => this.snaps.remember({ id: r.id, ...r.data } as Workspace);
   private url: string;
   constructor(url: string, private key: string) {
     // accept "https://x.supabase.co", with trailing slash or "/rest/v1"
@@ -41,33 +45,59 @@ export class SupabaseStore implements Store {
   async createWorkspace(tokenHash: string) {
     const data = { createdAt: new Date().toISOString(), licensed: false, brands: {} };
     const [row] = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>("workspaces", { method: "POST", body: JSON.stringify({ token_hash: tokenHash, data }) });
-    return { id: row.id, ...row.data };
+    return this.ws(row);
   }
   async getWorkspace(tokenHash: string) {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?token_hash=eq.${encodeURIComponent(tokenHash)}&select=id,data&limit=1`);
-    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+    return rows[0] ? this.ws(rows[0]) : null;
   }
   async saveWorkspace(w: Workspace) {
-    const { id, ...data } = w;
-    await this.q(`workspaces?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ data }), headers: { Prefer: "return=minimal" } });
+    const { id, ...mine } = w as unknown as Data & { id: string };
+    const before = this.snaps.before(w);
+    const keys = before ? changedKeys(before, mine) : Object.keys(mine).filter((k) => k !== "_v");
+    if (!keys.length) return;
+    // Compare-and-swap on the version: only this request's fields, on top of the latest record. Retry if beaten.
+    for (let i = 0; i < 6; i++) {
+      const rows = await this.q<{ data: Data }[]>(`workspaces?id=eq.${encodeURIComponent(id)}&select=data&limit=1`);
+      if (!rows[0]) return;
+      const latest = rows[0].data ?? {};
+      const v = typeof latest._v === "number" ? latest._v : null;
+      const next = { ...mergeOnto(latest, mine, keys), _v: (v ?? 0) + 1 };
+      let done: unknown[] | null;
+      try {
+        done = await this.q<unknown[]>(`workspaces?id=eq.${encodeURIComponent(id)}&data->>_v=${v === null ? "is.null" : `eq.${v}`}`, { method: "PATCH", body: JSON.stringify({ data: next }) });
+      } catch (e) {
+        // Safety net: if the database ever rejects the version filter, still save only this request's fields.
+        console.warn("[store] versioned save failed, saving fields directly", e instanceof Error ? e.message.slice(0, 120) : e);
+        await this.q(`workspaces?id=eq.${encodeURIComponent(id)}`, { method: "PATCH", body: JSON.stringify({ data: next }), headers: { Prefer: "return=minimal" } });
+        done = [next];
+      }
+      if (Array.isArray(done) && done.length) {
+        (w as unknown as Data)._v = next._v;
+        this.snaps.remember(w); // a second save of the same object only sends what changed after this one
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 40 + Math.random() * 120));
+    }
+    throw new Error("Rocco memory busy: try again");
   }
 
   async getWorkspaceById(id: string) {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?id=eq.${encodeURIComponent(id)}&select=id,data&limit=1`);
-    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+    return rows[0] ? this.ws(rows[0]) : null;
   }
   async findWorkspaceByLinkCode(code: string) {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>linkCode=eq.${encodeURIComponent(code.toUpperCase())}&select=id,data&limit=1`);
-    return rows[0] ? { id: rows[0].id, ...rows[0].data } : null;
+    return rows[0] ? this.ws(rows[0]) : null;
   }
   async findWorkspacesByOwner(email: string) {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>ownerEmail=eq.${encodeURIComponent(email.toLowerCase())}&select=id,data&order=created_at.desc&limit=10`);
-    return rows.map((r) => ({ id: r.id, ...r.data }));
+    return rows.map((r) => this.ws(r));
   }
   async findWorkspacesByMember(email: string) {
     const f = encodeURIComponent(JSON.stringify([{ email: email.toLowerCase() }]));
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->members=cs.${f}&select=id,data&order=created_at.desc&limit=10`);
-    return rows.map((r) => ({ id: r.id, ...r.data }));
+    return rows.map((r) => this.ws(r));
   }
   async rotateToken(id: string, newTokenHash: string) {
     await this.q(`workspaces?id=eq.${encodeURIComponent(id)}`, { method: "PATCH", body: JSON.stringify({ token_hash: newTokenHash }), headers: { Prefer: "return=minimal" } });
@@ -81,7 +111,7 @@ export class SupabaseStore implements Store {
   }
   async listAmazonWorkspaces() {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->amazon=not.is.null&select=id,data&limit=2000`);
-    return rows.map((r) => ({ id: r.id, ...r.data })).filter((w) => w.amazon?.accounts?.length);
+    return rows.map((r) => this.ws(r)).filter((w) => w.amazon?.accounts?.length);
   }
   async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {
     const f = [o.workspaceId ? `workspace_id=eq.${o.workspaceId}` : "", o.optedIn ? "opted_out=eq.false" : ""].filter(Boolean).join("&");

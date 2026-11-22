@@ -63,6 +63,12 @@ async function dodoGet<T>(path: string): Promise<T | null> {
   return res?.ok ? ((await res.json().catch(() => null)) as T | null) : null;
 }
 export const fetchSubscription = (id: string) => (/^[A-Za-z0-9_-]{6,80}$/.test(id) ? dodoGet<DodoSubscription>(`/subscriptions/${id}`) : Promise.resolve(null));
+/** Latest succeeded payment of a subscription (when Dodo's return link only carries the subscription id). */
+export async function latestPaymentOf(subscriptionId: string): Promise<DodoPayment | null> {
+  if (!/^[A-Za-z0-9_-]{6,80}$/.test(subscriptionId)) return null;
+  const list = await dodoGet<{ items?: DodoPayment[] }>(`/payments?subscription_id=${subscriptionId}&status=succeeded&page_size=5`);
+  return list?.items?.find((p) => p.subscription_id === subscriptionId && p.status === "succeeded") ?? null;
+}
 export const fetchPayment = (id: string) => (/^[A-Za-z0-9_-]{6,80}$/.test(id) ? dodoGet<DodoPayment>(`/payments/${id}`) : Promise.resolve(null));
 
 /** Cancel a subscription (no further charges). Used by the "CANCEL" text and the trial reminder. */

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { allow, clientIp } from "@/lib/human";
+import { clientIp } from "@/lib/human";
+import { allowShared } from "@/lib/limits";
 import { verifyStandardWebhook } from "@/lib/security";
 import { syncBilling } from "@/lib/billing";
 import { notifyTeam } from "@/lib/notify";
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
   const raw = await req.text();
   const secret = process.env.DODO_WEBHOOK_SECRET;
   if (secret && !verifyStandardWebhook(secret, req.headers, raw)) return NextResponse.json({ ok: false }, { status: 401 });
-  if (!secret && !allow(`dodo:${clientIp(req.headers)}`, 30, 60_000)) return NextResponse.json({ ok: false }, { status: 429 });
+  if (!secret && !(await allowShared(`dodo:${clientIp(req.headers)}`, 30, 60_000))) return NextResponse.json({ ok: false }, { status: 429 });
   let body: { type?: string; data?: { subscription_id?: string; payment_id?: string } } = {};
   try { body = JSON.parse(raw); } catch { /* empty */ }
   const store = getStore();

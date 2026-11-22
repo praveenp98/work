@@ -1,3 +1,4 @@
+import { allowShared } from "../limits";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import Papa from "papaparse";
 import { z } from "zod";
@@ -316,6 +317,7 @@ export function registerStatelessTools(server: McpServer) {
   }, async () => {
     const store = getStore();
     if (!store) return fail(`Workspaces aren't switched on yet. Create one later at ${SITE.url}/connect.`);
+    if (!(await allowShared("ws:mcp", 100, 3600_000))) return fail("Too many new workspaces right now. Try again in an hour.");
     const { token } = await createWorkspace(store);
     return text([
       "Your personal Rocco is ready. Add this as a new connector (and you can remove the shared one):",

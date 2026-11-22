@@ -1,16 +1,13 @@
 import { NextResponse } from "next/server";
+import { allowShared } from "@/lib/limits";
 import { getStore } from "@/lib/store";
 import { createWorkspace } from "@/lib/workspace";
 
 /** Create a personal Rocco workspace. Returns the secret key used in the connector URL. */
-const recent = new Map<string, number[]>();
-
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
-  const now = Date.now();
-  const hits = (recent.get(ip) ?? []).filter((t) => now - t < 3600_000);
-  if (hits.length >= 10) return NextResponse.json({ ok: false, error: "Too many workspaces from here. Try again later." }, { status: 429 });
-  recent.set(ip, [...hits, now]);
+  // 10 an hour per address, and 300 an hour for the whole site (across every server).
+  if (!(await allowShared(`ws:${ip}`, 10, 3600_000)) || !(await allowShared("ws:all", 300, 3600_000))) return NextResponse.json({ ok: false, error: "Too many workspaces from here. Try again later." }, { status: 429 });
 
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, error: "Rocco memory isn't switched on yet. Use the shared connector for now." }, { status: 503 });

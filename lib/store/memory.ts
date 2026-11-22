@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { changedKeys, mergeOnto, Snapshots, type Data } from "./merge";
 import type { Action, Phone, Run, Snapshot, Store, Workspace } from "./types";
 
 /** In-process store for dev and tests. Not durable across server instances. */
@@ -9,34 +10,42 @@ export class MemoryStore implements Store {
   private runs: Run[] = [];
   private actions: Action[] = [];
   private phones = new Map<string, Phone>();
+  private snapsWs = new Snapshots();
+  private out = (w: Workspace) => this.snapsWs.remember(structuredClone(w));
 
   async createWorkspace(tokenHash: string) {
     const w: Workspace = { id: randomUUID(), createdAt: new Date().toISOString(), licensed: false, brands: {} };
     this.ws.set(tokenHash, w);
-    return structuredClone(w);
+    return this.out(w);
   }
   async getWorkspace(tokenHash: string) {
     const w = this.ws.get(tokenHash);
-    return w ? structuredClone(w) : null;
+    return w ? this.out(w) : null;
   }
   async saveWorkspace(w: Workspace) {
-    for (const [h, v] of this.ws) if (v.id === w.id) this.ws.set(h, structuredClone(w));
+    // Same rule as Supabase: only the fields this caller changed land on the latest record.
+    const before = this.snapsWs.before(w);
+    for (const [h, v] of this.ws) if (v.id === w.id) {
+      const keys = before ? changedKeys(before, w as unknown as Data) : Object.keys(w);
+      this.ws.set(h, structuredClone(mergeOnto(v as unknown as Data, w as unknown as Data, keys)) as unknown as Workspace);
+    }
+    this.snapsWs.remember(w);
   }
   async getWorkspaceById(id: string) {
-    for (const w of this.ws.values()) if (w.id === id) return structuredClone(w);
+    for (const w of this.ws.values()) if (w.id === id) return this.out(w);
     return null;
   }
   async findWorkspaceByLinkCode(code: string) {
-    for (const w of this.ws.values()) if (w.linkCode && w.linkCode === code.toUpperCase()) return structuredClone(w);
+    for (const w of this.ws.values()) if (w.linkCode && w.linkCode === code.toUpperCase()) return this.out(w);
     return null;
   }
   async findWorkspacesByOwner(email: string) {
     const e = email.toLowerCase();
-    return [...this.ws.values()].filter((w) => w.ownerEmail?.toLowerCase() === e).reverse().map((w) => structuredClone(w));
+    return [...this.ws.values()].filter((w) => w.ownerEmail?.toLowerCase() === e).reverse().map((w) => this.out(w));
   }
   async findWorkspacesByMember(email: string) {
     const e = email.toLowerCase();
-    return [...this.ws.values()].filter((w) => w.members?.some((m) => m.email === e)).reverse().map((w) => structuredClone(w));
+    return [...this.ws.values()].filter((w) => w.members?.some((m) => m.email === e)).reverse().map((w) => this.out(w));
   }
   async rotateToken(id: string, newTokenHash: string) {
     for (const [h, v] of this.ws) if (v.id === id) { this.ws.delete(h); this.ws.set(newTokenHash, v); return; }
@@ -44,7 +53,7 @@ export class MemoryStore implements Store {
   async getPhone(phone: string) { const p = this.phones.get(phone); return p ? structuredClone(p) : null; }
   async savePhone(p: Phone) { this.phones.set(p.phone, structuredClone(p)); }
   async listAmazonWorkspaces() {
-    return [...this.ws.values()].filter((w) => w.amazon?.accounts?.length).map((w) => structuredClone(w));
+    return [...this.ws.values()].filter((w) => w.amazon?.accounts?.length).map((w) => this.out(w));
   }
   async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {
     return [...this.phones.values()].filter((p) => (!o.workspaceId || p.workspaceId === o.workspaceId) && (!o.optedIn || !p.optedOut)).map((p) => structuredClone(p));

@@ -1,6 +1,7 @@
 import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
-import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
+import { clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
+import { allowShared } from "@/lib/limits";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { seal, unseal } from "@/lib/vault";
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
   const h = req.headers;
   const why = h.get("x-rocco-tap") !== "1" ? "no tap" : !fromOurSite(h, SITE.domain) ? "not from rocco.works" : looksLikeBot(h);
   if (why) return NextResponse.json({ ok: false, error: why }, { status: 403 });
-  if (!allow(`hire:${clientIp(h)}`, 6, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
+  if (!(await allowShared(`hire:${clientIp(h)}`, 6, 10 * 60_000))) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
   const body = (await req.json().catch(() => ({}))) as { email?: unknown; plan?: unknown };
   const email = typeof body.email === "string" && /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,24}$/.test(body.email.trim()) ? body.email.trim().toLowerCase() : undefined;
   const store = getStore();

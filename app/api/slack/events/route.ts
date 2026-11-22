@@ -2,7 +2,7 @@ import { after, NextResponse } from "next/server";
 import { fromSlack, postSlack, teamKey, userKey, verifySlack } from "@/lib/slack";
 import { getStore } from "@/lib/store";
 import { respond } from "@/lib/text/handler";
-import { firstDelivery } from "@/lib/text/provider";
+import { firstTime } from "@/lib/limits";
 
 /**
  * Slack Events API: @Rocco mentions in channels and DMs to Rocco. Same brain as iMessage. Slack needs a 200
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   if (body.type !== "event_callback" || !e || !team || !e.user || e.bot_id || e.subtype) return NextResponse.json({ ok: true, ignored: true });
   const dm = e.type === "message" && e.channel_type === "im";
   if (e.type !== "app_mention" && !dm) return NextResponse.json({ ok: true, ignored: true });
-  if (!firstDelivery(body.event_id ?? `${team}:${e.ts}`)) return NextResponse.json({ ok: true, duplicate: true });
+  if (!(await firstTime(`slack:${body.event_id ?? `${team}:${e.ts}`}`))) return NextResponse.json({ ok: true, duplicate: true });
 
   after(async () => {
     const store = getStore();
