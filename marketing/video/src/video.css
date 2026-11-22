@@ -1,0 +1,13 @@
+/*
+ * Video-only rules on top of the site's CSS. Remotion renders frame by frame, so nothing may move on its own
+ * clock: every site animation and transition is switched off and driven from the frame number instead.
+ */
+.rv, .rv *, .rv *::before, .rv *::after { animation: none !important; transition: none !important; }
+.rv { --font-display: "Raleway"; --font-body: "Inter Variable"; overflow: hidden; }
+/* Pieces the site hides until their CSS animation runs. Scenes set opacity inline per frame. */
+.rv .ld li, .rv .ld-past { opacity: 1; }
+.rv .ld-st.flip .b { opacity: 1; }
+.rv .hmsg, .rv .hlearn { margin: 0; max-width: none; }
+.rv .pc { max-width: none; }
+.rv .hf { margin: 0; }
+.rv .vs { margin-top: 0; }
