@@ -1119,3 +1119,24 @@ h1, h2, .display { font-family: var(--display); }
   .td-old { grid-column: 1 / -1; }
   .td-g-meta { margin-left: 0; flex-basis: 100%; }
 }
+
+/* Skip → why (teaches Rocco this team's style) */
+.tw-ask { margin-left: 58px; padding: 12px 14px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line); display: grid; gap: 10px; justify-items: start; animation: lt-in .3s cubic-bezier(.2,.8,.2,1) both; }
+.tw-ask p { margin: 0; font-size: 14px; }
+.tw-reasons { display: flex; flex-wrap: wrap; gap: 6px; }
+.tw-reason { font: inherit; font-size: 13.5px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; transition: border-color .15s, transform .15s; }
+.tw-reason:hover { border-color: var(--accent); transform: translateY(-1px); }
+.tw-thanks { margin: 0; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 6%, #fff); font-size: 14px; animation: lt-in .3s cubic-bezier(.2,.8,.2,1) both; }
+@media (max-width: 600px) { .tw-ask { margin-left: 0; } }
+
+/* Reminders card */
+.rm { gap: 10px; }
+.rm-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.rm-chip { font: inherit; font-size: 13.5px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.rm-chip.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, #fff); color: var(--accent); font-weight: 600; }
+.rm-approve { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.rm-approve input { accent-color: var(--accent); width: 16px; height: 16px; margin-top: 3px; flex: none; }
+.rm-approve span { display: grid; gap: 2px; font-size: 13.5px; } .rm-approve small { color: var(--muted); font-size: 12.5px; }
+.rm-approve.rm-locked { opacity: .6; cursor: default; }
+.rm .btn { justify-self: start; }
+.rm-mini { grid-template-columns: 1fr auto; align-items: center; } .rm-mini p { margin: 0; font-size: 14px; }

@@ -4,6 +4,20 @@ import { LoadingText } from "@/components/LoadingText";
 import type { Job } from "@/lib/jobs";
 
 type Res = { status: "applied" | "manual" | "failed" | "queued"; how?: string; reason?: string };
+const REASONS = [
+  { id: "done", icon: "✅", label: "Already done" },
+  { id: "strategy", icon: "🧭", label: "Not my strategy" },
+  { id: "risky", icon: "⚠️", label: "Too risky right now" },
+  { id: "numbers", icon: "🔢", label: "Numbers look off" },
+  { id: "later", icon: "⏰", label: "Not now" },
+];
+const LEARN: Record<string, string> = {
+  done: "Got it, already handled. I won't count that against this kind of fix.",
+  strategy: "Noted. Say it twice for this kind of fix and I'll stop suggesting it.",
+  risky: "Fair. I'll only bring these back when the case is stronger.",
+  numbers: "Thanks for flagging it. I'll double-check my math on this one.",
+  later: "Okay. It'll come back tomorrow if it still matters.",
+};
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const post = (url: string, body: object) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).then((r) => r.json()).catch(() => null);
 
@@ -15,6 +29,7 @@ const post = (url: string, body: object) => fetch(url, { method: "POST", headers
 export function JobCards({ token, brand, jobs, direct }: { token: string; brand: string; jobs: Job[]; direct: boolean }) {
   const [res, setRes] = useState<Record<string, Res>>({});
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [thanks, setThanks] = useState<{ title: string; reason: string } | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<Record<string, string>>({});
   const visible = jobs.filter((j) => !skipped.has(j.id));
@@ -46,9 +61,10 @@ export function JobCards({ token, brand, jobs, direct }: { token: string; brand:
     setBusy(null);
     if (d?.ok) setRes((x) => ({ ...x, ...Object.fromEntries((d.logged ?? codes).map((c) => [c, { status: "applied" as const }])) }));
   }
-  function skip(job: Job) {
+  function skip(job: Job, reason?: string) {
     setSkipped((s) => new Set([...s, job.id]));
-    if (job.codes.length) post("/api/w/skip", { t: token, brand, codes: job.codes });
+    setThanks({ title: job.title, reason: reason ? LEARN[reason] : "Skipped. It'll come back if it still matters." });
+    if (job.codes.length) post("/api/w/skip", { t: token, brand, codes: job.codes, reason });
   }
   async function approveAll() {
     for (const j of openAuto) await approve(j, j.codes.filter((c) => !res[c]));
@@ -61,17 +77,19 @@ export function JobCards({ token, brand, jobs, direct }: { token: string; brand:
         {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve all {openAuto.length} jobs · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</button>}
       </div>
       <ul className="tw-list">
-        {visible.map((j, i) => <JobCard key={j.id} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={() => skip(j)} />)}
+        {visible.map((j, i) => <JobCard key={j.id} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
       </ul>
+      {thanks && <p className="tw-thanks" role="status"><span aria-hidden>🧠</span> <b>{thanks.title}</b>: {thanks.reason}</p>}
       <p className="fine"><b>Real work without the fluff.</b> {direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
     </div>
   );
 }
 
-function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: () => void }) {
+function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: (reason?: string) => void }) {
   const [open, setOpen] = useState(false);
   const [on, setOn] = useState<Set<string>>(() => new Set(job.codes));
   const [how, setHow] = useState(false);
+  const [asking, setAsking] = useState(false);
   const rs = job.codes.map((c) => res[c]).filter(Boolean) as Res[];
   const state = !rs.length ? null : rs.some((r) => r.status === "failed") ? "failed" : rs.some((r) => r.status === "manual") ? "manual" : rs.every((r) => r.status === "applied") ? "applied" : "queued";
   const chosen = job.codes.filter((c) => on.has(c));
@@ -124,7 +142,7 @@ function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMa
           ) : (
             <button className="btn" disabled={anyBusy || !chosen.length} onClick={() => onApprove(chosen)}>{busy ? (direct ? (job.mode === "create" ? "Creating in Amazon…" : "Making it in Amazon…") : "…") : verb}</button>
           )}
-          <button className="linkbtn muted" onClick={onSkip}>Skip</button>
+          <button className="linkbtn muted" onClick={() => setAsking(true)}>Skip</button>
           {job.mode === "create" && <span className="fine">New Sponsored Products campaign, $10–50/day, exact match. The searches stop in the old campaign.</span>}
         </div>
       )}
@@ -132,6 +150,15 @@ function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMa
         ? ["Finding the product these searches sell through…", "Creating the exact campaign in Amazon…", "Adding the ad group…", "Adding your product ad…", "Adding each search as an exact keyword…", "Blocking them in the old campaign so you don't pay twice…"]
         : direct ? ["Checking every change with Amazon first…", `Making ${chosen.length} change${chosen.length === 1 ? "" : "s"} in Amazon…`, "Logging them so I can check results in a week…"]
         : ["Saving your approval…", "Writing the exact steps…"]} every={job.mode === "create" ? 7000 : 2200} />}
+      {asking && !state && (
+        <div className="tw-ask" role="group" aria-label="Why skip?">
+          <p><b>Why skip this?</b> One tap, and I&apos;ll work more like you.</p>
+          <div className="tw-reasons">
+            {REASONS.map((r) => <button key={r.id} className="tw-reason" onClick={() => onSkip(r.id)}><span aria-hidden>{r.icon}</span> {r.label}</button>)}
+          </div>
+          <button className="linkbtn muted" onClick={() => onSkip()}>Just skip</button>
+        </div>
+      )}
       {how && !state && job.steps && <p className="tw-steps">{job.steps}</p>}
     </li>
   );

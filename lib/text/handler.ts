@@ -1,3 +1,6 @@
+import { applyMany } from "../apply";
+import { datadoeOn } from "../datadoe";
+import { SITE } from "../site";
 import { REPORT_HELP, type ReportKind } from "../analyze";
 import { benchmark } from "../rules/benchmarks";
 import type { Store } from "../store/types";
@@ -260,6 +263,19 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const ok = wanted.filter((c) => allowed.get(c));
       const locked = wanted.filter((c) => allowed.get(c) === false);
       const unknown = wanted.filter((c) => !allowed.has(c));
+      // Amazon connected directly: a YES by text makes the change, but only if they turned approve-by-text on
+      // (after seeing their fixes on the dashboard). Otherwise: the dashboard, where every fix is shown first.
+      const account = ws.amazon?.accounts?.[0];
+      if (ok.length && datadoeOn() && account) {
+        if (!ws.reminders?.approveByText) return { bubbles: [`Approving by text is off, so you see every fix before it changes anything. Approve here: ${SITE.url}/me`, "(You can switch on approve-by-text there, under reminders.)"] };
+        const all = runs.flatMap((r) => r.proposals.map((pp) => ({ pp, brand: r.brand })));
+        const props = ok.map((c) => all.find((x) => x.pp.code === c)!).filter(Boolean);
+        const results = await applyMany(account.id, props.map((x) => x.pp), `rocco:${ws.id}:text:${now.toISOString().slice(0, 13)}:${ok.join(",")}`.slice(0, 100));
+        const done = results.filter((r) => r.status === "applied").map((r) => r.code);
+        if (done.length) await applyChanges(store, ws, done, { brand, note: `made by Rocco in Amazon, approved by text (${maskPhone(phone)})` });
+        const notDone = results.filter((r) => r.status !== "applied");
+        return { bubbles: [[done.length ? `Done in Amazon ✅ ${done.join(", ")}. I'll check the results in a week.` : "", notDone.length ? `Couldn't make ${notDone.map((r) => r.code).join(", ")}: ${"reason" in notDone[0] ? notDone[0].reason : ""} Details: ${SITE.url}/me` : "", unknown.length ? `🤔 Don't recognize ${unknown.join(", ")}.` : ""].filter(Boolean).join("\n")] };
+      }
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
       if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Tap to apply in Claude (Amazon shows you a preview to confirm), or it happens on the next check. I'll track the results.`);

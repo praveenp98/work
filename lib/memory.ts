@@ -9,7 +9,7 @@ import type { Action, Skip } from "./store/types";
  *  - priorsFrom: anonymized cross-account success rates per fix type (counts only, no names, terms or numbers)
  * The manager prompt reads all three; the dashboard applies `tuning` even when Claude is off.
  */
-export type KindMemory = { approved: number; skipped: number; worked: number; failed: number };
+export type KindMemory = { approved: number; skipped: number; worked: number; failed: number; reasons?: Partial<Record<string, number>> };
 export type Memory = Partial<Record<ProposalKind, KindMemory>>;
 export type Tuning = Partial<Record<ProposalKind, { minValue?: number; hold?: boolean; why: string }>>;
 export type Priors = Partial<Record<ProposalKind, { worked: number; measured: number; accounts: number }>>;
@@ -25,7 +25,12 @@ export function accountMemory(actions: Action[], skips: Skip[] = []): Memory {
     if (a.status === "worked") k.worked++;
     else if (FAILED.has(a.status)) k.failed++;
   }
-  for (const s of skips) (m[s.kind] ??= blank()).skipped++;
+  for (const s of skips) {
+    const k = (m[s.kind] ??= blank());
+    if (s.reason) k.reasons = { ...(k.reasons ?? {}), [s.reason]: (k.reasons?.[s.reason] ?? 0) + 1 };
+    // "Already done" and "not now" aren't a judgment on the fix: they don't count against this type.
+    if (s.reason !== "done" && s.reason !== "later") k.skipped++;
+  }
   return m;
 }
 
@@ -34,8 +39,10 @@ export function tuning(mem: Memory, skips: Skip[] = []): Tuning {
   const t: Tuning = {};
   for (const [kind, k] of Object.entries(mem) as [ProposalKind, KindMemory][]) {
     if (k.failed >= 3 && k.worked === 0) { t[kind] = { hold: true, why: `${k.failed} of these didn't work on this account` }; continue; }
+    // Said twice it's not their strategy: stop suggesting this type (they can still ask for it).
+    if ((k.reasons?.strategy ?? 0) >= 2 && (k.reasons?.strategy ?? 0) > k.approved) { t[kind] = { hold: true, why: "you said this isn't your strategy" }; continue; }
     if (k.skipped >= 3 && k.skipped > k.approved * 2) {
-      const vals = skips.filter((s) => s.kind === kind).map((s) => s.value).sort((a, b) => a - b);
+      const vals = skips.filter((s) => s.kind === kind && s.reason !== "done" && s.reason !== "later").map((s) => s.value).sort((a, b) => a - b);
       const median = vals[Math.floor(vals.length / 2)] ?? 0;
       t[kind] = { minValue: Math.ceil(median * 2), why: `skipped ${k.skipped} times, so only bigger ones show` };
     }
@@ -71,7 +78,9 @@ export function priorsFrom(perAccount: Action[][]): Priors {
 export function memoryText(mem: Memory, t: Tuning, priors: Priors = {}): string {
   const L: string[] = [];
   for (const [kind, k] of Object.entries(mem) as [ProposalKind, KindMemory][]) {
-    L.push(`- ${kind}: approved ${k.approved}, skipped ${k.skipped}, worked ${k.worked}, didn't work ${k.failed}${t[kind] ? ` (${t[kind]!.why})` : ""}`);
+    const R: Record<string, string> = { done: "already done", strategy: "not their strategy", risky: "too risky right now", numbers: "numbers looked off", later: "not now" };
+    const why = Object.entries(k.reasons ?? {}).map(([r, n]) => `${n}× ${R[r] ?? r}`).join(", ");
+    L.push(`- ${kind}: approved ${k.approved}, skipped ${k.skipped}${why ? ` (${why})` : ""}, worked ${k.worked}, didn't work ${k.failed}${t[kind] ? ` [${t[kind]!.why}]` : ""}`);
   }
   const P = (Object.entries(priors) as [ProposalKind, NonNullable<Priors[ProposalKind]>][]).map(([kind, x]) => `- ${kind}: ${x.worked} of ${x.measured} measured changes worked across ${x.accounts} accounts`);
   return [

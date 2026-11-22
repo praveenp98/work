@@ -45,7 +45,10 @@ const manualReason = (p: Proposal) => (p.kind === "harvest" ? "New campaigns are
 function liveFailure(code: string, e?: string): ApplyOutcome {
   if (readOnly(e)) return { code, status: "manual", reason: "Rocco has read-only access to this account. Reconnect with edit access to let me make changes." };
   if (disabled(e)) return { code, status: "manual", reason: "This change type is switched off in DataDoe (Settings → Actions)." };
-  return { code, status: "failed", reason: `Amazon didn't take it: ${e}` };
+  console.warn(`[apply] ${code} refused: ${e}`);
+  if (/429|rate/i.test(e ?? "")) return { code, status: "failed", reason: "Amazon is busy right now, so nothing changed. Try again in a minute." };
+  if (/40[04]|not found|archived/i.test(e ?? "")) return { code, status: "failed", reason: "Amazon couldn't find that keyword or campaign anymore (it may have been changed or archived), so nothing changed." };
+  return { code, status: "failed", reason: "Amazon said no to this change, so nothing changed. You can make it by hand below, or try again tomorrow." };
 }
 
 /** One change: dry run, then live. */
@@ -70,7 +73,13 @@ export async function applyMany(accountId: string, ps: Proposal[], key: string):
       const details = { [g.field]: chunk.map((x) => x.value) };
       const dry = await runAction(accountId, type, details, { dryRun: true }).catch(err);
       if (!dry.ok) {
-        if (chunk.length === 1) { out.set(chunk[0].p.code, { code: chunk[0].p.code, status: "failed", reason: `Checked first, Amazon wouldn't accept it: ${dry.error ?? "invalid"}` }); continue; }
+        if (chunk.length === 1) {
+          console.warn(`[apply] ${chunk[0].p.code} dry run refused: ${dry.error}`);
+          out.set(chunk[0].p.code, disabled(dry.error)
+            ? { code: chunk[0].p.code, status: "manual", reason: "This change type is switched off in DataDoe (Settings → Actions)." }
+            : { code: chunk[0].p.code, status: "failed", reason: "I checked it with Amazon first and it wouldn't be accepted, so nothing changed. Here's how to make it by hand." });
+          continue;
+        }
         for (const x of chunk) out.set(x.p.code, (await applyMany(accountId, [x.p], `${key}:${x.p.code}`))[0]); // isolate the bad one
         continue;
       }

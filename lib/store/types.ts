@@ -72,6 +72,10 @@ export interface Workspace {
   skips?: Skip[];
   /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */
   manager?: Record<string, ManagerView>;
+  /** How Rocco nudges the team after payment (dashboard card): cadence, channel, and whether fixes can be approved by text. */
+  reminders?: { cadence: "daily" | "weekly" | "off"; weekday?: number; channel?: "imessage" | "whatsapp" | "slack"; approveByText: boolean; setAt: string };
+  /** First time the team saw today's work on the dashboard (approve-by-text unlocks after this). */
+  seenJobsAt?: string;
   /** "Tidy your campaigns" per Amazon account: the last scan's plan and the last applied change (for Undo). */
   tidy?: Record<string, { plan?: import("../rules/tidy").TidyPlan; done?: import("../tidy-apply").TidyDone }>;
   /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
@@ -170,7 +174,9 @@ export interface Store {
 }
 
 /** A fix the team skipped (newest first, capped at 200). */
-export interface Skip { code: string; kind: import("../rules/types").ProposalKind; target: string; value: number; at: string }
+/** Why a fix was skipped (asked in one tap). Teaches Rocco this team's style (lib/memory.ts). */
+export type SkipReason = "done" | "strategy" | "risky" | "numbers" | "later";
+export interface Skip { code: string; kind: import("../rules/types").ProposalKind; target: string; value: number; at: string; reason?: SkipReason; note?: string }
 
 /** Today's plan from Claude: a one-line brief and 3-5 picks (groups of existing fix codes) with a why-now line. */
 export interface ManagerView {

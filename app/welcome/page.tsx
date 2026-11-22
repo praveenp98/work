@@ -7,6 +7,7 @@ import { syncBilling } from "@/lib/billing";
 import { getStore } from "@/lib/store";
 import { unseal } from "@/lib/vault";
 import { loadWorkspace } from "@/lib/workspace";
+import { WelcomeWait } from "./WelcomeWait";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Welcome to Rocco", robots: { index: false, follow: false } };
@@ -16,7 +17,7 @@ export const metadata: Metadata = { title: "Welcome to Rocco", robots: { index: 
  * Dodo's API (never trust the URL) so the plan is on before they land, without waiting for the webhook.
  * "You're in" only shows when the team really has access; otherwise they land on their page with the offer.
  */
-export default async function Page({ searchParams }: { searchParams: Promise<{ payment_id?: string; subscription_id?: string }> }) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ payment_id?: string; subscription_id?: string; try?: string }> }) {
   const sp = await searchParams;
   const ok = (v?: string) => (v && /^[\w-]{6,80}$/.test(v) ? v : undefined);
   const ids = { payment_id: ok(sp.payment_id), subscription_id: ok(sp.subscription_id) };
@@ -26,6 +27,24 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
   if (ws && store && accessOf(ws) === "none" && (ids.payment_id || ids.subscription_id)) {
     await syncBilling(store, { data: ids }).catch(() => null);
     ws = await loadWorkspace(store, token!);
+  }
+  const tries = Number(sp.try ?? 0) || 0;
+  // Paid, but Dodo hasn't confirmed yet: never bounce a buyer back to "Hire Rocco". Keep checking for ~40s.
+  if (ws && token && accessOf(ws) === "none" && (ids.payment_id || ids.subscription_id)) {
+    const next = new URLSearchParams({ ...(ids.payment_id ? { payment_id: ids.payment_id } : {}), ...(ids.subscription_id ? { subscription_id: ids.subscription_id } : {}), try: String(tries + 1) });
+    return (
+      <section className="start-page">
+        <h1>{tries < 12 ? "Confirming your payment…" : "Almost there"}</h1>
+        {tries < 12 ? (
+          <>
+            <WelcomeWait next={`/welcome?${next.toString()}`} />
+            <p className="hello-lede">This usually takes a few seconds. Don&apos;t close the page.</p>
+          </>
+        ) : (
+          <p className="hello-lede">Your payment went through, but the confirmation hasn&apos;t reached me yet. Refresh in a minute. If it still says this, email hello@rocco.works with your receipt and I&apos;ll switch you on right away.</p>
+        )}
+      </section>
+    );
   }
   if (ws && token) redirect(accessOf(ws) === "none" ? `/w/${token}` : `/w/${token}?welcome=1`);
   // No team in this browser (hired from a text link on another device): verify, Rocco texts the team itself.

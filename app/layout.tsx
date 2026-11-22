@@ -1,3 +1,4 @@
+import { Notice } from "@/components/Notice";
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import Link from "next/link";
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </header>
+        <Notice />
         <main>{children}</main>
         <footer className="foot foot-min">
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>

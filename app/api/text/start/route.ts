@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   // LoopMessage counts a contact on the first message sent, not on link opens, so no site-wide cap (ads must never be blocked).
   if (!allow(`ip:${ip}`, 10, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
 
-  const b = (await req.json().catch(() => ({}))) as { q?: unknown; t?: unknown; join?: unknown };
+  const b = (await req.json().catch(() => ({}))) as { q?: unknown; t?: unknown; join?: unknown; channel?: unknown };
   const q = String(b.q ?? "").replace(/[\[\]<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 90);
   let link: string | undefined;
   const store = getStore();
@@ -34,6 +34,7 @@ export async function POST(req: Request) {
     ? `Hi Rocco 👋 ${b.join ? "I'm joining my team" : "it's me"} [opt-in-code]`
     : q ? `Hey Rocco 👋 Help me with ${q} [opt-in-code]` : "Hey Rocco 👋 Show me what you can do [opt-in-code]";
   const l = await optInLinks({ body, ...(link ? { link } : {}) }).catch(() => null);
-  const url = l?.url || l?.imessage || (link ? null : process.env.ROCCO_OPTIN_URL) || null;
+  // WhatsApp when asked for (LoopMessage returns one link per channel); otherwise their best link (iMessage, else SMS).
+  const url = (b.channel === "whatsapp" ? l?.whatsapp : undefined) || l?.url || l?.imessage || (link ? null : process.env.ROCCO_OPTIN_URL) || null;
   return NextResponse.json({ ok: !!url, url }, { headers: { "cache-control": "no-store" } });
 }

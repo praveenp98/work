@@ -3,6 +3,8 @@ import Link from "next/link";
 import { after } from "next/server";
 import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
+import { ReminderCard } from "@/components/dash/ReminderCard";
+import { slackConfigured } from "@/lib/slack";
 import { notFound } from "next/navigation";
 import { JobCards } from "@/components/dash/JobCards";
 import { RememberTeam } from "@/components/dash/RememberTeam";
@@ -20,6 +22,7 @@ import { buildJobs } from "@/lib/jobs";
 import { basisOf, refreshManager } from "@/lib/manager";
 import { accountMemory, applyTuning, tuning } from "@/lib/memory";
 import { brainOn } from "@/lib/brain";
+import { amazonNote } from "@/lib/messages";
 import { hireUrl } from "@/lib/paywall";
 import { monthlyCost, PRICE } from "@/lib/pricing";
 import type { Proposal } from "@/lib/rules/types";
@@ -54,7 +57,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const direct = datadoeOn();
   const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
   const needsReconnect = accounts.filter((a) => a.status === "needs you to reconnect");
-  const note = sp.welcome ? "You're in 🎉 One step left: connect your Amazon." : sp.amazon === "connected" ? "🔌 Connected. Amazon is sending me your data now." : sp.amazon ? `That didn't finish (${decodeURIComponent(sp.amazon).replace(/_/g, " ").toLowerCase()}). Try again, signed in as the account owner.` : undefined;
+  const note = sp.welcome ? "You're in 🎉 One step left: connect your Amazon." : amazonNote(sp.amazon);
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
 
   const otherWays = (
@@ -116,6 +119,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const billingPlan = ws.plan ?? "annual";
   const months = ws.hiredAt ? Math.max(1, Math.ceil((Date.now() - new Date(ws.hiredAt).getTime()) / (30 * 86_400_000))) : 1;
   const shownValue = shown.reduce((t, p) => t + p.valueMonthly, 0);
+  // Approve-by-text unlocks once they've looked at today's work here (not before).
+  if (access !== "none" && jobs.length && !ws.seenJobsAt) { const seen = new Date().toISOString(); after(async () => { const f = await store.getWorkspaceById(ws.id); if (f && !f.seenJobsAt) { f.seenJobsAt = seen; await store.saveWorkspace(f); } }); }
   const isDirect = direct && !!ws.amazon?.accounts?.length; // Rocco makes the changes in Amazon (DataDoe); else exact steps
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
@@ -182,6 +187,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
 
         <aside className="rd-side">
+          {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
             <h3>What worked</h3>

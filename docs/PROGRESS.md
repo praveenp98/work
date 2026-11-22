@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Skip → why, reminders after payment, clear errors and waits everywhere
+- **Skip asks why (one tap):** Already done · Not my strategy · Too risky right now · Numbers look off · Not now. Memory (lib/memory.ts): "not my strategy" ×2 holds that kind of fix; "already done" and "not now" never count against it; "numbers look off" is logged (`[rocco] numbers flagged`) for review. Reasons go into Claude's manager prompt. Rocco replies with what he learned.
+- **Reminders (paying teams only, dashboard card):** every morning / Mondays / none, on iMessage or WhatsApp (LoopMessage opt-in link, phone links to the team automatically) or Slack (already built; shows when SLACK_* env is set). **Approve by text** unlocks only after the team has gone through today's work on the dashboard once. Morning message: default = "N fixes waiting, worth ~$X/mo. Approve them here: rocco.works/me"; with approve-by-text = picks + "Reply YES …". Weekly/off respected.
+- **YES by text with Amazon connected:** makes the change in Amazon (same batched, dry-run-first path as the dashboard) if approve-by-text is on; otherwise replies with the dashboard link.
+- **Messages (lib/messages.ts):** Amazon return codes → plain next steps (primary user, cancelled, expired, Ads missing…); Google sign-in problems shown site-wide (was silent); offline notice; first-load screen stops politely after ~6 min with "you can close this, I'll message you"; Check now / connect / approve refusals in plain words (raw codes go to logs); welcome page never bounces a buyer to "Hire Rocco" while Dodo confirms: "Confirming your payment…" with retries, then a clear fallback.
+- Fixed a style clash (old ".locked" rule) on the reminder card. Tests 167/167, build OK.
+
+---
+
 ## 2026-11-22 · "Tidy your campaigns" (structure like a top 1% ads manager)
 - **What it does** (`/w/<token>/tidy`, linked from the dashboard): scans campaigns, keywords/targets, ads (product per campaign), product titles and 30 days of results (~10 DataDoe tokens per scan), then proposes:
   - one naming system: `SP | Product | Targeting | Keyword` (keeps the seller's own wording, strips ASINs, dates and codes; ranges become "Habit Nest Range")

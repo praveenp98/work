@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
+import { WAIT } from "@/lib/messages";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { RoccoHead } from "@/components/Rocco";
 
@@ -11,12 +12,13 @@ import { RoccoHead } from "@/components/Rocco";
 export function ConnectAmazon({ token, accounts, note, lastSync }: { token: string; accounts: { name: string; country: string; status: string }[]; note?: string; lastSync?: { at: string; kinds: string[]; errors: string[] } }) {
   const [busy, setBusy] = useState<"" | "connect" | "check">("");
   const [msg, setMsg] = useState("");
+  const [slow, setSlow] = useState(false);
   // While the first pull runs (it starts the moment Amazon is connected), watch for it and open the dashboard.
   useEffect(() => {
     if (!accounts.length) return;
     let n = 0;
     const t = setInterval(async () => {
-      if (++n > 60) return clearInterval(t);
+      if (++n > 60) { clearInterval(t); setSlow(true); return; }
       const d = (await fetch(`/api/w/amazon/status?t=${encodeURIComponent(token)}`).then((r) => r.json()).catch(() => null)) as { ready?: boolean } | null;
       if (d?.ready) { clearInterval(t); window.location.reload(); }
     }, 6000);
@@ -33,7 +35,7 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
     const d = (await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { lastSync?: { kinds: string[] }; skipped?: string } | null;
     setBusy("");
     if (d?.lastSync?.kinds?.length) { window.location.reload(); return; }
-    setMsg(d?.skipped ? "I checked less than an hour ago. Amazon's first load can take a few hours." : "Not ready yet. Amazon is still sending me your history. I'll text you when it's in.");
+    setMsg(!d ? WAIT.network : d.skipped ? "I checked less than an hour ago. Amazon's first load can take a few hours: this page opens your fixes by itself when they're in." : "Not ready yet: Amazon is still sending me your history. This page opens your fixes by itself when they're in, and I'll message you.");
   }
 
   if (!accounts.length) {
@@ -74,6 +76,7 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
       </ul>
       {lastSync?.errors?.length && !lastSync.kinds.length
         ? <p className="fine">Amazon is still sending me your history (a first load can take a few hours). This page opens your fixes by itself when it&apos;s in, and I&apos;ll text you.</p>
+        : slow ? <p className="fine">{WAIT.firstLoadSlow}</p>
         : <LoadingText steps={["Reading 30 days of search terms…", "Reading campaigns, budgets and bids…", "Reading sales, traffic and Buy Box…", "Checking stock cover for every SKU…", "Finding what to fix, ranked by money…", "Grouping it into today's jobs…"]} every={9000} />}
       <button className="btn rc-btn" disabled={!!busy} onClick={check}>{busy ? "Checking…" : "Check now"}</button>
       {busy === "check" && <LoadingText steps={["Asking Amazon for the latest reports…", "Reading ads, sales and stock…", "Finding what to fix…"]} every={8000} />}
