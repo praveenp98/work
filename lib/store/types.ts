@@ -63,6 +63,10 @@ export interface Workspace {
   tokenSealed?: string;
   /** What the team told Rocco about themselves on their first text. */
   about?: string;
+  /** Fixes the team skipped on the dashboard (lib/memory.ts): Rocco learns what this account doesn't want. */
+  skips?: Skip[];
+  /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */
+  manager?: Record<string, ManagerView>;
   /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
   nudges?: Record<string, string>;
   /** Rocco in the team's Slack (lib/slack). Bot token is sealed. */
@@ -156,4 +160,16 @@ export interface Store {
   addActions(a: Action[]): Promise<void>;
   listActions(workspaceId: string, opts?: { brand?: string; status?: ActionStatus[]; limit?: number }): Promise<Action[]>; // newest first
   saveAction(a: Action): Promise<void>;
+}
+
+/** A fix the team skipped (newest first, capped at 200). */
+export interface Skip { code: string; kind: import("../rules/types").ProposalKind; target: string; value: number; at: string }
+
+/** Today's plan from Claude: a one-line brief and 3-5 picks (groups of existing fix codes) with a why-now line. */
+export interface ManagerView {
+  at: string;
+  /** Sorted open codes this view was made from; a new set of fixes means a fresh view. */
+  basis: string;
+  brief: string | null;
+  picks: { codes: string[]; title: string; why: string }[];
 }

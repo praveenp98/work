@@ -17,11 +17,11 @@ const getClient = () => (client ??= new Anthropic());
  * One SMS-length reply. `context` is everything Rocco knows (plain text); `images` are https URLs of
  * screenshots the person texted. Returns null when the brain is off, refuses, or errors (caller falls back).
  */
-export async function askRocco(o: { question: string; context: string; images?: string[] }): Promise<string | null> {
+export async function askRocco(o: { question: string; context: string; images?: string[]; system?: string; maxChars?: number; label?: string }): Promise<string | null> {
   if (!brainOn()) return null;
   const content: Anthropic.Beta.BetaContentBlockParam[] = [
     ...(o.images ?? []).slice(0, 4).map((url) => ({ type: "image" as const, source: { type: "url" as const, url } })),
-    { type: "text", text: `What Rocco knows about this team:\n${o.context}\n\nTheir text:\n${o.question || "(they sent a screenshot with no text)"}` },
+    { type: "text", text: `What Rocco knows about this team:\n${o.context}\n\n${o.label ?? "Their text"}:\n${o.question || "(they sent a screenshot with no text)"}` },
   ];
   try {
     const res = await getClient().beta.messages.create({
@@ -30,12 +30,12 @@ export async function askRocco(o: { question: string; context: string; images?: 
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default", // a policy decline is re-run on a fallback model in the same call
       output_config: { effort: "low" }, // short chat replies: low effort is plenty and fast
-      system: [{ type: "text", text: TEXT_REPLY_SYSTEM, cache_control: { type: "ephemeral" } }],
+      system: [{ type: "text", text: o.system ?? TEXT_REPLY_SYSTEM, cache_control: { type: "ephemeral" } }],
       messages: [{ role: "user", content }],
     });
     if (res.stop_reason === "refusal") return null;
     const text = res.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("").trim();
-    return text ? text.slice(0, 1200) : null;
+    return text ? text.slice(0, o.maxChars ?? 1200) : null;
   } catch (e) {
     if (e instanceof Anthropic.RateLimitError) console.warn("[brain] rate limited");
     else if (e instanceof Anthropic.APIError) console.warn(`[brain] API error ${e.status}`);

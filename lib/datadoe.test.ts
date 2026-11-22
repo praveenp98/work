@@ -3,6 +3,7 @@ import { GET as callback } from "../app/api/datadoe/callback/route";
 import { POST as connect } from "../app/api/w/amazon/route";
 import { setStoreForTests } from "./store";
 import { MemoryStore } from "./store/memory";
+import { grantTrial } from "./test-utils";
 import { createWorkspace } from "./workspace";
 
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
@@ -30,6 +31,7 @@ describe("Connect Amazon through DataDoe", () => {
     const calls = doe();
     const store = new MemoryStore(); setStoreForTests(store);
     const { ws, token } = await createWorkspace(store);
+    await grantTrial(store, ws.id); // connecting needs an active plan (pay at signup)
     const post = () => connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
     expect(await (await post()).json()).toMatchObject({ ok: true, url: "https://app.datadoe.com/invitation/abc" });
     await post();
@@ -45,11 +47,21 @@ describe("Connect Amazon through DataDoe", () => {
     expect(w.amazon?.invite).toBeUndefined();
   });
 
+  it("unpaid teams can't open a connection (it costs money)", async () => {
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    const calls = doe();
+    const store = new MemoryStore(); setStoreForTests(store);
+    const { token } = await createWorkspace(store);
+    expect((await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }))).status).toBe(402);
+    expect(calls).toHaveLength(0);
+  });
+
   it("ignores returns for invites it didn't create, and failed connects", async () => {
     vi.stubEnv("DATADOE_API_KEY", "k");
     doe();
     const store = new MemoryStore(); setStoreForTests(store);
     const { ws, token } = await createWorkspace(store);
+    await grantTrial(store, ws.id); // connecting needs an active plan (pay at signup)
     await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
     const forged = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&sellerOrVendorId=${ACCOUNT.id}&invitationId=someone-elses`));
     expect(forged.headers.get("location")).toMatch(/amazon=unknown/);

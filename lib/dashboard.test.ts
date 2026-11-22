@@ -8,7 +8,7 @@ import { createWorkspace, runAnalysis } from "./workspace";
 const post = (body: object) => approve(new Request("https://rocco.works/api/w/approve", { method: "POST", body: JSON.stringify(body) }));
 
 describe("dashboard approvals", () => {
-  it("no plan: the top fix is free to approve, the rest locked; with a trial: approve queues like YES N1, cancel removes", async () => {
+  it("no plan: every fix locked; with a trial: approve queues like YES N1, cancel removes", async () => {
     const store = new MemoryStore();
     setStoreForTests(store);
     const { ws, token } = await createWorkspace(store);
@@ -16,7 +16,7 @@ describe("dashboard approvals", () => {
     const run = (await store.listRuns(ws.id, { limit: 1 }))[0];
     const [first, second] = run.proposals.map((p) => p.code);
 
-    expect(await (await post({ t: token, brand: "main", codes: [first, second] })).json()).toMatchObject({ approved: [first], locked: [second] });
+    expect(await (await post({ t: token, brand: "main", codes: [first, second] })).json()).toMatchObject({ approved: [], locked: [first, second] });
     await post({ t: token, brand: "main", codes: [first], cancel: true });
 
     await grantTrial(store, ws.id);

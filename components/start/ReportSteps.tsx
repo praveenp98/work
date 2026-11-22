@@ -98,7 +98,7 @@ export function ReportSteps({ token, address, initial }: { token: string; addres
       {step === "wait" && (
         <div className="start-card">
           <h2>{got ? "Got your first report 🎉" : "Waiting for your first report…"}</h2>
-          <p className="start-sub">{got ? "Your first finding is ready. It's free: see it in full and approve it." : "Amazon usually sends the first scheduled report within a few hours. This page updates by itself; I'll also text your team."}</p>
+          <p className="start-sub">{got ? "Your first findings are ready. Open them and approve." : "Amazon usually sends the first scheduled report within a few hours. This page updates by itself; I'll also text your team."}</p>
           <ul className="inbox-list">
             {items.length === 0 && <li className="muted">Nothing yet. Tip: run the report once now so it arrives today.</li>}
             {items.slice(0, 5).map((i) => (

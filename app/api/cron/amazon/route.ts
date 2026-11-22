@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
+import { priorsFrom } from "@/lib/memory";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 
@@ -18,14 +20,17 @@ export async function GET(req: Request) {
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store || !datadoeOn()) return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });
-  const jobs = (await store.listAmazonWorkspaces()).flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name })));
+  const teams = (await store.listAmazonWorkspaces()).filter((ws) => hasAccess(ws)); // unpaid/lapsed teams cost nothing
+  // Anonymized cross-account defaults (counts per fix type only) for the manager prompt.
+  const priors = priorsFrom(await Promise.all(teams.map((ws) => store.listActions(ws.id, { limit: 300 }).catch(() => []))));
+  const jobs = teams.flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name })));
   const base = SITE.url; // public domain: deployment-protected *.vercel.app URLs would reject this call
   let sent = 0;
   for (let i = 0; i < jobs.length; i += BATCH) {
     const res = await fetch(`${base}/api/cron/amazon/batch`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(secret ? { authorization: `Bearer ${secret}` } : {}) },
-      body: JSON.stringify({ jobs: jobs.slice(i, i + BATCH), delaySec: ((i / BATCH) % 6) * 10 }), // 0-50s stagger; 429 retries absorb overlap
+      body: JSON.stringify({ jobs: jobs.slice(i, i + BATCH), priors, delaySec: ((i / BATCH) % 6) * 10 }), // 0-50s stagger; 429 retries absorb overlap
     }).catch(() => null);
     if (res?.ok) sent++;
   }

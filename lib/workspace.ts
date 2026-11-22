@@ -16,7 +16,8 @@ export const DEFAULT_BRAND = "main";
 /** Free workspaces see and track the top N proposals per report. */
 /** No free plan (Nov 18): without a trial or paid plan, every fix is locked (teaser totals only). */
 /** First real finding before payment (buyer feedback, Nov 19): the top fix of each analysis is shown in full and can be approved. */
-export const FREE_PROPOSALS = 1;
+/** Pay at signup (Nov 22): no free fix. Connecting and pulling Amazon data costs money, so only paying teams get it. */
+export const FREE_PROPOSALS = 0;
 const DAY = 86400000;
 
 export async function createWorkspace(store: Store) {

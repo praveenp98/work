@@ -227,11 +227,11 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     const { expandCodes, latestRuns } = await import("../workspace");
     const runs = await latestRuns(store, ws, brand || DEFAULT_BRAND);
     if (!runs.length) return fail("No proposals yet. Analyze some data first.");
-    if (!hasAccess(ws) && format !== "amazon_ads_api") return fail(`File exports need a Rocco license (${SITE.url}/pricing). The Amazon Ads change list for your free top ${FREE_PROPOSALS} fixes per report is free.`);
+    if (!hasAccess(ws) && format !== "amazon_ads_api") return fail(`File exports need an active Rocco: ${hireUrl(ws)}`);
     const want = codes?.length ? new Set(expandCodes(codes)) : null;
     const pool = runs.flatMap((r) => (hasAccess(ws) ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS)));
     const ps = pool.filter((p) => !want || want.has(p.code));
-    if (!ps.length) return fail(hasAccess(ws) ? "No matching codes." : `Those codes need an active Rocco ($199 first 3 months): ${hireUrl(ws)}. (top ${FREE_PROPOSALS} per report are free). ${SITE.url}/pricing`);
+    if (!ps.length) return fail(hasAccess(ws) ? "No matching codes." : `Those codes need an active Rocco ($199 first 3 months): ${hireUrl(ws)}. ${SITE.url}/pricing`);
     if (format === "amazon_ads_api") {
       const missingIds = ps.filter((p) => ["negative", "bid", "budget", "placement"].includes(p.kind) && !p.ids?.campaignId).map((p) => p.code);
       return text([`### Change list for Amazon's Ads connector (${ps.length})`, "Apply only the codes the seller approved. Then call apply_changes with the same codes.", "```json", JSON.stringify(proposalsApiChanges(ps), null, 2), "```",

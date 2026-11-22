@@ -243,9 +243,14 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   const b = await buildBrief(store, fresh, now);
   const open = [...(b.perBrand.find((x) => x.brand === r.account)?.open ?? [])].sort((a, c) => c.valueMonthly - a.valueMonthly).slice(0, 3);
   const names = r.kinds.map((k) => REPORT_HELP[k as ReportKind]?.name ?? k).join(", ");
-  const L = [`☀️ ${r.account}: checked ${names}.`];
-  for (const o of open) L.push(`• ${o.code}: ${o.reason.slice(0, 110)}`);
-  if (open.length) L.push(`Reply YES ${open.map((o) => o.code).join(" ")} and I'll make ${open.length === 1 ? "it" : "them"} in Amazon.`);
+  const plan = fresh.manager?.[r.account];
+  const live = new Set(open.length ? (b.perBrand.find((x) => x.brand === r.account)?.open ?? []).map((p) => p.code) : []);
+  const picks = (plan?.picks ?? []).filter((p) => p.codes.every((c) => live.has(c))).slice(0, 3);
+  const L = [`☀️ ${r.account}: ${plan?.brief ?? `checked ${names}.`}`];
+  if (picks.length) for (const p of picks) L.push(`• ${p.codes.join("+")}: ${p.title}. ${p.why.slice(0, 110)}`);
+  else for (const o of open) L.push(`• ${o.code}: ${o.reason.slice(0, 110)}`);
+  const codes = picks.length ? picks.flatMap((p) => p.codes) : open.map((o) => o.code);
+  if (codes.length) L.push(`Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon.`);
   const offer = paywall(fresh, b, "found", { now });
   if (offer) await store.saveWorkspace(fresh);
   await notifyTeam(store, fresh, [L.join("\n"), ...(offer ? [offer.text, offer.url] : [])]).catch(() => 0);

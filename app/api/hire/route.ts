@@ -1,3 +1,5 @@
+import { accessOf } from "@/lib/access";
+import { hireUrl } from "@/lib/paywall";
 import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
@@ -8,8 +10,8 @@ import { createWorkspace, ensureLinkCode, loadWorkspace, rememberToken } from "@
 
 /**
  * "Hire Rocco" without Google sign-in (fallback): on a real tap, create the team's Rocco (or reuse the one this
- * browser already has), remember it in a sealed cookie, and open its page: set up, see the first real finding,
- * then pay (hireUrl on that page). The workspace key never goes to Dodo.
+ * browser already has), remember it in a sealed cookie, and send them to checkout tagged with that team (pay at signup),
+ * or to their page if they already pay. The workspace key never goes to Dodo.
  */
 export const dynamic = "force-dynamic";
 
@@ -37,8 +39,7 @@ export async function POST(req: Request) {
   if (email && ws.ownerEmail !== email) ws.ownerEmail = email;
   if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
   await store.saveWorkspace(ws);
-  // First finding before payment: open the team's page (setup), checkout comes after Rocco has found something real.
-  const res = NextResponse.json({ ok: true, url: `/w/${token}` });
+  const res = NextResponse.json({ ok: true, url: accessOf(ws) === "none" ? hireUrl(ws) : `/w/${token}` });
   const sealed = seal(token!);
   if (sealed) res.cookies.set("rocco_team", sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 180 * 86_400 });
   return res;

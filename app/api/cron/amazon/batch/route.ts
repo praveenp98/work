@@ -1,5 +1,7 @@
 import { after, NextResponse } from "next/server";
 import { pullAndSave, tellTeam } from "@/lib/datadoe-sync";
+import { refreshManager } from "@/lib/manager";
+import type { Priors } from "@/lib/memory";
 import { getStore } from "@/lib/store";
 
 /** One batch of the daily pull (≤ 8 accounts), started by /api/cron/amazon. Answers at once, works after the response. */
@@ -11,13 +13,14 @@ export async function POST(req: Request) {
   if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false }, { status: 503 });
   const store = getStore();
-  const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string }[]; delaySec?: number };
+  const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string }[]; delaySec?: number; priors?: Priors };
   const jobs = (b.jobs ?? []).slice(0, 8);
   if (!store || !jobs.length) return NextResponse.json({ ok: false }, { status: 400 });
   after(async () => {
     await new Promise((r) => setTimeout(r, Math.min(Math.max(b.delaySec ?? 0, 0), 60) * 1000));
     for (const j of jobs) {
       const r = await pullAndSave(store, j.wsId, { id: j.id, name: j.name }).catch(() => null);
+      if (r) await refreshManager(store, j.wsId, { priors: b.priors }).catch(() => 0); // Claude's pick of today's fixes + brief
       const ws = r ? await store.getWorkspaceById(j.wsId) : null;
       if (r && ws) await tellTeam(store, ws, r).catch(() => {});
     }

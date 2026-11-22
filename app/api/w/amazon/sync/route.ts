@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
 import { pullAndSave } from "@/lib/datadoe-sync";
+import { refreshManager } from "@/lib/manager";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 
@@ -12,6 +14,7 @@ export async function POST(req: Request) {
   const store = getStore();
   const ws = store && b.t ? await loadWorkspace(store, b.t) : null;
   if (!store || !ws || !datadoeOn() || !ws.amazon?.accounts?.length) return NextResponse.json({ ok: false }, { status: 400 });
+  if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
   const last = ws.amazon.lastSync?.at;
   if (last && Date.now() - new Date(last).getTime() < 3_600_000) return NextResponse.json({ ok: true, skipped: "checked in the last hour", lastSync: ws.amazon.lastSync });
   const results = [];
@@ -20,5 +23,6 @@ export async function POST(req: Request) {
   const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
   fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), lastSync };
   await store.saveWorkspace(fresh);
+  if (results.length) await refreshManager(store, ws.id).catch(() => 0);
   return NextResponse.json({ ok: true, lastSync });
 }

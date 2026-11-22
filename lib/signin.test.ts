@@ -47,7 +47,7 @@ describe("Google routes", () => {
       return Response.json({}, { status: 404 });
     }));
   }
-  const env = () => { vi.stubEnv("ROCCO_VAULT_KEY", "test-vault"); vi.stubEnv("GOOGLE_CLIENT_ID", "cid"); vi.stubEnv("GOOGLE_CLIENT_SECRET", "sec"); vi.stubEnv("DODO_PRODUCT_ID", ""); };
+  const env = () => { vi.stubEnv("ROCCO_VAULT_KEY", "test-vault"); vi.stubEnv("GOOGLE_CLIENT_ID", "cid"); vi.stubEnv("GOOGLE_CLIENT_SECRET", "sec"); vi.stubEnv("DODO_PRODUCT_ID", "pdt_x"); };
 
   it("is off without keys", async () => {
     vi.stubEnv("GOOGLE_CLIENT_ID", "");
@@ -55,7 +55,7 @@ describe("Google routes", () => {
     expect(r.headers.get("location")).toMatch(/\/pricing\?signin=off$/);
   });
 
-  it("hire: Google → team created → their Rocco page to set up (pay after the first finding); cookies set", async () => {
+  it("hire: Google → team created → checkout (pay at signup), tagged with the team; cookies set", async () => {
     env();
     const store = new MemoryStore(); setStoreForTests(store);
     const s = await start(new Request("https://rocco.works/api/auth/google?intent=hire"));
@@ -65,7 +65,7 @@ describe("Google routes", () => {
     const nonce = s.headers.get("set-cookie")!.match(/rocco_gstate=([^;]+)/)![1];
     google("sam@brand.com");
     const r = await callback(new Request(`https://rocco.works/api/auth/google/callback?code=c&state=${encodeURIComponent(loc.searchParams.get("state")!)}`, { headers: { cookie: `rocco_gstate=${nonce}` } }));
-    expect(r.headers.get("location")).toMatch(/^https:\/\/rocco\.works\/w\/rw_\w+\?start=1$/);
+    expect(r.headers.get("location")).toMatch(/^https:\/\/checkout\.dodopayments\.com\/buy\/pdt_\w+\?.*metadata_ref=/);
     const cookies = r.headers.get("set-cookie")!;
     expect(cookies).toMatch(/rocco_user=/); expect(cookies).toMatch(/rocco_team=/); expect(cookies).toMatch(/rocco_in=1/);
     expect((await store.findWorkspacesByOwner("sam@brand.com")).length).toBe(1);

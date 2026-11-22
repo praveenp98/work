@@ -4,6 +4,19 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Pay at signup + Rocco's AI layer (manager, brief, memory, Ask)
+- **Pay at signup (like localseo.to):** Hire → Google → Dodo checkout (tagged with the team) → /welcome → "You're in, connect your Amazon". No free fix (FREE_PROPOSALS 0). Unpaid teams see a Hire card instead of Connect; the DataDoe invite and Check now return 402 without a plan; the daily cron skips unpaid and lapsed teams. Unpaid sign-ups cost $0.
+- **AI layer (behind ANTHROPIC_API_KEY, Opus 5.5, falls back to rules without it):**
+  1. Senior manager (lib/manager.ts, prompt lib/prompts/manager.ts v1): after each pull, Claude picks 3-5 of today's fixes, groups related ones, drops noise, writes a why-now line. Structured output (zod), and checkPlan only keeps real codes, each used once; any sentence with money or a % that isn't in the input is replaced by the rules text. Runs only when the set of fixes changes.
+  2. Morning brief: one sentence under the dashboard headline, also used in the morning text.
+  3. Memory (lib/memory.ts): approvals, Skip taps (/api/w/skip) and measured results per fix type. A type skipped 3+ times only shows bigger fixes; 3 failures and no wins holds that type back ("I held back N fixes"). Anonymized cross-account success rates (3+ accounts, counts only) go into the prompt.
+  4. Ask Rocco box on the dashboard (/api/w/ask): answered from the account's numbers, fixes, history and memory; paying teams only; 40 a day.
+- Dashboard: "Do these today" (Claude's picks, grouped cards approve/skip together), then "N more fixes I'd leave for later" (collapsed).
+- Costs written up in docs/COSTS.md: ~$21–31 per seller per month at 100 sellers (DataDoe rows and tokens are most of it); real profit ~$10–13K in the first quarter, ~$15–18K per quarter after. Biggest saving to build next: one DataDoe export per table for all accounts (~$880/mo), once DataDoe confirms pricing.
+- Tests 152/152, build OK. Not yet checked with a live Claude key (Praveen is adding ANTHROPIC_API_KEY to Vercel).
+
+---
+
 ## 2026-11-22 · Production pass for 100 sellers
 - **See it:** /api/admin/attach?key=CRON_SECRET&email=<Google sign-in email>&account=<DataDoe id> links an already-connected Amazon account (Habit Nest) to a Rocco account and runs the first pull; then rocco.works/me shows the dashboard.
 - **Scale:** each account gets 4 DataDoe recurring exports (daily, rolling window), created once and reused by name (never duplicated: verified live, duplicates from testing deleted; 4 remain for Habit Nest). Daily pull = download latest files. Cron dispatches batches of 8 accounts to /api/cron/amazon/batch (own 300s run each, 0-50s stagger) via the public domain; all DataDoe calls retry 429s with backoff. Supabase list query fixed. Reconnect flow: banner + one-tap reconnect invite when Amazon's authorization lapses.

@@ -19,7 +19,7 @@ const VS: [string, string, string][] = [
 ];
 
 /**
- * One angle: I run your Amazon, you approve. One action: Connect Amazon (sign up → connect → first finding free → pay).
+ * One angle: I run your Amazon, you approve. One action: Connect Amazon (sign up → pay → connect → fixes).
  * Hero + live dashboard sample → how a fix happens → decisions, not data → also in Claude/ChatGPT → price.
  */
 export default async function Home() {
@@ -87,7 +87,7 @@ export default async function Home() {
               <li>Seller Central + Amazon Ads, every marketplace</li>
             </ul>
             <HireButton google={google} price={PRICE.first} label="Connect Amazon" className="btn hire-cta" />
-            <p className="fine">See my first real finding on your account before you pay. Not affiliated with Amazon.</p>
+            <p className="fine">Pay, connect Amazon in 2 minutes, first fixes the same day. Cancel anytime. Not affiliated with Amazon.</p>
           </div>
         </div>
       </section>

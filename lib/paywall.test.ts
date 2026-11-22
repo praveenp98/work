@@ -18,11 +18,11 @@ async function seeded() {
   return { store, ws };
 }
 
-describe("first finding free, then the offer at the right moments", () => {
-  it("without a plan only the top fix shows, the rest is locked and 'found' pitches hiring, at most every 3 days", async () => {
+describe("pay at signup: no free fixes, then the offer at the right moments", () => {
+  it("without a plan no fix shows, the rest is locked and 'found' pitches hiring, at most every 3 days", async () => {
     const { store, ws } = await seeded();
     const b = await buildBrief(store, ws);
-    expect(b.perBrand[0].open).toHaveLength(1);
+    expect(b.perBrand[0].open).toHaveLength(0);
     expect(b.perBrand[0].hidden).toBeGreaterThan(0);
     const now = new Date("2026-11-18T09:00:00Z");
     expect(paywall(ws, b, "found", { now })?.text).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes in your account\. Hire me: \$199 for your first 3 months, then \$249 every 3 months/);

@@ -1,6 +1,7 @@
 import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { accessOf } from "@/lib/access";
+import { hireUrl } from "@/lib/paywall";
 import { googleUser } from "@/lib/google";
 import { setSession, TEAM } from "@/lib/session";
 import { teamForUser } from "@/lib/signin";
@@ -10,7 +11,8 @@ import { unseal } from "@/lib/vault";
 
 /**
  * Google sends the person back here. Verify the state, read the verified email, find or create their team, set the
- * session cookies, then open their Rocco page: set up → first real finding → pay from there.
+ * session cookies. Pay at signup (like localseo.to): an unpaid team that tapped Hire goes straight to checkout, tagged with
+ * their team; after paying, /welcome opens their page to connect Amazon. Plain sign-in opens their page.
  */
 export const dynamic = "force-dynamic";
 
@@ -32,8 +34,8 @@ export async function GET(req: Request) {
   const browserTeam = unseal(decodeURIComponent(cookie(TEAM) ?? ""));
   const { ws, token } = await teamForUser(store, user.email, browserTeam);
   if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox
-  // First finding before payment: everyone lands on their Rocco page; unpaid teams set up and see one real fix first.
-  const res = NextResponse.redirect(`${SITE.url}/w/${token}${st.i === "hire" && accessOf(ws) === "none" ? "?start=1" : ""}`);
+  if (ws.ownerEmail !== user.email) { ws.ownerEmail = user.email; await store.saveWorkspace(ws); } // prefilled at checkout
+  const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" ? hireUrl(ws) : `${SITE.url}/w/${token}`);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });
   return res;

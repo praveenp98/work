@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasAccess } from "@/lib/access";
 import { createInvite, createReconnect, datadoeOn } from "@/lib/datadoe";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
@@ -9,6 +10,7 @@ export async function POST(req: Request) {
   const store = getStore();
   const ws = store && b.t ? await loadWorkspace(store, b.t) : null;
   if (!store || !ws) return NextResponse.json({ ok: false }, { status: 400 });
+  if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
   if (!datadoeOn()) return NextResponse.json({ ok: false, error: "Direct Amazon connection isn't switched on yet." }, { status: 503 });
   if (b.reconnect) {
     if (!ws.amazon?.accounts?.some((a) => a.id === b.reconnect)) return NextResponse.json({ ok: false }, { status: 404 });
