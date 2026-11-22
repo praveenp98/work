@@ -46,8 +46,8 @@ export default async function Page({ params }: { params: Promise<{ token: string
     return (
       <section className="start-page">
         <h1>Analytics fill in after your first check.</h1>
-        <p className="hello-lede">Plug in Amazon and say &ldquo;Rocco, morning check&rdquo;. Every check adds a point to these charts.</p>
-        <Link className="btn" href={`/w/${token}`}>Plug in Amazon</Link>
+        <p className="hello-lede">Charts start with my first data pull after you connect Amazon. Every morning adds a point.</p>
+        <Link className="btn" href={`/w/${token}`}>Back to today&apos;s work</Link>
       </section>
     );
   }

@@ -20,7 +20,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const store = getStore();
   const ws = store ? await loadWorkspace(store, token) : null;
   if (!store || !ws) notFound();
-  const brand = sp.brand || DEFAULT_BRAND;
+  // Default to this team's own brand (their Amazon account or first brand), not a placeholder with no data.
+  const brand = sp.brand || ws.amazon?.accounts?.[0]?.name || Object.keys(ws.brands ?? {})[0] || DEFAULT_BRAND;
   const by = (sp.by || "").slice(0, 80);
   const [brief, actions, snaps] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { brand, limit: 100 }), store.listSnapshots(ws.id, { brand, limit: 50 })]);
   const pb = brief.perBrand.find((b) => b.brand === brand);

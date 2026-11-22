@@ -214,7 +214,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </aside>
       </div>
 
-      {b.stale.length > 0 && <p className="fine">Not refreshed in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
+      {!direct && b.stale.length > 0 && <p className="fine">Not refreshed in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
       <footer className="rd-foot">
         {direct && <ConnectButton token={token} />}
         <form action="/api/auth/signout" method="post"><button className="linkbtn muted">Sign out</button></form>
