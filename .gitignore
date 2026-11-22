@@ -7,3 +7,7 @@ next-env.d.ts
 .env*.local
 .vercel/
 coverage/
+
+# Marketing renders (mp4, png batches, pdf exports). Site PDFs go in public/downloads/.
+marketing/out/
+marketing/**/node_modules/
