@@ -1,53 +1,41 @@
 # Real costs at 100 sellers (not hackathon profit)
 
-Written Nov 22, 2026. Estimates are marked **(est.)**; check the unverified ones before relying on them.
+Updated Nov 22, 2026 from DataDoe's pricing page + Hub docs (subscription-pricing, managing-data-tables, initial-loads) and MarketplaceAdPros' plans/agency/API pages. Estimates marked **(est.)**.
+
+## How DataDoe really bills (checked)
+- $97/mo base: unlimited Amazon accounts (no per-account fee), 10M stored rows, 2,000 AI tokens/mo (4,000 for the first 3 months), 1 seat.
+- **Rows** = everything stored across all accounts. +$49 per extra 10M. On connect, DataDoe backfills **up to 2 years** and keeps data **forever** by default. That's what makes rows grow.
+- **Tokens** are spent per operation, not per account: an export = **2 tokens at any size**, a write Action = 3 tokens for up to 100 items (+1 per extra 100), dry runs free. Extra tokens $0.04 each (opt-in) or bundles ~$0.036, valid 1 year.
+- Every table has a `seller_or_vendor_id` column, so **one export can cover every account** and Rocco splits the rows.
+- Controls (Settings → Data, organization-wide, **not in the API**): turn tables off; set retention per table to 6/12/18/24 months. 22 default tables can't be turned off. Habit Nest's org currently has 134 tables on.
 
 ## Revenue
-| | Per seller | 100 sellers |
+$199 per seller for the first 3 months (= $66/mo), then $249 per 3 months (= $83/mo). 100 sellers = **$6,630/mo first quarter, $8,300/mo after**.
+
+## Monthly costs at 100 sellers
+| Item | Today's setup | After the fixes below |
 |---|---|---|
-| First quarter | $199 | $19,900 |
-| Each quarter after | $249 | $24,900 |
-| Per month (first / after) | $66 / $83 | $6,630 / $8,300 |
+| DataDoe base | $97 | $97 |
+| DataDoe rows | $440–1,420 (2 yrs history, 134 tables, kept forever) | $100–350 (est.) (6-month retention, unused tables off) |
+| DataDoe tokens, daily pulls | ~$800 (4 exports × each account × every day) | $0 (4 exports a day for all accounts, inside the 2,000 included) |
+| DataDoe tokens, approved changes | ~$150 | ~$150 (less if approvals are batched) |
+| Claude Opus 5.5 (daily manager + Ask) | ~$250 | ~$250 |
+| Vercel Pro + Supabase + domain | ~$48 | ~$48 |
+| Dodo fees (~4% + $0.40 per charge, verify) | ~$280–345 | ~$280–345 |
+| **Total** | **~$2,100–3,100** | **~$930–1,240** |
+| **Margin** | **53–68%** | **82–88%** |
 
-## Paid once before the first customer
-| Item | Cost |
-|---|---|
-| Domain rocco.works | already paid (~$30/yr renewal) |
-| Vercel Pro (Hobby is non-commercial and caps functions at 60s; the pulls need 300s) | $20/mo |
-| DataDoe base plan once the trial ends | $97/mo |
-| Anthropic API credits (prepaid) | ~$25 to start |
-| Supabase | $0 (free tier is enough to start) |
-| Google sign-in, Cloudflare email worker | $0 |
-| **Month one before any sale** | **~$140** |
+Per seller after the fixes: about **$9–12/mo cost** against $66–83/mo revenue.
 
-## Fixed monthly
-Vercel $20 + DataDoe $97 + Supabase $0–25 + domain ~$3 = **$120–145/mo**.
+Up front before the first sale: ~$140 (Vercel Pro $20, DataDoe $97 after the trial, ~$25 Claude credits). Pay at signup means unpaid sign-ups cost $0.
 
-## Per seller per month
-| Item | Per seller | 100 sellers | Notes |
-|---|---|---|---|
-| DataDoe data rows | ~$4–14 (est.) | $440–1,420 | 10M rows included, +$49 per 10M. Habit Nest is at 542k rows and still loading; DataDoe says 0.5–10M is typical. **Biggest unknown.** |
-| DataDoe AI tokens, exports | ~$9 (est.) | ~$880 | 4 exports/day/account × 2 tokens = 240/mo/account; 2,000 included per org. **Unverified:** whether a scheduled export run is charged like a one-off export. |
-| DataDoe AI tokens, write actions | ~$2.40 (est.) | ~$240 | 3 tokens per action of ≤100 items, ~20 approvals/mo/account (est.). Dry runs are free. |
-| Claude (Opus 5.5, $4 in / $20 out per 1M tokens) | ~$2.50 | ~$250 | Manager pass ≤1/day, and only when fixes change (~$0.05 each), plus ~30 Ask questions/mo (~$0.03 each). |
-| Dodo fees | ~$2.80–3.50 | ~$280–350 | Assumed ~4% + $0.40 per charge, spread over 3 months. **Verify** the rate in the Dodo dashboard (international cards can cost more). |
-| **Total** | **~$21–31** | **~$2,100–3,100/mo** | |
+## The fixes
+1. **DataDoe settings (Praveen, ~10 min in Settings → Data):** set every table to 6 months; turn off tables Rocco doesn't read (keep the defaults plus: ads search terms by campaign, targeting by campaign, placement by campaign, negative keywords, targets raw, campaigns raw, FBA restock recommendations, seller performance).
+2. **One export per table for all accounts (code):** one daily schedule per table covering every paying account (updated when an account joins or leaves), split by `seller_or_vendor_id`.
+3. **Batch approvals (code, optional):** "Approve all" sends one Action per change type instead of one per fix.
 
-## Profit at 100 sellers
-| | First quarter | Each quarter after |
-|---|---|---|
-| Revenue | $19,900 | $24,900 |
-| Dodo fees | −$840 | −$1,040 |
-| Infra (3 months, design as of today) | −$5,800 to −$8,800 | same |
-| **Real profit before marketing** | **~$10,300–13,300** | **~$15,100–18,100** |
-| Hackathon profit (only fees + marketing count) | ~$19,000 − marketing | |
-
-Pay at signup means unpaid sign-ups cost $0: no DataDoe invite, no pulls, no Claude calls until they pay, and lapsed accounts drop out of the daily pull.
-
-## Cheaper options, biggest saving first
-1. **One export per table for all accounts.** DataDoe exports take a list of seller IDs, so 4 exports a day could cover every account instead of 400. That's about 240 tokens a month, inside the 2,000 included, saving ~$880/mo. Before building it, confirm with DataDoe that cost is per export (not per account) and that the file includes a seller-ID column.
-2. **Fewer rows.** Ask DataDoe whether rows count stored history; a shorter backfill (90 days), plus turning off the tables Rocco doesn't read, could cut rows several times over. Ask for agency/partner pricing at 50+ accounts.
-3. **Own Amazon APIs (Ads API + SP-API, both free).** This removes DataDoe entirely, roughly $1,500–2,500/mo saved at 100 sellers, but it needs Amazon approval (the partner form needs a registered business) and weeks of build. Do it after the first revenue.
-4. **Claude Haiku 5.5 for the daily manager pass** ($0.10 / $0.50 per 1M tokens): ~$6/mo for 100 sellers instead of ~$250. The trade-off is weaker judgment; Opus stays the default unless Praveen picks Haiku. The Batch API also halves the cost of the nightly pass.
-5. **Inventory weekly instead of daily**, which cuts one export a day.
-6. **Supabase free tier** is likely enough at 100 sellers (small JSON per team).
+## MarketplaceAdPros instead of DataDoe?
+- AI Connect: $39/mo for 5 brands, +$10/mo per extra brand → 100 sellers ≈ **$990/mo**.
+- Boost: $449/mo billed annually ($579 monthly), 100 brands; plus Partner Connect (client connect links back to your app + webhooks) $19/mo → **~$470–600/mo**.
+- REST API limits: 100 requests/min, 10 exports/min, 30 writes/min per token. Full white-labeling is "in build", not available.
+- Verdict: **not cheaper** than DataDoe after the fixes (~$350–600/mo all-in for DataDoe), it's a competitor (they sell daily AI recommendations with approve/reject), and switching means rebuilding the connection, pulls and writes. Stay on DataDoe.
