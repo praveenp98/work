@@ -56,7 +56,7 @@ export async function validateLicenseKey(key: string): Promise<{ ok: boolean; er
   return { ok: false, error: "That key isn't valid (or has expired). Check your receipt email or contact us.", status: 200 };
 }
 
-interface DodoPayment { payment_id?: string; status?: string; created_at?: string; subscription_id?: string | null; customer?: { customer_id?: string } | null; metadata?: Record<string, string> | null; product_cart?: { product_id: string; quantity?: number }[] | null; refunds?: { status?: string }[] | null; disputes?: { dispute_status?: string; status?: string }[] | null }
+interface DodoPayment { payment_id?: string; status?: string; created_at?: string; total_amount?: number; currency?: string; subscription_id?: string | null; customer?: { customer_id?: string } | null; metadata?: Record<string, string> | null; product_cart?: { product_id: string; quantity?: number }[] | null; refunds?: { status?: string }[] | null; disputes?: { dispute_status?: string; status?: string }[] | null }
 export interface DodoSubscription { subscription_id: string; status?: string; product_id?: string; next_billing_date?: string | null; created_at?: string; trial_period_days?: number; metadata?: Record<string, string> | null; customer?: { customer_id?: string } | null }
 
 async function dodoGet<T>(path: string): Promise<T | null> {

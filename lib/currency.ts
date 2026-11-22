@@ -29,3 +29,9 @@ export const localize = (text: string, c: Currency = USD) => (c.code === "USD" ?
 
 /** Approximate USD value (only for "N× what Rocco costs"). */
 export const toUsd = (n: number, c: Currency = USD) => n * c.usd;
+
+/** Approximate USD for an ISO currency code (Dodo charges in the buyer's local currency with PPP). */
+export const usdFromCode = (n: number, code?: string | null) => {
+  const c = Object.values(BY_COUNTRY).find((x) => x.code === (code ?? "USD").toUpperCase());
+  return Math.round(n * (c?.usd ?? 1) * 100) / 100;
+};

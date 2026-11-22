@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · PostHog dashboard "Rocco" built (via PostHog connector)
+- Dashboard https://us.posthog.com/project/760057/dashboard/2397152 with 22 tiles: 4 headline numbers, revenue vs refunds, 4 funnels (main 8-step, hire→paid, paid→activated, weekly conversion trend), traffic (referrers, UTM, countries, top pages), jobs (approved vs skipped, by type, skip reasons), changes made vs failed, Amazon connections by marketplace/Ads, reminders, help signals (ask, email a human, rage clicks), paid-team weekly retention. Full table in docs/ANALYTICS.md.
+- Two pinned replay playlists (Opened Hire; Rage clicks). Project: replays on, dead clicks + errors on, timezone Asia/Kolkata, Rocco = home dashboard.
+- Code: `paid`/`renewed` now carry `currency` + approx `usd`; new `refunded` server event (refund/dispute). `usdFromCode` in lib/currency.ts.
+- No events had arrived at build time (headless test visits are dropped as bots). Next: Praveen visits rocco.works in his own browser, then checks PostHog → Activity.
+- Tests 202 passing.
+
+---
+
 ## 2026-11-22 · Analytics: PostHog built in (off until key), hackathon tracker verified
 - Hackathon tracker confirmed live on /, /pricing, /help.
 - PostHog added (posthog-js): page views with private team links scrubbed, replays only on public pages with inputs masked, sent through rocco.works/ingest (ad-blocker proof), teams identified by workspace id. Funnel events client + server (hire sheet → signup → checkout → paid → Amazon connected → first data → approved → changes made, plus skips, reminders, team, ask, email-a-human). Off until `POSTHOG_KEY` is set (renamed from NEXT_PUBLIC_POSTHOG_KEY the same day: Vercel warns on NEXT_PUBLIC_ + Sensitive; the layout now passes the key to the browser). Setup + funnels to build: docs/ANALYTICS.md. Privacy page updated.

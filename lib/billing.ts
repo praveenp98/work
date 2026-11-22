@@ -1,6 +1,7 @@
 import { extraProduct, fetchPayment, fetchSubscription, latestPaymentOf, ourProducts, type DodoSubscription } from "./payments";
 import type { Store, Workspace } from "./store/types";
 import { trackServer } from "./track-server";
+import { usdFromCode } from "./currency";
 
 /**
  * Turn a Dodo webhook into the workspace's billing state. The webhook body is never trusted: it only names a
@@ -42,6 +43,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();
     if (sub) { ws.subscriptionId = sub.subscription_id; ws.subStatus = sub.status; }
     await store.saveWorkspace(ws);
+    trackServer(ws.id, "refunded", { kind: refunded ? "refund" : "dispute", usd: pay?.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : undefined });
     return { ws, change: "ended" };
   }
   if (sub) { ws.subscriptionId = sub.subscription_id; ws.subStatus = sub.status; }
@@ -55,7 +57,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     const cover = new Date(paidAt.getTime() + (monthly ? 32 : 367) * 86_400_000);
     const until = nextBill && nextBill > now && nextBill <= cover ? nextBill : cover;
     if (until > now) {
-      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) { change = "paid"; trackServer(ws.id, ws.licensed ? "renewed" : "paid", { plan: monthly ? "monthly" : "annual" }); }
+      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) { change = "paid"; trackServer(ws.id, ws.licensed ? "renewed" : "paid", { plan: monthly ? "monthly" : "annual", currency: pay.currency, usd: pay.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : undefined }); }
       ws.licensed = true;
       if (!ws.paidUntil || new Date(ws.paidUntil) < until) ws.paidUntil = until.toISOString();
       ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard
