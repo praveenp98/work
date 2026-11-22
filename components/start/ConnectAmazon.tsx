@@ -95,7 +95,7 @@ export function HireCard({ url, monthlyUrl }: { url: string; monthlyUrl?: string
       <ol className="rc-steps">
         <li><b>Hire Rocco</b><span>$1,190/yr or $119/mo</span></li>
         <li><b>Connect Amazon</b><span>Seller Central + Ads, 2 minutes</span></li>
-        <li><b>Approve fixes</b><span>first ones the same day</span></li>
+        <li><b>Approve fixes</b><span>first ones usually within hours</span></li>
       </ol>
       <a className="btn rc-btn" href={url}>Hire Rocco · $1,190/yr (2 months free) →</a>
       {monthlyUrl && <a className="linkbtn rc-monthly" href={monthlyUrl}>or $119 a month</a>}
