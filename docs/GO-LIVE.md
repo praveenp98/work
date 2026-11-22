@@ -11,7 +11,7 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 - `CNAME www → 4415e1e0dfd3209e.vercel-dns-017.com` ✅ already set.
 - **Change `A @` from "Parked" to `76.76.21.21`** (or the IP Vercel shows for rocco.works). This is the only change needed for the site.
 - Keep NS/SOA/_domainconnect. GoDaddy Domain → Forwarding must be off.
-- `_dmarc` is `p=quarantine` with no SPF/DKIM yet: add the email provider's MX/SPF/DKIM when hello@rocco.works is set up, before sending any mail.
+- `_dmarc` is `p=quarantine` with no SPF/DKIM yet: add the email provider's MX/SPF/DKIM when human@rocco.works is set up, before sending any mail.
 - In Vercel: add rocco.works + www.rocco.works, make rocco.works primary (www redirects).
 
 ## 2. Hackathon traffic tracker ✅ installed in code
@@ -32,7 +32,7 @@ Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't 
 5. Test: rocco.works/setup → "Create my personal Rocco" → open the dashboard link.
 
 ## 5. Email + handles
-- `hello@rocco.works` (Google Workspace, Zoho or Cloudflare Email Routing → Gmail). Set SPF/DKIM/DMARC.
+- `human@rocco.works` (Google Workspace, Zoho or Cloudflare Email Routing → Gmail). Set SPF/DKIM/DMARC.
 - Grab @roccoworks on X, Instagram, TikTok, YouTube; LinkedIn page "Rocco Works".
 - Cold-email sending domains stay separate (`docs/LAUNCH-SETUP.md`); ask before buying.
 

@@ -43,13 +43,13 @@ export const HELP: HelpArticle[] = [
     slug: "first-jobs-not-showing", section: "Troubleshooting", updated: U,
     q: "I connected Amazon but don't see any jobs yet",
     short: "Amazon sends the first reports in batches, so it can take a few hours after connecting. Your Rocco page keeps checking and opens your jobs by itself; you can also tap Check now (once an hour).",
-    steps: ["Keep the Rocco page open, or come back later: it refreshes when data lands.", "Tap Check now to ask for the latest reports (once an hour).", "Still nothing after 24 hours? Make sure you connected Amazon Ads too (step two of Connect). Without Ads, there are no ad jobs.", "Then email hello@rocco.works with your brand name."],
+    steps: ["Keep the Rocco page open, or come back later: it refreshes when data lands.", "Tap Check now to ask for the latest reports (once an hour).", "Still nothing after 24 hours? Make sure you connected Amazon Ads too (step two of Connect). Without Ads, there are no ad jobs.", "Then email human@rocco.works with your brand name."],
   },
   {
     slug: "connect-errors", section: "Troubleshooting", updated: U,
     q: "Amazon sign-in failed or said I don't have permission",
     short: "Sign in as the Seller Central primary user, or a user with all permissions, and pick the Amazon Ads account on the second step. If you closed the window early, nothing changed: tap Connect Amazon again for a fresh link.",
-    steps: ["\"Doesn't have full permissions\": ask the account owner to connect, or give your user all permissions in Seller Central → Settings → User Permissions.", "\"Link was already used or expired\": tap Connect Amazon for a new one. Links are single use.", "\"Ads didn't connect\": tap Connect Amazon again and choose your Ads account on the second step.", "\"Already connected to another Rocco\": that account belongs to a different team. Email hello@rocco.works from the owner's email and we'll move it."],
+    steps: ["\"Doesn't have full permissions\": ask the account owner to connect, or give your user all permissions in Seller Central → Settings → User Permissions.", "\"Link was already used or expired\": tap Connect Amazon for a new one. Links are single use.", "\"Ads didn't connect\": tap Connect Amazon again and choose your Ads account on the second step.", "\"Already connected to another Rocco\": that account belongs to a different team. Email human@rocco.works from the owner's email and we'll move it."],
   },
   // Daily work
   {
@@ -62,7 +62,7 @@ export const HELP: HelpArticle[] = [
   {
     slug: "undo-a-change", section: "Daily work", updated: U,
     q: "How do I undo a change Rocco made?",
-    short: "Every change is in your change log with the old value. Tidy changes have an Undo button on the Tidy page. For a bid, budget or negative, change it back in Amazon Ads (the old value is in the log) or email hello@rocco.works and we'll reverse it.",
+    short: "Every change is in your change log with the old value. Tidy changes have an Undo button on the Tidy page. For a bid, budget or negative, change it back in Amazon Ads (the old value is in the log) or email human@rocco.works and we'll reverse it.",
   },
   {
     slug: "skip-a-fix", section: "Daily work", updated: U,
@@ -114,17 +114,17 @@ export const HELP: HelpArticle[] = [
   {
     slug: "refund", section: "Billing", updated: U,
     q: "How do I get a refund?",
-    short: `${G}-day money-back guarantee: if you don't like the fixes Rocco gives you in your first ${G} days, email hello@rocco.works from the email you paid with and you get a full refund. No call, no forms.`,
+    short: `${G}-day money-back guarantee: if you don't like the fixes Rocco gives you in your first ${G} days, email human@rocco.works from the email you paid with and you get a full refund. No call, no forms.`,
   },
   {
     slug: "cancel", section: "Billing", updated: U,
     q: "How do I cancel?",
-    short: "Use the link in your Dodo receipt email, or email hello@rocco.works from the email you paid with. You won't be charged again and Rocco keeps working until the end of the period you paid for.",
+    short: "Use the link in your Dodo receipt email, or email human@rocco.works from the email you paid with. You won't be charged again and Rocco keeps working until the end of the period you paid for.",
   },
   {
     slug: "invoice", section: "Billing", updated: U,
     q: "Where's my invoice or receipt?",
-    short: "Dodo Payments emails a receipt after every payment, with an invoice you can download. Need it with a company name or tax ID? Reply to that email or write to hello@rocco.works.",
+    short: "Dodo Payments emails a receipt after every payment, with an invoice you can download. Need it with a company name or tax ID? Reply to that email or write to human@rocco.works.",
   },
   // Trust & safety
   {
@@ -136,14 +136,14 @@ export const HELP: HelpArticle[] = [
   {
     slug: "data-and-privacy", section: "Trust & safety", updated: U,
     q: "What data does Rocco keep?",
-    short: "Only what it needs to find fixes and measure them: ads, sales, stock and campaign reports from your account, the changes you approved and their results. It isn't sold or shared. Delete everything by emailing hello@rocco.works.",
+    short: "Only what it needs to find fixes and measure them: ads, sales, stock and campaign reports from your account, the changes you approved and their results. It isn't sold or shared. Delete everything by emailing human@rocco.works.",
   },
   // Troubleshooting
   {
     slug: "sign-in-problems", section: "Troubleshooting", updated: U,
     q: "I can't get back to my Rocco or Google sign-in loops",
     short: "Go to rocco.works → Sign in → choose the Google account you signed up with. If you land on an empty Rocco, you used a different Google account: sign out and pick the right one.",
-    steps: ["Safari: allow pop-ups/cookies for rocco.works, or try Chrome.", "Joined as a teammate? Use exactly the email the owner added.", "Still stuck? Email hello@rocco.works from your signup email."],
+    steps: ["Safari: allow pop-ups/cookies for rocco.works, or try Chrome.", "Joined as a teammate? Use exactly the email the owner added.", "Still stuck? Email human@rocco.works from your signup email."],
   },
   {
     slug: "approve-failed", section: "Troubleshooting", updated: U,

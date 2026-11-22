@@ -60,6 +60,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
           <li><span aria-hidden>↩︎</span>Every change is checked first, logged and undoable.</li>
           <li><span aria-hidden>🛡️</span>7-day money-back guarantee. Cancel anytime.</li>
         </ul>
+        <p className="fine sheet-human">Questions first? Email a human: <a href="mailto:human@rocco.works">human@rocco.works</a></p>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>
     </div>

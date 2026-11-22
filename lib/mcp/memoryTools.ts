@@ -255,9 +255,9 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     annotations: rw,
   }, async ({ license_key }) => {
     // License keys are retired (Nov 22): one key could unlock any number of workspaces, forever. Access comes only from
-    // a Dodo payment tied to the team. Old key holders write to hello@rocco.works.
+    // a Dodo payment tied to the team. Old key holders write to human@rocco.works.
     void license_key; void validateLicenseKey;
-    return fail(`License keys no longer unlock Rocco. Hire Rocco from your Rocco page (${hireUrl(ws)}), or if you bought a license before, email hello@rocco.works and we'll move you over.`);
+    return fail(`License keys no longer unlock Rocco. Hire Rocco from your Rocco page (${hireUrl(ws)}), or if you bought a license before, email human@rocco.works and we'll move you over.`);
   });
 
   server.registerTool("workspace_link", {

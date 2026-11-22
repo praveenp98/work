@@ -56,7 +56,7 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
 5. Test: rocco.works → Connect Amazon → pick Yearly → checkout must say $1,190/year; back, pick Monthly → $119/month. Pay once with a real card, then refund yourself (step 7) to check the full loop.
 6. Webhook: no change (same endpoint, both products count as hiring Rocco).
 7. **Money-back guarantee (7 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
-8. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's.
+8. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email human@rocco.works. The checkout layout itself is Dodo's.
 
 ## Extra Amazon account product (Nov 22)
 - Dodo → Products → Add product → **Subscription**. Name **Rocco · Extra Amazon account**. Price **$49 USD every 1 month**, no trial, localized pricing on.

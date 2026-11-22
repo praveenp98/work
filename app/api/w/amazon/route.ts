@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     const st = slotState(ws);
     if (!st.canAdd) {
       const url = extraAccountUrl(ws);
-      return NextResponse.json({ ok: false, limit: true, slots: st, extraUrl: url, error: url ? `Your plan includes ${st.limit} Amazon accounts and they're all in use. Add one more for $49/month.` : `Your plan includes ${st.limit} Amazon accounts and they're all in use. Email hello@rocco.works to add more.` }, { status: 402 });
+      return NextResponse.json({ ok: false, limit: true, slots: st, extraUrl: url, error: url ? `Your plan includes ${st.limit} Amazon accounts and they're all in use. Add one more for $49/month.` : `Your plan includes ${st.limit} Amazon accounts and they're all in use. Email human@rocco.works to add more.` }, { status: 402 });
     }
   }
   // Reuse an open link only if DataDoe says it's still unused (links are single use, even after a failed attempt).

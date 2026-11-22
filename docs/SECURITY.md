@@ -56,4 +56,4 @@ Last reviewed: 2026-11-22. Re-check this list whenever a route that touches paym
 ## Known limits (honest)
 - DataDoe's API key can change every connected account: it lives only in Vercel env vars. If Vercel or the key leaks, rotate it in DataDoe at once.
 - IP rate limits for public endpoints are per server instance (best effort); the per-team limits are durable.
-- A seller who shares their own Rocco link shares their dashboard. Sign out / new link on request (hello@rocco.works).
+- A seller who shares their own Rocco link shares their dashboard. Sign out / new link on request (human@rocco.works).

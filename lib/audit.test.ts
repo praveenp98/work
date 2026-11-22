@@ -25,7 +25,7 @@ describe("audit fixes (Nov 22)", () => {
     const fetchSpy = vi.fn(async (_u: string) => Response.json({}));
     vi.stubGlobal("fetch", fetchSpy);
     const r = await respond(store, "+14155550301", "cancel");
-    expect(r.bubbles.join(" ")).toMatch(/receipt email|hello@rocco\.works/);
+    expect(r.bubbles.join(" ")).toMatch(/receipt email|human@rocco\.works/);
     expect(fetchSpy.mock.calls.some((c) => String(c[0]).includes("/subscriptions/"))).toBe(false);
   });
 });

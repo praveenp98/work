@@ -41,7 +41,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
             <p className="hello-lede">This usually takes a few seconds. Don&apos;t close the page.</p>
           </>
         ) : (
-          <p className="hello-lede">Your payment went through, but the confirmation hasn&apos;t reached me yet. Refresh in a minute. If it still says this, email hello@rocco.works with your receipt and I&apos;ll switch you on right away.</p>
+          <p className="hello-lede">Your payment went through, but the confirmation hasn&apos;t reached me yet. Refresh in a minute. If it still says this, email human@rocco.works with your receipt and I&apos;ll switch you on right away.</p>
         )}
       </section>
     );

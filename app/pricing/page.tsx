@@ -35,7 +35,7 @@ const FAQ = [
   { q: "How many Amazon accounts?", a: "3 are included (each marketplace counts as one). Each extra account is +$49 a month, added from your dashboard. Agencies: same plan, add accounts as you go." },
   { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco. Every approval shows who made it. Remove someone anytime, or hand the whole Rocco over." },
   { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
-  { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
+  { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email human@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
   { q: "Is there a free plan?", a: `No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the ${PLAN.guaranteeDays}-day guarantee instead.` },
 ];
 
@@ -76,7 +76,7 @@ export default async function Page() {
       <section className="pr-sec pr-faq">
         <h2>Questions</h2>
         <Faq items={FAQ} title={null} />
-        <p className="fine">More answers in <a href="/help">Help</a>, or email <a href="mailto:hello@rocco.works">hello@rocco.works</a>.</p>
+        <p className="fine">More answers in <a href="/help">Help</a>, or email <a href="mailto:human@rocco.works">human@rocco.works</a>.</p>
       </section>
 
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Product", name: "Rocco", description: SITE.description, brand: { "@type": "Brand", name: "Rocco" }, offers: [{ "@type": "Offer", name: "Yearly", price: (PLAN.annualCents / 100).toFixed(2), priceCurrency: "USD", url: `${SITE.url}/pricing` }, { "@type": "Offer", name: "Monthly", price: (PLAN.monthlyCents / 100).toFixed(2), priceCurrency: "USD", url: `${SITE.url}/pricing` }] }} />

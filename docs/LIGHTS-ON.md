@@ -40,7 +40,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 11. **Hackathon tracker**: already on every page; open the Ship or Die dashboard and confirm visits show up.
 
 ## 🟢 Support + AI (15 minutes)
-- Make sure **hello@rocco.works** forwards to your inbox (every help page and message points there). Macros: docs/SUPPORT.md.
+- Make sure **human@rocco.works** forwards to your inbox (every help page and message points there). Macros: docs/SUPPORT.md.
 - Anthropic Console → Settings → Limits: set a monthly spend limit (suggested $400). Where AI is used and why: docs/AI-USAGE.md.
 
 ## 🔐 Security (10 minutes, do once)

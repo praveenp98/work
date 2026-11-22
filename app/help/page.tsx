@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <section className="answer help">
       <h1>Help</h1>
-      <p className="answer-p">Exact answers, short. Can&apos;t find it? Email <a href="mailto:hello@rocco.works">hello@rocco.works</a>: a person replies, usually the same day.</p>
+      <p className="answer-p">Exact answers, short. Can&apos;t find it? Email <a href="mailto:human@rocco.works">human@rocco.works</a>: a person replies, usually the same day.</p>
       <p className="fine">Using Claude, ChatGPT or another AI? Give it <a href="/llms-full.txt">rocco.works/llms-full.txt</a>: every answer below in one plain file.</p>
       {HELP_SECTIONS.map((sec) => (
         <div key={sec} className="help-sec">

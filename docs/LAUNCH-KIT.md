@@ -47,7 +47,7 @@ https://x.com/roccoworks
 ## Contact email  (17 chars)
 
 ```
-hello@rocco.works
+human@rocco.works
 ```
 
 ## Tagline (≤ 40 chars)  (23 chars)

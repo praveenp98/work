@@ -50,7 +50,7 @@ export function AccountsCard({ token, accounts: a0, slots: s0, owner, extraUrl }
         ? <button className="btn small" disabled={!!busy} onClick={add}>{busy === "add" ? "Opening Amazon…" : "+ Connect another account"}</button>
         : extraUrl
           ? <a className="btn small" href={extraUrl}>Add an account · $49/mo</a>
-          : <p className="fine">All {slots.limit} accounts in use. Need more? Email <a href="mailto:hello@rocco.works">hello@rocco.works</a>.</p>}
+          : <p className="fine">All {slots.limit} accounts in use. Need more? Email <a href="mailto:human@rocco.works">human@rocco.works</a>.</p>}
       {msg && <p className={msg.ok ? "tm-ok" : "tm-err"} role="status">{msg.text}</p>}
     </section>
   );

@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <div className="answer-card"><p className="answer-short">{h.short}</p></div>
       {h.steps && (<><h2>Steps</h2><ol className="answer-steps">{h.steps.map((s) => <li key={s}>{s}</li>)}</ol></>)}
       {h.more?.map((m) => <p key={m} className="answer-p">{m}</p>)}
-      <p className="fine">Still stuck? Email <a href="mailto:hello@rocco.works">hello@rocco.works</a> with your brand name.</p>
+      <p className="fine">Still stuck? Email <a href="mailto:human@rocco.works">human@rocco.works</a> with your brand name.</p>
       {related.length > 0 && (<><h2>Related</h2><ul className="answer-related">{related.map((r) => <li key={r.slug}><Link href={`/help/${r.slug}`}>{r.q}</Link></li>)}</ul></>)}
       <JsonLd data={{
         "@context": "https://schema.org",

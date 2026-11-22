@@ -41,4 +41,4 @@ Expect roughly **15–25 emails per 10 new sellers in week one**, then **~1 per 
 5. **Emergency**: `ROCCO_WRITES_OFF=1` + Redeploy stops every Amazon change at once.
 
 ## Inbox
-hello@rocco.works should forward to Praveen's inbox. Reply within one business day; refunds same day.
+human@rocco.works should forward to Praveen's inbox. Reply within one business day; refunds same day.

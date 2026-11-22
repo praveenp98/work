@@ -7,6 +7,6 @@ export const SITE = {
     "Rocco is an AI Amazon manager. Connect Seller Central and Amazon Ads once: every morning he finds what to fix, you tap approve, he makes the change in Amazon and checks a week later if it worked.",
   x: "https://x.com/roccoworks",
   disclaimer: "Rocco is an independent tool and is not affiliated with, endorsed by or sponsored by Amazon.",
-  contactEmail: "hello@rocco.works",
+  contactEmail: "human@rocco.works",
 };
 

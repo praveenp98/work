@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · human@rocco.works everywhere + "Email a human" on every page
+- All contact addresses changed to **human@rocco.works** (forwards to Praveen): site, help, texts, AI files, MCP output, docs.
+- "✉️ Email a human" pill on every page (bottom-right; icon-only on phones, above the sticky Hire button on the homepage); opens mail with a subject saying which page they were on.
+- Footer line "Questions? Talk to a human: human@rocco.works · usually answered the same day" + Help link; hire sheet: "Questions first? Email a human".
+
+---
+
 ## 2026-11-22 · App header, example mornings while waiting, new pricing page
 - Inside the product (/w, /me, /welcome) the header shows only the logo and Help: no Pricing/Answers after paying.
 - Connect + waiting screens show "here's what your mornings will look like": the animated example dashboard (labeled example), so the hours-long first load isn't a blank wait. Order: status card → example → ping setup → team.
@@ -738,7 +745,7 @@ Open: realistic raccoon avatar (Praveen to generate), dedicated LoopMessage numb
   - Rules engine `lib/rules/` (negatives, junk-intent, harvest, bid formula ±20% cap, leak math, coupon math, breakeven ACoS) + parsers `lib/parsers/` (search term report with header detection, bulk export) + fixtures.
   - **Coupon Profit Calculator** and **Breakeven ACoS Calculator** (free SEO bait).
   - Landing page, tools index, pricing (Holiday $99 / Seller $149 / Pro $299 / Agency $399, price steps Nov 27 / Dec 1 / Dec 16), privacy, terms, refunds (7-day draft), waitlist API (Supabase), license unlock API (Polar), sitemap, robots, llms.txt, JSON-LD + FAQ on every tool page, tracker slot.
-- **Praveen to do (blocking launch):** see `docs/GO-LIVE.md` — Vercel deploy + DNS, Polar products + license keys, Supabase table, TrustMRR tracker snippet, hello@rocco.works inbox, X @roccoworks. Approve: 7-day refund policy, postal address for emails.
+- **Praveen to do (blocking launch):** see `docs/GO-LIVE.md` — Vercel deploy + DNS, Polar products + license keys, Supabase table, TrustMRR tracker snippet, human@rocco.works inbox, X @roccoworks. Approve: 7-day refund policy, postal address for emails.
 - **Next (Claude):** Brain MCP v1 (roast + fixes tools for Claude/ChatGPT), BFCM Surge Plan, first 10 SEO/AEO pages, Day-1 X posts from the hook bank, anonymized Leak Index counter.
 - Known limits: paywall is client-side (fine for v1, sellers won't dig into JS); no .xls support; Sponsored Brands/Display reports not parsed yet.
 - Numbers: revenue $0 · marketing cost $0 (domain is not a marketing cost).

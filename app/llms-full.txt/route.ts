@@ -16,7 +16,7 @@ export function GET() {
     "> Rocco is an AI Amazon manager. A seller connects Seller Central and Amazon Ads once. Every morning Rocco lays out today's work as a few jobs ranked by money; the team approves and Rocco makes the change in Amazon, then measures it a week later.",
     "",
     `Pricing: ${PRICE.line}`,
-    "Support: hello@rocco.works (a person replies, usually the same day). Each customer's dashboard is private (rocco.works/w/<private link>); assistants can't open it, so ask the customer to paste what they see.",
+    "Support: human@rocco.works (a person replies, usually the same day). Each customer's dashboard is private (rocco.works/w/<private link>); assistants can't open it, so ask the customer to paste what they see.",
     "",
     "# What Rocco can and can't do",
     "- Makes in Amazon after the team approves: negative keywords, bid changes, daily budget changes, new exact-match Sponsored Products campaigns from proven searches, campaign tidy-ups (names, portfolios, pausing idle campaigns), and undoing those.",

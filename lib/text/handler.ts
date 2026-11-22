@@ -208,13 +208,13 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       // Not by text: any linked phone (a teammate, a removed person) could cancel the owner's plan.
       void cancelSubscription; void accessOf;
       if (!ws.subscriptionId) return "There's no subscription to cancel on this Rocco.";
-      return "To cancel, use the link in your Dodo receipt email, or email hello@rocco.works from the email you paid with. It's done the same day.";
+      return "To cancel, use the link in your Dodo receipt email, or email human@rocco.works from the email you paid with. It's done the same day.";
     }
     case "activate": {
       // License keys are retired (one key could unlock unlimited teams). Access comes only from a payment for this team.
       void cmd.key; void validateLicenseKey;
       if (hasAccess(ws, now)) return "Your plan is active 🦝 Text “brief” and let's get to work.";
-      return { bubbles: ["License keys don't unlock Rocco anymore. Hire me for this team here (7-day money-back guarantee). Bought a key before? Email hello@rocco.works and we'll move you over.", hireUrl(ws)] };
+      return { bubbles: ["License keys don't unlock Rocco anymore. Hire me for this team here (7-day money-back guarantee). Bought a key before? Email human@rocco.works and we'll move you over.", hireUrl(ws)] };
     }
     case "demo": {
       const d = await demoMorning(now);

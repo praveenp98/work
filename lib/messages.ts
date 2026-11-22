@@ -8,17 +8,17 @@ export function amazonNote(code?: string | null): string | undefined {
   if (c === "connected") return "🔌 Connected. I'm reading your account now: your first fixes usually show up here within a few minutes.";
   if (c === "unknown") return "That Amazon link was already used or opened in another browser. Tap Connect Amazon for a fresh one.";
   if (c === "limit") return "Your plan's Amazon accounts are all in use, so I didn't add this one. Add another account from your dashboard (+$49/month), or remove one you don't need.";
-  if (c === "taken") return "That Amazon account is already connected to another Rocco. If it's yours, write to hello@rocco.works and we'll move it over.";
+  if (c === "taken") return "That Amazon account is already connected to another Rocco. If it's yours, write to human@rocco.works and we'll move it over.";
   if (c === "mismatch") return "That sign-in didn't match the link I made for you, so I didn't connect anything. Tap Connect Amazon for a fresh link.";
   if (c === "unpaid") return "Your plan isn't active, so I didn't connect the account. Hire Rocco, then connect Amazon.";
   if (c === "check_failed") return "I couldn't confirm the connection with my data partner just now. Nothing was linked. Try Connect Amazon again in a minute.";
   if (c === "not_found") return "Amazon connected, but your account isn't showing on my side yet. Give it a minute, then tap Connect Amazon again.";
-  if (/ALREADY|EXIST|DUPLICATE|IN_USE/i.test(c)) return "This Amazon account is already connected through my data partner (maybe from an earlier try). Email hello@rocco.works and I'll link it to your Rocco right away; nothing else to do on your side.";
+  if (/ALREADY|EXIST|DUPLICATE|IN_USE/i.test(c)) return "This Amazon account is already connected through my data partner (maybe from an earlier try). Email human@rocco.works and I'll link it to your Rocco right away; nothing else to do on your side.";
   if (/PERMISSION|ROLE|NOT_PRIMARY|UNAUTHORIZED/i.test(c)) return "That Amazon login doesn't have full permissions on the account. Sign in as the Seller Central primary user (or a user with all permissions) and try again.";
   if (/CANCEL|DENIED|ABORT/i.test(c)) return "You closed Amazon's sign-in before it finished. Nothing changed. Tap Connect Amazon when you're ready.";
   if (/EXPIRED/i.test(c)) return "That link expired. Tap Connect Amazon for a fresh one.";
   if (/ADS/i.test(c)) return "Seller Central connected, but Amazon Ads didn't. Tap Connect Amazon again and pick your Ads account on the second step.";
-  return `Amazon stopped before it finished, so nothing changed. Tap Connect Amazon to try again with a fresh link. If it happens again, email hello@rocco.works with this code: ${c.slice(0, 40)}.`;
+  return `Amazon stopped before it finished, so nothing changed. Tap Connect Amazon to try again with a fresh link. If it happens again, email human@rocco.works with this code: ${c.slice(0, 40)}.`;
 }
 
 export const SIGNIN: Record<string, string> = {

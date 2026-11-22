@@ -67,7 +67,7 @@ export const LIMIT_MSG: Record<LimitKey, string> = {
   tidyApply: "I've already tidied a few times today. Try again tomorrow.",
   sync: "I've refreshed your data a few times today. The morning pull will bring the rest.",
   history: "I've tried reading the history a few times today. Try again tomorrow.",
-  invite: "Too many connect links today. Write to hello@rocco.works and I'll help.",
+  invite: "Too many connect links today. Write to human@rocco.works and I'll help.",
   writes: "Safety limit: I've already made a lot of changes in this account today. The rest can go tomorrow.",
   campaigns: "Safety limit: I've already created several campaigns today. The rest can go tomorrow.",
   team: "That's a lot of invites for one day. Try again tomorrow.",

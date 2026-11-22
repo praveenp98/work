@@ -3,7 +3,7 @@
 Everything here takes minutes. Start every check at **https://rocco.works/api/health**: anything not "set"/"ok" comes first.
 
 ## Every day (5 minutes)
-- [ ] **Inbox** hello@rocco.works: answer within a day, refunds the same day (macros: docs/SUPPORT.md).
+- [ ] **Inbox** human@rocco.works: answer within a day, refunds the same day (macros: docs/SUPPORT.md).
 - [ ] **Dodo → Transactions**: new hires and refunds. Log every refund in docs/PROGRESS.md (hackathon profit).
 - [ ] **Vercel → Logs**, search `[amazon] connect failed`: a seller couldn't connect. Email them (the code in the log tells you why; "ALREADY" = already in DataDoe, link it with the attach command below).
 - [ ] **Vercel → Logs**, search `error` and `[ai]` for anything unusual (a spike of `[ai]` lines = someone hammering Ask; limits cap it at 40/team/day).

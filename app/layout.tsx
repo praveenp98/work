@@ -8,6 +8,7 @@ import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
 import { SITE } from "@/lib/site";
 import { TopNav } from "@/components/TopNav";
+import { HumanContact } from "@/components/HumanContact";
 import "./globals.css";
 import "./connect.css";
 
@@ -42,7 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <Notice />
         <main>{children}</main>
+        <HumanContact />
         <footer className="foot foot-min">
+          <p className="foot-human">💬 Questions? Talk to a human: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> · usually answered the same day.</p>
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>
           <p className="foot-tag">Your AI Amazon manager: you approve, I do the rest. <b>Real work without the fluff.</b></p>
           <nav>
@@ -54,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/press">Press</Link>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
+            <Link href="/help">Help</Link>
             <a href={`mailto:${SITE.contactEmail}`}>Contact</a>
           </nav>
           <p className="fine">© 2026 Rocco Works · {SITE.disclaimer}</p>
