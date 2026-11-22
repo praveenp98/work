@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { SITE } from "@/lib/site";
 import { syncBilling } from "@/lib/billing";
 import { notifyTeam } from "@/lib/notify";
 import { getPriceState } from "@/lib/payments";
@@ -21,8 +22,8 @@ export async function POST(req: Request) {
     if (r.ws && r.change) {
       const price = await getPriceState({ fresh: true }).catch(() => null);
       const msg = {
-        trial: "🎉 You're in. Everything's unlocked for the whole team. Text “brief” and let's get to work.",
-        paid: `You hired me 🎉🦝 Your plan is active for your whole team. Text “brief” anytime.`,
+        trial: `🎉 You're in. Connect your Amazon here and I'll start: ${SITE.url}/me`,
+        paid: `You hired me 🎉🦝 Your plan is active. Today's work is always here: ${SITE.url}/me`,
         cancelled: "Done: your plan is cancelled and you won't be charged again. I'll keep working until the end of your current period.",
         ended: "Your Rocco is paused (the payment didn't go through). Start again anytime from your Rocco page.",
       }[r.change];

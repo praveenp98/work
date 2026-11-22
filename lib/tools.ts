@@ -17,7 +17,7 @@ export const TOOLS: ToolMeta[] = [
     description:
       "Free Amazon account check: drop in your search term, campaign, placement, business, restock and bulk reports to get a Rocco Score, the money at stake per month, and what to fix first. Runs in your browser.",
     free: "Rocco Score, $ at stake, top 5 actions, area-by-area findings",
-    paid: "Every action, tracked and re-checked inside Claude or ChatGPT",
+    paid: "Every fix approved in one tap, made in Amazon and re-checked a week later",
     live: true,
   },
   {

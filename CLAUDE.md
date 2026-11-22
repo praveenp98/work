@@ -6,14 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 17, 2026, 22:00 IST): LIVE at rocco.works (verified end to end on production: pages, tracker, Dodo price, connector, Supabase memory, dashboard). One plan: "Hire Rocco" $99 +$10/5 hires. Left: make rocco.works (not www) the primary domain in Vercel; CRON_SECRET + TEXT_WEBHOOK_SECRET; LoopMessage; Dodo KYC → real purchase test; Amazon API applications (`docs/E2E-TEST.md`).**
+> **STATUS (Nov 22, 2026): rocco.works sells "Hire Rocco": $1,190/yr or $119/mo, 30-day money-back guarantee, pay at signup → connect Amazon (DataDoe) → today's jobs approved in one tap and made in Amazon. Left for Praveen: Dodo yearly + monthly products (docs/DODO-SETUP.md), DataDoe Settings → Actions + retention (docs/FOUNDER-TEST.md, docs/COSTS.md), LoopMessage keys, founder test on Habit Nest.**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** one plan, "Hire Rocco", on a price ladder. |
+| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** $1,190/yr or $119/mo, 30-day guarantee. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/MOAT.md` | Moat (memory/proof, benchmarks, audience, personality), Rocco Daily content format, conversion levers. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |

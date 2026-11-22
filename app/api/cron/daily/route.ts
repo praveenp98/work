@@ -29,6 +29,9 @@ export async function GET(req: Request) {
   for (const [wsId, list] of byWs) {
     const ws = await store.getWorkspaceById(wsId);
     if (!ws) continue;
+    // Amazon connected directly: the morning message comes from the daily pull (lib/datadoe-sync tellTeam), which
+    // follows the team's reminder settings. Nothing from this older Claude-bridge job.
+    if (ws.amazon?.accounts?.length || ws.reminders?.cadence === "off") continue;
     // Trial ends within a day: say so once, with the price and how to cancel (avoids surprise charges/chargebacks).
     const left = trialHoursLeft(ws);
     if (left !== null && left <= 30 && !ws.nudges?.trialEnd) {

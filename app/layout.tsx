@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="foot-tag"><b>Real work without the fluff.</b> Your AI Amazon manager: you approve, I do the rest.</p>
           <nav>
             <Link href="/answers">Answers</Link>
-            <Link href="/connect">How it works</Link>
+            <Link href="/#how">How it works</Link>
             <Link href="/pricing">Pricing</Link>
             <Link href="/tools">Free tools</Link>
             <Link href="/guides">Guides</Link>

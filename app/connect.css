@@ -1140,3 +1140,63 @@ h1, h2, .display { font-family: var(--display); }
 .rm-approve.rm-locked { opacity: .6; cursor: default; }
 .rm .btn { justify-self: start; }
 .rm-mini { grid-template-columns: 1fr auto; align-items: center; } .rm-mini p { margin: 0; font-size: 14px; }
+
+/* Hero demo v2: jobs, brief, savings strip */
+.hd-brief { margin: -2px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.hd-roi { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; padding: 9px 12px; border-radius: 14px; background: color-mix(in srgb, #1f9d63 7%, #fff); border: 1px solid color-mix(in srgb, #1f9d63 25%, var(--line)); font-size: 12.5px; }
+.hd-roi span { color: var(--muted); } .hd-roi b { font-size: 17px; font-variant-numeric: tabular-nums; } .hd-roi em { font-style: normal; font-weight: 700; color: #1f7a4f; margin-left: auto; }
+.hd-pick { margin-left: 6px; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, #fff); color: var(--accent); vertical-align: 2px; }
+.hd-btn.ghost { background: #fff; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.hd-manual { grid-template-columns: 34px minmax(0, 1fr) auto; }
+@media (max-width: 560px) {
+  .hd-fix { grid-template-columns: 30px minmax(0, 1fr); row-gap: 8px; }
+  .hd-fix .hd-btn { grid-column: 2; justify-self: start; }
+  .hd-main b { white-space: normal; }
+  .hd-pick { display: none; }
+}
+
+/* Homepage v6: jobs grid, learning, messages, proof, FAQ */
+.hjobs { list-style: none; margin: 28px auto 0; padding: 0; max-width: 1060px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.hjobs li { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; padding: 18px; border-radius: 22px; background: #fff; border: 1px solid var(--line); text-align: left; transition: transform .2s, box-shadow .2s; }
+.hjobs li:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -30px rgba(28, 36, 51, .5); }
+.hjobs-ic { width: 44px; height: 44px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line); display: grid; place-items: center; font-size: 20px; }
+.hjobs b { font-size: 16px; } .hjobs p { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.hjobs em { position: absolute; top: 14px; right: 14px; font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.hlearn, .hmsg { background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 20px; display: grid; gap: 12px; box-shadow: 0 30px 70px -45px rgba(28, 36, 51, .5); max-width: 440px; margin: 0 auto; text-align: left; }
+.hlearn-q { margin: 0; font-weight: 700; }
+.hlearn-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.hlearn-chips span { font-size: 13px; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: #fff; }
+.hlearn-chips span.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, #fff); font-weight: 600; }
+.hlearn-a { margin: 0; padding: 10px 12px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 6%, #fff); font-size: 14px; }
+.hlearn-roi { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; padding: 10px 12px; border-radius: 14px; background: color-mix(in srgb, #1f9d63 7%, #fff); border: 1px solid color-mix(in srgb, #1f9d63 25%, var(--line)); font-size: 13px; }
+.hlearn-roi span { color: var(--muted); } .hlearn-roi b { font-size: 18px; } .hlearn-roi em { font-style: normal; font-weight: 700; color: #1f7a4f; margin-left: auto; }
+.hmsg-b { margin: 0; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 18px 6px; background: var(--bg2); font-size: 14px; line-height: 1.45; }
+.hmsg-b.me { justify-self: end; border-radius: 18px 18px 6px 18px; background: var(--accent); color: #fff; font-weight: 600; }
+.hproof { list-style: none; margin: 24px auto 8px; padding: 0; max-width: 980px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.hproof li { padding: 18px; border-radius: 20px; background: #fff; border: 1px solid var(--line); display: grid; gap: 4px; text-align: left; }
+.hproof b { font-family: var(--display); font-weight: 500; font-size: 32px; letter-spacing: -.02em; } .hproof span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+.fine.center { text-align: center; }
+.hire-box .vc { max-width: 460px; margin: 14px auto 0; }
+.hire-box .vc-urgent { max-width: 460px; margin: 0 auto 12px; }
+.hfaq { max-width: 760px; margin: 18px auto 0; display: grid; gap: 8px; text-align: left; }
+.hfaq details { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; }
+.hfaq summary { cursor: pointer; font-weight: 600; font-size: 16px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.hfaq summary::-webkit-details-marker { display: none; }
+.hfaq summary::after { content: "+"; color: var(--accent); font-weight: 700; } .hfaq details[open] summary::after { content: "–"; }
+.hfaq p { margin: 10px 0 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
+.center-cta { display: grid; justify-items: center; gap: 8px; margin-top: 26px; }
+@media (max-width: 900px) { .hjobs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hproof { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .hjobs { grid-template-columns: 1fr; } .hproof b { font-size: 26px; } }
+
+/* Pricing page: two plans, yearly first */
+.pr-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 520px; margin: 6px auto 14px; }
+.pr-plan { position: relative; display: grid; gap: 2px; justify-items: start; text-align: left; padding: 18px 16px 14px; border-radius: 18px; background: #fff; border: 1.5px solid var(--line); }
+.pr-plan.best { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+.pr-plan b { font-size: 26px; } .pr-plan b small { font-size: 14px; color: var(--muted); font-weight: 600; } .pr-plan span { font-size: 13px; color: var(--muted); }
+.pr-plan .plan-tag { position: absolute; top: -11px; right: 12px; background: var(--accent); color: var(--accent-ink); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.hire .vc { max-width: 520px; width: 100%; margin: 14px auto; }
+.hire .vc-urgent { max-width: 520px; width: 100%; }
+.hjobs li { grid-template-rows: auto auto; row-gap: 2px; }
+.hjobs-ic { grid-row: 1 / span 2; }
+.hjobs em { position: static; grid-column: 2; grid-row: 1; }
+.hjobs li > div { grid-column: 2; grid-row: 2; }

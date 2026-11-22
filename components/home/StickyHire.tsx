@@ -14,7 +14,7 @@ export function StickyHire({ price, google }: { price: string; google?: boolean 
   return (
     <div className={`sticky-hire${show ? " show" : ""}`} aria-hidden={!show}>
       <span className="sticky-txt">I can run your Amazon business.</span>
-      <HireButton price={price} google={google} label="Connect Amazon" className="btn sticky-btn" />
+      <HireButton price={price} google={google} label="Hire Rocco" className="btn sticky-btn" />
     </div>
   );
 }

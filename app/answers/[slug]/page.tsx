@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskRoccoButton } from "@/components/home/AskRoccoButton";
+import { HireButton } from "@/components/home/HireButton";
+import { googleOn } from "@/lib/google";
+import { PRICE } from "@/lib/pricing";
 import { JsonLd } from "@/components/JsonLd";
 import { RoccoHead } from "@/components/Rocco";
 import { ANSWERS, answerBySlug } from "@/lib/answers";
@@ -33,9 +35,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       {a.steps && (<><h2>Step by step</h2><ol className="answer-steps">{a.steps.map((s) => <li key={s}>{s}</li>)}</ol></>)}
       {a.details.map((d) => <p key={d} className="answer-p">{d}</p>)}
       <div className="answer-cta">
-        <p>Want this for your own account? Text Rocco: <b>&ldquo;{a.ask}&rdquo;</b></p>
-        <AskRoccoButton ask={a.ask} />
-        <Link className="fine" href="/setup">or use Rocco in Claude / ChatGPT</Link>
+        <p><b>Want this done for your account?</b> Rocco checks it every morning, and you approve the fix in one tap. He makes the change in Amazon.</p>
+        <HireButton google={googleOn()} price={PRICE.from} label="Hire Rocco →" className="btn" />
+        <span className="fine">{PRICE.from} · {PRICE.guarantee}</span>
       </div>
       <h2>More questions</h2>
       <dl className="answer-faq">{a.faq.map((f) => <div key={f.q}><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>

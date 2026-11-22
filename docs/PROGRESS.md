@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Whole-site buyer pass: every page current, conversion + clarity
+- **Homepage rebuilt around the product as it is today:** hero CTA is "Hire Rocco" (honest: payment comes before connecting); live demo now shows today's *jobs* (Block 6 searches, New exact campaign, Raise 2 budgets, Restock) being approved and made in Amazon, plus the "Rocco has saved you $1,284 · 13× what I cost" strip. New sections: The whole job every morning (6 job types), How a fix happens, I learn how you work (skip reasons + savings), Decisions not data, Approve on your dashboard or from messages (iMessage/WhatsApp/Slack, approve by text), real-account proof (87 fixes day one, 5 of 233 campaigns readable, 132 idle), price card with Black Friday line + calculator + guarantee, FAQ (with FAQ schema). No ChatGPT/connector talk anywhere.
+- **Pricing page:** yearly/monthly plan cards, what's included (jobs, campaign creation, Tidy, alerts, reminders), calculator, new FAQ (what happens after I pay, guarantee, no free plan and why).
+- **Legal pages made true:** Refunds = 30-day money-back guarantee (was 7 days); Terms = subscriptions, approve-then-Rocco-changes, cancel anytime; Privacy = DataDoe connection, changes only with approval, Claude API use, messaging, anonymous cross-account learning (old text said Rocco never changes Amazon).
+- **Old landers retired:** /connect, /setup, /text → homepage (connector-era copy, one-time license, pre-payment texting). /thanks → /welcome. Footer "How it works" → /#how. "Other ways to use Rocco" (Claude/ChatGPT steps) removed from the Connect Amazon screen; "Also ask me in Claude" removed from the dashboard footer.
+- **Everywhere else:** answer pages end with "Hire Rocco" (not unpaid texting); free tools' CTAs → Hire Rocco; llms.txt and the press kit (/press) rewritten for the current product and price; payment webhook messages point to rocco.works/me; the old Claude-bridge daily texts skip Amazon-connected teams (their morning message follows reminder settings).
+- Checked in a browser as a buyer: home (desktop + iPhone), pricing, refunds, /connect redirect; no sideways scroll; no broken homepage links. Tests 167/167, build OK.
+
+---
+
 ## 2026-11-22 · Skip → why, reminders after payment, clear errors and waits everywhere
 - **Skip asks why (one tap):** Already done · Not my strategy · Too risky right now · Numbers look off · Not now. Memory (lib/memory.ts): "not my strategy" ×2 holds that kind of fix; "already done" and "not now" never count against it; "numbers look off" is logged (`[rocco] numbers flagged`) for review. Reasons go into Claude's manager prompt. Rocco replies with what he learned.
 - **Reminders (paying teams only, dashboard card):** every morning / Mondays / none, on iMessage or WhatsApp (LoopMessage opt-in link, phone links to the team automatically) or Slack (already built; shows when SLACK_* env is set). **Approve by text** unlocks only after the team has gone through today's work on the dashboard once. Morning message: default = "N fixes waiting, worth ~$X/mo. Approve them here: rocco.works/me"; with approve-by-text = picks + "Reply YES …". Weekly/off respected.

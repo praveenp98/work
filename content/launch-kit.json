@@ -8,22 +8,12 @@
     {
       "id": "name_long",
       "label": "Name with descriptor",
-      "text": "Rocco: your AI Amazon teammate"
+      "text": "Rocco: your AI Amazon manager"
     },
     {
       "id": "url",
       "label": "Website",
       "text": "https://rocco.works"
-    },
-    {
-      "id": "mcp",
-      "label": "MCP server URL (Streamable HTTP, no auth)",
-      "text": "https://rocco.works/mcp"
-    },
-    {
-      "id": "setup",
-      "label": "Setup page",
-      "text": "https://rocco.works/setup"
     },
     {
       "id": "pricing",
@@ -43,47 +33,47 @@
     {
       "id": "tagline_short",
       "label": "Tagline (≤ 40 chars)",
-      "text": "Your AI Amazon teammate"
+      "text": "Your AI Amazon manager"
     },
     {
       "id": "tagline_60",
       "label": "Tagline (≤ 60 chars)",
-      "text": "The AI teammate that runs your Amazon ads with you"
+      "text": "Real work without the fluff: your AI Amazon manager"
     },
     {
       "id": "tagline_140",
       "label": "One-liner (≤ 140 chars)",
-      "text": "Rocco plugs into Claude or ChatGPT next to Amazon's official connectors, finds wasted ad spend, drafts fixes and tracks if they worked."
+      "text": "Rocco finds what to fix in your Amazon account every morning. You tap approve, he makes the change in Amazon and checks it worked."
     },
     {
       "id": "desc_260",
       "label": "Short description (≤ 260 chars)",
-      "text": "Rocco is an AI teammate for Amazon sellers and agencies. Connect Amazon's official Ads and Seller Central connectors plus Rocco in Claude or ChatGPT, say \"morning check\", and approve the fixes. Rocco remembers every change and checks if it worked."
+      "text": "Rocco is an AI Amazon manager. Connect Seller Central and Amazon Ads once; every morning he lays out today's jobs (wasted searches, bids, budgets, new exact campaigns, restocks), you approve in one tap, and he makes the change in Amazon."
     },
     {
       "id": "desc_500",
       "label": "Medium description (≤ 500 chars)",
-      "text": "Rocco is an AI Amazon teammate that lives inside Claude, ChatGPT and Claude Code. It works next to Amazon's official Ads and Seller Central connectors: it tells your AI what to pull, finds wasted ad spend, money-losing campaigns, placements, stockout risks and listing gaps, and turns them into an approval list. You approve by code; your AI applies the changes through Amazon's connector. Rocco logs every change, re-checks it a week later and reports what it saved."
+      "text": "Rocco is an AI Amazon manager for sellers and their teams. Connect Seller Central and Amazon Ads once with Amazon's own sign-in. Every morning Rocco groups what's worth doing into a few clear jobs, ranked by money: block wasteful searches, fix bids, move budget, turn proven searches into exact campaigns, restock before you run out, tidy hundreds of campaigns. Tap approve and he makes the change in Amazon, checks it a week later, and learns your style."
     },
     {
       "id": "desc_long",
       "label": "Long description",
-      "text": "Amazon gave AI hands with its official Ads and Seller Central connectors. Rocco gives it the judgment and memory of a senior Amazon manager.\n\nAdd Rocco to Claude, ChatGPT or Claude Code next to Amazon's connectors and say \"Rocco, morning check\". Rocco tells your AI exactly which reports to pull, then:\n- finds search terms that waste money, winners to harvest, and bids to move (never more than ±20% at a time)\n- flags profitable campaigns that run out of budget and campaigns above breakeven\n- tunes placements (Top of search, Rest of search, Product pages)\n- warns before a SKU runs out of stock and eases off its ads\n- spots ASINs with traffic but no sales, lost buy box, and converting keywords missing from your listing\n\nEverything comes back as an approval list with codes. Nothing changes without your OK. Approved changes are logged with before-numbers and an undo, re-checked a week later, and summarized in a daily brief. Agencies get white-label client reports and unlimited brands.\n\nFree to add: the brief, findings and top 3 fixes per report. Hire Rocco is a one-time payment that starts at $99 and rises $10 every 5 hires."
+      "text": "Most Amazon tools give you data. Rocco does the job.\n\nConnect Seller Central and Amazon Ads once with Amazon's own sign-in (through DataDoe, an Amazon-approved data partner). Every morning Rocco reads your account the way a senior Amazon manager would and lays out today's work as a few clear jobs, ranked by money:\n\n• Block searches that waste money\n• Lower bids that overspend, raise bids on winners\n• Turn proven searches into a new exact campaign, in one click\n• Raise budgets on profitable campaigns, cut losing ones\n• Restock before you run out; fix suppressed listings and Buy Box losses\n• Tidy your campaigns: one naming system, one portfolio per product\n\nYou tap approve and Rocco makes the change in Amazon: checked with Amazon first, logged, undoable. A week later he measures what it did. Skip a fix and tell him why in one tap; he learns how you work. Reminders on iMessage, WhatsApp or Slack, and approve-by-text once you've seen how he works.\n\n$1,190 a year (2 months free) or $119 a month, whole team, every marketplace. 30-day money-back guarantee."
     },
     {
       "id": "tags",
       "label": "Tags / topics",
-      "text": "Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, MCP, Claude, ChatGPT, AI agents, marketing automation, agencies"
+      "text": "Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, AI agents, marketing automation, Seller Central"
     },
     {
       "id": "categories",
       "label": "Categories",
-      "text": "E-commerce · Marketing · Artificial Intelligence · Productivity · Developer Tools (MCP)"
+      "text": "E-commerce · Marketing · Artificial Intelligence · Productivity"
     },
     {
       "id": "pricing_text",
       "label": "Pricing summary",
-      "text": "$99/year for the whole team, unlimited brands. The price for new hires rises $10 with every hire, capped at $499."
+      "text": "$1,190 a year (2 months free) or $119 a month, for the whole team and every marketplace. 30-day money-back guarantee."
     },
     {
       "id": "founder",
@@ -93,22 +83,22 @@
     {
       "id": "maker_comment",
       "label": "Maker first comment (Product Hunt / launch sites)",
-      "text": "Hey everyone 👋\n\nAmazon just shipped official AI connectors for Ads and Seller Central. That gives Claude and ChatGPT access to your account, but not the judgment to run it.\n\nRocco is that judgment, with a memory. Add him next to Amazon's connectors, say \"Rocco, morning check\", and you get one approval list: junk search terms to cut, winners to harvest, budgets that run dry by noon, placements to fix, SKUs about to stock out. You approve by code, your AI applies it, and Rocco re-checks every change a week later.\n\nIt's free to add. Hiring Rocco starts at $99 once and goes up $10 every 5 hires.\n\nI'd love brutal feedback, especially from anyone running Amazon ads for clients. 🦝"
+      "text": "Hey everyone 👋\n\nI'm Praveen. I've spent years running Amazon ads, and the job is the same every morning: find the waste, move the bids, keep winners funded, don't run out of stock. Tools give you dashboards; you still have to do the work.\n\nRocco does the work. Connect Seller Central and Amazon Ads once, and every morning he lays out a few clear jobs ranked by money. Tap approve and he makes the change in Amazon, then checks a week later whether it worked. Skip something and tell him why, and he learns your style.\n\nOn a real account on day one he found 87 fixes and showed that only 5 of 233 live campaigns had readable names. Real work without the fluff.\n\n$119/month or $1,190/year, 30-day money-back guarantee. I'd love your toughest feedback."
     },
     {
       "id": "show_hn_title",
       "label": "Show HN title",
-      "text": "Show HN: Rocco – an MCP server that gives Claude an Amazon ads manager's judgment"
+      "text": "Show HN: Rocco – an AI Amazon manager that makes the changes you approve"
     },
     {
       "id": "show_hn_body",
       "label": "Show HN text",
-      "text": "Amazon now has official MCP servers for Amazon Ads and Seller Central. They let an LLM pull reports and make changes, but the model still improvises what to check and how far to move a bid.\n\nRocco is a remote MCP server (https://rocco.works/mcp, Streamable HTTP) that sits next to them. It has a tool that tells the model which Ads API / SP-API reports and columns to pull for a job, deterministic analyzers for six data types (search terms, campaigns, placements, sales & traffic, restock, bulk files), and a memory layer: proposals get codes, approved changes are logged with before-metrics, and newer data is used to grade each change (worked / no effect / worse). Bid moves are capped at ±20% and nothing is applied without explicit approval of specific codes.\n\nThe rules engine is plain TypeScript with fixture tests; no LLM in the analysis path. Personal connectors are capability URLs (no login) backed by Supabase. Happy to answer questions about MCP tool design or the Amazon side."
+      "text": "Rocco reads an Amazon seller's Seller Central and Amazon Ads data every morning (official APIs, via DataDoe) and turns it into a few jobs ranked by money: negative keywords, bid changes, budget moves, new exact campaigns from converting search terms, restock warnings, campaign renaming. A deterministic rules engine computes every fix and number; Claude only picks and orders them and writes a one-line why, and any sentence with a number that isn't in the input is thrown away. On approval Rocco dry-runs each change with Amazon, applies it, logs it and measures it a week later. Skips with a reason tune what it suggests. Feedback welcome, especially from people who run Amazon ads."
     },
     {
       "id": "x_bio",
       "label": "X bio for @roccoworks",
-      "text": "Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connectors. Finds wasted ad spend, drafts the fixes, remembers what worked. rocco.works"
+      "text": "Your AI Amazon manager 🦝 Every morning I find what to fix. You tap approve, I make the change in Amazon. Real work without the fluff. rocco.works"
     }
   ],
   "assets": [

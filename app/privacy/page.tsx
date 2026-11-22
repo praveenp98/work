@@ -5,22 +5,24 @@ export default function Page() {
   return (
     <section className="prose">
       <h1>Privacy</h1>
-      <p className="fine">Last updated Nov 16, 2026</p>
-      <h2>Your reports</h2>
-      <p>Reports you drop into Rocco&apos;s tools are read inside your browser. They are not uploaded to or stored on our servers. When you close the tab, the data is gone.</p>
-      <h2>Reports sent through the Claude/ChatGPT connector</h2>
-      <p>When your AI assistant calls Rocco, the report text is sent to our server to be analyzed and is not kept as a file. With a personal workspace, Rocco stores what it needs to remember: report summaries (totals and headlines), the changes it proposed, the changes you approved, your brand settings and the measured results. Your workspace is identified only by its private link. Ask us to delete it anytime.</p>
-      <h2>Text messages (Text Rocco)</h2>
-      <p>If you text Rocco or link your phone to a workspace, we store your phone number, which workspace it belongs to, and whether you&apos;ve paused messages. Rocco texts you your daily numbers and replies to your messages; message and data rates may apply. Reply <b>STOP</b> anytime to stop texts and <b>START</b> to resume. We never sell or share your number, and we don&apos;t use it for marketing from anyone else.</p>
-      <h2>What we collect</h2>
+      <p className="fine">Last updated Nov 22, 2026</p>
+      <h2>Your Amazon data</h2>
+      <p>When you connect Amazon, you sign in on Amazon&apos;s own page through DataDoe, an Amazon-approved data partner. We never see your Amazon password. Rocco reads the reports it needs (ads, search terms, campaigns, sales and traffic, inventory) and keeps what it needs to remember: report totals and headlines, the fixes it proposed, the changes you approved, why you skipped any, your settings and the measured results.</p>
+      <h2>Changes in your account</h2>
+      <p>Rocco changes your Amazon account only when you approve a change. Every change is logged on your Rocco page and can be undone. You can remove Rocco&apos;s access anytime in Seller Central (Manage your apps) and Amazon Ads.</p>
+      <h2>AI</h2>
+      <p>To rank today&apos;s work and answer your questions, Rocco sends account numbers (never passwords or payment details) to Anthropic&apos;s Claude API. Anthropic doesn&apos;t use API data to train models.</p>
+      <h2>Messages</h2>
+      <p>If you turn on reminders, we store your phone number or Slack workspace and which Rocco it belongs to. Rocco messages you about your account and replies to you; message rates may apply. Reply <b>STOP</b> anytime to stop and <b>START</b> to resume. We never sell or share your number.</p>
+      <h2>What else we collect</h2>
       <ul>
-        <li><b>Email</b>, if you join the list or buy. Used to send the brief, receipts and product updates. Unsubscribe anytime.</li>
-        <li><b>Purchase data</b> handled by our payment provider (Dodo Payments, our merchant of record). We never see your full card number.</li>
+        <li><b>Your Google sign-in email</b>, for your account, receipts and product updates.</li>
+        <li><b>Purchase data</b> handled by Dodo Payments, our merchant of record. We never see your full card number.</li>
         <li><b>Anonymous usage analytics</b> (pages visited, referrer, device type) to see what works.</li>
       </ul>
       <h2>What we never do</h2>
-      <ul><li>Sell your data.</li><li>Log into or change your Amazon account.</li><li>Share your report contents with anyone.</li></ul>
-      <h2>Contact</h2>
+      <ul><li>Sell your data.</li><li>Change anything in Amazon without your approval.</li><li>Share your account data with other sellers. Rocco learns from anonymous totals across accounts only (for example, how often a type of fix works), never names, products or numbers.</li></ul>
+      <h2>Contact and deletion</h2>
       <p>Questions or deletion requests: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
       <p className="fine">{SITE.disclaimer}</p>
     </section>

@@ -25,7 +25,7 @@ export default function Page() {
           <li><b>Restock report:</b> SKUs about to run out (ease off ads), dead and overstocked stock.</li>
           <li><b>Bulk file:</b> auto campaigns with no negatives, keywords bidding against each other, outlier bids.</li>
         </ul>
-        <p>Want Rocco to remember all this, track what you change, and re-check it weekly? <Link href="/connect">Add him to Claude or ChatGPT</Link>.</p>
+        <p>Want Rocco to remember all this, track what you change, and re-check it weekly? <Link href="/">Hire Rocco</Link>: connect Amazon once and approve fixes in one tap.</p>
       </section>
       <Faq items={[
         { q: "Are my reports uploaded?", a: "No. Everything runs in your browser. Close the tab and it's gone." },

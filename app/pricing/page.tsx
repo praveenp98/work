@@ -2,51 +2,66 @@ import type { Metadata } from "next";
 import { Faq } from "@/components/Faq";
 import { HireButton } from "@/components/home/HireButton";
 import { RoccoHead } from "@/components/Rocco";
+import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { googleOn } from "@/lib/google";
-import { checkoutUrl } from "@/lib/payments";
 import { PLAN, PRICE } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Hire Rocco",
-  description: `Hire Rocco, your team's AI Amazon manager in Claude. ${PRICE.line} Every fix, memory of every change, results tracking, unlimited brands and teammates.`,
+  description: `Hire Rocco, your AI Amazon manager. ${PRICE.line} Every morning: today's jobs, approved in one tap and made in Amazon.`,
   alternates: { canonical: "/pricing" },
 };
 export const revalidate = 60;
 
 const INCLUDED = [
-  "Every morning: your numbers and the fixes worth making, by text, Slack and Claude",
-  "Ads, Seller Central, stock and listings, with a senior manager's judgment",
-  "Memory of every change, and a check a week later on whether it worked",
-  "Analytics for every brand: spend, sales, ACoS, waste, stock, listing health",
-  "Whole team, unlimited brands, client reports for agencies",
-  "Nothing changes in Amazon without a YES",
+  "Every morning: today's jobs, ranked by money, with the reason",
+  "Approve and I make the change in Amazon: checked first, logged, undoable",
+  "Negatives, bids, budgets, and new exact campaigns from proven searches",
+  "Tidy your campaigns: one naming system, one portfolio per product",
+  "Restock, listing and Buy Box alerts with the exact steps",
+  "Every change measured a week later, and I learn your style",
+  "Reminders on iMessage, WhatsApp or Slack; approve by text",
+  "Whole team, every marketplace, Seller Central + Amazon Ads",
 ];
 
 export default async function Page() {
-  const url = checkoutUrl();
+  const google = googleOn();
   return (
     <section className="hire">
       <div className="hello-avatar" style={{ width: 96, height: 96 }}>
         <svg width="80" height="66" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="hire" /></svg>
         <span className="online" aria-hidden />
       </div>
+      <span className="h5-kicker">Real work without the fluff</span>
       <h1>Hire Rocco.</h1>
-      <p className="hello-lede">One plan for your whole team.</p>
-      <div className="hire-card">
-        <div className="hire-price">{PRICE.annual}<span> a year · 2 months free</span></div>
-        <p className="fine" style={{ margin: "0 0 14px" }}>Or {PRICE.monthly} a month. Cancel anytime. {PRICE.guarantee}.</p>
-        <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
-        {url ? <HireButton google={googleOn()} price={PRICE.from} label={`Hire Rocco · ${PRICE.annual}/yr`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
-        <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Connect Amazon in one minute</p>
+      <p className="hello-lede">One plan. Your whole team. Every Amazon marketplace.</p>
+      <Urgency />
+      <div className="pr-plans">
+        <div className="pr-plan best">
+          <span className="plan-tag">2 months free · save $238</span>
+          <b>{PRICE.annual}<small>/year</small></b>
+          <span>{PRICE.perMonthAnnual} a month, billed yearly</span>
+        </div>
+        <div className="pr-plan">
+          <b>{PRICE.monthly}<small>/month</small></b>
+          <span>billed monthly, cancel anytime</span>
+        </div>
       </div>
+      <div className="hire-card">
+        <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
+        <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn imsg-btn hire-btn" />
+        <p className="fine" style={{ margin: "10px 0 0" }}>🛡️ {PRICE.guarantee}: if you don&apos;t like the fixes I give you, ask for your money back. Secure checkout by Dodo Payments.</p>
+      </div>
+      <ValueCalc />
       <div style={{ width: "100%", textAlign: "left" }}>
         <Faq items={[
-          { q: "What do I need?", a: "Your Seller Central login (the account owner or an admin) and, for ads, your Amazon Ads login. You connect once with Amazon's own sign-in, in any marketplace. No Claude needed; you can also ask me in Claude or ChatGPT if you like." },
-          { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that one change in Amazon: checked first, logged, and undoable. Nothing changes on its own." },
-          { q: "How many Amazon accounts?", a: "Connect as many seller accounts and marketplaces as you run. Client reports included for agencies." },
-          { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime by texting CANCEL.` },
-          { q: "What is the money-back guarantee?", a: `If Rocco isn't worth it in your first ${PLAN.guaranteeDays} days, email or text us and you get a full refund, yearly or monthly. No questions, no call.` },
-          { q: "Is there a free plan or trial?", a: "No free plan. But you set me up on your real account first and see my top finding in full, free. You pay only after that." },
+          { q: "What happens after I pay?", a: "You connect Amazon in about 2 minutes (Seller Central, then Amazon Ads) with Amazon's own sign-in. I start reading right away; your first jobs usually show up within hours." },
+          { q: "What do I need?", a: "Your Seller Central login as the primary user (or a user with all permissions) and your Amazon Ads login. Any marketplace. No Claude or other AI needed." },
+          { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that change in Amazon: checked with Amazon first, logged, and undoable. Nothing changes on its own." },
+          { q: "How many Amazon accounts?", a: "Connect every seller account and marketplace you run, on one plan." },
+          { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
+          { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
+          { q: "Is there a free plan?", a: "No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the 30-day guarantee instead." },
         ]} />
       </div>
     </section>

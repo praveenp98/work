@@ -75,7 +75,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <section className="rc-page">
         <RememberTeam t={token} />
         {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
-        {access !== "none" && direct && !accounts.length && otherWays}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>
     );
@@ -211,7 +210,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {b.stale.length > 0 && <p className="fine">Not refreshed in 7+ days: {b.stale.map((k) => REPORT_HELP[k].name).join(", ")}.</p>}
       <footer className="rd-foot">
         {direct && <ConnectButton token={token} />}
-        <Link href="/setup">Also ask me in Claude</Link>
         <form action="/api/auth/signout" method="post"><button className="linkbtn muted">Sign out</button></form>
       </footer>
     </section>

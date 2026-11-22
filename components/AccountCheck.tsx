@@ -73,8 +73,8 @@ export function AccountCheck() {
           </ol>
           {s.proposals.length > FREE_ACTIONS && (
             <div className="cta-inline" style={{ marginTop: 12 }}>
-              <div style={{ flex: "1 1 260px" }}><b>+{s.proposals.length - FREE_ACTIONS} more changes Rocco wants to make.</b><p className="muted" style={{ margin: 0 }}>Add Rocco to Claude or ChatGPT to get them as an approval list he tracks and re-checks every week.</p></div>
-              <Link className="btn small" href="/connect?utm_source=account_check">Add Rocco to my AI →</Link>
+              <div style={{ flex: "1 1 260px" }}><b>+{s.proposals.length - FREE_ACTIONS} more changes Rocco wants to make.</b><p className="muted" style={{ margin: 0 }}>Hire Rocco to get them as one-tap approvals made in Amazon, as an approval list he tracks and re-checks every week.</p></div>
+              <Link className="btn small" href="/?utm_source=account_check#price">Hire Rocco →</Link>
             </div>
           )}
 

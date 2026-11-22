@@ -5,7 +5,7 @@ import { GUIDES } from "@/lib/guides";
 
 export const metadata: Metadata = {
   title: "Amazon seller answers: ads, listings, inventory and AI",
-  description: "Straight answers from Rocco, the AI Amazon manager: ACoS, TACoS, negatives, Buy Box, suppressed listings, restock, and connecting Amazon to Claude and ChatGPT.",
+  description: "Straight answers from Rocco, the AI Amazon manager: ACoS, TACoS, negatives, Buy Box, suppressed listings, restock, and how an AI Amazon manager works.",
   alternates: { canonical: "/answers" },
 };
 
