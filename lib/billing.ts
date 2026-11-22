@@ -1,5 +1,6 @@
 import { extraProduct, fetchPayment, fetchSubscription, latestPaymentOf, ourProducts, type DodoSubscription } from "./payments";
 import type { Store, Workspace } from "./store/types";
+import { trackServer } from "./track-server";
 
 /**
  * Turn a Dodo webhook into the workspace's billing state. The webhook body is never trusted: it only names a
@@ -54,7 +55,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     const cover = new Date(paidAt.getTime() + (monthly ? 32 : 367) * 86_400_000);
     const until = nextBill && nextBill > now && nextBill <= cover ? nextBill : cover;
     if (until > now) {
-      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) change = "paid";
+      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) { change = "paid"; trackServer(ws.id, ws.licensed ? "renewed" : "paid", { plan: monthly ? "monthly" : "annual" }); }
       ws.licensed = true;
       if (!ws.paidUntil || new Date(ws.paidUntil) < until) ws.paidUntil = until.toISOString();
       ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard

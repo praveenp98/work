@@ -47,6 +47,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/LIGHTS-ON.md` | **Praveen's final go-live checklist** (what's pending, in order) + open decisions. |
 | `docs/SUPPORT.md` | Predicted support tickets, macros, where to look. Customer help lives in `lib/help.ts` (/help, /llms-full.txt). |
 | `docs/AI-USAGE.md` | Every place Claude runs, limits, cost, Amazon-only scope (`lib/prompts/scope.ts`). |
+| `docs/ANALYTICS.md` | Hackathon tracker + PostHog setup, funnel events, dashboards to build. |
 | `docs/SECURITY.md` | Threat model, what's protected, env vars Praveen must set, kill switch. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
 | `docs/DECISIONS.md` | Decisions with dates and reasons. Add one whenever a choice is made. |

@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { money, USD, type Currency } from "@/lib/currency";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
@@ -38,6 +39,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: str
   const openAuto = visible.filter((j) => j.mode === "auto" && j.codes.some((c) => !res[c]));
 
   async function approve(job: Job, codes: string[]) {
+    track("job_approved", { kind: job.kind, changes: codes.length, mode: job.mode });
     if (!codes.length) return;
     setBusy(job.id);
     if (job.mode === "create") {
@@ -64,6 +66,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: str
     if (d?.ok) setRes((x) => ({ ...x, ...Object.fromEntries((d.logged ?? codes).map((c) => [c, { status: "applied" as const }])) }));
   }
   function skip(job: Job, reason?: string) {
+    track("job_skipped", { kind: job.kind, reason: reason ?? "none" });
     setSkipped((s) => new Set([...s, job.id]));
     setThanks({ title: job.title, reason: reason ? LEARN[reason] : "Skipped. It'll come back if it still matters." });
     if (job.codes.length) post("/api/w/skip", { t: token, brand, codes: job.codes, reason });

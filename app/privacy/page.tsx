@@ -18,7 +18,7 @@ export default function Page() {
       <ul>
         <li><b>Your Google sign-in email</b>, for your account, receipts and product updates.</li>
         <li><b>Purchase data</b> handled by Dodo Payments, our merchant of record. We never see your full card number.</li>
-        <li><b>Anonymous usage analytics</b> (pages visited, referrer, device type) to see what works.</li>
+        <li><b>Usage analytics</b> (pages visited, referrer, device type, which buttons were used) through PostHog, to see what works. Recordings are made only on public pages, with everything you type hidden; never inside your Rocco, and never your Amazon data.</li>
       </ul>
       <h2>What we never do</h2>
       <ul><li>Sell your data.</li><li>Change anything in Amazon without your approval.</li><li>Share your account data with other sellers. Rocco learns from anonymous totals across accounts only (for example, how often a type of fix works), never names, products or numbers.</li></ul>

@@ -27,6 +27,7 @@ export async function GET() {
       extraAccountProduct: process.env.DODO_PRODUCT_ID_EXTRA_ACCOUNT ? "set" : "missing (DODO_PRODUCT_ID_EXTRA_ACCOUNT: a 4th account says \"email us\")",
       mode: process.env.DODO_MODE === "test" ? "TEST MODE (switch off before real sales)" : "live",
     },
+    analytics: { posthog: process.env.NEXT_PUBLIC_POSTHOG_KEY ? "on" : "off (set NEXT_PUBLIC_POSTHOG_KEY, docs/ANALYTICS.md)", hackathonTracker: "on every page" },
     amazon: { datadoe: process.env.DATADOE_API_KEY ? "set" : "missing (DATADOE_API_KEY)", writes: process.env.ROCCO_WRITES_OFF === "1" ? "PAUSED (ROCCO_WRITES_OFF=1)" : "on" },
     signIn: { google: process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? "set" : "missing (GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET)", vault: process.env.ROCCO_VAULT_KEY ? "set" : "using the Supabase key (fine; do not add or change ROCCO_VAULT_KEY later: saved team links would stop opening)" },
     texting: { lastInboundFields: lastInbound.keys.length ? lastInbound.keys.join(", ") : "none seen on this server instance yet",  loopmessage: textingConfigured() ? "set" : "dry-run (add LOOPMESSAGE_API_KEY)", optInUrl: (process.env.ROCCO_OPTIN_URL || process.env.NEXT_PUBLIC_ROCCO_OPTIN_URL) ? "set" : "missing (homepage Text Rocco collects contacts instead)", webhookSecret: process.env.TEXT_WEBHOOK_SECRET ? "set" : "missing", cronSecret: process.env.CRON_SECRET ? "set" : "missing" },

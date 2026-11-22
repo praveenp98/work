@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Analytics: PostHog built in (off until key), hackathon tracker verified
+- Hackathon tracker confirmed live on /, /pricing, /help.
+- PostHog added (posthog-js): page views with private team links scrubbed, replays only on public pages with inputs masked, sent through rocco.works/ingest (ad-blocker proof), teams identified by workspace id. Funnel events client + server (hire sheet → signup → checkout → paid → Amazon connected → first data → approved → changes made, plus skips, reminders, team, ask, email-a-human). Off until `NEXT_PUBLIC_POSTHOG_KEY` is set. Setup + funnels to build: docs/ANALYTICS.md. Privacy page updated.
+- Tests 202 passing, build OK.
+
+---
+
 ## 2026-11-22 · human@rocco.works everywhere + "Email a human" on every page
 - All contact addresses changed to **human@rocco.works** (forwards to Praveen): site, help, texts, AI files, MCP output, docs.
 - "✉️ Email a human" pill on every page (bottom-right; icon-only on phones, above the sticky Hire button on the homepage); opens mail with a subject saying which page they were on.

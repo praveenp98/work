@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { RoccoHead } from "@/components/Rocco";
@@ -18,7 +19,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [email, setEmail] = useState("");
-  useEffect(() => { setShow(open); }, [open]);
+  useEffect(() => { setShow(open); if (open) track("hire_sheet_opened"); }, [open]);
   if (!show) return null;
   const close = () => { setShow(false); onClose?.(); };
   // Rendered on <body>: inside the sticky bar (which animates with transform) a fixed sheet would be clipped.
@@ -41,7 +42,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
         </ol>
         {google ? (
           <>
-            <a className="btn sheet-btn google-btn" href="/api/auth/google?intent=hire" rel="nofollow" onClick={() => setBusy(true)}>
+            <a className="btn sheet-btn google-btn" href="/api/auth/google?intent=hire" rel="nofollow" onClick={() => { setBusy(true); track("signup_started", { method: "google" }); }}>
               {GOOGLE_G}{busy ? "Opening Google…" : "Continue with Google"}
             </a>
             {busy && <LoadingText steps={["Opening Google sign-in…", "Next: pick your plan", "Then: connect your Amazon"]} every={1600} />}

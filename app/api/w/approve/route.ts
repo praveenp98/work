@@ -6,6 +6,7 @@ import { howTo } from "@/lib/howto";
 import type { Proposal } from "@/lib/rules/types";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
+import { trackServer } from "@/lib/track-server";
 import { approvedBy } from "@/lib/team";
 import { applyChanges, clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
 
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
       if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}${by}` });
       out.push(r.status === "applied" ? r : { ...r, how: howTo(p) });
     }
+    trackServer(ws.id, "changes_made", { made: out.filter((x) => x.status === "applied").length, failed: out.filter((x) => x.status === "failed").length });
     return NextResponse.json({ ok: true, direct: true, results: out, locked });
   }
 

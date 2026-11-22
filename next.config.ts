@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // PostHog through rocco.works/ingest so ad blockers don't drop the funnel (lib/analytics.ts).
+  skipTrailingSlashRedirect: true,
   // Server-only parsers for emailed reports: load from node_modules at runtime instead of bundling
   // (unzipper, used by read-excel-file/node, optionally references the AWS SDK).
   serverExternalPackages: ["read-excel-file", "unzipper", "postal-mime"],
@@ -24,6 +26,14 @@ const nextConfig: NextConfig = {
       { source: "/w/:path*", headers: team },
       { source: "/me", headers: team },
       { source: "/mcp/:path*", headers: team },
+    ];
+  },
+  async rewrites() {
+    const host = process.env.POSTHOG_HOST || "https://us.i.posthog.com";
+    const assets = host.replace("://us.i.", "://us-assets.i.").replace("://eu.i.", "://eu-assets.i.");
+    return [
+      { source: "/ingest/static/:path*", destination: `${assets}/static/:path*` },
+      { source: "/ingest/:path*", destination: `${host}/:path*` },
     ];
   },
   async redirects() {

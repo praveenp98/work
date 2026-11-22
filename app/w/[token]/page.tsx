@@ -6,6 +6,7 @@ import { RoiCard } from "@/components/dash/RoiCard";
 import { ReminderCard } from "@/components/dash/ReminderCard";
 import { TeamCard } from "@/components/dash/TeamCard";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
+import { IdentifyTeam } from "@/components/Analytics";
 import { AccountsCard } from "@/components/dash/AccountsCard";
 import { slotState } from "@/lib/accounts";
 import { currencyOf, localize, money } from "@/lib/currency";
@@ -96,6 +97,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     return (
       <section className="rc-page">
         <RememberTeam t={token} />
+        <IdentifyTeam team={ws.id} paid={access !== "none"} accounts={accounts.length} />
         {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
         {access !== "none" && direct && (
           <section className="rc-example" aria-label="Example of your mornings">

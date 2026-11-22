@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 import { PriceRise, ValueCalc } from "@/components/start/ValueCalc";
 
@@ -28,7 +29,7 @@ export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; month
       <PriceRise />
       <ValueCalc plan={plan} compact />
       {ready ? (
-        <a className="btn rc-btn" href={url} onClick={() => setBusy(true)}>
+        <a className="btn rc-btn" href={url} onClick={() => { setBusy(true); track("checkout_clicked", { plan }); }}>
           {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
         </a>
       ) : <p className="tm-err" role="status">Checkout is being switched on right now. Please try again in a few minutes, or email human@rocco.works.</p>}

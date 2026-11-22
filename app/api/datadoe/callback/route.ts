@@ -8,6 +8,7 @@ import { refreshManager } from "@/lib/manager";
 import { notifyTeam } from "@/lib/notify";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
+import { trackServer } from "@/lib/track-server";
 
 /**
  * DataDoe sends the browser here after the seller connects (or fails to). We only trust it when the invitationId
@@ -55,6 +56,7 @@ export async function GET(req: Request) {
     const a = await getAccount(id); // must exist in our DataDoe organization
     const accounts = (ws.amazon.accounts ?? []).filter((x) => x.id !== a.id);
     accounts.push({ id: a.id, name: a.name, country: a.marketplaceCountryCode, connectedAt: new Date().toISOString(), ads: !!a.amazonAdsConnection });
+    trackServer(ws.id, "amazon_connected", { country: a.marketplaceCountryCode, ads: !!a.amazonAdsConnection, nth: accounts.length });
     ws.amazon = { ...ws.amazon, accounts, invite: undefined };
     await store.saveWorkspace(ws);
     await notifyTeam(store, ws, [`🔌 Amazon connected: ${a.name} (${a.marketplaceCountryCode})${a.amazonAdsConnection ? " + Ads" : ""}. I'm reading your account now. I'll text you the first findings.`]).catch(() => 0);
@@ -65,7 +67,7 @@ export async function GET(req: Request) {
           const r = await pullAndSave(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
           // One-time "Before Rocco" read (4 DataDoe tokens + one short Claude call), so memory starts with the past.
           await importHistory(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
-          if (r?.kinds.length) await refreshManager(store, ws.id).catch(() => 0);
+          if (r?.kinds.length) { trackServer(ws.id, "first_data_ready", { reports: r.kinds.length }); await refreshManager(store, ws.id).catch(() => 0); }
         });
       } catch { /* outside a request (tests): the daily pull picks it up */ }
     }

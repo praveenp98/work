@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 
@@ -27,7 +28,7 @@ export function ReminderCard({ token, initial, seen, slackOn, title = "Nudge me 
   const style = r.style === "approve" && !seen ? "nudge" : (r.style ?? "nudge");
 
   async function save() {
-    setBusy(true); setMsg("");
+    setBusy(true); setMsg(""); track("reminders_saved", { channel: r.cadence === "off" ? "none" : r.channel, cadence: r.cadence, style });
     const d = (await fetch("/api/w/reminders", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, ...r, style, approveByText: style === "approve" }) }).then((x) => x.json()).catch(() => null)) as { ok?: boolean; error?: string; reminders?: R } | null;
     if (!d?.ok) { setBusy(false); setMsg(d?.error ?? "Couldn't save that. Try again."); return; }
     if (d.reminders) setR({ ...d.reminders, style });

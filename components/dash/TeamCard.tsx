@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 
 /**
@@ -20,7 +21,7 @@ export function TeamCard({ token, me: me0, people: people0, google }: { token: s
 
   async function act(action: string, target?: string, confirmText?: string) {
     if (confirmText && !window.confirm(confirmText)) return;
-    setBusy(action + (target ?? "")); setMsg(null); setInvite(""); setCopied(false);
+    setBusy(action + (target ?? "")); setMsg(null); setInvite(""); setCopied(false); track(`team_${action}`);
     const d = (await fetch("/api/w/team", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, action, email: target }) }).then((r) => r.json()).catch(() => null)) as { ok?: boolean; error?: string; people?: Person[]; me?: Me; url?: string; invite?: string } | null;
     setBusy("");
     if (!d?.ok) { setMsg({ ok: false, text: d?.error ?? "No connection. Try again." }); return; }

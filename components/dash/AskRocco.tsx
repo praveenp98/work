@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 
@@ -8,6 +9,7 @@ export function AskRocco({ token, brand, examples }: { token: string; brand: str
   const [busy, setBusy] = useState(false);
   const [a, setA] = useState<{ q: string; text: string; err?: boolean } | null>(null);
   async function ask(question: string) {
+    track("ask_rocco");
     const text = question.trim();
     if (text.length < 2 || busy) return;
     setBusy(true);

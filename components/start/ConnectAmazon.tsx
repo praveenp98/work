@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@/lib/analytics";
 import { useEffect, useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 import { WAIT } from "@/lib/messages";
@@ -26,7 +27,7 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
     return () => clearInterval(t);
   }, [accounts.length, token]);
   async function connect() {
-    setBusy("connect"); setMsg("");
+    setBusy("connect"); setMsg(""); track("amazon_connect_clicked", { more: accounts.length > 0 });
     const d = (await fetch("/api/w/amazon", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { url?: string; error?: string } | null;
     if (d?.url) { window.location.href = d.url; return; }
     setBusy(""); setMsg(d?.error ?? "Couldn't open Amazon. Try again.");
