@@ -1241,3 +1241,4 @@ h1, h2, .display { font-family: var(--display); }
 .log-more summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 .log-more .loglist { margin-top: 8px; }
 .log-err { color: #b4441b; margin: 8px 0 0; font-size: 14px; }
+.log-worth { color: var(--muted); font-size: 13px; }

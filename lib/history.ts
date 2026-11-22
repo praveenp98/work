@@ -90,7 +90,8 @@ export function summarizeHistory(changes: PastChange[], now = new Date()): Histo
 
   const days = (iso?: string) => (iso ? Math.floor((now.getTime() - new Date(iso).getTime()) / DAY) : null);
   if (!changes.length) { s.notes.push("Amazon's change history for this ad account is empty: nothing was changed in Sponsored Products or Brands in the window Amazon keeps."); return s; }
-  s.notes.push(`${changes.length} change${changes.length === 1 ? "" : "s"} recorded from ${s.from!.slice(0, 10)} to ${s.to!.slice(0, 10)}.`);
+  const d = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+  s.notes.push(`${changes.length} change${changes.length === 1 ? "" : "s"} recorded from ${d(s.from!)} to ${d(s.to!)}.`);
   if (byRule) s.notes.push(`${byRule} of them ${byRule === 1 ? "was" : "were"} made by Amazon budget rules, not by a person.`);
   const hand = days(lastByHand);
   if (lastByHand == null) s.notes.push("No change was made by hand in that window: the account has been running on autopilot.");

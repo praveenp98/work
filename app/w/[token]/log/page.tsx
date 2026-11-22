@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { HistoryButton } from "@/components/dash/HistoryButton";
 import { hasAccess } from "@/lib/access";
 import { changeLine } from "@/lib/history";
-import { proposalLine } from "@/lib/mcp/format";
+import type { Proposal } from "@/lib/rules/types";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 
@@ -13,6 +13,21 @@ export const metadata: Metadata = { title: "Change log · Rocco", robots: { inde
 
 const STATUS: Record<string, string> = { applied: "⏳ checking in a week", worked: "✅ worked", no_effect: "➖ no effect", worse: "⚠️ worse", not_enough_data: "⏳ more data", reverted: "↩️ reverted" };
 const when = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+const money = (n?: number) => (n == null ? "" : `$${n.toFixed(n % 1 ? 2 : 0)}`);
+/** A change in plain words: what changed and where. */
+function changeWords(p: Proposal): string {
+  const where = p.campaign ? ` in ${p.campaign}` : "";
+  switch (p.kind) {
+    case "negative": return `Blocked the search “${p.target}”${where}`;
+    case "bid": return p.current != null && p.proposed != null ? `Bid ${money(p.current)} → ${money(p.proposed)} on “${p.target}”${where}` : `Bid change on “${p.target}”${where}`;
+    case "budget": return p.current != null && p.proposed != null ? `Daily budget ${money(p.current)} → ${money(p.proposed)} on ${p.campaign || p.target}` : `Budget change on ${p.campaign || p.target}`;
+    case "harvest": return `New exact campaign for “${p.target}”`;
+    case "placement": return `Placement change on ${p.campaign || p.target}`;
+    case "ads_down": return `Eased ads on ${p.target} (stock running low)`;
+    default: return `Cleaned up ${p.target}${where}`;
+  }
+}
+
 /** Who made the change, from the note saved with it. */
 function source(note?: string): string {
   if (!note) return "Approved";
@@ -55,7 +70,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
           {actions.map((a) => (
             <li key={a.id}>
               <div className="log-top"><span className="fix-code">{a.code}</span><span className={`status ${a.status}`}>{STATUS[a.status]}</span><span className="fine">{when(a.appliedAt)} · {a.brand}</span></div>
-              <p className="log-what">{proposalLine(a.proposal).replace(/^- \*\*\w+\*\* /, "").replace(/\*\*/g, "")}</p>
+              <p className="log-what">{changeWords(a.proposal)}{a.proposal.valueMonthly > 0 && <span className="log-worth"> · worth ~${Math.round(a.proposal.valueMonthly).toLocaleString("en-US")}/mo</span>}</p>
               <p className="fine">{source(a.note)} · {a.result?.summary ?? `I check the result after ${when(a.followUpAt)}.`}</p>
             </li>
           ))}
