@@ -24,6 +24,14 @@
  *   <!-- proof-slot:start -->  ...  <!-- proof-slot:end -->        (markdown, html)
  *   the same two marker words inside a JSX comment                 (tsx)
  *
+ * Warnings (printed, never fail the run): the BRAND.md ban list. Hype words (revolutionary, game-changer, unlock,
+ * supercharge, effortless, guaranteed results, set and forget), "AI-powered" as the lead of a line, and the
+ * "shipped in 7 days" build story, which is for builder audiences only.
+ *
+ * QUOTED EXAMPLES: marketing/brand/ files may show banned phrases as examples of what not to write, between
+ *   <!-- lint-quote:start -->  ...  <!-- lint-quote:end -->
+ * Only the em dash rule runs inside. The markers are ignored everywhere outside marketing/brand/.
+ *
  * One-line escape hatch for code, never for copy: put  lint-allow: <reason>  on the line. Every use is printed.
  * Placeholders like {{REAL_NUMBER}} are listed at the end so they can go in the task summary.
  */
@@ -55,6 +63,15 @@ const PHRASES = [
   { rule: "trusted-by", re: /trusted\s+by/i, why: "no social proof we can't back" },
   { rule: "plugs-into", re: /plugs?\s+in\s?to\s+claude/i, why: "old positioning: Rocco needs no Claude or other AI" },
 ];
+const WARN = [
+  { rule: "hype", re: /\b(?:revolutionary|game[\s-]?chang(?:er|ing)|unlock(?:s|ed|ing)?|supercharg(?:e|es|ed|ing)|effortless(?:ly)?|guaranteed results|set[\s-]and[\s-]forget)\b/i, why: "on the BRAND.md ban list" },
+  { rule: "ai-lead", re: /^[\s>#*\-"'“]*AI[\s-]powered\b/i, why: "don't lead with \"AI-powered\": lead with the job" },
+  { rule: "build-story", re: /\b(?:shipped|built|made) (?:it |this |rocco )?in (?:7|seven) days\b/i, why: "the 7-day build story is for builder audiences only, never seller-facing copy" },
+];
+const QUOTE_START = /lint-quote:start/;
+const QUOTE_END = /lint-quote:end/;
+const BRAND_DIR = path.join(MARKETING_DIR, "brand") + path.sep;
+
 // "free plan" passes only when the same sentence says there isn't one.
 const FREE_PLAN = /free\s+plan/gi;
 const FREE_PLAN_NEGATED = /\b(?:no|not|isn['’]?t|there['’]?s no|without|never|is there)\b[^.!?\n]*$/i;
@@ -71,8 +88,9 @@ const SLOT_END = /proof-slot:end/;
 const SAMPLE_LABEL = /sample account/i;
 const PLACEHOLDER = /\{\{[A-Z0-9_]+\}\}/g;
 
-function lintText(text, file) {
-  const fails = [], allows = [], placeholders = [];
+function lintText(text, file, { quotes = false } = {}) {
+  const fails = [], allows = [], placeholders = [], warns = [];
+  let inQuote = false, quoted = 0;
   const lines = text.split("\n");
   let inSlot = false, usesSample = text.includes(SAMPLE.brand) || text.includes(SAMPLE.brand.replace("&", "&amp;"));
   const fail = (line, rule, msg) => fails.push({ file, line, rule, msg });
@@ -84,8 +102,12 @@ function lintText(text, file) {
     if (allowed) allows.push({ file, line: n, text: raw.trim().slice(0, 140) });
     for (const p of raw.match(PLACEHOLDER) ?? []) placeholders.push({ file, line: n, name: p });
 
-    // Never allowed, even with lint-allow.
+    // Never allowed, even with lint-allow or inside a quoted example.
     if (raw.includes(EM_DASH)) fail(n, "em-dash", "em dash (U+2014): use a comma, period, colon or \"to\"");
+    if (quotes && QUOTE_START.test(raw)) { inQuote = true; return; }
+    if (quotes && QUOTE_END.test(raw)) { inQuote = false; return; }
+    if (inQuote) { quoted++; return; }
+    for (const w of WARN) if (w.re.test(raw)) warns.push({ file, line: n, rule: w.rule, msg: `"${raw.match(w.re)[0].trim()}": ${w.why}` });
     for (const p of PHRASES) if (p.re.test(raw)) fail(n, p.rule, `"${raw.match(p.re)[0]}": ${p.why}`);
     for (const m of raw.matchAll(FREE_PLAN)) {
       if (!FREE_PLAN_NEGATED.test(raw.slice(0, m.index))) fail(n, "free-plan", "\"free plan\" offered as a feature: there is no free plan");
@@ -104,7 +126,8 @@ function lintText(text, file) {
 
   if (inSlot) fail(lines.length, "testimonial", "proof-slot:start has no proof-slot:end");
   if (usesSample && !SAMPLE_LABEL.test(text)) fail(1, "sample-label", `shows ${SAMPLE.brand} or its numbers without the words "sample account"`);
-  return { fails, allows, placeholders };
+  if (inQuote) fail(lines.length, "quote", "lint-quote:start has no lint-quote:end");
+  return { fails, allows, placeholders, warns, quoted };
 }
 
 function walk(dir, out = []) {
@@ -148,6 +171,11 @@ function selfTest() {
     "const a = `${price}/mo`;",
   ];
   let bad = 0;
+  const warnCases = ["a revolutionary way to run ads", "unlock your growth", "set and forget your campaigns", "AI-powered Amazon manager", "we shipped it in 7 days"];
+  for (const text of warnCases) if (!lintText(text, "self-test").warns.length) { bad++; console.error(`SELF-TEST FAIL  expected a warning on: ${text}`); }
+  const q = lintText("<!-- lint-quote:start -->\nTrusted by sellers. 30-day guarantee.\n<!-- lint-quote:end -->", "self-test", { quotes: true });
+  if (q.fails.length || q.quoted !== 1) { bad++; console.error("SELF-TEST FAIL  quoted example region should pass in brand files"); }
+  if (!lintText("<!-- lint-quote:start -->\nTrusted by sellers.\n<!-- lint-quote:end -->", "self-test").fails.length) { bad++; console.error("SELF-TEST FAIL  quote markers must be ignored outside marketing/brand"); }
   for (const [rule, text] of cases) {
     const hit = lintText(text, "self-test").fails.some((f) => f.rule === rule);
     if (!hit) { bad++; console.error(`SELF-TEST FAIL  expected ${rule} on: ${text}`); }
@@ -165,14 +193,16 @@ if (args.includes("--self-test")) selfTest();
 
 const files = args.length ? args.map((a) => path.resolve(a)) : [...walk(MARKETING_DIR), ...walk(path.join(REPO_DIR, "public", "downloads"))];
 const rel = (f) => path.relative(REPO_DIR, f);
-let fails = [], allows = [], placeholders = [];
+let fails = [], allows = [], placeholders = [], warns = [], quoted = 0;
 for (const f of files) {
-  const r = lintText(fs.readFileSync(f, "utf8"), rel(f));
-  fails = fails.concat(r.fails); allows = allows.concat(r.allows); placeholders = placeholders.concat(r.placeholders);
+  const r = lintText(fs.readFileSync(f, "utf8"), rel(f), { quotes: f.startsWith(BRAND_DIR) });
+  fails = fails.concat(r.fails); allows = allows.concat(r.allows); placeholders = placeholders.concat(r.placeholders); warns = warns.concat(r.warns); quoted += r.quoted;
 }
+for (const w of warns) console.warn(`warn  ${w.file}:${w.line}  [${w.rule}]  ${w.msg}`);
+if (quoted) console.log(`\n${quoted} line(s) inside lint-quote regions in marketing/brand/ (examples of what not to write; only the em dash rule ran).`);
 
 for (const f of fails) console.error(`FAIL  ${f.file}:${f.line}  [${f.rule}]  ${f.msg}`);
 if (allows.length) { console.log(`\nlint-allow used on ${allows.length} line(s) (dollar check skipped there):`); for (const a of allows) console.log(`  ${a.file}:${a.line}  ${a.text}`); }
 if (placeholders.length) { console.log(`\nPlaceholders still open (${placeholders.length}):`); for (const p of placeholders) console.log(`  ${p.name}  ${p.file}:${p.line}`); }
-console.log(`\n${files.length} file(s) checked, ${fails.length} failure(s).`);
+console.log(`\n${files.length} file(s) checked, ${fails.length} failure(s), ${warns.length} warning(s).`);
 process.exit(fails.length ? 1 : 0);

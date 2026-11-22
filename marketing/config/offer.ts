@@ -109,7 +109,8 @@ export const LINKS = {
 
 export const HANDLES = {
   founder: { name: "Praveen", x: "@veenonx", threads: "veenonig", instagram: "veenonig" },
-  brand: { x: "@roccoworks", xUrl: "https://x.com/roccoworks" },
+  /** Instagram, LinkedIn and YouTube as given by Praveen on Nov 22, 2026. YouTube has no handle yet. */
+  brand: { x: "@roccoworks", xUrl: "https://x.com/roccoworks", instagram: "rocco.works", linkedin: "rocco", youtube: "{{YT_HANDLE}}" },
 } as const;
 
 export type UtmSource = "x" | "threads" | "instagram" | "linkedin" | "reddit" | "youtube" | "tiktok" | "email" | "dm" | "pdf" | "video" | "carousel";
