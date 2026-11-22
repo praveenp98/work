@@ -7,12 +7,13 @@ import { getStore } from "@/lib/store";
 
 /**
  * Daily pull for teams connected to Amazon directly (DataDoe). Vercel Cron calls this after DataDoe's 2am-local fetch
- * (vercel.json). It only dispatches: accounts go out in batches of 8, each batch its own function run
- * (/api/cron/amazon/batch, 300s), staggered 0-50s; DataDoe 429s are retried with backoff. 100 accounts ≈ 13 batches.
+ * (vercel.json). It only dispatches: accounts go out in batches of 10, each batch its own function run
+ * (/api/cron/amazon/batch, 300s) sharing one export per report, staggered 0-50s; DataDoe 429s are retried with backoff.
+ * 100 accounts = 10 batches = 40 exports a day.
  */
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
-const BATCH = 8;
+const BATCH = 10;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;

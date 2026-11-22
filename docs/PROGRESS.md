@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · One export per report for many accounts (DataDoe cost fix)
+- Daily pull now runs per group: the cron sends batches of 10 accounts (any teams); each batch makes **one export per report for the whole group** (DataDoe charges 2 tokens per export at any size), splits rows by `seller_or_vendor_id`, and runs each account through the engine. Check now = one group for the team's accounts. 100 sellers = 40 exports/day (~2,400 tokens/mo) instead of 400 (~24,000).
+- Old per-account recurring exports retired automatically (they spent tokens daily); Habit Nest's 4 deleted (0 left on DataDoe). Fixed: DataDoe rejects a DELETE that carries a JSON content-type with no body.
+- Live on Habit Nest: all 4 reports in 12s, no errors. ~24 tokens spent testing today.
+- Checked DataDoe docs: retention (6/12/18/24 months, default forever) and table on/off are org-wide in Settings → Data, **not in the API**: Praveen sets them once (docs/COSTS.md lists what to keep).
+- MarketplaceAdPros checked: ~$470–990/mo for 100 brands, competitor, not cheaper → stay on DataDoe.
+- Pricing under discussion: $99/mo or $950/yr (annual shown first) vs today's $199 then $249 per quarter. Not changed yet.
+- Tests 153/153.
+
+---
+
 ## 2026-11-22 · Pay at signup + Rocco's AI layer (manager, brief, memory, Ask)
 - **Pay at signup (like localseo.to):** Hire → Google → Dodo checkout (tagged with the team) → /welcome → "You're in, connect your Amazon". No free fix (FREE_PROPOSALS 0). Unpaid teams see a Hire card instead of Connect; the DataDoe invite and Check now return 402 without a plan; the daily cron skips unpaid and lapsed teams. Unpaid sign-ups cost $0.
 - **AI layer (behind ANTHROPIC_API_KEY, Opus 5.5, falls back to rules without it):**

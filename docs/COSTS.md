@@ -31,7 +31,7 @@ Up front before the first sale: ~$140 (Vercel Pro $20, DataDoe $97 after the tri
 
 ## The fixes
 1. **DataDoe settings (Praveen, ~10 min in Settings → Data):** set every table to 6 months; turn off tables Rocco doesn't read (keep the defaults plus: ads search terms by campaign, targeting by campaign, placement by campaign, negative keywords, targets raw, campaigns raw, FBA restock recommendations, seller performance).
-2. **One export per table for all accounts (code):** one daily schedule per table covering every paying account (updated when an account joins or leaves), split by `seller_or_vendor_id`.
+2. **One export per report per group of 10 accounts (built Nov 22, live-tested):** 40 exports/day at 100 sellers (~2,400 tokens/mo, ~$15 over the included 2,000), split by `seller_or_vendor_id`. Old per-account schedules are deleted automatically.
 3. **Batch approvals (code, optional):** "Approve all" sends one Action per change type instead of one per fix.
 
 ## MarketplaceAdPros instead of DataDoe?

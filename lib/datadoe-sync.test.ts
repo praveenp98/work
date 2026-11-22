@@ -49,3 +49,55 @@ describe("DataDoe exports → Amazon-shaped reports (columns verified on a real 
     expect(detectKind(inv)).toBe("inventory");
   });
 });
+
+describe("group pull: one export per report for many accounts", () => {
+  it("exports once per report for the whole group, splits rows by account, and retires old per-account schedules", async () => {
+    const { vi } = await import("vitest");
+    const { MemoryStore } = await import("./store/memory");
+    const { createWorkspace } = await import("./workspace");
+    const { syncGroup } = await import("./datadoe-sync");
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    const store = new MemoryStore();
+    const a = await createWorkspace(store), b = await createWorkspace(store);
+    a.ws.amazon = { accounts: [{ id: "acc-a", name: "Brand A", country: "US", connectedAt: "2026-11-22" }], schedules: { "acc-a": { sp_search_term: "sch-1", inventory: "sch-2" } } };
+    b.ws.amazon = { accounts: [{ id: "acc-b", name: "Brand B", country: "US", connectedAt: "2026-11-22" }] };
+    await store.saveWorkspace(a.ws); await store.saveWorkspace(b.ws);
+    const created: { sellerOrVendorIds: string[]; columns: string[] }[] = [];
+    const deleted: string[] = [];
+    const csv = (cols: string[], rows: string[][]) => [cols.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    vi.stubGlobal("setTimeout", ((fn: () => void) => { fn(); return 0; }) as unknown as typeof setTimeout);
+    vi.stubGlobal("fetch", vi.fn(async (u: string, init?: RequestInit) => {
+      const url = String(u), m = init?.method ?? "GET";
+      if (url.includes("/exports/sources")) {
+        const q = decodeURIComponent(url.match(/query=([^&]+)/)![1]);
+        const p = PULLS.find((x) => x.query === q)!;
+        return Response.json({ sources: [{ id: `src-${p.kind}`, name: p.kind, tableName: p.table, requiresDatePeriod: true, initialLoadProgress: 100 }] });
+      }
+      if (url.endsWith("/exports") && m === "POST") { const body = JSON.parse(String(init!.body)); created.push(body); return Response.json({ id: `ex-${body.sourceId}` }); }
+      if (/\/exports\/schedules\//.test(url) && m === "DELETE") { deleted.push(url.split("/").pop()!); return new Response(null, { status: 204 }); }
+      if (url.endsWith("/raw")) {
+        const kind = url.match(/ex-src-(\w+)\/raw/)![1];
+        if (kind !== "sp_search_term") return new Response("seller_or_vendor_id\n");
+        const cols = ["seller_or_vendor_id", "date", "ad_campaign_name", "ad_group_name", "ad_targeting_text", "ad_match_type", "ad_search_term", "ad_impressions", "ad_clicks", "ad_spend", "ad_sales", "ad_orders", "ad_campaign_id", "ad_group_id", "ad_keyword_id", "ad_campaign_type"];
+        return new Response(csv(cols, [
+          ["acc-a", "2026-11-01", "C", "G", "journal", "BROAD", "free pdf journal", "900", "40", "30", "0", "0", "1", "2", "3", "SPONSORED_PRODUCTS"],
+          ["acc-b", "2026-11-01", "D", "G", "planner", "BROAD", "planner 2027", "500", "20", "10", "40", "2", "4", "5", "6", "SPONSORED_PRODUCTS"],
+        ]));
+      }
+      if (/\/exports\/ex-/.test(url)) return Response.json({ status: "COMPLETED" });
+      return Response.json({}, { status: 404 });
+    }));
+    const res = await syncGroup(store, [{ wsId: a.ws.id, id: "acc-a", name: "Brand A" }, { wsId: b.ws.id, id: "acc-b", name: "Brand B" }]);
+    expect(created).toHaveLength(PULLS.length); // 4 exports for both accounts, not 8
+    expect(created.every((c) => c.sellerOrVendorIds.join() === "acc-a,acc-b" && c.columns.includes("seller_or_vendor_id"))).toBe(true);
+    expect(res.get("acc-a")!.kinds).toEqual(["sp_search_term"]);
+    expect(res.get("acc-b")!.kinds).toEqual(["sp_search_term"]);
+    const snapA = await store.listSnapshots(a.ws.id, { limit: 5 });
+    const snapB = await store.listSnapshots(b.ws.id, { limit: 5 });
+    expect(snapA.map((s) => s.brand)).toEqual(["Brand A"]);
+    expect(snapB.map((s) => s.brand)).toEqual(["Brand B"]);
+    expect(deleted.sort()).toEqual(["sch-1", "sch-2"]);
+    expect((await store.getWorkspaceById(a.ws.id))!.amazon!.schedules?.["acc-a"]).toBeUndefined();
+    vi.unstubAllGlobals(); vi.unstubAllEnvs();
+  });
+});

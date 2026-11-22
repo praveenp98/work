@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
-import { pullAndSave } from "@/lib/datadoe-sync";
+import { syncGroup } from "@/lib/datadoe-sync";
 import { refreshManager } from "@/lib/manager";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
@@ -17,8 +17,7 @@ export async function POST(req: Request) {
   if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
   const last = ws.amazon.lastSync?.at;
   if (last && Date.now() - new Date(last).getTime() < 3_600_000) return NextResponse.json({ ok: true, skipped: "checked in the last hour", lastSync: ws.amazon.lastSync });
-  const results = [];
-  for (const a of ws.amazon.accounts) { const r = await pullAndSave(store, ws.id, a); if (r) results.push(r); }
+  const results = [...(await syncGroup(store, ws.amazon.accounts.map((a) => ({ wsId: ws.id, id: a.id, name: a.name })))).values()]; // one export per report for all of this team's accounts
   const lastSync = { at: new Date().toISOString(), kinds: results.flatMap((r) => r.kinds), errors: results.flatMap((r) => r.errors) };
   const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
   fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), lastSync };
