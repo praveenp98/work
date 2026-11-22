@@ -149,14 +149,22 @@ Brand tokens: `app/globals.css` line 252 (`--bg #f4f2ee`, `--card #fcfbf9`, `--i
 
 Not on the live homepage any more (old copy inside, do not reuse as is): `components/home/PhoneThread.tsx`, `WorkScreen.tsx`, `ApprovalFeed.tsx`, `DayWithRocco.tsx`, `RoccoStage.tsx`, `YourAI.tsx`, `HandsAndBrain.tsx`, `ReportsInbox.tsx`, `LiveRoastDemo.tsx`, `RoastTicker.tsx`, everything in `components/connect/`.
 
-Practical note for video: the site demos animate with timers and CSS, which Remotion cannot seek frame by frame. Two workable routes: (1) rebuild each scene in `marketing/video/` as a frame-driven component that reuses the site's class names and CSS and reads `config/sample.ts`; (2) record the live component in real time with Playwright video. Route 1 is the default.
+## Video studio
+
+`marketing/video/` is a Remotion project with its own `package.json` (see its README). One JSON spec per video in `specs/`, three formats from one source (9:16, 4:5, 16:9), nine scene templates in `src/scenes/`, captions always on.
+
+- Render: `cd marketing/video && npm run render -- --spec specs/demo.json --format all`. Output: `marketing/out/video/<spec>-<format>.mp4` plus a poster PNG. `--stills` writes one PNG per scene in seconds.
+- The site demos run on timers and CSS animations, which Remotion cannot seek, so each one is ported to `src/ui/` with the same markup, class names and copy, driven by the frame number. The site's own CSS is copied in at render time (`scripts/prepare.mjs`), so the pieces follow the site.
+- Specs never type a price: use `{{offer:price.from}}` style tokens, filled from `config/offer.ts`.
+- The "Sample account" chip is added by the code wherever the sample account shows and cannot be switched off. A stat without a source does not render.
+- The tidy piece uses illustrative campaign names (`SAMPLE.tidy` in `config/sample.ts`): the site has no public tidy demo to copy.
 
 ## Repo vs brief (found Nov 22, 2026)
 
 Open questions for Praveen:
 1. Setup calls. The brief's north star is "setup calls booked". CLAUDE.md hard rule 2 says self-serve software only, no call-booking flows (hackathon eligibility), and the pricing card sells the refund as "no call, no forms". There is no booking link in the repo or on the site. `LINKS.setupCall` is the placeholder `{{SETUP_CALL_URL}}` until this is decided.
 2. Branch. CLAUDE.md says push to `main` after every discussion; this brief says work on `marketing`. This branch follows the brief.
-3. Root `tsconfig.json` includes `**/*.ts(x)`, so Next's build will type-check `marketing/`. `config/*.ts` passes. A Remotion studio in `marketing/video/` will need `marketing/video` added to `exclude` (shared file: ask first).
+3. Resolved Nov 22: `marketing/video` is excluded in the root `tsconfig.json` and in `.vercelignore`, so the Remotion studio is not type-checked or uploaded with the app. `marketing/config/*.ts` is still type-checked by the app build and passes.
 
 Things in the repo that differ from the facts above:
 - Home FAQ and home price card word the guarantee as "if you don't like the fixes I give you, ask for your money back" (no "first 7 days", no email). The pricing page has the full wording. Assets use the full wording.
