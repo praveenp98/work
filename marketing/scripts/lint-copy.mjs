@@ -32,7 +32,7 @@ import path from "node:path";
 import { loadConfig, MARKETING_DIR, REPO_DIR } from "./load-config.mjs";
 
 const TEXT_EXT = new Set([".md", ".mdx", ".txt", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".json", ".html", ".htm", ".css", ".csv", ".yml", ".yaml", ".svg", ".srt", ".vtt"]);
-const SKIP_DIRS = new Set(["node_modules", "out", ".git", ".next", "dist", "build", ".remotion"]);
+const SKIP_DIRS = new Set(["node_modules", "out", "generated", ".git", ".next", "dist", "build", ".remotion"]);
 const SKIP_FILES = new Set([path.join(MARKETING_DIR, "BRIEF.md"), path.join(MARKETING_DIR, "scripts", "lint-copy.mjs")]);
 const EM_DASH = String.fromCharCode(0x2014);
 
