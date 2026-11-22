@@ -35,6 +35,10 @@ export interface Workspace {
   licensed: boolean;
   /** Owner email came from Google sign-in (verified). Sign-in only ever opens verified teams (lib/signin.ts). */
   ownerVerified?: boolean;
+  /** The owner's name from Google (change log: "approved by Sam"). */
+  ownerName?: string;
+  /** Teammates added by email (lib/team.ts). They sign in with Google and land on this Rocco. */
+  members?: import("../team").Member[];
   /** Email typed on the Hire sheet: only prefills checkout, never decides who owns the team. */
   checkoutEmail?: string;
   /** Per-team safety limits (lib/security.ts): timestamps of recent uses. */
@@ -164,6 +168,10 @@ export interface Store {
   findWorkspaceByLinkCode(code: string): Promise<Workspace | null>;
   /** Teams whose account email is this (Google sign-in), newest first. */
   findWorkspacesByOwner(email: string): Promise<Workspace[]>;
+  /** Teams this email was added to as a member (lib/team.ts). */
+  findWorkspacesByMember(email: string): Promise<Workspace[]>;
+  /** Give a team a new private link (the old one stops working). */
+  rotateToken(id: string, newTokenHash: string): Promise<void>;
   getPhone(phone: string): Promise<Phone | null>;
   savePhone(p: Phone): Promise<void>;
   listPhones(opts?: { workspaceId?: string; optedIn?: boolean }): Promise<Phone[]>;

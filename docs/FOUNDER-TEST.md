@@ -27,3 +27,9 @@ Dashboard → **Tidy your campaigns** → Scan. Check the before → after names
 - DataDoe sends you back with an error because Habit Nest is already connected: use the fallback `https://rocco.works/api/admin/attach?key=YOUR_CRON_SECRET&email=YOUR_GOOGLE_EMAIL&account=d7896284-b29d-42b0-ad5f-f5d31132cb31`, then open rocco.works/me.
 - Approvals say "read-only access": reconnect Habit Nest (banner on the dashboard) and allow read & write.
 - Tell Claude exactly what you saw (screenshot), so it can be fixed the same day.
+
+## Team test (2 minutes, after the dashboard opens)
+1. Dashboard → Your team → add a second Gmail of yours → Copy message.
+2. In a private window, rocco.works → Sign in → Google with the second Gmail → you land on the same Rocco, marked Member.
+3. Approve one small fix as the second account → change log says "approved by <name>".
+4. Back as owner: Make owner on the second account, then make yourself owner again from that account. Remove → the old link stops working.

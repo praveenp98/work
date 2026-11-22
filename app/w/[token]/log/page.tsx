@@ -14,7 +14,14 @@ export const metadata: Metadata = { title: "Change log · Rocco", robots: { inde
 const STATUS: Record<string, string> = { applied: "⏳ checking in a week", worked: "✅ worked", no_effect: "➖ no effect", worse: "⚠️ worse", not_enough_data: "⏳ more data", reverted: "↩️ reverted" };
 const when = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 /** Who made the change, from the note saved with it. */
-const source = (note?: string) => (!note ? "Approved" : /by text/.test(note) && /Rocco/.test(note) ? "Rocco · approved by text" : /new exact campaign/.test(note) ? "Rocco · new campaign" : /Rocco/.test(note) ? "Rocco · approved on dashboard" : "You, by hand");
+function source(note?: string): string {
+  if (!note) return "Approved";
+  const who = note.match(/approved by ([^·(]+?)\s*$/)?.[1];
+  if (/by text/.test(note) && /Rocco/.test(note)) return "Rocco · approved by text";
+  if (/new exact campaign/.test(note)) return `Rocco · new campaign${who ? ` · approved by ${who}` : ""}`;
+  if (/Rocco/.test(note)) return `Rocco · approved${who ? ` by ${who}` : ""} on the dashboard`;
+  return "By hand";
+}
 
 /**
  * Everything that changed in the account, newest first: Rocco's changes (who approved, the result a week later),
@@ -42,7 +49,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
             <li key={`tidy-${a.id}`}>
               <div className="log-top"><span className="fix-code">🗂️</span><span className="status applied">Tidy</span><span className="fine">{when(d.at)} · {a.name}</span></div>
               <p className="log-what">Tidied campaigns: {[d.renamed.length && `${d.renamed.length} renamed`, d.portfolios.length && `${d.portfolios.length} portfolio${d.portfolios.length === 1 ? "" : "s"}`, d.paused.length && `${d.paused.length} idle paused`].filter(Boolean).join(", ") || "no changes"}</p>
-              <p className="fine">Rocco · approved on dashboard · <Link href={`/w/${token}/tidy`}>undo on the Tidy page</Link></p>
+              <p className="fine">Rocco · approved{d.by ? ` by ${d.by}` : ""} on the dashboard · <Link href={`/w/${token}/tidy`}>undo on the Tidy page</Link></p>
             </li>
           ))}
           {actions.map((a) => (

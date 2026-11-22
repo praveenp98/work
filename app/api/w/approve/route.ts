@@ -6,6 +6,7 @@ import { howTo } from "@/lib/howto";
 import type { Proposal } from "@/lib/rules/types";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
+import { approvedBy } from "@/lib/team";
 import { applyChanges, clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
 
 /**
@@ -43,11 +44,12 @@ export async function POST(req: Request) {
     const out: (ApplyOutcome & { how?: string })[] = [];
     const todo = ok.filter((c) => { const { runId } = props.get(c)!; if (done.has(`${runId}:${c}`)) { out.push({ code: c, status: "applied" }); return false; } return true; });
     if (todo.length && !(await spend(store, ws, "writes", todo.length))) return NextResponse.json({ ok: false, error: LIMIT_MSG.writes }, { status: 429 });
+    const by = await approvedBy(ws);
     // One job = one batch per change type (lib/apply.ts).
     const results = await applyMany(account.id, todo.map((c) => props.get(c)!.p), `rocco:${ws.id}:${todo.map((c) => `${props.get(c)!.runId.slice(0, 8)}${c}`).join(",").slice(0, 80)}`);
     for (const r of results) {
       const { p } = props.get(r.code)!;
-      if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}` });
+      if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}${by}` });
       out.push(r.status === "applied" ? r : { ...r, how: howTo(p) });
     }
     return NextResponse.json({ ok: true, direct: true, results: out, locked });

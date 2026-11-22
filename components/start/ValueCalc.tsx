@@ -41,7 +41,7 @@ export function PriceRise() {
   const sold = useSold();
   const left = sold === null ? null : 5 - (sold % 5);
   return (
-    <p className="vc-rise"><span aria-hidden>📈</span> Prices go up by $10 every 5 hires.{left !== null && <> <b>{left} {left === 1 ? "hire" : "hires"} left</b> at this price.</>}</p>
+    <p className="vc-rise"><span aria-hidden>📈</span> Prices go up every 5 hires: +$10 a month, +$100 a year.{left !== null && <> <b>{left} {left === 1 ? "hire" : "hires"} left</b> at this price.</>}</p>
   );
 }
 

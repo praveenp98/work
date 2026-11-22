@@ -62,6 +62,7 @@ export default async function Page() {
           { q: "What do I need?", a: "Your Seller Central login as the primary user (or a user with all permissions) and your Amazon Ads login. Any marketplace. No Claude or other AI needed." },
           { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that change in Amazon: checked with Amazon first, logged, and undoable. Nothing changes on its own." },
           { q: "How many Amazon accounts?", a: "Connect every seller account and marketplace you run, on one plan." },
+          { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco, see today's jobs and approve them. Every approval shows who made it. You can remove someone anytime, or hand the whole Rocco to a teammate." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
           { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
           { q: "Is there a free plan?", a: "No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the 30-day guarantee instead." },

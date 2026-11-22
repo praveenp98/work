@@ -4,6 +4,7 @@ import { createExactCampaign } from "@/lib/create-campaign";
 import { datadoeOn } from "@/lib/datadoe";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
+import { approvedBy } from "@/lib/team";
 import { applyChanges, latestRuns, loadWorkspace } from "@/lib/workspace";
 
 /** "Create campaign" on the New exact campaign job: approved by the tap, logged, results checked a week later. */
@@ -23,6 +24,6 @@ export async function POST(req: Request) {
   const runs = await latestRuns(store, ws, brand);
   const props = runs.flatMap((r) => r.proposals.map((p) => ({ p, runId: r.id }))).filter((x) => codes.includes(x.p.code));
   const r = await createExactCampaign({ id: account.id, country: account.country }, props.map((x) => x.p), `rocco:${ws.id}:create:${codes.join(",")}`.slice(0, 100));
-  if (r.status === "applied") await applyChanges(store, ws, props.map((x) => x.p.code), { brand, note: `new exact campaign made by Rocco in Amazon (${r.done.join(", ")})` });
+  if (r.status === "applied") await applyChanges(store, ws, props.map((x) => x.p.code), { brand, note: `new exact campaign made by Rocco in Amazon (${r.done.join(", ")})${await approvedBy(ws)}` });
   return NextResponse.json({ ok: true, ...r, codes: props.map((x) => x.p.code) });
 }

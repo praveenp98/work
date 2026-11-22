@@ -10,7 +10,7 @@ import type { TidyPlan } from "./rules/tidy";
  * Every batch is dry-run first. Returns what changed, so it can be undone (old names / old states).
  */
 export interface TidyChoice { rename: boolean; portfolios: boolean; pauseIdle: boolean; ids?: string[] }
-export interface TidyDone { at: string; renamed: { id: string; from: string; to: string }[]; paused: string[]; portfolios: { name: string; id: string; campaigns: string[] }[]; errors: string[] }
+export interface TidyDone { at: string; by?: string; renamed: { id: string; from: string; to: string }[]; paused: string[]; portfolios: { name: string; id: string; campaigns: string[] }[]; errors: string[] }
 
 async function batch(accountId: string, items: Record<string, unknown>[], key: string, errors: string[]): Promise<boolean> {
   let ok = true;

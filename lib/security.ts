@@ -34,6 +34,7 @@ export const LIMITS = {
   invite: { max: 10, hours: 24 }, // Connect Amazon links
   writes: { max: 300, hours: 24 }, // Amazon changes (items) made by Rocco
   campaigns: { max: 10, hours: 24 }, // new exact campaigns
+  team: { max: 30, hours: 24 }, // teammates added
 } as const;
 export type LimitKey = keyof typeof LIMITS;
 
@@ -69,6 +70,7 @@ export const LIMIT_MSG: Record<LimitKey, string> = {
   invite: "Too many connect links today. Write to hello@rocco.works and I'll help.",
   writes: "Safety limit: I've already made a lot of changes in this account today. The rest can go tomorrow.",
   campaigns: "Safety limit: I've already created several campaigns today. The rest can go tomorrow.",
+  team: "That's a lot of invites for one day. Try again tomorrow.",
 };
 
 /**

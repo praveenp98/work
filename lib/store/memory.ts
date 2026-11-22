@@ -34,6 +34,13 @@ export class MemoryStore implements Store {
     const e = email.toLowerCase();
     return [...this.ws.values()].filter((w) => w.ownerEmail?.toLowerCase() === e).reverse().map((w) => structuredClone(w));
   }
+  async findWorkspacesByMember(email: string) {
+    const e = email.toLowerCase();
+    return [...this.ws.values()].filter((w) => w.members?.some((m) => m.email === e)).reverse().map((w) => structuredClone(w));
+  }
+  async rotateToken(id: string, newTokenHash: string) {
+    for (const [h, v] of this.ws) if (v.id === id) { this.ws.delete(h); this.ws.set(newTokenHash, v); return; }
+  }
   async getPhone(phone: string) { const p = this.phones.get(phone); return p ? structuredClone(p) : null; }
   async savePhone(p: Phone) { this.phones.set(p.phone, structuredClone(p)); }
   async listAmazonWorkspaces() {

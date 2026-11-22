@@ -4,6 +4,18 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Teams built: add teammates, roles, handover, link reset
+- **Team card** on the dashboard (and on the Connect Amazon screen, so a buyer can add the person who holds the Amazon login): add a teammate by email → they tap Sign in with Google on rocco.works with that email and land on the same Rocco. A copy-paste invite message is shown (no email sending yet).
+- **Roles:** Owner (people, handover, link reset; billing stays on the card that paid) and Member (see + approve jobs, Ask Rocco, Tidy, change log; can leave).
+- **Handover:** "Make owner" for a teammate who has signed in once; the old owner stays as a member.
+- **Remove** also resets the private link (old copies stop working); **Reset private link** for the owner anytime. Teammates just sign in with Google again.
+- **Change log names:** "Rocco · approved by Sam on the dashboard" (dashboard, new campaigns, Tidy).
+- Security: invites only work for that exact Google-verified email; signing in as a member never takes ownership (removed an old line in the Google callback that set the signed-in email as owner); team actions need the link + Google sign-in; 30 invites/day limit.
+- Price rise rule settled: +$10/month and +$100/year every 5 hires (line updated; docs/PRICING-MODEL.md). Next step prices: $129/mo, $1,290/yr.
+- Tests: 190 passing, production build OK. Not yet clicked through with two real Google accounts: do it in the founder test (add a second Gmail).
+
+---
+
 ## 2026-11-22 · Q&A: teams, logins, handover (gap found)
 - Today one Rocco = one team: one owner (Google email), a secret team link (/w/rw_…), phones linked by code for texting, optional Slack. One Amazon account can belong to only one Rocco team (security rule).
 - Gap: no "add teammate by email", no roles, no remove-person, no transfer-owner, no "new link" (rotate). Teammates can only use the forwarded secret link, which can't be revoked; a teammate signing in with Google gets their own empty Rocco.

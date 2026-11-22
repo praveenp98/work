@@ -64,6 +64,14 @@ export class SupabaseStore implements Store {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>ownerEmail=eq.${encodeURIComponent(email.toLowerCase())}&select=id,data&order=created_at.desc&limit=10`);
     return rows.map((r) => ({ id: r.id, ...r.data }));
   }
+  async findWorkspacesByMember(email: string) {
+    const f = encodeURIComponent(JSON.stringify([{ email: email.toLowerCase() }]));
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->members=cs.${f}&select=id,data&order=created_at.desc&limit=10`);
+    return rows.map((r) => ({ id: r.id, ...r.data }));
+  }
+  async rotateToken(id: string, newTokenHash: string) {
+    await this.q(`workspaces?id=eq.${encodeURIComponent(id)}`, { method: "PATCH", body: JSON.stringify({ token_hash: newTokenHash }), headers: { Prefer: "return=minimal" } });
+  }
   async getPhone(phone: string) {
     const rows = await this.q<{ data: Phone }[]>(`phones?phone=eq.${encodeURIComponent(phone)}&select=data&limit=1`);
     return rows[0]?.data ?? null;

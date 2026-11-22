@@ -4,6 +4,9 @@ import { after } from "next/server";
 import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
 import { ReminderCard } from "@/components/dash/ReminderCard";
+import { TeamCard } from "@/components/dash/TeamCard";
+import { googleOn } from "@/lib/google";
+import { actor, peopleOf, roleOf } from "@/lib/team";
 import { slackConfigured } from "@/lib/slack";
 import { notFound } from "next/navigation";
 import { JobCards } from "@/components/dash/JobCards";
@@ -53,6 +56,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const access = accessOf(ws);
+  const who = await actor();
+  const team = <TeamCard token={token} me={who ? { email: who.email, role: roleOf(ws, who.email) } : null} people={peopleOf(ws)} google={googleOn()} />;
   const hoursLeft = trialHoursLeft(ws);
   const direct = datadoeOn();
   const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
@@ -75,6 +80,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <section className="rc-page">
         <RememberTeam t={token} />
         {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access !== "none" && <div className="rc-team">{team}</div>}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>
     );
@@ -186,6 +192,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
 
         <aside className="rd-side">
+          {access !== "none" && team}
           {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">

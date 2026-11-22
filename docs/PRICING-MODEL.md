@@ -2,6 +2,10 @@
 
 **$119 a month, or $1,190 a year (2 months free).** Yearly is shown first and preselected. 30-day money-back guarantee on both. Whole team, unlimited brands, no free plan, pay at signup. Source of truth in code: `lib/pricing.ts`. Dodo setup: `docs/DODO-SETUP.md`.
 
+**Price rise (Nov 22, Praveen):** every 5 hires, +$10 on monthly and +$100 on yearly (keeps 2 months free). Shown on the plan step and pricing page with hires left at today's price. Applied by hand: raise both Dodo products and `PLAN` in `lib/pricing.ts` together (next: $129/mo, $1,290/yr).
+
+**Team:** the owner adds teammates by email from the dashboard (they sign in with Google), can remove them, hand the Rocco over, and reset the private link. Billing stays on the card that paid.
+
 ---
 
 Older history below.

@@ -3,6 +3,7 @@ import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
+import { approvedBy } from "@/lib/team";
 import { applyTidy, undoTidy } from "@/lib/tidy-apply";
 import { scanTidy } from "@/lib/tidy-scan";
 import { loadWorkspace } from "@/lib/workspace";
@@ -41,6 +42,8 @@ export async function POST(req: Request) {
     if (!(await spend(store, ws, "tidyApply"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.tidyApply }, { status: 429 });
     const ids = Array.isArray(b.ids) ? b.ids.map(String).filter((x) => /^\d{1,24}$/.test(x)) : undefined;
     const done = await applyTidy(account.id, cur.plan, { rename: !!b.rename, portfolios: !!b.portfolios, pauseIdle: !!b.pauseIdle, ids }, `rocco:${ws.id}:tidy:${cur.plan.at}`);
+    const who = (await approvedBy(ws)).replace(/^ · approved by /, "");
+    if (who) done.by = who;
     await save({ ...cur, done });
     return NextResponse.json({ ok: true, done });
   }

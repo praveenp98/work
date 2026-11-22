@@ -32,9 +32,8 @@ export async function GET(req: Request) {
   if (!store) return back("off");
 
   const browserTeam = unseal(decodeURIComponent(cookie(TEAM) ?? ""));
-  const { ws, token } = await teamForUser(store, user.email, browserTeam);
-  if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox
-  if (ws.ownerEmail !== user.email || !ws.ownerVerified) { ws.ownerEmail = user.email; ws.ownerVerified = true; await store.saveWorkspace(ws); } // prefilled at checkout
+  const { ws, token } = await teamForUser(store, user.email, browserTeam, user.name);
+  if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox // prefilled at checkout
   const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" && st.p ? hireUrl(ws, st.p === "monthly" ? "monthly" : "annual") : `${SITE.url}/w/${token}` /* no plan picked yet: the plan step */);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });
