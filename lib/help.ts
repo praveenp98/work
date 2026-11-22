@@ -35,6 +35,11 @@ export const HELP: HelpArticle[] = [
     more: ["The connection runs through DataDoe, an Amazon-approved data partner. Rocco reads reports through it and makes only the changes you approve.", "Several brands or marketplaces? Use \"+ Connect another Amazon account\" at the bottom of your dashboard. Each one gets its own tab."],
   },
   {
+    slug: "skip-amazon-ads", section: "Getting started", updated: U,
+    q: "Do I need to connect Amazon Ads?",
+    short: "Seller Central alone gives you restock, listing and Buy Box jobs. The ad jobs (blocking wasted searches, bids, budgets, new exact campaigns) need Amazon Ads. Skipped it? Tap \"Connect Amazon Ads\" next to the account on your Rocco page any time.",
+  },
+  {
     slug: "first-jobs-not-showing", section: "Troubleshooting", updated: U,
     q: "I connected Amazon but don't see any jobs yet",
     short: "Amazon sends the first reports in batches, so it can take a few hours after connecting. Your Rocco page keeps checking and opens your jobs by itself; you can also tap Check now (once an hour).",
@@ -95,8 +100,9 @@ export const HELP: HelpArticle[] = [
   {
     slug: "reminders-and-approve-by-text", section: "Team & reminders", updated: U,
     q: "How do reminders on iMessage, WhatsApp or Slack work?",
-    short: "On your dashboard, pick every morning or Mondays and a channel. Rocco messages you when there's work. After you've seen your jobs on the dashboard once, you can switch on approving by text: reply YES with the codes.",
-    more: ["Turn reminders off any time on the dashboard, or reply STOP."],
+    short: "Pick where (iMessage, WhatsApp or Slack), how often (mornings with work, or Mondays) and what the message says: a one-line nudge to come look (recommended), today's top 3 jobs, or approve by text. No work that day means no message.",
+    steps: ["On your Rocco page, open \"Ping me\" (or \"Nudge me when there's work\").", "Choose where, how often and what the message says. A live preview shows the exact message.", "Tap Save & connect and send the first message from your phone (iMessage/WhatsApp), or add Rocco to Slack.", "Approve by text unlocks after you've reviewed your jobs on the site once, so you never approve something you haven't seen."],
+    more: ["Turn reminders off any time on your Rocco page, or reply STOP."],
   },
   // Billing
   {

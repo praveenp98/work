@@ -89,7 +89,7 @@ export interface Workspace {
   /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */
   manager?: Record<string, ManagerView>;
   /** How Rocco nudges the team after payment (dashboard card): cadence, channel, and whether fixes can be approved by text. */
-  reminders?: { cadence: "daily" | "weekly" | "off"; weekday?: number; channel?: "imessage" | "whatsapp" | "slack"; approveByText: boolean; setAt: string };
+  reminders?: { cadence: "daily" | "weekly" | "off"; weekday?: number; channel?: "imessage" | "whatsapp" | "slack"; approveByText: boolean; style?: "nudge" | "top3" | "approve"; setAt: string };
   /** First time the team saw today's work on the dashboard (approve-by-text unlocks after this). */
   seenJobsAt?: string;
   /** "Tidy your campaigns" per Amazon account: the last scan's plan and the last applied change (for Undo). */

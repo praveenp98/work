@@ -10,7 +10,7 @@ import { RoccoHead } from "@/components/Rocco";
  * The one setup step: connect Amazon (through DataDoe, an Amazon-approved data partner). Seller Central, then Ads.
  * Also the "data loading" state once connected, with a Check now button.
  */
-export function ConnectAmazon({ token, accounts, note, lastSync }: { token: string; accounts: { name: string; country: string; status: string }[]; note?: string; lastSync?: { at: string; kinds: string[]; errors: string[] } }) {
+export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false }: { token: string; accounts: { id?: string; name: string; country: string; status: string; ads?: boolean }[]; note?: string; lastSync?: { at: string; kinds: string[]; errors: string[] }; pinged?: boolean }) {
   const [busy, setBusy] = useState<"" | "connect" | "check">("");
   const [msg, setMsg] = useState("");
   const [slow, setSlow] = useState(false);
@@ -36,7 +36,7 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
     const d = (await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { lastSync?: { kinds: string[] }; skipped?: string } | null;
     setBusy("");
     if (d?.lastSync?.kinds?.length) { window.location.reload(); return; }
-    setMsg(!d ? WAIT.network : d.skipped ? "I checked less than an hour ago. Amazon's first load can take a few hours: this page opens your fixes by itself when they're in." : "Not ready yet: Amazon is still sending me your history. This page opens your fixes by itself when they're in, and I'll message you.");
+    setMsg(!d ? WAIT.network : d.skipped ? `I checked less than an hour ago. Amazon's first load can take a few hours: this page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.` : `Not ready yet: Amazon is still sending me your history. This page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.`);
   }
 
   if (!accounts.length) {
@@ -71,17 +71,19 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
       <ul className="rc-progress">
         {accounts.map((a) => (
           <li key={a.name + a.country}>
-            <span className="ok">✓</span><div><b>{a.name} · {a.country}</b><small>{a.status}</small></div>
+            <span className="ok">✓</span><div><b>{a.name} · {a.country}</b><small>{a.status}</small>
+              {a.ads === false && a.id && <span className="rc-noads">Amazon Ads isn&apos;t connected, so no ad jobs yet (wasted searches, bids, budgets). <ConnectButton token={token} reconnect={a.id} label="Connect Amazon Ads →" className="linkbtn" /></span>}
+            </div>
           </li>
         ))}
       </ul>
-      {lastSync?.errors?.length && !lastSync.kinds.length
-        ? <p className="fine">Amazon is still sending me your history (a first load can take a few hours). This page opens your fixes by itself when it&apos;s in, and I&apos;ll text you.</p>
+      {/* One status line at a time: the Check now answer replaces the waiting line instead of adding a second one. */}
+      {busy === "check" ? <LoadingText steps={["Asking Amazon for the latest reports…", "Reading ads, sales and stock…", "Finding what to fix…"]} every={8000} />
+        : msg ? <p className="fine" role="status">{msg}</p>
+        : lastSync?.errors?.length && !lastSync.kinds.length ? <p className="fine">Amazon is still sending me your history (a first load can take a few hours). This page opens your fixes by itself when it&apos;s in{pinged ? ", and I'll message you" : ""}.</p>
         : slow ? <p className="fine">{WAIT.firstLoadSlow}</p>
         : <LoadingText steps={["Reading 30 days of search terms…", "Reading campaigns, budgets and bids…", "Reading sales, traffic and Buy Box…", "Checking stock cover for every SKU…", "Finding what to fix, ranked by money…", "Grouping it into today's jobs…"]} every={9000} />}
-      <button className="btn rc-btn" disabled={!!busy} onClick={check}>{busy ? "Checking…" : "Check now"}</button>
-      {busy === "check" && <LoadingText steps={["Asking Amazon for the latest reports…", "Reading ads, sales and stock…", "Finding what to fix…"]} every={8000} />}
-      {msg && <p className="fine" role="status">{msg}</p>}
+      <button className="btn rc-btn" disabled={!!busy} onClick={check}>{busy === "check" ? "Checking…" : "Check now"}</button>
       <button className="linkbtn" disabled={!!busy} onClick={connect}>+ Connect another Amazon account</button>
     </div>
   );

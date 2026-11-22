@@ -232,19 +232,26 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   if (rem?.cadence === "weekly" && now.getUTCDay() !== (rem.weekday ?? 1)) return;
   const b = await buildBrief(store, fresh, now);
   const open = [...(b.perBrand.find((x) => x.brand === r.account)?.open ?? [])].sort((a, c) => c.valueMonthly - a.valueMonthly).slice(0, 3);
-  const names = r.kinds.map((k) => REPORT_HELP[k as ReportKind]?.name ?? k).join(", ");
   const plan = fresh.manager?.[r.account];
   const live = new Set(open.length ? (b.perBrand.find((x) => x.brand === r.account)?.open ?? []).map((p) => p.code) : []);
   const picks = (plan?.picks ?? []).filter((p) => p.codes.every((c) => live.has(c))).slice(0, 3);
-  const L = [`☀️ ${r.account}: ${plan?.brief ?? `checked ${names}.`}`];
-  if (picks.length) for (const p of picks) L.push(`• ${p.codes.join("+")}: ${p.title}. ${p.why.slice(0, 110)}`);
-  else for (const o of open) L.push(`• ${o.code}: ${o.reason.slice(0, 110)}`);
-  const codes = picks.length ? picks.flatMap((p) => p.codes) : open.map((o) => o.code);
   const all = b.perBrand.find((x) => x.brand === r.account)?.open ?? [];
-  if (!rem?.approveByText) {
-    // Default: a nudge to the dashboard, where they see every fix before approving.
-    L.splice(1, L.length - 1, all.length ? `${all.length} fix${all.length === 1 ? "" : "es"} waiting, worth ~$${Math.round(all.reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo. Approve them here: ${teamUrl(ws)}` : "Nothing worth changing today. I'll check again tomorrow.");
-  } else if (codes.length) L.push(`Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon. All of today's work: ${teamUrl(ws)}`);
+  if (!all.length) return; // no work today, no message
+  const codes = picks.length ? picks.flatMap((p) => p.codes) : open.map((o) => o.code);
+  const total = Math.round(all.reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US");
+  const TITLE: Record<string, string> = { negative: "Block searches wasting money", harvest: "New exact campaign from proven searches", bid: "Fix bids", budget: "Raise budgets on winners", placement: "Tune placements", ads_down: "Ease ads on low stock", structure: "Clean up campaigns" };
+  const heads = picks.length ? picks.map((p) => ({ codes: p.codes, title: p.title })) : open.map((o) => ({ codes: [o.code], title: `${TITLE[o.kind] ?? "Fix"}: ${o.target.slice(0, 40)}` }));
+  const style = rem?.style ?? (rem?.approveByText ? "approve" : "nudge");
+  const head = `☀️ ${r.account}: ${all.length} job${all.length === 1 ? "" : "s"} today, worth ~$${total}/mo.`;
+  let L: string[];
+  if (style === "approve" && rem?.approveByText && codes.length) {
+    L = [head, ...heads.map((h) => `• ${h.codes.join("+")}: ${h.title}`), `Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon. All of today's work: ${teamUrl(ws)}`];
+  } else if (style === "top3") {
+    L = [head, ...heads.slice(0, 3).map((h) => `• ${h.title}`), `Review and approve: ${teamUrl(ws)}`];
+  } else {
+    // Default: one line to bring them to the site, where they see and understand every fix before approving.
+    L = [`${head} Biggest: ${(heads[0]?.title ?? "today's top fix").replace(/\.$/, "")}. Review (2 min): ${teamUrl(ws)}`];
+  }
   const offer = paywall(fresh, b, "found", { now });
   if (offer) await store.saveWorkspace(fresh);
   const cur = currencyOf(ws.amazon?.accounts?.find((a) => a.name === r.account)?.country);

@@ -74,7 +74,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const team = <TeamCard token={token} me={who ? { email: who.email, role: roleOf(ws, who.email) } : null} people={peopleOf(ws)} google={googleOn()} />;
   const hoursLeft = trialHoursLeft(ws);
   const direct = datadoeOn();
-  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await cachedStatus(a.id) }))) : [];
+  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await cachedStatus(a.id), ads: a.ads }))) : [];
+  // Someone will actually get a message (a linked phone or Slack): only then does the page promise one.
+  const pinged = (await store.listPhones({ workspaceId: ws.id, optedIn: true })).length > 0 || !!ws.slack;
   const needsReconnect = accounts.filter((a) => a.status === "needs you to reconnect");
   const note = sp.welcome ? "You're in 🎉 One step left: connect your Amazon." : amazonNote(sp.amazon);
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
@@ -93,7 +95,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     return (
       <section className="rc-page">
         <RememberTeam t={token} />
-        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access !== "none" && direct && accounts.length > 0 && <div className="rc-team"><ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} title="Ping me when my first jobs are ready" /></div>}
         {access !== "none" && <div className="rc-team">{team}</div>}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>

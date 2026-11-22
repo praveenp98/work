@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Founder test passed connect (US + India); waiting screen + ping setup
+- Praveen connected Habit Nest US and The PlugX Method IN (with Ads) through Rocco: the real customer path works.
+- Waiting screen: one status line (the Check now answer replaces the waiting line instead of adding a second); "I'll message you" only when a phone or Slack is actually linked; accounts that skipped Amazon Ads show "Amazon Ads isn't connected… Connect Amazon Ads →" (reconnect link).
+- **Ping setup on the waiting screen** ("Ping me when my first jobs are ready") and on the dashboard: where (iMessage / WhatsApp / Slack / none), how often (mornings with work / Mondays), and **what the message says**: a one-line nudge to the site (default, recommended), top 3 job headlines, or approve by text (locked until they've reviewed jobs on the site once). Live preview of the message. No work that day = no message.
+- Morning message rewritten per style (lib/datadoe-sync.ts tellTeam).
+- Help: "Do I need to connect Amazon Ads?" + updated reminders article.
+- Slack: the Slack app itself is free (create from docs/slack-manifest.yml, add 3 env vars); the option stays hidden until those are set.
+- Tests 201 passing.
+
+---
+
 ## 2026-11-22 · New share image + press screenshots
 - The X/LinkedIn link card still showed the old "Your AI Amazon teammate · plugs into Claude & ChatGPT" image (a fixed file, never redone). New `/og-v2.png` (1200×630): headline, the 4 steps, approve in iMessage/WhatsApp/Slack, $99/mo billed yearly + 7-day guarantee, and a jobs dashboard mock. Metadata points to it (new URL so X fetches it fresh); `/og.png` overwritten too.
 - Press kit (/press) screenshots re-shot from the current site with a demo brand (Bamboo & Co): home, pricing, dashboard, change log. Old setup/playground shots no longer listed.

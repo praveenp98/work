@@ -55,7 +55,7 @@ describe("reminders after payment", () => {
     const r = { account: "Habit Nest US", kinds: ["sp_search_term"], errors: [] };
     const send = async (now = new Date("2026-11-24T13:00:00Z")) => { const n = outbox().length; await tellTeam(store, (await store.getWorkspaceById(ws.id))!, r, now); return outbox().slice(n).map((m) => m.text).join("\n"); };
     const def = await send();
-    expect(def).toMatch(/fixes? waiting, worth ~\$[\d,]+\/mo\. Approve them here: https:\/\/rocco\.works\/me/);
+    expect(def).toMatch(/jobs? today, worth ~\$[\d,]+\/mo\. Biggest: .+\. Review \(2 min\): https:\/\/rocco\.works\/(w|me)/); // one-line nudge to the site
     expect(def).not.toMatch(/Reply YES/);
     const w = (await store.getWorkspaceById(ws.id))!;
     w.reminders = { cadence: "daily", approveByText: true, setAt: "x" }; await store.saveWorkspace(w);
