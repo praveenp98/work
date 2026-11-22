@@ -1,10 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { identifyTeam, track, trackPage } from "@/lib/analytics";
+import { configureAnalytics, identifyTeam, track, trackPage } from "@/lib/analytics";
 
 /** Page views on every route change, plus clicks on mailto: links (Email a human). Renders nothing. */
-export function Analytics() {
+export function Analytics({ apiKey, uiHost }: { apiKey?: string; uiHost?: string }) {
+  // During render (before any effect on the page runs), so page-level events find the key.
+  configureAnalytics(apiKey, uiHost);
   const path = usePathname() ?? "/";
   useEffect(() => { trackPage(path); }, [path]);
   useEffect(() => {

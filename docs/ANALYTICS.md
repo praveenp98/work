@@ -7,8 +7,8 @@ Two separate things, both on every page:
 ## Turn PostHog on (5 minutes)
 1. Sign up at posthog.com → **US Cloud** → create a project "Rocco" (skip their install snippet; it's already built in).
 2. Project settings → copy the **Project API key** (starts with `phc_`; it's public by design, safe in the browser).
-3. Vercel → Settings → Environment Variables (Production): `NEXT_PUBLIC_POSTHOG_KEY` = `phc_…` → Redeploy.
-   - EU Cloud instead? Also set `POSTHOG_HOST` = `https://eu.i.posthog.com` and `NEXT_PUBLIC_POSTHOG_UI_HOST` = `https://eu.posthog.com`.
+3. Vercel → Settings → Environment Variables (Production): `POSTHOG_KEY` = `phc_…` → Redeploy. (No `NEXT_PUBLIC_` prefix: Vercel warns when those are marked Sensitive. Sensitive on or off is fine here.)
+   - EU Cloud instead? Also set `POSTHOG_HOST` = `https://eu.i.posthog.com` and `POSTHOG_UI_HOST` = `https://eu.posthog.com`.
 4. Check: /api/health shows `analytics: on`; PostHog → Activity shows your own page views within a minute.
 
 ## What's built in

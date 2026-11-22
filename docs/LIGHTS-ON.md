@@ -44,7 +44,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 - Anthropic Console → Settings → Limits: set a monthly spend limit (suggested $400). Where AI is used and why: docs/AI-USAGE.md.
 
 ## 📈 Analytics (5 minutes)
-- PostHog: create a free project, paste the `phc_…` key into Vercel as `NEXT_PUBLIC_POSTHOG_KEY`, redeploy, then build the funnel. Exact steps: docs/ANALYTICS.md. The hackathon tracker is already on every page (verified).
+- PostHog: create a free project, paste the `phc_…` key into Vercel as `POSTHOG_KEY` (no `NEXT_PUBLIC_` prefix), redeploy, then build the funnel. Exact steps: docs/ANALYTICS.md. The hackathon tracker is already on every page (verified).
 
 ## 🔐 Security (10 minutes, do once)
 12. 2-factor login on Vercel, Supabase, Dodo, DataDoe, Google Cloud, GitHub, LoopMessage.

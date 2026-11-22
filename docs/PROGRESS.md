@@ -6,7 +6,7 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ## 2026-11-22 · Analytics: PostHog built in (off until key), hackathon tracker verified
 - Hackathon tracker confirmed live on /, /pricing, /help.
-- PostHog added (posthog-js): page views with private team links scrubbed, replays only on public pages with inputs masked, sent through rocco.works/ingest (ad-blocker proof), teams identified by workspace id. Funnel events client + server (hire sheet → signup → checkout → paid → Amazon connected → first data → approved → changes made, plus skips, reminders, team, ask, email-a-human). Off until `NEXT_PUBLIC_POSTHOG_KEY` is set. Setup + funnels to build: docs/ANALYTICS.md. Privacy page updated.
+- PostHog added (posthog-js): page views with private team links scrubbed, replays only on public pages with inputs masked, sent through rocco.works/ingest (ad-blocker proof), teams identified by workspace id. Funnel events client + server (hire sheet → signup → checkout → paid → Amazon connected → first data → approved → changes made, plus skips, reminders, team, ask, email-a-human). Off until `POSTHOG_KEY` is set (renamed from NEXT_PUBLIC_POSTHOG_KEY the same day: Vercel warns on NEXT_PUBLIC_ + Sensitive; the layout now passes the key to the browser). Setup + funnels to build: docs/ANALYTICS.md. Privacy page updated.
 - Tests 202 passing, build OK.
 
 ---

@@ -2,7 +2,8 @@
 import posthog from "posthog-js";
 
 /**
- * Product analytics (PostHog), off until NEXT_PUBLIC_POSTHOG_KEY is set (Vercel env; the key is public by design).
+ * Product analytics (PostHog), off until POSTHOG_KEY is set in Vercel. No NEXT_PUBLIC_ prefix (Vercel warns when a
+ * NEXT_PUBLIC_ variable is marked Sensitive): the root layout reads it on the server and hands it to <Analytics>.
  *  - Page views + the funnel events Rocco fires (docs/ANALYTICS.md).
  *  - Private team links (/w/rw_…, /mcp/rw_…) are scrubbed from every URL before anything leaves the browser.
  *  - Session replays only on public pages (home, pricing, help…), never inside a customer's Rocco, and every input
@@ -10,8 +11,15 @@ import posthog from "posthog-js";
  *  - Sent through rocco.works/ingest (next.config rewrites), so ad blockers don't drop the funnel.
  * The hackathon traffic tracker (components/Tracker.tsx) is separate and stays on every page.
  */
-const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+let KEY: string | undefined;
+let UI_HOST = "https://us.posthog.com";
 let started = false;
+
+/** Set once from the server (layout) before any event is sent. */
+export function configureAnalytics(key?: string, uiHost?: string) {
+  if (key) KEY = key;
+  if (uiHost) UI_HOST = uiHost;
+}
 
 export const scrub = (s: string) => s.replace(/\/(w|mcp|j)\/[A-Za-z0-9_-]{6,}/g, "/$1/[team]").replace(/([?&](t|token|key)=)[^&#]+/g, "$1[x]");
 const isApp = (path: string) => /^\/(w|me|welcome|mcp|j)(\/|$)/.test(path);
@@ -21,7 +29,7 @@ export function startAnalytics() {
   started = true;
   posthog.init(KEY, {
     api_host: "/ingest",
-    ui_host: process.env.NEXT_PUBLIC_POSTHOG_UI_HOST || "https://us.posthog.com",
+    ui_host: UI_HOST,
     capture_pageview: false, // sent by trackPage with a scrubbed URL
     capture_pageleave: true,
     autocapture: true,
