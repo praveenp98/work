@@ -31,7 +31,8 @@ export async function GET(req: Request) {
     return NextResponse.json({ ok: true, mode: "existing", accessUntil: until, next: "Open https://rocco.works/me" });
   }
   // Fresh: old teams keep their data but no longer belong to this email (sign-in won't find them).
-  for (const ws of old) { ws.ownerEmail = `archived-${now.getTime()}+${email}`; await store.saveWorkspace(ws); }
+  // Their Amazon accounts are released too (one account = one team), so the new Rocco can connect them again.
+  for (const ws of old) { ws.ownerEmail = `archived-${now.getTime()}+${email}`; ws.ownerVerified = false; if (ws.amazon) ws.amazon = { ...ws.amazon, accounts: [], invite: undefined }; await store.saveWorkspace(ws); }
   const c = await createWorkspace(store);
   c.ws.ownerEmail = email;
   grant(c.ws);
