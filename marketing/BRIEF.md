@@ -1,6 +1,6 @@
 # Rocco marketing brief
 
-Read this before any marketing task. It is the standing brief for the `marketing` branch. This file is skipped by the copy lint because it quotes the banned phrases.
+Read this before any marketing task, then `marketing/brand/BRAND.md` (positioning, one-liners, voice, word lists, naming). It is the standing brief for the `marketing` branch. This file is skipped by the copy lint because it quotes the banned phrases.
 
 Last checked against the repo and the live site (rocco.works, rocco.works/pricing): Nov 22, 2026, hackathon day 7.
 
@@ -158,6 +158,10 @@ Not on the live homepage any more (old copy inside, do not reuse as is): `compon
 - Specs never type a price: use `{{offer:price.from}}` style tokens, filled from `config/offer.ts`.
 - The "Sample account" chip is added by the code wherever the sample account shows and cannot be switched off. A stat without a source does not render.
 - The tidy piece uses illustrative campaign names (`SAMPLE.tidy` in `config/sample.ts`): the site has no public tidy demo to copy.
+
+## Share images (Open Graph / X cards)
+
+Made in code, not as static files: `lib/og.tsx` (`ogImage()`), 1200x630, the site's fonts and raccoon, footer "rocco.works · 7-day money-back" from `offer.ts`. A page gets its own card with two small files next to its `page.tsx`: `opengraph-image.tsx` and `twitter-image.tsx` (copy any existing pair). Pages without their own inherit the homepage card. Every new marketing page in this pack gets a pair. `public/og.png` and `public/og-v2.png` are copies of the homepage card for anything that still links the old files.
 
 ## Repo vs brief (found Nov 22, 2026)
 
