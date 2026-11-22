@@ -66,6 +66,8 @@ export interface Workspace {
   /** When the team first paid, and on which plan (lib/billing.ts): the dashboard compares savings to what Rocco cost. */
   hiredAt?: string;
   plan?: "annual" | "monthly";
+  /** Free access granted by the founder for testing (/api/admin/tester). Never counted as a hire. */
+  comp?: string;
   /** Fixes the team skipped on the dashboard (lib/memory.ts): Rocco learns what this account doesn't want. */
   skips?: Skip[];
   /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */

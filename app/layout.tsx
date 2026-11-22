@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <footer className="foot foot-min">
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>
-          <p className="foot-tag">Your AI Amazon manager. You approve, I do the rest.</p>
+          <p className="foot-tag"><b>Real work without the fluff.</b> Your AI Amazon manager: you approve, I do the rest.</p>
           <nav>
             <Link href="/answers">Answers</Link>
             <Link href="/connect">How it works</Link>

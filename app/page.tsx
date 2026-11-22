@@ -28,6 +28,7 @@ export default async function Home() {
     <section className="home">
       <div className="h5-hero">
         <div className="h5-copy">
+          <span className="h5-kicker">Real work without the fluff</span>
           <h1>I can run your Amazon business, try me.</h1>
           <p className="h5-sub">Connect Seller Central and Amazon Ads once. Every morning I find what to fix. You tap approve, I make the change in Amazon.</p>
           <div className="h5-cta">
@@ -87,7 +88,7 @@ export default async function Home() {
               <li>Seller Central + Amazon Ads, every marketplace</li>
             </ul>
             <HireButton google={google} price={PRICE.from} label="Connect Amazon" className="btn hire-cta" />
-            <p className="fine">{PRICE.guarantee}: if I don't earn my keep, you get every dollar back. Not affiliated with Amazon.</p>
+            <p className="fine">{PRICE.guarantee}: if you don't like the fixes I give you, ask for your money back. Not affiliated with Amazon.</p>
           </div>
         </div>
       </section>

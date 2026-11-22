@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { LoadingText } from "@/components/LoadingText";
 
 /** "Ask Rocco": one question, one short answer from this account's own data. */
 export function AskRocco({ token, brand, examples }: { token: string; brand: string; examples: string[] }) {
@@ -23,7 +24,7 @@ export function AskRocco({ token, brand, examples }: { token: string; brand: str
         <button className="btn small" disabled={busy || q.trim().length < 2}>{busy ? "…" : "Ask"}</button>
       </form>
       {!a && !busy && <div className="rd-ask-ex">{examples.map((x) => <button key={x} type="button" className="linkbtn" onClick={() => ask(x)}>{x}</button>)}</div>}
-      {busy && <p className="fine" role="status">Looking at your account…</p>}
+      {busy && <LoadingText steps={["Reading your numbers…", "Looking at today's jobs and past results…", "Writing you a straight answer…"]} every={2500} />}
       {a && !busy && <div className={`rd-ask-a${a.err ? " err" : ""}`} role="status"><small>{a.q}</small><p>{a.text}</p></div>}
     </section>
   );

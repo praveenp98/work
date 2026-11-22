@@ -42,8 +42,11 @@ Edit prices on Nov 27, Dec 1 and Dec 16 (Praveen approves each change).
 ## Product setup: yearly $1,190 + monthly $119 (Nov 22, paste into Dodo)
 Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID` product.
 1. **Dodo → Products → Add product → Subscription.** Name **Rocco · Yearly**. Price **$1,190 USD**, billed **every 1 year**, no trial, no discount. Tax category: SaaS / digital services. License keys: off.
-   - **Description:** Rocco, your AI Amazon manager. Connect Seller Central and Amazon Ads once; every morning Rocco finds the fixes worth making, you approve, and he makes the change in Amazon and checks the result a week later. Whole team, unlimited brands. 2 months free vs monthly. 30-day money-back guarantee. Self-serve software, not affiliated with Amazon.
-2. **Add product → Subscription** again. Name **Rocco · Monthly**. Price **$119 USD**, billed **every 1 month**, no trial. Same tax category and description (without "2 months free").
+   - **Description (this is the text buyers see on Dodo's payment page):**
+     > Rocco: real work without the fluff. Connect Seller Central and Amazon Ads once; every morning Rocco finds the fixes worth making, you approve, and he makes the change in Amazon and checks the result a week later. Whole team, unlimited brands. 2 months free vs monthly.
+     > **If you don't like the fixes I give you, ask for your money back. 30-day guarantee.**
+     > Self-serve software, not affiliated with Amazon.
+2. **Add product → Subscription** again. Name **Rocco · Monthly**. Price **$119 USD**, billed **every 1 month**, no trial. Same tax category and description (without "2 months free vs monthly"), keeping the guarantee line.
 3. Open each product and copy its ID (starts with `pdt_`).
 4. **Vercel → rocco.works project → Settings → Environment Variables (Production):**
    - `DODO_PRODUCT_ID_ANNUAL` = the yearly product's ID

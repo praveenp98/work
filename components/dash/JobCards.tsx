@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { LoadingText } from "@/components/LoadingText";
 import type { Job } from "@/lib/jobs";
 
 type Res = { status: "applied" | "manual" | "failed" | "queued"; how?: string; reason?: string };
@@ -62,7 +63,7 @@ export function JobCards({ token, brand, jobs, direct }: { token: string; brand:
       <ul className="tw-list">
         {visible.map((j, i) => <JobCard key={j.id} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={() => skip(j)} />)}
       </ul>
-      <p className="fine">{direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
+      <p className="fine"><b>Real work without the fluff.</b> {direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
     </div>
   );
 }
@@ -127,6 +128,10 @@ function JobCard({ job, first, res, busy, anyBusy, direct, note, onApprove, onMa
           {job.mode === "create" && <span className="fine">New Sponsored Products campaign, $10–50/day, exact match. The searches stop in the old campaign.</span>}
         </div>
       )}
+      {busy && <LoadingText steps={job.mode === "create"
+        ? ["Finding the product these searches sell through…", "Creating the exact campaign in Amazon…", "Adding the ad group…", "Adding your product ad…", "Adding each search as an exact keyword…", "Blocking them in the old campaign so you don't pay twice…"]
+        : direct ? ["Checking every change with Amazon first…", `Making ${chosen.length} change${chosen.length === 1 ? "" : "s"} in Amazon…`, "Logging them so I can check results in a week…"]
+        : ["Saving your approval…", "Writing the exact steps…"]} every={job.mode === "create" ? 7000 : 2200} />}
       {how && !state && job.steps && <p className="tw-steps">{job.steps}</p>}
     </li>
   );

@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Tagline, founder test flow, guarantee on checkout, loading steps everywhere
+- Tagline **"Real work without the fluff"**: homepage kicker, hire sheet, dashboard sign-off, footer, site tagline (meta/llms), Dodo product description.
+- **Founder test (docs/FOUNDER-TEST.md):** `/api/admin/tester?key=CRON_SECRET&email=…&fresh=1` archives the old Rocco and starts a fresh one with 30 days of free access (no Dodo, never counted). Then sign out → sign in → Connect Amazon → Habit Nest.
+- **First pull starts the moment Amazon is connected** (was: next morning / Check now); the loading screen watches `/api/w/amazon/status` and opens the dashboard by itself.
+- **Guarantee on the payment page:** Dodo product description now ends with "If you don't like the fixes I give you, ask for your money back. 30-day guarantee." (Praveen pastes it when creating the products). Same wording in the hire sheet and homepage.
+- **Loading states:** components/LoadingText.tsx (steps tick off, current one pulses) on Connect Amazon, the first-load screen, Check now, every job approve, Create campaign (6 steps), Ask Rocco, Google sign-in and checkout.
+- Tests 159/159, build OK.
+
+---
+
 ## 2026-11-22 · Today's work as jobs, one-click exact campaign, budgets, paywall case
 - **Why "Apply in Claude" showed:** the local preview had no DataDoe account, so the dashboard fell back to Claude mode. Removed for good: with Amazon connected Rocco makes changes himself; without, cards show exact steps + "I've made these changes".
 - **Jobs, not 20 cards (lib/jobs.ts, components/dash/JobCards.tsx):** Block N wasteful searches · Lower N bids that overspend · Raise N bids on winners · New exact campaign from proven searches · Raise/Cut budgets · Placements · Low-stock ads · Structure, plus Seller Central jobs (restock, listings that can't sell, Buy Box). One Approve per job (untick items you don't want), Skip remembers. Claude's picks lead and give the "why"; otherwise risks first, then money.

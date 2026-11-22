@@ -1,5 +1,8 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { hasAccess } from "@/lib/access";
 import { getAccount } from "@/lib/datadoe";
+import { pullAndSave } from "@/lib/datadoe-sync";
+import { refreshManager } from "@/lib/manager";
 import { notifyTeam } from "@/lib/notify";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
@@ -10,6 +13,7 @@ import { getStore } from "@/lib/store";
  * Then: tell the team, and send the browser to their Rocco page (/me uses the team cookie).
  */
 export const dynamic = "force-dynamic";
+export const maxDuration = 300; // the first pull runs after the redirect
 
 export async function GET(req: Request) {
   const q = new URL(req.url).searchParams;
@@ -27,7 +31,16 @@ export async function GET(req: Request) {
     accounts.push({ id: a.id, name: a.name, country: a.marketplaceCountryCode, connectedAt: new Date().toISOString(), ads: !!a.amazonAdsConnection });
     ws.amazon = { ...ws.amazon, accounts, invite: undefined };
     await store.saveWorkspace(ws);
-    await notifyTeam(store, ws, [`🔌 Amazon connected: ${a.name} (${a.marketplaceCountryCode})${a.amazonAdsConnection ? " + Ads" : ""}. Amazon is sending me your first data now, it takes a few hours. I'll text you the first findings.`]).catch(() => 0);
+    await notifyTeam(store, ws, [`🔌 Amazon connected: ${a.name} (${a.marketplaceCountryCode})${a.amazonAdsConnection ? " + Ads" : ""}. I'm reading your account now. I'll text you the first findings.`]).catch(() => 0);
+    // First pull right away (paying teams): if Amazon's history is already there, fixes show up within a minute or two.
+    if (hasAccess(ws)) {
+      try {
+        after(async () => {
+          const r = await pullAndSave(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
+          if (r?.kinds.length) await refreshManager(store, ws.id).catch(() => 0);
+        });
+      } catch { /* outside a request (tests): the daily pull picks it up */ }
+    }
     return back("connected");
   } catch {
     return back("not_found");
