@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Memory at 100 sellers, change log, "Before Rocco" history
+- **How memory works at 100 sellers:** each team's memory lives on its own workspace in Supabase: every change (what, who approved, result a week later), skips with reasons, the manager's picks, Tidy undo data, and now the pre-Rocco history. Anonymized cross-account results ("negatives worked in 41 of 50 measured changes across 12 accounts") are computed in the daily cron and fed to every account's manager. Small per team (tens of KB), no extra cost per seller.
+- **Change log page rebuilt** (`/w/<token>/log`, linked from the dashboard): Rocco's changes with who approved (dashboard, by text, new campaign, by hand), the measured result, Tidy changes with a link to undo, and a new **Before Rocco** section. Removed the stale "undo B3 by text" line.
+- **Before Rocco (lib/history.ts):** one-time read of DataDoe's `amazon_ads_entity_history` (Amazon's own change history: SP + SB campaigns, ad groups, ads, targets; bids, budgets, status; not Sponsored Display) + campaign names. Rules count it (by hand vs budget rules, last change by hand, no bid changes, most edited campaign); one short Claude call writes a 2–3 sentence read, sentences with numbers not in the summary are dropped. Runs on its own right after connect; a button on the log page for accounts connected earlier. Fed into the daily manager and Ask Rocco.
+- **Live on Habit Nest:** 10 changes (Sep 2 – Oct 22), all from Amazon budget rules, no change by hand, no bid changes, most edited "NEW_SP_Fitness__SQP_KWs_Q42022_75-100BrandShare" (8). 4 DataDoe tokens.
+- **Cost:** ~4 tokens + a few cents of Claude per account, once (~$15–25 total at 100 sellers). Decision: included free in the plan, not an add-on (see DECISIONS).
+- Keep `amazon_ads_entity_history` ON when turning off unused DataDoe tables.
+- Tests: 173 passing.
+
+---
+
 ## 2026-11-22 · Hire sheet fixes on phones
 - Sticky "Hire Rocco" opened a clipped sheet: the sheet was rendered inside the sticky bar, whose transform traps fixed children. The sheet now renders on <body> (portal) and opens full screen from every button.
 - "2 months free · save $238" tag covered the yearly price on narrow phones: tag now sits in the card ("2 months free"), "save $238" moved to the line under the price (hire sheet + pricing page). Checked on iPhone 13 and iPhone SE (320px).

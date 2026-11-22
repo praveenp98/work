@@ -1231,3 +1231,13 @@ h1, h2, .display { font-family: var(--display); }
 /* Plan tags sit in the card (never cover the price on narrow phones) */
 .plan-pick .plan-tag, .pr-plan .plan-tag { position: static; align-self: flex-start; justify-self: start; display: inline-block; margin: 0 0 6px; white-space: nowrap; font-size: 11px; }
 @media (max-width: 380px) { .plan-pick .plan-tag, .pr-plan .plan-tag { font-size: 10px; padding: 3px 7px; } }
+
+/* Change log: sections, "Before Rocco" */
+.log-h { font-size: 18px; margin: 28px 0 10px; }
+.log-past { display: grid; gap: 10px; margin-top: 10px; }
+.log-acc { font-weight: 600; margin: 6px 0 0; }
+.log-read { background: color-mix(in srgb, var(--blue, #2f6bff) 8%, var(--card)); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; margin: 0; line-height: 1.5; animation: lt-in .3s ease both; }
+.log-notes { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); }
+.log-more summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.log-more .loglist { margin-top: 8px; }
+.log-err { color: #b4441b; margin: 8px 0 0; font-size: 14px; }

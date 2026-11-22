@@ -29,8 +29,11 @@ Per seller after the fixes: about **$9–12/mo cost** against $66–83/mo revenu
 
 Up front before the first sale: ~$140 (Vercel Pro $20, DataDoe $97 after the trial, ~$25 Claude credits). Pay at signup means unpaid sign-ups cost $0.
 
+## "Before Rocco" history read (built Nov 22)
+Once per account at connect: 2 DataDoe exports (Amazon's change history + campaign names) = 4 tokens (~$0.15), plus one short Claude call over a rules-made summary (a few cents). At 100 sellers that's ~$15–25 **one time**, not monthly. Included in the plan, not an add-on.
+
 ## The fixes
-1. **DataDoe settings (Praveen, ~10 min in Settings → Data):** set every table to 6 months; turn off tables Rocco doesn't read (keep the defaults plus: ads search terms by campaign, targeting by campaign, placement by campaign, negative keywords, targets raw, campaigns raw, FBA restock recommendations, seller performance).
+1. **DataDoe settings (Praveen, ~10 min in Settings → Data):** set every table to 6 months; turn off tables Rocco doesn't read (keep the defaults plus: ads search terms by campaign, targeting by campaign, placement by campaign, negative keywords, targets raw, campaigns raw, FBA restock recommendations, seller performance, **ads entity history** (the "Before Rocco" read)).
 2. **One export per report per group of 10 accounts (built Nov 22, live-tested):** 40 exports/day at 100 sellers (~2,400 tokens/mo, ~$15 over the included 2,000), split by `seller_or_vendor_id`. Old per-account schedules are deleted automatically.
 3. **Batch approvals (code, optional):** "Approve all" sends one Action per change type instead of one per fix.
 

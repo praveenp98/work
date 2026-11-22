@@ -19,6 +19,7 @@ const INCLUDED = [
   "Negatives, bids, budgets, and new exact campaigns from proven searches",
   "Tidy your campaigns: one naming system, one portfolio per product",
   "Restock, listing and Buy Box alerts with the exact steps",
+  "Day one: I read your account's change history, so I know what was tried before me",
   "Every change measured a week later, and I learn your style",
   "Reminders on iMessage, WhatsApp or Slack; approve by text",
   "Whole team, every marketplace, Seller Central + Amazon Ads",

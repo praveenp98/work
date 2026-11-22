@@ -25,7 +25,7 @@ const VS: [string, string, string][] = [
   ["Who decides what to do", "You, from a pile of numbers", "Me, with the reason shown"],
   ["Who makes the change", "You, in Seller Central", "Me, after you tap approve"],
   ["Who checks it worked", "Nobody", "Me, a week later, measured"],
-  ["Remembers your account", "Starts fresh every chat", "Every change, every result, your style"],
+  ["Remembers your account", "Starts fresh every chat", "Every change before and after me, every result, your style"],
 ];
 
 const FAQ: [string, string][] = [
@@ -80,7 +80,7 @@ export default async function Home() {
           <div className="two-text">
             <span className="kicker">Gets sharper every week</span>
             <h2 className="big-h">I learn how you work.</h2>
-            <p className="two-lede">Skip a fix and tell me why in one tap: &ldquo;not my strategy&rdquo;, &ldquo;too risky&rdquo;, &ldquo;already done&rdquo;. I stop suggesting what you don&apos;t want, and every change I make is measured a week later, so my next call is better than my last.</p>
+            <p className="two-lede">Skip a fix and tell me why in one tap: &ldquo;not my strategy&rdquo;, &ldquo;too risky&rdquo;, &ldquo;already done&rdquo;. I stop suggesting what you don&apos;t want, and every change I make is measured a week later, so my next call is better than my last. On day one I also read Amazon&apos;s change history for your ads, so I know what was tried before me.</p>
           </div>
           <div className="two-vis">
             <div className="hlearn">

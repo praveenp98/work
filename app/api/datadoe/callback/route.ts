@@ -2,6 +2,7 @@ import { after, NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { getAccount } from "@/lib/datadoe";
 import { pullAndSave } from "@/lib/datadoe-sync";
+import { importHistory } from "@/lib/history";
 import { refreshManager } from "@/lib/manager";
 import { notifyTeam } from "@/lib/notify";
 import { SITE } from "@/lib/site";
@@ -37,6 +38,8 @@ export async function GET(req: Request) {
       try {
         after(async () => {
           const r = await pullAndSave(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
+          // One-time "Before Rocco" read (4 DataDoe tokens + one short Claude call), so memory starts with the past.
+          await importHistory(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
           if (r?.kinds.length) await refreshManager(store, ws.id).catch(() => 0);
         });
       } catch { /* outside a request (tests): the daily pull picks it up */ }

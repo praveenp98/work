@@ -78,6 +78,8 @@ export interface Workspace {
   seenJobsAt?: string;
   /** "Tidy your campaigns" per Amazon account: the last scan's plan and the last applied change (for Undo). */
   tidy?: Record<string, { plan?: import("../rules/tidy").TidyPlan; done?: import("../tidy-apply").TidyDone }>;
+  /** "Before Rocco": Amazon's change history read once per account at connect (lib/history.ts). */
+  history?: Record<string, import("../history").HistoryImport>;
   /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
   nudges?: Record<string, string>;
   /** Rocco in the team's Slack (lib/slack). Bot token is sealed. */

@@ -3,6 +3,7 @@ import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 import { hasAccess } from "./access";
 import { askRocco, brainOn } from "./brain";
+import { historyFor, historyText } from "./history";
 import { accountMemory, applyTuning, memoryText, tuning, type Priors } from "./memory";
 import { ASK_SYSTEM, MANAGER_SYSTEM, MANAGER_VERSION } from "./prompts/manager";
 import type { Proposal } from "./rules/types";
@@ -122,7 +123,7 @@ export async function refreshManager(store: Store, wsId: string, o: { priors?: P
   for (const b of brief.perBrand.filter((x) => x.open.length).slice(0, 5)) {
     const { shown } = applyTuning(b.open, tune);
     if (!shown.length || (!o.force && ws.manager?.[b.brand]?.basis === basisOf(shown))) continue;
-    const view = await curate({ proposals: shown, facts: factsFor(b, accountName(ws, b.brand)), memory });
+    const view = await curate({ proposals: shown, facts: factsFor(b, accountName(ws, b.brand)), memory: [memory, historyText(historyFor(ws, b.brand))].filter(Boolean).join("\n\n") });
     if (view) updates[b.brand] = { ...view, basis: basisOf(shown) };
   }
   if (!Object.keys(updates).length) return 0;
@@ -147,6 +148,7 @@ export async function askAccount(store: Store, ws: Workspace, question: string, 
     `Today's fixes:\n${[...b.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 25).map(fixLine).join("\n") || "none"}`,
     past.length ? `Past changes:\n${past.join("\n")}` : "Past changes: none yet.",
     memoryText(mem, tuning(mem, ws.skips)),
+    historyText(historyFor(ws, b.brand)),
     brief.savedMeasured || brief.savedEstimated ? `Results so far: measured ${$(brief.savedMeasured)}, estimated ${$(brief.savedEstimated)}.` : "",
   ].filter(Boolean).join("\n\n").slice(0, 14000);
   return askRocco({ question, context, system: ASK_SYSTEM, maxChars: 900, label: "Their question" });
