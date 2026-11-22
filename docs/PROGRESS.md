@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Hero steps: one line each on every screen
+- The 4 animated steps now fit on one line from 320px phones to desktop (measured at 320/375/390/430/768/1280, every channel): no reserved column, the reply chip only on the approve step, sizes step down under 400px and 350px.
+- Copy: "You approve on 🖥️ the web / in iMessage / WhatsApp / Slack", "I make it live, then check it worked"; the last step's icon turns ✅ when done. No sideways nudge on phones (it clipped the border).
+- Change log page: plain-word lines ("Blocked the search … in …", "Bid $1.20 → $0.95 on …") with value, human dates in Before Rocco. Screenshots in docs/screens-*.png.
+
+---
+
 ## 2026-11-22 · Teams built: add teammates, roles, handover, link reset
 - **Team card** on the dashboard (and on the Connect Amazon screen, so a buyer can add the person who holds the Amazon login): add a teammate by email → they tap Sign in with Google on rocco.works with that email and land on the same Rocco. A copy-paste invite message is shown (no email sending yet).
 - **Roles:** Owner (people, handover, link reset; billing stays on the card that paid) and Member (see + approve jobs, Ask Rocco, Tidy, change log; can leave).

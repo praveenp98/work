@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
  * WhatsApp or Slack, rotating) → I make it in Amazon. Steps light up in turn; the approve step shows a "YES" reply.
  * Plain text for screen readers; static (all steps shown) with reduced motion.
  */
+// Short names so every step stays on one line on a phone (the reply chip sits on the right of step 3 only).
 const CHANNELS = [
-  { ic: "🖥️", name: "your dashboard", reply: "Approve" },
-  { ic: "💬", name: "iMessage", reply: "YES" },
-  { ic: "🟢", name: "WhatsApp", reply: "YES" },
-  { ic: "#️⃣", name: "Slack", reply: "yes 👍" },
+  { ic: "🖥️", pre: "on", name: "the web", reply: "Approve" },
+  { ic: "💬", pre: "in", name: "iMessage", reply: "YES" },
+  { ic: "🟢", pre: "in", name: "WhatsApp", reply: "YES" },
+  { ic: "#️⃣", pre: "in", name: "Slack", reply: "yes 👍" },
 ];
 const STEP_MS = 1500;
 
@@ -31,16 +32,16 @@ export function HeroFlow() {
 
   return (
     <div className="hf" aria-label="How Rocco works">
-      <p className="sr-only">Connect Seller Central and Amazon Ads once. Every morning I find what to fix. You approve on your dashboard, iMessage, WhatsApp or Slack. I make the change in Amazon and check it worked.</p>
+      <p className="sr-only">Connect Seller Central and Amazon Ads once. Every morning I find what to fix. You approve on the web, iMessage, WhatsApp or Slack. I make the change in Amazon, then check it worked.</p>
       <ol aria-hidden>
-        <li className={cls(0)}><span className="hf-ic">🔌</span><span>Connect Seller Central + Ads <b>once</b></span><span className="hf-slot" /></li>
-        <li className={cls(1)}><span className="hf-ic">☀️</span><span>Every morning I find <b>what to fix</b></span><span className="hf-slot" /></li>
+        <li className={cls(0)}><span className="hf-ic">🔌</span><span className="hf-t">Connect Seller Central + Ads <b>once</b></span></li>
+        <li className={cls(1)}><span className="hf-ic">☀️</span><span className="hf-t">Every morning I find <b>what to fix</b></span></li>
         <li className={`hf-approve ${cls(2)}`}>
           <span className="hf-ic">👍</span>
-          <span>You approve in <b className="hf-ch" key={still ? "all" : ch}>{still ? "your dashboard, iMessage, WhatsApp or Slack" : <>{c.ic} {c.name}</>}</b></span>
-          <span className="hf-slot">{!still && step >= 2 && <em className="hf-bub" key={`b${ch}`}>{c.reply}</em>}</span>
+          <span className="hf-t">{still ? <>You approve on <b>the web, iMessage, WhatsApp or Slack</b></> : <>You approve {c.pre} <b className="hf-ch" key={ch}>{c.ic} {c.name}</b></>}</span>
+          {!still && step >= 2 && <em className="hf-bub" key={`b${ch}`}>{c.reply}</em>}
         </li>
-        <li className={cls(3)}><span className="hf-ic">✅</span><span>I make it in Amazon <b>and check it worked</b></span><span className="hf-slot">{!still && step >= 3 && <em className="hf-done" key={`d${ch}`}>Done ✓</em>}</span></li>
+        <li className={cls(3)}><span className="hf-ic">{!still && step >= 3 ? "✅" : "🛠️"}</span><span className="hf-t">I make it live, <b>then check it worked</b></span></li>
       </ol>
     </div>
   );
