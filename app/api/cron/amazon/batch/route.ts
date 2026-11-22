@@ -1,4 +1,5 @@
 import { after, NextResponse } from "next/server";
+import { secretOk } from "@/lib/security";
 import { syncGroup, tellTeam } from "@/lib/datadoe-sync";
 import { refreshManager } from "@/lib/manager";
 import type { Priors } from "@/lib/memory";
@@ -10,7 +11,7 @@ export const maxDuration = 300;
 
 export async function POST(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
+  if (secret && !secretOk(req.headers.get("authorization")?.replace(/^Bearer\s+/i, ""), secret)) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false }, { status: 503 });
   const store = getStore();
   const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string }[]; delaySec?: number; priors?: Priors };

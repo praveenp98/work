@@ -1,6 +1,6 @@
 import { after, NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
-import { getAccount } from "@/lib/datadoe";
+import { getAccount, getInvitation } from "@/lib/datadoe";
 import { pullAndSave } from "@/lib/datadoe-sync";
 import { importHistory } from "@/lib/history";
 import { refreshManager } from "@/lib/manager";
@@ -26,6 +26,21 @@ export async function GET(req: Request) {
   if (q.get("success") !== "true") return back(encodeURIComponent((q.get("error") || "failed").slice(0, 60)));
 
   const id = q.get("sellerOrVendorId") ?? "";
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return back("not_found");
+  // Only paying teams can link an account (the invite needed it too; checked again here).
+  if (!hasAccess(ws)) return back("unpaid");
+  // Never trust the browser's sellerOrVendorId: ask DataDoe which account this invite actually connected, so a
+  // paying user can't swap in someone else's account id from our DataDoe organization.
+  const expected = ws.amazon.invite.account; // reconnect links are for one known account
+  if (expected && expected !== id) return back("mismatch");
+  if (!expected) {
+    const inv = await getInvitation(ws.amazon.invite.id).catch(() => null);
+    if (!inv) return back("check_failed");
+    if (inv.sellerOrVendorId && inv.sellerOrVendorId !== id) return back("mismatch");
+  }
+  // One Amazon account belongs to one Rocco team.
+  const taken = (await store.listAmazonWorkspaces()).some((w) => w.id !== ws.id && w.amazon?.accounts?.some((x) => x.id === id));
+  if (taken) return back("taken");
   try {
     const a = await getAccount(id); // must exist in our DataDoe organization
     const accounts = (ws.amazon.accounts ?? []).filter((x) => x.id !== a.id);

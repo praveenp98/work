@@ -18,6 +18,7 @@ function doe() {
   const calls: { url: string; body?: unknown; key?: string | null }[] = [];
   vi.stubGlobal("fetch", vi.fn(async (u: string, init?: RequestInit) => {
     calls.push({ url: String(u), body: init?.body ? JSON.parse(String(init.body)) : undefined, key: new Headers(init?.headers).get("datadoe-api-key") });
+    if (String(u).includes("/invitations/")) return Response.json({ id: "inv-1", status: "COMPLETED", sellerOrVendorId: ACCOUNT.id });
     if (String(u).endsWith("/util/sellers-and-vendors/invite")) return Response.json({ id: "inv-1", invitationUrl: "https://app.datadoe.com/invitation/abc", expiresAt: new Date(Date.now() + 7 * 86_400_000).toISOString() }, { status: 201 });
     if (String(u).includes(`/util/sellers-and-vendors/${ACCOUNT.id}`)) return Response.json(ACCOUNT);
     return Response.json({ message: "nope" }, { status: 404 });
@@ -68,5 +69,32 @@ describe("Connect Amazon through DataDoe", () => {
     const failed = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=false&error=SC_ACCOUNT_LACKING_PERMISSIONS&invitationId=inv-1`));
     expect(failed.headers.get("location")).toMatch(/amazon=SC_ACCOUNT_LACKING_PERMISSIONS/);
     expect((await store.getWorkspaceById(ws.id))!.amazon?.accounts).toHaveLength(0);
+  });
+
+  it("refuses a swapped account id: DataDoe says which account the invite really connected", async () => {
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    doe();
+    const store = new MemoryStore(); setStoreForTests(store);
+    const { ws, token } = await createWorkspace(store);
+    await grantTrial(store, ws.id);
+    await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
+    const victim = "11111111-2222-3333-4444-555555555555";
+    const swapped = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&sellerOrVendorId=${victim}&invitationId=inv-1`));
+    expect(swapped.headers.get("location")).toMatch(/amazon=mismatch/);
+    expect((await store.getWorkspaceById(ws.id))!.amazon?.accounts).toHaveLength(0);
+  });
+
+  it("refuses an account that already belongs to another Rocco team", async () => {
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    doe();
+    const store = new MemoryStore(); setStoreForTests(store);
+    const owner = await createWorkspace(store);
+    owner.ws.amazon = { accounts: [{ id: ACCOUNT.id, name: "Habit Nest US", country: "US", connectedAt: new Date().toISOString(), ads: true }] };
+    await store.saveWorkspace(owner.ws);
+    const { ws, token } = await createWorkspace(store);
+    await grantTrial(store, ws.id);
+    await connect(new Request("https://rocco.works/api/w/amazon", { method: "POST", body: JSON.stringify({ t: token }) }));
+    const r = await callback(new Request(`https://rocco.works/api/datadoe/callback?ref=${ws.id}&success=true&sellerOrVendorId=${ACCOUNT.id}&invitationId=inv-1`));
+    expect(r.headers.get("location")).toMatch(/amazon=taken/);
   });
 });

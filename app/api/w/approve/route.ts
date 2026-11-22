@@ -4,6 +4,7 @@ import { applyMany, type ApplyOutcome } from "@/lib/apply";
 import { datadoeOn } from "@/lib/datadoe";
 import { howTo } from "@/lib/howto";
 import type { Proposal } from "@/lib/rules/types";
+import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { applyChanges, clearPending, FREE_PROPOSALS, latestRuns, loadWorkspace, queuePending } from "@/lib/workspace";
 
@@ -36,9 +37,12 @@ export async function POST(req: Request) {
 
   const account = ws.amazon?.accounts?.find((a) => a.name === brand) ?? ws.amazon?.accounts?.[0];
   if (datadoeOn() && account && ok.length) {
+    // Changes in a real Amazon account: paying teams only, under a daily safety cap.
+    if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco to make changes in Amazon." }, { status: 402 });
     const done = new Set((await store.listActions(ws.id, { brand })).map((a) => `${a.runId}:${a.code}`));
     const out: (ApplyOutcome & { how?: string })[] = [];
     const todo = ok.filter((c) => { const { runId } = props.get(c)!; if (done.has(`${runId}:${c}`)) { out.push({ code: c, status: "applied" }); return false; } return true; });
+    if (todo.length && !(await spend(store, ws, "writes", todo.length))) return NextResponse.json({ ok: false, error: LIMIT_MSG.writes }, { status: 429 });
     // One job = one batch per change type (lib/apply.ts).
     const results = await applyMany(account.id, todo.map((c) => props.get(c)!.p), `rocco:${ws.id}:${todo.map((c) => `${props.get(c)!.runId.slice(0, 8)}${c}`).join(",").slice(0, 80)}`);
     for (const r of results) {

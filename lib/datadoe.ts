@@ -85,6 +85,8 @@ export function findId(x: unknown, key: string): string | undefined {
  * retried live write safe. Write Actions need the account's DataDoe access level to be Read and write.
  */
 export async function runAction(sellerOrVendorId: string, type: string, details: Record<string, unknown>, o: { dryRun?: boolean; idempotencyKey?: string } = {}): Promise<ActionResult> {
+  // Kill switch (lib/security): ROCCO_WRITES_OFF=1 stops every live Amazon change at once. Dry runs still work.
+  if (!o.dryRun && process.env.ROCCO_WRITES_OFF === "1") return { ok: false, error: "Changes are paused for a few minutes for maintenance. Nothing was changed." };
   const res = await fetch(`${BASE}/actions`, {
     method: "POST",
     headers: { "datadoe-api-key": process.env.DATADOE_API_KEY ?? "", "content-type": "application/json" },

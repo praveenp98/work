@@ -13,18 +13,21 @@ export async function teamForUser(store: Store, email: string, browserToken?: st
   const e = email.toLowerCase();
   if (browserToken) {
     const ws = await loadWorkspace(store, browserToken);
-    if (ws && (!ws.ownerEmail || ws.ownerEmail.toLowerCase() === e)) {
-      if (ws.ownerEmail !== e) { ws.ownerEmail = e; await store.saveWorkspace(ws); }
+    // This browser's own team: claim it if nobody verified owns it yet (an unverified email on it means nothing).
+    if (ws && (!ws.ownerVerified || ws.ownerEmail?.toLowerCase() === e)) {
+      if (ws.ownerEmail !== e || !ws.ownerVerified) { ws.ownerEmail = e; ws.ownerVerified = true; await store.saveWorkspace(ws); }
       await rememberToken(store, ws, browserToken);
       return { ws, token: browserToken, created: false };
     }
   }
-  const owned = (await store.findWorkspacesByOwner(e)).filter((w) => revealToken(w));
+  // Only teams whose owner was verified by Google: someone typing your email elsewhere can't plant a team for you.
+  const owned = (await store.findWorkspacesByOwner(e)).filter((w) => w.ownerVerified && revealToken(w));
   const best = owned.find((w) => accessOf(w) !== "none") ?? owned[0];
   if (best) return { ws: best, token: revealToken(best)!, created: false };
 
   const c = await createWorkspace(store);
   c.ws.ownerEmail = e;
+  c.ws.ownerVerified = true;
   await store.saveWorkspace(c.ws);
   await rememberToken(store, c.ws, c.token);
   await ensureLinkCode(store, c.ws);

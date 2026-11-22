@@ -64,25 +64,52 @@ describe("billing: Dodo subscription → trial, paid, ended", () => {
   }
   const hook = (data: object) => dodoWebhook(new Request("https://x/api/dodo/webhook", { method: "POST", body: JSON.stringify({ type: "subscription.active", data }) }));
 
-  it("card trial starts → 3 days of access; payment → paid for a year; failed → access ends", async () => {
+  it("an active subscription alone unlocks nothing; a succeeded payment → paid; failed → access ends", async () => {
     const { store, ws } = await seeded();
     setStoreForTests(store);
-    const in3 = new Date(Date.now() + 3 * 86_400_000).toISOString();
-    dodo({ subscription_id: "sub_123456", status: "active", next_billing_date: in3, metadata: { ref: ws.id } }, null);
-    expect(await (await hook({ subscription_id: "sub_123456" })).json()).toMatchObject({ change: "trial" });
-    let w = (await store.getWorkspaceById(ws.id))!;
-    expect(accessOf(w)).toBe("trial");
-    expect(w.subscriptionId).toBe("sub_123456");
-
     const nextYear = new Date(Date.now() + 365 * 86_400_000).toISOString();
-    dodo({ subscription_id: "sub_123456", status: "active", next_billing_date: nextYear, metadata: { ref: ws.id } }, { status: "succeeded", subscription_id: "sub_123456", metadata: { ref: ws.id } });
+    dodo({ subscription_id: "sub_123456", status: "pending", next_billing_date: nextYear, metadata: { ref: ws.id } }, null);
+    expect(await (await hook({ subscription_id: "sub_123456" })).json()).toMatchObject({ change: null });
+    expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
+
+    dodo({ subscription_id: "sub_123456", status: "active", next_billing_date: nextYear, metadata: { ref: ws.id } }, { status: "succeeded", created_at: new Date().toISOString(), subscription_id: "sub_123456", metadata: { ref: ws.id } });
     expect(await (await hook({ payment_id: "pay_123456" })).json()).toMatchObject({ change: "paid" });
-    w = (await store.getWorkspaceById(ws.id))!;
+    let w = (await store.getWorkspaceById(ws.id))!;
     expect(accessOf(w)).toBe("paid");
     expect(w.paidUntil?.slice(0, 10)).toBe(nextYear.slice(0, 10));
 
     dodo({ subscription_id: "sub_123456", status: "failed", metadata: { ref: ws.id } }, null);
     expect(await (await hook({ subscription_id: "sub_123456" })).json()).toMatchObject({ change: "ended" });
+    expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
+    w = (await store.getWorkspaceById(ws.id))!;
+    expect(w.subStatus).toBe("failed");
+  });
+
+  it("a refunded payment ends access, and replaying its old webhook can't switch it back on", async () => {
+    const { store, ws } = await seeded();
+    setStoreForTests(store);
+    const pay = { status: "succeeded", created_at: new Date().toISOString(), metadata: { ref: ws.id } };
+    dodo(null, pay);
+    expect(await (await hook({ payment_id: "pay_123456" })).json()).toMatchObject({ change: "paid" });
+    dodo(null, { ...pay, refunds: [{ status: "succeeded" }] });
+    expect(await (await hook({ payment_id: "pay_123456" })).json()).toMatchObject({ change: "ended" });
+    expect(await (await hook({ payment_id: "pay_123456" })).json()).toMatchObject({ change: "ended" });
+    expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
+  });
+
+  it("an old payment can't buy a new year (period counts from the payment date)", async () => {
+    const { store, ws } = await seeded();
+    setStoreForTests(store);
+    dodo(null, { status: "succeeded", created_at: new Date(Date.now() - 400 * 86_400_000).toISOString(), metadata: { ref: ws.id } });
+    await hook({ payment_id: "pay_123456" });
+    expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
+  });
+
+  it("another product on the same Dodo account never unlocks Rocco", async () => {
+    const { store, ws } = await seeded();
+    setStoreForTests(store);
+    dodo(null, { status: "succeeded", created_at: new Date().toISOString(), metadata: { ref: ws.id }, product_cart: [{ product_id: "pdt_something_else" }] });
+    await hook({ payment_id: "pay_123456" });
     expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
   });
 

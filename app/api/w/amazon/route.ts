@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { createInvite, createReconnect, datadoeOn } from "@/lib/datadoe";
+import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 
@@ -12,11 +13,14 @@ export async function POST(req: Request) {
   if (!store || !ws) return NextResponse.json({ ok: false }, { status: 400 });
   if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
   if (!datadoeOn()) return NextResponse.json({ ok: false, error: "Connecting Amazon is being switched on right now. Please try again in a few minutes." }, { status: 503 });
+  const open0 = ws.amazon?.invite;
+  const reuse = !b.reconnect && open0 && new Date(open0.expiresAt).getTime() > Date.now() + 3_600_000;
+  if (!reuse && !(await spend(store, ws, "invite"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.invite }, { status: 429 });
   if (b.reconnect) {
     if (!ws.amazon?.accounts?.some((a) => a.id === b.reconnect)) return NextResponse.json({ ok: false }, { status: 404 });
     try {
       const inv = await createReconnect(ws.id, b.reconnect);
-      ws.amazon = { ...ws.amazon, invite: { id: inv.id, url: inv.invitationUrl, expiresAt: inv.expiresAt } };
+      ws.amazon = { ...ws.amazon, invite: { id: inv.id, url: inv.invitationUrl, expiresAt: inv.expiresAt, account: b.reconnect } };
       await store.saveWorkspace(ws);
       return NextResponse.json({ ok: true, url: inv.invitationUrl });
     } catch (e) {

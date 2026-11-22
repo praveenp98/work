@@ -1,4 +1,5 @@
 import { applyMany } from "../apply";
+import { LIMIT_MSG, spend } from "../security";
 import { datadoeOn } from "../datadoe";
 import { SITE } from "../site";
 import { REPORT_HELP, type ReportKind } from "../analyze";
@@ -267,9 +268,11 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       // (after seeing their fixes on the dashboard). Otherwise: the dashboard, where every fix is shown first.
       const account = ws.amazon?.accounts?.[0];
       if (ok.length && datadoeOn() && account) {
+        if (!hasAccess(ws)) return { bubbles: [`Making changes in Amazon is part of your plan. Hire me here: ${SITE.url}/me`] };
         if (!ws.reminders?.approveByText) return { bubbles: [`Approving by text is off, so you see every fix before it changes anything. Approve here: ${SITE.url}/me`, "(You can switch on approve-by-text there, under reminders.)"] };
         const all = runs.flatMap((r) => r.proposals.map((pp) => ({ pp, brand: r.brand })));
         const props = ok.map((c) => all.find((x) => x.pp.code === c)!).filter(Boolean);
+        if (!(await spend(store, ws, "writes", props.length))) return { bubbles: [LIMIT_MSG.writes] };
         const results = await applyMany(account.id, props.map((x) => x.pp), `rocco:${ws.id}:text:${now.toISOString().slice(0, 13)}:${ok.join(",")}`.slice(0, 100));
         const done = results.filter((r) => r.status === "applied").map((r) => r.code);
         if (done.length) await applyChanges(store, ws, done, { brand, note: `made by Rocco in Amazon, approved by text (${maskPhone(phone)})` });

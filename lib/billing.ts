@@ -1,5 +1,4 @@
-import { TRIAL_DAYS } from "./access";
-import { fetchPayment, fetchSubscription } from "./payments";
+import { fetchPayment, fetchSubscription, ourProducts } from "./payments";
 import type { Store, Workspace } from "./store/types";
 
 /**
@@ -24,31 +23,50 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
   const ws = await store.getWorkspaceById(ref);
   if (!ws) return { ws: null, change: null };
 
+  // Only our own products unlock Rocco (another product on the same Dodo account must never grant access).
+  const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
+  if (product && !ourProducts().includes(product)) return { ws: null, change: null };
+
   let change: BillingChange = null;
+  // Refund or chargeback: access ends now (the 30-day guarantee refund, or a dispute).
+  // Checked on the payment itself (not the event type), so replaying an old "payment succeeded" webhook for a
+  // refunded payment can never switch access back on.
+  const refunded = (pay?.refunds ?? []).some((r) => /succeed/i.test(r.status ?? ""));
+  const disputed = (pay?.disputes ?? []).some((d) => !/won|cancel|expired/i.test(d.dispute_status ?? d.status ?? ""));
+  if (refunded || disputed) {
+    if (ws.paidUntil && new Date(ws.paidUntil) > now) ws.paidUntil = now.toISOString();
+    if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();
+    if (sub) { ws.subscriptionId = sub.subscription_id; ws.subStatus = sub.status; }
+    await store.saveWorkspace(ws);
+    return { ws, change: "ended" };
+  }
   if (sub) { ws.subscriptionId = sub.subscription_id; ws.subStatus = sub.status; }
   const nextBill = sub?.next_billing_date ? new Date(sub.next_billing_date) : null;
 
-  if (pay?.status === "succeeded") {
-    const until = nextBill && nextBill > now ? nextBill : new Date(now.getTime() + 365 * 86_400_000);
-    if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) change = "paid";
-    ws.licensed = true;
-    ws.paidUntil = until.toISOString();
-    ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard
-    const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
-    if (product) ws.plan = product === process.env.DODO_PRODUCT_ID_MONTHLY ? "monthly" : "annual";
-    ws.trialEndsAt = undefined;
+  if (pay?.status === "succeeded" && (!sub || ["active", "pending", "cancelled"].includes(sub.status ?? ""))) {
+    // The paid period is counted from when Dodo says the payment happened, so replaying an old webhook can't stretch
+    // it: monthly covers ~a month from that payment, yearly ~a year.
+    const monthly = !!product && product === process.env.DODO_PRODUCT_ID_MONTHLY;
+    const paidAt = pay.created_at ? new Date(pay.created_at) : now;
+    const cover = new Date(paidAt.getTime() + (monthly ? 32 : 367) * 86_400_000);
+    const until = nextBill && nextBill > now && nextBill <= cover ? nextBill : cover;
+    if (until > now) {
+      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) change = "paid";
+      ws.licensed = true;
+      if (!ws.paidUntil || new Date(ws.paidUntil) < until) ws.paidUntil = until.toISOString();
+      ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard
+      if (product) ws.plan = monthly ? "monthly" : "annual";
+      ws.trialEndsAt = undefined;
+    }
   } else if (sub && ["failed", "expired", "on_hold"].includes(sub.status ?? "")) {
     if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();
     if (ws.paidUntil && new Date(ws.paidUntil) > now) ws.paidUntil = now.toISOString();
     change = "ended";
   } else if (sub?.status === "cancelled") {
     change = "cancelled";
-  } else if (sub && ["active", "trialing", "pending"].includes(sub.status ?? "") && !ws.licensed) {
-    const fallback = new Date((sub.created_at ? new Date(sub.created_at) : now).getTime() + (sub.trial_period_days ?? TRIAL_DAYS) * 86_400_000);
-    const ends = nextBill && nextBill > now ? nextBill : fallback;
-    if (!ws.trialEndsAt) change = "trial";
-    ws.trialEndsAt = ends.toISOString();
   }
+  // No more trials (pay at signup): a "pending" or "trialing" subscription unlocks nothing. Access only ever comes
+  // from a succeeded payment that Dodo itself reports.
   await store.saveWorkspace(ws);
   return { ws, change };
 }

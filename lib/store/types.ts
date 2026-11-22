@@ -33,6 +33,12 @@ export interface Workspace {
   createdAt: string;
   licenseKey?: string | null;
   licensed: boolean;
+  /** Owner email came from Google sign-in (verified). Sign-in only ever opens verified teams (lib/signin.ts). */
+  ownerVerified?: boolean;
+  /** Email typed on the Hire sheet: only prefills checkout, never decides who owns the team. */
+  checkoutEmail?: string;
+  /** Per-team safety limits (lib/security.ts): timestamps of recent uses. */
+  limits?: Partial<Record<import("../security").LimitKey, string[]>>;
   /** Subscription (Dodo, $99/yr after a 3-day trial): paid period end, trial end, ids, last known status. */
   paidUntil?: string;
   trialEndsAt?: string;
@@ -46,7 +52,7 @@ export interface Workspace {
   /** Direct Amazon connection through DataDoe (lib/datadoe.ts): connected accounts + the open invite. */
   amazon?: {
     accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
-    invite?: { id: string; url: string; expiresAt: string };
+    invite?: { id: string; url: string; expiresAt: string; account?: string };
     /** DataDoe recurring export ids per account and report kind (created on the first pull). */
     schedules?: Record<string, Record<string, string>>;
     /** Last daily pull: when, what came in, what failed (shown on the page while data loads). */

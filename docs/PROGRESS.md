@@ -4,6 +4,20 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Security pass: paywall, other sellers' accounts, costs
+Found and fixed (all tested, docs/SECURITY.md):
+- **Swapped account at connect:** the DataDoe return URL's account id was trusted, so a paying user could have linked another seller's account from our DataDoe org and made changes in it. Now Rocco asks DataDoe which account the invite really connected, binds reconnect links to their account, and refuses an account another team already has.
+- **Planted team via typed email:** the Hire sheet email became the team owner, so someone could plant a team with your email, keep its link, and see your account after you paid and connected. Ownership now only comes from Google sign-in; typed email only prefills checkout.
+- **Paywall bypasses:** a pending/trialing Dodo subscription granted a trial; replaying an old payment webhook could re-grant a year; refunds/chargebacks didn't end access; another product on the Dodo account would unlock. All closed: only a succeeded payment of our product, period counted from its date, refunds/disputes end access (replay-proof). Optional Dodo webhook signatures (`DODO_WEBHOOK_SECRET`).
+- **Free live changes:** ex-customers could still apply the top fix in Amazon. Live changes now need an active plan (dashboard and text).
+- **Damage limits:** daily caps per team (300 changed items, 10 campaigns, 6 tidy runs), kill switch `ROCCO_WRITES_OFF=1`.
+- **Cost abuse:** durable per-team limits on Ask, refresh, history, tidy scan, connect links.
+- Constant-time secret checks on admin/cron/text routes; security headers (no framing, HSTS, nosniff; team pages no-referrer + noindex + no-store).
+- Tests: 182 passing, production build OK. Founder test: re-run `/api/admin/tester` once (it now marks the owner as verified).
+- **Praveen to set:** `DODO_WEBHOOK_SECRET`, a long `CRON_SECRET`, 2FA on Vercel/Supabase/Dodo/DataDoe/Google/GitHub.
+
+---
+
 ## 2026-11-22 · Memory at 100 sellers, change log, "Before Rocco" history
 - **How memory works at 100 sellers:** each team's memory lives on its own workspace in Supabase: every change (what, who approved, result a week later), skips with reasons, the manager's picks, Tidy undo data, and now the pre-Rocco history. Anonymized cross-account results ("negatives worked in 41 of 50 measured changes across 12 accounts") are computed in the daily cron and fed to every account's manager. Small per team (tens of KB), no extra cost per seller.
 - **Change log page rebuilt** (`/w/<token>/log`, linked from the dashboard): Rocco's changes with who approved (dashboard, by text, new campaign, by hand), the measured result, Tidy changes with a link to undo, and a new **Before Rocco** section. Removed the stale "undo B3 by text" line.

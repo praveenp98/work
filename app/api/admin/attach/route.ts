@@ -1,4 +1,5 @@
 import { after, NextResponse } from "next/server";
+import { adminOk } from "@/lib/security";
 import { pullAndSave } from "@/lib/datadoe-sync";
 import { getAccount } from "@/lib/datadoe";
 import { getStore } from "@/lib/store";
@@ -14,8 +15,7 @@ export const maxDuration = 300;
 
 export async function GET(req: Request) {
   const q = new URL(req.url).searchParams;
-  const secret = process.env.CRON_SECRET;
-  if (!secret || q.get("key") !== secret) return NextResponse.json({ ok: false }, { status: 401 });
+  if (!adminOk(req)) return NextResponse.json({ ok: false }, { status: 401 });
   const store = getStore();
   const email = (q.get("email") ?? "").trim().toLowerCase();
   const id = q.get("account") ?? "";

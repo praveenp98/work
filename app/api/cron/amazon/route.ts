@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { secretOk } from "@/lib/security";
 import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
 import { priorsFrom } from "@/lib/memory";
@@ -17,7 +18,7 @@ const BATCH = 10;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
+  if (secret && !secretOk(req.headers.get("authorization")?.replace(/^Bearer\s+/i, ""), secret)) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store || !datadoeOn()) return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });

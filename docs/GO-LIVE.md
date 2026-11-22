@@ -65,6 +65,8 @@ npm test        # rules + parsers unit tests
 - `LOOPMESSAGE_SENDER_TYPE` = `shared` (you're on the shared-sender plan)
 - `TEXT_WEBHOOK_SECRET` = any long random string
 - `CRON_SECRET` = another long random string
+- `DODO_WEBHOOK_SECRET` = Dodo → Developer → Webhooks → signing secret (unsigned webhook calls are then refused; see docs/SECURITY.md)
+- `ROCCO_WRITES_OFF=1` only in an emergency: stops every live Amazon change at once
 - `ROCCO_OPTIN_URL` = the iMessage opt-in link from the LoopMessage dashboard (homepage "Text Rocco" button)
 **LoopMessage → API → Webhook settings:**
 - Webhook URL: `https://rocco.works/api/text/inbound`

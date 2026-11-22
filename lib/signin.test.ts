@@ -31,11 +31,22 @@ describe("Google sign-in → the right team", () => {
     vi.stubEnv("ROCCO_VAULT_KEY", "test-vault");
     const store = new MemoryStore();
     const paid = await createWorkspace(store);
-    paid.ws.ownerEmail = "sam@brand.com"; paid.ws.licensed = true; paid.ws.paidUntil = new Date(Date.now() + 86_400_000 * 300).toISOString();
+    paid.ws.ownerEmail = "sam@brand.com"; paid.ws.ownerVerified = true; paid.ws.licensed = true; paid.ws.paidUntil = new Date(Date.now() + 86_400_000 * 300).toISOString();
     await store.saveWorkspace(paid.ws); await rememberToken(store, paid.ws, paid.token);
     const unpaid = await createWorkspace(store);
-    unpaid.ws.ownerEmail = "sam@brand.com"; await store.saveWorkspace(unpaid.ws); await rememberToken(store, unpaid.ws, unpaid.token);
+    unpaid.ws.ownerEmail = "sam@brand.com"; unpaid.ws.ownerVerified = true; await store.saveWorkspace(unpaid.ws); await rememberToken(store, unpaid.ws, unpaid.token);
     expect((await teamForUser(store, "sam@brand.com")).token).toBe(paid.token);
+  });
+
+  it("never opens a team someone planted with your email (typed, not verified by Google)", async () => {
+    vi.stubEnv("ROCCO_VAULT_KEY", "test-vault");
+    const store = new MemoryStore();
+    const planted = await createWorkspace(store);
+    planted.ws.ownerEmail = "victim@brand.com"; // typed on the Hire sheet by an attacker who keeps the link
+    await store.saveWorkspace(planted.ws); await rememberToken(store, planted.ws, planted.token);
+    const r = await teamForUser(store, "victim@brand.com");
+    expect(r.token).not.toBe(planted.token);
+    expect(r.created).toBe(true);
   });
 });
 

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { secretOk } from "@/lib/security";
 import { benchmark } from "@/lib/rules/benchmarks";
 import { getStore } from "@/lib/store";
 import { dailyNumbers } from "@/lib/text/daily";
@@ -17,7 +18,7 @@ export const maxDuration = 60;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
+  if (secret && !secretOk(req.headers.get("authorization")?.replace(/^Bearer\s+/i, ""), secret)) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, error: "memory not configured" }, { status: 503 });

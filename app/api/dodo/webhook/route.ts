@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { allow, clientIp } from "@/lib/human";
+import { verifyStandardWebhook } from "@/lib/security";
 import { SITE } from "@/lib/site";
 import { syncBilling } from "@/lib/billing";
 import { notifyTeam } from "@/lib/notify";
@@ -13,7 +15,14 @@ import { getStore } from "@/lib/store";
  */
 let last = 0;
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => ({}))) as { type?: string; data?: { subscription_id?: string; payment_id?: string } };
+  // Signed by Dodo (Standard Webhooks) when DODO_WEBHOOK_SECRET is set. Even unsigned, a forged body can't unlock
+  // anything: lib/billing only trusts what Dodo's API returns for the ids named here.
+  const raw = await req.text();
+  const secret = process.env.DODO_WEBHOOK_SECRET;
+  if (secret && !verifyStandardWebhook(secret, req.headers, raw)) return NextResponse.json({ ok: false }, { status: 401 });
+  if (!secret && !allow(`dodo:${clientIp(req.headers)}`, 30, 60_000)) return NextResponse.json({ ok: false }, { status: 429 });
+  let body: { type?: string; data?: { subscription_id?: string; payment_id?: string } } = {};
+  try { body = JSON.parse(raw); } catch { /* empty */ }
   const store = getStore();
   let change: string | null = null;
   if (store && (body.data?.subscription_id || body.data?.payment_id)) {

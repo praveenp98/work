@@ -7,6 +7,10 @@ export function amazonNote(code?: string | null): string | undefined {
   const c = decodeURIComponent(code);
   if (c === "connected") return "🔌 Connected. I'm reading your account now: your first fixes usually show up here within a few minutes.";
   if (c === "unknown") return "That Amazon link was already used or opened in another browser. Tap Connect Amazon for a fresh one.";
+  if (c === "taken") return "That Amazon account is already connected to another Rocco. If it's yours, write to hello@rocco.works and we'll move it over.";
+  if (c === "mismatch") return "That sign-in didn't match the link I made for you, so I didn't connect anything. Tap Connect Amazon for a fresh link.";
+  if (c === "unpaid") return "Your plan isn't active, so I didn't connect the account. Hire Rocco, then connect Amazon.";
+  if (c === "check_failed") return "I couldn't confirm the connection with my data partner just now. Nothing was linked. Try Connect Amazon again in a minute.";
   if (c === "not_found") return "Amazon connected, but your account isn't showing on my side yet. Give it a minute, then tap Connect Amazon again.";
   if (/PERMISSION|ROLE|NOT_PRIMARY|UNAUTHORIZED/i.test(c)) return "That Amazon login doesn't have full permissions on the account. Sign in as the Seller Central primary user (or a user with all permissions) and try again.";
   if (/CANCEL|DENIED|ABORT/i.test(c)) return "You closed Amazon's sign-in before it finished. Nothing changed. Tap Connect Amazon when you're ready.";

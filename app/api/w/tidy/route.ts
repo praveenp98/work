@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
+import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { applyTidy, undoTidy } from "@/lib/tidy-apply";
 import { scanTidy } from "@/lib/tidy-scan";
@@ -26,6 +27,7 @@ export async function POST(req: Request) {
   const save = async (v: typeof cur) => { const f = (await store.getWorkspaceById(ws.id)) ?? ws; f.tidy = { ...(f.tidy ?? {}), [account.id]: v }; await store.saveWorkspace(f); };
 
   if (b.action === "scan") {
+    if (!(await spend(store, ws, "tidyScan"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.tidyScan }, { status: 429 });
     try {
       const plan = await scanTidy(account.id, { includePaused: !!b.includePaused });
       await save({ ...cur, plan });
@@ -36,6 +38,7 @@ export async function POST(req: Request) {
   }
   if (b.action === "apply") {
     if (!cur.plan) return NextResponse.json({ ok: false, error: "Scan first." }, { status: 400 });
+    if (!(await spend(store, ws, "tidyApply"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.tidyApply }, { status: 429 });
     const ids = Array.isArray(b.ids) ? b.ids.map(String).filter((x) => /^\d{1,24}$/.test(x)) : undefined;
     const done = await applyTidy(account.id, cur.plan, { rename: !!b.rename, portfolios: !!b.portfolios, pauseIdle: !!b.pauseIdle, ids }, `rocco:${ws.id}:tidy:${cur.plan.at}`);
     await save({ ...cur, done });

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { secretOk } from "@/lib/security";
 import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { respond } from "@/lib/text/handler";
@@ -15,7 +16,7 @@ const DEDICATED_LINE = process.env.ROCCO_PHONE;
 export async function POST(req: Request) {
   const secret = process.env.TEXT_WEBHOOK_SECRET;
   const got = req.headers.get("authorization");
-  if (secret && got !== secret && got !== `Bearer ${secret}`) return NextResponse.json({ ok: false }, { status: 401 });
+  if (secret && !secretOk(got?.replace(/^Bearer\s+/i, ""), secret)) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "TEXT_WEBHOOK_SECRET not set" }, { status: 503 });
 
   const msg = parseInbound((await req.json().catch(() => ({}))) as Record<string, unknown>);

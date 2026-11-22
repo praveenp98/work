@@ -36,7 +36,8 @@ export async function POST(req: Request) {
     token = c.token;
     ws = c.ws;
   }
-  if (email && ws.ownerEmail !== email) ws.ownerEmail = email;
+  // A typed email is not proof of anything: it only prefills checkout. Ownership comes from Google sign-in.
+  if (email && !ws.ownerEmail) ws.checkoutEmail = email;
   if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
   await store.saveWorkspace(ws);
   const res = NextResponse.json({ ok: true, url: accessOf(ws) === "none" ? hireUrl(ws, body.plan === "monthly" ? "monthly" : "annual") : `/w/${token}` });

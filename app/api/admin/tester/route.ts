@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { adminOk } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { createWorkspace, ensureLinkCode, rememberToken } from "@/lib/workspace";
 
@@ -13,15 +14,14 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   const q = new URL(req.url).searchParams;
-  const secret = process.env.CRON_SECRET;
-  if (!secret || q.get("key") !== secret) return NextResponse.json({ ok: false }, { status: 401 });
+  if (!adminOk(req)) return NextResponse.json({ ok: false }, { status: 401 });
   const store = getStore();
   const email = (q.get("email") ?? "").trim().toLowerCase();
   if (!store || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ ok: false, error: "email required" }, { status: 400 });
   const now = new Date();
   const until = new Date(now.getTime() + 30 * 86_400_000).toISOString();
   const grant = <T extends { licensed?: boolean; paidUntil?: string; comp?: string; hiredAt?: string; plan?: "annual" | "monthly" }>(ws: T) => {
-    ws.licensed = true; ws.paidUntil = until; ws.comp = `founder test ${now.toISOString().slice(0, 10)}`; ws.hiredAt = now.toISOString(); ws.plan = "annual";
+    ws.licensed = true; ws.paidUntil = until; ws.comp = `founder test ${now.toISOString().slice(0, 10)}`; ws.hiredAt = now.toISOString(); ws.plan = "annual"; (ws as { ownerVerified?: boolean }).ownerVerified = true;
   };
 
   const old = await store.findWorkspacesByOwner(email);

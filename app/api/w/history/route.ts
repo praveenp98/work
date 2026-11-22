@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { datadoeOn } from "@/lib/datadoe";
 import { importHistory } from "@/lib/history";
+import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 
@@ -19,6 +20,7 @@ export async function POST(req: Request) {
   if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco to read your account's history." }, { status: 402 });
   const account = ws.amazon?.accounts?.find((a) => a.id === b.account) ?? ws.amazon?.accounts?.[0];
   if (!datadoeOn() || !account) return NextResponse.json({ ok: false, error: "Connect your Amazon first." }, { status: 400 });
+  if (!ws.history?.[account.id] && !(await spend(store, ws, "history"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.history }, { status: 429 });
   try {
     const h = await importHistory(store, ws.id, account);
     return NextResponse.json({ ok: true, total: h?.summary.total ?? 0 });
