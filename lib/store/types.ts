@@ -72,6 +72,8 @@ export interface Workspace {
   skips?: Skip[];
   /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */
   manager?: Record<string, ManagerView>;
+  /** "Tidy your campaigns" per Amazon account: the last scan's plan and the last applied change (for Undo). */
+  tidy?: Record<string, { plan?: import("../rules/tidy").TidyPlan; done?: import("../tidy-apply").TidyDone }>;
   /** When each paywall moment was last shown (lib/paywall), so Rocco never nags. */
   nudges?: Record<string, string>;
   /** Rocco in the team's Slack (lib/slack). Bot token is sealed. */

@@ -4,6 +4,18 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · "Tidy your campaigns" (structure like a top 1% ads manager)
+- **What it does** (`/w/<token>/tidy`, linked from the dashboard): scans campaigns, keywords/targets, ads (product per campaign), product titles and 30 days of results (~10 DataDoe tokens per scan), then proposes:
+  - one naming system: `SP | Product | Targeting | Keyword` (keeps the seller's own wording, strips ASINs, dates and codes; ranges become "Habit Nest Range")
+  - one portfolio per product (only for campaigns without one; no budget cap)
+  - flags: campaigns mixing match types ("split them"), campaigns with no impressions in 30 days (optional pause)
+- Before → after preview grouped by product (spend, ACoS), untick any product, choose rename / portfolios / pause, **Tidy my campaigns**. Every batch dry-run first; **Undo** puts old names back and turns paused campaigns back on. Bids, budgets and targeting never change.
+- **Live on Habit Nest:** 233 live SP campaigns, only 5 readable today; 132 with no impressions in 30 days; 21 mixing match types; 30 product groups, 6 new portfolios. Names like `OW_1950045994_20221202_fitness journal for women` → `SP | Badass Body Goals | Exact | fitness journal for women`.
+- DataDoe formats verified with dry runs: CAMPAIGNS_UPDATE (name, portfolioId, state), PORTFOLIOS_ADD (name, state). **Needs** AMAZON_ADS_PORTFOLIOS_ADD enabled in DataDoe Settings → Actions (plus CAMPAIGNS_UPDATE). Not yet applied live (read-only account).
+- ~40 DataDoe tokens spent testing. Tests 163/163, build OK.
+
+---
+
 ## 2026-11-22 · Tagline, founder test flow, guarantee on checkout, loading steps everywhere
 - Tagline **"Real work without the fluff"**: homepage kicker, hire sheet, dashboard sign-off, footer, site tagline (meta/llms), Dodo product description.
 - **Founder test (docs/FOUNDER-TEST.md):** `/api/admin/tester?key=CRON_SECRET&email=…&fresh=1` archives the old Rocco and starts a fresh one with 30 days of free access (no Dodo, never counted). Then sign out → sign in → Connect Amazon → Habit Nest.

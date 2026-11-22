@@ -168,6 +168,13 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="rd-grid">
         <div>
           {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={jobs} direct={isDirect} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {isDirect && (
+            <Link className="rd-tidy" href={`/w/${token}/tidy`}>
+              <span aria-hidden>🗂️</span>
+              <span><b>Tidy your campaigns</b><small>One naming system, one portfolio per product. Read 200 campaigns at a glance.</small></span>
+              <span className="go">→</span>
+            </Link>
+          )}
           {held > 0 && <p className="fine">I held back {held} fix{held === 1 ? "" : "es"} this account usually skips or that didn&apos;t work here before.</p>}
           {b.hidden > 0 && (
             <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>
@@ -189,6 +196,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <nav className="rd-links" aria-label="More">
             <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
             <Link href={`/w/${token}/log`}>🧾 Change log</Link>
+            <Link href={`/w/${token}/tidy`}>🗂️ Tidy campaigns</Link>
             <Link href={`/w/${token}/report`}>📄 Report</Link>
           </nav>
         </aside>
