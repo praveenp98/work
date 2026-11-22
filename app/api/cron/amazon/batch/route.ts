@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const jobs = (b.jobs ?? []).slice(0, 8);
   if (!store || !jobs.length) return NextResponse.json({ ok: false }, { status: 400 });
   after(async () => {
-    await new Promise((r) => setTimeout(r, Math.min(Math.max(b.delaySec ?? 0, 0), 240) * 1000));
+    await new Promise((r) => setTimeout(r, Math.min(Math.max(b.delaySec ?? 0, 0), 60) * 1000));
     for (const j of jobs) {
       const r = await pullAndSave(store, j.wsId, { id: j.id, name: j.name }).catch(() => null);
       const ws = r ? await store.getWorkspaceById(j.wsId) : null;

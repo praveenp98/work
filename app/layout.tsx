@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import Link from "next/link";
 import { AccountLink } from "@/components/AccountLink";
-import { ChatFab } from "@/components/home/ChatFab";
 import { googleOn } from "@/lib/google";
 import { Raccoon } from "@/components/Raccoon";
 import { Tracker } from "@/components/Tracker";
@@ -39,7 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <div className="top-right">
               <AccountLink google={googleOn()} />
-              <ChatFab />
             </div>
           </div>
         </header>
@@ -49,7 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="foot-tag">Your AI Amazon manager. You approve, I do the rest.</p>
           <nav>
             <Link href="/answers">Answers</Link>
-            <Link href="/setup">Setup</Link>
             <Link href="/connect">How it works</Link>
             <Link href="/pricing">Pricing</Link>
             <Link href="/tools">Free tools</Link>

@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Production pass for 100 sellers
+- **See it:** /api/admin/attach?key=CRON_SECRET&email=<Google sign-in email>&account=<DataDoe id> links an already-connected Amazon account (Habit Nest) to a Rocco account and runs the first pull; then rocco.works/me shows the dashboard.
+- **Scale:** each account gets 4 DataDoe recurring exports (daily, rolling window), created once and reused by name (never duplicated: verified live, duplicates from testing deleted; 4 remain for Habit Nest). Daily pull = download latest files. Cron dispatches batches of 8 accounts to /api/cron/amazon/batch (own 300s run each, 0-50s stagger) via the public domain; all DataDoe calls retry 429s with backoff. Supabase list query fixed. Reconnect flow: banner + one-tap reconnect invite when Amazon's authorization lapses.
+- **Judgment:** budget-cut proposals only when the campaign uses ≥60% of its budget (otherwise flagged as a bids/search-term problem).
+- **Conversion/clutter:** signup sheet copy now matches the product (first fix free → connect → approve → I make it); header chat bubble and footer Setup link removed.
+- Costs at 100 sellers (DataDoe): 4 exports/day/account ≈ 24,000 AI tokens/month (~$900 in bundles beyond the plan) + data rows (typical 0.5–10M/seller → extensions at $49/10M). Turn off unused DataDoe tables + 6-month retention. Not deducted from hackathon profit, but real money.
+- Tests 146/146, build OK.
+
+---
+
 ## 2026-11-22 · First live pull from DataDoe (Habit Nest US): works end to end
 - DataDoe load reached SECOND_STAGE; export sources available. Pinned tables (DataDoe's "recommended" match was a profit table): amazon_ads_search_terms_by_campaign_by_date, amazon_ads_performance_by_campaign_by_date, amazon_sales_and_traffic_with_cogs, amazon_fba_inventory_health. Only needed columns exported; renamed to Amazon headers; campaigns rolled up per campaign (latest budget), sales & traffic summed per ASIN (page-view-weighted Buy Box), inventory = latest snapshot per SKU; Sponsored Products only.
 - Live result (30 days): ads spend $2,631, ACoS 20%, search-term grade A (~$82/mo leak); 232 campaigns; 23 ASINs; 2 SKUs could run out within 2 weeks. 87 fixes, 66 with Amazon IDs (Rocco can make negatives/bids directly). Top: lower bid on "sidekicks" (ACoS 49% vs 30% target).

@@ -22,11 +22,11 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
           <span className="stage-av"><svg width="30" height="25" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="sheet" /></svg></span>
           <div><b>ROCCO</b><small>Your AI Amazon manager</small></div>
         </div>
-        <h2>{found ? `I found ${found}. Let me fix it.` : "Turn me on for your team."}</h2>
+        <h2>{found ? `I found ${found}. Let me fix it.` : "See your first fix, free."}</h2>
         <ul className="sheet-list">
-          <li>Every fix, approved with a reply: ads, Seller Central, stock, listings</li>
-          <li>Morning numbers by text and Slack, for the whole team</li>
-          <li>I check every change a week later and keep score</li>
+          <li>Connect Seller Central and Amazon Ads once</li>
+          <li>Every morning: the fixes worth making, ranked by money</li>
+          <li>Tap approve and I make the change in Amazon</li>
         </ul>
         {google ? (
           <>
