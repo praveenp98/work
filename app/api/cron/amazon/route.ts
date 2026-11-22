@@ -1,14 +1,16 @@
-import { after, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { datadoeOn } from "@/lib/datadoe";
-import { syncAccount, tellTeam } from "@/lib/datadoe-sync";
+import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 
 /**
- * Daily pull for teams connected to Amazon directly (DataDoe). Vercel Cron calls this after DataDoe's 2am-local
- * fetch has landed (see vercel.json). Each account is pulled in the background after the response.
+ * Daily pull for teams connected to Amazon directly (DataDoe). Vercel Cron calls this after DataDoe's 2am-local fetch
+ * (vercel.json). It only dispatches: accounts go out in batches of 8, each batch its own function run
+ * (/api/cron/amazon/batch, 300s), started 20s apart so DataDoe's 3 req/s limit isn't hammered. 100 accounts ≈ 13 batches.
  */
 export const dynamic = "force-dynamic";
-export const maxDuration = 300;
+export const maxDuration = 60;
+const BATCH = 8;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -16,17 +18,16 @@ export async function GET(req: Request) {
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store || !datadoeOn()) return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });
-  const teams = await store.listAmazonWorkspaces();
-  after(async () => {
-    for (const ws of teams) {
-      for (const a of ws.amazon?.accounts ?? []) {
-        const r = await syncAccount(store, ws, a);
-        const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
-        fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), lastSync: { at: new Date().toISOString(), kinds: r.kinds, errors: r.errors } };
-        await store.saveWorkspace(fresh);
-        await tellTeam(store, fresh, r);
-      }
-    }
-  });
-  return NextResponse.json({ ok: true, teams: teams.length });
+  const jobs = (await store.listAmazonWorkspaces()).flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name })));
+  const base = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : SITE.url;
+  let sent = 0;
+  for (let i = 0; i < jobs.length; i += BATCH) {
+    const res = await fetch(`${base}/api/cron/amazon/batch`, {
+      method: "POST",
+      headers: { "content-type": "application/json", ...(secret ? { authorization: `Bearer ${secret}` } : {}) },
+      body: JSON.stringify({ jobs: jobs.slice(i, i + BATCH), delaySec: (i / BATCH) * 20 }),
+    }).catch(() => null);
+    if (res?.ok) sent++;
+  }
+  return NextResponse.json({ ok: true, accounts: jobs.length, batches: Math.ceil(jobs.length / BATCH), dispatched: sent });
 }

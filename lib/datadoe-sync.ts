@@ -40,9 +40,22 @@ export const PULLS: Pull[] = [
 interface Source { id: string; name: string; tableName?: string; requiresDatePeriod: boolean; initialLoadProgress?: number | null }
 
 async function j<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, { ...init, headers: { ...H(), ...(init.headers ?? {}) }, cache: "no-store" });
+  const res = await ddFetch(`${BASE}${path}`, init);
   if (!res.ok) throw new Error(`DataDoe ${res.status}: ${(await res.text().catch(() => "")).slice(0, 240)}`);
   return (await res.json()) as T;
+}
+
+/**
+ * fetch with DataDoe's rate limit in mind (3 requests/second per organization → 429 + Retry-After): waits and retries
+ * with growing, jittered delays, so 100 accounts pulling at once slow down instead of failing.
+ */
+export async function ddFetch(url: string, init: RequestInit = {}, tries = 6): Promise<Response> {
+  for (let i = 0; ; i++) {
+    const res = await fetch(url, { ...init, headers: { ...H(), ...(init.headers ?? {}) }, cache: "no-store", redirect: "follow" });
+    if (res.status !== 429 || i >= tries - 1) return res;
+    const wait = Number(res.headers.get("retry-after") ?? 1) * 1000 + i * 700 + Math.random() * 600;
+    await new Promise((r) => setTimeout(r, wait));
+  }
 }
 
 /** The pinned table for this pull (DataDoe's "recommended" match is often a profit table, not what Rocco reads). */
@@ -65,13 +78,57 @@ export async function exportCsv(accountId: string, src: Source, p: Pull, now = n
     const s = await j<{ status: string; failureReason?: unknown }>(`/exports/${ex.id}`);
     if (/FAIL|ERROR|EXPIRED/i.test(s.status)) throw new Error(`export ${s.status}: ${JSON.stringify(s.failureReason ?? "").slice(0, 160)}`);
     if (/COMPLET|DONE|READY|SUCCE/i.test(s.status)) {
-      const raw = await fetch(`${BASE}/exports/${ex.id}/raw`, { headers: H(), cache: "no-store", redirect: "follow" });
+      const raw = await ddFetch(`${BASE}/exports/${ex.id}/raw`);
       if (raw.status === 202) continue;
       if (!raw.ok) throw new Error(`download ${raw.status}`);
       return await raw.text();
     }
   }
   throw new Error("export took too long");
+}
+
+/**
+ * Recurring export (DataDoe runs it daily, rolling window). Created once per account and table; afterwards the daily
+ * pull only downloads the latest file: a few requests per account instead of create/poll/download.
+ */
+export async function createSchedule(accountId: string, src: Source, p: Pull, name: string): Promise<string> {
+  // Reuse one that already exists for this account + report (e.g. the account moved between Rocco teams): never pay twice.
+  const want = `Rocco · ${p.kind} · ${name}`.slice(0, 120);
+  type S = { id: string; name?: string; sellerOrVendorIds?: string[]; sourceId?: string };
+  const all: S[] = [];
+  // The list endpoint takes no paging parameters (only `active`) and returns every schedule.
+  const list = await j<{ data?: ({ schedule?: S } & Partial<S>)[] }>("/exports/schedules").catch(() => null);
+  for (const x of list?.data ?? []) { const s = (x.schedule ?? x) as S; if (s.id) all.push(s); }
+  const found = all.find((x) => x.name === want && x.sourceId === src.id && (x.sellerOrVendorIds ?? []).includes(accountId));
+  if (found) return found.id;
+  const s = await j<{ id?: string; schedule?: { id: string } }>("/exports/schedules", {
+    method: "POST",
+    body: JSON.stringify({
+      sellerOrVendorIds: [accountId], sourceId: src.id, columns: Object.keys(p.cols), interval: "DAY", relativeInterval: "DAY",
+      relativeCount: Math.max(p.days, 1), relativeOffsetCount: 1, outputType: "CSV", sendTo: [], sendToAllOrganizationMembers: false,
+      name: `Rocco · ${p.kind} · ${name}`.slice(0, 120), active: true,
+    }),
+  });
+  const id = s.schedule?.id ?? s.id;
+  if (!id) throw new Error("no schedule id");
+  return id;
+}
+
+/** The newest file of a recurring export, or null if it hasn't produced one yet. */
+export async function latestOf(scheduleId: string): Promise<string | null> {
+  const res = await ddFetch(`${BASE}/exports/schedules/${encodeURIComponent(scheduleId)}/latest`);
+  if (res.status === 404 || res.status === 202) return null;
+  if (!res.ok) throw new Error(`latest ${res.status}`);
+  const type = res.headers.get("content-type") ?? "";
+  if (type.includes("application/json")) {
+    // Some API versions answer with metadata + a download URL instead of the file.
+    const meta = (await res.json().catch(() => ({}))) as { url?: string; downloadUrl?: string; id?: string };
+    const u = meta.downloadUrl ?? meta.url;
+    if (u) { const f = await ddFetch(u); return f.ok ? await f.text() : null; }
+    if (meta.id) { const f = await ddFetch(`${BASE}/exports/${meta.id}/raw`); return f.ok ? await f.text() : null; }
+    return null;
+  }
+  return await res.text();
 }
 
 const num = (v: unknown) => { const n = Number(String(v ?? "").replace(/[$,%\s]/g, "")); return Number.isFinite(n) ? n : 0; };
@@ -130,26 +187,53 @@ export function toAmazonTable(rows: Record<string, unknown>[], p: Pull): unknown
   return [out.map(([, h]) => h), ...[...latest.values()].map((r) => out.map(([c]) => r[c] ?? ""))];
 }
 
-export interface SyncResult { account: string; kinds: string[]; errors: string[] }
+export interface SyncResult { account: string; kinds: string[]; errors: string[]; schedules: Record<string, string> }
 
-/** Pull one account now: every report Rocco reads, through the same engine as everything else. */
-export async function syncAccount(store: Store, ws: Workspace, account: { id: string; name: string }, now = new Date()): Promise<SyncResult> {
+/**
+ * Pull one account: every report Rocco reads, through the same engine as everything else.
+ * Uses the account's recurring exports (created on the first pull); falls back to a one-off export when a recurring
+ * one hasn't produced a file yet. Returns the schedule ids to remember on the workspace.
+ */
+export async function syncAccount(store: Store, ws: Workspace, account: { id: string; name: string }, now = new Date(), known: Record<string, string> = {}): Promise<SyncResult> {
   const kinds: string[] = [];
   const errors: string[] = [];
+  const schedules = { ...known };
   for (const p of PULLS) {
     try {
-      const src = await findSource(account.id, p);
-      if (!src) { errors.push(`${p.kind}: table not available yet`); continue; }
-      const csv = await exportCsv(account.id, src, p, now);
+      let csv: string | null = schedules[p.kind] ? await latestOf(schedules[p.kind]).catch(() => null) : null;
+      let progress: number | null | undefined;
+      if (csv === null) {
+        const src = await findSource(account.id, p);
+        if (!src) { errors.push(`${p.kind}: table not available yet`); continue; }
+        progress = src.initialLoadProgress;
+        if (!schedules[p.kind]) schedules[p.kind] = await createSchedule(account.id, src, p, account.name).catch(() => "");
+        if (!schedules[p.kind]) delete schedules[p.kind];
+        csv = await exportCsv(account.id, src, p, now);
+      }
       const rows = Papa.parse<Record<string, unknown>>(csv, { header: true, skipEmptyLines: true }).data;
-      if (!rows.length) { errors.push(`${p.kind}: no rows yet${src.initialLoadProgress != null && src.initialLoadProgress < 100 ? ` (history ${src.initialLoadProgress}% loaded)` : ""}`); continue; }
+      if (!rows.length) { errors.push(`${p.kind}: no rows yet${progress != null && progress < 100 ? ` (history ${progress}% loaded)` : ""}`); continue; }
       await runAnalysis(store, ws, account.name, toAmazonTable(rows, p));
       kinds.push(p.kind);
     } catch (e) {
       errors.push(`${p.kind}: ${e instanceof Error ? e.message.slice(0, 160) : "failed"}`);
     }
   }
-  return { account: account.name, kinds, errors };
+  return { account: account.name, kinds, errors, schedules };
+}
+
+/** Pull one account and remember the result + its recurring exports on the workspace. */
+export async function pullAndSave(store: Store, wsId: string, account: { id: string; name: string }, now = new Date()): Promise<SyncResult | null> {
+  const ws = await store.getWorkspaceById(wsId);
+  if (!ws) return null;
+  const r = await syncAccount(store, ws, account, now, ws.amazon?.schedules?.[account.id] ?? {});
+  const fresh = (await store.getWorkspaceById(wsId)) ?? ws;
+  fresh.amazon = {
+    ...(fresh.amazon ?? { accounts: [] }),
+    schedules: { ...(fresh.amazon?.schedules ?? {}), [account.id]: r.schedules },
+    lastSync: { at: now.toISOString(), kinds: r.kinds, errors: r.errors },
+  };
+  await store.saveWorkspace(fresh);
+  return r;
 }
 
 /** After a pull: the morning text with the top fixes (+ the offer for teams without a plan). */

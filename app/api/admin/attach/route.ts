@@ -1,5 +1,5 @@
 import { after, NextResponse } from "next/server";
-import { syncAccount } from "@/lib/datadoe-sync";
+import { pullAndSave } from "@/lib/datadoe-sync";
 import { getAccount } from "@/lib/datadoe";
 import { getStore } from "@/lib/store";
 
@@ -30,12 +30,7 @@ export async function GET(req: Request) {
     ws.amazon = { ...(ws.amazon ?? {}), accounts };
     await store.saveWorkspace(ws);
     // First pull right away, so the dashboard has real fixes when the owner opens it.
-    after(async () => {
-      const r = await syncAccount(store, ws, { id: a.id, name: a.name });
-      const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
-      fresh.amazon = { ...(fresh.amazon ?? { accounts }), lastSync: { at: new Date().toISOString(), kinds: r.kinds, errors: r.errors } };
-      await store.saveWorkspace(fresh);
-    });
+    after(async () => { await pullAndSave(store, ws.id, { id: a.id, name: a.name }); });
     return NextResponse.json({ ok: true, attached: a.name, open: "https://rocco.works/me", note: "First pull running (1-2 minutes)." });
   } catch (e) {
     return NextResponse.json({ ok: false, error: e instanceof Error ? e.message.slice(0, 200) : "DataDoe lookup failed" }, { status: 502 });

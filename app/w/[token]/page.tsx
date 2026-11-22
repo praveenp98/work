@@ -45,7 +45,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const access = accessOf(ws);
   const hoursLeft = trialHoursLeft(ws);
   const direct = datadoeOn();
-  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
+  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
+  const needsReconnect = accounts.filter((a) => a.status === "needs you to reconnect");
   const note = sp.amazon === "connected" ? "🔌 Connected. Amazon is sending me your data now." : sp.amazon ? `That didn't finish (${decodeURIComponent(sp.amazon).replace(/_/g, " ").toLowerCase()}). Try again, signed in as the account owner.` : undefined;
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;
 
@@ -123,6 +124,12 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
       </header>
 
+      {needsReconnect.map((a) => (
+        <div key={a.id} className="rd-offer warn">
+          <div><b>Amazon stopped sharing {a.name}&apos;s data.</b><span>This happens every few months. Reconnect in one tap: your history and settings stay.</span></div>
+          <ConnectButton token={token} reconnect={a.id} label="Reconnect Amazon" className="btn" />
+        </div>
+      ))}
       {access === "none" && (
         <div className="rd-offer">
           <div><b>{hidden ? `Your top fix is free. ${hidden} more worth ~${$(hiddenValue)}/mo are waiting.` : "Your first finding is free."}</b><span>Hire me to unlock every fix and the daily checks: {PRICE.short}, {PRICE.then}.</span></div>

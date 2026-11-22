@@ -72,8 +72,8 @@ export class SupabaseStore implements Store {
     await this.q("phones", { method: "POST", body: JSON.stringify({ phone: p.phone, workspace_id: p.workspaceId, opted_out: p.optedOut, data: p }), headers: { Prefer: "resolution=merge-duplicates,return=minimal" } });
   }
   async listAmazonWorkspaces() {
-    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->amazon->accounts->0=not.is.null&select=id,data&limit=1000`);
-    return rows.map((r) => ({ id: r.id, ...r.data }));
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->amazon=not.is.null&select=id,data&limit=2000`);
+    return rows.map((r) => ({ id: r.id, ...r.data })).filter((w) => w.amazon?.accounts?.length);
   }
   async listPhones(o: { workspaceId?: string; optedIn?: boolean } = {}) {
     const f = [o.workspaceId ? `workspace_id=eq.${o.workspaceId}` : "", o.optedIn ? "opted_out=eq.false" : ""].filter(Boolean).join("&");

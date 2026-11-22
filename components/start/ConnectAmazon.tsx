@@ -67,12 +67,12 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
 }
 
 /** Small "+ Connect another Amazon account" button for the dashboard footer. */
-export function ConnectButton({ token, label = "+ Connect another Amazon account" }: { token: string; label?: string }) {
+export function ConnectButton({ token, label = "+ Connect another Amazon account", reconnect, className = "linkbtn" }: { token: string; label?: string; reconnect?: string; className?: string }) {
   const [busy, setBusy] = useState(false);
   return (
-    <button className="linkbtn" disabled={busy} onClick={async () => {
+    <button className={className} disabled={busy} onClick={async () => {
       setBusy(true);
-      const d = (await fetch("/api/w/amazon", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { url?: string } | null;
+      const d = (await fetch("/api/w/amazon", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, reconnect }) }).then((r) => r.json()).catch(() => null)) as { url?: string } | null;
       if (d?.url) window.location.href = d.url; else setBusy(false);
     }}>{busy ? "Opening Amazon…" : label}</button>
   );

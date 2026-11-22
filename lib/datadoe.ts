@@ -73,3 +73,11 @@ export async function runAction(sellerOrVendorId: string, type: string, details:
   if (/FAIL|ERROR|REJECT/i.test(status)) return { ok: false, status, error: status };
   return { ok: true, id: body.id ?? body.actionId, status };
 }
+
+/** Reconnect link when Amazon stopped accepting an account's authorization: same account, data and history. */
+export function createReconnect(ref: string, accountId: string): Promise<Invitation> {
+  return call<Invitation>(`/util/sellers-and-vendors/${encodeURIComponent(accountId)}/reconnect`, {
+    method: "POST",
+    body: JSON.stringify({ redirectUrl: `${SITE.url}/api/datadoe/callback?ref=${encodeURIComponent(ref)}` }),
+  });
+}

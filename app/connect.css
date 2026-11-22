@@ -1014,3 +1014,4 @@ h1, h2, .display { font-family: var(--display); }
 @media (max-width: 600px) { .price-card { padding: 26px 18px 20px; } }
 .h5-hero { overflow-x: clip; }
 .hd { text-align: left; }
+.rd-offer.warn { background: color-mix(in srgb, #e8833a 8%, #fff); border-color: color-mix(in srgb, #e8833a 40%, var(--line)); }

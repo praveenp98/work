@@ -47,6 +47,8 @@ export interface Workspace {
   amazon?: {
     accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
     invite?: { id: string; url: string; expiresAt: string };
+    /** DataDoe recurring export ids per account and report kind (created on the first pull). */
+    schedules?: Record<string, Record<string, string>>;
     /** Last daily pull: when, what came in, what failed (shown on the page while data loads). */
     lastSync?: { at: string; kinds: string[]; errors: string[] };
   };

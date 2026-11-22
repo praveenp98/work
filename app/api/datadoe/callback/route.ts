@@ -25,7 +25,7 @@ export async function GET(req: Request) {
     const a = await getAccount(id); // must exist in our DataDoe organization
     const accounts = (ws.amazon.accounts ?? []).filter((x) => x.id !== a.id);
     accounts.push({ id: a.id, name: a.name, country: a.marketplaceCountryCode, connectedAt: new Date().toISOString(), ads: !!a.amazonAdsConnection });
-    ws.amazon = { accounts };
+    ws.amazon = { ...ws.amazon, accounts, invite: undefined };
     await store.saveWorkspace(ws);
     await notifyTeam(store, ws, [`🔌 Amazon connected: ${a.name} (${a.marketplaceCountryCode})${a.amazonAdsConnection ? " + Ads" : ""}. Amazon is sending me your first data now, it takes a few hours. I'll text you the first findings.`]).catch(() => 0);
     return back("connected");
