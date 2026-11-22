@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · New share image + press screenshots
+- The X/LinkedIn link card still showed the old "Your AI Amazon teammate · plugs into Claude & ChatGPT" image (a fixed file, never redone). New `/og-v2.png` (1200×630): headline, the 4 steps, approve in iMessage/WhatsApp/Slack, $99/mo billed yearly + 7-day guarantee, and a jobs dashboard mock. Metadata points to it (new URL so X fetches it fresh); `/og.png` overwritten too.
+- Press kit (/press) screenshots re-shot from the current site with a demo brand (Bamboo & Co): home, pricing, dashboard, change log. Old setup/playground shots no longer listed.
+- X caches cards per link: post `rocco.works/?v=2` (or wait ~a week) to get the new card on X.
+
+---
+
 ## 2026-11-22 · Founder test findings: connect fixes + routine list
 - Praveen ran the founder test. Findings and fixes:
   - **Reused dead DataDoe link** ("Invitation not found"): Rocco kept an invite after a failed attempt; DataDoe links are single use. Now a failed callback forgets the link, and an open link is only reused if DataDoe says it's still PENDING.

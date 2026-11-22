@@ -143,12 +143,12 @@
       "label": "Screenshot: homepage (1280×800)"
     },
     {
-      "file": "/brand/screenshot-setup.png",
-      "label": "Screenshot: setup wizard (1280×800)"
+      "file": "/brand/screenshot-dashboard.png",
+      "label": "Screenshot: today's jobs dashboard (1280×800)"
     },
     {
-      "file": "/brand/screenshot-playground.png",
-      "label": "Screenshot: Rocco's analysis (1280×800)"
+      "file": "/brand/screenshot-changelog.png",
+      "label": "Screenshot: change log (1280×800)"
     },
     {
       "file": "/brand/screenshot-pricing.png",
