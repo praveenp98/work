@@ -2,6 +2,7 @@ import { HireButton } from "@/components/home/HireButton";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
 import { HeroFlow } from "@/components/home/HeroFlow";
 import { HowItHappens } from "@/components/home/HowItHappens";
+import { LogDemo } from "@/components/home/LogDemo";
 import { StickyHire } from "@/components/home/StickyHire";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { JsonLd } from "@/components/JsonLd";
@@ -94,6 +95,17 @@ export default async function Home() {
       </section>
 
       <section className="hband">
+        <div className="two">
+          <div className="two-text">
+            <span className="kicker">Every change, on the record</span>
+            <h2 className="big-h">Nothing happens in the dark.</h2>
+            <p className="two-lede">Every change I make is logged: what changed, why, who approved it and where, and whether it worked when I checked a week later. Changed your mind? Undo it. On day one I also read your account&apos;s own change history, so I know what was tried before me.</p>
+          </div>
+          <div className="two-vis"><LogDemo /></div>
+        </div>
+      </section>
+
+      <section className="hband soft">
         <div className="center-head">
           <span className="kicker">Not another data connector</span>
           <h2 className="big-h">Other tools give you data.<br /><span className="blue">I give you decisions.</span></h2>
@@ -105,7 +117,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="hband soft">
+      <section className="hband">
         <div className="two">
           <div className="two-text">
             <span className="kicker">Where you work</span>

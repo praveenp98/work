@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Faq } from "@/components/Faq";
 import { HireButton } from "@/components/home/HireButton";
 import { RoccoHead } from "@/components/Rocco";
-import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
+import { PriceRise, Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { googleOn } from "@/lib/google";
 import { PLAN, PRICE } from "@/lib/pricing";
 
@@ -40,15 +40,16 @@ export default async function Page() {
       <div className="pp-plans static">
         <div className="on">
           <span className="pp-tag best">2 months free</span>
-          <b>$99<small>/mo</small></b>
-          <span className="pp-line">{PRICE.annual} billed yearly</span>
+          <b>{PRICE.annual}<small>/year</small></b>
+          <span className="pp-line">{PRICE.perMonthAnnual}/mo billed yearly</span>
         </div>
         <div>
           <span className="pp-tag">Flexible</span>
-          <b>{PRICE.monthly}<small>/mo</small></b>
+          <b>{PRICE.monthly}<small>/month</small></b>
           <span className="pp-line">billed monthly</span>
         </div>
       </div>
+      <PriceRise />
       <div className="hire-card">
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
         <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn imsg-btn hire-btn" />

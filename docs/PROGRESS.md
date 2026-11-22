@@ -4,6 +4,18 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Plan cards, live countdown, price rise line, change-log section
+- Plan cards: **$1,190/year** with "$99/mo billed yearly" under it; **$119/month** "billed monthly" (pricing page + plan step).
+- Agency-vs-Rocco bars replaced with **"your team's time vs Rocco"** (hours/day spent checking ads, bids, stock × $35/h × 22 days), so agencies aren't put off: "Brands and agencies: every account, one plan."
+- Urgency is a **live countdown** to the next real event (Black Friday, midnight US Eastern), ticking every second; "is on now" on the day, then the next event.
+- New line on the plan step + pricing page: **"Prices go up by $10 every 5 hires. N hires left at this price."** (count from Dodo). ⚠️ Praveen keeps it true: every 5 hires raise both Dodo products and `PLAN` in lib/pricing.ts (+$10/month on monthly; yearly by +$100 to keep 2 months free, or decide otherwise).
+- "Your Rocco" header link hidden on /w, /me, /welcome (you're already there).
+- Footer: "Your AI Amazon manager: you approve, I do the rest. **Real work without the fluff.**"
+- Home: new animated **"Nothing happens in the dark."** section: example change log (who approved, where, result flipping from checking to worked, an undo) + the "Before Rocco" read. The real log page (/w/<token>/log) was built earlier today.
+- Tests: 185 passing.
+
+---
+
 ## 2026-11-22 · Hire flow: clean sign-up sheet, plan picked after sign-up
 - The Hire sheet no longer shows prices: it is step 1 (sign up), with what happens next (Sign up → Pick a plan → Connect Amazon), the Black Friday line, and four trust lines (Amazon's own sign-in, nothing changes without approval, checked/logged/undoable, 30-day guarantee).
 - After Google sign-up the seller lands on **Pick your plan** (their Rocco page): two matching cards ($99/mo billed yearly with "2 months free", $119/mo "Flexible"), centred, same rows, then "Continue · $1,190 a year" to Dodo checkout. Pricing page uses the same cards.

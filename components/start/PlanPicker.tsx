@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ValueCalc } from "@/components/start/ValueCalc";
+import { PriceRise, ValueCalc } from "@/components/start/ValueCalc";
 
 /**
  * Step 2 of hiring (after Google sign-up): pick yearly or monthly, then secure checkout. Both cards share the same
@@ -14,15 +14,16 @@ export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; month
       <div className="pp-plans" role="radiogroup" aria-label="Plan">
         <button type="button" role="radio" aria-checked={plan === "annual"} className={plan === "annual" ? "on" : ""} onClick={() => setPlan("annual")}>
           <span className="pp-tag best">2 months free</span>
-          <b>$99<small>/mo</small></b>
-          <span className="pp-line">$1,190 billed yearly</span>
+          <b>$1,190<small>/year</small></b>
+          <span className="pp-line">$99/mo billed yearly</span>
         </button>
         <button type="button" role="radio" aria-checked={plan === "monthly"} className={plan === "monthly" ? "on" : ""} onClick={() => setPlan("monthly")}>
           <span className="pp-tag">Flexible</span>
-          <b>$119<small>/mo</small></b>
+          <b>$119<small>/month</small></b>
           <span className="pp-line">billed monthly</span>
         </button>
       </div>
+      <PriceRise />
       <ValueCalc plan={plan} compact />
       <a className="btn rc-btn" href={plan === "annual" ? annualUrl : monthlyUrl} onClick={() => setBusy(true)}>
         {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
