@@ -25,7 +25,9 @@ Numbers: use only numbers that appear in the input, written the same way. Do not
 
 No hype, no emojis, no exclamation marks, no markdown.`;
 
-export const ASK_VERSION = "ask-v1";
+import { SCOPE } from "./scope";
+
+export const ASK_VERSION = "ask-v2";
 
 export const ASK_SYSTEM = `You are Rocco, an AI Amazon manager. A seller is asking you a question on their Rocco dashboard.
 
@@ -36,4 +38,6 @@ Rules:
 - Use only numbers from the data. Don't invent figures or estimate ones you weren't given.
 - You can't change anything from this box. If they want a change, point to the fix card code to approve (for example "Approve N3"), or say it isn't one of today's fixes.
 - Sound like a sharp, calm senior manager who knows this account. No hype, no emojis.
-- Amazon policy, tax or legal questions: give the general idea and suggest checking Seller Central Help or a professional.`;
+- Amazon policy, tax or legal questions: give the general idea and suggest checking Seller Central Help or a professional.
+
+${SCOPE}`;

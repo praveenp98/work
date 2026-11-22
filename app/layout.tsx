@@ -32,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="top-in">
             <nav className="top-left" aria-label="Main">
               <Link href="/pricing">Pricing</Link>
+            <Link href="/help">Help</Link>
               <Link href="/answers">Answers</Link>
             </nav>
             <Link href="/" className="brand">

@@ -1,5 +1,6 @@
 import { ANSWERS } from "@/lib/answers";
 import { GUIDES } from "@/lib/guides";
+import { HELP } from "@/lib/help";
 import { SITE } from "@/lib/site";
 import { liveTools } from "@/lib/tools";
 
@@ -22,6 +23,10 @@ export function GET() {
     "- Reminders on iMessage, WhatsApp or Slack; approve by text after the seller has seen their jobs on the dashboard.",
     "- Data comes only from Amazon's official APIs. No scraping. Nothing changes without the seller's approval.",
     "",
+    "## Help (customers and their AI assistants: the full text is at /llms-full.txt)",
+    `- [Full help in one file](${SITE.url}/llms-full.txt)`,
+    ...HELP.map((h) => `- [${h.q}](${SITE.url}/help/${h.slug})`),
+    "",
     "## Answers",
     ...ANSWERS.map((a) => `- [${a.q}](${SITE.url}/answers/${a.slug}): ${a.short}`),
     "",
@@ -32,7 +37,7 @@ export function GET() {
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and every marketplace: $1,190 a year (2 months free) or $119 a month, 30-day money-back guarantee.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and every marketplace: $1,190 a year (2 months free) or $119 a month, 7-day money-back guarantee.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

@@ -100,6 +100,7 @@ export async function curate(o: { proposals: Proposal[]; facts: string; memory: 
       system: [{ type: "text", text: MANAGER_SYSTEM, cache_control: { type: "ephemeral" } }],
       messages: [{ role: "user", content: input }],
     });
+    console.info(`[ai] manager in=${res.usage?.input_tokens ?? 0} out=${res.usage?.output_tokens ?? 0} cached=${res.usage?.cache_read_input_tokens ?? 0}`); // cost tracking in Vercel logs
     if (res.stop_reason === "refusal" || res.stop_reason === "max_tokens" || !res.parsed_output) return null;
     const view = checkPlan(res.parsed_output, top, input, o.now);
     return view.picks.length ? view : null;

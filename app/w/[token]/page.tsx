@@ -220,6 +220,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             <Link href={`/w/${token}/log`}>🧾 Change log</Link>
             <Link href={`/w/${token}/tidy`}>🗂️ Tidy campaigns</Link>
             <Link href={`/w/${token}/report`}>📄 Report</Link>
+            <Link href="/help">❓ Help</Link>
           </nav>
         </aside>
       </div>

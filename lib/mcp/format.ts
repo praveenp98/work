@@ -50,7 +50,7 @@ export function formatAnalysis(out: AnalyzeOutput, o: { licensed: boolean; runId
     lines.push("", `### Proposed changes (approval list)${o.runId ? ` · run ${o.runId.slice(0, 8)}` : ""}`);
     lines.push(...shown.map(proposalLine));
     if (!o.licensed && a.proposals.length > shown.length) {
-      lines.push(`- ${shown.length ? "…and " : ""}${a.proposals.length - shown.length} fixes worth ~$${Math.round(a.proposals.slice(shown.length).reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo are ready. They unlock when you hire Rocco ($1,190 a year or $119 a month, whole team, 30-day money-back guarantee).`);
+      lines.push(`- ${shown.length ? "…and " : ""}${a.proposals.length - shown.length} fixes worth ~$${Math.round(a.proposals.slice(shown.length).reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo are ready. They unlock when you hire Rocco ($1,190 a year or $119 a month, whole team, 7-day money-back guarantee).`);
     }
     lines.push("", o.memory
       ? "Ask the seller which codes to approve (e.g. \"N1-N4, B2\"). Then get the change list with export_changes, apply exactly those codes with the seller's Amazon Ads connector (or the seller applies them by hand), and call apply_changes so Rocco tracks them and re-checks results."

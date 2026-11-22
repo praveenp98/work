@@ -26,13 +26,14 @@ export async function askRocco(o: { question: string; context: string; images?: 
   try {
     const res = await getClient().beta.messages.create({
       model: MODEL,
-      max_tokens: 2000,
+      max_tokens: 900, // chat-length answers only (cost guard); the reply is cut to maxChars anyway
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default", // a policy decline is re-run on a fallback model in the same call
       output_config: { effort: "low" }, // short chat replies: low effort is plenty and fast
       system: [{ type: "text", text: o.system ?? TEXT_REPLY_SYSTEM, cache_control: { type: "ephemeral" } }],
       messages: [{ role: "user", content }],
     });
+    console.info(`[ai] ${o.label ?? "text"} in=${res.usage?.input_tokens ?? 0} out=${res.usage?.output_tokens ?? 0} cached=${res.usage?.cache_read_input_tokens ?? 0}`); // cost tracking in Vercel logs
     if (res.stop_reason === "refusal") return null;
     const text = res.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("").trim();
     return text ? text.slice(0, o.maxChars ?? 1200) : null;

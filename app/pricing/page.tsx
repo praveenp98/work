@@ -65,7 +65,7 @@ export default async function Page() {
           { q: "Can my team use it?", a: "Yes. Add teammates by email from your dashboard: they sign in with Google and land on the same Rocco, see today's jobs and approve them. Every approval shows who made it. You can remove someone anytime, or hand the whole Rocco to a teammate." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime from your receipt email or by writing to us.` },
           { q: "What is the money-back guarantee?", a: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund, yearly or monthly. No call, no forms.` },
-          { q: "Is there a free plan?", a: "No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the 30-day guarantee instead." },
+          { q: "Is there a free plan?", a: "No. Connecting and reading an Amazon account costs real money to run, so Rocco is paid from day one, with the 7-day guarantee instead." },
         ]} />
       </div>
     </section>

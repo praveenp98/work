@@ -123,7 +123,7 @@ export function RoccoStage({ price = "$99", next, google }: { price?: string; ne
 
       <div className="hero-cta">
         <HireButton price={price} next={next} google={google} label="Hire Rocco" className="btn hire-cta" />
-        <span className="fine">{price} · 30-day money-back guarantee · whole team</span>
+        <span className="fine">{price} · 7-day money-back guarantee · whole team</span>
       </div>
     </div>
   );

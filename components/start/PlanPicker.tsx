@@ -32,7 +32,7 @@ export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; month
           {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
         </a>
       ) : <p className="tm-err" role="status">Checkout is being switched on right now. Please try again in a few minutes, or email hello@rocco.works.</p>}
-      <p className="pp-guarantee">🛡️ <b>30-day money-back guarantee.</b> If you don&apos;t like the fixes I give you, ask for your money back. {plan === "annual" ? "Renews yearly, cancel the renewal anytime." : "Cancel anytime."}</p>
+      <p className="pp-guarantee">🛡️ <b>7-day money-back guarantee.</b> If you don&apos;t like the fixes I give you, ask for your money back. {plan === "annual" ? "Renews yearly, cancel the renewal anytime." : "Cancel anytime."}</p>
     </div>
   );
 }

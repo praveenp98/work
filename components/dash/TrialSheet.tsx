@@ -36,7 +36,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
         <Urgency />
         <ol className="sheet-steps">
           <li className="now"><b>Sign up</b><span>10 seconds</span></li>
-          <li><b>Pick a plan</b><span>30-day guarantee</span></li>
+          <li><b>Pick a plan</b><span>7-day guarantee</span></li>
           <li><b>Connect Amazon</b><span>first jobs in hours</span></li>
         </ol>
         {google ? (
@@ -58,7 +58,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
           <li><span aria-hidden>🔒</span>Amazon&apos;s own sign-in. I never see your password.</li>
           <li><span aria-hidden>✋</span>Nothing changes in Amazon without your approval.</li>
           <li><span aria-hidden>↩︎</span>Every change is checked first, logged and undoable.</li>
-          <li><span aria-hidden>🛡️</span>30-day money-back guarantee. Cancel anytime.</li>
+          <li><span aria-hidden>🛡️</span>7-day money-back guarantee. Cancel anytime.</li>
         </ul>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>
       </div>

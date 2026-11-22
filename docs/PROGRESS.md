@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · 7-day guarantee, help center, AI scope + costs, support plan
+- **Guarantee is now 7 days** (Praveen): PLAN.guaranteeDays = 7, every page, text, MCP output, launch kit and Dodo setup doc. Dodo product note must say 7 days.
+- **Help center** /help (23 answers in 6 sections, exact steps, FAQPage/HowTo JSON-LD, in sitemap, footer and dashboard) + **/llms-full.txt** (all help in one plain file for Claude/ChatGPT/Perplexity) + llms.txt links. Sitemap no longer lists the redirected /connect and /setup.
+- **AI only for Amazon**: lib/prompts/scope.ts added to Ask Rocco and text replies: off-topic gets one sentence; the exact list of what Rocco can do / only flags / doesn't do, so it never promises an action it can't take. Chat replies capped at 900 output tokens. Every Claude call logs tokens (`[ai] …` in Vercel logs).
+- **docs/AI-USAGE.md** (where AI runs, limits, cost ~$250/mo at 100 sellers, unsupported-action handling) and **docs/SUPPORT.md** (predicted tickets, macros, where to look).
+- DataDoe: exact 9-table keep list in docs/LIGHTS-ON.md step 5. Dodo webhook endpoint created by Praveen; signing secret still to paste into Vercel.
+- Tests 192 passing, build OK.
+
+---
+
 ## 2026-11-22 · Full audit (desktop + code review) and fixes; lights-on checklist
 - Desktop flow checked at 1440×900 and 1280×800 (home, sheet, pricing, plan step, dashboard with team, log, tidy, analytics, report, welcome): no overflow, no page errors.
 - Fixed from the audit:

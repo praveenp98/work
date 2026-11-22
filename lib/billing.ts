@@ -28,7 +28,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
   if (!product || !ourProducts().includes(product)) return { ws: null, change: null };
 
   let change: BillingChange = null;
-  // Refund or chargeback: access ends now (the 30-day guarantee refund, or a dispute).
+  // Refund or chargeback: access ends now (the 7-day guarantee refund, or a dispute).
   // Checked on the payment itself (not the event type), so replaying an old "payment succeeded" webhook for a
   // refunded payment can never switch access back on.
   const refunded = (pay?.refunds ?? []).some((r) => /succeed/i.test(r.status ?? ""));

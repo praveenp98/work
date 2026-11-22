@@ -44,7 +44,7 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
 1. **Dodo → Products → Add product → Subscription.** Name **Rocco · Yearly**. Price **$1,190 USD**, billed **every 1 year**, no trial, no discount. Tax category: SaaS / digital services. License keys: off.
    - **Description (this is the text buyers see on Dodo's payment page):**
      > Rocco: real work without the fluff. Connect Seller Central and Amazon Ads once; every morning Rocco finds the fixes worth making, you approve, and he makes the change in Amazon and checks the result a week later. Whole team, unlimited brands. 2 months free vs monthly.
-     > **If you don't like the fixes I give you, ask for your money back. 30-day guarantee.**
+     > **If you don't like the fixes I give you, ask for your money back. 7-day guarantee.**
      > Self-serve software, not affiliated with Amazon.
 2. **Add product → Subscription** again. Name **Rocco · Monthly**. Price **$119 USD**, billed **every 1 month**, no trial. Same tax category and description (without "2 months free vs monthly"), keeping the guarantee line.
 3. Open each product and copy its ID (starts with `pdt_`).
@@ -55,5 +55,5 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
    - Then **Deployments → latest → Redeploy**.
 5. Test: rocco.works → Connect Amazon → pick Yearly → checkout must say $1,190/year; back, pick Monthly → $119/month. Pay once with a real card, then refund yourself (step 7) to check the full loop.
 6. Webhook: no change (same endpoint, both products count as hiring Rocco).
-7. **Money-back guarantee (30 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
+7. **Money-back guarantee (7 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
 8. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email hello@rocco.works. The checkout layout itself is Dodo's.

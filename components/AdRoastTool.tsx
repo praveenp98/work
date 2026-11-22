@@ -186,7 +186,7 @@ function Unlock({ onUnlocked }: { onUnlocked: () => void }) {
       <div className="card" style={{ maxWidth: 440, textAlign: "center", boxShadow: "0 10px 40px rgba(0,0,0,.12)" }}>
         <Raccoon size={44} mood="judging" />
         <h3 style={{ marginTop: 6 }}>Get every fix + a ready-to-upload bulk file</h3>
-        <p className="muted">Rocco finds these every morning and makes them in Amazon after you approve. $1,190 a year or $119 a month, 30-day money-back guarantee.</p>
+        <p className="muted">Rocco finds these every morning and makes them in Amazon after you approve. $1,190 a year or $119 a month, 7-day money-back guarantee.</p>
         <Link href="/pricing?utm_source=tool&utm_medium=paywall&utm_campaign=ad_roast" className="btn">Hire Rocco: fixes made for you</Link>
         <form style={{ marginTop: 14 }} className="row" onSubmit={async (e) => {
           e.preventDefault(); setMsg("Checking…");

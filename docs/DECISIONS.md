@@ -93,3 +93,5 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 | 2026-11-22 | Teams: owner + members by Google email, handover to a signed-in member, remove resets the private link | Sellers share accounts with staff/agencies; forwarding a secret link can't be revoked or attributed | Per-person passwords; unlimited link sharing |
 | 2026-11-22 | Price rise every 5 hires = +$10/mo monthly, +$100/yr yearly (Praveen) | Keeps "2 months free" exact | +$10 on yearly |
 | 2026-11-22 | Retire license keys; only the yearly/monthly Dodo products unlock Rocco; no checkout fallback to old products | One key unlocked unlimited teams forever; a fallback would sell the old $99 product as $1,190 | Keep keys with per-team binding |
+| 2026-11-22 | Money-back guarantee 7 days (was 30) (Praveen) | Results are measured a week after each change; 7 days is enough to judge the fixes and limits refund exposure | 30 days |
+| 2026-11-22 | AI is Amazon-only and can only refer to actions Rocco supports; new job types added one at a time from logged questions | Cost control and no promises Rocco can't keep | Open-ended assistant |

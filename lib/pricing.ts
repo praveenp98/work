@@ -1,10 +1,10 @@
 /**
  * Hire Rocco pricing (Nov 22, 2026, Praveen): $119 a month, or $1,190 a year (2 months free), annual shown first.
- * 30-day money-back guarantee on both. In Dodo: two subscription products (DODO_PRODUCT_ID_ANNUAL,
+ * 7-day money-back guarantee on both. In Dodo: two subscription products (DODO_PRODUCT_ID_ANNUAL,
  * DODO_PRODUCT_ID_MONTHLY; docs/DODO-SETUP.md). Dodo's payments API stays the source of truth for who hired Rocco.
  */
 export type PlanId = "annual" | "monthly";
-export const PLAN = { monthlyCents: 11900, annualCents: 119000, guaranteeDays: 30 } as const;
+export const PLAN = { monthlyCents: 11900, annualCents: 119000, guaranteeDays: 7 } as const;
 
 export const dollars = (c: number) => `$${Math.round(c / 100).toLocaleString("en-US")}`;
 /** Monthly cost of Rocco on a plan, in dollars (what the dashboard compares savings against). */

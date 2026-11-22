@@ -6,10 +6,10 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 ## 🔴 Blocks every sale
 1. **Dodo: create the two products** (docs/DODO-SETUP.md has exact clicks).
    - "Hire Rocco: yearly": subscription, $1,190 every 1 year. "Hire Rocco: monthly": subscription, $119 every 1 month.
-   - Description / checkout note on both: *If you don't like the fixes I give you, you can ask your money back. 30 days guarantee.*
+   - Description / checkout note on both: *If you don't like the fixes I give you, you can ask your money back. 7 days guarantee.*
    - Vercel → Settings → Environment Variables (Production): `DODO_PRODUCT_ID_ANNUAL` = pdt_… and `DODO_PRODUCT_ID_MONTHLY` = pdt_… → Redeploy.
    - Until both are set the plan page says "Checkout is being switched on" (it no longer falls back to the old $99 product).
-2. **Dodo webhook**: Dodo → Developer → Webhooks → add `https://rocco.works/api/dodo/webhook`, events: payment, subscription, refund, dispute (all). Copy its signing secret → Vercel `DODO_WEBHOOK_SECRET` → Redeploy.
+2. **Dodo webhook**: ✅ endpoint created (receives every event). Last step: click the 👁 on "Signing secret", copy it, and paste it in Vercel as `DODO_WEBHOOK_SECRET` (Production) → Redeploy. Don't paste it in chat.
 3. **Google sign-in in production mode**: Google Cloud → APIs & Services → OAuth consent screen → **Publish app** ("In production"). In "Testing" only listed test users can sign in, everyone else gets an error. App name Rocco, support email, rocco.works privacy/terms links.
 
 ## 🟠 Blocks "Rocco makes the change in Amazon"
@@ -35,6 +35,10 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 9. **Slack**: either create the Slack app (docs/slack-manifest.yml → `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_SIGNING_SECRET`, ~10 min) or tell me to take Slack out of the homepage. Today the homepage promises Slack approvals but the option is hidden for customers.
 10. **TrustMRR**: connect the Dodo account so revenue shows on the leaderboard.
 11. **Hackathon tracker**: already on every page; open the Ship or Die dashboard and confirm visits show up.
+
+## 🟢 Support + AI (15 minutes)
+- Make sure **hello@rocco.works** forwards to your inbox (every help page and message points there). Macros: docs/SUPPORT.md.
+- Anthropic Console → Settings → Limits: set a monthly spend limit (suggested $400). Where AI is used and why: docs/AI-USAGE.md.
 
 ## 🔐 Security (10 minutes, do once)
 12. 2-factor login on Vercel, Supabase, Dodo, DataDoe, Google Cloud, GitHub, LoopMessage.
