@@ -37,15 +37,16 @@ export default async function Page() {
       <h1>Hire Rocco.</h1>
       <p className="hello-lede">One plan. Your whole team. Every Amazon marketplace.</p>
       <Urgency />
-      <div className="pr-plans">
-        <div className="pr-plan best">
-          <span className="plan-tag">2 months free</span>
-          <b>{PRICE.annual}<small>/year</small></b>
-          <span>{PRICE.perMonthAnnual}/mo billed yearly · save $238</span>
+      <div className="pp-plans static">
+        <div className="on">
+          <span className="pp-tag best">2 months free</span>
+          <b>$99<small>/mo</small></b>
+          <span className="pp-line">{PRICE.annual} billed yearly</span>
         </div>
-        <div className="pr-plan">
-          <b>{PRICE.monthly}<small>/month</small></b>
-          <span>billed monthly, cancel anytime</span>
+        <div>
+          <span className="pp-tag">Flexible</span>
+          <b>{PRICE.monthly}<small>/mo</small></b>
+          <span className="pp-line">billed monthly</span>
         </div>
       </div>
       <div className="hire-card">

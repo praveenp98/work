@@ -379,3 +379,44 @@ h1, h2, .display { color: var(--ink); }
 .notice { position: sticky; top: 0; z-index: 30; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 10px 16px; background: color-mix(in srgb, #e8a33d 16%, #fff); border-bottom: 1px solid color-mix(in srgb, #e8a33d 40%, var(--line)); font-size: 14px; text-align: center; animation: lt-in .3s ease both; }
 .notice button { background: none; border: 0; font-size: 18px; line-height: 1; cursor: pointer; color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Hire sheet (step 1: sign up, no prices) */
+.sheet-sub { margin: -4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+.sheet-steps { list-style: none; margin: 2px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; counter-reset: ss; }
+.sheet-steps li { counter-increment: ss; display: grid; gap: 1px; padding: 10px 10px 9px; border-radius: 14px; background: var(--card, #fff); border: 1px solid var(--line); min-width: 0; }
+.sheet-steps li::before { content: counter(ss); width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--bg); border: 1px solid var(--line); color: var(--muted); margin-bottom: 4px; }
+.sheet-steps li.now { border-color: var(--accent); }
+.sheet-steps li.now::before { background: var(--accent); border-color: var(--accent); color: var(--accent-ink, #fff); }
+.sheet-steps b { font-size: 13.5px; line-height: 1.2; }
+.sheet-steps span { font-size: 11.5px; color: var(--muted); line-height: 1.25; }
+.sheet-trust { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 7px; }
+.sheet-trust li { display: flex; gap: 8px; align-items: baseline; font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+.sheet-trust li span { width: 18px; flex: none; text-align: center; }
+
+/* Plan step (after sign-up) and pricing page: two cards with the same rows, so they line up */
+.pp { display: grid; gap: 12px; width: 100%; }
+.pp-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.pp-plans > button, .pp-plans > div { display: grid; grid-template-rows: auto auto auto; justify-items: center; align-content: start; gap: 4px; padding: 14px 10px 13px; border-radius: 18px; border: 1.5px solid var(--line); background: var(--card, #fff); color: var(--ink); font: inherit; text-align: center; cursor: pointer; transition: border-color .15s, box-shadow .15s, transform .15s; min-width: 0; }
+.pp-plans.static > div { cursor: default; }
+.pp-plans > button:hover { transform: translateY(-1px); }
+.pp-plans > .on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+.pp-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); white-space: nowrap; }
+.pp-tag.best { background: var(--accent); color: var(--accent-ink, #fff); border-color: var(--accent); }
+.pp-plans b { font-size: 30px; line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.pp-plans b small { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 2px; letter-spacing: 0; }
+.pp-line { font-size: 12.5px; color: var(--muted); }
+.pp-guarantee { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.45; text-align: center; }
+.hire .pp-plans { max-width: 520px; margin: 6px auto 14px; }
+
+/* Agency vs Rocco */
+.vc-t { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.vc-bars { display: grid; gap: 8px; }
+.vc-bar { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px; font-size: 13.5px; }
+.vc-bar span { color: var(--muted); }
+.vc-bar i { height: 10px; border-radius: 99px; background: color-mix(in srgb, var(--line) 60%, transparent); overflow: hidden; }
+.vc-bar i s { display: block; height: 100%; border-radius: 99px; background: #c9ced8; transition: width .45s cubic-bezier(.2,.9,.2,1); }
+.vc-bar.me i s { background: var(--accent); }
+.vc-bar b { font-variant-numeric: tabular-nums; min-width: 74px; text-align: right; }
+.vc-bar.me b { color: #1f7a4f; }
+.vc-note { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+@media (prefers-reduced-motion: reduce) { .vc-bar i s { transition: none; } }

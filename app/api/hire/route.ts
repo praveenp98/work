@@ -1,5 +1,3 @@
-import { accessOf } from "@/lib/access";
-import { hireUrl } from "@/lib/paywall";
 import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { allow, clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
@@ -40,7 +38,7 @@ export async function POST(req: Request) {
   if (email && !ws.ownerEmail) ws.checkoutEmail = email;
   if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
   await store.saveWorkspace(ws);
-  const res = NextResponse.json({ ok: true, url: accessOf(ws) === "none" ? hireUrl(ws, body.plan === "monthly" ? "monthly" : "annual") : `/w/${token}` });
+  const res = NextResponse.json({ ok: true, url: `/w/${token}` /* unpaid: the plan step (HireCard), then checkout */ });
   const sealed = seal(token!);
   if (sealed) res.cookies.set("rocco_team", sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 180 * 86_400 });
   return res;

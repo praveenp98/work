@@ -16,7 +16,8 @@ export async function GET(req: Request) {
   const intent = u.searchParams.get("intent") === "hire" ? "hire" : "signin";
   if (!googleOn()) return NextResponse.redirect(`${SITE.url}/${intent === "hire" ? "pricing" : ""}?signin=off`);
   const n = randomBytes(16).toString("hex");
-  const plan = u.searchParams.get("plan") === "monthly" ? "monthly" : "annual";
+  const p = u.searchParams.get("plan");
+  const plan = p === "monthly" || p === "annual" ? p : undefined; // none: the plan is picked after sign-up
   const state = seal(JSON.stringify({ i: intent, p: plan, n, x: Date.now() + 10 * 60_000 }));
   if (!state) return NextResponse.redirect(`${SITE.url}/?signin=off`);
   const res = NextResponse.redirect(googleAuthUrl(state));

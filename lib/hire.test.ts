@@ -19,7 +19,7 @@ describe("Hire Rocco: pay at signup", () => {
 
     const r = await tap();
     const d = await r.json();
-    expect(d.url).toMatch(/^https:\/\/checkout\.dodopayments\.com\/buy\/pdt_\w+\?.*metadata_ref=/); // pay first, connect after
+    expect(d.url).toMatch(/^\/w\/rw_\w+$/); // the plan step (then checkout), never prices in the sign-up sheet
     const cookie = r.headers.get("set-cookie")!.split(";")[0];
     expect(cookie).toMatch(/^rocco_team=/);
 

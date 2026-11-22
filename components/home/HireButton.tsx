@@ -3,8 +3,8 @@ import { useState } from "react";
 import { TrialSheet } from "@/components/dash/TrialSheet";
 
 /** Ask rocco.works for a checkout tagged with this browser's team (only on a real tap) and go there. */
-export async function startHire(email?: string, plan: "annual" | "monthly" = "annual"): Promise<void> {
-  const d = (await fetch("/api/hire", { method: "POST", headers: { "content-type": "application/json", "x-rocco-tap": "1" }, body: JSON.stringify({ email, plan }) }).then((r) => r.json()).catch(() => null)) as { url?: string } | null;
+export async function startHire(email?: string): Promise<void> {
+  const d = (await fetch("/api/hire", { method: "POST", headers: { "content-type": "application/json", "x-rocco-tap": "1" }, body: JSON.stringify({ email }) }).then((r) => r.json()).catch(() => null)) as { url?: string } | null;
   window.location.href = d?.url || "/pricing";
 }
 
@@ -15,7 +15,7 @@ export async function startHire(email?: string, plan: "annual" | "monthly" = "an
 export function HireButton({ price, next, label = "Hire Rocco", className = "btn hire-cta", google }: { price: string; next?: string; label?: string; className?: string; direct?: boolean; google?: boolean }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
-  const go = async (email?: string, plan?: "annual" | "monthly") => { setBusy(true); await startHire(email, plan); };
+  const go = async (email?: string) => { setBusy(true); await startHire(email); };
   return (
     <>
       <button className={className} disabled={busy} onClick={() => setOpen(true)}>{busy ? "Opening checkout…" : label}</button>

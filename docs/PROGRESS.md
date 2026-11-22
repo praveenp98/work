@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Hire flow: clean sign-up sheet, plan picked after sign-up
+- The Hire sheet no longer shows prices: it is step 1 (sign up), with what happens next (Sign up → Pick a plan → Connect Amazon), the Black Friday line, and four trust lines (Amazon's own sign-in, nothing changes without approval, checked/logged/undoable, 30-day guarantee).
+- After Google sign-up the seller lands on **Pick your plan** (their Rocco page): two matching cards ($99/mo billed yearly with "2 months free", $119/mo "Flexible"), centred, same rows, then "Continue · $1,190 a year" to Dodo checkout. Pricing page uses the same cards.
+- "Cut just 5% of waste" replaced with what a manager compares against: an ads agency (~15% of spend, $500/mo minimum, stated as typical) vs Rocco, as bars on their own ad spend.
+- Tests: 182 passing. Checked on iPhone 13.
+
+---
+
 ## 2026-11-22 · Security pass: paywall, other sellers' accounts, costs
 Found and fixed (all tested, docs/SECURITY.md):
 - **Swapped account at connect:** the DataDoe return URL's account id was trusted, so a paying user could have linked another seller's account from our DataDoe org and made changes in it. Now Rocco asks DataDoe which account the invite really connected, binds reconnect links to their account, and refuses an account another team already has.
