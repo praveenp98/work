@@ -28,7 +28,7 @@ export function GET() {
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: $199 for the first 3 months, then $249 every 3 months (no trial, no free plan). Works in Claude with Amazon's official connectors.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team and unlimited brands: $1,190 a year (2 months free) or $119 a month, 30-day money-back guarantee (no free plan). Works in Claude with Amazon's official connectors.`,
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

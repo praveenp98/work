@@ -62,12 +62,12 @@ describe("hire count", () => {
       return new Response(JSON.stringify(url.includes("/payments") ? payments : {}));
     }));
     const { getPriceState } = await import("./payments");
-    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 6, priceCents: 19900, renewCents: 24900, live: true });
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 6, priceCents: 119000, renewCents: 11900, live: true });
     expect(calls.some(([, i]) => i?.method === "PATCH")).toBe(false);
   });
   it("falls back to the plan price without an API key", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
     const { getPriceState } = await import("./payments");
-    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 19900, live: false });
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 119000, live: false });
   });
 });

@@ -4,7 +4,7 @@ import { HireButton } from "@/components/home/HireButton";
 import { RoccoHead } from "@/components/Rocco";
 import { googleOn } from "@/lib/google";
 import { checkoutUrl } from "@/lib/payments";
-import { PRICE } from "@/lib/pricing";
+import { PLAN, PRICE } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Hire Rocco",
@@ -33,10 +33,10 @@ export default async function Page() {
       <h1>Hire Rocco.</h1>
       <p className="hello-lede">One plan for your whole team.</p>
       <div className="hire-card">
-        <div className="hire-price">{PRICE.first}<span> first 3 months</span></div>
-        <p className="fine" style={{ margin: "0 0 14px" }}>Then {PRICE.renew} every 3 months. Cancel anytime.</p>
+        <div className="hire-price">{PRICE.annual}<span> a year · 2 months free</span></div>
+        <p className="fine" style={{ margin: "0 0 14px" }}>Or {PRICE.monthly} a month. Cancel anytime. {PRICE.guarantee}.</p>
         <ul className="hire-list">{INCLUDED.map((i) => <li key={i}>{i}</li>)}</ul>
-        {url ? <HireButton google={googleOn()} price={PRICE.first} label={`Hire Rocco · ${PRICE.first}`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
+        {url ? <HireButton google={googleOn()} price={PRICE.from} label={`Hire Rocco · ${PRICE.annual}/yr`} className="btn imsg-btn hire-btn" /> : <span className="btn ghost">Checkout opens soon</span>}
         <p className="fine" style={{ margin: "10px 0 0" }}>Secure checkout by Dodo Payments · Connect Amazon in one minute</p>
       </div>
       <div style={{ width: "100%", textAlign: "left" }}>
@@ -45,6 +45,7 @@ export default async function Page() {
           { q: "Can you change things in my account?", a: "Only what you approve. Tap approve and I make that one change in Amazon: checked first, logged, and undoable. Nothing changes on its own." },
           { q: "How many Amazon accounts?", a: "Connect as many seller accounts and marketplaces as you run. Client reports included for agencies." },
           { q: "How does billing work?", a: `${PRICE.line} Cancel the renewal anytime by texting CANCEL.` },
+          { q: "What is the money-back guarantee?", a: `If Rocco isn't worth it in your first ${PLAN.guaranteeDays} days, email or text us and you get a full refund, yearly or monthly. No questions, no call.` },
           { q: "Is there a free plan or trial?", a: "No free plan. But you set me up on your real account first and see my top finding in full, free. You pay only after that." },
         ]} />
       </div>

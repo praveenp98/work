@@ -75,7 +75,7 @@ export function FixCards({ token, brand, fixes, queued, mode = "direct", heading
                 <p className="rd-target">{f.target}</p>
                 <p className="rd-why">{f.reason}</p>
                 {pct > 0 && <div className="rd-sure" aria-label={`${pct}% confidence`}><i style={{ width: `${pct}%` }} /><span>{pct}% sure</span></div>}
-                {r?.status === "applied" && <p className="rd-done">✓ Done in Amazon. I&apos;ll check the result{n > 1 ? "s" : ""} in a week.</p>}
+                {r?.status === "applied" && <p className="rd-done"><span className="rd-tick" aria-hidden>✓</span> Done in Amazon. I&apos;ll check the result{n > 1 ? "s" : ""} in a week.{f.value > 0 && <span className="rd-gain" aria-hidden>+~{$(f.value)}/mo</span>}</p>}
                 {r?.status === "queued" && <p className="rd-done">✓ Approved. {mode === "claude" ? "Waiting for you in Claude." : "Make it in the Ads console, then tap below."}</p>}
                 {(r?.status === "manual" || (r?.status === "queued" && mode === "reports")) && (f.how || r?.how) && (
                   <div className="rd-how"><p>{r?.reason ? `${r.reason} ` : ""}<b>How:</b> {r?.how ?? f.how}</p><button className="btn ghost small" disabled={!!busy} onClick={() => made(all(f))}>I&apos;ve made this change</button></div>

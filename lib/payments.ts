@@ -1,12 +1,12 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * One product, "Hire Rocco": a quarterly subscription ($249 every 3 months) with a $50-off-first-cycle discount
- * code (DODO_DISCOUNT_CODE) so new teams pay $199 for their first quarter (lib/pricing.ts).
- * - Checkout: Dodo static payment link (DODO_PRODUCT_ID = the subscription product), tagged with the workspace.
+ * Two subscription products, "Hire Rocco": yearly $1,190 (DODO_PRODUCT_ID_ANNUAL) and monthly $119
+ * (DODO_PRODUCT_ID_MONTHLY), see lib/pricing.ts. DODO_PRODUCT_ID (the older quarterly product) is the fallback for both.
+ * - Checkout: Dodo static payment link for the chosen plan, tagged with the workspace.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
  * - Count: unique paying customers via the Dodo API (DODO_API_KEY, server only). Rocco never changes the Dodo price.
  */
-import { stateFor, type PriceState } from "./pricing";
+import { stateFor, type PlanId, type PriceState } from "./pricing";
 import { SITE } from "./site";
 
 export const DODO_MODE: "live" | "test" = process.env.DODO_MODE === "test" ? "test" : "live";
@@ -16,18 +16,21 @@ const CHECKOUT_BASE = DODO_MODE === "test" ? "https://test.checkout.dodopayments
 /** The single live product (created Nov 17, 2026). Env overrides for test mode. */
 /** The original one-time "Hire Rocco" product (Nov 17). Its buyers keep lifetime access and count as hires. */
 export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
-/** The live product: set DODO_PRODUCT_ID to the quarterly subscription ($249 every 3 months, no trial). */
+/** Older subscription product (quarterly): the fallback until the yearly and monthly products are set. */
 export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
+const validId = (v?: string) => (v && /^pdt_[A-Za-z0-9]+$/.test(v) ? v : undefined);
+/** The Dodo product for a plan (yearly is the default everywhere). */
+export const productFor = (plan: PlanId = "annual") => validId(plan === "monthly" ? process.env.DODO_PRODUCT_ID_MONTHLY : process.env.DODO_PRODUCT_ID_ANNUAL) ?? validId(PRODUCT_ID);
+/** Every product whose payments count as hiring Rocco. */
+export const ourProducts = () => [process.env.DODO_PRODUCT_ID_ANNUAL, process.env.DODO_PRODUCT_ID_MONTHLY, PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean) as string[];
 
-export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string } = {}): string | null {
-  if (!PRODUCT_ID || !/^pdt_[A-Za-z0-9]+$/.test(PRODUCT_ID)) return null;
+export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string; plan?: PlanId } = {}): string | null {
+  const product = productFor(opts.plan);
+  if (!product) return null;
   const q = new URLSearchParams({ quantity: "1", redirect_url: opts.redirect ?? `${SITE.url}/thanks` });
   if (opts.email) q.set("email", opts.email);
   if (opts.ref) q.set("metadata_ref", opts.ref);
-  // $50 off the first quarter. Param name not verified against Dodo's docs yet: test one live checkout.
-  const code = process.env.DODO_DISCOUNT_CODE;
-  if (code && /^[A-Za-z0-9_-]{2,40}$/.test(code)) q.set("discount_code", code);
-  return `${CHECKOUT_BASE}/buy/${PRODUCT_ID}?${q.toString()}`;
+  return `${CHECKOUT_BASE}/buy/${product}?${q.toString()}`;
 }
 
 /** Server-only: validate a Rocco license key with Dodo. */
@@ -81,7 +84,7 @@ export async function verifiedPurchase(paymentId: string): Promise<{ ref: string
   if (!res?.ok) return null;
   const p = (await res.json().catch(() => null)) as (DodoPayment & { metadata?: Record<string, string> }) | null;
   if (!p || p.status !== "succeeded") return null;
-  if (PRODUCT_ID && p.product_cart && !p.product_cart.some((c) => c.product_id === PRODUCT_ID)) return null;
+  if (p.product_cart && !p.product_cart.some((c) => ourProducts().includes(c.product_id))) return null;
   const ref = p.metadata?.ref;
   return ref && /^[A-Za-z0-9-]{6,64}$/.test(ref) ? { ref } : null;
 }
@@ -103,7 +106,7 @@ export async function countSales(): Promise<number | null> {
     const items = ((await res.json().catch(() => ({}))) as { items?: DodoPayment[] }).items ?? [];
     for (const p of items) {
       if (p.status && p.status !== "succeeded") continue;
-      const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => c.product_id === PRODUCT_ID || c.product_id === LEGACY_PRODUCT_ID);
+      const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => ourProducts().includes(c.product_id));
       if (!ours) continue;
       const who = p.customer?.customer_id ?? p.subscription_id;
       if (who) buyers.add(who); else anon++;

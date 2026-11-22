@@ -16,7 +16,8 @@ export async function GET(req: Request) {
   const intent = u.searchParams.get("intent") === "hire" ? "hire" : "signin";
   if (!googleOn()) return NextResponse.redirect(`${SITE.url}/${intent === "hire" ? "pricing" : ""}?signin=off`);
   const n = randomBytes(16).toString("hex");
-  const state = seal(JSON.stringify({ i: intent, n, x: Date.now() + 10 * 60_000 }));
+  const plan = u.searchParams.get("plan") === "monthly" ? "monthly" : "annual";
+  const state = seal(JSON.stringify({ i: intent, p: plan, n, x: Date.now() + 10 * 60_000 }));
   if (!state) return NextResponse.redirect(`${SITE.url}/?signin=off`);
   const res = NextResponse.redirect(googleAuthUrl(state));
   res.cookies.set("rocco_gstate", n, { httpOnly: true, secure: true, sameSite: "lax", path: "/api/auth/google", maxAge: 600 });

@@ -67,21 +67,22 @@ export function ConnectAmazon({ token, accounts, note, lastSync }: { token: stri
 }
 
 /** Signed up but not paid yet: one step, checkout. Connecting Amazon comes right after payment. */
-export function HireCard({ url }: { url: string }) {
+export function HireCard({ url, monthlyUrl }: { url: string; monthlyUrl?: string }) {
   return (
     <div className="rc-card">
       <div className="rc-av"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="rch" /></svg></div>
       <h1>Hire me, then connect your Amazon.</h1>
       <p className="rc-sub">Every morning I find what to fix, you approve, I make the change and check it a week later.</p>
       <ol className="rc-steps">
-        <li><b>Hire Rocco</b><span>$199 for 3 months, then $249</span></li>
+        <li><b>Hire Rocco</b><span>$1,190/yr or $119/mo</span></li>
         <li><b>Connect Amazon</b><span>Seller Central + Ads, 2 minutes</span></li>
         <li><b>Approve fixes</b><span>first ones the same day</span></li>
       </ol>
-      <a className="btn rc-btn" href={url}>Hire Rocco →</a>
+      <a className="btn rc-btn" href={url}>Hire Rocco · $1,190/yr (2 months free) →</a>
+      {monthlyUrl && <a className="linkbtn rc-monthly" href={monthlyUrl}>or $119 a month</a>}
       <ul className="rc-trust">
         <li>✋ Nothing changes in Amazon without your approval.</li>
-        <li>↩︎ Cancel anytime. Remove access anytime in Seller Central.</li>
+        <li>🛡️ 30-day money-back guarantee. Cancel anytime.</li>
       </ul>
     </div>
   );

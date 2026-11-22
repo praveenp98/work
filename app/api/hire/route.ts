@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   const why = h.get("x-rocco-tap") !== "1" ? "no tap" : !fromOurSite(h, SITE.domain) ? "not from rocco.works" : looksLikeBot(h);
   if (why) return NextResponse.json({ ok: false, error: why }, { status: 403 });
   if (!allow(`hire:${clientIp(h)}`, 6, 10 * 60_000)) return NextResponse.json({ ok: false, error: "Too many tries. Give it a minute." }, { status: 429 });
-  const body = (await req.json().catch(() => ({}))) as { email?: unknown };
+  const body = (await req.json().catch(() => ({}))) as { email?: unknown; plan?: unknown };
   const email = typeof body.email === "string" && /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,24}$/.test(body.email.trim()) ? body.email.trim().toLowerCase() : undefined;
   const store = getStore();
   if (!store) return NextResponse.json({ ok: false, url: "/pricing" });
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   if (email && ws.ownerEmail !== email) ws.ownerEmail = email;
   if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
   await store.saveWorkspace(ws);
-  const res = NextResponse.json({ ok: true, url: accessOf(ws) === "none" ? hireUrl(ws) : `/w/${token}` });
+  const res = NextResponse.json({ ok: true, url: accessOf(ws) === "none" ? hireUrl(ws, body.plan === "monthly" ? "monthly" : "annual") : `/w/${token}` });
   const sealed = seal(token!);
   if (sealed) res.cookies.set("rocco_team", sealed, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 180 * 86_400 });
   return res;

@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { PLAN, PRICE, stateFor } from "./pricing";
+import { monthlyCost, PLAN, PRICE, stateFor } from "./pricing";
 
-describe("quarterly plan (Nov 19): $199 first quarter, then $249/quarter", () => {
+describe("pricing (Nov 22): $1,190/year (2 months free) or $119/month, 30-day guarantee", () => {
   it("is the same for every team, no ladder", () => {
-    expect(PLAN).toEqual({ firstCents: 19900, renewCents: 24900, months: 3 });
-    expect(stateFor(0, true)).toMatchObject({ priceCents: 19900, renewCents: 24900, nextPriceCents: null });
-    expect(stateFor(500, true).priceCents).toBe(19900);
+    expect(PLAN).toEqual({ monthlyCents: 11900, annualCents: 119000, guaranteeDays: 30 });
+    expect(PLAN.annualCents).toBe(PLAN.monthlyCents * 10); // 2 months free
+    expect(stateFor(0, true)).toMatchObject({ priceCents: 119000, renewCents: 11900, nextPriceCents: null });
+    expect(monthlyCost("annual")).toBeCloseTo(99.17, 1);
+    expect(monthlyCost("monthly")).toBe(119);
   });
   it("says it the same way everywhere", () => {
-    expect(PRICE.line).toBe("$199 for your first 3 months, then $249 every 3 months. Whole team, cancel anytime.");
+    expect(PRICE.line).toBe("$1,190 a year (2 months free) or $119 a month. Whole team, cancel anytime, 30-day money-back guarantee.");
+    expect(PRICE.from).toBe("$99/mo billed yearly");
   });
 });

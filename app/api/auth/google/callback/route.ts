@@ -21,7 +21,7 @@ const back = (why: string) => NextResponse.redirect(`${SITE.url}/?signin=${why}`
 export async function GET(req: Request) {
   const u = new URL(req.url);
   const cookie = (name: string) => req.headers.get("cookie")?.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`))?.[1];
-  let st: { i?: string; n?: string; x?: number } = {};
+  let st: { i?: string; p?: string; n?: string; x?: number } = {};
   try { st = JSON.parse(unseal(u.searchParams.get("state") ?? "") ?? "{}"); } catch { /* bad state */ }
   if (!st.n || st.n !== cookie("rocco_gstate") || !st.x || st.x < Date.now()) return back("expired");
   const code = u.searchParams.get("code");
@@ -35,7 +35,7 @@ export async function GET(req: Request) {
   const { ws, token } = await teamForUser(store, user.email, browserTeam);
   if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox
   if (ws.ownerEmail !== user.email) { ws.ownerEmail = user.email; await store.saveWorkspace(ws); } // prefilled at checkout
-  const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" ? hireUrl(ws) : `${SITE.url}/w/${token}`);
+  const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" ? hireUrl(ws, st.p === "monthly" ? "monthly" : "annual") : `${SITE.url}/w/${token}`);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });
   return res;

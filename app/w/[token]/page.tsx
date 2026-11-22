@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { after } from "next/server";
 import { AskRocco } from "@/components/dash/AskRocco";
+import { RoiCard } from "@/components/dash/RoiCard";
 import { notFound } from "next/navigation";
 import { FixCards, type FixCard } from "@/components/dash/FixCards";
 import { RememberTeam } from "@/components/dash/RememberTeam";
@@ -19,7 +20,7 @@ import { basisOf, KIND_TITLE, refreshManager } from "@/lib/manager";
 import { accountMemory, applyTuning, tuning } from "@/lib/memory";
 import { brainOn } from "@/lib/brain";
 import { hireUrl } from "@/lib/paywall";
-import { PRICE } from "@/lib/pricing";
+import { monthlyCost, PRICE } from "@/lib/pricing";
 import type { Proposal } from "@/lib/rules/types";
 import { savedPhrase } from "@/lib/savings";
 import { getStore } from "@/lib/store";
@@ -69,7 +70,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     return (
       <section className="rc-page">
         <RememberTeam t={token} />
-        {access === "none" ? <HireCard url={hireUrl(ws)} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
         {access !== "none" && direct && !accounts.length && otherWays}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>
@@ -128,6 +129,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const rest: FixCard[] = [...shown].filter((p) => !picked.has(p.code)).sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, planOk ? 20 : 12).map(card);
   const fixes = planOk ? picks : rest;
   const fixCount = shown.length;
+  const billingPlan = ws.plan ?? "annual";
+  const months = ws.hiredAt ? Math.max(1, Math.ceil((Date.now() - new Date(ws.hiredAt).getTime()) / (30 * 86_400_000))) : 1;
   const shownValue = shown.reduce((t, p) => t + p.valueMonthly, 0);
   const queued = (ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes);
   const mode = direct && ws.amazon?.accounts?.length ? "direct" : ws.mode === "reports" ? "reports" : "claude";
@@ -175,6 +178,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         )}
       </div>
 
+      {access !== "none" && <RoiCard saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
+
       <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
       {alerts.length > 0 && <ul className="rd-alerts">{alerts.map((a) => <li key={a}>{a}</li>)}</ul>}
 
@@ -189,17 +194,15 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           )}
           {held > 0 && <p className="fine">I held back {held} fix{held === 1 ? "" : "es"} this account usually skips or that didn&apos;t work here before.</p>}
           {b.hidden > 0 && (
-            <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.first}</a></div>
+            <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>
           )}
         </div>
 
         <aside className="rd-side">
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
-            <h3>Results</h3>
-            <p className="rd-big">{brief.savedMeasured > 0 ? $(brief.savedMeasured) : brief.saved > 0 ? `~${$(brief.savedEstimated)}` : "—"}</p>
-            <p className="fine">{brief.saved > 0 ? savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated }) : "Approve a fix and I measure what it did a week later."}</p>
-            {brief.totals.applied > 0 && <p className="fine">{brief.totals.worked} of {brief.totals.applied} changes worked.</p>}
+            <h3>What worked</h3>
+            {brief.totals.applied > 0 ? <p className="fine">{brief.totals.worked} of {brief.totals.applied} changes worked{brief.saved > 0 ? ` · ${savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated })}` : ""}.</p> : <p className="fine">Approve a fix and I measure what it did a week later.</p>}
             {recent.map((a) => <p key={a.id} className={`rd-res s-${a.status}`}><b>{a.code}</b> {a.result!.summary.slice(0, 90)}</p>)}
           </section>
           <section className="rd-card">

@@ -54,10 +54,10 @@ export function roastSummary(r: RoastResult, full: boolean): string {
     for (const b of r.fixes.bids) lines.push(`- ${b.targeting} (${b.matchType}) in ${b.campaign} / ${b.adGroup}: ${r.currency}${b.currentCpc} → ${r.currency}${b.newBid} (${b.changePct > 0 ? "+" : ""}${b.changePct}%): ${b.reason}`);
     lines.push("", "Present these as an approval list. Nothing should be applied without the seller's explicit OK.");
   } else {
-    const pb = paybackDays(PLAN.firstCents / 100, r.leakMonthly);
+    const pb = paybackDays(PLAN.monthlyCents / 100, r.leakMonthly);
     lines.push(
       "",
-      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco ($199 for the first 3 months) would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
+      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco ($119 a month) would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
     );
   }
   return lines.join("\n");

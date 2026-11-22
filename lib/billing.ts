@@ -33,6 +33,9 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) change = "paid";
     ws.licensed = true;
     ws.paidUntil = until.toISOString();
+    ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard
+    const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
+    if (product) ws.plan = product === process.env.DODO_PRODUCT_ID_MONTHLY ? "monthly" : "annual";
     ws.trialEndsAt = undefined;
   } else if (sub && ["failed", "expired", "on_hold"].includes(sub.status ?? "")) {
     if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();

@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Pricing $119/mo or $1,190/yr + 30-day guarantee; "saved you" card; motion
+- **Pricing (Praveen):** $119 a month, or $1,190 a year (2 months free), yearly shown first and preselected everywhere. 30-day money-back guarantee (manual refunds in Dodo). Hire sheet has a yearly/monthly picker; the plan rides through Google sign-in to the right checkout. Every price mention updated (homepage, pricing, sheet, texts, MCP, llms.txt). Old discount code removed.
+- **Needs Praveen:** create the two Dodo products and set `DODO_PRODUCT_ID_ANNUAL` / `DODO_PRODUCT_ID_MONTHLY` in Vercel (exact steps: docs/DODO-SETUP.md). Until then checkout uses the old product.
+- **Dashboard:** "Rocco has saved you $X so far · N× what I cost" card right under the headline (counts up, meter past "paid for myself"; before any results it shows "~$X/mo found" vs "$99/mo"). Billing now records `hiredAt` and the plan. Side card is now "What worked".
+- **Motion (calm base, small Duolingo-style moments):** page settles in, approving pops the card with a check and "+~$X/mo", count-up on savings; all off with reduced motion.
+- Checked in a local browser (desktop + iPhone 13, no sideways scroll). Tests 153/153.
+
+---
+
 ## 2026-11-22 · One export per report for many accounts (DataDoe cost fix)
 - Daily pull now runs per group: the cron sends batches of 10 accounts (any teams); each batch makes **one export per report for the whole group** (DataDoe charges 2 tokens per export at any size), splits rows by `seller_or_vendor_id`, and runs each account through the engine. Check now = one group for the team's accounts. 100 sellers = 40 exports/day (~2,400 tokens/mo) instead of 400 (~24,000).
 - Old per-account recurring exports retired automatically (they spent tokens daily); Habit Nest's 4 deleted (0 left on DataDoe). Fixed: DataDoe rejects a DELETE that carries a JSON content-type with no body.

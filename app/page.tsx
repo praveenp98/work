@@ -31,8 +31,8 @@ export default async function Home() {
           <h1>I can run your Amazon business, try me.</h1>
           <p className="h5-sub">Connect Seller Central and Amazon Ads once. Every morning I find what to fix. You tap approve, I make the change in Amazon.</p>
           <div className="h5-cta">
-            <HireButton google={google} price={PRICE.first} label="Connect Amazon →" className="btn hire-cta" />
-            <span className="fine">First finding free · then {PRICE.first} for 3 months · any Amazon marketplace</span>
+            <HireButton google={google} price={PRICE.from} label="Connect Amazon →" className="btn hire-cta" />
+            <span className="fine">{PRICE.from} · {PRICE.guarantee} · any Amazon marketplace</span>
           </div>
           <ul className="h5-proof">
             <li>✓ Amazon&apos;s own sign-in</li>
@@ -78,23 +78,23 @@ export default async function Home() {
           <span className="kicker">Hire me</span>
           <h2 className="big-h">Put me to work<br />tomorrow morning.</h2>
           <div className="price-card">
-            <div className="price-main"><b>{PRICE.first}</b><span>for your first 3 months</span></div>
-            <p className="price-then">then {PRICE.renew} every 3 months · cancel anytime</p>
+            <div className="price-main"><b>{PRICE.annual}</b><span>a year · 2 months free</span></div>
+            <p className="price-then">or {PRICE.monthly} a month · cancel anytime</p>
             <ul className="plist">
               <li>Every morning: your numbers and the fixes worth making</li>
               <li>Approve and I make the change in Amazon</li>
               <li>Every change measured a week later</li>
               <li>Seller Central + Amazon Ads, every marketplace</li>
             </ul>
-            <HireButton google={google} price={PRICE.first} label="Connect Amazon" className="btn hire-cta" />
-            <p className="fine">Pay, connect Amazon in 2 minutes, first fixes the same day. Cancel anytime. Not affiliated with Amazon.</p>
+            <HireButton google={google} price={PRICE.from} label="Connect Amazon" className="btn hire-cta" />
+            <p className="fine">{PRICE.guarantee}: if I don't earn my keep, you get every dollar back. Not affiliated with Amazon.</p>
           </div>
         </div>
       </section>
 
-      <StickyHire price={PRICE.first} google={google} />
+      <StickyHire price={PRICE.from} google={google} />
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon.svg`, sameAs: [SITE.x] }} />
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "Web, Claude, ChatGPT", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: (PLAN.firstCents / 100).toFixed(2), priceCurrency: "USD" } }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Rocco", applicationCategory: "BusinessApplication", operatingSystem: "Web, Claude, ChatGPT", url: SITE.url, description: SITE.description, offers: { "@type": "Offer", price: (PLAN.annualCents / 100).toFixed(2), priceCurrency: "USD" } }} />
     </section>
   );
 }

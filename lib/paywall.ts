@@ -1,7 +1,7 @@
 import { PRICE } from "./pricing";
 import { hasAccess } from "./access";
 import { checkoutUrl } from "./payments";
-import { dollars, type PriceState } from "./pricing";
+import { dollars, type PlanId, type PriceState } from "./pricing";
 import { SITE } from "./site";
 import type { Workspace } from "./store/types";
 import type { buildBrief } from "./workspace";
@@ -22,7 +22,7 @@ const GAP: Record<Moment, number> = { found: 3 * DAY, worked: Infinity, locked: 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
 /** Checkout tagged with the workspace, so the payment unlocks it automatically (see /api/dodo/webhook). */
-export const hireUrl = (ws: Workspace) => checkoutUrl({ ref: ws.id, email: ws.ownerEmail, redirect: `${SITE.url}/welcome` }) ?? `${SITE.url}/pricing`;
+export const hireUrl = (ws: Workspace, plan: PlanId = "annual") => checkoutUrl({ ref: ws.id, email: ws.ownerEmail, redirect: `${SITE.url}/welcome`, plan }) ?? `${SITE.url}/pricing`;
 
 export function paywall(
   ws: Workspace,
@@ -42,7 +42,7 @@ export function paywall(
   ws.nudges = { ...(ws.nudges ?? {}), [tag]: now.toISOString() };
 
   const total = `~${$(freeValue + hiddenValue)}/mo across ${hidden} fix${hidden === 1 ? "" : "es"}`;
-  const offer = `Hire me: ${PRICE.short}, ${PRICE.then}. Whole team.`;
+  const offer = `Hire me: ${PRICE.short}, ${PRICE.then}. ${PRICE.guarantee}.`;
   const text = {
     found: `💰 I found ${total} in your account. ${offer}`,
     worked: `✅ That fix worked${o.saved ? ` (~${$(o.saved)} so far)` : ""}. Keep me on: ${offer}`,

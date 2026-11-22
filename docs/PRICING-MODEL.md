@@ -1,3 +1,11 @@
+# Pricing (current, Nov 22, 2026)
+
+**$119 a month, or $1,190 a year (2 months free).** Yearly is shown first and preselected. 30-day money-back guarantee on both. Whole team, unlimited brands, no free plan, pay at signup. Source of truth in code: `lib/pricing.ts`. Dodo setup: `docs/DODO-SETUP.md`.
+
+---
+
+Older history below.
+
 # Pricing model: CURRENT (Nov 19, 2026): quarterly, $199 first 3 months, then $249 every 3 months
 
 - One plan, "Hire Rocco", whole team, unlimited brands. No free plan, no trial. No price ladder any more.

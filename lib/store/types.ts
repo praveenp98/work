@@ -63,6 +63,9 @@ export interface Workspace {
   tokenSealed?: string;
   /** What the team told Rocco about themselves on their first text. */
   about?: string;
+  /** When the team first paid, and on which plan (lib/billing.ts): the dashboard compares savings to what Rocco cost. */
+  hiredAt?: string;
+  plan?: "annual" | "monthly";
   /** Fixes the team skipped on the dashboard (lib/memory.ts): Rocco learns what this account doesn't want. */
   skips?: Skip[];
   /** Claude's senior-manager pass over today's fixes, per brand (lib/manager.ts). */
