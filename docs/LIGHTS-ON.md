@@ -14,7 +14,19 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 
 ## 🟠 Blocks "Rocco makes the change in Amazon"
 4. **DataDoe → Settings → Actions**: turn on `AMAZON_ADS_TARGETS_ADD`, `AMAZON_ADS_TARGETS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_ADD`, `AMAZON_ADS_AD_GROUPS_ADD`, `AMAZON_ADS_ADS_ADD`, `AMAZON_ADS_PORTFOLIOS_ADD`. (All are off by default; approvals fail without them.)
-5. **DataDoe → Settings → Data**: retention 6 months on every table; turn off tables Rocco doesn't read. Keep: ads search terms / targeting / placement by campaign, campaign performance, negative keywords, targets raw, campaigns raw, ads raw, product catalog, FBA restock, seller performance, **ads entity history**. (Cuts the row bill from ~$440–1,420/mo to ~$100–350/mo at 100 sellers.)
+5. **DataDoe → Settings → Data** (checked against the code: Rocco reads exactly these **9 tables**, nothing else):
+   - Fastest way: turn **everything off**, then switch **on** only these 9, each with **6-month retention**:
+     1. `amazon_ads_search_terms_by_campaign_by_date` (search terms: negatives, new exact campaigns)
+     2. `amazon_ads_performance_by_campaign_by_date` (campaign results: bids, budgets)
+     3. `amazon_ads_campaigns_raw` (campaign names, state, portfolios: Tidy)
+     4. `amazon_ads_targets_raw` (keywords and targets: Tidy, bids)
+     5. `amazon_ads_ads_raw` (which products each campaign advertises: new campaigns, Tidy)
+     6. `amazon_ads_product_catalog` (product titles: readable names)
+     7. `amazon_ads_entity_history` ("Before Rocco" change history)
+     8. `amazon_sales_and_traffic_with_cogs` (sales, sessions, Buy Box: listing jobs)
+     9. `amazon_fba_inventory_health` (stock: restock jobs)
+   - If DataDoe asks "delete existing data?" for the ones you turn off, yes is fine: Rocco never reads them.
+   - Saves the row bill: ~$440–1,420/mo → ~$100–350/mo at 100 sellers.
 6. **Habit Nest**: reconnect with read & write (the founder test does this).
 
 ## 🟡 Before you send traffic
