@@ -78,7 +78,8 @@ export async function exportCsv(accountIds: string | string[], src: Source, p: P
   const ids = Array.isArray(accountIds) ? accountIds : [accountIds];
   const body: Record<string, unknown> = {
     sellerOrVendorIds: ids, sourceId: src.id, columns: columnsOf(p), outputType: "CSV", sendToAllOrganizationMembers: false,
-    from: day(new Date(now.getTime() - Math.max(p.days, 1) * 86_400_000)), to: day(new Date(now.getTime() - 86_400_000)),
+    // Only date-based tables take a period (snapshot tables like ads raw don't).
+    ...(src.requiresDatePeriod === false ? {} : { from: day(new Date(now.getTime() - Math.max(p.days, 1) * 86_400_000)), to: day(new Date(now.getTime() - 86_400_000)) }),
   };
   const ex = await j<{ id: string }>("/exports", { method: "POST", body: JSON.stringify(body) });
   for (let i = 0; i < 36; i++) {

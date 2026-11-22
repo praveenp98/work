@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { RoccoHead } from "@/components/Rocco";
+import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 
 /**
  * Boardy-style bottom sheet: "Hire Rocco". Step 1 email (the account), step 2 checkout. Opens when `open` turns true,
@@ -24,19 +25,16 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, next, go
           <div><b>ROCCO</b><small>Your AI Amazon manager</small></div>
         </div>
         <h2>{found ? `I found ${found}. Let me fix it.` : "Hire Rocco."}</h2>
+        <Urgency />
         <div className="plan-pick" role="radiogroup" aria-label="Plan">
           <button type="button" role="radio" aria-checked={plan === "annual"} className={plan === "annual" ? "on" : ""} onClick={() => setPlan("annual")}>
-            <span className="plan-tag">2 months free</span><b>$1,190<small>/year</small></b><span>$99 a month, billed yearly</span>
+            <span className="plan-tag">2 months free · save $238</span><b>$1,190<small>/year</small></b><span>$99 a month, billed yearly</span>
           </button>
           <button type="button" role="radio" aria-checked={plan === "monthly"} className={plan === "monthly" ? "on" : ""} onClick={() => setPlan("monthly")}>
             <b>$119<small>/month</small></b><span>billed monthly</span>
           </button>
         </div>
-        <ul className="sheet-list">
-          <li>Connect Seller Central and Amazon Ads once</li>
-          <li>Every morning: the fixes worth making, ranked by money</li>
-          <li>Tap approve and I make the change in Amazon</li>
-        </ul>
+        <ValueCalc plan={plan} compact />
         {google ? (
           <>
             <a className="btn sheet-btn google-btn" href={`/api/auth/google?intent=hire&plan=${plan}`} rel="nofollow" onClick={() => setBusy(true)}>

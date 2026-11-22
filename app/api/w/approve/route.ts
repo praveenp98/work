@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
-import { applyInAmazon, type ApplyOutcome } from "@/lib/apply";
+import { applyMany, type ApplyOutcome } from "@/lib/apply";
 import { datadoeOn } from "@/lib/datadoe";
 import { howTo } from "@/lib/howto";
 import type { Proposal } from "@/lib/rules/types";
@@ -38,11 +38,12 @@ export async function POST(req: Request) {
   if (datadoeOn() && account && ok.length) {
     const done = new Set((await store.listActions(ws.id, { brand })).map((a) => `${a.runId}:${a.code}`));
     const out: (ApplyOutcome & { how?: string })[] = [];
-    for (const c of ok) {
-      const { p, runId } = props.get(c)!;
-      if (done.has(`${runId}:${c}`)) { out.push({ code: c, status: "applied" }); continue; }
-      const r = await applyInAmazon(account.id, p, `rocco:${ws.id}:${runId}:${c}`);
-      if (r.status === "applied") await applyChanges(store, ws, [c], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}` });
+    const todo = ok.filter((c) => { const { runId } = props.get(c)!; if (done.has(`${runId}:${c}`)) { out.push({ code: c, status: "applied" }); return false; } return true; });
+    // One job = one batch per change type (lib/apply.ts).
+    const results = await applyMany(account.id, todo.map((c) => props.get(c)!.p), `rocco:${ws.id}:${todo.map((c) => `${props.get(c)!.runId.slice(0, 8)}${c}`).join(",").slice(0, 80)}`);
+    for (const r of results) {
+      const { p } = props.get(r.code)!;
+      if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}` });
       out.push(r.status === "applied" ? r : { ...r, how: howTo(p) });
     }
     return NextResponse.json({ ok: true, direct: true, results: out, locked });

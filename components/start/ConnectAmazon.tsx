@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { RoccoHead } from "@/components/Rocco";
 
 /**
@@ -73,6 +74,8 @@ export function HireCard({ url, monthlyUrl }: { url: string; monthlyUrl?: string
       <div className="rc-av"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="rch" /></svg></div>
       <h1>Hire me, then connect your Amazon.</h1>
       <p className="rc-sub">Every morning I find what to fix, you approve, I make the change and check it a week later.</p>
+      <Urgency />
+      <ValueCalc />
       <ol className="rc-steps">
         <li><b>Hire Rocco</b><span>$1,190/yr or $119/mo</span></li>
         <li><b>Connect Amazon</b><span>Seller Central + Ads, 2 minutes</span></li>

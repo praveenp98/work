@@ -42,6 +42,9 @@ export function proposalsFromRoast(r: RoastResult, report: ParsedReport): Propos
       matchType: h.matchType === "PRODUCT" ? "product" : "exact", proposed: h.suggestedBid,
       reason: `${h.reason}. Then add it as negative exact in ${h.sourceCampaign} / ${h.sourceAdGroup}.`,
       valueMonthly: 0, before: t ? metricsOf(t, d) : undefined,
+      // Source campaign/ad group (where it converts today): the new exact campaign copies its product, and the
+      // search becomes negative exact here so the two campaigns don't bid against each other.
+      ids: t?.ids?.campaignId && t.ids.adGroupId ? { campaignId: t.ids.campaignId, adGroupId: t.ids.adGroupId } : undefined,
       undo: `Pause the new keyword "${h.keyword}" and remove the negative from ${h.sourceCampaign}.`,
     });
   });

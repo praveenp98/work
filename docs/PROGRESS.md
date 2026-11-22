@@ -4,6 +4,16 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Today's work as jobs, one-click exact campaign, budgets, paywall case
+- **Why "Apply in Claude" showed:** the local preview had no DataDoe account, so the dashboard fell back to Claude mode. Removed for good: with Amazon connected Rocco makes changes himself; without, cards show exact steps + "I've made these changes".
+- **Jobs, not 20 cards (lib/jobs.ts, components/dash/JobCards.tsx):** Block N wasteful searches · Lower N bids that overspend · Raise N bids on winners · New exact campaign from proven searches · Raise/Cut budgets · Placements · Low-stock ads · Structure, plus Seller Central jobs (restock, listings that can't sell, Buy Box). One Approve per job (untick items you don't want), Skip remembers. Claude's picks lead and give the "why"; otherwise risks first, then money.
+- **Making changes:** a job goes out as one DataDoe Action per change type (3 tokens instead of 3 per change); a rejected batch is retried item by item. Budgets now applied (AMAZON_ADS_CAMPAIGNS_UPDATE). **One-click "New exact campaign"** (lib/create-campaign.ts): finds the SKU from the ads raw table (format checked on Habit Nest), then creates campaign → ad group → product ad → exact keywords → negatives in the old ad groups, dry run before each step. All request formats verified with free DataDoe dry runs; **not yet run live** (Habit Nest is read-only).
+- **DataDoe needs (Praveen):** Settings → Actions: enable AMAZON_ADS_TARGETS_ADD, AMAZON_ADS_TARGETS_UPDATE, AMAZON_ADS_CAMPAIGNS_UPDATE, AMAZON_ADS_CAMPAIGNS_ADD, AMAZON_ADS_AD_GROUPS_ADD, AMAZON_ADS_ADS_ADD (every Action type is off by default). Accounts must connect with read & write (new invites already ask for it).
+- **Paywall (hire sheet + unpaid page):** real urgency (Black Friday/Cyber Monday countdown from the calendar), ad-spend calculator ("cut just 5% of $5,000 = $250/mo back, 2.5× my price", stated as 5%), real proof ("on a real account spending $2.6K/mo on ads, I found 87 fixes on day one", anonymized), hire count from Dodo once ≥5, "2 months free · save $238", guarantee.
+- Fixed: class-name clash with an old ".jobs" grid (now tw-*). Checked in a local browser (desktop + iPhone 13). Tests 158/158, build OK. ~4 DataDoe tokens spent testing.
+
+---
+
 ## 2026-11-22 · Pricing $119/mo or $1,190/yr + 30-day guarantee; "saved you" card; motion
 - **Pricing (Praveen):** $119 a month, or $1,190 a year (2 months free), yearly shown first and preselected everywhere. 30-day money-back guarantee (manual refunds in Dodo). Hire sheet has a yearly/monthly picker; the plan rides through Google sign-in to the right checkout. Every price mention updated (homepage, pricing, sheet, texts, MCP, llms.txt). Old discount code removed.
 - **Needs Praveen:** create the two Dodo products and set `DODO_PRODUCT_ID_ANNUAL` / `DODO_PRODUCT_ID_MONTHLY` in Vercel (exact steps: docs/DODO-SETUP.md). Until then checkout uses the old product.

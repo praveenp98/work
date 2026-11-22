@@ -4,7 +4,7 @@ import { after } from "next/server";
 import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
 import { notFound } from "next/navigation";
-import { FixCards, type FixCard } from "@/components/dash/FixCards";
+import { JobCards } from "@/components/dash/JobCards";
 import { RememberTeam } from "@/components/dash/RememberTeam";
 import { ConnectAmazon, ConnectButton, HireCard } from "@/components/start/ConnectAmazon";
 import { ModeSwitch } from "@/components/start/ModeSwitch";
@@ -16,7 +16,8 @@ import { datadoeOn, getAccount, loadStatus } from "@/lib/datadoe";
 import { howTo } from "@/lib/howto";
 import { allow } from "@/lib/human";
 import { inboxAddress } from "@/lib/inbox-address";
-import { basisOf, KIND_TITLE, refreshManager } from "@/lib/manager";
+import { buildJobs } from "@/lib/jobs";
+import { basisOf, refreshManager } from "@/lib/manager";
 import { accountMemory, applyTuning, tuning } from "@/lib/memory";
 import { brainOn } from "@/lib/brain";
 import { hireUrl } from "@/lib/paywall";
@@ -99,10 +100,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     biz && { k: "Total sales", v: $(Number(biz.stats.sales)), d: delta("business_report", "sales") },
     st && { k: "Wasted / mo", v: $(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
   ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
-  const alerts: string[] = [];
-  if (lh && Number(lh.stats.problems) > 0) alerts.push(`🚨 ${lh.stats.problems} listing${Number(lh.stats.problems) === 1 ? "" : "s"} not selling`);
-  if (biz && Number(biz.stats.buyBoxLow) > 0) alerts.push(`⚠️ Buy Box low on ${biz.stats.buyBoxLow} ASIN${Number(biz.stats.buyBoxLow) === 1 ? "" : "s"}`);
-  if (inv && Number(inv.stats.atRisk) > 0) alerts.push(`📦 ${inv.stats.atRisk} SKU${Number(inv.stats.atRisk) === 1 ? "" : "s"} could run out within 2 weeks`);
 
   // What this account taught Rocco (skips, results) decides what's shown; Claude's manager pass decides today's order.
   const tune = tuning(accountMemory(actions, ws.skips), ws.skips);
@@ -113,27 +110,13 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (access !== "none" && brainOn() && shown.length && (!plan || plan.basis !== basisOf(shown)) && allow(`mgr:${ws.id}`, 1, 30 * 60_000)) {
     after(() => refreshManager(store, ws.id).catch(() => 0)); // fresh plan for the next visit
   }
-  const targetOf = (p: Proposal) => (p.kind === "budget" || p.kind === "placement" ? p.campaign : `“${p.target}”${p.campaign ? ` · ${p.campaign}` : ""}`);
-  const card = (p: Proposal): FixCard => ({ code: p.code, kind: p.kind, title: KIND_TITLE[p.kind] ?? "Fix", value: p.valueMonthly, target: targetOf(p), reason: p.reason, how: howTo(p) });
-  const picks: FixCard[] = planOk ? plan!.picks.map((pk) => {
-    const ps = pk.codes.map((c) => byCode.get(c)!);
-    const camps = [...new Set(ps.map((p) => p.campaign).filter(Boolean))];
-    return {
-      code: ps[0].code, codes: pk.codes, kind: ps[0].kind, title: pk.title, reason: pk.why, pick: true,
-      value: ps.reduce((t, p) => t + p.valueMonthly, 0),
-      target: ps.length === 1 ? targetOf(ps[0]) : `${ps.slice(0, 3).map((p) => `“${p.target}”`).join(", ")}${ps.length > 3 ? ` +${ps.length - 3} more` : ""}${camps.length === 1 ? ` · ${camps[0]}` : ""}`,
-      how: ps.length === 1 ? howTo(ps[0]) : ps.map((p) => `${p.code}: ${howTo(p)}`).join(" "),
-    };
-  }) : [];
-  const picked = new Set(picks.flatMap((f) => f.codes ?? [f.code]));
-  const rest: FixCard[] = [...shown].filter((p) => !picked.has(p.code)).sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, planOk ? 20 : 12).map(card);
-  const fixes = planOk ? picks : rest;
+  // Today's work as jobs (lib/jobs.ts): grouped the way a manager works, ordered by Claude's picks, then risks, then money.
+  const jobs = buildJobs(shown, { plan: planOk ? plan : null, inv, biz, lh }).map((j) => (j.mode === "manual" && !j.steps && j.codes[0] && byCode.get(j.codes[0]) ? { ...j, steps: howTo(byCode.get(j.codes[0])!) } : j));
   const fixCount = shown.length;
   const billingPlan = ws.plan ?? "annual";
   const months = ws.hiredAt ? Math.max(1, Math.ceil((Date.now() - new Date(ws.hiredAt).getTime()) / (30 * 86_400_000))) : 1;
   const shownValue = shown.reduce((t, p) => t + p.valueMonthly, 0);
-  const queued = (ws.pending ?? []).filter((p) => p.type === "apply").flatMap((p) => p.codes);
-  const mode = direct && ws.amazon?.accounts?.length ? "direct" : ws.mode === "reports" ? "reports" : "claude";
+  const isDirect = direct && !!ws.amazon?.accounts?.length; // Rocco makes the changes in Amazon (DataDoe); else exact steps
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
   const account = ws.amazon?.accounts?.find((a) => a.name === b.brand) ?? ws.amazon?.accounts?.[0];
@@ -168,7 +151,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <div className="rd-hero">
         <span className="rd-kicker">Good {new Date().getHours() < 12 ? "morning" : "day"}</span>
-        <h1>{fixCount ? <>{fixCount} fix{fixCount === 1 ? "" : "es"} worth <em>~{$(shownValue)}/mo</em>.</> : "All clear today."}</h1>
+        <h1>{jobs.length ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{$(shownValue)}/mo</em>.</> : "All clear today."}</h1>
         {planOk && plan!.brief && <p className="rd-brief">{plan!.brief}</p>}
         {acos !== null && (
           <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>
@@ -181,17 +164,10 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {access !== "none" && <RoiCard saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
 
       <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
-      {alerts.length > 0 && <ul className="rd-alerts">{alerts.map((a) => <li key={a}>{a}</li>)}</ul>}
 
       <div className="rd-grid">
         <div>
-          {fixes.length > 0 ? <FixCards token={token} brand={b.brand} fixes={fixes} queued={queued} mode={mode} heading={planOk ? "Do these today" : "Today's fixes"} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
-          {planOk && rest.length > 0 && (
-            <details className="rd-more">
-              <summary>{rest.length} more fix{rest.length === 1 ? "" : "es"} I&apos;d leave for later · ~{$(rest.reduce((t, f) => t + f.value, 0))}/mo</summary>
-              <FixCards token={token} brand={b.brand} fixes={rest} queued={queued} mode={mode} heading="Later" approveAll={false} />
-            </details>
-          )}
+          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={jobs} direct={isDirect} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
           {held > 0 && <p className="fine">I held back {held} fix{held === 1 ? "" : "es"} this account usually skips or that didn&apos;t work here before.</p>}
           {b.hidden > 0 && (
             <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{$(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>

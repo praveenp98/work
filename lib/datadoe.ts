@@ -56,6 +56,30 @@ export function loadStatus(a: DoeAccount): string {
 
 export interface ActionResult { ok: boolean; id?: string; status?: string; error?: string }
 
+/** Wait for a live Action to finish (≤ ~90s) and return its final body (status, result, error). */
+export async function waitForAction(id: string, tries = 30): Promise<{ status: string; result?: unknown; error?: unknown } | null> {
+  for (let i = 0; i < tries; i++) {
+    await new Promise((r) => setTimeout(r, i === 0 ? 1500 : 3000));
+    const res = await fetch(`${BASE}/actions/${encodeURIComponent(id)}`, { headers: { "datadoe-api-key": process.env.DATADOE_API_KEY ?? "" }, cache: "no-store" }).catch(() => null);
+    if (!res?.ok) continue;
+    const b = (await res.json().catch(() => null)) as { status?: string; result?: unknown; error?: unknown } | null;
+    const status = String(b?.status ?? "");
+    if (/COMPLET|SUCCE|DONE|FAIL|ERROR|REJECT|CANCEL/i.test(status)) return { status, result: b?.result, error: b?.error };
+  }
+  return null;
+}
+
+/** First value of a key (e.g. "campaignId") anywhere in an Action result. */
+export function findId(x: unknown, key: string): string | undefined {
+  if (!x || typeof x !== "object") return undefined;
+  for (const [k, v] of Object.entries(x as Record<string, unknown>)) {
+    if (k === key && (typeof v === "string" || typeof v === "number")) return String(v);
+    const d = findId(v, key);
+    if (d) return d;
+  }
+  return undefined;
+}
+
 /**
  * Run one DataDoe Action (POST /actions). dryRun validates for free without touching Amazon. idempotencyKey makes a
  * retried live write safe. Write Actions need the account's DataDoe access level to be Read and write.
