@@ -6,7 +6,7 @@ import { accessOf } from "@/lib/access";
 import { syncBilling } from "@/lib/billing";
 import { getStore } from "@/lib/store";
 import { unseal } from "@/lib/vault";
-import { loadWorkspace } from "@/lib/workspace";
+import { loadWorkspace, revealToken } from "@/lib/workspace";
 import { WelcomeWait } from "./WelcomeWait";
 
 export const dynamic = "force-dynamic";
@@ -49,10 +49,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
   if (ws && token) redirect(accessOf(ws) === "none" ? `/w/${token}` : `/w/${token}?welcome=1`);
   // No team in this browser (hired from a text link on another device): verify, Rocco texts the team itself.
   const paid = store && (ids.payment_id || ids.subscription_id) ? (await syncBilling(store, { data: ids }).catch(() => null))?.ws : null;
+  // Paid from a text link on another device: the payment proves it's their team. A team with no Google owner yet opens
+  // straight away (they claim it by signing in there); a team with an owner asks that owner to sign in.
+  const t = paid && accessOf(paid) !== "none" && !paid.ownerVerified ? revealToken(paid) : null;
+  if (t) redirect(`/w/${t}?welcome=1`);
   return (
     <section className="start-page">
       <h1>{paid && accessOf(paid) !== "none" ? "You hired Rocco 🎉" : "Almost there"}</h1>
-      <p className="hello-lede">{paid && accessOf(paid) !== "none" ? "I just texted your team. Open your messages, or sign in here to see your Rocco." : "Sign in with the Google account you hired Rocco with, and I'll open your team's Rocco."}</p>
+      <p className="hello-lede">{paid && accessOf(paid) !== "none" ? "Sign in with Google to open your team's Rocco and connect Amazon." : "Sign in with the Google account you hired Rocco with, and I'll open your team's Rocco."}</p>
       <Link className="btn" href="/api/auth/google?intent=signin" rel="nofollow">Sign in</Link>
     </section>
   );

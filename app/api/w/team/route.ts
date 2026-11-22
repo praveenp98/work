@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { actor, addMember, displayName, peopleOf, removeMember, resetLink, roleOf, transferOwner, type TeamError } from "@/lib/team";
-import { loadWorkspace } from "@/lib/workspace";
+import { ensureLinkCode, loadWorkspace } from "@/lib/workspace";
 
 /**
  * Team: add a teammate by email, remove them, hand the Rocco over, reset the private link, or leave.
@@ -35,7 +35,11 @@ export async function POST(req: Request) {
     err = addMember(ws, me.email, email);
   } else if (b.action === "remove" || b.action === "leave") {
     err = removeMember(ws, me.email, b.action === "leave" ? me.email : email);
-    if (!err) { await store.saveWorkspace(ws); if (b.action === "remove") token = await resetLink(store, ws); }
+    if (!err) {
+      if (b.action === "remove") ws.linkCode = undefined; // new texting link code: the old one can't add phones anymore
+      await store.saveWorkspace(ws);
+      if (b.action === "remove") { token = await resetLink(store, ws); await ensureLinkCode(store, (await store.getWorkspaceById(ws.id)) ?? ws); }
+    }
   } else if (b.action === "transfer") {
     err = transferOwner(ws, me.email, email);
   } else if (b.action === "reset") {

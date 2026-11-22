@@ -1,6 +1,7 @@
 import { savingsOf } from "@/lib/savings";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { hasAccess } from "@/lib/access";
 import { PrintButton } from "@/components/PrintButton";
 import { REPORT_HELP, type ReportKind } from "@/lib/analyze";
 import { proposalLine } from "@/lib/mcp/format";
@@ -20,6 +21,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const store = getStore();
   const ws = store ? await loadWorkspace(store, token) : null;
   if (!store || !ws) notFound();
+  if (!hasAccess(ws)) redirect(`/w/${token}`); // the report is part of the plan
   // Default to this team's own brand (their Amazon account or first brand), not a placeholder with no data.
   const brand = sp.brand || ws.amazon?.accounts?.[0]?.name || Object.keys(ws.brands ?? {})[0] || DEFAULT_BRAND;
   const by = (sp.by || "").slice(0, 80);

@@ -35,10 +35,12 @@ describe("validateLicenseKey (Dodo)", () => {
 });
 
 describe("checkoutUrl", () => {
-  it("links to the single live product with a redirect", async () => {
+  it("links to the yearly product with a redirect; no product set = no checkout (never the old $99 product)", async () => {
     const { checkoutUrl } = await import("./payments");
+    expect(checkoutUrl()).toBeNull();
+    vi.stubEnv("DODO_PRODUCT_ID_ANNUAL", "pdt_year1");
     const u = new URL(checkoutUrl()!);
-    expect(u.origin + u.pathname).toBe("https://checkout.dodopayments.com/buy/pdt_0Ns7dcv01gDgTlIQC1O1b");
+    expect(u.origin + u.pathname).toBe("https://checkout.dodopayments.com/buy/pdt_year1");
     expect(u.searchParams.get("redirect_url")).toMatch(/\/thanks$/);
   });
   it("is null in test mode without a test product", async () => {

@@ -164,6 +164,8 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
   await store.savePhone({ ...p, stage: undefined, lastSeenAt: now.toISOString(), optedOut: cmd.kind === "stop" ? true : cmd.kind === "start" ? false : p.optedOut });
 
   if (attachments.length && ws) {
+    if (!hasAccess(ws, now)) return { bubbles: ["I read reports and screenshots for teams that hired me 🦝 Hire me here (30-day money-back guarantee):", hireUrl(ws)] };
+    if (!(await spend(store, ws, "ask"))) return LIMIT_MSG.ask;
     const file = attachments.find(isTable);
     if (file) return readReport(store, ws, file, now);
     const answer = await askRocco({ question: text, context: await teamContext(store, ws, now), images: attachments });
@@ -180,7 +182,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       bubbles: [
         `${name ? `Nice to meet you, ${name}` : "Love it"} 🦝 Here's what your mornings look like with me. This is a sample brand:`,
         demo.text,
-        "Let's turn me on for your Amazon: hire me, then connect once in Claude or ChatGPT (2 min). I'll text your numbers every morning 👇",
+        "Let's turn me on for your Amazon: hire me, then connect Seller Central + Ads once (2 min). I'll text you when there's work 👇",
         homeUrl(revealToken(ws)),
       ],
     };
@@ -203,22 +205,16 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
     case "dashboard": return { bubbles: ["Your Rocco page 👇 (private to your team)", homeUrl(revealToken(ws))] };
     case "invite": return inviteReply(store, ws);
     case "cancel_sub": {
-      if (!ws.subscriptionId) return "There's no trial or subscription to cancel on this Rocco.";
-      const ok = await cancelSubscription(ws.subscriptionId);
-      if (!ok) return "I couldn't cancel that automatically. Email hello@rocco.works and it's done today, no charge.";
-      ws.subStatus = "cancelled";
-      await store.saveWorkspace(ws);
-      const until = accessOf(ws, now) === "trial" ? ws.trialEndsAt : ws.paidUntil;
-      return `Cancelled ✅ You won't be charged again.${until ? ` I'll keep working until ${until.slice(0, 10)}.` : ""}`;
+      // Not by text: any linked phone (a teammate, a removed person) could cancel the owner's plan.
+      void cancelSubscription; void accessOf;
+      if (!ws.subscriptionId) return "There's no subscription to cancel on this Rocco.";
+      return "To cancel, use the link in your Dodo receipt email, or email hello@rocco.works from the email you paid with. It's done the same day.";
     }
     case "activate": {
-      if (ws.licensed) return "You already hired me 🦝 Everything's unlocked.";
-      const v = await validateLicenseKey(cmd.key);
-      if (!v.ok) return `Hmm, that key didn't work${v.error ? ` (${v.error})` : ""}. It's in your Dodo receipt email.`;
-      ws.licensed = true;
-      ws.licenseKey = cmd.key;
-      await store.saveWorkspace(ws);
-      return "You hired me 🎉🦝 Every fix is unlocked for your whole team. Text “brief” and let's get to work.";
+      // License keys are retired (one key could unlock unlimited teams). Access comes only from a payment for this team.
+      void cmd.key; void validateLicenseKey;
+      if (hasAccess(ws, now)) return "Your plan is active 🦝 Text “brief” and let's get to work.";
+      return { bubbles: ["License keys don't unlock Rocco anymore. Hire me for this team here (30-day money-back guarantee). Bought a key before? Email hello@rocco.works and we'll move you over.", hireUrl(ws)] };
     }
     case "demo": {
       const d = await demoMorning(now);
@@ -268,8 +264,8 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       // (after seeing their fixes on the dashboard). Otherwise: the dashboard, where every fix is shown first.
       const account = ws.amazon?.accounts?.[0];
       if (ok.length && datadoeOn() && account) {
-        if (!hasAccess(ws)) return { bubbles: [`Making changes in Amazon is part of your plan. Hire me here: ${SITE.url}/me`] };
-        if (!ws.reminders?.approveByText) return { bubbles: [`Approving by text is off, so you see every fix before it changes anything. Approve here: ${SITE.url}/me`, "(You can switch on approve-by-text there, under reminders.)"] };
+        if (!hasAccess(ws)) return { bubbles: [`Making changes in Amazon is part of your plan. Hire me here: ${homeUrl(revealToken(ws))}`] };
+        if (!ws.reminders?.approveByText) return { bubbles: [`Approving by text is off, so you see every fix before it changes anything. Approve here: ${homeUrl(revealToken(ws))}`, "(You can switch on approve-by-text there, under reminders.)"] };
         const all = runs.flatMap((r) => r.proposals.map((pp) => ({ pp, brand: r.brand })));
         const props = ok.map((c) => all.find((x) => x.pp.code === c)!).filter(Boolean);
         if (!(await spend(store, ws, "writes", props.length))) return { bubbles: [LIMIT_MSG.writes] };
@@ -277,7 +273,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
         const done = results.filter((r) => r.status === "applied").map((r) => r.code);
         if (done.length) await applyChanges(store, ws, done, { brand, note: `made by Rocco in Amazon, approved by text (${maskPhone(phone)})` });
         const notDone = results.filter((r) => r.status !== "applied");
-        return { bubbles: [[done.length ? `Done in Amazon ✅ ${done.join(", ")}. I'll check the results in a week.` : "", notDone.length ? `Couldn't make ${notDone.map((r) => r.code).join(", ")}: ${"reason" in notDone[0] ? notDone[0].reason : ""} Details: ${SITE.url}/me` : "", unknown.length ? `🤔 Don't recognize ${unknown.join(", ")}.` : ""].filter(Boolean).join("\n")] };
+        return { bubbles: [[done.length ? `Done in Amazon ✅ ${done.join(", ")}. I'll check the results in a week.` : "", notDone.length ? `Couldn't make ${notDone.map((r) => r.code).join(", ")}: ${"reason" in notDone[0] ? notDone[0].reason : ""} Details: ${homeUrl(revealToken(ws))}` : "", unknown.length ? `🤔 Don't recognize ${unknown.join(", ")}.` : ""].filter(Boolean).join("\n")] };
       }
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
@@ -305,12 +301,13 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
     }
     case "ask": {
       if (brainOn()) {
+        if (!(await spend(store, ws, "ask"))) return LIMIT_MSG.ask; // same 40/day as the dashboard (text + Slack)
         const answer = await askRocco({ question: text, context: await teamContext(store, ws, now) });
         if (answer) return answer;
       }
       const kinds = TOPIC_KIND[cmd.topic];
       const snaps = (await Promise.all(kinds.map((k) => store.listSnapshots(ws.id, { kind: k, limit: 1 })))).flat();
-      if (!snaps.length) return `I don't have ${cmd.topic === "general" ? "any" : cmd.topic} numbers yet. In Claude/ChatGPT say “Rocco, morning check” and I'll know everything by tomorrow.`;
+      if (!snaps.length) return `I don't have ${cmd.topic === "general" ? "any" : cmd.topic} numbers yet. Connect your Amazon on your Rocco page and I'll know everything by tomorrow.`;
       const L: string[] = [];
       for (const s of snaps.slice(0, 2)) {
         L.push(`${s.headline} (as of ${s.createdAt.slice(0, 10)})`);

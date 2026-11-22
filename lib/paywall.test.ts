@@ -41,6 +41,7 @@ describe("pay at signup: no free fixes, then the offer at the right moments", ()
 
   it("texts without a plan: numbers, brief and YES all get the teaser + hire link (checkout tagged with the team)", async () => {
     vi.stubEnv("DODO_API_KEY", "");
+    vi.stubEnv("DODO_PRODUCT_ID_ANNUAL", "pdt_year1");
     const { store, ws } = await seeded();
     const code = await ensureLinkCode(store, ws);
     await respond(store, "+14155550111", `link ${code}`);
@@ -56,6 +57,9 @@ describe("pay at signup: no free fixes, then the offer at the right moments", ()
 describe("billing: Dodo subscription → trial, paid, ended", () => {
   function dodo(sub: Record<string, unknown> | null, pay: Record<string, unknown> | null) {
     vi.stubEnv("DODO_API_KEY", "k");
+    vi.stubEnv("DODO_PRODUCT_ID_ANNUAL", "pdt_year1");
+    if (sub && !sub.product_id) sub = { ...sub, product_id: "pdt_year1" };
+    if (pay && !pay.product_cart) pay = { ...pay, product_cart: [{ product_id: "pdt_year1" }] };
     vi.stubGlobal("fetch", vi.fn(async (u: string) => {
       if (sub && String(u).includes("/subscriptions/sub_123456")) return Response.json(sub);
       if (pay && String(u).includes("/payments/pay_123456")) return Response.json(pay);

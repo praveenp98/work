@@ -1,7 +1,7 @@
+import { teamUrl } from "./workspace";
 import { REPORT_HELP, type ReportKind } from "./analyze";
 import { notifyTeam } from "./notify";
 import { paywall } from "./paywall";
-import { SITE } from "./site";
 import type { Store, Workspace } from "./store/types";
 import { buildBrief, runAnalysis } from "./workspace";
 import Papa from "papaparse";
@@ -242,8 +242,8 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   const all = b.perBrand.find((x) => x.brand === r.account)?.open ?? [];
   if (!rem?.approveByText) {
     // Default: a nudge to the dashboard, where they see every fix before approving.
-    L.splice(1, L.length - 1, all.length ? `${all.length} fix${all.length === 1 ? "" : "es"} waiting, worth ~$${Math.round(all.reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo. Approve them here: ${SITE.url}/me` : "Nothing worth changing today. I'll check again tomorrow.");
-  } else if (codes.length) L.push(`Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon. All of today's work: ${SITE.url}/me`);
+    L.splice(1, L.length - 1, all.length ? `${all.length} fix${all.length === 1 ? "" : "es"} waiting, worth ~$${Math.round(all.reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US")}/mo. Approve them here: ${teamUrl(ws)}` : "Nothing worth changing today. I'll check again tomorrow.");
+  } else if (codes.length) L.push(`Reply YES ${codes.join(" ")} and I'll make ${codes.length === 1 ? "it" : "them"} in Amazon. All of today's work: ${teamUrl(ws)}`);
   const offer = paywall(fresh, b, "found", { now });
   if (offer) await store.saveWorkspace(fresh);
   await notifyTeam(store, fresh, [L.join("\n"), ...(offer ? [offer.text, offer.url] : [])]).catch(() => 0);

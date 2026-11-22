@@ -20,13 +20,15 @@ export async function POST(req: Request) {
   after(async () => {
     await new Promise((r) => setTimeout(r, Math.min(Math.max(b.delaySec ?? 0, 0), 60) * 1000));
     const results = await syncGroup(store, jobs).catch(() => new Map());
-    for (const j of jobs) {
+    // All accounts of the batch in parallel (one Claude call each), so the batch fits its 300s even when exports were
+    // slow; the morning message goes out right after each account's plan is ready.
+    await Promise.all(jobs.map(async (j) => {
       const r = results.get(j.id);
-      if (!r?.kinds.length) continue;
+      if (!r?.kinds.length) return;
       await refreshManager(store, j.wsId, { priors: b.priors }).catch(() => 0); // Claude's pick of today's fixes + brief
       const ws = await store.getWorkspaceById(j.wsId);
       if (ws) await tellTeam(store, ws, r).catch(() => {});
-    }
+    }));
   });
   return NextResponse.json({ ok: true, accepted: jobs.length }, { status: 202 });
 }

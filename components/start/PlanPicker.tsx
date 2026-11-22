@@ -9,6 +9,8 @@ import { PriceRise, ValueCalc } from "@/components/start/ValueCalc";
 export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; monthlyUrl: string }) {
   const [plan, setPlan] = useState<"annual" | "monthly">("annual");
   const [busy, setBusy] = useState(false);
+  const url = plan === "annual" ? annualUrl : monthlyUrl;
+  const ready = /dodopayments\.com/.test(url); // no product set yet: never send people to a wrong or looping page
   return (
     <div className="pp">
       <div className="pp-plans" role="radiogroup" aria-label="Plan">
@@ -25,9 +27,11 @@ export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; month
       </div>
       <PriceRise />
       <ValueCalc plan={plan} compact />
-      <a className="btn rc-btn" href={plan === "annual" ? annualUrl : monthlyUrl} onClick={() => setBusy(true)}>
-        {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
-      </a>
+      {ready ? (
+        <a className="btn rc-btn" href={url} onClick={() => setBusy(true)}>
+          {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
+        </a>
+      ) : <p className="tm-err" role="status">Checkout is being switched on right now. Please try again in a few minutes, or email hello@rocco.works.</p>}
       <p className="pp-guarantee">🛡️ <b>30-day money-back guarantee.</b> If you don&apos;t like the fixes I give you, ask for your money back. {plan === "annual" ? "Renews yearly, cancel the renewal anytime." : "Cancel anytime."}</p>
     </div>
   );

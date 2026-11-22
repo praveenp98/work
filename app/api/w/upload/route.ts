@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { tablesFrom } from "@/lib/inbox";
+import { hasAccess } from "@/lib/access";
+import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
 import { DEFAULT_BRAND, loadWorkspace, runAnalysis } from "@/lib/workspace";
 
@@ -11,6 +13,8 @@ export async function POST(req: Request) {
   const store = getStore();
   const ws = store && t ? await loadWorkspace(store, t) : null;
   if (!store || !ws || !(file instanceof File)) return NextResponse.json({ ok: false, error: "No file." }, { status: 400 });
+  if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco to analyze reports." }, { status: 402 });
+  if (!(await spend(store, ws, "sync"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.sync }, { status: 429 });
   if (file.size > 15_000_000) return NextResponse.json({ ok: false, error: "That file is over 15 MB." }, { status: 400 });
   try {
     const tables = await tablesFrom({ name: file.name, type: file.type, data: new Uint8Array(await file.arrayBuffer()) });

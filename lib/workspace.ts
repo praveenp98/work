@@ -35,6 +35,8 @@ export async function rememberToken(store: Store, ws: Workspace, token: string) 
   await store.saveWorkspace(ws);
 }
 export const revealToken = (ws: Workspace) => unseal(ws.tokenSealed);
+/** The team's own page, for texts and messages (works on any phone, no cookie needed). */
+export const teamUrl = (ws: Workspace) => { const t = revealToken(ws); return t ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://rocco.works"}/w/${t}` : `${process.env.NEXT_PUBLIC_SITE_URL || "https://rocco.works"}/me`; };
 
 export async function loadWorkspace(store: Store, token: string): Promise<Workspace | null> {
   if (!isToken(token)) return null;

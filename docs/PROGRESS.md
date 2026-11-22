@@ -4,6 +4,27 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-22 · Full audit (desktop + code review) and fixes; lights-on checklist
+- Desktop flow checked at 1440×900 and 1280×800 (home, sheet, pricing, plan step, dashboard with team, log, tidy, analytics, report, welcome): no overflow, no page errors.
+- Fixed from the audit:
+  - **License keys no longer unlock teams** (one key could unlock unlimited teams forever; MCP + text "activate").
+  - **No fallback to the old $99 product**: plan buttons need DODO_PRODUCT_ID_ANNUAL/MONTHLY; only those unlock access (strict product check).
+  - Texted screenshots/files: paying teams only + daily limit; Ask by text/Slack shares the 40/day limit.
+  - Text/message links go to the team's own page (not /me, which dead-ended on phones); buyer who paid from a phone link lands on their team.
+  - "You hired me" message sent once even when /welcome confirms before the webhook.
+  - Sign-in: a paid team you were invited to beats an unpaid one in the browser; a paid ownerless team can only be claimed by its checkout email.
+  - Remove teammate also changes the texting link code. CANCEL by text no longer cancels (any linked phone could).
+  - Uploads and the client report need a plan; report opens on the team's brand; analytics empty state + upload nag fixed.
+  - Daily Amazon batch: per-account AI + message in parallel (fits 300s); daily text job in parallel, 300s, no trial text, max 3 setup reminders.
+  - Dashboard caches DataDoe account status 10 min (shared 3 req/s limit).
+  - Stale copy: $99/year in MCP output, "connect in Claude or ChatGPT", "keep him forever".
+  - /api/health shows every key setting (set/missing).
+- Not fixed (documented in docs/LIGHTS-ON.md): whole-record save races, subscription-only welcome, duplicate text replies on retry, per-server spam guards.
+- **docs/LIGHTS-ON.md**: Praveen's final checklist.
+- Tests 192 passing, production build OK.
+
+---
+
 ## 2026-11-22 · Hero steps: one line each on every screen
 - The 4 animated steps now fit on one line from 320px phones to desktop (measured at 320/375/390/430/768/1280, every channel): no reserved column, the reply chip only on the approve step, sizes step down under 400px and 350px.
 - Copy: "You approve on 🖥️ the web / in iMessage / WhatsApp / Slack", "I make it live, then check it worked"; the last step's icon turns ✅ when done. No sideways nudge on phones (it clipped the border).

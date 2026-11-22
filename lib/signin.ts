@@ -14,8 +14,13 @@ export async function teamForUser(store: Store, email: string, browserToken?: st
   const e = email.toLowerCase();
   if (browserToken) {
     const ws = await loadWorkspace(store, browserToken);
-    // This browser's own team: claim it if nobody verified owns it yet (an unverified email on it means nothing).
-    if (ws && (!ws.ownerVerified || ws.ownerEmail?.toLowerCase() === e)) {
+    // A paid team this person was invited to beats an unpaid team that happens to be in this browser.
+    const invited = ws && accessOf(ws) === "none" ? (await store.findWorkspacesByMember(e)).find((w) => roleOf(w, e) === "member" && accessOf(w) !== "none" && revealToken(w)) : undefined;
+    if (invited) { if (markJoined(invited, e, name)) await store.saveWorkspace(invited); return { ws: invited, token: revealToken(invited)!, created: false }; }
+    // This browser's own team: claim it if nobody verified owns it yet. A PAID team without an owner is only claimed by
+    // the email it was bought with, so someone who got a forwarded link can't take it over by signing in.
+    const claimable = ws && !ws.ownerVerified && (accessOf(ws) === "none" || !ws.checkoutEmail || ws.checkoutEmail.toLowerCase() === e);
+    if (ws && (claimable || (ws.ownerVerified && ws.ownerEmail?.toLowerCase() === e))) {
       if (ws.ownerEmail !== e || !ws.ownerVerified || (name && ws.ownerName !== name)) { ws.ownerEmail = e; ws.ownerVerified = true; if (name) ws.ownerName = name; await store.saveWorkspace(ws); }
       await rememberToken(store, ws, browserToken);
       return { ws, token: browserToken, created: false };

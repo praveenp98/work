@@ -33,7 +33,7 @@ describe("Claude bridge: connect once, Rocco texts the team", () => {
     // iMessage onboarding → one link to connect
     await respond(store, me, "hey");
     const intro = await respond(store, me, "I'm Sam, we sell journals");
-    expect(intro.bubbles.at(-2)).toMatch(/connect once in Claude or ChatGPT/i);
+    expect(intro.bubbles.at(-2)).toMatch(/connect Seller Central \+ Ads once/i);
     const token = intro.bubbles.at(-1)!.split("/w/")[1];
     await grantTrial(store, (await loadWorkspace(store, token))!.id);
 

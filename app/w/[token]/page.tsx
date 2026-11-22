@@ -46,6 +46,16 @@ const when = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month:
  *  2. Connected, first data loading → progress + Check now.
  *  3. Data in → dashboard: today's numbers, fixes to approve (Rocco makes them in Amazon), results, upcoming checks.
  */
+/** DataDoe allows 3 requests/second for the whole organization: don't spend one on every page view. */
+const statusCache = new Map<string, { at: number; v: string }>();
+async function cachedStatus(id: string): Promise<string> {
+  const c = statusCache.get(id);
+  if (c && Date.now() - c.at < 10 * 60_000) return c.v;
+  const v = await getAccount(id).then(loadStatus).catch(() => "connected");
+  if (!/reconnect/.test(v)) statusCache.set(id, { at: Date.now(), v }); // never cache "needs you to reconnect": they fix it and expect it gone
+  return v;
+}
+
 export default async function Page({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<{ brand?: string; welcome?: string; amazon?: string }> }) {
   const { token } = await params;
   const sp = await searchParams;
@@ -60,7 +70,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const team = <TeamCard token={token} me={who ? { email: who.email, role: roleOf(ws, who.email) } : null} people={peopleOf(ws)} google={googleOn()} />;
   const hoursLeft = trialHoursLeft(ws);
   const direct = datadoeOn();
-  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await getAccount(a.id).then(loadStatus).catch(() => "connected") }))) : [];
+  const accounts = direct ? await Promise.all((ws.amazon?.accounts ?? []).map(async (a) => ({ id: a.id, name: a.name, country: a.country, status: await cachedStatus(a.id) }))) : [];
   const needsReconnect = accounts.filter((a) => a.status === "needs you to reconnect");
   const note = sp.welcome ? "You're in 🎉 One step left: connect your Amazon." : amazonNote(sp.amazon);
   const empty = !brief.perBrand.some((b) => b.trends.length) && actions.length === 0;

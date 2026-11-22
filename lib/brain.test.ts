@@ -33,12 +33,12 @@ describe("Rocco reads what you text him", () => {
       .toEqual(["https://files.example/a.png", "https://files.example/b.csv"]);
   });
 
-  it("a texted search term report gets analyzed on the spot (no API key needed), even as the first text", async () => {
+  it("files and screenshots by text are for teams that hired Rocco (no free analysis, no free AI calls)", async () => {
     stubNet();
     const store = new MemoryStore();
     const r = await respond(store, "+14155550900", "", new Date(), { attachments: ["https://files.example/report.csv"] });
-    expect(r.bubbles[0]).toMatch(/📥 Got your Sponsored Products search term report/);
-    expect(r.bubbles.join("\n")).toMatch(/I found ~\$[\d,]+\/mo across \d+ fixes.*Hire me/s); // no free plan: teaser + hire link
+    expect(r.bubbles[0]).toMatch(/for teams that hired me/);
+    expect(r.bubbles[1]).toMatch(/rocco\.works|dodopayments/);
     expect((await store.listPhones({})).length).toBe(1);
   });
 
@@ -46,6 +46,8 @@ describe("Rocco reads what you text him", () => {
     stubNet();
     const store = new MemoryStore();
     await respond(store, "+14155550901", "hi");
+    const ph = await store.getPhone("+14155550901");
+    if (ph?.workspaceId) await grantTrial(store, ph.workspaceId);
     const r = await respond(store, "+14155550901", "", new Date(), { attachments: ["https://files.example/shot.png"] });
     expect(r.bubbles[0]).toMatch(/can't read screenshots yet/);
   });

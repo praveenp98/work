@@ -43,7 +43,7 @@ export interface Workspace {
   checkoutEmail?: string;
   /** Per-team safety limits (lib/security.ts): timestamps of recent uses. */
   limits?: Partial<Record<import("../security").LimitKey, string[]>>;
-  /** Subscription (Dodo, $99/yr after a 3-day trial): paid period end, trial end, ids, last known status. */
+  /** Subscription (Dodo: $1,190/yr or $119/mo, no trial): paid period end, trial end, ids, last known status. */
   paidUntil?: string;
   trialEndsAt?: string;
   subscriptionId?: string;
@@ -75,6 +75,8 @@ export interface Workspace {
   about?: string;
   /** When the team first paid, and on which plan (lib/billing.ts): the dashboard compares savings to what Rocco cost. */
   hiredAt?: string;
+  /** When the "You hired me" message went out (sent once, whichever confirms the payment first). */
+  hiredNotifiedAt?: string;
   plan?: "annual" | "monthly";
   /** Free access granted by the founder for testing (/api/admin/tester). Never counted as a hire. */
   comp?: string;

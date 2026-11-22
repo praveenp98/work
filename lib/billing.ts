@@ -25,7 +25,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
 
   // Only our own products unlock Rocco (another product on the same Dodo account must never grant access).
   const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
-  if (product && !ourProducts().includes(product)) return { ws: null, change: null };
+  if (!product || !ourProducts().includes(product)) return { ws: null, change: null };
 
   let change: BillingChange = null;
   // Refund or chargeback: access ends now (the 30-day guarantee refund, or a dispute).

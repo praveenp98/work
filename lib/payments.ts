@@ -20,9 +20,13 @@ export const LEGACY_PRODUCT_ID = "pdt_0Ns7dcv01gDgTlIQC1O1b";
 export const PRODUCT_ID = process.env.DODO_PRODUCT_ID || (DODO_MODE === "live" ? LEGACY_PRODUCT_ID : undefined);
 const validId = (v?: string) => (v && /^pdt_[A-Za-z0-9]+$/.test(v) ? v : undefined);
 /** The Dodo product for a plan (yearly is the default everywhere). */
-export const productFor = (plan: PlanId = "annual") => validId(plan === "monthly" ? process.env.DODO_PRODUCT_ID_MONTHLY : process.env.DODO_PRODUCT_ID_ANNUAL) ?? validId(PRODUCT_ID);
+// No fallback to the old $99/quarterly products: a missing plan product means checkout is off, never the wrong price.
+export const productFor = (plan: PlanId = "annual") => validId(plan === "monthly" ? process.env.DODO_PRODUCT_ID_MONTHLY : process.env.DODO_PRODUCT_ID_ANNUAL);
 /** Every product whose payments count as hiring Rocco. */
-export const ourProducts = () => [process.env.DODO_PRODUCT_ID_ANNUAL, process.env.DODO_PRODUCT_ID_MONTHLY, PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean) as string[];
+/** Only the current plans unlock Rocco (a new purchase of an old product must not grant a year). */
+export const ourProducts = () => [process.env.DODO_PRODUCT_ID_ANNUAL, process.env.DODO_PRODUCT_ID_MONTHLY].filter(Boolean) as string[];
+/** Old products: still counted as past hires on the price ladder, never as new access. */
+export const pastProducts = () => [PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean) as string[];
 
 export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string; plan?: PlanId } = {}): string | null {
   const product = productFor(opts.plan);
@@ -106,7 +110,7 @@ export async function countSales(): Promise<number | null> {
     const items = ((await res.json().catch(() => ({}))) as { items?: DodoPayment[] }).items ?? [];
     for (const p of items) {
       if (p.status && p.status !== "succeeded") continue;
-      const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => ourProducts().includes(c.product_id));
+      const ours = p.subscription_id || !p.product_cart || p.product_cart.some((c) => [...ourProducts(), ...pastProducts()].includes(c.product_id));
       if (!ours) continue;
       const who = p.customer?.customer_id ?? p.subscription_id;
       if (who) buyers.add(who); else anon++;

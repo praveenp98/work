@@ -161,7 +161,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
       if (res.unknown.length) L.push(`Unknown codes: ${res.unknown.join(", ")}.`);
-      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($1,190/yr or $119/mo): ${hireUrl(ws)}. Or activate a license (${SITE.url}/pricing) to track everything.`);
+      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($1,190/yr or $119/mo): ${hireUrl(ws)}. 30-day money-back guarantee.`);
       return text(L.join("\n"));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't log those changes.");
@@ -253,12 +253,10 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     inputSchema: { license_key: z.string().min(4).max(200) },
     annotations: rw,
   }, async ({ license_key }) => {
-    const v = await validateLicenseKey(license_key);
-    if (!v.ok) return fail(v.error ?? "That key didn't work.");
-    ws.licensed = true;
-    ws.licenseKey = license_key.trim();
-    await store.saveWorkspace(ws);
-    return text("License active. Rocco now shows every change, tracks all of them, and exports bulk files. 🦝");
+    // License keys are retired (Nov 22): one key could unlock any number of workspaces, forever. Access comes only from
+    // a Dodo payment tied to the team. Old key holders write to hello@rocco.works.
+    void license_key; void validateLicenseKey;
+    return fail(`License keys no longer unlock Rocco. Hire Rocco from your Rocco page (${hireUrl(ws)}), or if you bought a license before, email hello@rocco.works and we'll move you over.`);
   });
 
   server.registerTool("workspace_link", {

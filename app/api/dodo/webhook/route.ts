@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { allow, clientIp } from "@/lib/human";
 import { verifyStandardWebhook } from "@/lib/security";
-import { SITE } from "@/lib/site";
 import { syncBilling } from "@/lib/billing";
 import { notifyTeam } from "@/lib/notify";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
 import { getStore } from "@/lib/store";
+import { teamUrl } from "@/lib/workspace";
+import { hasAccess } from "@/lib/access";
 
 /**
  * Dodo webhook (subscription.* and payment.* events). The body is not trusted: it only names a subscription or
@@ -28,11 +29,16 @@ export async function POST(req: Request) {
   if (store && (body.data?.subscription_id || body.data?.payment_id)) {
     const r = await syncBilling(store, body);
     change = r.change;
+    // /welcome often confirms the payment before the webhook lands (then change is null): still say hello, once.
+    if (r.ws && !r.change && hasAccess(r.ws) && !r.ws.hiredNotifiedAt && r.ws.licensed) r.change = "paid";
+    if (r.ws && r.change) {
+      if (r.change === "paid") { if (r.ws.hiredNotifiedAt) r.change = null; else { r.ws.hiredNotifiedAt = new Date().toISOString(); await store.saveWorkspace(r.ws); } }
+    }
     if (r.ws && r.change) {
       const price = await getPriceState({ fresh: true }).catch(() => null);
       const msg = {
-        trial: `🎉 You're in. Connect your Amazon here and I'll start: ${SITE.url}/me`,
-        paid: `You hired me 🎉🦝 Your plan is active. Today's work is always here: ${SITE.url}/me`,
+        trial: `🎉 You're in. Connect your Amazon here and I'll start: ${teamUrl(r.ws)}`,
+        paid: `You hired me 🎉🦝 Next: connect your Amazon (2 minutes) and I start reading. Your Rocco: ${teamUrl(r.ws)}`,
         cancelled: "Done: your plan is cancelled and you won't be charged again. I'll keep working until the end of your current period.",
         ended: "Your Rocco is paused (the payment didn't go through). Start again anytime from your Rocco page.",
       }[r.change];
