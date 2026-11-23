@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { track } from "@/lib/track";
 
 export function WaitlistForm({ source, cta = "Get Rocco's Monday brief" }: { source: string; cta?: string }) {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export function WaitlistForm({ source, cta = "Get Rocco's Monday brief" }: { sou
         e.preventDefault();
         setState("sending");
         const res = await fetch("/api/waitlist", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, source }) }).catch(() => null);
+        if (res?.ok) track("lead_captured", { magnet: source });
         setState(res?.ok ? "done" : "error");
       }}
     >
