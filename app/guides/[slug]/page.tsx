@@ -1,3 +1,4 @@
+import { SeasonBanner } from "@/components/SeasonBanner";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -47,6 +48,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   );
   return (
     <article className="article">
+      {g.slug === "amazon-black-friday-ppc-checklist-2026" && <SeasonBanner from="guide" />}
       <p className="fine"><Link href="/guides">Guides</Link> · Updated {new Date(g.updated + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
       <h1 style={{ fontSize: "clamp(32px, 5vw, 50px)" }}>{g.title}</h1>
       <p className="muted" style={{ fontSize: 19 }}>{g.description}</p>

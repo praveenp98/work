@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { liveTools } from "@/lib/tools";
 
+import { SeasonBanner } from "@/components/SeasonBanner";
+
 export const metadata: Metadata = { title: "Free Amazon Seller Tools", description: "Free Amazon ads and pricing tools from Rocco: Ad Roast (PPC audit), coupon profit calculator, breakeven ACoS calculator.", alternates: { canonical: "/tools" } };
 
 export default function Page() {
   return (
     <>
+      <SeasonBanner from="tools" />
       <h1>Free Amazon seller tools</h1>
       <p className="muted" style={{ fontSize: 18 }}>No login. Your files stay in your browser.</p>
       <div className="grid" style={{ marginTop: 18 }}>
