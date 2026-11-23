@@ -10,6 +10,7 @@ import { SITE } from "@/lib/site";
 import { TopNav } from "@/components/TopNav";
 import { HumanContact } from "@/components/HumanContact";
 import { Analytics } from "@/components/Analytics";
+import { FunnelEvents } from "@/components/FunnelEvents";
 import "./globals.css";
 import "./connect.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <HumanContact />
         <Analytics apiKey={process.env.POSTHOG_KEY || process.env.NEXT_PUBLIC_POSTHOG_KEY} uiHost={process.env.POSTHOG_UI_HOST} />
+        <FunnelEvents />
         <footer className="foot foot-min">
           <p className="foot-human">💬 Questions? Talk to a human: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> · usually answered the same day.</p>
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>

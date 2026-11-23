@@ -5,7 +5,7 @@
  *   track("lead_captured", { magnet: "ppc-checklist" });
  *
  * Or with no code at all: put data-track="call_click" (and optionally data-track-magnet / data-track-tool) on a
- * link or button and components/Analytics.tsx sends it on click.
+ * link or button and components/FunnelEvents.tsx sends it on click.
  *
  * What is sent: the event name, the page path (no query string), the visit's first-touch source (UTM tags and
  * referrer host, remembered for 30 days in this browser's localStorage and in one first-party cookie, "rocco_ft",

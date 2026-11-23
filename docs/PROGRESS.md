@@ -4,6 +4,76 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · Profiles kit, site capture script, 30s and 15s demo videos
+- **Profiles** (`marketing/brand/profiles/`): one folder per account (X, Instagram, LinkedIn page, Praveen's LinkedIn, YouTube) with `copy.md` (exact text, character counts, generated and limit-checked) and images at each platform's size (avatars, X header, highlight covers, grid covers, LinkedIn cover and banner, YouTube banner and watermark). A cross-account table in its README. Nothing uploaded: Praveen sets them up by hand.
+- **Short links**: `rocco.works/x`, `/ig`, `/yt`, `/linkedin` go to a new noindex hub `/start` with that account as the source. Buttons send a `link_click` event. The setup-call and latest-video buttons stay hidden until their URLs exist.
+- **Site capture** (`npm run capture` in `marketing/video`): records ten clean clips of the public site in 9:16, 4:5 and 16:9 into `footage/site/`. Never signs in, adds a "Sample account" chip on sample data, blocks trackers so it doesn't count as traffic.
+- **Demo videos**: `demo-30s` and `demo-15s` specs rendered in all three formats; 10 hook variants in `batches/demo-hooks.csv` with a batch renderer; captions per platform in `marketing/copy/demo-captions.md`.
+- Found while recording: `main` has moved ahead of the `marketing` branch (production has changes this branch doesn't). The Ad Roast result on the live site still says "Rocco ($1190, once) pays for itself": old one-time wording.
+- Tests 224 passing, build OK. No marketing cost.
+
+---
+
+## 2026-11-23 · One look everywhere: brand tokens, logo files, /brand
+- `marketing/brand/tokens.ts`: the site's colours, type, radii and shadows in one file, plus type sizes and safe zones per format. Video studio and share images now read from it; a test fails if the site's CSS and the tokens disagree.
+- Logo files in `public/brand/logos/` (wordmark, rocco.works, lockup, mark; light, dark, one colour; avatars) built from the site's raccoon file and header type by `marketing/brand/build-logos.mjs`. Recommended: raccoon on green for avatars, the lockup for banners.
+- Signature elements as shared components (`marketing/brand/components/`): morning list, YES bubble, change log row, sample chip. The video studio uses the same ones.
+- Contrast check (`marketing/scripts/contrast.mjs`): all 19 text pairs pass AA, with two limits (blue on the page background and white on green are large-text only).
+- `/brand` (noindex): logos, colours with contrast, type, signature elements, do and don't, brand kit zip. Linked from `/press`, whose colour line was out of date (it said green and gold; the site is blue with green for approve).
+- Open for Praveen: blue or green as the lead colour, and whether to swap the yellow profile picture (BRAND.md open questions 6 and 7).
+- Tests 224 passing, build OK. No marketing cost.
+
+---
+
+## 2026-11-23 · Lead capture + Black Friday checklist lead magnet
+- **Leads:** table `marketing_leads` (`supabase/migrations/005_leads.sql`, RLS on, no public access), `POST /api/leads` (email check, honeypot, shared rate limits, source from a first-touch cookie), `<LeadCapture>` form with the consent box unticked by default, `/unsubscribe?token=…` (signed link, no login), `/admin/leads` (by magnet and source). Privacy page has a new "Free downloads and email" paragraph. No email sending code.
+- **Black Friday magnet:** 2-page PDF `public/downloads/bfcm-checklist-2026.pdf` (from the guide and the surge and coupon tools only), page `/free/black-friday-checklist` with instant download, a banner on `/tools` and the Black Friday guide that switches to December wording on Dec 1 without a deploy, and `marketing/copy/bfcm-posts.md` (5 posts, 3 video hooks). New `marketing/scripts/pdf.mjs`.
+- **Praveen must do once:** run `supabase/migrations/005_leads.sql` in Supabase → SQL Editor. Until then the form still gives the download but the email is not saved.
+- UTM into checkout: already covered by the funnel events (checkout_started carries the source, paid inherits it). No billing change.
+- Tests 215 passing, build OK. No marketing cost.
+
+---
+
+## 2026-11-23 · Funnel tracking (first-party) and /admin/funnel
+- The repo had no analytics besides the hackathon tracker script. Added a first-party events table in Supabase (`supabase/migrations/004_events.sql`, also appended to `setup.sql`): event, path, UTM fields, referrer host, a random browser id, created_at. No third-party script, no cookie, no IP or user agent stored; no id with Do Not Track.
+- Events: page_view (landing pages only), lead_captured, tool_result, call_click, call_booked, hire_click, signup_started, checkout_started, paid. Browser helper `lib/track.ts`; `components/Analytics.tsx` (mounted in the root layout) sends most of them without changes to product components.
+- **paid** is one read-only line in the Dodo webhook (`recordPaid`): it runs after billing has decided, changes nothing there, never throws, and counts a team once.
+- **/admin/funnel**: last 7 and 30 days by source (visits, leads, call clicks, calls booked, checkouts, paid) and paid sellers vs the 100 goal (from the Dodo count). Sign in at `/admin/login?key=<CRON_SECRET>`; anyone else gets a 404.
+- **Praveen must do once:** run `supabase/migrations/004_events.sql` in Supabase → SQL Editor. Until then events are dropped quietly and the funnel shows a "has the migration been run?" note.
+- Tests 207 passing, build OK. No marketing cost.
+
+---
+
+## 2026-11-22 · Share images in code, per page; brand guide
+- **Link cards** are now generated in code (`lib/og.tsx`, Next ImageResponse): homepage "Your AI Amazon manager.", /pricing (price from `marketing/config/offer.ts`), /tools and each tool ("Free, no login"), /guides and each guide (its title). Every other page inherits the homepage card. og:image:alt and the twitter image match. `public/og.png` and `og-v2.png` regenerated to the same image.
+- Why it mattered: the previous card showed Bamboo & Co numbers with no "sample account" label. The new one has no account numbers.
+- After deploy: run the homepage, /pricing, one tool and one guide through the LinkedIn Post Inspector (it refreshes LinkedIn's cache) and check X by composing a post with the link.
+- **`marketing/brand/BRAND.md`**: positioning, one-liners (primary + 2 backups), origin line, the enemy (recommended: dashboards), contrarian takes backed by /guides, two voices, word lists, naming and handles. The copy lint now warns on the ban list.
+- Reported, not rewritten: pages that still describe Rocco as a Claude/ChatGPT connector (/answers AI topics, the MCP guide, calendar feed, contact card, press description, server.json).
+- No marketing cost.
+
+---
+
+## 2026-11-22 · Video studio (Remotion) on the marketing branch
+- `marketing/video/`: Remotion project with its own package.json. One JSON spec per video, three formats from one source (9:16, 4:5, 16:9), nine scene templates (hook, UI piece, phone thread, change log, compare table, stat, own footage, captions, end card). Run: `npm run studio`, `npm run render -- --spec specs/demo.json --format all`. Output in `marketing/out/video/` (gitignored).
+- Looks like the site because it uses the site: `app/globals.css` + `app/connect.css` are copied in at render time, the UI pieces are ports of the homepage components with the same markup and copy, fonts are the same Raleway and Inter files, the raccoon is `components/Rocco.tsx`.
+- Guard rails in code: "Sample account" chip wherever Bamboo & Co shows (cannot be switched off), a stat without a source does not render, prices come from `marketing/config/offer.ts` through spec tokens.
+- App side: `marketing/video` added to `exclude` in the root `tsconfig.json`; new `.vercelignore` (marketing/video, marketing/out). No product code changed.
+- Remotion is free for individuals and companies of up to 3 people. No marketing cost.
+- Next for Praveen: film the three shot types (A face, B screen, C desk) into `marketing/video/footage/`; pick royalty-free music if wanted.
+
+---
+
+## 2026-11-22 · Marketing branch set up (assets only, nothing published)
+- New branch `marketing`. Folder `marketing/` (config, video, copy, emails, carousels, images, ops, scripts, out) + `public/downloads/`. `marketing/out/` is gitignored.
+- `marketing/BRIEF.md`: standing brief (facts, rules, voice, filming limits, reusable components, repo vs brief).
+- `marketing/config/offer.ts`: every asset reads price, guarantee, links, UTM and hackathon day from here; plan prices come from `lib/pricing.ts` (PLAN). `marketing/config/sample.ts`: the Bamboo & Co sample numbers and label.
+- `marketing/scripts/lint-copy.mjs`: fails on em dashes, 30-day guarantee wording, free plan as a feature, "trusted by", testimonials outside the proof slot, old Claude positioning, unknown $ amounts, sample numbers without a "sample account" label. Run: `node marketing/scripts/lint-copy.mjs`.
+- No app code changed. No marketing cost.
+- Open for Praveen: setup calls vs the self-serve rule (CLAUDE.md rule 2), no booking link yet; exclude `marketing/video` from the root tsconfig before the Remotion studio lands.
+
+---
+
 ## 2026-11-23 · One-tap restock (FBA shipment plan via DataDoe)
 - Restock job now: editable quantities (~60 days of sales minus on-hand and inbound), ship-from address once, one tap → Rocco creates the FBA inbound plan in Amazon (AMAZON_FBA_INBOUND_PLANS_ADD, dry run first, idempotent), then "Finish in Send to Amazon" or "Cancel plan".
 - Why not fully one-tap: Amazon's inbound flow needs carton sizes/weights/pickup and fee choices; Rocco hands off at the first physical step. Phase 2 (fees/carrier compare in Rocco) only if sellers ask.

@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { track, type ClientEvent } from "@/lib/track";
 
 /**
- * Mounted once in the root layout. Sends funnel events (lib/track.ts) without touching the product's components:
+ * Mounted once in the root layout, next to components/Analytics.tsx (PostHog). This one sends the first-party
+ * funnel events behind /admin/funnel (lib/track.ts), without touching the product's components:
  *
  *   page_view         every landing page view (not team pages, /me, /welcome or /admin)
  *   hire_click        a click on any "Hire Rocco" button (.hire-cta, .pc-cta)
@@ -20,7 +21,7 @@ const PRIVATE = /^\/(w|me|j|welcome|oauth|mcp|admin|thanks|card)(\/|$)/;
 const TOOL = /^\/tools\/([a-z0-9-]+)\/?$/;
 const seen = { path: "", at: 0 };
 
-export function Analytics() {
+export function FunnelEvents() {
   const path = usePathname();
 
   useEffect(() => {

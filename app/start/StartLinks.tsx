@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /**
  * The buttons on /start. Each one carries the visitor's UTM tags through to where it goes (so the next page, or
  * an outside booking page, knows which profile sent them) and sends a funnel event when tapped: data-track is
- * picked up by components/Analytics.tsx.
+ * picked up by components/FunnelEvents.tsx.
  */
 export interface StartLink { id: string; href: string; title: string; sub: string; event: "link_click" | "call_click" }
 
