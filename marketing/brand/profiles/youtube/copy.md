@@ -178,10 +178,10 @@ india sellers
 **Description**
 
 ```text
-For sellers on Amazon India: the same checks, with amounts in rupees. Connecting Seller Central and Amazon Ads, and what the first morning looks like.
+For sellers on Amazon India: the same checks. Connecting Seller Central and Amazon Ads, and what the first morning looks like.
 ```
 
-150 / 5000 characters
+126 / 5000 characters
 
 
 ## Creating the channel as a brand account (under Praveen's Google login)

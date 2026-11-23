@@ -49,7 +49,7 @@ export const MorningCard: React.FC<{ states?: TapState[] }> = ({ states = [] }) 
             </li>
           ))}
         </ul>
-        <p className="hd-foot">{done ? `${done} of ${AUTO.length} jobs done in Amazon · I'll check the results next week` : M.footOpen}</p>
+        <p className="hd-foot">{done ? `${done} of ${M.jobsCount} jobs done in Amazon · I'll check the results next week` : M.footOpen}</p>
       </div>
     </div>
   );

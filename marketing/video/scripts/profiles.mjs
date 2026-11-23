@@ -17,7 +17,10 @@ const OUT = path.resolve(VIDEO_DIR, "..", "brand", "profiles");
 await prepare();
 const serveUrl = await bundle({ entryPoint: path.join(VIDEO_DIR, "src", "index.ts"), webpackOverride: makeWebpackOverride(VIDEO_DIR), publicDir: path.join(VIDEO_DIR, "public") });
 const browserExecutable = process.env.REMOTION_CHROME_EXECUTABLE || undefined;
-const comps = (await getCompositions(serveUrl, { browserExecutable, logLevel: "error" })).filter((c) => c.id.startsWith("profile-"));
+// npm run profiles -- --only x-header,linkedin-praveen-banner   renders just the images whose name contains one of these
+const onlyAt = process.argv.indexOf("--only");
+const only = onlyAt > 0 ? process.argv[onlyAt + 1].split(",") : null;
+const comps = (await getCompositions(serveUrl, { browserExecutable, logLevel: "error" })).filter((c) => c.id.startsWith("profile-") && (!only || only.some((o) => c.id.includes(o))));
 for (const composition of comps) {
   // id is "profile-<account>-<name>-<w>x<h>": the account is the folder.
   const rest = composition.id.replace(/^profile-/, "");

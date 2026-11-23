@@ -49,7 +49,7 @@ Images in this folder: `avatar-320x320.png`, five highlight covers, three grid c
 | 2 | fixes | `highlight-fixes-1080x1920.png` | one story per job: block wasted searches, fix bids, exact campaigns, budgets, stock, tidy |
 | 3 | approve by text | `highlight-approve-by-text-1080x1920.png` | the YES thread on iMessage, WhatsApp and Slack |
 | 4 | pricing | `highlight-pricing-1080x1920.png` | $1,190/year or $119/month, 7-day money-back, what's included |
-| 5 | india | `highlight-india-1080x1920.png` | works on Amazon India, amounts shown in rupees, checkout shows local price |
+| 5 | india | `highlight-india-1080x1920.png` | works on Amazon India, checkout shows local price |
 
 Instagram shows only the centre of a cover, in a small circle: each cover is one emoji on a white disc so nothing gets cut.
 

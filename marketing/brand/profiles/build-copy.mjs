@@ -67,7 +67,7 @@ Images in this folder: \`avatar-320x320.png\`, five highlight covers, three grid
 | 2 | fixes | \`highlight-fixes-1080x1920.png\` | one story per job: block wasted searches, fix bids, exact campaigns, budgets, stock, tidy |
 | 3 | approve by text | \`highlight-approve-by-text-1080x1920.png\` | the YES thread on iMessage, WhatsApp and Slack |
 | 4 | pricing | \`highlight-pricing-1080x1920.png\` | ${OFFER.price.short}, ${G}, what's included |
-| 5 | india | \`highlight-india-1080x1920.png\` | works on Amazon India, amounts shown in rupees, checkout shows local price |
+| 5 | india | \`highlight-india-1080x1920.png\` | works on Amazon India, checkout shows local price |
 
 Instagram shows only the centre of a cover, in a small circle: each cover is one emoji on a white disc so nothing gets cut.
 
@@ -243,7 +243,7 @@ ${[
   ["amazon ppc basics", "Plain-English basics for Amazon sellers: negative keywords and the 10-click rule, breakeven and target ACoS, the bid formula with its 20% cap, keyword harvesting, bulk files."],
   ["black friday / q4", "What to do before, during and after Black Friday and Cyber Monday: budgets, bids, stock cover, coupon margins, and what to turn back down in December."],
   ["how rocco works", "Rocco on a sample account: the morning list, approving a job, approving by text, the change log, undo, and the check a week later."],
-  ["india sellers", "For sellers on Amazon India: the same checks, with amounts in rupees. Connecting Seller Central and Amazon Ads, and what the first morning looks like."],
+  ["india sellers", "For sellers on Amazon India: the same checks. Connecting Seller Central and Amazon Ads, and what the first morning looks like."],
 ].map(([t, d], i) => `${field(`${i + 1}. Title`, t, 150)}\n${field("Description", d, 5000)}`).join("\n")}
 
 ## Creating the channel as a brand account (under Praveen's Google login)

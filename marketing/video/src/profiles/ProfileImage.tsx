@@ -129,7 +129,7 @@ export const ProfileImage: React.FC<ProfileProps> = ({ kind, width: w, height: h
       {card && (
         <div style={{ position: "absolute", right: pad, top: h * 0.05, bottom: h * 0.05, width: cardW, display: "flex", flexDirection: "column", alignItems: "center", gap: h * 0.02 }}>
           <SampleChip size={h * 0.034} style={{ flex: "none" }} />
-          <div style={{ flex: 1, minHeight: 0, width: "100%", borderRadius: RADII.md }}><Fit width={MORNING_WIDTH}><MorningCard states={["done", "open", "open"]} /></Fit></div>
+          <div style={{ flex: 1, minHeight: 0, width: "100%", borderRadius: RADII.md }}><Fit width={MORNING_WIDTH}><MorningCard states={["open", "open", "open"]} /></Fit></div>
         </div>
       )}
     </AbsoluteFill>
