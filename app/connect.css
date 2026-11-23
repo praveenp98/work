@@ -1321,3 +1321,18 @@ h1, h2, .display { font-family: var(--display); }
 
 /* Manual job: why this one is steps for you, not one tap. */
 .tw-manual { margin: 6px 0 0; font-size: 13px; color: var(--muted, #6b7280); background: #f4f1ea; border-radius: 10px; padding: 6px 10px; display: inline-block; }
+
+/* One-tap restock (components/dash/RestockPanel.tsx) */
+.rs { display: grid; gap: 10px; margin-top: 10px; }
+.rs-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rs-items li { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line, #e7e2d8); padding-top: 8px; }
+.rs-items small { color: var(--muted, #6b7280); font-size: 12px; }
+.rs-q { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted, #6b7280); white-space: nowrap; }
+.rs-q input { width: 84px; padding: 8px 10px; border: 1px solid var(--line, #e7e2d8); border-radius: 10px; font: inherit; text-align: right; }
+.rs-from { border: 1px solid var(--line, #e7e2d8); border-radius: 14px; padding: 12px; display: grid; gap: 8px; margin: 0; }
+.rs-from legend { font-weight: 600; font-size: 14px; padding: 0 4px; }
+.rs-from input, .rs-from select { width: 100%; padding: 10px 12px; border: 1px solid var(--line, #e7e2d8); border-radius: 10px; font: inherit; background: #fff; }
+.rs-from label { display: grid; gap: 4px; font-size: 13px; color: var(--muted, #6b7280); }
+.rs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rs-done { margin-top: 10px; display: grid; gap: 8px; }
+@media (max-width: 420px) { .rs-items li { flex-wrap: wrap; } }

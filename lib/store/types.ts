@@ -64,6 +64,9 @@ export interface Workspace {
     /** Same, per connected account (id → last pull). */
     syncs?: Record<string, { at: string; kinds: string[]; errors: string[] }>;
   };
+  /** One-tap restock: ship-from address per Amazon account, and the plans Rocco created (lib/restock.ts). */
+  shipFrom?: Record<string, import("../restock").ShipFrom>;
+  restocks?: { id: string; account: string; at: string; by?: string; actionId: string; planId?: string; status: "created" | "pending" | "cancelled"; items: { sku: string; qty: number }[]; name: string }[];
   /** The account email (entered at Hire Rocco, prefilled at checkout). */
   ownerEmail?: string;
   brands: Record<string, BrandSettings>;

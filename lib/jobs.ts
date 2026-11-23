@@ -12,7 +12,7 @@ import type { ManagerView, Snapshot } from "./store/types";
 export type JobKind = "negatives" | "bids_down" | "bids_up" | "new_campaign" | "budget_up" | "budget_down" | "placement" | "stock_ads" | "structure" | "restock" | "listings" | "buybox";
 export type JobMode = "auto" | "create" | "manual";
 
-export interface JobItem { code: string; label: string; detail: string; value: number; picked?: boolean }
+export interface JobItem { code: string; label: string; detail: string; value: number; picked?: boolean; sku?: string; qty?: number }
 export interface Job {
   id: string;
   kind: JobKind;
@@ -70,7 +70,7 @@ function sellerJobs(snaps: { inv?: Snapshot; biz?: Snapshot; lh?: Snapshot }): J
   const atRisk = Number(snaps.inv?.stats.atRisk ?? 0);
   if (atRisk > 0) {
     // Only the running-out findings (the inventory report also flags overstock and dead stock: different jobs).
-    const items = f(snaps.inv).filter((x) => /stock left|run(s)? out|out of stock/i.test(`${x.title} ${x.detail ?? ""}`)).slice(0, 8).map((x, i) => ({ code: `R${i + 1}`, label: x.title, detail: x.detail ?? "", value: x.valueMonthly ?? 0 }));
+    const items = (f(snaps.inv) as { title: string; detail?: string; valueMonthly?: number; restock?: { sku: string; suggest: number } }[]).filter((x) => x.restock || /stock left|run(s)? out|out of stock/i.test(`${x.title} ${x.detail ?? ""}`)).slice(0, 8).map((x, i) => ({ code: `R${i + 1}`, label: x.title, detail: x.detail ?? "", value: x.valueMonthly ?? 0, ...(x.restock ? { sku: x.restock.sku, qty: x.restock.suggest } : {}) }));
     out.push({ id: "restock", kind: "restock", icon: "🚚", title: atRisk === 1 ? "Restock 1 product before it runs out" : `Restock ${atRisk} products before they run out`, summary: "Running out costs sales and ranking. Send a shipment to FBA now.", value: items.reduce((t, x) => t + x.value, 0), mode: "manual", codes: [], items, steps: "Seller Central → Inventory → FBA Inventory → Restock Inventory, then Send to Amazon for these SKUs." });
   }
   const notSelling = Number(snaps.lh?.stats.problems ?? 0);
@@ -84,7 +84,7 @@ const RISK: JobKind[] = ["restock", "listings", "buybox", "stock_ads"];
 
 /** Why a job is steps for you, not one tap (honest, so a manual card never feels like a missing button). */
 export const MANUAL_WHY: Partial<Record<JobKind, string>> = {
-  restock: "You do this one: Amazon doesn't let apps create FBA shipments. About 5 minutes in Seller Central.",
+  restock: "Steps for you in Seller Central (about 10 minutes). Connect Amazon directly and I create the shipment plan for you.",
   listings: "You do this one: fixing a suppressed listing means editing it in Seller Central.",
   buybox: "You do this one: price and offer changes stay with you.",
   stock_ads: "You do this one for now: once your Amazon Ads data is in, I'll lower these ads in one tap.",

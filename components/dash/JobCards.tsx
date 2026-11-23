@@ -4,6 +4,7 @@ import { money, USD, type Currency } from "@/lib/currency";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 import type { Job } from "@/lib/jobs";
+import { RestockPanel, type RestockCtx } from "./RestockPanel";
 
 type Res = { status: "applied" | "manual" | "failed" | "queued"; how?: string; reason?: string };
 const REASONS = [
@@ -28,7 +29,7 @@ const post = (url: string, body: object) => fetch(url, { method: "POST", headers
  * "Restock 2 products". One Approve per job (untick anything you don't want). direct = Rocco makes it in Amazon;
  * otherwise exact steps + "I've made these changes".
  */
-export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency }) {
+export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency; restock?: RestockCtx }) {
   const $ = (n: number) => money(n, cur);
   const [res, setRes] = useState<Record<string, Res>>({});
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
@@ -82,7 +83,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: str
         {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve all {openAuto.length} jobs · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</button>}
       </div>
       <ul className="tw-list">
-        {visible.map((j, i) => <JobCard key={j.id} cur={cur} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
+        {visible.map((j, i) => <JobCard key={j.id} restock={restock} cur={cur} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
       </ul>
       {thanks && <p className="tw-thanks" role="status"><span aria-hidden>🧠</span> <b>{thanks.title}</b>: {thanks.reason}</p>}
       <p className="fine"><b>Real work without the fluff.</b> {direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
@@ -90,7 +91,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD }: { token: str
   );
 }
 
-function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { cur: Currency; job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: (reason?: string) => void }) {
+function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, onApprove, onMade, onSkip }: { restock?: RestockCtx; cur: Currency; job: Job; first: boolean; res: Record<string, Res>; busy: boolean; anyBusy: boolean; direct: boolean; note?: string; onApprove: (codes: string[]) => void; onMade: (codes: string[]) => void; onSkip: (reason?: string) => void }) {
   const $ = (n: number) => money(n, cur);
   const [open, setOpen] = useState(false);
   const [on, setOn] = useState<Set<string>>(() => new Set(job.codes));
@@ -103,6 +104,7 @@ function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove,
   const steps = [...new Set(job.codes.map((c) => res[c]?.how).filter(Boolean))].slice(0, 3);
   const reason = rs.find((r) => r.reason)?.reason;
   const doneCount = rs.filter((r) => r.status === "applied").length;
+  const rsOn = job.kind === "restock" && !!restock && job.items.some((i) => i.sku);
   const verb = job.mode === "create" ? "Create campaign" : chosen.length === job.codes.length ? `Approve${job.codes.length > 1 ? ` all ${job.codes.length}` : ""}` : `Approve ${chosen.length}`;
 
   return (
@@ -112,12 +114,14 @@ function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove,
         <div className="tw-txt">
           <div className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</div>
           <p className="tw-why">{job.why ?? job.summary}</p>
-          {job.manualWhy && <p className="tw-manual">{job.manualWhy}</p>}
+          {job.manualWhy && !rsOn && <p className="tw-manual">{job.manualWhy}</p>}
         </div>
         {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
       </div>
 
-      {job.items.length > 0 && (
+      {rsOn && <RestockPanel ctx={restock!} items={job.items} />}
+      {rsOn && !asking && <button className="linkbtn muted" style={{ marginTop: 6 }} onClick={() => setAsking(true)}>Skip for now</button>}
+      {!rsOn && job.items.length > 0 && (
         <ul className="tw-items">
           {shownItems.map((it) => (
             <li key={it.code}>
@@ -142,7 +146,7 @@ function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove,
       {state === "failed" && <p className="rd-fail">⚠️ {reason}</p>}
       {note && <p className="err">{note}</p>}
 
-      {!state && (
+      {!state && !rsOn && (
         <div className="tw-act">
           {job.mode === "manual" ? (
             <button className="btn" onClick={() => setHow((h) => !h)}>{how ? "Hide steps" : "Show me how"}</button>

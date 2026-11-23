@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · One-tap restock (FBA shipment plan via DataDoe)
+- Restock job now: editable quantities (~60 days of sales minus on-hand and inbound), ship-from address once, one tap → Rocco creates the FBA inbound plan in Amazon (AMAZON_FBA_INBOUND_PLANS_ADD, dry run first, idempotent), then "Finish in Send to Amazon" or "Cancel plan".
+- Why not fully one-tap: Amazon's inbound flow needs carton sizes/weights/pickup and fee choices; Rocco hands off at the first physical step. Phase 2 (fees/carrier compare in Rocco) only if sellers ask.
+- Daily pull now reads `inbound_quantity`; covered SKUs say "already on its way" instead of asking for more.
+- Praveen to enable 6 FBA inbound Action types in DataDoe + test once on Habit Nest US: docs/RESTOCK.md.
+- Tests 210 passing.
+
+---
+
 ## 2026-11-23 · Fixes from the founder-test screenshots
 - **Restock card had no SKUs / report heading didn't match its list:** findings were saved in row order and cut at 10, so dead-stock and overstock rows pushed out the "running out" ones. Now sorted most-urgent first, duplicates merged, top 12 kept (`sortFindings`). Fixes the restock items, the report's Restock section and the analytics.
 - **Product names, not codes:** long Amazon titles shortened to the product's own name (`shortName`); Business Report findings say "The Morning Sidekick Journal gets traffic…" not "195004520X…"; low-stock ad items show the product, not "US - BSJ Vol 1 - AZBarcode".

@@ -41,6 +41,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/X-DAY1.md` | Day-1 X posts for Rocco + Praveen, with UTMs. |
 | `docs/IMESSAGE-DATA-PLAN.md` | How iMessage gets real Amazon data (direct API connection, Claude bridge, texted reports) + AI tool layer. |
 | `docs/MANAGER-CADENCE.md` | Daily/weekly/monthly Amazon manager jobs vs what Rocco's MCP covers, and build order. |
+| `docs/RESTOCK.md` | One-tap restock: what Rocco creates in Amazon, DataDoe Actions to enable, edge cases. |
 | `docs/FOUNDER-TEST.md` | Praveen's no-paywall test of the full flow on Habit Nest. |
 | `docs/COSTS.md` | Real costs at 100 sellers (upfront vs per account), profit, cheaper options. |
 | `docs/ROUTINE.md` | **Praveen's daily / weekly / monthly checks** + admin commands. |

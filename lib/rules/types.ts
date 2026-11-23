@@ -9,6 +9,8 @@ export interface Finding {
   line?: string;
   /** Money at stake per month (waste or missed sales), 0 if not measurable. */
   valueMonthly: number;
+  /** Running-out findings: what to send (one-tap restock plan). */
+  restock?: { sku: string; asin: string; available: number; daily: number; suggest: number };
 }
 
 export type ProposalKind = "negative" | "harvest" | "bid" | "budget" | "placement" | "ads_down" | "structure";

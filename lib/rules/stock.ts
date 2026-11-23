@@ -27,7 +27,12 @@ export function analyzeStock(rows: InventoryRow[]): Analysis {
     if (cover === null) continue;
     if (cover <= 14) {
       s++;
-      findings.push({ severity: "high", title: `${label}: ~${Math.round(cover)} days of stock left`, detail: `Selling ~${daily.toFixed(1)}/day. Reorder now and lower ad pressure so you don't run out mid-peak.`, line: `${label} is about to run dry. Ads are just speeding that up.`, valueMonthly: 0 });
+      // Suggested send: 60 days of cover at the current pace, minus what's on hand and inbound, rounded up to 5.
+      const need = daily * 60 - r.available - Math.max(0, r.inbound);
+      if (need <= 0 && r.inbound > 0) {
+        // Already covered by a shipment on its way: say so, don't ask for another.
+        findings.push({ severity: "medium", title: `${label}: ~${Math.round(cover)} days of stock, ${r.inbound} units inbound`, detail: "A shipment already covers the next two months. Make sure it's on its way; ease ads until it lands.", valueMonthly: 0 });
+      } else findings.push({ restock: { sku: r.sku, asin: r.asin, available: r.available, daily: Math.round(daily * 10) / 10, suggest: Math.max(5, Math.ceil(Math.max(0, need) / 5) * 5) }, severity: "high", title: `${label}: ~${Math.round(cover)} days of stock left`, detail: `Selling ~${daily.toFixed(1)}/day. Reorder now and lower ad pressure so you don't run out mid-peak.`, line: `${label} is about to run dry. Ads are just speeding that up.`, valueMonthly: 0 });
       proposals.push({ code: `S${s}`, kind: "ads_down", campaign: "(all campaigns advertising this SKU)", adGroup: "", target: id, reason: `${label}: ${Math.round(cover)} days of stock. Lower bids 20% on its ads (or pause it in broad/auto) until stock lands`, valueMonthly: 0, undo: "Restore the previous bids (or re-enable the ads) once inbound stock is received." });
     } else if (cover <= 21) {
       findings.push({ severity: "medium", title: `${label}: ~${Math.round(cover)} days of stock`, detail: "Don't raise budgets or bids on this SKU until more stock is on the way.", valueMonthly: 0 });

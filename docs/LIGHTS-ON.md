@@ -66,3 +66,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 
 ## Known, not fixed yet
 - Nothing open from the audit (all fixed Nov 22).
+
+## Restock (new, Nov 23)
+- [ ] DataDoe → Settings → Actions: enable the 6 FBA inbound Action types listed in docs/RESTOCK.md.
+- [ ] Test once on Habit Nest US with 1 SKU, small quantity: plan appears in Send to Amazon → cancel it from Rocco.

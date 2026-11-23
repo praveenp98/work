@@ -35,7 +35,7 @@ export const PULLS: Pull[] = [
   },
   {
     kind: "inventory", table: "amazon_fba_inventory_health", query: "fba stock", days: 3, shape: "latest_by_sku",
-    cols: { date: "_date", sku: "SKU", child_asin: "ASIN", product_name: "Product Name", available: "Available", units_shipped_t30: "Units Sold Last 30 Days", days_of_supply: "Days of Supply" },
+    cols: { date: "_date", sku: "SKU", child_asin: "ASIN", product_name: "Product Name", available: "Available", units_shipped_t30: "Units Sold Last 30 Days", days_of_supply: "Days of Supply", inbound_quantity: "Inbound Quantity" },
   },
 ];
 

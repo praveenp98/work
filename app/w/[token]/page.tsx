@@ -16,6 +16,7 @@ import { actor, peopleOf, roleOf } from "@/lib/team";
 import { slackConfigured } from "@/lib/slack";
 import { notFound } from "next/navigation";
 import { JobCards } from "@/components/dash/JobCards";
+import { canRestock, sendToAmazonUrl } from "@/lib/restock";
 import { RememberTeam } from "@/components/dash/RememberTeam";
 import { ConnectAmazon, ConnectButton, HireCard } from "@/components/start/ConnectAmazon";
 import { ModeSwitch } from "@/components/start/ModeSwitch";
@@ -223,7 +224,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <div className="rd-grid">
         <div>
-          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} restock={isDirect && account && canRestock(account.country) ? { token, account: account.id, country: account.country, from: ws.shipFrom?.[account.id], sendUrl: sendToAmazonUrl(account.country), recent: (ws.restocks ?? []).filter((r) => r.account === account.id && Date.now() - new Date(r.at).getTime() < 7 * 86_400_000).map(({ id, at, status, items, name, by }) => ({ id, at, status, items, name, by })) } : undefined} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
           {isDirect && (
             <Link className="rd-tidy" href={`/w/${token}/tidy`}>
               <span aria-hidden>🗂️</span>
