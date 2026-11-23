@@ -1,5 +1,5 @@
 import type { InventoryRow } from "../parsers/inventory";
-import { r2, type Analysis, type Finding, type Proposal } from "./types";
+import { r2, shortName, type Analysis, type Finding, type Proposal } from "./types";
 
 export function daysOfCover(r: InventoryRow): number | null {
   if (r.daysOfSupply > 0) return r.daysOfSupply;
@@ -17,7 +17,7 @@ export function analyzeStock(rows: InventoryRow[]): Analysis {
   let s = 0;
   for (const r of rows) {
     const id = r.sku || r.asin;
-    const label = r.name || id;
+    const label = r.name ? shortName(r.name) : id;
     const cover = daysOfCover(r);
     const daily = r.sold30 > 0 ? r.sold30 / 30 : 0;
     if (r.sold30 === 0 && r.available > 0) {
@@ -28,7 +28,7 @@ export function analyzeStock(rows: InventoryRow[]): Analysis {
     if (cover <= 14) {
       s++;
       findings.push({ severity: "high", title: `${label}: ~${Math.round(cover)} days of stock left`, detail: `Selling ~${daily.toFixed(1)}/day. Reorder now and lower ad pressure so you don't run out mid-peak.`, line: `${label} is about to run dry. Ads are just speeding that up.`, valueMonthly: 0 });
-      proposals.push({ code: `S${s}`, kind: "ads_down", campaign: "(all campaigns advertising this SKU)", adGroup: "", target: id, reason: `${Math.round(cover)} days of cover: lower bids 20% on this SKU's ads (or pause it in broad/auto) until stock lands`, valueMonthly: 0, undo: "Restore the previous bids (or re-enable the ads) once inbound stock is received." });
+      proposals.push({ code: `S${s}`, kind: "ads_down", campaign: "(all campaigns advertising this SKU)", adGroup: "", target: id, reason: `${label}: ${Math.round(cover)} days of stock. Lower bids 20% on its ads (or pause it in broad/auto) until stock lands`, valueMonthly: 0, undo: "Restore the previous bids (or re-enable the ads) once inbound stock is received." });
     } else if (cover <= 21) {
       findings.push({ severity: "medium", title: `${label}: ~${Math.round(cover)} days of stock`, detail: "Don't raise budgets or bids on this SKU until more stock is on the way.", valueMonthly: 0 });
     } else if (cover > 180) {

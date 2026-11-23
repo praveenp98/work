@@ -38,9 +38,9 @@ describe("business report", () => {
   const out = analyze(loadFixture("business-report.csv"), { adSpend: 1459, adSales: 5307 });
   it("flags traffic-but-no-conversion and buy box", () => {
     const titles = out.analysis.findings.map((f) => f.title).join(" | ");
-    expect(titles).toMatch(/B0BAMBOO02 gets traffic but doesn't convert/);
-    expect(titles).toMatch(/B0CHARC001 only wins the buy box 72%/);
-    expect(titles).not.toMatch(/B0BAMBOO01 gets traffic/);
+    expect(titles).toMatch(/Bamboo Cutting Board Set of 3 gets traffic but doesn't convert/); // product name, not the ASIN
+    expect(titles).toMatch(/Charcuterie Board Large only wins the buy box 72%/);
+    expect(titles).not.toMatch(/Bamboo Cutting Board Large gets traffic/);
   });
   it("computes TACoS", () => {
     expect(out.analysis.stats.tacosPct).toBeCloseTo((1459 / 24752.36) * 100, 1);

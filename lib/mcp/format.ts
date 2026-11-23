@@ -18,7 +18,7 @@ export function proposalLine(p: Proposal): string {
     : p.kind === "bid" ? `${p.target} (${p.matchType}) in ${p.campaign} / ${p.adGroup}: bid → $${p.proposed} (avg CPC $${p.current})`
     : p.kind === "budget" ? `${p.campaign}: daily budget $${p.current} → $${p.proposed}`
     : p.kind === "placement" ? `${p.campaign}: ${p.target} placement adjustment ${p.proposed ? `+${p.proposed} points` : "→ 0%"}`
-    : p.kind === "ads_down" ? `lower ad pressure on SKU ${p.target}`
+    : p.kind === "ads_down" ? `ease ads on SKU ${p.target}`
     : `${p.target}`;
   return `- **${p.code}** ${change}. ${p.reason}${p.valueMonthly ? ` (~${$(p.valueMonthly)}/mo)` : ""}`;
 }

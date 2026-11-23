@@ -36,7 +36,8 @@ const money = (n?: number) => (typeof n === "number" ? `$${n.toFixed(2)}` : "?")
 
 function itemOf(p: Proposal): JobItem {
   const where = p.campaign && !p.campaign.startsWith("(") ? p.campaign : "";
-  const label = p.kind === "budget" || p.kind === "placement" ? p.campaign : `“${p.target}”`;
+  // Low-stock items: the product name (from the reason, "Name: N days of stock…"), not the SKU code.
+  const label = p.kind === "budget" || p.kind === "placement" ? p.campaign : p.kind === "ads_down" && p.reason.includes(": ") ? p.reason.split(": ")[0] : `“${p.target}”`;
   const change = p.kind === "bid" || p.kind === "budget" ? `${money(p.current)} → ${money(p.proposed)}` : p.kind === "harvest" && p.proposed ? `exact, bid ${money(p.proposed)}` : "";
   return { code: p.code, label, detail: [change, p.kind === "budget" ? "" : where].filter(Boolean).join(" · "), value: p.valueMonthly };
 }

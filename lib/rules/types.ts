@@ -50,3 +50,20 @@ export interface Analysis {
 }
 
 export const r2 = (n: number) => Math.round(n * 100) / 100;
+
+/** Amazon titles run 150+ chars ("Journal: Weight Loss Journal. Food Journals for…"). Keep the product's own name. */
+export function shortName(title: string, max = 48): string {
+  const t = title.trim();
+  const head = t.split(/\s*[:|–—]\s+|\.\s+|\s+-\s+/)[0] ?? t;
+  const s = head.length >= 8 ? head : t;
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  return `${cut.slice(0, cut.lastIndexOf(" ") > 20 ? cut.lastIndexOf(" ") : max).trim()}…`;
+}
+
+const RANK: Record<Severity, number> = { high: 0, medium: 1, win: 2, low: 3 };
+/** Most urgent first, duplicates (same title, e.g. two SKUs of one product) merged. Used before findings are saved. */
+export function sortFindings<T extends { severity: Severity; title: string }>(fs: T[]): T[] {
+  const seen = new Set<string>();
+  return [...fs].sort((a, b) => RANK[a.severity] - RANK[b.severity]).filter((f) => (seen.has(f.title) ? false : (seen.add(f.title), true)));
+}

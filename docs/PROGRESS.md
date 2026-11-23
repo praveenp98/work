@@ -4,6 +4,18 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · Fixes from the founder-test screenshots
+- **Restock card had no SKUs / report heading didn't match its list:** findings were saved in row order and cut at 10, so dead-stock and overstock rows pushed out the "running out" ones. Now sorted most-urgent first, duplicates merged, top 12 kept (`sortFindings`). Fixes the restock items, the report's Restock section and the analytics.
+- **Product names, not codes:** long Amazon titles shortened to the product's own name (`shortName`); Business Report findings say "The Morning Sidekick Journal gets traffic…" not "195004520X…"; low-stock ad items show the product, not "US - BSJ Vol 1 - AZBarcode".
+- **Reminder preview** now shows today's real jobs and value (example only when there are none, labelled). "Approve by text" unlocks on the page that shows jobs (was still locked on first view).
+- **Report page:** next actions start with a capital and read "Ease ads on SKU…"; the agency white-label tip is folded into a "For agencies" toggle.
+- **Analytics:** "2 checks since Nov 22. One point per daily check: the lines fill in day by day." (was an ISO date and lone dots).
+- **History read:** not stuck, just slow; the last loading step now says big accounts take a few minutes and it's safe to leave; a timeout shows a retry message.
+- **KPI tiles** say "· 30 days".
+- Takes effect on the next daily pull for existing data (or Check now). Tests 205 passing.
+
+---
+
 ## 2026-11-23 · Founder test: first jobs had no approve buttons (ads data missing)
 - What Praveen saw on Habit Nest US: "2 jobs today, worth ~$0/mo", both steps-only (restock, ease ads on low stock). Cause: only the Seller Central reports (sales/traffic, FBA inventory) had arrived; the two Amazon Ads tables (search terms, campaigns) hadn't, and every one-tap job (negatives, bids, budgets, exact campaigns) comes from those. The page didn't say so.
 - Fixed: dashboard banner per account: "Your ad jobs are on the way… (N% loaded)" while Ads history loads, or "Amazon Ads isn't connected" + Connect button. Headline drops "~$0/mo" ("2 jobs today to protect your sales"). Manual jobs now say why they're yours (Amazon doesn't let apps create FBA shipments, etc.).

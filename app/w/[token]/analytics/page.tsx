@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
       <div className="ana-head">
         <span className="eyebrow">{brand} · {pro ? "Pro analytics" : "Analytics preview"}</span>
         <h1>How your account is moving.</h1>
-        <p className="muted">{snaps.length} checks since {ws.createdAt.slice(0, 10)}. <Link href={`/w/${token}`}>Back to your Rocco page</Link></p>
+        <p className="muted">{snaps.length} check{snaps.length === 1 ? "" : "s"} since {new Date(ws.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}. One point per daily check: the lines fill in day by day. <Link href={`/w/${token}`}>Back to your Rocco page</Link></p>
       </div>
       <div className="kpis">
         {last && <Stat label="Ad spend (30d)" value={$(num(last, "spend"))} {...(({ text, good }) => ({ delta: text, good }))(delta(last, prev, "spend", $, true))} />}

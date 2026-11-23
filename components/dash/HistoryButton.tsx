@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 
-const STEPS = ["Asking Amazon for this account's change history…", "Matching changes to your campaigns…", "Counting what was changed by hand and by rules…", "Writing my read of how the account was run…"];
+const STEPS = ["Asking Amazon for this account's change history…", "Matching changes to your campaigns…", "Counting what was changed by hand and by rules…", "Writing my read of how the account was run…", "Still reading: a big account's history can take a few minutes. You can leave this page; it'll be here when you're back."];
 
 /** One-time "Before Rocco" read for an account connected before it ran on its own. */
 export function HistoryButton({ token, account }: { token: string; account: string }) {
@@ -12,8 +12,8 @@ export function HistoryButton({ token, account }: { token: string; account: stri
   const [err, setErr] = useState("");
   const go = async () => {
     setBusy(true); setErr("");
-    const r = await fetch("/api/w/history", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, account }) }).then((x) => x.json()).catch(() => ({ ok: false, error: "No connection. Check your internet and try again." }));
-    if (r.ok) router.refresh(); else { setErr(r.error || "Something went wrong. Try again in a minute."); setBusy(false); }
+    const r = await fetch("/api/w/history", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, account }) }).then((x) => (x.status === 504 ? { ok: false, timeout: true } : x.json())).catch(() => ({ ok: false, error: "No connection. Check your internet and try again." }));
+    if (r.ok) router.refresh(); else if (r.timeout) { setErr("Amazon is slow today. If it doesn't show up in a few minutes, tap again."); setBusy(false); } else { setErr(r.error || "Something went wrong. Try again in a minute."); setBusy(false); }
   };
   if (busy) return <LoadingText steps={STEPS} every={4000} />;
   return (

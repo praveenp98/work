@@ -1,3 +1,4 @@
+import { sortFindings } from "./rules/types";
 import { savingsOf } from "./savings";
 import { randomUUID } from "node:crypto";
 import { seal, unseal } from "./vault";
@@ -76,7 +77,7 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
       out.analysis.stats.newWinners = diff.newWinners.length;
     }
   }
-  await store.addSnapshot({ id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, headline: out.analysis.headline, stats: out.analysis.stats, extra: { terms, findings: out.analysis.findings.slice(0, 10) } });
+  await store.addSnapshot({ id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, headline: out.analysis.headline, stats: out.analysis.stats, extra: { terms, findings: sortFindings(out.analysis.findings).slice(0, 12) } });
   let run: Run | null = null;
   if (out.analysis.proposals.length) {
     run = { id: randomUUID(), workspaceId: ws.id, brand, kind: out.kind, createdAt: now, proposals: out.analysis.proposals };

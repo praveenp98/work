@@ -20,7 +20,23 @@ const STYLES: { id: Style; t: string; d: string; preview: string }[] = [
   { id: "approve", t: "Approve by text", d: "The jobs with codes: reply YES and I make them in Amazon.", preview: "☀️ 4 jobs today:\n• N1+N2: Block 6 wasted searches\n• G3: Raise 2 budgets\nReply YES N1 N2 G3 and I make them in Amazon." },
 ];
 
-export function ReminderCard({ token, initial, seen, slackOn, title = "Nudge me when there's work" }: { token: string; initial: R | null; seen: boolean; slackOn: boolean; title?: string }) {
+export interface Sample { value: string; jobs: { title: string; codes: string[] }[] }
+
+/** The message as it would go out today, built from this team's real jobs. */
+function realPreview(style: Style, s: Sample): string {
+  const n = s.jobs.length;
+  const head = `☀️ ${n} job${n === 1 ? "" : "s"} today${s.value ? `, worth ~${s.value}/mo` : ""}`;
+  const low = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+  if (style === "top3") return `${head}:\n${s.jobs.slice(0, 3).map((j) => `• ${j.title}`).join("\n")}\nReview: rocco.works/…`;
+  if (style === "approve") {
+    const one = s.jobs.filter((j) => j.codes.length).slice(0, 3);
+    if (!one.length) return `${head}. None can be approved by text today (they're steps for you). Review: rocco.works/…`;
+    return `${head}:\n${one.map((j) => `• ${j.codes.slice(0, 3).join("+")}: ${j.title}`).join("\n")}\nReply YES ${one.flatMap((j) => j.codes.slice(0, 3)).join(" ")} and I make them in Amazon.`;
+  }
+  return `${head}. Biggest: ${low(s.jobs[0].title)}. Review (2 min): rocco.works/…`;
+}
+
+export function ReminderCard({ token, initial, seen, slackOn, title = "Nudge me when there's work", sample }: { token: string; initial: R | null; seen: boolean; slackOn: boolean; title?: string; sample?: Sample }) {
   const [r, setR] = useState<R>(() => ({ ...(initial ?? { cadence: "daily", channel: "imessage", approveByText: false }), style: initial?.style ?? (initial?.approveByText ? "approve" : "nudge") }));
   const [editing, setEditing] = useState(!initial);
   const [busy, setBusy] = useState(false);
@@ -80,7 +96,8 @@ export function ReminderCard({ token, initial, seen, slackOn, title = "Nudge me 
               );
             })}
           </div>
-          <p className="rm-preview" aria-label="Preview">{STYLES.find((s) => s.id === style)!.preview}</p>
+          <p className="rm-preview" aria-label="Preview">{sample?.jobs.length ? realPreview(style, sample) : STYLES.find((s) => s.id === style)!.preview}</p>
+          {!sample?.jobs.length && <p className="fine" style={{ margin: "-6px 0 0" }}>Example. Yours will use your real jobs.</p>}
           <p className="fine" style={{ margin: 0 }}>No work that day, no message. Stop anytime: reply STOP or change it here.</p>
         </>
       )}

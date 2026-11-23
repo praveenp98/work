@@ -36,7 +36,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   return (
     <article className="client-report">
       <div className="noprint row" style={{ justifyContent: "space-between", margin: "16px 0" }}>
-        <p className="fine" style={{ margin: 0 }}>Add <code className="code">?brand=Name&amp;by=Your Agency</code> to the URL to white-label. Print → Save as PDF.</p>
+        <details className="fine" style={{ margin: 0 }}><summary>Agencies: white-label this report</summary>Add <code className="code">?brand=Client&amp;by=Your Agency</code> to the address, then Print → Save as PDF.</details>
         <PrintButton />
       </div>
       <header className="cr-head">
@@ -78,7 +78,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {pb && pb.open.length > 0 && (
         <>
           <h2>Next actions</h2>
-          <ul>{[...pb.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 10).map((p) => <li key={p.code}>{proposalLine(p).replace(/^- \*\*\w+\*\* /, "").replace(/\*\*/g, "")}</li>)}</ul>
+          <ul>{[...pb.open].sort((x, y) => y.valueMonthly - x.valueMonthly).slice(0, 10).map((p) => <li key={p.code}>{((l) => l.charAt(0).toUpperCase() + l.slice(1))(proposalLine(p).replace(/^- \*\*\w+\*\* /, "").replace(/\*\*/g, ""))}</li>)}</ul>
         </>
       )}
       <footer className="fine" style={{ marginTop: 40, borderTop: "1px solid var(--line)", paddingTop: 10 }}>{by ? `${by} · ` : ""}Analysis powered by Rocco (rocco.works). Not affiliated with Amazon.</footer>

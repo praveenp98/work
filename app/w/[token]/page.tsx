@@ -133,9 +133,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const target = Math.round(b.settings.targetAcos * 100);
   const acos = st ? Math.round(Number(st.stats.acosPct)) : null;
   const kpis = [
-    st && { k: "Ad spend", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
-    st && { k: "Ad sales", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
-    biz && { k: "Total sales", v: m(Number(biz.stats.sales)), d: delta("business_report", "sales") },
+    st && { k: "Ad spend · 30 days", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
+    st && { k: "Ad sales · 30 days", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
+    biz && { k: "Total sales · 30 days", v: m(Number(biz.stats.sales)), d: delta("business_report", "sales") },
     st && { k: "Wasted / mo", v: m(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
   ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
 
@@ -240,7 +240,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         <aside className="rd-side">
           {access !== "none" && team}
           {access !== "none" && direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
-          {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} />}
+          {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
             <h3>What worked</h3>
