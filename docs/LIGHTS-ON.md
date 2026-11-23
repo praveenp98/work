@@ -70,3 +70,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 ## Restock (new, Nov 23)
 - [ ] DataDoe → Settings → Actions: enable the 6 FBA inbound Action types listed in docs/RESTOCK.md.
 - [ ] Test once on Habit Nest US with 1 SKU, small quantity: plan appears in Send to Amazon → cancel it from Rocco.
+
+## Local prices (optional, Nov 23)
+- [ ] For your top PPP countries (e.g. IN), copy Dodo's local yearly/monthly prices into Vercel env `LOCAL_PRICES` (format in docs/PRICING-MODEL.md) → redeploy.
+- [ ] PostHog: add an alert on the `price_mismatch` event (any count > 0).

@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · Local prices in line with Dodo PPP
+- Visitors outside the US get a country-aware line ("In India? Checkout shows your price in your own currency…"); optional `LOCAL_PRICES` env var shows the exact local amounts on /pricing and the plan picker (list price underneath).
+- Each payment is checked against `LOCAL_PRICES`; a mismatch logs and fires `price_mismatch` in PostHog. Details: docs/PRICING-MODEL.md → Local prices.
+- Tests 213 passing.
+
+---
+
 ## 2026-11-23 · One-tap restock (FBA shipment plan via DataDoe)
 - Restock job now: editable quantities (~60 days of sales minus on-hand and inbound), ship-from address once, one tap → Rocco creates the FBA inbound plan in Amazon (AMAZON_FBA_INBOUND_PLANS_ADD, dry run first, idempotent), then "Finish in Send to Amazon" or "Cancel plan".
 - Why not fully one-tap: Amazon's inbound flow needs carton sizes/weights/pickup and fee choices; Rocco hands off at the first physical step. Phase 2 (fees/carrier compare in Rocco) only if sellers ask.

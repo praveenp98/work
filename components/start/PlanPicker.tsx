@@ -2,12 +2,18 @@
 import { track } from "@/lib/analytics";
 import { useState } from "react";
 import { PriceRise, ValueCalc } from "@/components/start/ValueCalc";
+import { fmtLocal, type LocalPrice } from "@/lib/ppp";
+
+export interface Where { name: string; local: LocalPrice | null }
 
 /**
  * Step 2 of hiring (after Google sign-up): pick yearly or monthly, then secure checkout. Both cards share the same
  * rows (tag, price, line) so they line up.
  */
-export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; monthlyUrl: string }) {
+export function PlanPicker({ annualUrl, monthlyUrl, where }: { annualUrl: string; monthlyUrl: string; where?: Where | null }) {
+  const L = where?.local ?? null;
+  const yr = L ? fmtLocal(L.annual, L) : "$1,190";
+  const mo = L ? fmtLocal(L.monthly, L) : "$119";
   const [plan, setPlan] = useState<"annual" | "monthly">("annual");
   const [busy, setBusy] = useState(false);
   const url = plan === "annual" ? annualUrl : monthlyUrl;
@@ -17,20 +23,22 @@ export function PlanPicker({ annualUrl, monthlyUrl }: { annualUrl: string; month
       <div className="pp-plans" role="radiogroup" aria-label="Plan">
         <button type="button" role="radio" aria-checked={plan === "annual"} className={plan === "annual" ? "on" : ""} onClick={() => setPlan("annual")}>
           <span className="pp-tag best">2 months free</span>
-          <b>$1,190<small>/year</small></b>
-          <span className="pp-line">$99/mo billed yearly</span>
+          <b>{yr}<small>/year</small></b>
+          <span className="pp-line">{L ? `${fmtLocal(L.annual / 12, L)}/mo billed yearly` : "$99/mo billed yearly"}</span>
         </button>
         <button type="button" role="radio" aria-checked={plan === "monthly"} className={plan === "monthly" ? "on" : ""} onClick={() => setPlan("monthly")}>
           <span className="pp-tag">Flexible</span>
-          <b>$119<small>/month</small></b>
+          <b>{mo}<small>/month</small></b>
           <span className="pp-line">billed monthly</span>
         </button>
       </div>
+      {L ? <p className="fine pp-local">Local price for {where!.name}, charged in {L.currency}. (List price $1,190 / $119.)</p>
+        : where ? <p className="fine pp-local">In {where.name}? Checkout shows your price in your own currency, often lower than USD.</p> : null}
       <PriceRise />
       <ValueCalc plan={plan} compact />
       {ready ? (
         <a className="btn rc-btn" href={url} onClick={() => { setBusy(true); track("checkout_clicked", { plan }); }}>
-          {busy ? "Opening secure checkout…" : plan === "annual" ? "Continue · $1,190 a year →" : "Continue · $119 a month →"}
+          {busy ? "Opening secure checkout…" : plan === "annual" ? `Continue · ${yr} a year →` : `Continue · ${mo} a month →`}
         </a>
       ) : <p className="tm-err" role="status">Checkout is being switched on right now. Please try again in a few minutes, or email human@rocco.works.</p>}
       <p className="pp-guarantee">🛡️ <b>7-day money-back guarantee.</b> If you don&apos;t like the fixes I give you, ask for your money back. {plan === "annual" ? "Renews yearly, cancel the renewal anytime." : "Cancel anytime."}</p>

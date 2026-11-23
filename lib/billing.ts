@@ -2,6 +2,7 @@ import { extraProduct, fetchPayment, fetchSubscription, latestPaymentOf, ourProd
 import type { Store, Workspace } from "./store/types";
 import { trackServer } from "./track-server";
 import { usdFromCode } from "./currency";
+import { priceMatches } from "./ppp";
 
 /**
  * Turn a Dodo webhook into the workspace's billing state. The webhook body is never trusted: it only names a
@@ -57,7 +58,12 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     const cover = new Date(paidAt.getTime() + (monthly ? 32 : 367) * 86_400_000);
     const until = nextBill && nextBill > now && nextBill <= cover ? nextBill : cover;
     if (until > now) {
-      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) { change = "paid"; trackServer(ws.id, ws.licensed ? "renewed" : "paid", { plan: monthly ? "monthly" : "annual", currency: pay.currency, usd: pay.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : undefined }); }
+      if (!ws.licensed || !ws.paidUntil || new Date(ws.paidUntil) < until) { change = "paid"; trackServer(ws.id, ws.licensed ? "renewed" : "paid", { plan: monthly ? "monthly" : "annual", currency: pay.currency, usd: pay.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : undefined });
+        // The site showed a local price (LOCAL_PRICES): if Dodo charged something else, flag it so the table gets fixed.
+        if (pay.total_amount && priceMatches(pay.currency, pay.total_amount / 100, monthly ? "monthly" : "annual") === false) {
+          console.warn(`[pricing] local price drift: charged ${pay.total_amount / 100} ${pay.currency} (${monthly ? "monthly" : "annual"}); update LOCAL_PRICES`);
+          trackServer(ws.id, "price_mismatch", { currency: pay.currency, charged: pay.total_amount / 100, plan: monthly ? "monthly" : "annual" });
+        } }
       ws.licensed = true;
       if (!ws.paidUntil || new Date(ws.paidUntil) < until) ws.paidUntil = until.toISOString();
       ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard

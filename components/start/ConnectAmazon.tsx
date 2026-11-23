@@ -91,14 +91,14 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
 }
 
 /** Signed up but not paid yet: pick a plan, then secure checkout. Connecting Amazon comes right after payment. */
-export function HireCard({ url, monthlyUrl }: { url: string; monthlyUrl?: string }) {
+export function HireCard({ url, monthlyUrl, where }: { url: string; monthlyUrl?: string; where?: import("./PlanPicker").Where | null }) {
   return (
     <div className="rc-card">
       <div className="rc-av"><svg width="56" height="46" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="rch" /></svg></div>
       <h1>Pick your plan.</h1>
       <p className="rc-sub">Then connect Amazon in 2 minutes. Your first jobs usually show up within hours.</p>
       <Urgency />
-      <PlanPicker annualUrl={url} monthlyUrl={monthlyUrl ?? url} />
+      <PlanPicker annualUrl={url} monthlyUrl={monthlyUrl ?? url} where={where} />
       <ul className="rc-trust">
         <li>🔒 Secure checkout by Dodo Payments, in your local currency.</li>
         <li>✋ Nothing changes in Amazon without your approval. Every change is logged and undoable.</li>

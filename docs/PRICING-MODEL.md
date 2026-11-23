@@ -89,3 +89,13 @@ Unlock: Rocco's checkout links carry metadata_ref = workspace id. The Dodo webho
   | 200 | $499 | $91,600 |
 - **Flow (like localseo.to):** Hire Rocco → sheet asks work email (the account) → Dodo checkout prefilled + tagged with the team → /welcome → their Rocco page → setup. Email confirmation link comes when Resend is added; until then the Dodo receipt confirms it.
 - Copy everywhere: "$99/year for your whole team · +$10 with every hire".
+
+## Local prices (Dodo purchasing power parity), Nov 23
+Dodo charges each buyer in their own currency at a PPP-adjusted price; the site's list price stays **$1,190/yr or $119/mo**.
+- **Default (nothing to set):** visitors outside the US see "In India? Checkout shows your price in your own currency, often lower than USD." (country from Vercel's geo header). No mismatch possible because the site never claims a local number.
+- **Exact local prices (optional, recommended for big markets):** copy the amounts Dodo shows for each country into the Vercel env var `LOCAL_PRICES`, e.g.
+  `{"IN":{"currency":"INR","symbol":"₹","annual":39900,"monthly":3990}}` → the pricing page and plan picker show "₹39,900/year", "Continue · ₹39,900 a year", with "List price $1,190 / $119" underneath.
+- **Drift alarm:** every payment is compared with `LOCAL_PRICES` (2% tolerance). A mismatch logs `[pricing] local price drift` in Vercel and sends a `price_mismatch` event to PostHog, so a stale entry is caught on the first sale. Fix: update the env var (or remove that country to fall back to the note).
+- How to read Dodo's local price: open the checkout link from a browser/VPN in that country, or check the PPP table on each product in the Dodo dashboard. If Dodo's PPP is automatic (changes over time), prefer fixed per-currency prices in Dodo where possible, or only list your top 2-3 countries.
+- The "prices go up" line is about the USD list price; local prices follow only when Praveen raises the Dodo product price.
+- Contest: TrustMRR counts revenue at what Dodo actually charged, so PPP sales count at their lower value.

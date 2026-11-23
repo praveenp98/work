@@ -17,6 +17,7 @@ import { slackConfigured } from "@/lib/slack";
 import { notFound } from "next/navigation";
 import { JobCards } from "@/components/dash/JobCards";
 import { canRestock, sendToAmazonUrl } from "@/lib/restock";
+import { visitorPricing } from "@/lib/ppp-server";
 import { RememberTeam } from "@/components/dash/RememberTeam";
 import { ConnectAmazon, ConnectButton, HireCard } from "@/components/start/ConnectAmazon";
 import { ModeSwitch } from "@/components/start/ModeSwitch";
@@ -99,7 +100,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <section className="rc-page">
         <RememberTeam t={token} />
         <IdentifyTeam team={ws.id} paid={access !== "none"} accounts={accounts.length} />
-        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} where={await visitorPricing()} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
         {access !== "none" && direct && (
           <section className="rc-example" aria-label="Example of your mornings">
             <p className="rc-ex-k">{accounts.length ? "While Amazon sends your data: here's what your mornings will look like" : "Here's what your mornings will look like"}</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { visitorPricing } from "@/lib/ppp-server";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingPlans } from "@/components/PricingPlans";
@@ -49,7 +50,7 @@ export default async function Page() {
         <Urgency />
       </header>
 
-      <PricingPlans google={googleOn()} annual={PRICE.annual} monthly={PRICE.monthly} perMonthAnnual={PRICE.perMonthAnnual} guaranteeDays={PLAN.guaranteeDays} />
+      <PricingPlans google={googleOn()} annual={PRICE.annual} monthly={PRICE.monthly} perMonthAnnual={PRICE.perMonthAnnual} guaranteeDays={PLAN.guaranteeDays} where={await visitorPricing()} />
 
       <section className="pr-sec">
         <h2>Everything that&apos;s included</h2>
