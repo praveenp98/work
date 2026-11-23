@@ -182,6 +182,15 @@ First-party only: a Supabase table (`rocco_events`, `supabase/migrations/004_eve
 - **PDFs:** write the source as HTML in `marketing/pdf/`, then `node marketing/scripts/pdf.mjs marketing/pdf/x.html public/downloads/x.pdf --png`. Prices in a PDF come from `{{offer:...}}` tokens.
 - **Live magnet:** `/free/black-friday-checklist` (PDF `public/downloads/bfcm-checklist-2026.pdf`, posts in `marketing/copy/bfcm-posts.md`). `components/SeasonBanner.tsx` points to it from `/tools` and the Black Friday guide, and switches to December wording on Dec 1 by date.
 
+## Look and logo
+
+One copy of the look: `marketing/brand/tokens.ts` (colours, roles, type sizes per format, safe zones, radii, shadows), lifted from the site's CSS and checked against it by a test. The video studio, share images and `/brand` page import it. New image templates and carousels import it too: never type a hex code or a font size into an asset.
+
+- Signature elements (morning list, YES bubble, change log row, sample chip): `marketing/brand/components/`. Put at least one in every asset.
+- Logo files: `public/brand/logos/`, rebuilt with `node marketing/brand/build-logos.mjs`. Avatar: `rocco-avatar-green`. Banners: `rocco-lockup-light`.
+- Contrast: `node marketing/scripts/contrast.mjs` must pass.
+- Rules in words: BRAND.md section 9. Public brand sheet: `/brand` (not indexed, linked from `/press`).
+
 ## Repo vs brief (found Nov 22, 2026)
 
 Open questions for Praveen:

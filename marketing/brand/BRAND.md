@@ -193,6 +193,43 @@ Examples of the Don't column (never ship these):
 
 Handles live in `marketing/config/offer.ts` (`HANDLES`). Use that in generated assets.
 
+## 9. How it looks
+
+Nothing here is new. It is the look rocco.works already has, written down once in `marketing/brand/tokens.ts` and imported by the video studio, the share images and the `/brand` page. A test fails if the site's CSS and the tokens disagree. The public version is `rocco.works/brand` (not indexed, linked from `/press`).
+
+**Logo** (files in `public/brand/logos/`, built by `marketing/brand/build-logos.mjs`; the raccoon is `public/icon.svg`, only placed or recoloured, and the type is the site header's Raleway 600 as outlines):
+
+| Option | File | Use |
+|---|---|---|
+| Wordmark | `rocco-wordmark-*` | Type only, small spaces next to the mark |
+| Wordmark with domain | `rocco-works-*` | End cards, print, anywhere the address matters |
+| Lockup | `rocco-lockup-*` | **Banners and headers (recommended)** |
+| Mark | `rocco-mark-*` | When the name is already beside it |
+| Avatar | `rocco-avatar-green` | **Profile pictures (recommended)**: reads at 48px |
+
+Each comes in light, dark and one colour (`-mono`, plus `-mono-white` for coloured backgrounds). The lowercase wordmark is a logo; in text the name is still "Rocco" (section 8).
+
+**Colour rules.**
+- Primary is the blue `#1f6feb`: buttons, links, kickers, and the seller's YES bubble.
+- Background is `#f4f2ee`, cards are white, text is `#1c2433`, secondary text `#5d6676`.
+- Green `#1f9d63` means approved, worked, or money found: fills, ticks and large numbers. For small green text use the deep green `#1f7a4f`.
+- Reverted is the deep amber `#9a5b00`. Still checking is the muted grey.
+- The sample-account chip is always ink text on white with an ink border and an amber dot, so it reads on any background.
+- Contrast: every pair in `TEXT_PAIRS` passes WCAG AA (`node marketing/scripts/contrast.mjs`). Two limits come out of that: blue text on the page background and white text on green are for large text only (24px and up, or 19px bold). Small blue text on the page background uses the deep blue `#1559c7`.
+
+**Type rules** (px on the canvas; `TYPE` in tokens.ts). Headlines are Raleway 500, tight. Everything else is Inter.
+
+| Format | Headline | Title | Body | Caption | Most words on screen |
+|---|---|---|---|---|---|
+| 9:16 (1080x1920) | 150 | 58 | 46 | 52 | 22, headline 8 |
+| 4:5 (1080x1350) | 140 | 54 | 43 | 49 | 22, headline 8 |
+| 16:9 (1920x1080) | 150 | 68 | 46 | 46 | 26, headline 8 |
+| Slide or post image (1080x1350) | 96 | 64 | 40 | 28 | 45, headline 10 |
+
+Headline sizes are the largest allowed: a long line shrinks to fit. Captions are 3 to 5 words per line.
+
+**Signature elements** (`marketing/brand/components/`): the morning-list card, the YES bubble, the change log row, the sample-account chip. At least one of them is in every asset.
+
 ## Where each claim comes from
 
 | Claim in this file | Source |
@@ -220,3 +257,5 @@ Handles live in `marketing/config/offer.ts` (`HANDLES`). Use that in generated a
 3. **Handles.** rocco.works on Instagram and "rocco" on LinkedIn are written as you gave them. I could not check that they are claimed. YouTube is a placeholder. Does Rocco have a Threads account?
 4. **Setup calls** (still open from BRIEF.md): the north star is calls booked, but the hackathon rule says no call-booking flows. No copy here mentions a call.
 5. **"he" or "it".** The site description calls Rocco "he". Keep that everywhere, or only on the site?
+6. **Blue or green.** The site's primary colour is blue (`#1f6feb`); green is the "worked" and money colour. The old press line said the brand colour was green with gold, and the current profile picture is the raccoon on yellow. Section 9 follows the site: blue primary, green for approve. The YES bubble is blue because it is blue on the site. Say if you want green to lead instead: it is one token.
+7. **Avatar.** Recommended: the raccoon on green. Swapping a profile picture people already know costs a little recognition, so change every account on the same day or keep the yellow one.
