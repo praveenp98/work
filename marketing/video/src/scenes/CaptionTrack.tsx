@@ -9,7 +9,7 @@ import { T } from "../theme";
  * Scene 8 (an overlay, not a scene of its own). Burned-in captions: one line of 3 to 5 words at a time, the word
  * being spoken highlighted in the site's blue. Lives in the caption band of the safe area in every format.
  */
-export const CaptionTrack: React.FC<{ lines: Line[] }> = ({ lines }) => {
+export const CaptionTrack: React.FC<{ lines: Line[]; scale?: number }> = ({ lines, scale = 1 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { caption, layout } = useAreas();
@@ -18,7 +18,7 @@ export const CaptionTrack: React.FC<{ lines: Line[] }> = ({ lines }) => {
   if (!line) return null;
   const since = (t - line.start) * fps;
   const k = interpolate(since, [0, 4], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const fs = TYPE[layout].caption;
+  const fs = TYPE[layout].caption * scale;
   return (
     <AbsoluteFill style={{ pointerEvents: "none", zIndex: 10 }}>
       <div style={{ position: "absolute", left: caption.x, top: caption.y, width: caption.w, height: caption.h, display: "flex", alignItems: "center", justifyContent: "center" }}>

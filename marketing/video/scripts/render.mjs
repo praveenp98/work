@@ -26,7 +26,7 @@ const VIDEO_DIR = path.resolve(HERE, "..");
 const OUT_DIR = path.resolve(VIDEO_DIR, "..", "out", "video");
 const FORMATS = ["9x16", "4x5", "16x9"];
 const SCENE_TYPES = ["hook", "ui", "phone", "changelog", "compare", "stat", "footage", "end"];
-const UI_PIECES = ["morning", "job", "approve", "tidy", "changelog-row", "skip", "before-rocco", "pricing"];
+const UI_PIECES = ["connect", "morning", "job", "approve", "tidy", "changelog-row", "skip", "before-rocco", "pricing"];
 
 const argv = process.argv.slice(2);
 const arg = (name, fallback) => { const i = argv.indexOf(`--${name}`); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : fallback; };

@@ -28,6 +28,8 @@ export interface VideoSpec {
   id: string;
   fps?: number;
   scenes: SceneSpec[];
+  /** Make the burned-in captions bigger or smaller (1 = the brand size). Short cuts for feeds read better at 1.2. */
+  captionScale?: number;
   /** Captions from a file (captions/x.srt or captions/x.json) instead of the per-scene `caption` lines. */
   captions?: { src: string };
   /** A royalty-free track in marketing/video/music/. Nothing is bundled. */

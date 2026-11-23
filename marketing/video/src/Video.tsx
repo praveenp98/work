@@ -36,7 +36,7 @@ export const Video: React.FC<VideoProps> = ({ spec: raw, layout, resolved }) => 
   const spec = useMemo(() => expandTokens(raw), [raw]);
   const fps = fpsOf(spec);
   const frames = sceneFrames(spec);
-  const opts = useMemo(() => ({ maxChars: layout === "16x9" ? 34 : 24 }), [layout]);
+  const opts = useMemo(() => ({ maxChars: Math.round((layout === "16x9" ? 34 : 24) / (raw.captionScale ?? 1)) }), [layout, raw.captionScale]);
 
   const lines: Line[] = useMemo(() => {
     if (resolved?.words?.length) return toLines(resolved.words, opts);
@@ -59,7 +59,7 @@ export const Video: React.FC<VideoProps> = ({ spec: raw, layout, resolved }) => 
           <Series>
             {spec.scenes.map((s, i) => <Series.Sequence key={i} durationInFrames={frames[i]} name={`${i + 1}. ${s.type}`}>{render(s)}</Series.Sequence>)}
           </Series>
-          <CaptionTrack lines={lines} />
+          <CaptionTrack lines={lines} scale={spec.captionScale ?? 1} />
           {music && <Audio src={staticFile(music.src)} volume={music.volume ?? 0.12} loop />}
         </MissingFiles.Provider>
       </LayoutProvider>
