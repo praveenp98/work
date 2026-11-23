@@ -1,7 +1,8 @@
 import React from "react";
-import { Composition, Folder, staticFile, type CalculateMetadataFunction } from "remotion";
+import { Composition, Folder, staticFile, Still, type CalculateMetadataFunction } from "remotion";
 import { parseCaptionJson, parseSrt } from "./captions";
 import { AREAS, LAYOUTS } from "./layout";
+import { PROFILE_IMAGES, ProfileImage, type ProfileProps } from "./profiles/ProfileImage";
 import { fpsOf, totalFrames, type Resolved, type VideoProps, type VideoSpec } from "./spec";
 import { Video } from "./Video";
 
@@ -42,6 +43,12 @@ export const Root: React.FC = () => (
     {LAYOUTS.map((layout) => (
       <Composition key={layout} id={`Video-${layout}`} component={Video} width={AREAS[layout].width} height={AREAS[layout].height} fps={30} durationInFrames={300} defaultProps={{ spec: demo, layout }} calculateMetadata={calc} />
     ))}
+    {/* Profile pictures, banners and covers for every account: stills, rendered by scripts/profiles.mjs. */}
+    <Folder name="profiles">
+      {PROFILE_IMAGES.map(({ file, props }) => (
+        <Still key={file} id={`profile-${safeId(file.replace(/\.png$/, ""))}`} component={ProfileImage} width={props.width} height={props.height} defaultProps={props as ProfileProps} />
+      ))}
+    </Folder>
     {SPECS.map((spec) => (
       <Folder key={spec.id} name={safeId(spec.id)}>
         {LAYOUTS.map((layout) => (
