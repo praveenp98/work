@@ -1,3 +1,5 @@
+import { COLORS } from "@/marketing/brand/tokens";
+import Link from "next/link";
 import type { Metadata } from "next";
 import kit from "@/content/launch-kit.json";
 import { CopyField } from "@/components/CopyField";
@@ -36,7 +38,7 @@ export default function Page() {
             </a>
           ))}
         </div>
-        <p className="fine" style={{ marginTop: 10 }}>Brand color #1F9D63 (green) · accent #F6C445 (gold) · ink #13161C. Rocco is an independent tool, not affiliated with Amazon.</p>
+        <p className="fine" style={{ marginTop: 10 }}>Logo files in light, dark and one colour, the colours, fonts and rules: <Link href="/brand">brand sheet</Link> · <a href="/brand/rocco-brand-kit.zip" download>brand kit (zip)</a>. Primary {COLORS.accent} (blue) · approve green {COLORS.green} · ink {COLORS.ink}. Rocco is an independent tool, not affiliated with Amazon.</p>
       </section>
 
       <section>
