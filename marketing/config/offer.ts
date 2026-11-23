@@ -68,7 +68,7 @@ export const OFFER = {
   guarantee: {
     days: PLAN.guaranteeDays, // 7
     short: `${PLAN.guaranteeDays}-day money-back guarantee`,
-    full: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email hello@rocco.works and you get a full refund. No call, no forms.`,
+    full: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email human@rocco.works and you get a full refund. No call, no forms.`,
   },
 
   /** There is no free plan, and this is the reason to give. */
@@ -102,7 +102,7 @@ export const LINKS = {
   pricing: `${SITE_URL}/pricing`,
   help: `${SITE_URL}/help`,
   press: `${SITE_URL}/press`,
-  email: "hello@rocco.works",
+  email: "human@rocco.works",
   /** PLACEHOLDER: no booking link exists in the repo or on the site yet. Praveen to supply. */
   setupCall: "{{SETUP_CALL_URL}}",
   /** PLACEHOLDER: the newest video (YouTube or wherever it lives). The /start page hides its button until this is a real URL. */

@@ -14,7 +14,7 @@ Done: 13 prompts, all committed and pushed on `marketing`. Not merged into `main
 | 2 | Remotion video studio, nine scene templates, three formats | Done | `marketing/video/` (README inside). Renders: `marketing/out/video/` |
 | 3 | Share images in code, per page (P24) | Done | `lib/og.tsx`, `app/**/opengraph-image.tsx` and `twitter-image.tsx`, `public/og.png` |
 | 4 | Brand guide: positioning, one-liners, voice, word lists | Done | `marketing/brand/BRAND.md` |
-| 5 | Funnel events and `/admin/funnel` (P29) | Done | `lib/events.ts`, `lib/track.ts`, `components/Analytics.tsx`, `app/admin/funnel/`, `supabase/migrations/004_events.sql` |
+| 5 | Funnel events and `/admin/funnel` (P29) | Done | `lib/events.ts`, `lib/track.ts`, `components/FunnelEvents.tsx`, `app/admin/funnel/`, `supabase/migrations/004_events.sql` |
 | 6 | Lead capture: table, `/api/leads`, form, unsubscribe, admin | Done | `lib/leads.ts`, `components/LeadCapture.tsx`, `app/api/leads/`, `app/unsubscribe/`, `app/admin/leads/`, `supabase/migrations/005_leads.sql` |
 | 7 | Black Friday checklist lead magnet (includes the PDF script, P18) | Done | `public/downloads/bfcm-checklist-2026.pdf`, `marketing/pdf/`, `marketing/scripts/pdf.mjs`, `app/free/black-friday-checklist/`, `components/SeasonBanner.tsx`, `marketing/copy/bfcm-posts.md` |
 | 8 | One look everywhere: tokens, logo files, signature elements, `/brand` | Done | `marketing/brand/tokens.ts`, `marketing/brand/components/`, `marketing/brand/build-logos.mjs`, `public/brand/logos/`, `public/brand/rocco-brand-kit.zip`, `app/brand/` |

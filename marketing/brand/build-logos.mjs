@@ -141,7 +141,7 @@ Colours and sizes: rocco-colors.json.
 
 Please don't redraw, stretch or recolour the raccoon beyond these files, and don't put the logo next to
 Amazon's in a way that suggests a partnership. Rocco is not affiliated with Amazon.
-Questions: hello@rocco.works
+Questions: human@rocco.works
 `);
 const zip = path.join(REPO_DIR, "public", "brand", "rocco-brand-kit.zip");
 fs.rmSync(zip, { force: true });

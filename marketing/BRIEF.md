@@ -37,7 +37,7 @@ Last checked against the repo and the live site (rocco.works, rocco.works/pricin
 - $1,190/year (= $99/mo billed yearly, 2 months free, saves $238) or $119/month.
 - Whole team. 3 Amazon accounts included (each marketplace counts as one), +$49/mo each extra.
 - Prices go up every 5 hires: +$10 a month, +$100 a year.
-- 7-day money-back guarantee: "if you don't like the fixes I give you in your first 7 days, email hello@rocco.works and you get a full refund. No call, no forms."
+- 7-day money-back guarantee: "if you don't like the fixes I give you in your first 7 days, email human@rocco.works and you get a full refund. No call, no forms."
 - No free plan (reading an Amazon account costs real money to run).
 - Secure checkout by Dodo Payments. Prices in USD; checkout shows local price.
 - Time math on the site: 1 hour/day checking ads, bids and stock at $35/hour = $770/mo, vs Rocco at $99/mo. Always show the assumption (1 hr/day, $35/hr; the site multiplies by 22 workdays) when you use $770.
@@ -168,7 +168,7 @@ Made in code, not as static files: `lib/og.tsx` (`ogImage()`), 1200x630, the sit
 First-party only: a Supabase table (`rocco_events`, `supabase/migrations/004_events.sql`), no third-party analytics, no cookie, no IP or user agent stored. The hackathon tracker script is separate and untouched.
 
 - Events: `page_view` (landing pages only), `lead_captured {magnet}`, `tool_result {tool}`, `call_click`, `call_booked`, `hire_click`, `signup_started`, `checkout_started`, `paid`.
-- In a new page or form: `import { track } from "@/lib/track"` and call `track("lead_captured", { magnet: "name" })` when the email is saved. For a link or button, no code: add `data-track="call_click"` (optionally `data-track-magnet`, `data-track-tool`). Page views, hire clicks, signup and checkout starts are picked up by `components/Analytics.tsx` on their own.
+- In a new page or form: `import { track } from "@/lib/track"` and call `track("lead_captured", { magnet: "name" })` when the email is saved. For a link or button, no code: add `data-track="call_click"` (optionally `data-track-magnet`, `data-track-tool`). Page views, hire clicks, signup and checkout starts are picked up by `components/FunnelEvents.tsx` on their own.
 - Every link in an asset goes through `utm()` in `config/offer.ts`: the funnel groups by `utm_source`.
 - Read it at `/admin/funnel` (sign in once at `/admin/login?key=<CRON_SECRET>`): last 7 and 30 days by source, and paid sellers against the goal of 100.
 - `paid` is written by the payment webhook, `call_booked` by the form on the funnel page. A browser cannot send either.

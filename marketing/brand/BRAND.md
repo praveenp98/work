@@ -189,7 +189,7 @@ Examples of the Don't column (never ship these):
 | Threads | (none given) | veenonig |
 | LinkedIn | rocco (page) | (none given) |
 | YouTube | {{YT_HANDLE}} | |
-| Email | hello@rocco.works | |
+| Email | human@rocco.works | |
 
 Handles live in `marketing/config/offer.ts` (`HANDLES`). Use that in generated assets.
 
