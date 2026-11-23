@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
       { source: "/w/:path*", headers: team },
       { source: "/me", headers: team },
       { source: "/mcp/:path*", headers: team },
+      { source: "/admin/:path*", headers: team },
     ];
   },
   async rewrites() {
