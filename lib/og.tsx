@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import { COLORS } from "@/marketing/brand/tokens";
 import { OFFER, SITE_URL } from "@/marketing/config/offer";
 
 /**
@@ -22,7 +23,8 @@ export const alt = `Rocco: your AI Amazon manager. Every morning I find what to 
 
 export const OG_FOOTER = `${SITE_URL.replace(/^https?:\/\//, "")} · ${OFFER.guarantee.days}-day money-back`;
 
-const C = { bg: "#f4f2ee", ink: "#1c2433", muted: "#5d6676", line: "#e2ddd5", accent: "#1f6feb", green: "#1f9d63", greenDeep: "#157a4b" };
+// Colours come from marketing/brand/tokens.ts, the one copy every asset shares.
+const C = { bg: COLORS.bg, ink: COLORS.ink, muted: COLORS.muted, line: COLORS.line, accent: COLORS.accent, green: COLORS.green, greenDeep: COLORS.greenDeep };
 const file = (rel: string) => readFile(path.join(process.cwd(), rel));
 const dataUri = async (rel: string) => `data:image/png;base64,${(await file(rel)).toString("base64")}`;
 
