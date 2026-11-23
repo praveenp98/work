@@ -12,8 +12,8 @@
  * which lead forms read on the server) and a random id from localStorage.
  * With Do Not Track or Global Privacy Control on, no id is created or sent.
  */
-export type ClientEvent = "page_view" | "lead_captured" | "tool_result" | "call_click" | "hire_click" | "signup_started" | "checkout_started";
-type Props = { magnet?: string; tool?: string; plan?: string };
+export type ClientEvent = "page_view" | "lead_captured" | "tool_result" | "call_click" | "hire_click" | "signup_started" | "checkout_started" | "link_click";
+type Props = { magnet?: string; tool?: string; plan?: string; link?: string };
 interface FirstTouch { source?: string; medium?: string; campaign?: string; content?: string; term?: string; ref?: string; at: number }
 
 const AID = "rocco_aid", FT = "rocco_ft", THIRTY_DAYS = 30 * 86_400_000;

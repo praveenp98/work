@@ -10,7 +10,7 @@ import { supabaseEnv } from "./store";
  * Without Supabase (local dev, tests) rows are kept in memory so the funnel page still works.
  * Recording never throws: analytics must not be able to break a page, a signup or a payment.
  */
-export const CLIENT_EVENTS = ["page_view", "lead_captured", "tool_result", "call_click", "hire_click", "signup_started", "checkout_started"] as const;
+export const CLIENT_EVENTS = ["page_view", "lead_captured", "tool_result", "call_click", "hire_click", "signup_started", "checkout_started", "link_click"] as const;
 /** Only the server may write these: call_booked (admin), paid (payment webhook). */
 export const SERVER_EVENTS = ["call_booked", "paid"] as const;
 export type EventName = (typeof CLIENT_EVENTS)[number] | (typeof SERVER_EVENTS)[number];
@@ -45,7 +45,7 @@ export function cleanPath(raw: unknown): string | null {
 const tag = (v: unknown, max = 80) => (typeof v === "string" && v.trim() ? v.trim().toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, max) || null : null);
 export const cleanHost = (v: unknown) => (typeof v === "string" && /^[a-z0-9.-]{3,80}$/i.test(v.trim()) ? v.trim().toLowerCase().replace(/^www\./, "") : null);
 export const cleanAnonId = (v: unknown) => (typeof v === "string" && /^[a-z0-9-]{8,40}$/i.test(v) ? v : null);
-const PROP_KEYS = ["magnet", "tool", "plan"] as const;
+const PROP_KEYS = ["magnet", "tool", "plan", "link"] as const;
 
 /** Turn an untrusted request body into a row, or null if it isn't a valid client event. */
 export function cleanClientEvent(body: unknown): EventRow | null {

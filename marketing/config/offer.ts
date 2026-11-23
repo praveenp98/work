@@ -105,6 +105,8 @@ export const LINKS = {
   email: "hello@rocco.works",
   /** PLACEHOLDER: no booking link exists in the repo or on the site yet. Praveen to supply. */
   setupCall: "{{SETUP_CALL_URL}}",
+  /** PLACEHOLDER: the newest video (YouTube or wherever it lives). The /start page hides its button until this is a real URL. */
+  latestVideo: "{{LATEST_VIDEO_URL}}",
 } as const;
 
 export const HANDLES = {
@@ -112,6 +114,9 @@ export const HANDLES = {
   /** Instagram, LinkedIn and YouTube as given by Praveen on Nov 22, 2026. YouTube has no handle yet. */
   brand: { x: "@roccoworks", xUrl: "https://x.com/roccoworks", instagram: "rocco.works", linkedin: "rocco", youtube: "{{YT_HANDLE}}" },
 } as const;
+
+/** True once a placeholder link has been replaced by a real URL. Pages hide buttons for links that aren't real yet. */
+export const isLive = (url: string) => /^https?:\/\//.test(url);
 
 export type UtmSource = "x" | "threads" | "instagram" | "linkedin" | "reddit" | "youtube" | "tiktok" | "email" | "dm" | "pdf" | "video" | "carousel";
 export interface Utm { source: UtmSource; medium?: string; campaign: string; content?: string }

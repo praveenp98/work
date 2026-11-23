@@ -4,7 +4,7 @@
 
 create table if not exists rocco_events (
   id bigint generated always as identity primary key,
-  event text not null,                 -- page_view, lead_captured, tool_result, call_click, call_booked, hire_click, signup_started, checkout_started, paid
+  event text not null,                 -- page_view, lead_captured, tool_result, call_click, call_booked, hire_click, signup_started, checkout_started, link_click, paid
   path text,                           -- page path only: no query string, never a team link
   utm_source text,
   utm_medium text,

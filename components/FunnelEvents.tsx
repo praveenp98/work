@@ -12,7 +12,7 @@ import { track, type ClientEvent } from "@/lib/track";
  *   checkout_started  the Continue button that opens Dodo checkout
  *   tool_result       the first time someone uses a tool on /tools/<slug> (first input or file), once per page
  *   call_click        any link to a booking page, or anything marked data-track="call_click"
- *   anything else     data-track="<event>" on a link or button (+ data-track-magnet / data-track-tool)
+ *   anything else     data-track="<event>" on a link or button (+ data-track-magnet / -tool / -link)
  *
  * lead_captured is sent by the forms themselves when the email is saved (see components/WaitlistForm.tsx).
  */
@@ -37,7 +37,7 @@ export function Analytics() {
       const el = e.target instanceof Element ? e.target : null;
       if (!el) return;
       const marked = el.closest<HTMLElement>("[data-track]");
-      if (marked?.dataset.track) return track(marked.dataset.track as ClientEvent, { magnet: marked.dataset.trackMagnet, tool: marked.dataset.trackTool });
+      if (marked?.dataset.track) return track(marked.dataset.track as ClientEvent, { magnet: marked.dataset.trackMagnet, tool: marked.dataset.trackTool, link: marked.dataset.trackLink });
       if (el.closest("a[href*='dodopayments.com']")) return track("checkout_started");
       if (el.closest("a[href*='/api/auth/google'][href*='intent=hire']")) return track("signup_started");
       if (el.closest("a[href*='cal.com/'], a[href*='calendly.com/'], a[href*='savvycal.com/']")) return track("call_click");
