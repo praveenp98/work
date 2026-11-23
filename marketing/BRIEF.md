@@ -173,6 +173,15 @@ First-party only: a Supabase table (`rocco_events`, `supabase/migrations/004_eve
 - Read it at `/admin/funnel` (sign in once at `/admin/login?key=<CRON_SECRET>`): last 7 and 30 days by source, and paid sellers against the goal of 100.
 - `paid` is written by the payment webhook, `call_booked` by the form on the funnel page. A browser cannot send either.
 
+## Lead magnets and email capture
+
+- **Form:** `<LeadCapture leadMagnet="name" downloadUrl="/downloads/name.pdf" />` (`components/LeadCapture.tsx`). Email, optional marketplace, and a consent box that starts unticked: "send me rocco's amazon tips and product emails. unsubscribe anytime." The download shows right after submit, ticked or not.
+- **Storage:** table `marketing_leads` (`supabase/migrations/005_leads.sql`), one row per email and magnet, no public access. Written only by `POST /api/leads` (own pages only, honeypot, shared rate limits). Source comes from the first-touch cookie `rocco_ft` that `lib/track.ts` sets.
+- **Only email people whose row says consent yes.** The app sends no email itself. Unsubscribe links: `unsubscribeToken(email)` in `lib/leads.ts` gives the token for `/unsubscribe?token=…`.
+- **Read them** at `/admin/leads` (same sign-in as `/admin/funnel`).
+- **PDFs:** write the source as HTML in `marketing/pdf/`, then `node marketing/scripts/pdf.mjs marketing/pdf/x.html public/downloads/x.pdf --png`. Prices in a PDF come from `{{offer:...}}` tokens.
+- **Live magnet:** `/free/black-friday-checklist` (PDF `public/downloads/bfcm-checklist-2026.pdf`, posts in `marketing/copy/bfcm-posts.md`). `components/SeasonBanner.tsx` points to it from `/tools` and the Black Friday guide, and switches to December wording on Dec 1 by date.
+
 ## Repo vs brief (found Nov 22, 2026)
 
 Open questions for Praveen:
