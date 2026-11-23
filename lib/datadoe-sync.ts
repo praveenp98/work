@@ -210,7 +210,9 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
     const gone = await Promise.all(old.map((sid) => deleteSchedule(sid).catch(() => false)));
     const schedules = { ...(fresh.amazon?.schedules ?? {}) };
     if (gone.every(Boolean)) delete schedules[job.id];
-    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, lastSync: { at: now.toISOString(), kinds: r.kinds, errors: r.errors } };
+    const syncs = { ...(fresh.amazon?.syncs ?? {}), [job.id]: { at: now.toISOString(), kinds: r.kinds, errors: r.errors } };
+    const all = Object.values(syncs);
+    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, syncs, lastSync: { at: now.toISOString(), kinds: [...new Set(all.flatMap((x) => x.kinds))], errors: all.flatMap((x) => x.errors) } };
     await store.saveWorkspace(fresh);
   }
   return res;

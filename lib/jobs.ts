@@ -26,6 +26,8 @@ export interface Job {
   items: JobItem[];
   why?: string;
   steps?: string;
+  /** Manual jobs: why Rocco can't do this one for you (shown on the card). */
+  manualWhy?: string;
 }
 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -79,6 +81,16 @@ function sellerJobs(snaps: { inv?: Snapshot; biz?: Snapshot; lh?: Snapshot }): J
 
 const RISK: JobKind[] = ["restock", "listings", "buybox", "stock_ads"];
 
+/** Why a job is steps for you, not one tap (honest, so a manual card never feels like a missing button). */
+export const MANUAL_WHY: Partial<Record<JobKind, string>> = {
+  restock: "You do this one: Amazon doesn't let apps create FBA shipments. About 5 minutes in Seller Central.",
+  listings: "You do this one: fixing a suppressed listing means editing it in Seller Central.",
+  buybox: "You do this one: price and offer changes stay with you.",
+  stock_ads: "You do this one for now: once your Amazon Ads data is in, I'll lower these ads in one tap.",
+  placement: "You do this one for now: placement changes aren't one-tap yet.",
+  structure: "You do this one for now: structure fixes need a look before anything moves.",
+};
+
 export function buildJobs(proposals: Proposal[], o: { plan?: ManagerView | null; inv?: Snapshot; biz?: Snapshot; lh?: Snapshot } = {}): Job[] {
   const groups = new Map<keyof typeof META, Proposal[]>();
   for (const p of proposals) { const k = kindOf(p); groups.set(k, [...(groups.get(k) ?? []), p]); }
@@ -98,5 +110,5 @@ export function buildJobs(proposals: Proposal[], o: { plan?: ManagerView | null;
     });
   }
   for (const j of sellerJobs(o)) jobs.push({ ...j, rank: 40 + RISK.indexOf(j.kind) });
-  return jobs.sort((a, b) => a.rank - b.rank).map(({ rank: _rank, ...j }) => j);
+  return jobs.sort((a, b) => a.rank - b.rank).map(({ rank: _rank, ...j }) => (j.mode === "manual" && MANUAL_WHY[j.kind] ? { ...j, manualWhy: MANUAL_WHY[j.kind] } : j));
 }

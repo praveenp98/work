@@ -1318,3 +1318,6 @@ h1, h2, .display { font-family: var(--display); }
 .pr-faq { max-width: 760px; width: 100%; margin: 0 auto; text-align: left; }
 .pr-faq h2 { text-align: center; }
 @media (max-width: 720px) { .pr-groups, .pr-steps { grid-template-columns: 1fr; } .pc-price b { font-size: 54px; } }
+
+/* Manual job: why this one is steps for you, not one tap. */
+.tw-manual { margin: 6px 0 0; font-size: 13px; color: var(--muted, #6b7280); background: #f4f1ea; border-radius: 10px; padding: 6px 10px; display: inline-block; }

@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · Founder test: first jobs had no approve buttons (ads data missing)
+- What Praveen saw on Habit Nest US: "2 jobs today, worth ~$0/mo", both steps-only (restock, ease ads on low stock). Cause: only the Seller Central reports (sales/traffic, FBA inventory) had arrived; the two Amazon Ads tables (search terms, campaigns) hadn't, and every one-tap job (negatives, bids, budgets, exact campaigns) comes from those. The page didn't say so.
+- Fixed: dashboard banner per account: "Your ad jobs are on the way… (N% loaded)" while Ads history loads, or "Amazon Ads isn't connected" + Connect button. Headline drops "~$0/mo" ("2 jobs today to protect your sales"). Manual jobs now say why they're yours (Amazon doesn't let apps create FBA shipments, etc.).
+- Bug fixed: with 2 accounts on one team, the daily pull's status overwrote itself (last account won). Now stored per account (`amazon.syncs`), team-wide `lastSync` is the union.
+- To check (Praveen): DataDoe → Habit Nest US → is Amazon Ads connected, and are the two ads tables (amazon_ads_search_terms_by_campaign_by_date, amazon_ads_performance_by_campaign_by_date) on and loading?
+- Tests 202 passing.
+
+---
+
 ## 2026-11-23 · Removed "Claude/ChatGPT add-on" positioning from public copy
 - /answers: the 5 "AI & connectors" answers (topic renamed "AI & Amazon") still explain Amazon's Claude/ChatGPT connectors (real searches), but Rocco is now pitched as the alternative: connects to Amazon directly, no Claude setup or Ads API approval, makes approved changes. Dropped "Rocco is free to add next to it" and "an MCP connector built to sit next to Amazon's". Search term answer no longer says "give it to Rocco in Claude".
 - Guides: MCP guide's two ways are now "do it yourself in Claude/ChatGPT" vs "hire an AI manager"; FAQ no longer says "report-based connector". Bulk guide's roast line is gone; /guides description updated.

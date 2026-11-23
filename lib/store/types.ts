@@ -61,6 +61,8 @@ export interface Workspace {
     schedules?: Record<string, Record<string, string>>;
     /** Last daily pull: when, what came in, what failed (shown on the page while data loads). */
     lastSync?: { at: string; kinds: string[]; errors: string[] };
+    /** Same, per connected account (id → last pull). */
+    syncs?: Record<string, { at: string; kinds: string[]; errors: string[] }>;
   };
   /** The account email (entered at Hire Rocco, prefilled at checkout). */
   ownerEmail?: string;

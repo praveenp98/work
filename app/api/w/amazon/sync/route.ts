@@ -20,10 +20,8 @@ export async function POST(req: Request) {
   if (last && Date.now() - new Date(last).getTime() < 3_600_000) return NextResponse.json({ ok: true, skipped: "checked in the last hour", lastSync: ws.amazon.lastSync });
   if (!(await spend(store, ws, "sync"))) return NextResponse.json({ ok: false, error: LIMIT_MSG.sync }, { status: 429 });
   const results = [...(await syncGroup(store, ws.amazon.accounts.map((a) => ({ wsId: ws.id, id: a.id, name: a.name })))).values()]; // one export per report for all of this team's accounts
+  // syncGroup already saved each account's result (amazon.syncs) and the team-wide lastSync.
   const lastSync = { at: new Date().toISOString(), kinds: results.flatMap((r) => r.kinds), errors: results.flatMap((r) => r.errors) };
-  const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
-  fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), lastSync };
-  await store.saveWorkspace(fresh);
   if (results.length) await refreshManager(store, ws.id).catch(() => 0);
   return NextResponse.json({ ok: true, lastSync });
 }

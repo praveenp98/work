@@ -160,6 +160,11 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
   const account = ws.amazon?.accounts?.find((a) => a.name === b.brand) ?? ws.amazon?.accounts?.[0];
+  // Ad jobs need the two Amazon Ads reports. Say so plainly when they're missing, instead of a page of steps-only jobs.
+  const hasAds = b.trends.some((t) => t.kind === "sp_search_term" || t.kind === "sp_campaign");
+  const adsState: "off" | "loading" | null = !isDirect || !account || hasAds ? null : account.ads === false ? "off" : "loading";
+  const adsErr = (account && ws.amazon?.syncs?.[account.id]?.errors.find((e) => /^sp_/.test(e) && /% loaded/.test(e))) ?? "";
+  const adsProgress = Number(adsErr.match(/(\d+)% loaded/)?.[1] ?? 0) || null;
   const hidden = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
   const hiddenValue = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
 
@@ -191,7 +196,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <div className="rd-hero">
         <span className="rd-kicker">Good {new Date().getHours() < 12 ? "morning" : "day"}</span>
-        <h1>{jobs.length ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : "All clear today."}</h1>
+        <h1>{jobs.length ? (shownValue >= 1 ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today to <em>protect your sales</em>.</>) : "All clear today."}</h1>
         {planOk && plan!.brief && <p className="rd-brief">{localize(plan!.brief, cur)}</p>}
         {acos !== null && (
           <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>
@@ -204,6 +209,17 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {access !== "none" && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
 
       <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
+
+      {adsState && (
+        <div className={`rd-offer${adsState === "off" ? " warn" : ""}`} role="status">
+          {adsState === "off" ? (
+            <><div><b>Amazon Ads isn&apos;t connected for {account?.name ?? "this account"}.</b><span>Ad jobs (wasted searches, bids, budgets, new exact campaigns) are the ones I make for you in one tap. Today you only see stock and sales jobs.</span></div>
+            {account && <ConnectButton token={token} reconnect={account.id} label="Connect Amazon Ads" className="btn" />}</>
+          ) : (
+            <div><b>Your ad jobs are on the way.</b><span>Amazon Ads is connected, but Amazon is still sending me its history{adsProgress ? ` (${adsProgress}% loaded)` : ""}. A first load can take up to a day. Until then you see stock and sales jobs; the one-tap ad jobs (wasted searches, bids, budgets) show up here by themselves{ws.reminders?.channel && ws.reminders.cadence !== "off" ? ", and I'll message you" : ""}.</span></div>
+          )}
+        </div>
+      )}
 
       <div className="rd-grid">
         <div>

@@ -112,6 +112,7 @@ function JobCard({ cur, job, first, res, busy, anyBusy, direct, note, onApprove,
         <div className="tw-txt">
           <div className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</div>
           <p className="tw-why">{job.why ?? job.summary}</p>
+          {job.manualWhy && <p className="tw-manual">{job.manualWhy}</p>}
         </div>
         {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
       </div>
