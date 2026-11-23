@@ -231,12 +231,12 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const b = await buildBrief(store, ws, now);
       const pb = b.perBrand[0];
       const L = ["📝 Today:"];
-      if (b.due.length) L.push(`• ${b.due.length} change${b.due.length === 1 ? "" : "s"} ready to grade. Say “did last week's changes work?” in Claude/ChatGPT.`);
+      if (b.due.length) L.push(`• ${b.due.length} change${b.due.length === 1 ? "" : "s"} graded on your Rocco: ${homeUrl(revealToken(ws))}`);
       const open = pb ? [...pb.open].sort((a, c) => c.valueMonthly - a.valueMonthly).slice(0, 3) : [];
       for (const o of open) L.push(`• ${o.code}: ${o.reason.slice(0, 90)}`);
       if (open.length) L.push(`Reply YES ${open.map((o) => o.code).join(" ")} to approve.`);
       if (pb?.stale.length) L.push(`• Not checked in 7+ days: ${pb.stale.map((k) => REPORT_HELP[k].name.replace("Sponsored Products ", "")).join(", ")}.`);
-      if (L.length === 1) L.push("• All clear. Say “Rocco, morning check” in Claude/ChatGPT for fresh numbers.");
+      if (L.length === 1) L.push("• All clear. Nothing needs you today.");
       return { bubbles: [L.join("\n"), ...(await nudge(store, ws, b, now))] };
     }
     case "wins": {
@@ -251,10 +251,10 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       const wanted = expandCodes(cmd.codes);
       if (cmd.kind === "undo") {
         await queuePending(store, ws, { type: "undo", codes: wanted, brand, at: now.toISOString(), by: maskPhone(phone) });
-        return bubbles(`Queued undo for ${wanted.join(", ")} ↩️ Your AI will reverse it next time someone opens Rocco in Claude/ChatGPT.`);
+        return bubbles(`Queued undo for ${wanted.join(", ")} ↩️ It's reversed in Amazon once your account is connected; details on your Rocco.`);
       }
       const runs = await latestRuns(store, ws, brand);
-      if (!runs.length) return { bubbles: [`That's the move ✅ On your account I'd queue ${wanted.join(", ")}, your AI applies it through Amazon's connector, and I check next week if it worked.`, "Plug in Amazon to do it for real 👇", homeUrl(revealToken(ws))] };
+      if (!runs.length) return { bubbles: [`That's the move ✅ On your account I'd make ${wanted.join(", ")} in Amazon for you and check next week if it worked.`, "Plug in Amazon to do it for real 👇", homeUrl(revealToken(ws))] };
       const allowed = new Map<string, boolean>();
       for (const r of runs) r.proposals.forEach((pp, i) => allowed.set(pp.code, hasAccess(ws) || i < FREE_PROPOSALS));
       const ok = wanted.filter((c) => allowed.get(c));
@@ -277,7 +277,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       }
       if (ok.length) await queuePending(store, ws, { type: "apply", codes: ok, brand, at: now.toISOString(), by: maskPhone(phone) });
       const L: string[] = [];
-      if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. Tap to apply in Claude (Amazon shows you a preview to confirm), or it happens on the next check. I'll track the results.`);
+      if (ok.length) L.push(`Approved ✅ ${ok.join(", ")}. I'll make ${ok.length === 1 ? "it" : "them"} in Amazon once your account is connected, and track the results.`);
       if (unknown.length) L.push(`🤔 Don't recognize ${unknown.join(", ")}. Text “brief” for today's codes.`);
       const pay = locked.length ? await nudge(store, ws, await buildBrief(store, ws, now), now, "locked") : [];
       if (pay.length) pay[0] = pay[0].replace("That one's", `${locked.join(", ")} ${locked.length > 1 ? "are" : "is"}`);
@@ -313,7 +313,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
         L.push(`${s.headline} (as of ${s.createdAt.slice(0, 10)})`);
         for (const f of (s.extra?.findings ?? []).filter((x) => x.severity !== "win").slice(0, 2)) L.push(`• ${f.title}`);
       }
-      L.push("Want the fixes? Text “brief”. For deeper digging, ask me in Claude/ChatGPT.");
+      L.push("Want the fixes? Text “brief”. For deeper digging, open your Rocco and tap Ask.");
       return bubbles(L.join("\n"));
     }
   }

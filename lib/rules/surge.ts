@@ -26,7 +26,7 @@ export interface SurgeDay {
 }
 
 const BASE: Omit<SurgeDay, "budget" | "acosCeiling" | "date">[] = [
-  { label: "Thu Nov 19", phase: "warmup", budgetMult: 1.2, winnerBidPct: 5, topOfSearchPct: 0, checks: 1, note: "Early deals start. Add the negatives from your roast now so peak spend goes to buyers." },
+  { label: "Thu Nov 19", phase: "warmup", budgetMult: 1.2, winnerBidPct: 5, topOfSearchPct: 0, checks: 1, note: "Early deals start. Add your negatives now so peak spend goes to buyers." },
   { label: "Fri Nov 20", phase: "warmup", budgetMult: 1.2, winnerBidPct: 5, topOfSearchPct: 0, checks: 1, note: "Harvest winners into exact campaigns so they have budget of their own on peak days." },
   { label: "Sat Nov 21", phase: "warmup", budgetMult: 1.25, winnerBidPct: 5, topOfSearchPct: 10, checks: 1, note: "Weekend browsing. Watch impressions on your top 5 terms." },
   { label: "Sun Nov 22", phase: "warmup", budgetMult: 1.25, winnerBidPct: 5, topOfSearchPct: 10, checks: 1, note: "Check stock: no budget increase on any SKU with under 21 days of cover." },

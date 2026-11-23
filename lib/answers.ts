@@ -11,47 +11,48 @@ export interface Answer {
   details: string[];
   faq: { q: string; a: string }[];
   ask: string; // what to text Rocco about this
-  topic: "AI & connectors" | "Ads" | "Listings" | "Inventory";
+  topic: "AI & Amazon" | "Ads" | "Listings" | "Inventory";
   updated: string;
 }
 
 export const ANSWERS: Answer[] = [
   {
     slug: "connect-amazon-seller-central-to-claude",
-    topic: "AI & connectors",
+    topic: "AI & Amazon",
     q: "How do I connect Amazon Seller Central to Claude?",
     short: "Add Amazon's official Selling Partner connector in Claude: Settings → Connectors → Browse connectors → search \"Amazon Selling Partner\" → Connect, then sign in to Seller Central. Claude can then read sales, traffic, inventory and listings, and asks you before any change. It's in beta and US stores come first.",
-    steps: ["Open Claude (web or desktop) → Settings → Connectors.", "Click Browse connectors and search \"Amazon Selling Partner\".", "Click Connect and sign in with your Seller Central login (Amazon's own page; Claude never sees your password).", "In a new chat, turn the connector on from the tools menu and ask: \"How did my sales do last week?\"", "Optional: add Rocco (rocco.works/mcp/login) next to it so Claude knows what to pull, what to fix and what happened last time."],
-    details: ["The connector is Amazon's, not a third-party scraper, so it follows Amazon's permissions: you approve each action it takes in your account.", "Ads data (search terms, bids, budgets) comes from a separate Amazon Ads connector, which needs Amazon Ads API access."],
+    steps: ["Open Claude (web or desktop) → Settings → Connectors.", "Click Browse connectors and search \"Amazon Selling Partner\".", "Click Connect and sign in with your Seller Central login (Amazon's own page; Claude never sees your password).", "In a new chat, turn the connector on from the tools menu and ask: \"How did my sales do last week?\"", "Claude reads your data when you ask. It doesn't check your account every morning or remember what it changed: that part is still on you."],
+    details: ["The connector is Amazon's, not a third-party scraper, so it follows Amazon's permissions: you approve each action it takes in your account.", "Ads data (search terms, bids, budgets) comes from a separate Amazon Ads connector, which needs Amazon Ads API access.", "Want the work done, not a chat? Rocco connects to Seller Central and Amazon Ads directly (no Claude setup, no Ads API approval), checks the account every day, lists today's jobs, makes the ones you approve in Amazon and checks each one a week later."],
     faq: [
-      { q: "Is the Seller Central connector free?", a: "Amazon's connector is Amazon's product; you need a Claude plan that supports connectors. Rocco is free to add next to it." },
-      { q: "Does it work outside the US?", a: "Amazon is rolling it out US stores first. Other marketplaces can still use Rocco with exported reports or by texting reports to Rocco." },
+      { q: "Is the Seller Central connector free?", a: "Amazon's connector is Amazon's product; you need a Claude plan that supports connectors." },
+      { q: "Do I need Claude to use Rocco?", a: "No. Rocco is its own AI Amazon manager on rocco.works: connect Amazon once, then approve today's jobs in one tap." },
+      { q: "Does it work outside the US?", a: "Amazon is rolling it out US stores first. Rocco connects directly in the US, UK, EU, India and other Amazon marketplaces." },
     ],
     ask: "how did my sales do last week?",
     updated: "2026-11-17",
   },
   {
     slug: "connect-amazon-ads-to-claude-chatgpt",
-    topic: "AI & connectors",
+    topic: "AI & Amazon",
     q: "How do I connect Amazon Ads to Claude or ChatGPT?",
-    short: "Add Amazon's Ads MCP server as a custom connector: https://advertising-ai.amazon.com/mcp for North America (-eu or -fe for Europe and Far East). Sign in with your Amazon Ads account. It needs Amazon Ads API access; until that's approved, export reports or text them to Rocco instead.",
-    steps: ["In Claude: Settings → Connectors → Add custom connector. In ChatGPT: Settings → Apps & Connectors → Advanced → Developer mode → Create.", "Paste your region's URL: advertising-ai.amazon.com/mcp (NA), advertising-ai-eu.amazon.com/mcp (EU, UK, India, Middle East), advertising-ai-fe.amazon.com/mcp (Japan, Australia, Singapore).", "Sign in with the Amazon Ads account that has API access.", "Ask: \"Rocco, morning check\" with Rocco connected, or \"show me search terms with spend and no sales\"."],
-    details: ["Amazon's Ads connector can pull reports and apply changes. Rocco adds the judgment: which terms to negate, which to harvest, bid moves capped at ±20%, and a log that checks a week later whether each change worked."],
+    short: "Add Amazon's Ads MCP server as a custom connector: https://advertising-ai.amazon.com/mcp for North America (-eu or -fe for Europe and Far East). Sign in with your Amazon Ads account. It needs Amazon Ads API access, which you apply for in the Amazon Ads developer console.",
+    steps: ["In Claude: Settings → Connectors → Add custom connector. In ChatGPT: Settings → Apps & Connectors → Advanced → Developer mode → Create.", "Paste your region's URL: advertising-ai.amazon.com/mcp (NA), advertising-ai-eu.amazon.com/mcp (EU, UK, India, Middle East), advertising-ai-fe.amazon.com/mcp (Japan, Australia, Singapore).", "Sign in with the Amazon Ads account that has API access.", "Ask: \"show me search terms with spend and no sales\"."],
+    details: ["Amazon's Ads connector gives the AI access; you still decide what to change and remember to do it.", "Rocco skips the setup: it connects to Amazon Ads directly (no Ads API approval needed), decides which terms to negate and harvest, moves bids at most ±20%, makes the changes you approve and checks each one a week later."],
     faq: [
-      { q: "What if I don't have Amazon Ads API access?", a: "Apply in the Amazon Ads developer console. Meanwhile download the search term report (Sponsored ads reports → Search term) and give it to Rocco in Claude or by text." },
-      { q: "Can ChatGPT apply changes to my ads?", a: "Only through a connector that can write, and only what you approve. Rocco never changes your account on its own." },
+      { q: "What if I don't have Amazon Ads API access?", a: "Apply in the Amazon Ads developer console. Approval can take weeks. Rocco connects without it: you sign in to Amazon Ads once and Rocco reads the search terms itself." },
+      { q: "Can ChatGPT apply changes to my ads?", a: "Only through a connector that can write, and only what you approve. Rocco works the same way: nothing changes in your account until you approve it." },
     ],
     ask: "which search terms are wasting money?",
     updated: "2026-11-17",
   },
   {
     slug: "what-is-amazon-ads-mcp-server",
-    topic: "AI & connectors",
+    topic: "AI & Amazon",
     q: "What is the Amazon Ads MCP server?",
     short: "It's Amazon's official connector that lets AI apps like Claude and ChatGPT read and manage Amazon Ads through the Model Context Protocol (MCP). It's in open beta, uses your Amazon Ads login, and requires Amazon Ads API access. It gives the AI access; it doesn't decide what to change.",
-    details: ["MCP is a standard way for AI apps to use outside tools. Amazon publishes two: Amazon Ads (advertising-ai.amazon.com/mcp) and Amazon Selling Partner for Seller Central.", "Access alone isn't strategy. Rocco is an MCP connector built to sit next to Amazon's: it tells the AI what to pull, finds the fixes, keeps a change log and grades each change a week later."],
+    details: ["MCP is a standard way for AI apps to use outside tools. Amazon publishes two: Amazon Ads (advertising-ai.amazon.com/mcp) and Amazon Selling Partner for Seller Central.", "Access alone isn't strategy: the AI still waits for you to ask the right question every day.", "Rocco is the other route: an AI Amazon manager that connects to your account directly, finds the day's jobs, makes the ones you approve and grades each change a week later. No connector setup."],
     faq: [
-      { q: "Is the Amazon Ads MCP server safe?", a: "It signs you in through Amazon, so the AI app never sees your password. Write actions should always be approved by you; Rocco only proposes coded changes you approve." },
+      { q: "Is the Amazon Ads MCP server safe?", a: "It signs you in through Amazon, so the AI app never sees your password. Write actions should always be approved by you." },
       { q: "Do I need to code to use it?", a: "No. Paste the URL into your AI app's connector settings and sign in." },
     ],
     ask: "what would you change in my ads today?",
@@ -59,21 +60,21 @@ export const ANSWERS: Answer[] = [
   },
   {
     slug: "use-helium-10-with-claude",
-    topic: "AI & connectors",
+    topic: "AI & Amazon",
     q: "Can I use Helium 10 with Claude?",
-    short: "Yes. Helium 10 has an official MCP connector (on its Diamond plan) that gives Claude its keyword and market data. Add it next to Amazon's connectors and Rocco: Rocco checks Helium 10 rank and search volume before cutting a keyword, and uses competitor keywords to fill listing gaps.",
-    steps: ["Turn on the MCP connector in your Helium 10 account settings and add it in Claude.", "Add Amazon's Seller Central connector and Rocco (rocco.works/mcp/login).", "Ask: \"Rocco, morning check\". Rocco tells Claude when to use Helium 10 (rank checks, reverse-ASIN on top competitors)."],
-    details: ["Helium 10 shows the market (search volume, rank, competitors). Amazon's connectors show your account. Rocco is the manager that decides what to do with both."],
-    faq: [{ q: "Do I need Helium 10 to use Rocco?", a: "No. Rocco works with Amazon's connectors or exported reports alone. Helium 10 (or SellerSprite) adds market context when you have it." }],
+    short: "Yes. Helium 10 has an official MCP connector (on its Diamond plan) that gives Claude its keyword and market data. Turn it on in Helium 10, add it in Claude, then ask about rank, search volume or competitors' keywords.",
+    steps: ["Turn on the MCP connector in your Helium 10 account settings and add it in Claude.", "Optional: add Amazon's Seller Central connector so Claude sees your own sales next to the market data.", "Ask: \"what's the search volume and my rank for this keyword?\" or run a reverse-ASIN on a top competitor."],
+    details: ["Helium 10 shows the market (search volume, rank, competitors). Amazon's connectors show your account. Deciding what to change, and doing it every day, is still the manager's job: that's what Rocco does from your own Amazon data."],
+    faq: [{ q: "Do I need Helium 10 to use Rocco?", a: "No. Rocco works from your own Seller Central and Amazon Ads data, connected directly." }],
     ask: "should I cut this keyword or keep it?",
     updated: "2026-11-17",
   },
   {
     slug: "can-ai-manage-amazon-ppc",
-    topic: "AI & connectors",
+    topic: "AI & Amazon",
     q: "Can AI manage my Amazon PPC?",
-    short: "Yes, with guardrails. Today AI apps can pull your Amazon Ads data through Amazon's connectors, find wasted spend, and propose negatives, harvests, bid and budget changes. The safe setup: the AI proposes coded changes, you approve them, and every change is logged and checked a week later so bad moves get undone.",
-    details: ["What AI does well: reading thousands of search terms daily, spotting money-burners early, and never forgetting what was changed and why.", "What you should keep: margin targets, brand terms you never negate, and the final yes. Rocco works exactly this way, from Claude, ChatGPT or iMessage."],
+    short: "Yes, with guardrails. AI can read your Amazon Ads data every day, find wasted spend, and propose negatives, harvests, bid and budget changes. The safe setup: the AI proposes coded changes, you approve them, and every change is logged and checked a week later so bad moves get undone.",
+    details: ["What AI does well: reading thousands of search terms daily, spotting money-burners early, and never forgetting what was changed and why.", "What you should keep: margin targets, brand terms you never negate, and the final yes. Rocco works exactly this way: today's jobs on one screen, you approve, Rocco makes the change in Amazon."],
     faq: [{ q: "Will AI overspend my budget?", a: "Not if changes are capped and approved. Rocco caps bid moves at ±20% per step and never applies anything you didn't approve." }],
     ask: "run a morning check on my ads",
     updated: "2026-11-17",
@@ -173,10 +174,10 @@ export const ANSWERS: Answer[] = [
     topic: "Ads",
     q: "Where do I find the Amazon search term report?",
     short: "In Amazon Ads (advertising.amazon.com): Measurement & Reporting → Sponsored ads reports → Create report → Sponsored Products → Search term → Summary, last 30-60 days → Run report → Download. It lists every customer search that triggered your ads, with clicks, spend and sales.",
-    steps: ["Amazon Ads console → Measurement & Reporting → Sponsored ads reports.", "Create report → Sponsored Products → Search term → Summary.", "Pick last 30-60 days and run it.", "Download the CSV/XLSX, then give it to Rocco (in Claude, on rocco.works, or texted)."],
-    details: ["With Amazon's Ads connector in Claude, Rocco pulls the same data without downloads."],
+    steps: ["Amazon Ads console → Measurement & Reporting → Sponsored ads reports.", "Create report → Sponsored Products → Search term → Summary.", "Pick last 30-60 days and run it.", "Download the CSV/XLSX, then sort by spend with zero orders: those are your first negatives."],
+    details: ["Rocco reads this report for you every day once Amazon Ads is connected, so there's nothing to download."],
     faq: [{ q: "Why are some search terms ASINs?", a: "Those are product-page placements: shoppers saw your ad on that product's page. Treat them like any search term." }],
-    ask: "here's my search term report, what should I fix?",
+    ask: "which search terms are wasting money?",
     updated: "2026-11-17",
   },
 ];

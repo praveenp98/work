@@ -43,10 +43,10 @@ export function dailyNumbers(b: Brief, o: { now?: Date; bench?: BenchLine[]; pen
     const val = open.reduce((t, p) => t + p.valueMonthly, 0);
     L.push(`👉 ${open.length} fix${open.length === 1 ? "" : "es"} waiting${val ? ` (~${$(val)}/mo)` : ""}: ${open.map((p) => `${p.code} ${short(p.target)}`).join(", ")}`, `Reply YES ${open.map((p) => p.code).join(" ")} to approve.`);
   }
-  if (o.pending?.length) L.push(`⏳ Approved by text, waiting for your AI to apply: ${o.pending.flatMap((p) => p.codes).join(", ")}`);
+  if (o.pending?.length) L.push(`⏳ Approved by text, waiting to be made in Amazon: ${o.pending.flatMap((p) => p.codes).join(", ")}`);
   const newest = pb?.trends.map((t) => new Date(t.latest.createdAt).getTime()).sort((a, c) => c - a)[0];
-  if (!newest) L.push("No numbers yet. In Claude or ChatGPT, say “Rocco, morning check” once and I'll text you every morning.");
-  else if (now.getTime() - newest > 2 * DAY) L.push(`⚠️ Last check was ${Math.floor((now.getTime() - newest) / DAY)} days ago. Say “Rocco, morning check” in Claude/ChatGPT to refresh.`);
+  if (!newest) L.push("No numbers yet. Connect Amazon on your Rocco and I'll text you every morning.");
+  else if (now.getTime() - newest > 2 * DAY) L.push(`⚠️ Last check was ${Math.floor((now.getTime() - newest) / DAY)} days ago. If Amazon was disconnected, reconnect it on your Rocco.`);
   if (b.season) L.push(`📅 ${b.season}`);
   return L.join("\n");
 }

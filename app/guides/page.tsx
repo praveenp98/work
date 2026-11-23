@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Rocco } from "@/components/Rocco";
 import { GUIDES } from "@/lib/guides";
 
-export const metadata: Metadata = { title: "Amazon Ads Guides", description: "Plain-English Amazon PPC guides: negative keywords, ACoS, bids, keyword harvesting, bulk files, Black Friday 2026 and AI connectors.", alternates: { canonical: "/guides" } };
+export const metadata: Metadata = { title: "Amazon Ads Guides", description: "Plain-English Amazon PPC guides: negative keywords, ACoS, bids, keyword harvesting, bulk files, Black Friday 2026 and using AI on your Amazon ads.", alternates: { canonical: "/guides" } };
 
 export default function Page() {
   return (

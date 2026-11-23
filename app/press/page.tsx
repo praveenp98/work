@@ -5,7 +5,7 @@ import { Rocco } from "@/components/Rocco";
 
 export const metadata: Metadata = {
   title: "Press & launch kit",
-  description: "Copy-paste descriptions, taglines, links, logos, mascot art and screenshots for Rocco, the AI Amazon teammate.",
+  description: "Copy-paste descriptions, taglines, links, logos, mascot art and screenshots for Rocco, the AI Amazon manager: you approve, Rocco does the rest.",
   alternates: { canonical: "/press" },
 };
 

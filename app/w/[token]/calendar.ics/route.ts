@@ -29,10 +29,10 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
   const events: string[] = [];
   for (const [d, list] of byDay) {
     events.push(allDay(`check-${ws.id}-${d}`, new Date(d + "T00:00:00Z"), `🦝 Rocco: check ${list.length} change${list.length === 1 ? "" : "s"}`,
-      `In Claude or ChatGPT, ask Rocco: "did last week's changes work?" He'll pull fresh data through your Amazon connector and grade each change.\n\n${list.map((a) => `${a.code}: ${a.proposal.target} (${a.proposal.kind})`).join("\n")}`));
+      `Open your Rocco (rocco.works → Sign in) to see how last week's changes did. Rocco re-checks each one against fresh Amazon data and marks it worked, flat or undo.\n\n${list.map((a) => `${a.code}: ${a.proposal.target} (${a.proposal.kind})`).join("\n")}`));
   }
   const monday = new Date("2026-11-23T00:00:00Z");
-  events.push(allDay(`brief-${ws.id}`, monday, "🦝 Rocco: Monday brief", 'Say "Rocco, morning check" in Claude or ChatGPT. He pulls fresh data through your Amazon connectors.', "FREQ=WEEKLY;BYDAY=MO"));
+  events.push(allDay(`brief-${ws.id}`, monday, "🦝 Rocco: Monday brief", 'Open your Rocco (rocco.works → Sign in): today\'s jobs are ready. Tap approve and Rocco makes them in Amazon.', "FREQ=WEEKLY;BYDAY=MO"));
   for (const [d, t] of [["2026-11-25", "Set Black Friday budgets tonight"], ["2026-11-27", "Black Friday: check budgets 3–4×"], ["2026-11-30", "Cyber Monday: check budgets 3–4×"], ["2026-12-01", "BFCM post-mortem: run reports for Nov 19–30"]] as const) {
     events.push(allDay(`bfcm-${d}`, new Date(d + "T00:00:00Z"), `🦝 ${t}`, "From Rocco's peak-season playbook."));
   }

@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-23 · Removed "Claude/ChatGPT add-on" positioning from public copy
+- /answers: the 5 "AI & connectors" answers (topic renamed "AI & Amazon") still explain Amazon's Claude/ChatGPT connectors (real searches), but Rocco is now pitched as the alternative: connects to Amazon directly, no Claude setup or Ads API approval, makes approved changes. Dropped "Rocco is free to add next to it" and "an MCP connector built to sit next to Amazon's". Search term answer no longer says "give it to Rocco in Claude".
+- Guides: MCP guide's two ways are now "do it yourself in Claude/ChatGPT" vs "hire an AI manager"; FAQ no longer says "report-based connector". Bulk guide's roast line is gone; /guides description updated.
+- Calendar feed, contact card (title "Your AI Amazon manager", link → /me), /press meta, server.json, Wins share text: "teammate" → "manager", no Claude instructions.
+- Texts: daily numbers, brief, approve/undo replies no longer tell customers to go to Claude/ChatGPT.
+- Launch kit: the 5 MCP directories are dropped (G2 and Capterra added); docs/LAUNCH-KIT.md is regenerated from content/launch-kit.json (it was months stale). HN link → rocco.works.
+- Left on purpose: the "Other ways to use Rocco" Claude option tucked inside the dashboard, the /mcp endpoint and OAuth pages for existing connector users, and legacy Claude-mode texts. /connect and /setup already redirect to /.
+- Tests 202 passing.
+
+---
+
 ## 2026-11-22 · PostHog dashboard "Rocco" built (via PostHog connector)
 - Dashboard https://us.posthog.com/project/760057/dashboard/2397152 with 22 tiles: 4 headline numbers, revenue vs refunds, 4 funnels (main 8-step, hire→paid, paid→activated, weekly conversion trend), traffic (referrers, UTM, countries, top pages), jobs (approved vs skipped, by type, skip reasons), changes made vs failed, Amazon connections by marketplace/Ads, reminders, help signals (ask, email a human, rage clicks), paid-team weekly retention. Full table in docs/ANALYTICS.md.
 - Two pinned replay playlists (Opened Hire; Rage clicks). Project: replays on, dead clicks + errors on, timezone Asia/Kolkata, Rocco = home dashboard.

@@ -162,31 +162,6 @@
       "note": "Done (Praveen). Keep Dodo connected for verified revenue."
     },
     {
-      "name": "Official MCP Registry",
-      "url": "https://registry.modelcontextprotocol.io",
-      "note": "Publish server.json (repo root) with the mcp-publisher CLI; verify rocco.works via DNS TXT."
-    },
-    {
-      "name": "Smithery",
-      "url": "https://smithery.ai",
-      "note": "Add remote server URL https://rocco.works/mcp."
-    },
-    {
-      "name": "Glama",
-      "url": "https://glama.ai/mcp/servers",
-      "note": "Submit remote MCP server."
-    },
-    {
-      "name": "mcp.so",
-      "url": "https://mcp.so",
-      "note": "Submit server."
-    },
-    {
-      "name": "PulseMCP",
-      "url": "https://www.pulsemcp.com",
-      "note": "Submit server."
-    },
-    {
       "name": "Product Hunt",
       "url": "https://www.producthunt.com",
       "note": "Use tagline_60, desc_260, maker_comment, screenshots. Launch on a Tue–Thu, 12:01 a.m. PT."
@@ -194,7 +169,7 @@
     {
       "name": "Hacker News (Show HN)",
       "url": "https://news.ycombinator.com/submit",
-      "note": "show_hn_title + show_hn_body. Link https://rocco.works/connect."
+      "note": "show_hn_title + show_hn_body. Link https://rocco.works."
     },
     {
       "name": "Indie Hackers",
@@ -235,6 +210,16 @@
       "name": "Peerlist",
       "url": "https://peerlist.io",
       "note": "Launchpad."
+    },
+    {
+      "name": "G2",
+      "url": "https://www.g2.com",
+      "note": "Category: Amazon marketplace software. Ask first customers for reviews."
+    },
+    {
+      "name": "Capterra",
+      "url": "https://www.capterra.com",
+      "note": "Category: E-commerce / PPC software. Free listing."
     }
   ]
 }

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/answers" },
 };
 
-const TOPICS: Answer["topic"][] = ["AI & connectors", "Ads", "Listings", "Inventory"];
+const TOPICS: Answer["topic"][] = ["AI & Amazon", "Ads", "Listings", "Inventory"];
 
 export default function Page() {
   return (

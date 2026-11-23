@@ -1,6 +1,6 @@
-# Launch kit: copy-paste for every directory (Nov 17, 2026)
+# Launch kit
 
-Same content as https://rocco.works/press (source: `content/launch-kit.json`). Edit the JSON, not this file, then regenerate.
+Copy-paste text for directories and launches. **Source of truth: `content/launch-kit.json`** (also live at https://rocco.works/press). Regenerate this file from the JSON; don't edit it by hand.
 
 ## Product name  (5 chars)
 
@@ -8,28 +8,16 @@ Same content as https://rocco.works/press (source: `content/launch-kit.json`). E
 Rocco
 ```
 
-## Name with descriptor  (30 chars)
+## Name with descriptor  (29 chars)
 
 ```
-Rocco: your AI Amazon teammate
+Rocco: your AI Amazon manager
 ```
 
 ## Website  (19 chars)
 
 ```
 https://rocco.works
-```
-
-## MCP server URL (Streamable HTTP, no auth)  (23 chars)
-
-```
-https://rocco.works/mcp
-```
-
-## Setup page  (25 chars)
-
-```
-https://rocco.works/setup
 ```
 
 ## Pricing page  (27 chars)
@@ -50,69 +38,71 @@ https://x.com/roccoworks
 human@rocco.works
 ```
 
-## Tagline (≤ 40 chars)  (23 chars)
+## Tagline (≤ 40 chars)  (22 chars)
 
 ```
-Your AI Amazon teammate
+Your AI Amazon manager
 ```
 
-## Tagline (≤ 60 chars)  (50 chars)
+## Tagline (≤ 60 chars)  (51 chars)
 
 ```
-The AI teammate that runs your Amazon ads with you
+Real work without the fluff: your AI Amazon manager
 ```
 
-## One-liner (≤ 140 chars)  (135 chars)
+## One-liner (≤ 140 chars)  (130 chars)
 
 ```
-Rocco plugs into Claude or ChatGPT next to Amazon's official connectors, finds wasted ad spend, drafts fixes and tracks if they worked.
+Rocco finds what to fix in your Amazon account every morning. You tap approve, he makes the change in Amazon and checks it worked.
 ```
 
-## Short description (≤ 260 chars)  (247 chars)
+## Short description (≤ 260 chars)  (237 chars)
 
 ```
-Rocco is an AI teammate for Amazon sellers and agencies. Connect Amazon's official Ads and Seller Central connectors plus Rocco in Claude or ChatGPT, say "morning check", and approve the fixes. Rocco remembers every change and checks if it worked.
+Rocco is an AI Amazon manager. Connect Seller Central and Amazon Ads once; every morning he lays out today's jobs (wasted searches, bids, budgets, new exact campaigns, restocks), you approve in one tap, and he makes the change in Amazon.
 ```
 
-## Medium description (≤ 500 chars)  (467 chars)
+## Medium description (≤ 500 chars)  (455 chars)
 
 ```
-Rocco is an AI Amazon teammate that lives inside Claude, ChatGPT and Claude Code. It works next to Amazon's official Ads and Seller Central connectors: it tells your AI what to pull, finds wasted ad spend, money-losing campaigns, placements, stockout risks and listing gaps, and turns them into an approval list. You approve by code; your AI applies the changes through Amazon's connector. Rocco logs every change, re-checks it a week later and reports what it saved.
+Rocco is an AI Amazon manager for sellers and their teams. Connect Seller Central and Amazon Ads once with Amazon's own sign-in. Every morning Rocco groups what's worth doing into a few clear jobs, ranked by money: block wasteful searches, fix bids, move budget, turn proven searches into exact campaigns, restock before you run out, tidy hundreds of campaigns. Tap approve and he makes the change in Amazon, checks it a week later, and learns your style.
 ```
 
-## Long description  (1137 chars)
+## Long description  (1064 chars)
 
 ```
-Amazon gave AI hands with its official Ads and Seller Central connectors. Rocco gives it the judgment and memory of a senior Amazon manager.
+Most Amazon tools give you data. Rocco does the job.
 
-Add Rocco to Claude, ChatGPT or Claude Code next to Amazon's connectors and say "Rocco, morning check". Rocco tells your AI exactly which reports to pull, then:
-- finds search terms that waste money, winners to harvest, and bids to move (never more than ±20% at a time)
-- flags profitable campaigns that run out of budget and campaigns above breakeven
-- tunes placements (Top of search, Rest of search, Product pages)
-- warns before a SKU runs out of stock and eases off its ads
-- spots ASINs with traffic but no sales, lost buy box, and converting keywords missing from your listing
+Connect Seller Central and Amazon Ads once with Amazon's own sign-in (through DataDoe, an Amazon-approved data partner). Every morning Rocco reads your account the way a senior Amazon manager would and lays out today's work as a few clear jobs, ranked by money:
 
-Everything comes back as an approval list with codes. Nothing changes without your OK. Approved changes are logged with before-numbers and an undo, re-checked a week later, and summarized in a daily brief. Agencies get white-label client reports and unlimited brands.
+• Block searches that waste money
+• Lower bids that overspend, raise bids on winners
+• Turn proven searches into a new exact campaign, in one click
+• Raise budgets on profitable campaigns, cut losing ones
+• Restock before you run out; fix suppressed listings and Buy Box losses
+• Tidy your campaigns: one naming system, one portfolio per product
 
-Free to add: the brief, findings and top 3 fixes per report. Hire Rocco is a one-time payment that starts at $99 and rises $10 every 5 hires.
+You tap approve and Rocco makes the change in Amazon: checked with Amazon first, logged, undoable. A week later he measures what it did. Skip a fix and tell him why in one tap; he learns how you work. Reminders on iMessage, WhatsApp or Slack, and approve-by-text once you've seen how he works.
+
+$1,190 a year (2 months free) or $119 a month, whole team, every marketplace. 7-day money-back guarantee.
 ```
 
-## Tags / topics  (123 chars)
+## Tags / topics  (107 chars)
 
 ```
-Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, MCP, Claude, ChatGPT, AI agents, marketing automation, agencies
+Amazon sellers, Amazon PPC, Amazon advertising, e-commerce, AI agents, marketing automation, Seller Central
 ```
 
-## Categories  (87 chars)
+## Categories  (63 chars)
 
 ```
-E-commerce · Marketing · Artificial Intelligence · Productivity · Developer Tools (MCP)
+E-commerce · Marketing · Artificial Intelligence · Productivity
 ```
 
-## Pricing summary  (170 chars)
+## Pricing summary  (143 chars)
 
 ```
-Free to add (brief, findings, top 3 fixes per report). Hire Rocco: one-time payment, starts at $99, +$10 every 5 sales, capped at $499. Unlimited brands, no subscription.
+$1,190 a year (2 months free) or $119 a month, for the whole team, 3 Amazon accounts included (+$49/mo each extra). 7-day money-back guarantee.
 ```
 
 ## Maker bio  (136 chars)
@@ -121,43 +111,39 @@ Free to add (brief, findings, top 3 fixes per report). Hire Rocco: one-time paym
 Praveen builds tools for Amazon sellers and has spent years in Amazon ads. Rocco is being built in public for the Ship or Die hackathon.
 ```
 
-## Maker first comment (Product Hunt / launch sites)  (682 chars)
+## Maker first comment (Product Hunt / launch sites)  (637 chars)
 
 ```
 Hey everyone 👋
 
-Amazon just shipped official AI connectors for Ads and Seller Central. That gives Claude and ChatGPT access to your account, but not the judgment to run it.
+I'm Praveen. I've spent years running Amazon ads, and the job is the same every morning: find the waste, move the bids, keep winners funded, don't run out of stock. Tools give you dashboards; you still have to do the work.
 
-Rocco is that judgment, with a memory. Add him next to Amazon's connectors, say "Rocco, morning check", and you get one approval list: junk search terms to cut, winners to harvest, budgets that run dry by noon, placements to fix, SKUs about to stock out. You approve by code, your AI applies it, and Rocco re-checks every change a week later.
+Rocco does the work. Connect Seller Central and Amazon Ads once, and every morning he lays out a few clear jobs ranked by money. Tap approve and he makes the change in Amazon, then checks a week later whether it worked. Skip something and tell him why, and he learns your style.
 
-It's free to add. Hiring Rocco starts at $99 once and goes up $10 every 5 hires.
+Real work without the fluff.
 
-I'd love brutal feedback, especially from anyone running Amazon ads for clients. 🦝
+$119/month or $1,190/year, 7-day money-back guarantee. I'd love your toughest feedback.
 ```
 
-## Show HN title  (81 chars)
+## Show HN title  (72 chars)
 
 ```
-Show HN: Rocco – an MCP server that gives Claude an Amazon ads manager's judgment
+Show HN: Rocco – an AI Amazon manager that makes the changes you approve
 ```
 
-## Show HN text  (990 chars)
+## Show HN text  (685 chars)
 
 ```
-Amazon now has official MCP servers for Amazon Ads and Seller Central. They let an LLM pull reports and make changes, but the model still improvises what to check and how far to move a bid.
-
-Rocco is a remote MCP server (https://rocco.works/mcp, Streamable HTTP) that sits next to them. It has a tool that tells the model which Ads API / SP-API reports and columns to pull for a job, deterministic analyzers for six data types (search terms, campaigns, placements, sales & traffic, restock, bulk files), and a memory layer: proposals get codes, approved changes are logged with before-metrics, and newer data is used to grade each change (worked / no effect / worse). Bid moves are capped at ±20% and nothing is applied without explicit approval of specific codes.
-
-The rules engine is plain TypeScript with fixture tests; no LLM in the analysis path. Personal connectors are capability URLs (no login) backed by Supabase. Happy to answer questions about MCP tool design or the Amazon side.
+Rocco reads an Amazon seller's Seller Central and Amazon Ads data every morning (official APIs, via DataDoe) and turns it into a few jobs ranked by money: negative keywords, bid changes, budget moves, new exact campaigns from converting search terms, restock warnings, campaign renaming. A deterministic rules engine computes every fix and number; Claude only picks and orders them and writes a one-line why, and any sentence with a number that isn't in the input is thrown away. On approval Rocco dry-runs each change with Amazon, applies it, logs it and measures it a week later. Skips with a reason tune what it suggests. Feedback welcome, especially from people who run Amazon ads.
 ```
 
-## X bio for @roccoworks  (158 chars)
+## X bio for @roccoworks  (145 chars)
 
 ```
-Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connectors. Finds wasted ad spend, drafts the fixes, remembers what worked. rocco.works
+Your AI Amazon manager 🦝 Every morning I find what to fix. You tap approve, I make the change in Amazon. Real work without the fluff. rocco.works
 ```
 
-## Assets (all at https://rocco.works + path)
+## Assets
 
 - `/brand/rocco-logo-512.png`: Logo mark (512×512, transparent)
 - `/brand/rocco-logo-1024.png`: Logo mark (1024×1024, transparent)
@@ -169,22 +155,17 @@ Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connec
 - `/brand/rocco-wave.png`: Mascot: waving
 - `/og.png`: Social / OG image (1200×630)
 - `/brand/screenshot-home.png`: Screenshot: homepage (1280×800)
-- `/brand/screenshot-setup.png`: Screenshot: setup wizard (1280×800)
-- `/brand/screenshot-playground.png`: Screenshot: Rocco's analysis (1280×800)
+- `/brand/screenshot-dashboard.png`: Screenshot: today's jobs dashboard (1280×800)
+- `/brand/screenshot-changelog.png`: Screenshot: change log (1280×800)
 - `/brand/screenshot-pricing.png`: Screenshot: pricing (1280×800)
 
-## Where to list
+## Directories
 
-| Site | Notes | Status |
+| Where | How | Done |
 |---|---|---|
-| [TrustMRR](https://trustmrr.com) | Done (Praveen). Keep Dodo connected for verified revenue. | ✅ |
-| [Official MCP Registry](https://registry.modelcontextprotocol.io) | Publish server.json (repo root) with the mcp-publisher CLI; verify rocco.works via DNS TXT. | ☐ |
-| [Smithery](https://smithery.ai) | Add remote server URL https://rocco.works/mcp. | ☐ |
-| [Glama](https://glama.ai/mcp/servers) | Submit remote MCP server. | ☐ |
-| [mcp.so](https://mcp.so) | Submit server. | ☐ |
-| [PulseMCP](https://www.pulsemcp.com) | Submit server. | ☐ |
+| [TrustMRR](https://trustmrr.com) | Done (Praveen). Keep Dodo connected for verified revenue. | ☑ |
 | [Product Hunt](https://www.producthunt.com) | Use tagline_60, desc_260, maker_comment, screenshots. Launch on a Tue–Thu, 12:01 a.m. PT. | ☐ |
-| [Hacker News (Show HN)](https://news.ycombinator.com/submit) | show_hn_title + show_hn_body. Link https://rocco.works/connect. | ☐ |
+| [Hacker News (Show HN)](https://news.ycombinator.com/submit) | show_hn_title + show_hn_body. Link https://rocco.works. | ☐ |
 | [Indie Hackers](https://www.indiehackers.com) | Product page + build-in-public post. | ☐ |
 | [BetaList](https://betalist.com) | desc_260 + screenshots. | ☐ |
 | [There's An AI For That](https://theresanaiforthat.com) | Category: Amazon / e-commerce. | ☐ |
@@ -193,6 +174,7 @@ Your AI Amazon teammate 🦝 Plugs into Claude & ChatGPT next to Amazon's connec
 | [AlternativeTo](https://alternativeto.net) | List as alternative to Amazon PPC tools. | ☐ |
 | [Uneed](https://www.uneed.best) | Launch day listing. | ☐ |
 | [Peerlist](https://peerlist.io) | Launchpad. | ☐ |
+| [G2](https://www.g2.com) | Category: Amazon marketplace software. Ask first customers for reviews. | ☐ |
+| [Capterra](https://www.capterra.com) | Category: E-commerce / PPC software. Free listing. | ☐ |
 
-## Official MCP Registry
-`server.json` is at the repo root (name `works.rocco/rocco`, remote `https://rocco.works/mcp`). Publish with the `mcp-publisher` CLI: `mcp-publisher login dns --domain rocco.works` (adds a DNS TXT record), then `mcp-publisher publish`. Check the current schema with `mcp-publisher init` first.
+MCP directories (Official MCP Registry, Smithery, Glama, mcp.so, PulseMCP) are dropped: Rocco is sold as a standalone AI Amazon manager, not a Claude/ChatGPT add-on. The /mcp endpoint still works for existing users but isn't marketed.

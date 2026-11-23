@@ -17,7 +17,7 @@ async function handle(req: Request, { params }: { params: Promise<{ token: strin
   const store = getStore();
   if (!store) return Response.json({ error: "Rocco memory isn't configured yet." }, { status: 503 });
   const ws = await loadWorkspace(store, token);
-  if (!ws) return Response.json({ error: "Unknown Rocco workspace. Create one at https://rocco.works/connect" }, { status: 404 });
+  if (!ws) return Response.json({ error: "Unknown Rocco workspace. Hire Rocco at https://rocco.works" }, { status: 404 });
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
   // The bing: first real tool call from the team's AI turns Rocco "on" and tells the team.
   if (!ws.connectedAt) {
