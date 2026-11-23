@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from "react";
+import { FORMATS } from "../../brand/tokens";
 
 /** One source, three sizes. Scenes read their geometry from here and never hardcode a canvas size. */
 export type Layout = "9x16" | "4x5" | "16x9";
@@ -29,13 +30,15 @@ const make = (layout: Layout, width: number, height: number, m: { top: number; b
   return { layout, width, height, wide: width > height, safe, caption, content, u };
 };
 
+// Canvas sizes and safe zones come from marketing/brand/tokens.ts (FORMATS), the same numbers image templates use.
+const area = (layout: Layout, captionH: number, u: number): Areas => { const f = FORMATS[layout]; return make(layout, f.width, f.height, f.safe, captionH, u); };
 export const AREAS: Record<Layout, Areas> = {
   // Reels / Shorts / TikTok: nothing important in the top 250px or the bottom 400px.
-  "9x16": make("9x16", 1080, 1920, { top: 250, bottom: 400, side: 64 }, 190, 1),
+  "9x16": area("9x16", 190, 1),
   // Feed / LinkedIn.
-  "4x5": make("4x5", 1080, 1350, { top: 70, bottom: 70, side: 64 }, 170, 0.94),
+  "4x5": area("4x5", 170, 0.94),
   // X / YouTube.
-  "16x9": make("16x9", 1920, 1080, { top: 70, bottom: 64, side: 110 }, 150, 1),
+  "16x9": area("16x9", 150, 1),
 };
 
 const Ctx = createContext<Areas>(AREAS["9x16"]);

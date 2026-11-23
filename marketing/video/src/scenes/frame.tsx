@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { enter } from "../anim";
+import { TYPE } from "../../../brand/tokens";
 import { useAreas } from "../layout";
 import { displayStyle, kickerStyle, T } from "../theme";
 import { Cursor, type Tap } from "../ui/Cursor";
@@ -30,9 +31,9 @@ export interface HeadingProps {
 
 export const Heading: React.FC<HeadingProps & { size?: number; align?: "left" | "center"; delay?: number }> = ({ kicker, title, blueLine, size, align = "left", delay = 0 }) => {
   const frame = useCurrentFrame();
-  const { u, wide } = useAreas();
+  const { layout } = useAreas();
   const lines = title === undefined ? [] : Array.isArray(title) ? title : [title];
-  const fs = size ?? (wide ? 68 : 58 * u);
+  const fs = size ?? TYPE[layout].title;
   if (!kicker && !lines.length) return null;
   return (
     <div style={{ textAlign: align, ...enter(frame, delay, 9) }}>

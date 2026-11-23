@@ -17,7 +17,8 @@ export const pop = (frame: number, start = 0, dur = 8, from = 0.9) => {
   return { opacity: p, transform: `scale(${from + (1 - from) * p})` } as const;
 };
 
-export type TapState = "open" | "press" | "making" | "done";
+import type { TapState } from "../../brand/components/MorningListCard";
+export type { TapState };
 /** What a tapped button shows at this frame: the site's Approve, then "Making it in Amazon…", then "✓ Done". */
 export function tapState(frame: number, tapFrame: number | undefined, fps: number, makingSec = 0.85): TapState {
   if (tapFrame === undefined || frame < tapFrame) return "open";

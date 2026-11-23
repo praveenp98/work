@@ -1,6 +1,7 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import { enter, lin } from "../anim";
+import { TYPE } from "../../../brand/tokens";
 import { useAreas } from "../layout";
 import { displayStyle, kickerStyle, T } from "../theme";
 import { Rocco } from "../ui/Mascot";
@@ -24,13 +25,13 @@ const norm = (w: string) => w.toLowerCase().replace(/[^a-z0-9$%]/g, "");
 export const HookCard: React.FC<HookCardProps> = ({ lines, kicker, highlight = [], wordByWord = false, mascot }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
-  const { content, wide, u } = useAreas();
+  const { content, wide, u, layout } = useAreas();
 
   const textW = wide && mascot ? content.w * 0.66 : content.w;
   const target = wide ? 24 : 13; // characters per printed row
   const longest = Math.max(...lines.map((l) => Math.min(l.length, Math.max(target, ...l.split(" ").map((w) => w.length)))));
   const rows = lines.reduce((n, l) => n + Math.ceil(l.length / Math.max(target, longest)), 0);
-  const max = wide ? 150 : 150 * u;
+  const max = TYPE[layout].headline;
   const size = Math.floor(Math.min(max, textW / (longest * 0.54), (content.h * (mascot && !wide ? 0.58 : 0.8)) / (rows * 1.06)));
 
   const hot = new Set(highlight.flatMap((h) => h.split(/\s+/)).map(norm));

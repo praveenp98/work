@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import type { Line } from "../captions";
+import { TYPE } from "../../../brand/tokens";
 import { useAreas } from "../layout";
 import { T } from "../theme";
 
@@ -11,13 +12,13 @@ import { T } from "../theme";
 export const CaptionTrack: React.FC<{ lines: Line[] }> = ({ lines }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { caption, layout, u } = useAreas();
+  const { caption, layout } = useAreas();
   const t = frame / fps;
   const line = lines.find((l) => t >= l.start && t < l.end + 0.12);
   if (!line) return null;
   const since = (t - line.start) * fps;
   const k = interpolate(since, [0, 4], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const fs = layout === "16x9" ? 46 : 52 * u;
+  const fs = TYPE[layout].caption;
   return (
     <AbsoluteFill style={{ pointerEvents: "none", zIndex: 10 }}>
       <div style={{ position: "absolute", left: caption.x, top: caption.y, width: caption.w, height: caption.h, display: "flex", alignItems: "center", justifyContent: "center" }}>
