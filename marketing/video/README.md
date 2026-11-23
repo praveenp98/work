@@ -32,6 +32,26 @@ npm run render -- --spec specs/demo.json --format all --stills
 
 The first render downloads Remotion's own headless Chrome. If that download is blocked, point `REMOTION_CHROME_EXECUTABLE` at a Chrome Headless Shell binary.
 
+## More commands
+
+```bash
+npm run batch -- --spec specs/demo-30s.json --batch batches/demo-hooks.csv --format 9x16
+```
+
+One base spec, many hooks: each row of the CSV swaps the hook card and the end card's CTA (`--only h02,h05` picks rows, `--stills` checks every hook in seconds). Output: `marketing/out/video/<spec>-<row>-<format>.mp4`.
+
+```bash
+npm run capture
+```
+
+Records clean footage of the public site (hero loop, jobs, morning card, change log, compare table, messages, pricing, time calculator, Ad Roast and Account Check sample runs) into `footage/site/<name>-<format>.mp4`, ready to use as shot B. `--base http://localhost:3000` records the dev server, `--only` and `--format` narrow it. It never signs in, adds a "Sample account" chip wherever sample data shows, and blocks the trackers so recording doesn't count as traffic. Needs ffmpeg.
+
+```bash
+npm run profiles
+```
+
+Renders every profile picture, banner and cover into `marketing/brand/profiles/<account>/`.
+
 ## One source, three sizes
 
 | Format | Size | For | Safe zone |
@@ -60,7 +80,7 @@ A video is a JSON file in `specs/`: an ordered list of scenes with a duration (s
 | `type` | Template | Main props |
 |---|---|---|
 | `hook` | HookCard: big 2-line hook, on screen in 0.3s | `lines` (1 or 2), `kicker`, `highlight` (words in blue), `wordByWord`, `mascot` |
-| `ui` | UiScene: a real piece of Rocco's UI with a touch dot and a tap | `piece`: `morning`, `job`, `approve`, `tidy`, `changelog-row`, `skip`, `before-rocco`, `pricing`. Also `cursor`, `interact`, `index` |
+| `ui` | UiScene: a real piece of Rocco's UI with a touch dot and a tap | `piece`: `connect`, `morning`, `job`, `approve`, `tidy`, `changelog-row`, `skip`, `before-rocco`, `pricing`. Also `cursor`, `interact`, `index`, `taps` |
 | `phone` | PhoneTextScene: phone thread with typing dots | `style`: `imessage`, `whatsapp`, `slack` (generic looks, no logos). `messages` defaults to the homepage thread |
 | `changelog` | ChangeLogScene: rows flip from checking to worked or reverted, then the Before Rocco note | `rows`, `beforeRocco` |
 | `compare` | CompareScene: two-column table, rows one by one | `leftTitle` (a category, never a named product), `rightTitle`, `rows` |
