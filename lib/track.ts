@@ -1,5 +1,5 @@
 /**
- * Tiny first-party event helper for the browser. No third-party script, no cookie.
+ * Tiny first-party event helper for the browser. No third-party script, no third-party cookie.
  *
  *   import { track } from "@/lib/track";
  *   track("lead_captured", { magnet: "ppc-checklist" });
@@ -8,7 +8,8 @@
  * link or button and components/Analytics.tsx sends it on click.
  *
  * What is sent: the event name, the page path (no query string), the visit's first-touch source (UTM tags and
- * referrer host, remembered for 30 days in this browser's localStorage) and a random id from the same storage.
+ * referrer host, remembered for 30 days in this browser's localStorage and in one first-party cookie, "rocco_ft",
+ * which lead forms read on the server) and a random id from localStorage.
  * With Do Not Track or Global Privacy Control on, no id is created or sent.
  */
 export type ClientEvent = "page_view" | "lead_captured" | "tool_result" | "call_click" | "hire_click" | "signup_started" | "checkout_started";
@@ -41,6 +42,8 @@ function firstTouch(): FirstTouch {
   try { const h = document.referrer ? new URL(document.referrer).host : ""; if (h && h !== location.host) ref = h; } catch { /* no referrer */ }
   const ft: FirstTouch = { source: q.get("utm_source") ?? undefined, medium: q.get("utm_medium") ?? undefined, campaign: q.get("utm_campaign") ?? undefined, content: q.get("utm_content") ?? undefined, term: q.get("utm_term") ?? undefined, ref, at: Date.now() };
   write(FT, JSON.stringify(ft));
+  // The same first touch as a first-party cookie, so the server can attach the source to a lead (POST /api/leads).
+  try { document.cookie = `${FT}=${encodeURIComponent(JSON.stringify(ft))}; Max-Age=${THIRTY_DAYS / 1000}; Path=/; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`; } catch { /* cookies off: fine */ }
   return ft;
 }
 

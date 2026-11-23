@@ -78,7 +78,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
           <button className="btn small ghost" type="submit">Log call booked</button>
           {sp.logged && <span className="fine">Logged.</span>}
         </form>
-        <p className="fine" style={{ margin: 0 }}>Newest raw events: <a href="/api/admin/events?limit=100">/api/admin/events</a></p>
+        <p className="fine" style={{ margin: 0 }}>Newest raw events: <a href="/api/admin/events?limit=100">/api/admin/events</a> · <a href="/admin/leads">Leads</a></p>
       </div>
     </section>
   );
