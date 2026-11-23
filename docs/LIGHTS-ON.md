@@ -14,6 +14,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 
 4b. **Dodo: "Extra Amazon account" product** (optional but recommended): subscription, **$49 every 1 month**, name "Rocco · Extra Amazon account", localized pricing on like the others. Vercel: `DODO_PRODUCT_ID_EXTRA_ACCOUNT` = pdt_… → Redeploy. Without it, a team that wants a 4th account is told to email you.
 4c. **Supabase → SQL Editor**: paste `supabase/migrations/003_limits.sql` → Run (shared spam limits + "reply once" for texts). /api/health shows `rocco_hits: ok` when done. Until then Rocco uses per-server limits (works, just less strict).
+4d. **Supabase → SQL Editor**: paste `supabase/migrations/004_events.sql` → Run (funnel events). Then open `rocco.works/admin/login?key=<CRON_SECRET>` to see `/admin/funnel`. Until it runs, events are dropped quietly.
 
 ## 🟠 Blocks "Rocco makes the change in Amazon"
 4. **DataDoe → Settings → Actions**: turn on `AMAZON_ADS_TARGETS_ADD`, `AMAZON_ADS_TARGETS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_ADD`, `AMAZON_ADS_AD_GROUPS_ADD`, `AMAZON_ADS_ADS_ADD`, `AMAZON_ADS_PORTFOLIOS_ADD`. (All are off by default; approvals fail without them.)

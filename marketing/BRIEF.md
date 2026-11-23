@@ -163,6 +163,16 @@ Not on the live homepage any more (old copy inside, do not reuse as is): `compon
 
 Made in code, not as static files: `lib/og.tsx` (`ogImage()`), 1200x630, the site's fonts and raccoon, footer "rocco.works · 7-day money-back" from `offer.ts`. A page gets its own card with two small files next to its `page.tsx`: `opengraph-image.tsx` and `twitter-image.tsx` (copy any existing pair). Pages without their own inherit the homepage card. Every new marketing page in this pack gets a pair. `public/og.png` and `public/og-v2.png` are copies of the homepage card for anything that still links the old files.
 
+## Funnel tracking
+
+First-party only: a Supabase table (`rocco_events`, `supabase/migrations/004_events.sql`), no third-party analytics, no cookie, no IP or user agent stored. The hackathon tracker script is separate and untouched.
+
+- Events: `page_view` (landing pages only), `lead_captured {magnet}`, `tool_result {tool}`, `call_click`, `call_booked`, `hire_click`, `signup_started`, `checkout_started`, `paid`.
+- In a new page or form: `import { track } from "@/lib/track"` and call `track("lead_captured", { magnet: "name" })` when the email is saved. For a link or button, no code: add `data-track="call_click"` (optionally `data-track-magnet`, `data-track-tool`). Page views, hire clicks, signup and checkout starts are picked up by `components/Analytics.tsx` on their own.
+- Every link in an asset goes through `utm()` in `config/offer.ts`: the funnel groups by `utm_source`.
+- Read it at `/admin/funnel` (sign in once at `/admin/login?key=<CRON_SECRET>`): last 7 and 30 days by source, and paid sellers against the goal of 100.
+- `paid` is written by the payment webhook, `call_booked` by the form on the funnel page. A browser cannot send either.
+
 ## Repo vs brief (found Nov 22, 2026)
 
 Open questions for Praveen:

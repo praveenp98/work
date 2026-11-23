@@ -98,3 +98,4 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 | 2026-11-22 | 3 Amazon accounts per plan, +$49/mo per extra (Praveen) | DataDoe rows grow per account; agencies pay for scale | Unlimited accounts |
 | 2026-11-22 | Remove/swap allowed with a 30-day slot hold (instant if removed within a day) | Real need (wrong account, sold brand) without letting one plan rotate through unlimited clients | No removal; free swaps |
 | 2026-11-22 | Money shown in each account's marketplace currency; Rocco's price in USD with Dodo PPP at checkout | Indian/UK/EU sellers saw "$" on rupee/pound numbers | Convert everything to USD |
+| 2026-11-23 | Funnel analytics are first-party: a Supabase events table and `/admin/funnel`, no third-party tool | Privacy-friendly (no cookies, no IP stored), nothing new to pay for or load on the page, and the numbers sit next to the Dodo count | PostHog, Plausible, Vercel Analytics |
