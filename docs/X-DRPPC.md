@@ -32,6 +32,30 @@ UTM: `?utm_source=x&utm_medium=social&utm_campaign=drppc_launch` (LinkedIn: utm_
 > Plus the stuff an ads-only doctor doesn't touch: restock, Buy Box, suppressed listings.
 > $279/mo flat. rocco.works
 
+## Post 5 (Rocco): text your manager (added Nov 24, after iMessage/WhatsApp/Slack went on the site)
+> Dashboards are nice. Managers answer texts.
+>
+> "why did sales drop yesterday?"
+> → Buy Box slipped to 64% on the 3-pack and Kitchen – Exact hit its budget cap mid-afternoon. Raise it $40 → $60? Reply YES G1
+> "YES G1"
+> → Done in Amazon ✅ I'll tell you in a week if it paid off.
+>
+> iMessage, WhatsApp or Slack. $279/mo flat. rocco.works
+
+(Attach a screenshot of the homepage "Text me like your Amazon manager" section. Don't say Dr. PPC can't text unless their site says so.)
+
+## Post 6 (Praveen): strategy + demo film
+> The bar for AI Amazon managers just went up, so Rocco shipped:
+> • You set the strategy (profit/growth, target, margin, a budget limit, what never to cut); Rocco says the plan back and follows it
+> • 3 autonomy levels + auto-undo when a change makes things worse
+> • Midday budget alerts by text
+> • Restock plans created in Amazon in one tap
+>
+> 2-minute demo 👇 rocco.works/demo
+> Flat $279/mo. No % of your ad spend.
+
+(Attach public/demo/rocco-demo.mp4.)
+
 ## Don't
 - Don't claim they're US-only or can't do X unless their site says so.
 - Don't use their logo or film. Their name in text is fine (comparative, factual).
