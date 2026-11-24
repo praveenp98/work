@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Demo film v2 plan
+- Current demo has no voice. Wrote docs/DEMO-SCRIPT.md: 2:00 script in 8 scenes (hook → pain → 2-min setup + strategy → morning jobs + approve → measured + undo → texting → trust → price + 7-day refund), 30s and 12s cuts, recording guide, ffmpeg edit plan, where AI video (Seedance etc.) fits (mascot cold open only, never fake UI).
+- Also advised against a call-booking popup (hard rule 2: no call-booking flows); offered a Questions-before-you-hire popup (text Rocco / email a human / demo) instead.
+
 ## 2026-11-24 · Say which AI runs Rocco
 - Praveen: the site never said Rocco runs on Claude Opus 5.5 (Dr. PPC says "Powered by Opus 5.5"). Added: hero proof line, homepage FAQ "Which AI runs Rocco?", pricing included list, AI model row on /compare/dr-ppc (parity), compare pages, help article which-ai. Copy is exact: AI ranks, explains, answers and reads screenshots; money math runs on fixed tested rules; changes only on approval or the chosen autopilot level.
 - Same session: /compare/dr-ppc fixed per Grok (monthly vs monthly, Full Circle Partner price, autonomy default stated, no US-only hint).
