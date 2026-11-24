@@ -31,6 +31,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/KILL-MEMO-TREND-STUDIO.md` | Kill + fix for Desi AI Trend Studio → AI Shaadi & Occasion Studio. |
 | `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
 | `docs/AMAZON-GAPS.md` | Amazon problems outside the MCP connectors (AI-shopping invisibility, CPSC eFiling, tariffs). |
+| `docs/COMPETITOR-DRPPC.md` | Dr. PPC (Full Circle agency) launch: pitch, price, strengths, where Rocco wins, what to do. |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/E2E-TEST.md` | Ordered end-to-end launch test checklist. |

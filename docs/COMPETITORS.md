@@ -1,5 +1,7 @@
 # Competitor map (researched Nov 17, 2026)
 
+> **New (Nov 24): Dr. PPC (drppc.ai) by Full Circle agency, $299/mo + 2% of ad spend, $1 first month. Full analysis: docs/COMPETITOR-DRPPC.md.**
+
 Prices are published starting prices from 2026 comparison articles; verify on vendor sites before quoting them in marketing.
 
 > **Naming note:** Amazon renamed Rufus to **Alexa for Shopping** on May 13, 2026. Sellers and the ads console still say "Rufus" and "Sponsored Prompts." Use both terms in SEO pages ("Rufus / Alexa for Shopping").

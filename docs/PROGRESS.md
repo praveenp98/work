@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Competitor launched: Dr. PPC (drppc.ai)
+- Full Circle agency's "Opus 5.5 runs your Amazon PPC": $299/mo + 2% of ad spend, $1 first 30 days, autonomy ladder, rollback triggers, per-ASIN goals, 174 SEO pages. Analysis + ranked response: docs/COMPETITOR-DRPPC.md.
+- Rocco's edges: flat $1,190/yr (5–13× cheaper for $10k–50k/mo spenders), Seller Central jobs + one-tap restock, every marketplace, team + iMessage/WhatsApp, self-serve.
+- Waiting on Praveen: OK to publish a factual /compare/dr-ppc page and a %-of-spend cost calculator.
+
+---
+
 ## 2026-11-23 · Local prices in line with Dodo PPP
 - Visitors outside the US get a country-aware line ("In India? Checkout shows your price in your own currency…"); optional `LOCAL_PRICES` env var shows the exact local amounts on /pricing and the plan picker (list price underneath).
 - Each payment is checked against `LOCAL_PRICES`; a mismatch logs and fires `price_mismatch` in PostHog. Details: docs/PRICING-MODEL.md → Local prices.
