@@ -20,7 +20,7 @@ const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   // Search engine ownership checks (Bing Webmaster; Google Search Console token goes in google when you have it).
-  verification: { other: { "msvalidate.01": "59B39C17F429E8B4901324D49607D7FC" } },
+  verification: { google: "hI1rV0UuJIBGhkQtDmgvpFXAyaIkruIVtMler9gJ01s", other: { "msvalidate.01": "59B39C17F429E8B4901324D49607D7FC" } },
   title: { default: `${SITE.name}: ${SITE.tagline}`, template: `%s · ${SITE.name}` },
   description: SITE.description,
   // Share images are made in code: app/opengraph-image.tsx + app/twitter-image.tsx (lib/og.tsx), with their own alt text.
