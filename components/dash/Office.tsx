@@ -23,7 +23,7 @@ const time = (iso: string) => new Date(iso).toLocaleString("en-US", { weekday: "
  * is now. Approve / undo / check on this page send live events (lib/client/office.ts). Desktop gets the stage; phones
  * get the one-line status. Reduced motion: no replay, no walking.
  */
-export function Office({ events, state, variant, holdMs = 7000, scope }: { events: OfficeEvent[]; state: OfficeState; variant?: "hero"; holdMs?: number; /** Only react to events sent with this scope (several offices on one page). */ scope?: string }) {
+export function Office({ events, state, variant, holdMs = 7000, scope, onRocco }: { events: OfficeEvent[]; state: OfficeState; variant?: "hero"; holdMs?: number; /** Only react to events sent with this scope (several offices on one page). */ scope?: string; /** Clicking Rocco (people do). */ onRocco?: () => void }) {
   const stateRef = useRef(state); stateRef.current = state;
   const eventsRef = useRef(events); eventsRef.current = events;
   const [pos, setPos] = useState<Station>(state.station);
@@ -36,6 +36,8 @@ export function Office({ events, state, variant, holdMs = 7000, scope }: { event
   const [open, setOpen] = useState(true);
   const [still, setStill] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [logOpen, setLogOpen] = useState(false);
+  const poke = () => { if (onRocco) onRocco(); else setSay(pos === "bed" ? "I'm up! Everything's done for now. I'll do my next rounds in the morning." : `I'm ${DOING[pos]}. ${say}`.slice(0, 160)); };
   const timers = useRef<number[]>([]);
   const here = useRef<Station>(state.station);
 
@@ -84,8 +86,8 @@ export function Office({ events, state, variant, holdMs = 7000, scope }: { event
   const visible = log.slice(0, shown).slice(-6).reverse();
 
   return (
-    <section className={`of of-${sky}${variant ? ` of-${variant}` : ""}`} aria-label="What Rocco is doing">
-      <div className="of-bar">
+    <section className={`of of-${sky}${variant ? ` of-${variant}` : ""}${logOpen ? " log-open" : ""}`} aria-label="What Rocco is doing">
+      <div className="of-bar" onClick={(e) => { if (!(e.target as HTMLElement).closest("button")) setLogOpen((v) => !v); }} title="What Rocco did lately">
         <span className={`of-live${pos === "bed" ? " idle" : ""}`} aria-hidden />
         <span className="of-mini" aria-hidden><Raccoon size={22} /></span>
         <b>Rocco is {DOING[pos]}</b>
@@ -111,7 +113,7 @@ export function Office({ events, state, variant, holdMs = 7000, scope }: { event
             ))}
             <div className={`of-rocco${walking ? " walk" : ""}${left ? " left" : ""}${pos === "bed" ? " sleepy" : ""}${x(pos) < 20 ? " edge-l" : x(pos) > 80 ? " edge-r" : ""}`} style={{ ["--x" as string]: `${x(pos)}%` }}>
               <div className="of-bubble" key={say}>{say}</div>
-              <div className="of-body"><Rocco pose={POSE[pos]} size={96} /></div>
+              <button type="button" className="of-body" onClick={poke} aria-label={onRocco ? "Try Rocco's demo account" : "Ask Rocco what he's doing"}><Rocco pose={POSE[pos]} size={96} /></button>
             </div>
             <div className="of-floor" aria-hidden />
           </div>

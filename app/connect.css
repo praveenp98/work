@@ -1781,3 +1781,21 @@ h1, h2, .display { font-family: var(--display); }
 .lh-jobs { display: flex; flex-direction: column; }
 .lh-h { order: 1; } .lh-job { order: 3; }
 .lh-jobs { min-height: 268px; }
+
+/* Rocco is clickable (people click him) */
+.of-body { border: 0; background: transparent; padding: 0; cursor: pointer; display: block; }
+.of-body:hover svg { filter: drop-shadow(0 6px 10px rgba(31,111,235,.25)); }
+.of-body:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+.of-bar { cursor: pointer; }
+.of-hero .of-bar { cursor: default; }
+@media (max-width: 960px) { .of.log-open:not(.of-hero) .of-room { display: block; } .of.log-open:not(.of-hero) .of-stage { display: none; } .of.log-open .of-log { border-left: 0; border-top: 1px solid var(--line); max-height: 260px; } }
+
+/* Phone menu (components/TopNav.tsx) */
+.top-menu { display: none; position: relative; }
+.top-menu-btn { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.top-menu-list { position: absolute; left: 0; top: calc(100% + 8px); z-index: 60; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 20px 50px -20px rgba(28,36,51,.45); padding: 8px; display: grid; min-width: 200px; animation: ofPop .2s both; }
+.top-menu-list a { padding: 11px 12px; border-radius: 10px; text-decoration: none; color: var(--ink); font-size: 16px; }
+.top-menu-list a:hover { background: var(--bg2, #ece9e3); }
+.top-menu-list .top-menu-cta { margin-top: 4px; background: var(--accent); color: #fff; font-weight: 700; text-align: center; }
+@media (max-width: 640px) { .top-menu { display: block; } }
+.top .top-menu-list { display: grid; gap: 0; } .top .top-menu-list a, .top .top-menu-list a:not(.btn) { display: block; }

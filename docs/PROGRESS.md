@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Phone menu, Sign in always visible, clickable Rocco (from session recordings)
+- Praveen ran migrations 004_events + 005_leads (that's all they need). /admin/funnel and /admin/leads now record.
+- Recordings: people tapping the Rocco logo/mascot and finding no way around. Cause (my miss): on phones the top links were hidden (<640px) with no menu, and "Sign in" only appeared after scripts loaded. Fixed: ☰ Menu on phones (Pricing, Demo, Compare, Answers, Help, Hire Rocco), Sign in rendered on the server, desktop nav adds Demo + Compare.
+- Clicking Rocco in the hero opens the demo account; on the dashboard he answers what he's doing; tapping the status bar on a phone shows the log.
+- PostHog, last 2 days: ~18 visitors. Real prospects ≈ 2 from X (West Palm Beach, Naples: one page, no click). Several are bots/link previews (Council Bluffs = Google datacenter, bursts of IN desktop hits within 1s), the rest Praveen + Instagram friends. Zero Hire clicks, zero leads (lead forms live only on /free pages). No sign of competitors.
+
 ## 2026-11-24 · Alive homepage ("wow, it's alive")
 - Decided NOT to copy Dr. PPC's long page: same section count, more motion, one action (Hire). Their wow = the product moving; ours now too.
 - **Live hero** (components/home/LiveHero.tsx): Rocco's office in a browser window on an example account (labelled) runs a morning on loop: pulls data → runs numbers → pins 3 jobs → a cursor taps Approve → "Done in Amazon ✓" → saved counter ticks +$310. Works on phones (compact stage). Reduced motion: finished state, still.

@@ -49,7 +49,7 @@ export function LiveHero() {
   return (
     <div className="lh" aria-label="Rocco at work on an example account">
       <div className="lh-chrome" aria-hidden><span /><span /><span /><em>rocco.works · Bamboo &amp; Co <small>example account</small></em></div>
-      <Office variant="hero" scope="hero" events={[]} state={{ station: "bell", text: "3 jobs waiting for your OK" }} holdMs={0} />
+      <Office variant="hero" scope="hero" onRocco={() => window.dispatchEvent(new Event("rocco:try"))} events={[]} state={{ station: "bell", text: "3 jobs waiting for your OK" }} holdMs={0} />
       <div className="lh-jobs">
         {Object.values(jobs).every((v) => v === "hidden") && <p className="lh-wait"><span /> Getting today&apos;s work ready…</p>}
         <div className="lh-h"><b>Today&apos;s work</b><span className="lh-saved">Saved so far <b>${saved.toLocaleString("en-US")}</b></span></div>

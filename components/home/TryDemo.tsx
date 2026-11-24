@@ -8,6 +8,12 @@ const DemoApp = dynamic(() => import("@/components/demo/DemoApp").then((m) => m.
 /** "Try it right here": the full clickable demo account in a panel, no sign-up, no page change. */
 export function TryDemo({ label = "Try it right here", className = "btn ghost" }: { label?: string; className?: string }) {
   const [open, setOpen] = useState(false);
+  // Clicking Rocco in the hero opens the demo (only the first TryDemo on the page listens).
+  useEffect(() => {
+    const k = () => { if (document.querySelector(".td")) return; setOpen(true); track("demo_tour_started", { where: "rocco_click" }); };
+    window.addEventListener("rocco:try", k);
+    return () => window.removeEventListener("rocco:try", k);
+  }, []);
   useEffect(() => {
     if (!open) return;
     const k = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
