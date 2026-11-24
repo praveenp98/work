@@ -10,6 +10,9 @@ import { IdentifyTeam } from "@/components/Analytics";
 import { AccountsCard } from "@/components/dash/AccountsCard";
 import { GoalsCard } from "@/components/dash/GoalsCard";
 import { DataHealth } from "@/components/dash/DataHealth";
+import { Greeting } from "@/components/dash/Greeting";
+import { Numbers } from "@/components/dash/Numbers";
+import { acctLabel } from "@/lib/health";
 import { StrategyCard } from "@/components/dash/StrategyCard";
 import { strategyLines, strategySet } from "@/lib/strategy";
 import { slotState } from "@/lib/accounts";
@@ -194,6 +197,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
   const account = ws.amazon?.accounts?.find((a) => a.name === b.brand) ?? ws.amazon?.accounts?.[0];
+  const dailyNums = account ? ws.amazon?.daily?.[account.id] : undefined;
   // Search terms table: biggest spenders with Rocco's action on each (like a manager's console).
   const actFor = new Map<string, { act: string; tone: string }>();
   for (const p of shown) {
@@ -218,7 +222,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <header className="rd-bar">
         <div className="rd-acct">
           <span className="rd-dot" aria-hidden />
-          <b>{account ? `${account.name} · ${account.country}` : b.brand === "main" ? "Your Amazon" : b.brand}</b>
+          <b>{account ? acctLabel(account) : b.brand === "main" ? "Your Amazon" : b.brand}</b>
           <small>{lastCheck ? `checked ${daysOld === 0 ? "today" : daysOld === 1 ? "yesterday" : `${daysOld} days ago`}` : "not checked yet"}</small>
         </div>
         {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
@@ -242,7 +246,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       {hoursLeft !== null && <p className="rd-note">Free trial: {hoursLeft > 24 ? `${Math.ceil(hoursLeft / 24)} days` : `${hoursLeft} hours`} left.</p>}
 
       <div className="rd-hero">
-        <span className="rd-kicker">Good {new Date().getHours() < 12 ? "morning" : "day"}</span>
+        <Greeting className="rd-kicker" />
         <h1>{jobs.length ? (shownValue >= 1 ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today to <em>protect your sales</em>.</>) : "All clear today."}</h1>
         {planOk && plan!.brief && <p className="rd-brief">{localize(plan!.brief, cur)}</p>}
         {acos !== null && (
@@ -255,7 +259,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       {access !== "none" && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
 
-      <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
+      {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
 
 
       <div className="rd-grid">

@@ -25,7 +25,7 @@ export async function GET(req: Request) {
   const teams = (await store.listAmazonWorkspaces()).filter((ws) => hasAccess(ws)); // unpaid/lapsed teams cost nothing
   // Anonymized cross-account defaults (counts per fix type only) for the manager prompt.
   const priors = priorsFrom(await Promise.all(teams.map((ws) => store.listActions(ws.id, { limit: 300 }).catch(() => []))));
-  const jobs = teams.flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name })));
+  const jobs = teams.flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name, ads: a.ads })));
   const base = SITE.url; // public domain: deployment-protected *.vercel.app URLs would reject this call
   let sent = 0;
   for (let i = 0; i < jobs.length; i += BATCH) {

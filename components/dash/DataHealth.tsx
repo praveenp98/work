@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { track } from "@/lib/analytics";
-import type { AccountHealth } from "@/lib/health";
+import { acctLabel, type AccountHealth } from "@/lib/health";
 import { ConnectButton } from "@/components/start/ConnectAmazon";
 
 const ICON: Record<string, string> = { ok: "✓", loading: "…", missing: "!", off: "○", error: "!" };
@@ -64,7 +64,7 @@ export function DataHealth({ token, brand }: { token: string; brand?: string }) 
           {list.map((a) => (
             <div key={a.id} className="dh-acct">
               <div className="dh-acct-h">
-                <b>{a.name} · {a.country}</b>
+                <b>{acctLabel(a)}</b>
                 <span className={`dh-pill ${a.sc.state}`}>Seller Central: {a.sc.state === "ok" ? "connected" : a.sc.state === "loading" ? "first load" : a.sc.state === "reauth" ? "reconnect" : "off"}</span>
                 <span className={`dh-pill ${a.ads.state}`}>Amazon Ads: {a.ads.state === "ok" ? "connected" : a.ads.state === "loading" ? "first load" : a.ads.state === "reauth" ? "reconnect" : "not connected"}</span>
               </div>

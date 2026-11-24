@@ -60,6 +60,8 @@ export interface Workspace {
   /** Direct Amazon connection through DataDoe (lib/datadoe.ts): connected accounts + the open invite. */
   amazon?: {
     accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
+    /** Daily totals per account (lib/daily.ts) for the dashboard's date-range numbers. */
+    daily?: Record<string, import("../daily").Daily>;
     invite?: { id: string; url: string; expiresAt: string; account?: string };
     /** DataDoe recurring export ids per account and report kind (created on the first pull). */
     schedules?: Record<string, Record<string, string>>;

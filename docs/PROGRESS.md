@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Fixes from Praveen's dashboard screenshots + date-range numbers
+- **Root cause of "no ad data" for Habit Nest US:** DataDoe refuses a multi-account ads export when ANY account in it has no Amazon Ads ("requires an Amazon Ads connection on every seller"). The PlugX Method IN (no Ads) was in the same export. Fix (lib/datadoe-sync.ts): ad tables only for accounts with Ads; if the flag is stale and DataDoe refuses, export each account on its own. Test added.
+- Health panel: never shows raw API errors; explains this case; names stay ink-coloured; no "Habit Nest US · US" repeat (acctLabel).
+- Greeting used server UTC ("Good morning" at 2:31 PM IST) → now the viewer's local time.
+- **Your numbers** (components/dash/Numbers.tsx): 7/14/30/90/180 days or custom dates; sales, units, sessions, conversion, ad spend, ad sales, ACoS vs target, TACoS, ROAS, CPC, each vs the period before; daily chart of sales vs ad spend. Data: lib/daily.ts, filled by 2 small extra daily exports (180-day backfill the first time, kept 400 days) into ws.amazon.daily. Replaces the KPI strip once 3+ days are stored.
+- Risk: if the sales table has no `date` column, the daily sales export fails quietly (ads numbers still show). Check after the next pull.
+- Tests 266 passing.
+
 ## 2026-11-24 · Demo film v2 plan
 - Current demo has no voice. Wrote docs/DEMO-SCRIPT.md: 2:00 script in 8 scenes (hook → pain → 2-min setup + strategy → morning jobs + approve → measured + undo → texting → trust → price + 7-day refund), 30s and 12s cuts, recording guide, ffmpeg edit plan, where AI video (Seedance etc.) fits (mascot cold open only, never fake UI).
 - Also advised against a call-booking popup (hard rule 2: no call-booking flows); offered a Questions-before-you-hire popup (text Rocco / email a human / demo) instead.

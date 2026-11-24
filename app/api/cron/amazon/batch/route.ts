@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   if (secret && !secretOk(req.headers.get("authorization")?.replace(/^Bearer\s+/i, ""), secret)) return NextResponse.json({ ok: false }, { status: 401 });
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false }, { status: 503 });
   const store = getStore();
-  const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string }[]; delaySec?: number; priors?: Priors };
+  const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string; ads?: boolean }[]; delaySec?: number; priors?: Priors };
   const jobs = (b.jobs ?? []).slice(0, 10);
   if (!store || !jobs.length) return NextResponse.json({ ok: false }, { status: 400 });
   after(async () => {

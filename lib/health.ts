@@ -6,6 +6,9 @@ import type { DoeAccount } from "./datadoe";
  * Inputs: DataDoe's live account status (connections + first-load stage), Rocco's last pull per account
  * (ws.amazon.syncs: kinds that came in, errors per kind), and the latest saved snapshot per report.
  */
+/** "Habit Nest US · US" → "Habit Nest US": add the country only when the name doesn't already end with it. */
+export const acctLabel = (a: { name: string; country: string }) => (new RegExp(`\\b${a.country}$`, "i").test(a.name.trim()) ? a.name : `${a.name} · ${a.country}`);
+
 export type ReportKind = "business_report" | "inventory" | "sp_search_term" | "sp_campaign";
 export const REPORTS: { kind: ReportKind; name: string; needs: "sc" | "ads"; powers: string }[] = [
   { kind: "business_report", name: "Sales & traffic", needs: "sc", powers: "sales, conversion, Buy Box" },
@@ -44,11 +47,12 @@ export function accountHealth(o: {
     if (c.state === "loading") return { ...base, state: "loading", at, why: `Amazon is still sending the first ${r.needs === "ads" ? "Ads" : "Seller Central"} history${c.stage ? ` (${c.stage.toLowerCase().replace(/_/g, " ")})` : ""}.`, fix: "Usually ready within 48 hours of connecting; DataDoe emails when it's done. Nothing to do." };
     // Connection says loaded, but no data reached Rocco: say why.
     if (!o.sync) return { ...base, state: "missing", at, why: "Not pulled yet.", fix: "Tap Check connection now." };
+    if (/Amazon Ads not connected|requires an Amazon Ads connection/i.test(err ?? "")) return { ...base, state: "missing", at, why: "The last pull tripped over another account on your team that has no Amazon Ads connection. Fixed: I now pull each account's ads on its own.", fix: "Tap Check connection now to pull again." };
     if (/not available/i.test(err ?? "")) return { ...base, state: "missing", at, why: "This table isn't switched on for the account.", fix: `Owner: DataDoe → Settings → Data → turn on the ${r.needs === "ads" ? "Amazon Ads" : "Seller Central"} tables Rocco reads (docs/FOUNDER-TEST.md), then Check connection now.` };
     const pct = err?.match(/(\d+)% loaded/)?.[1];
     if (pct) return { ...base, state: "loading", at, why: `History ${pct}% loaded.`, fix: "It fills in by itself. Check again later today." };
     if (/no rows/i.test(err ?? "")) return { ...base, state: "missing", at, why: r.needs === "ads" ? "Amazon Ads is connected but sent no rows for this account (no Sponsored Products in 30 days, the ads tables are off in DataDoe, or Ads is linked to a different Amazon account)." : "Amazon sent no rows for this report.", fix: r.needs === "ads" ? "Check DataDoe → this account → Amazon Ads shows the right advertiser, and the ads tables are on. Then Check connection now." : "Check connection now. If it stays empty, email human@rocco.works." };
-    if (err) return { ...base, state: "error", at, why: `The last pull failed: ${err.slice(0, 120)}`, fix: "Check connection now. If it keeps failing, email human@rocco.works." };
+    if (err) return { ...base, state: "error", at, why: "The last pull from Amazon failed.", fix: "Tap Check connection now. If it keeps failing, email human@rocco.works and I'll look at it." };
     return { ...base, state: "missing", at, why: "Not in the last pull.", fix: "Check connection now." };
   });
   const missing = reports.filter((r) => r.state !== "ok");

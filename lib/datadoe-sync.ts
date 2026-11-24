@@ -1,4 +1,5 @@
 import { teamUrl } from "./workspace";
+import { ADS_COLS, SALES_COLS, dayStr, mergeDaily, needsBackfill, rollup, type Daily, type Day } from "./daily";
 import { currencyOf, localize } from "./currency";
 import { REPORT_HELP, type ReportKind } from "./analyze";
 import { notifyTeam } from "./notify";
@@ -37,6 +38,12 @@ export const PULLS: Pull[] = [
     kind: "inventory", table: "amazon_fba_inventory_health", query: "fba stock", days: 3, shape: "latest_by_sku",
     cols: { date: "_date", sku: "SKU", child_asin: "ASIN", product_name: "Product Name", available: "Available", units_shipped_t30: "Units Sold Last 30 Days", days_of_supply: "Days of Supply", inbound_quantity: "Inbound Quantity" },
   },
+];
+
+/** Two small extra exports for the daily numbers (date-range view). Failures never block the morning jobs. */
+const DAILY: { pull: Pull; cols: Record<string, keyof Day> }[] = [
+  { pull: { kind: "business_report", table: "amazon_sales_and_traffic_with_cogs", query: "sessions", days: 35, shape: "daily", cols: { date: "_d", total_sales: "_s", total_units: "_u", session: "_se", page_views: "_pv" } }, cols: SALES_COLS },
+  { pull: { kind: "sp_campaign", table: "amazon_ads_performance_by_campaign_by_date", query: "campaign", days: 35, shape: "daily", cols: { date: "_d", ad_spend: "_as", ad_sales: "_asa", ad_orders: "_ao", ad_clicks: "_ac", ad_impressions: "_ai" } }, cols: ADS_COLS },
 ];
 
 interface Source { id: string; name: string; tableName?: string; requiresDatePeriod: boolean; initialLoadProgress?: number | null }
@@ -171,7 +178,11 @@ export function toAmazonTable(rows: Record<string, unknown>[], p: Pull): unknown
 }
 
 export interface SyncResult { account: string; kinds: string[]; errors: string[] }
-export interface Job { wsId: string; id: string; name: string }
+export interface Job { wsId: string; id: string; name: string; /** false = Amazon Ads not connected: skip ad tables for it. */ ads?: boolean }
+
+const isAds = (p: Pull) => p.kind.startsWith("sp_");
+/** DataDoe refuses a multi-account ads export when any account in it has no Ads connection. */
+export const needsAdsEverywhere = (msg: string) => /requires an Amazon Ads connection/i.test(msg);
 
 /**
  * Pull a group of accounts (any Rocco teams) together: one export per report for the whole group, split by account,
@@ -182,23 +193,61 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
   const ids = [...new Set(jobs.map((x) => x.id))];
   const res = new Map<string, SyncResult>(jobs.map((x) => [x.id, { account: x.name, kinds: [], errors: [] }]));
   if (!ids.length) return res;
+  const noAds = new Set(jobs.filter((x) => x.ads === false).map((x) => x.id));
+  const msg = (e: unknown) => (e instanceof Error ? e.message.slice(0, 160) : "failed");
+  const rowsOf = (csv: string) => Papa.parse<Record<string, unknown>>(csv, { header: true, skipEmptyLines: true }).data;
   const files = await Promise.all(PULLS.map(async (p) => {
+    // Ad tables only for accounts with Amazon Ads: one account without it makes DataDoe refuse the whole export.
+    const these = isAds(p) ? ids.filter((id) => !noAds.has(id)) : ids;
+    const skipped = new Map(ids.filter((id) => !these.includes(id)).map((id) => [id, "Amazon Ads not connected"]));
+    if (!these.length) return { p, by: new Map<string, Record<string, unknown>[]>(), errs: skipped };
     try {
-      const src = await findSource(ids[0], p);
+      const src = await findSource(these[0], p);
       if (!src) return { p, error: "table not available yet" };
-      const csv = await exportCsv(ids, src, p, now);
-      const rows = Papa.parse<Record<string, unknown>>(csv, { header: true, skipEmptyLines: true }).data;
-      return { p, by: splitBySeller(rows, ids), progress: src.initialLoadProgress };
+      try {
+        return { p, by: splitBySeller(rowsOf(await exportCsv(these, src, p, now)), these), progress: src.initialLoadProgress, errs: skipped };
+      } catch (e) {
+        if (!(isAds(p) && these.length > 1 && needsAdsEverywhere(msg(e)))) throw e;
+        // Ads flag was stale: export each account on its own so the ones with Ads still get their data.
+        const by = new Map<string, Record<string, unknown>[]>();
+        const errs = new Map(skipped);
+        for (const id of these) {
+          try { by.set(id, splitBySeller(rowsOf(await exportCsv([id], src, p, now)), [id]).get(id) ?? []); }
+          catch (e2) { errs.set(id, needsAdsEverywhere(msg(e2)) ? "Amazon Ads not connected" : msg(e2)); }
+        }
+        return { p, by, progress: src.initialLoadProgress, errs };
+      }
     } catch (e) {
-      return { p, error: e instanceof Error ? e.message.slice(0, 160) : "failed" };
+      return { p, error: msg(e) };
     }
   }));
+  // Daily numbers: 35 days normally, 180 the first time (backfill), for the date-range view.
+  const back = await Promise.all(jobs.map(async (x) => needsBackfill((await store.getWorkspaceById(x.wsId))?.amazon?.daily?.[x.id])));
+  const range = { from: dayStr(new Date(now.getTime() - (back.some(Boolean) ? 180 : 35) * 86_400_000)), to: dayStr(new Date(now.getTime() - 86_400_000)) };
+  const daily = new Map<string, Daily>();
+  await Promise.all(DAILY.map(async ({ pull, cols }) => {
+    const these = isAds(pull) ? ids.filter((id) => !noAds.has(id)) : ids;
+    if (!these.length) return;
+    try {
+      const src = await findSource(these[0], pull);
+      if (!src) return;
+      const one = async (group: string[]) => {
+        const by = splitBySeller(rowsOf(await exportCsv(group, src, pull, now, range)), group);
+        for (const [id, rows] of by) daily.set(id, mergeDaily(daily.get(id), rollup(rows, cols)));
+      };
+      try { await one(these); }
+      catch (e) { if (isAds(pull) && these.length > 1 && needsAdsEverywhere(msg(e))) { for (const id of these) await one([id]).catch(() => undefined); } else throw e; }
+    } catch (e) { console.warn(`[sync] daily ${pull.kind}: ${msg(e)}`); }
+  }));
+
   for (const job of jobs) {
     const r = res.get(job.id)!;
     const ws = await store.getWorkspaceById(job.wsId);
     if (!ws) { r.errors.push("team not found"); continue; }
     for (const f of files) {
       if ("error" in f) { r.errors.push(`${f.p.kind}: ${f.error}`); continue; }
+      const err = f.errs?.get(job.id);
+      if (err) { r.errors.push(`${f.p.kind}: ${err}`); continue; }
       const rows = f.by.get(job.id) ?? [];
       if (!rows.length) { r.errors.push(`${f.p.kind}: no rows yet${f.progress != null && f.progress < 100 ? ` (history ${f.progress}% loaded)` : ""}`); continue; }
       try { await runAnalysis(store, ws, job.name, toAmazonTable(rows, f.p)); r.kinds.push(f.p.kind); }
@@ -212,7 +261,9 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
     if (gone.every(Boolean)) delete schedules[job.id];
     const syncs = { ...(fresh.amazon?.syncs ?? {}), [job.id]: { at: now.toISOString(), kinds: r.kinds, errors: r.errors } };
     const all = Object.values(syncs);
-    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, syncs, lastSync: { at: now.toISOString(), kinds: [...new Set(all.flatMap((x) => x.kinds))], errors: all.flatMap((x) => x.errors) } };
+    const days = daily.get(job.id);
+    const dailyAll = days && Object.keys(days).length ? { ...(fresh.amazon?.daily ?? {}), [job.id]: mergeDaily(fresh.amazon?.daily?.[job.id], days) } : fresh.amazon?.daily;
+    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, syncs, ...(dailyAll ? { daily: dailyAll } : {}), lastSync: { at: now.toISOString(), kinds: [...new Set(all.flatMap((x) => x.kinds))], errors: all.flatMap((x) => x.errors) } };
     await store.saveWorkspace(fresh);
   }
   return res;

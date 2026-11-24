@@ -88,7 +88,7 @@ describe("group pull: one export per report for many accounts", () => {
       return Response.json({}, { status: 404 });
     }));
     const res = await syncGroup(store, [{ wsId: a.ws.id, id: "acc-a", name: "Brand A" }, { wsId: b.ws.id, id: "acc-b", name: "Brand B" }]);
-    expect(created).toHaveLength(PULLS.length); // 4 exports for both accounts, not 8
+    expect(created).toHaveLength(PULLS.length + 2); // 4 report exports + 2 daily-numbers exports for both accounts, not 12
     expect(created.every((c) => c.sellerOrVendorIds.join() === "acc-a,acc-b" && c.columns.includes("seller_or_vendor_id"))).toBe(true);
     expect(res.get("acc-a")!.kinds).toEqual(["sp_search_term"]);
     expect(res.get("acc-b")!.kinds).toEqual(["sp_search_term"]);
@@ -98,6 +98,48 @@ describe("group pull: one export per report for many accounts", () => {
     expect(snapB.map((s) => s.brand)).toEqual(["Brand B"]);
     expect(deleted.sort()).toEqual(["sch-1", "sch-2"]);
     expect((await store.getWorkspaceById(a.ws.id))!.amazon!.schedules?.["acc-a"]).toBeUndefined();
+    vi.unstubAllGlobals(); vi.unstubAllEnvs();
+  });
+
+  it("one account without Amazon Ads doesn't block the others' ad data (the Habit Nest + PlugX case)", async () => {
+    const { vi } = await import("vitest");
+    const { MemoryStore } = await import("./store/memory");
+    const { createWorkspace } = await import("./workspace");
+    const { syncGroup } = await import("./datadoe-sync");
+    vi.stubEnv("DATADOE_API_KEY", "k");
+    const store = new MemoryStore();
+    const a = await createWorkspace(store);
+    a.ws.amazon = { accounts: [{ id: "acc-a", name: "Brand A", country: "US", connectedAt: "2026-11-22" }, { id: "acc-b", name: "Brand B", country: "IN", connectedAt: "2026-11-22" }] };
+    await store.saveWorkspace(a.ws);
+    const created: { sellerOrVendorIds: string[]; sourceId: string }[] = [];
+    vi.stubGlobal("setTimeout", ((fn: () => void) => { fn(); return 0; }) as unknown as typeof setTimeout);
+    vi.stubGlobal("fetch", vi.fn(async (u: string, init?: RequestInit) => {
+      const url = String(u), m = init?.method ?? "GET";
+      if (url.includes("/exports/sources")) {
+        const p = PULLS.find((x) => x.query === decodeURIComponent(url.match(/query=([^&]+)/)![1]))!;
+        return Response.json({ sources: [{ id: `src-${p.kind}`, name: p.kind, tableName: p.table, requiresDatePeriod: true, initialLoadProgress: 100 }] });
+      }
+      if (url.endsWith("/exports") && m === "POST") {
+        const body = JSON.parse(String(init!.body)); created.push(body);
+        if (String(body.sourceId).includes("sp_") && body.sellerOrVendorIds.includes("acc-b")) return Response.json({ message: 'Export source "X" requires an Amazon Ads connection on every seller' }, { status: 400 });
+        return Response.json({ id: `ex-${body.sourceId}` });
+      }
+      if (url.endsWith("/raw")) {
+        const kind = url.match(/ex-src-(\w+)\/raw/)![1];
+        if (kind !== "sp_search_term") return new Response("seller_or_vendor_id\n");
+        return new Response("seller_or_vendor_id,date,ad_campaign_name,ad_group_name,ad_targeting_text,ad_match_type,ad_search_term,ad_impressions,ad_clicks,ad_spend,ad_sales,ad_orders\nacc-a,2026-11-01,C,G,journal,BROAD,free pdf journal,900,40,30,0,0\n");
+      }
+      if (/\/exports\/ex-/.test(url)) return Response.json({ status: "COMPLETED" });
+      return Response.json({}, { status: 404 });
+    }));
+    // Stale flags (no ads info): the group export fails, then each account is exported on its own.
+    const res = await syncGroup(store, [{ wsId: a.ws.id, id: "acc-a", name: "Brand A" }, { wsId: a.ws.id, id: "acc-b", name: "Brand B" }]);
+    expect(res.get("acc-a")!.kinds).toContain("sp_search_term");
+    expect(res.get("acc-b")!.errors).toContain("sp_search_term: Amazon Ads not connected");
+    // Known flag: the account without Ads is left out of ad exports from the start.
+    created.length = 0;
+    await syncGroup(store, [{ wsId: a.ws.id, id: "acc-a", name: "Brand A", ads: true }, { wsId: a.ws.id, id: "acc-b", name: "Brand B", ads: false }]);
+    expect(created.filter((c) => c.sourceId.includes("sp_")).every((c) => c.sellerOrVendorIds.join() === "acc-a")).toBe(true);
     vi.unstubAllGlobals(); vi.unstubAllEnvs();
   });
 });
