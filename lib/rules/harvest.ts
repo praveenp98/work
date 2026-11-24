@@ -1,3 +1,4 @@
+import { targetFor } from "./settings";
 import { acos, cpc, type TermStats } from "./aggregate";
 import { isAsin, round2 } from "./negatives";
 import type { RoastSettings } from "./settings";
@@ -22,7 +23,7 @@ export function findHarvest(terms: TermStats[], s: RoastSettings): HarvestFix[] 
   const best = new Map<string, TermStats>();
   for (const t of terms) {
     if (t.orders < s.harvestMinOrders) continue;
-    if (acos(t) > s.targetAcos) continue;
+    if (acos(t) > targetFor(s, t.campaign)) continue;
     if (exactTargets.has(t.searchTerm)) continue;
     const prev = best.get(t.searchTerm);
     if (!prev || t.sales > prev.sales) best.set(t.searchTerm, t);

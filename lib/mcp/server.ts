@@ -57,7 +57,7 @@ export function roastSummary(r: RoastResult, full: boolean): string {
     const pb = paybackDays(PLAN.monthlyCents / 100, r.leakMonthly);
     lines.push(
       "",
-      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco ($119 a month) would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
+      `The full fix list (every negative, harvest and bid change, plus an upload-ready bulk file) is part of Rocco's paid plans${pb ? `; Rocco ($279 a month) would pay for itself in about ${pb} days at this leak rate` : ""}. Pass license_key to this tool to unlock, or see ${SITE.url}/pricing.`,
     );
   }
   return lines.join("\n");

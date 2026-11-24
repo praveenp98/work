@@ -7,6 +7,7 @@ export interface BrandSettings {
   minClicks?: number;
   protectedTerms?: string[]; // never negated (brand names, hero keywords)
   protectedCampaigns?: string[]; // launch / ranking / brand-defense campaigns: never auto-negated
+  goals?: { match: string; goal: "profit" | "balance" | "growth" }[]; // goal per product (lib/rules/settings.ts targetFor)
   notes?: string;
 }
 
@@ -43,7 +44,7 @@ export interface Workspace {
   checkoutEmail?: string;
   /** Per-team safety limits (lib/security.ts): timestamps of recent uses. */
   limits?: Partial<Record<import("../security").LimitKey, string[]>>;
-  /** Subscription (Dodo: $1,190/yr or $119/mo, no trial): paid period end, trial end, ids, last known status. */
+  /** Subscription (Dodo: $2,790/yr or $279/mo, no trial): paid period end, trial end, ids, last known status. */
   paidUntil?: string;
   trialEndsAt?: string;
   subscriptionId?: string;
@@ -64,6 +65,10 @@ export interface Workspace {
     /** Same, per connected account (id → last pull). */
     syncs?: Record<string, { at: string; kinds: string[]; errors: string[] }>;
   };
+  /** Midday budget alert sent today, per account id (YYYY-MM-DD; one message a day). */
+  pacedOn?: Record<string, string>;
+  /** Opt-in: undo a bid/budget change in Amazon when its one-week check says it made things worse (lib/undo.ts). */
+  autoUndo?: boolean;
   /** One-tap restock: ship-from address per Amazon account, and the plans Rocco created (lib/restock.ts). */
   shipFrom?: Record<string, import("../restock").ShipFrom>;
   restocks?: { id: string; account: string; at: string; by?: string; actionId: string; planId?: string; status: "created" | "pending" | "cancelled"; items: { sku: string; qty: number }[]; name: string }[];

@@ -35,7 +35,7 @@ describe("validateLicenseKey (Dodo)", () => {
 });
 
 describe("checkoutUrl", () => {
-  it("links to the yearly product with a redirect; no product set = no checkout (never the old $99 product)", async () => {
+  it("links to the yearly product with a redirect; no product set = no checkout (never the old $233 product)", async () => {
     const { checkoutUrl } = await import("./payments");
     expect(checkoutUrl()).toBeNull();
     vi.stubEnv("DODO_PRODUCT_ID_ANNUAL", "pdt_year1");
@@ -64,12 +64,12 @@ describe("hire count", () => {
       return new Response(JSON.stringify(url.includes("/payments") ? payments : {}));
     }));
     const { getPriceState } = await import("./payments");
-    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 6, priceCents: 119000, renewCents: 11900, live: true });
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 6, priceCents: 279000, renewCents: 27900, live: true });
     expect(calls.some(([, i]) => i?.method === "PATCH")).toBe(false);
   });
   it("falls back to the plan price without an API key", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
     const { getPriceState } = await import("./payments");
-    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 119000, live: false });
+    expect(await getPriceState({ fresh: true })).toMatchObject({ sold: 0, priceCents: 279000, live: false });
   });
 });

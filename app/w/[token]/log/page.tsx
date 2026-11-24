@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HistoryButton } from "@/components/dash/HistoryButton";
+import { UndoButton } from "@/components/dash/UndoButton";
+import { canUndo, reversePlan } from "@/lib/undo";
 import { hasAccess } from "@/lib/access";
 import { changeLine } from "@/lib/history";
 import { currencyOf, localize, money as fmtMoney } from "@/lib/currency";
@@ -74,6 +76,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
               <div className="log-top"><span className="fix-code">{a.code}</span><span className={`status ${a.status}`}>{STATUS[a.status]}</span><span className="fine">{when(a.appliedAt)} · {a.brand}</span></div>
               <p className="log-what">{localize(changeWords(a.proposal), curOf(a.brand))}{a.proposal.valueMonthly > 0 && <span className="log-worth"> · worth ~{fmtMoney(a.proposal.valueMonthly, curOf(a.brand))}/mo</span>}</p>
               <p className="fine">{source(a.note)} · {localize(a.result?.summary ?? `I check the result after ${when(a.followUpAt)}.`, curOf(a.brand))}</p>
+              {hasAccess(ws) && canUndo(a) && <UndoButton token={token} id={a.id} what={localize(reversePlan(a.proposal)!.back, curOf(a.brand))} />}
             </li>
           ))}
         </ul>

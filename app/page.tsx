@@ -151,7 +151,7 @@ export default async function Home() {
               <li>Seller Central + Amazon Ads, every marketplace</li>
             </ul>
             <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn hire-cta" />
-            <p className="fine">🛡️ {PRICE.guarantee}: if you don&apos;t like the fixes I give you, ask for your money back.</p>
+            <p className="hire-try">🛡️ <b>{PRICE.tryIt}</b></p>
           </div>
           <ValueCalc />
         </div>

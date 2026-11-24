@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
  * The card that keeps people: what Rocco earned the business vs what he costs. Counts up once when it comes into
  * view (skipped with reduced motion). Two states:
  *  - earned: "$X saved so far · N× what I cost" + a meter that fills past "paid for myself"
- *  - early:  "~$X/mo found · I cost $99/mo" (found, not yet saved; says so)
+ *  - early:  "~$X/mo found · I cost $233/mo" (found, not yet saved; says so)
  */
 export function RoiCard({ saved, measured, found, costMonthly, costSoFar, plan, cur = USD }: { saved: number; measured: number; found: number; costMonthly: number; costSoFar: number; plan: "annual" | "monthly"; cur?: Currency }) {
   const earned = saved > 0;

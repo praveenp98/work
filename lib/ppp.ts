@@ -1,6 +1,6 @@
 /**
  * Local prices (Dodo purchasing power parity). Dodo charges each buyer in their own currency at a PPP-adjusted price;
- * the site's list price stays $1,190 / $119. To show the exact amount checkout will charge, Praveen copies Dodo's
+ * the site's list price stays $2,790 / $279. To show the exact amount checkout will charge, Praveen copies Dodo's
  * local prices into the Vercel env var LOCAL_PRICES (JSON), e.g.
  *   {"IN":{"currency":"INR","symbol":"₹","annual":39900,"monthly":3990},"BR":{"currency":"BRL","symbol":"R$","annual":2990,"monthly":299}}
  * Countries not listed get a plain note ("checkout shows your price in your currency"). Every payment is compared

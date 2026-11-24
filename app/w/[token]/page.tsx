@@ -8,6 +8,7 @@ import { TeamCard } from "@/components/dash/TeamCard";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
 import { IdentifyTeam } from "@/components/Analytics";
 import { AccountsCard } from "@/components/dash/AccountsCard";
+import { GoalsCard } from "@/components/dash/GoalsCard";
 import { slotState } from "@/lib/accounts";
 import { currencyOf, localize, money } from "@/lib/currency";
 import { extraAccountUrl } from "@/lib/paywall";
@@ -40,9 +41,16 @@ import type { Proposal } from "@/lib/rules/types";
 import { savedPhrase } from "@/lib/savings";
 import { getStore } from "@/lib/store";
 import type { Snapshot } from "@/lib/store/types";
-import { buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
+import { brandSettings, buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
+
+/** Product words from campaign names that follow "SP | Product | Targeting | …" (Tidy's naming): goal suggestions. */
+function productWords(names: string[]): string[] {
+  const out = new Map<string, number>();
+  for (const n of names) { const p = n.split("|").map((x) => x.trim()); if (p.length >= 3 && p[1] && p[1].length <= 40) out.set(p[1], (out.get(p[1]) ?? 0) + 1); }
+  return [...out.entries()].sort((a, b) => b[1] - a[1]).map(([k]) => k).slice(0, 8);
+}
 export const metadata: Metadata = { title: "Your Rocco", description: "Today's fixes for your Amazon account, approved in one tap.", robots: { index: false, follow: false } };
 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -241,6 +249,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
         <aside className="rd-side">
           {access !== "none" && team}
+          {access !== "none" && <GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} />}
           {access !== "none" && direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
           {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}

@@ -6,14 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 22, 2026): rocco.works sells "Hire Rocco": $1,190/yr or $119/mo, 7-day money-back guarantee, pay at signup → connect Amazon (DataDoe) → today's jobs approved in one tap and made in Amazon. Left for Praveen: Dodo yearly + monthly products (docs/DODO-SETUP.md), DataDoe Settings → Actions + retention (docs/FOUNDER-TEST.md, docs/COSTS.md), LoopMessage keys, founder test on Habit Nest.**
+> **STATUS (Nov 24, 2026): rocco.works sells "Hire Rocco": $2,790/yr or $279/mo (flat; vs Dr. PPC $299 + 2% of spend), 7-day money-back guarantee, pay at signup → connect Amazon (DataDoe) → today's jobs approved in one tap and made in Amazon. Left for Praveen: Dodo yearly + monthly products (docs/DODO-SETUP.md), DataDoe Settings → Actions + retention (docs/FOUNDER-TEST.md, docs/COSTS.md), LoopMessage keys, founder test on Habit Nest.**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** $1,190/yr or $119/mo, 7-day guarantee. |
+| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** $2,790/yr or $279/mo, 7-day guarantee. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/MOAT.md` | Moat (memory/proof, benchmarks, audience, personality), Rocco Daily content format, conversion levers. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
@@ -32,6 +32,8 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
 | `docs/AMAZON-GAPS.md` | Amazon problems outside the MCP connectors (AI-shopping invisibility, CPSC eFiling, tariffs). |
 | `docs/COMPETITOR-DRPPC.md` | Dr. PPC (Full Circle agency) launch: pitch, price, strengths, where Rocco wins, what to do. |
+| `docs/X-DRPPC.md` | Launch-day posts riding Dr. PPC's launch. |
+| `docs/DATADOE-WHITELABEL-REPLY.md` | DataDoe white-label quote + draft reply (milestone deal). |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/E2E-TEST.md` | Ordered end-to-end launch test checklist. |

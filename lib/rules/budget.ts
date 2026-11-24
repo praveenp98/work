@@ -1,9 +1,11 @@
+import { targetFor } from "./settings";
 import type { CampaignRow } from "../parsers/campaign";
 import { r2, type Analysis, type Finding, type Metrics, type Proposal } from "./types";
 
 export interface BudgetSettings {
   targetAcos: number;
   breakevenAcos: number;
+  goals?: import("./settings").ProductGoal[];
 }
 
 interface Camp { campaign: string; campaignId?: string; budget: number; spend: number; sales: number; orders: number; clicks: number }
@@ -51,7 +53,7 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
   for (const c of camps) {
     const util = c.budget > 0 ? perDay(c.spend) / c.budget : 0;
     const a = acos(c);
-    if (util >= 0.9 && a <= s.targetAcos) {
+    if (util >= 0.9 && a <= targetFor(s, c.campaign)) {
       const proposed = r2(c.budget * 1.25);
       const extraSales = ((proposed - c.budget) * 30) / a;
       g++;

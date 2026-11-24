@@ -3,6 +3,7 @@ import { visitorPricing } from "@/lib/ppp-server";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingPlans } from "@/components/PricingPlans";
+import { SpendCompare } from "@/components/SpendCompare";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
 import { googleOn } from "@/lib/google";
 import { PLAN, PRICE } from "@/lib/pricing";
@@ -67,6 +68,12 @@ export default async function Page() {
       <section className="pr-sec">
         <h2>What happens after you pay</h2>
         <ol className="pr-steps">{STEPS.map((s) => <li key={s.n}><span>{s.n}</span><b>{s.t}</b><p>{s.d}</p></li>)}</ol>
+      </section>
+
+      <section className="pr-sec">
+        <h2>Flat. Not a cut of your ad spend.</h2>
+        <SpendCompare title="AI PPC tools that charge a % of ad spend get pricier as you grow. Rocco doesn't." />
+        <p className="fine"><a href="/compare/dr-ppc">Rocco vs Dr. PPC, side by side →</a></p>
       </section>
 
       <section className="pr-sec">

@@ -80,6 +80,20 @@ export const ANSWERS: Answer[] = [
     updated: "2026-11-17",
   },
   {
+    slug: "ai-amazon-ppc-manager-cost",
+    topic: "AI & Amazon",
+    q: "How much does an AI Amazon PPC manager cost?",
+    short: "Two pricing models. Flat: Rocco is $2,790 a year (or $279 a month) at any ad spend, ads and Seller Central, 3 accounts. Percent of ad spend: Dr. PPC is $299 a month plus 2% of ad spend, so $5,988 a year at $10k/mo in ads and $15,588 at $50k. Agencies usually charge $1,500–5,000 a month or 5–15% of spend.",
+    steps: ["Write down your monthly ad spend.", "Flat tools: the price is the price. Percent tools: base fee + (ad spend × %) × 12.", "Compare against what the tool covers (ads only, or stock, Buy Box and listings too) and how many accounts and teammates are included."],
+    details: ["A percent-of-spend fee grows every time you scale, and it pays the tool more when you spend more. A flat fee has no reason to push your budget up.", "At $30k/mo in ad spend: Dr. PPC $10,788 a year vs Rocco $2,790. Side by side: rocco.works/compare/dr-ppc (prices checked Nov 24, 2026)."],
+    faq: [
+      { q: "Is a percent-of-ad-spend fee bad?", a: "Not by itself, but it gets expensive as you grow and it rewards higher spend. Check the yearly cost at the spend you plan to reach, not today's." },
+      { q: "Do AI PPC managers have free trials?", a: "Some offer a $1 first month (Dr. PPC). Rocco gives a 7-day full refund instead: use it on your own account, and if it's not useful, one email gets every cent back." },
+    ],
+    ask: "what would you change in my ads today?",
+    updated: "2026-11-24",
+  },
+  {
     slug: "what-is-a-good-acos-on-amazon",
     topic: "Ads",
     q: "What is a good ACoS on Amazon?",

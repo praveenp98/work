@@ -24,13 +24,13 @@ export function PricingPlans({ google, annual, monthly, perMonthAnnual, guarante
         <p className="pc-price"><b>{yearly ? perMonthAnnual : monthly}</b><span>/month</span></p>
         <p className="pc-bill">{yearly ? `${annual} billed yearly · 2 months free` : "billed monthly · cancel anytime"}</p>
         <HireButton google={google} price={yearly ? `${annual}/yr` : `${monthly}/mo`} label="Hire Rocco →" className="btn pc-cta" />
-        <p className="pc-guarantee">🛡️ <b>{guaranteeDays}-day money-back guarantee.</b> Don&apos;t like the fixes? Full refund, no call, no forms.</p>
+        <p className="pc-guarantee">🛡️ <b>Try it for {guaranteeDays} days on your own account.</b> Not useful? Every cent back, one email, no call, no forms.</p>
         <ul className="pc-quick">
           <li>✓ Whole team</li><li>✓ 3 Amazon accounts</li><li>✓ Every marketplace</li><li>✓ Cancel anytime</li>
         </ul>
       </div>
       <PriceRise />
-      <p className="fine pc-local">{L ? `Local price for ${where!.name}, charged in ${L.currency} (list price $1,190/yr or $119/mo).` : where ? `Prices in USD. In ${where.name}? Checkout shows your price in your own currency, often lower.` : "Prices in USD; checkout shows your local price."} Extra Amazon accounts +$49/mo each. Secure checkout by Dodo Payments.</p>
+      <p className="fine pc-local">{L ? `Local price for ${where!.name}, charged in ${L.currency} (list price $2,790/yr or $279/mo).` : where ? `Prices in USD. In ${where.name}? Checkout shows your price in your own currency, often lower.` : "Prices in USD; checkout shows your local price."} Extra Amazon accounts +$49/mo each. Secure checkout by Dodo Payments.</p>
     </div>
   );
 }

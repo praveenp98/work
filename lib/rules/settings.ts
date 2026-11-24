@@ -13,6 +13,21 @@ export interface RoastSettings {
   breakevenAcos?: number;
   /** Campaign names (or parts) the team marked as meant-to-spend: never auto-negated. */
   protectedCampaigns?: string[];
+  /** Goal per product: a word from its campaign names → profit (tighter target), balance, or growth (looser). */
+  goals?: ProductGoal[];
+}
+
+export type Goal = "profit" | "balance" | "growth";
+export interface ProductGoal { match: string; goal: Goal }
+/** Profit: 20% under the target ACoS. Growth: 30% over it (buy rank and new customers). Balance: the target. */
+export const GOAL_MULT: Record<Goal, number> = { profit: 0.8, balance: 1, growth: 1.3 };
+
+/** The target ACoS for one campaign: the brand target, moved by the goal of the product in its name (first match). */
+export function targetFor(s: Pick<RoastSettings, "targetAcos" | "goals">, campaign?: string): number {
+  if (!campaign || !s.goals?.length) return s.targetAcos;
+  const c = campaign.toLowerCase();
+  const g = s.goals.find((x) => x.match && c.includes(x.match.toLowerCase()));
+  return g ? s.targetAcos * GOAL_MULT[g.goal] : s.targetAcos;
 }
 
 export const DEFAULT_SETTINGS: RoastSettings = {

@@ -1,6 +1,6 @@
 /**
  * Payments: Dodo Payments (merchant of record for individuals; revenue verifiable on TrustMRR).
- * Two subscription products, "Hire Rocco": yearly $1,190 (DODO_PRODUCT_ID_ANNUAL) and monthly $119
+ * Two subscription products, "Hire Rocco": yearly $2,790 (DODO_PRODUCT_ID_ANNUAL) and monthly $279
  * (DODO_PRODUCT_ID_MONTHLY), see lib/pricing.ts. DODO_PRODUCT_ID (the older quarterly product) is the fallback for both.
  * - Checkout: Dodo static payment link for the chosen plan, tagged with the workspace.
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.

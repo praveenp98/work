@@ -74,3 +74,10 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 ## Local prices (optional, Nov 23)
 - [ ] For your top PPP countries (e.g. IN), copy Dodo's local yearly/monthly prices into Vercel env `LOCAL_PRICES` (format in docs/PRICING-MODEL.md) → redeploy.
 - [ ] PostHog: add an alert on the `price_mismatch` event (any count > 0).
+
+## New price (Nov 24) — do first
+- [ ] Dodo: yearly product → $2,790, monthly → $279 (or new products + swap DODO_PRODUCT_ID_ANNUAL / _MONTHLY in Vercel). The site already shows the new price.
+- [ ] LOCAL_PRICES (if set): new local amounts from Dodo.
+- [ ] Vercel: confirm the new cron (/api/cron/pacing, 18:30 UTC) deployed; Hobby allows once-a-day crons.
+- [ ] Reply to DataDoe about white label (draft: docs/DATADOE-WHITELABEL-REPLY.md).
+- [ ] Post the launch-day copy (docs/X-DRPPC.md).

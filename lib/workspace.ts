@@ -1,3 +1,5 @@
+import { targetFor } from "./rules/settings";
+import { reversePlan, undoInAmazon } from "./undo";
 import { sortFindings } from "./rules/types";
 import { savingsOf } from "./savings";
 import { randomUUID } from "node:crypto";
@@ -65,7 +67,7 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
     const last = (await store.listSnapshots(ws.id, { brand, kind: "sp_search_term", limit: 1 }))[0];
     if (last) { adSpend = Number(last.stats.spend) || undefined; adSales = Number(last.stats.sales) || undefined; }
   }
-  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, protectedCampaigns: s.protectedCampaigns, adSpend, adSales });
+  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, protectedCampaigns: s.protectedCampaigns, goals: s.goals, adSpend, adSales });
   const now = new Date().toISOString();
   const terms = out.report ? termSnapshot(out.report.rows) : undefined;
   let diff: TermDiff | null = null;
@@ -88,11 +90,18 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
   if (out.report || out.campaigns) {
     const open = await store.listActions(ws.id, { brand, status: ["applied", "not_enough_data", "no_effect"] });
     for (const a of open) {
-      const res = out.report ? evaluateAction(a, out.report, s.targetAcos) : evaluateBudget(a, out.campaigns!, s.targetAcos);
+      const tgt = targetFor({ targetAcos: s.targetAcos, goals: s.goals }, a.proposal.campaign); // judged against this product's goal
+      const res = out.report ? evaluateAction(a, out.report, tgt) : evaluateBudget(a, out.campaigns!, tgt);
       if (!res) continue;
       a.result = res;
       a.status = res.status;
       if (res.status === "not_enough_data") a.followUpAt = new Date(Date.now() + 7 * DAY).toISOString();
+      // Opt-in: a bid or budget change that made things worse is put back in Amazon by itself (and says so in the log).
+      const acct = ws.amazon?.accounts?.find((x) => x.name === brand) ?? (ws.amazon?.accounts?.length === 1 ? ws.amazon.accounts[0] : undefined);
+      if (res.status === "worse" && ws.autoUndo && acct && reversePlan(a.proposal)) {
+        const u = await undoInAmazon(acct.id, a).catch(() => ({ ok: false as const, error: "undo failed" }));
+        if (u.ok) { a.status = "reverted"; a.note = `${a.note ? `${a.note} · ` : ""}undone automatically (${u.back}): it made things worse`; }
+      }
       await store.saveAction(a);
       checked.push(a);
     }

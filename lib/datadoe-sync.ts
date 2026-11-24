@@ -76,12 +76,12 @@ const columnsOf = (p: Pull) => [...new Set([...Object.keys(p.cols), SELLER])];
  * One CSV export of just the columns Rocco needs, for one or many accounts (2 DataDoe AI tokens per export, at any
  * size), then wait for it (≤ ~3 min) and download it.
  */
-export async function exportCsv(accountIds: string | string[], src: Source, p: Pull, now = new Date()): Promise<string> {
+export async function exportCsv(accountIds: string | string[], src: Source, p: Pull, now = new Date(), range?: { from: string; to: string }): Promise<string> {
   const ids = Array.isArray(accountIds) ? accountIds : [accountIds];
   const body: Record<string, unknown> = {
     sellerOrVendorIds: ids, sourceId: src.id, columns: columnsOf(p), outputType: "CSV", sendToAllOrganizationMembers: false,
     // Only date-based tables take a period (snapshot tables like ads raw don't).
-    ...(src.requiresDatePeriod === false ? {} : { from: day(new Date(now.getTime() - Math.max(p.days, 1) * 86_400_000)), to: day(new Date(now.getTime() - 86_400_000)) }),
+    ...(src.requiresDatePeriod === false ? {} : range ?? { from: day(new Date(now.getTime() - Math.max(p.days, 1) * 86_400_000)), to: day(new Date(now.getTime() - 86_400_000)) }),
   };
   const ex = await j<{ id: string }>("/exports", { method: "POST", body: JSON.stringify(body) });
   for (let i = 0; i < 36; i++) {

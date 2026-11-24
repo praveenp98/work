@@ -162,7 +162,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
       if (res.unknown.length) L.push(`Unknown codes: ${res.unknown.join(", ")}.`);
-      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($1,190/yr or $119/mo): ${hireUrl(ws)}. 7-day money-back guarantee.`);
+      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($2,790/yr or $279/mo): ${hireUrl(ws)}. 7-day money-back guarantee.`);
       return text(L.join("\n"));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't log those changes.");
@@ -232,7 +232,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     const want = codes?.length ? new Set(expandCodes(codes)) : null;
     const pool = runs.flatMap((r) => (hasAccess(ws) ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS)));
     const ps = pool.filter((p) => !want || want.has(p.code));
-    if (!ps.length) return fail(hasAccess(ws) ? "No matching codes." : `Those codes need an active Rocco ($1,190/yr or $119/mo): ${hireUrl(ws)}. ${SITE.url}/pricing`);
+    if (!ps.length) return fail(hasAccess(ws) ? "No matching codes." : `Those codes need an active Rocco ($2,790/yr or $279/mo): ${hireUrl(ws)}. ${SITE.url}/pricing`);
     if (format === "amazon_ads_api") {
       const missingIds = ps.filter((p) => ["negative", "bid", "budget", "placement"].includes(p.kind) && !p.ids?.campaignId).map((p) => p.code);
       return text([`### Change list for Amazon's Ads connector (${ps.length})`, "Apply only the codes the seller approved. Then call apply_changes with the same codes.", "```json", JSON.stringify(proposalsApiChanges(ps), null, 2), "```",

@@ -99,3 +99,10 @@ Dodo charges each buyer in their own currency at a PPP-adjusted price; the site'
 - How to read Dodo's local price: open the checkout link from a browser/VPN in that country, or check the PPP table on each product in the Dodo dashboard. If Dodo's PPP is automatic (changes over time), prefer fixed per-currency prices in Dodo where possible, or only list your top 2-3 countries.
 - The "prices go up" line is about the USD list price; local prices follow only when Praveen raises the Dodo product price.
 - Contest: TrustMRR counts revenue at what Dodo actually charged, so PPP sales count at their lower value.
+
+## Nov 24, 2026 (Praveen): $279/mo or $2,790/yr, "just a little below Dr. PPC"
+- Was $119 / $1,190. Dr. PPC launched at $299/mo + 2% of ad spend (docs/COMPETITOR-DRPPC.md); Praveen felt Rocco was underpriced.
+- New: **$279/month or $2,790/year** (2 months free, ~$233/mo billed yearly). Extra Amazon account still +$49/mo. 7-day guarantee, now said as "Try it 7 days on your own account. Not useful? Every cent back, one email."
+- Flat at any ad spend: at $10k/mo ads Dr. PPC is $5,988/yr, at $50k $15,588/yr; Rocco $2,790.
+- **Before this deploy takes effect, update Dodo:** set the yearly product to $2,790 and the monthly to $279 (or create new products and swap DODO_PRODUCT_ID_ANNUAL / _MONTHLY in Vercel). Until then the site shows $279 but Dodo charges the old price. If PPP local prices are listed in LOCAL_PRICES, update those too.
+- Code: lib/pricing.ts (PLAN), tests updated.

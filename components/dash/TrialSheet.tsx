@@ -59,7 +59,7 @@ export function TrialSheet({ url, price, open, found, onClose, onStart, google }
           <li><span aria-hidden>🔒</span>Amazon&apos;s own sign-in. I never see your password.</li>
           <li><span aria-hidden>✋</span>Nothing changes in Amazon without your approval.</li>
           <li><span aria-hidden>↩︎</span>Every change is checked first, logged and undoable.</li>
-          <li><span aria-hidden>🛡️</span>7-day money-back guarantee. Cancel anytime.</li>
+          <li><span aria-hidden>🛡️</span>Try it 7 days on your own account. Not useful? Every cent back, one email.</li>
         </ul>
         <p className="fine sheet-human">Questions first? Email a human: <a href="mailto:human@rocco.works">human@rocco.works</a></p>
         <button className="linkbtn sheet-later" onClick={close}>Maybe later</button>

@@ -98,3 +98,8 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 | 2026-11-22 | 3 Amazon accounts per plan, +$49/mo per extra (Praveen) | DataDoe rows grow per account; agencies pay for scale | Unlimited accounts |
 | 2026-11-22 | Remove/swap allowed with a 30-day slot hold (instant if removed within a day) | Real need (wrong account, sold brand) without letting one plan rotate through unlimited clients | No removal; free swaps |
 | 2026-11-22 | Money shown in each account's marketplace currency; Rocco's price in USD with Dodo PPP at checkout | Indian/UK/EU sellers saw "$" on rupee/pound numbers | Convert everything to USD |
+
+## 2026-11-24 · Price up to $279/mo or $2,790/yr; battle Dr. PPC on flat pricing
+- Why: Dr. PPC (Full Circle agency) launched at $299/mo + 2% of ad spend. Praveen: "just a little below Dr. PPC", felt underpriced. Flat pricing is the wedge: 2–5× cheaper for real spenders and no incentive to push spend.
+- Comparison page /compare/dr-ppc + cost slider on /pricing + answer page; product gaps closed: goal per product, undo (manual + opt-in automatic) for bids/budgets, midday budget alert (US/CA/MX).
+- White label (DataDoe: $3,000 setup + $300/mo + data plan): not now; ask for a milestone/deferred deal (docs/DATADOE-WHITELABEL-REPLY.md).

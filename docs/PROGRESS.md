@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Battle mode vs Dr. PPC: price up, compare page, 3 product gaps
+- Price $279/mo or $2,790/yr (was $119 / $1,190). Dodo products must be updated (docs/PRICING-MODEL.md).
+- /compare/dr-ppc, /answers/ai-amazon-ppc-manager-cost, ad-spend slider on /pricing, louder 7-day guarantee.
+- Goals card (target ACoS + goal per product), Undo in Amazon (bids/budgets) + opt-in auto-undo, midday budget alert cron (US/CA/MX).
+- DataDoe white label quote: $3,000 + $300/mo + data plan → deferred; draft reply asks for a milestone deal.
+- Post copy in docs/X-DRPPC.md. Tests 219 passing.
+
+---
+
 ## 2026-11-24 · Competitor launched: Dr. PPC (drppc.ai)
 - Full Circle agency's "Opus 5.5 runs your Amazon PPC": $299/mo + 2% of ad spend, $1 first 30 days, autonomy ladder, rollback triggers, per-ASIN goals, 174 SEO pages. Analysis + ranked response: docs/COMPETITOR-DRPPC.md.
 - Rocco's edges: flat $1,190/yr (5–13× cheaper for $10k–50k/mo spenders), Seller Central jobs + one-tap restock, every marketplace, team + iMessage/WhatsApp, self-serve.

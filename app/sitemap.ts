@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/answers`, lastModified: now, priority: 0.8 },
     ...ANSWERS.map((a) => ({ url: `${SITE.url}/answers/${a.slug}`, lastModified: new Date(a.updated), priority: 0.8 })),
     { url: `${SITE.url}/pricing`, lastModified: now, priority: 0.8 },
+    { url: `${SITE.url}/compare/dr-ppc`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/help`, lastModified: now, priority: 0.7 },
     ...HELP.map((h) => ({ url: `${SITE.url}/help/${h.slug}`, lastModified: new Date(h.updated), priority: 0.6 })),
     ...["privacy", "terms", "refunds"].map((p) => ({ url: `${SITE.url}/${p}`, lastModified: now, priority: 0.2 })),

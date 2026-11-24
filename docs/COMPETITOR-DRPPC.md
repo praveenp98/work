@@ -55,3 +55,12 @@ The %-of-spend model is their soft spot: the biggest spenders pay the most, and 
 4. **Close product gaps that matter in a side-by-side:** (a) per-product goal (profit / growth / balance), (b) automatic "undo if it got worse" after the measurement window (with a heads-up), (c) intraday "budget will run out by 3 PM" alert (DataDoe refetches ads at 8am/1pm/4pm). Skip full autonomy for now (Amazon Agent Policy + trust).
 5. **Content:** X/LinkedIn post riding the launch: "AI PPC managers are here. Here's why yours shouldn't charge % of your ad spend." No dunking; welcome the category.
 6. Acquisition angle ("until they absorb me"): a clean, fast-growing self-serve product with flat pricing, global marketplaces and Seller Central coverage is exactly the gap an agency suite would buy. Track MRR on TrustMRR, keep the codebase clean, keep DataDoe as a swappable layer.
+
+## Done (Nov 24)
+- Price → $279/mo or $2,790/yr (just under their $299 base; flat).
+- /compare/dr-ppc (table, calculator, honest "pick them if", FAQ JSON-LD), /answers/ai-amazon-ppc-manager-cost, slider on /pricing (`components/SpendCompare.tsx`, numbers in `lib/competitors.ts` with the checked date).
+- Guarantee said louder everywhere ("Try it 7 days… every cent back").
+- Goal per product (Goals card on the dashboard; profit ×0.8 / balance / growth ×1.3 of target ACoS, matched by a word in campaign names; used by bids, harvests, budgets and the weekly result check).
+- Undo in Amazon for bid and budget changes (change log button) + opt-in "undo automatically if it got worse" after the one-week check. Negatives / new campaigns: still steps (we don't store Amazon's new IDs yet).
+- Midday budget alert: cron 18:30 UTC (US/CA/MX), one message per account per day to teams with reminders on. Other marketplaces need Vercel Pro (hourly) or more daily crons.
+- Post copy: docs/X-DRPPC.md.

@@ -45,6 +45,7 @@ export interface AnalyzeSettings {
   minClicks?: number;
   protectedTerms?: string[];
   protectedCampaigns?: string[];
+  goals?: import("./rules/settings").ProductGoal[];
   /** For TACoS on business reports. */
   adSpend?: number;
   adSales?: number;
@@ -72,7 +73,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
   if (kind === "sp_search_term") {
     const report = parseSearchTermReport(table);
     const protectedSet = new Set((s.protectedTerms ?? []).map((t) => t.toLowerCase().trim()).filter(Boolean));
-    const r = roast(report, { targetAcos: target, breakevenAcos: breakeven, ...(s.minClicks ? { minClicksNegative: s.minClicks } : {}), ...(s.protectedCampaigns?.length ? { protectedCampaigns: s.protectedCampaigns } : {}) });
+    const r = roast(report, { targetAcos: target, breakevenAcos: breakeven, ...(s.minClicks ? { minClicksNegative: s.minClicks } : {}), ...(s.protectedCampaigns?.length ? { protectedCampaigns: s.protectedCampaigns } : {}), ...(s.goals?.length ? { goals: s.goals } : {}) });
     if (protectedSet.size) {
       const hit = (term: string) => [...protectedSet].some((p) => term.includes(p));
       r.fixes.negatives = r.fixes.negatives.filter((n) => !hit(n.keyword));
@@ -81,7 +82,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
   }
   if (kind === "sp_campaign") {
     const { rows, days } = parseCampaignReport(table);
-    return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven }), campaigns: { rows, days } };
+    return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven, goals: s.goals }), campaigns: { rows, days } };
   }
   if (kind === "sp_placement") return { kind, analysis: analyzePlacements(parsePlacementReport(table), { targetAcos: target, breakevenAcos: breakeven }) };
   if (kind === "business_report") return { kind, analysis: analyzeBusiness(parseBusinessReport(table), { adSpend: s.adSpend, adSales: s.adSales }) };
