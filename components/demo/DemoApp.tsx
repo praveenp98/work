@@ -2,6 +2,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 import { RoccoHead } from "@/components/Rocco";
+import { Office } from "@/components/dash/Office";
+import { officeAct } from "@/lib/client/office";
+import type { OfficeEvent } from "@/lib/office";
 import { BRAND, JOBS, LOG, SAVED, TERMS, type JobState } from "./data";
 
 type Tab = "today" | "terms" | "log" | "autonomy" | "messages";
@@ -31,6 +34,15 @@ const TOUR: Step[] = [
 ];
 export const TOUR_MS = TOUR.reduce((t, s) => t + s.ms, 0);
 
+/** Demo account's morning (example data), replayed by the office like a real account's events. */
+const at = (h: number, m: number) => { const d = new Date(); d.setHours(h, m, 0, 0); return d.toISOString(); };
+const DEMO_EVENTS: OfficeEvent[] = [
+  { at: at(6, 2), station: "dock", text: "Pulled ad search terms, ad campaigns, sales & traffic, FBA stock from Amazon" },
+  { at: at(6, 3), station: "desk", text: "Ran the numbers on ad search terms: 4,812 searches · 6 wasted $214 last month" },
+  { at: at(6, 3), station: "desk", text: "Ran the numbers on FBA stock: Bamboo Board 3-pack runs out in 9 days" },
+  { at: at(6, 4), station: "lab", text: "Checked G2: worked · $212/mo less wasted" },
+  { at: at(6, 4), station: "board", text: "Pinned 5 jobs to your board, worth ~$1,480/mo" },
+];
 const $ = (n: number) => `$${n.toLocaleString("en-US")}`;
 
 export function DemoApp({ film = false }: { film?: boolean }) {
@@ -46,8 +58,9 @@ export function DemoApp({ film = false }: { film?: boolean }) {
     if (id === "pace") { setPaced("checking"); setTimeout(() => setPaced("making"), 1200); setTimeout(() => setPaced("done"), 2600); return; }
     if (id === "ladder") { setTimeout(() => setLevel("guardrails"), 1500); return; }
     setSt((s) => ({ ...s, [id]: "checking" }));
+    officeAct("dock", "Checking it with Amazon, then making it…");
     setTimeout(() => setSt((s) => ({ ...s, [id]: "making" })), 1300);
-    setTimeout(() => setSt((s) => ({ ...s, [id]: "done" })), 3200);
+    setTimeout(() => { setSt((s) => ({ ...s, [id]: "done" })); officeAct("lab", "Done in Amazon ✓ I'll measure it in 7 days."); }, 3200);
   }, []);
 
   // Film: starts on window.__roccoFilm.start() (the recorder calls it once the page is ready), or after 1.5s on its own.
@@ -95,6 +108,7 @@ export function DemoApp({ film = false }: { film?: boolean }) {
         <div className="dm-pane" ref={pane}>
           {tab === "today" && (
             <>
+              <Office events={DEMO_EVENTS} state={{ station: "bell", text: `${JOBS.length} jobs waiting for your OK` }} />
               <div id="dm-hero" className={`dm-hero${cls("dm-hero")}`}>
                 <span className="dm-kick">Good morning</span>
                 <h3>{JOBS.length} jobs today, worth <em>~$1,480/mo</em>.</h3>

@@ -11,6 +11,8 @@ import { AccountsCard } from "@/components/dash/AccountsCard";
 import { GoalsCard } from "@/components/dash/GoalsCard";
 import { DataHealth } from "@/components/dash/DataHealth";
 import { Greeting } from "@/components/dash/Greeting";
+import { Office } from "@/components/dash/Office";
+import { buildOffice } from "@/lib/office";
 import { Numbers } from "@/components/dash/Numbers";
 import { acctLabel } from "@/lib/health";
 import { StrategyCard } from "@/components/dash/StrategyCard";
@@ -216,6 +218,15 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const hidden = brief.perBrand.reduce((t, x) => t + x.hidden, 0);
   const hiddenValue = brief.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
 
+  // Rocco's office: only real events (pulls, analyses, jobs, changes, results) for this account.
+  const nextRun = new Date(); nextRun.setUTCHours(13, 0, 0, 0); if (nextRun.getTime() < Date.now()) nextRun.setUTCDate(nextRun.getUTCDate() + 1);
+  const office = buildOffice({
+    syncs: [account && ws.amazon?.syncs?.[account.id]].filter((x): x is { at: string; kinds: string[]; errors: string[] } => !!x),
+    snaps: b.trends.map((t) => t.latest),
+    open: { count: jobs.length, valueMonthly: shownValue, fmt: m },
+    actions: actions.filter((a) => a.brand === b.brand).map((a) => ({ code: a.code, appliedAt: a.appliedAt, followUpAt: a.followUpAt, status: a.status, target: a.proposal?.target, result: a.result })),
+    nextRunAt: nextRun.toISOString(),
+  });
   return (
     <section className="rd">
       <RememberTeam t={token} />
@@ -228,6 +239,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
       </header>
 
+      {access !== "none" && <Office events={office.events} state={office.state} />}
       {isDirect && <DataHealth token={token} brand={b.brand} />}
       {access !== "none" && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen={false} />}
 

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { track } from "@/lib/analytics";
 import { acctLabel, type AccountHealth } from "@/lib/health";
 import { ConnectButton } from "@/components/start/ConnectAmazon";
+import { officeAct } from "@/lib/client/office";
 
 const ICON: Record<string, string> = { ok: "✓", loading: "…", missing: "!", off: "○", error: "!" };
 const ago = (iso?: string) => {
@@ -38,12 +39,15 @@ export function DataHealth({ token, brand }: { token: string; brand?: string }) 
   async function check() {
     setBusy(true); setMsg("Asking Amazon for the latest status…");
     track("connection_checked");
+    officeAct("dock", "Asking Amazon for fresh data…");
     await load();
     setMsg("Pulling fresh data from Amazon (up to a minute)…");
     const s = await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null);
     const d = await load();
     setBusy(false);
     if (s?.skipped) setMsg("Status refreshed. Data was already pulled in the last hour; the next pull is automatic.");
+    if (s?.lastSync?.kinds?.length) officeAct("desk", `Pulled ${s.lastSync.kinds.length} report${s.lastSync.kinds.length === 1 ? "" : "s"}. Running the numbers…`);
+    if (s?.skipped) { /* nothing new */ }
     else if (s?.lastSync?.kinds?.length) { setMsg(`Pulled ${s.lastSync.kinds.length} report${s.lastSync.kinds.length === 1 ? "" : "s"} just now.`); router.refresh(); }
     else setMsg(d?.ok ? "Status refreshed. Details below." : s?.error ?? "Couldn't reach Amazon right now. Try again in a few minutes.");
   }

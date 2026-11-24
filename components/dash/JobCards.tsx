@@ -1,5 +1,6 @@
 "use client";
 import { track } from "@/lib/analytics";
+import { officeAct } from "@/lib/client/office";
 import { money, USD, type Currency } from "@/lib/currency";
 import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
@@ -43,10 +44,12 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { t
     track("job_approved", { kind: job.kind, changes: codes.length, mode: job.mode });
     if (!codes.length) return;
     setBusy(job.id);
+    officeAct("dock", `Taking ${codes.join(", ")} to Amazon…`);
     if (job.mode === "create") {
       const d = (await post("/api/w/create-campaign", { t: token, brand, codes })) as { status?: Res["status"]; reason?: string; done?: string[] } | null;
       const r: Res = d?.status ? { status: d.status, reason: d.status === "applied" ? `Done: ${d.done?.join(", ")}.` : d.reason } : { status: "failed", reason: "Couldn't reach Rocco. Try again." };
       setRes((x) => ({ ...x, ...Object.fromEntries(codes.map((c) => [c, r])) }));
+      officeAct(r.status === "applied" ? "lab" : "bell", r.status === "applied" ? `Created ${codes.join(", ")} in Amazon ✓ I'll check it in a week.` : `Couldn't make ${codes.join(", ")}: ${r.reason ?? "try again"}`);
     } else {
       const d = (await post("/api/w/approve", { t: token, brand, codes })) as { results?: ({ code: string } & Res)[]; approved?: string[]; locked?: string[] } | null;
       if (!d) setNote((n) => ({ ...n, [job.id]: "Couldn't reach Rocco. Try again." }));
@@ -56,6 +59,9 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { t
         for (const c of d.approved ?? []) n[c] = { status: "queued" };
         return n;
       });
+      const ok = (d?.results ?? []).filter((r) => r.status === "applied").map((r) => r.code);
+      const bad = (d?.results ?? []).filter((r) => r.status === "failed").map((r) => r.code);
+      officeAct(ok.length ? "lab" : "bell", ok.length ? `Made ${ok.join(", ")} in Amazon ✓ I'll check the result in a week.` : bad.length ? `Amazon said no to ${bad.join(", ")}. Details on the card.` : d ? "Saved your approval." : "Couldn't reach Amazon. Try again.");
       if (d?.locked?.length) setNote((n) => ({ ...n, [job.id]: "These unlock when you hire Rocco." }));
     }
     setBusy(null);

@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Rocco's office (live dashboard, desktop)
+- components/dash/Office.tsx + lib/office.ts: Rocco walks between 6 stations (Amazon dock, Number desk, Job board, Results lab, Your bell, Nap corner), replays the last 3 days of REAL events (pulls, analyses, jobs pinned, changes made, results measured) with a speech bubble and a timed log, then settles where he is now (bell if jobs wait; nap corner with next rounds time if caught up).
+- Live: Approve / Undo / Check connection send events (lib/client/office.ts) so Rocco reacts on the spot. Time-of-day light (morning/day/dusk/night), Replay, Hide office (remembered). Phones get a one-line status bar. Reduced motion: no walking.
+- Also on /demo (example events), so it's in the demo and the next film. Tests 269 passing.
+- Next (optional): Seedance loops for walking/typing/celebrating; sound toggle; "saved this month" counter.
+
 ## 2026-11-24 · Fixes from Praveen's dashboard screenshots + date-range numbers
 - **Root cause of "no ad data" for Habit Nest US:** DataDoe refuses a multi-account ads export when ANY account in it has no Amazon Ads ("requires an Amazon Ads connection on every seller"). The PlugX Method IN (no Ads) was in the same export. Fix (lib/datadoe-sync.ts): ad tables only for accounts with Ads; if the flag is stale and DataDoe refuses, export each account on its own. Test added.
 - Health panel: never shows raw API errors; explains this case; names stay ink-coloured; no "Habit Nest US · US" repeat (acctLabel).
