@@ -1,9 +1,10 @@
 import { HireButton } from "@/components/home/HireButton";
 import { BrandLogo } from "@/components/BrandLogo";
-import { HeroDashboard } from "@/components/home/HeroDashboard";
+import { LiveHero } from "@/components/home/LiveHero";
+import { ChatPlay, CountUp, PriceBars, Reveal } from "@/components/home/Reveal";
+import { TryDemo } from "@/components/home/TryDemo";
 import { DemoVideo } from "@/components/demo/DemoVideo";
 import { HeroFlow } from "@/components/home/HeroFlow";
-import { HowItHappens } from "@/components/home/HowItHappens";
 import { LogDemo } from "@/components/home/LogDemo";
 import { StickyHire } from "@/components/home/StickyHire";
 import { Urgency, ValueCalc } from "@/components/start/ValueCalc";
@@ -58,9 +59,10 @@ export default async function Home() {
           <div className="h5-cta">
             <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn hire-cta" />
             <DemoVideo className="btn ghost" />
+            <TryDemo />
           </div>
           <div className="h5-sub">
-            <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime · <a href="/demo">or click around the demo →</a></span>
+            <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime</span>
           </div>
           <ul className="h5-proof">
             <li>✓ Amazon&apos;s own sign-in</li>
@@ -70,21 +72,19 @@ export default async function Home() {
             <li>✓ Powered by Claude Opus 5.5</li>
           </ul>
         </div>
-        <div className="h5-vis"><HeroDashboard /></div>
+        <div className="h5-vis"><LiveHero /></div>
       </div>
 
-      <section className="hband soft">
+      <section className="hband soft" id="how">
         <div className="center-head">
           <span className="kicker">What I handle</span>
           <h2 className="big-h">The whole job, every morning.</h2>
           <p className="hs-lede">Not 20 tiny tweaks. A few clear jobs, ranked by money, each approved with one tap.</p>
         </div>
         <ul className="hjobs">
-          {JOBS.map((j) => <li key={j.t}><span className="hjobs-ic" aria-hidden>{j.ic}</span><div><b>{j.t}</b><p>{j.d}</p></div><em>{j.tag}</em></li>)}
+          {JOBS.map((j, i) => <Reveal as="li" key={j.t} delay={i * 90}><span className="hjobs-ic" aria-hidden>{j.ic}</span><div><b>{j.t}</b><p>{j.d}</p></div><em>{j.tag}</em></Reveal>)}
         </ul>
       </section>
-
-      <section className="hband" id="how"><HowItHappens /></section>
 
       <section className="hband soft">
         <div className="two">
@@ -94,12 +94,12 @@ export default async function Home() {
             <p className="two-lede">Skip a fix and tell me why in one tap: &ldquo;not my strategy&rdquo;, &ldquo;too risky&rdquo;, &ldquo;already done&rdquo;. I stop suggesting what you don&apos;t want, and every change I make is measured a week later, so my next call is better than my last. On day one I also read Amazon&apos;s change history for your ads, so I know what was tried before me.</p>
           </div>
           <div className="two-vis">
-            <div className="hlearn">
+            <Reveal className="hlearn">
               <p className="hlearn-q">Why skip this?</p>
               <div className="hlearn-chips"><span>✅ Already done</span><span className="on">🧭 Not my strategy</span><span>⚠️ Too risky</span><span>⏰ Not now</span></div>
               <p className="hlearn-a">🧠 Noted. Say it twice for this kind of fix and I&apos;ll stop suggesting it.</p>
-              <div className="hlearn-roi"><span>Rocco has saved you</span><b>$1,284</b><em>13× what I cost</em></div>
-            </div>
+              <div className="hlearn-roi"><span>Rocco has saved you</span><b><CountUp to={1284} prefix="$" /></b><em>13× what I cost</em></div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -111,7 +111,7 @@ export default async function Home() {
             <h2 className="big-h">Nothing happens in the dark.</h2>
             <p className="two-lede">Every change I make is logged: what changed, why, who approved it and where, and whether it worked when I checked a week later. Changed your mind? Undo it. On day one I also read your account&apos;s own change history, so I know what was tried before me.</p>
           </div>
-          <div className="two-vis"><LogDemo /></div>
+          <div className="two-vis"><Reveal><LogDemo /></Reveal></div>
         </div>
       </section>
 
@@ -121,10 +121,10 @@ export default async function Home() {
           <h2 className="big-h">Other tools give you data.<br /><span className="blue">I give you decisions.</span></h2>
           <p className="hs-lede">Plenty of tools pipe Amazon numbers into a dashboard or a chat window. You still have to spot the problem, decide, and go make the change. I do the job.</p>
         </div>
-        <div className="vs" role="table" aria-label="Data tools vs Rocco">
+        <Reveal className="vs-wrap"><div className="vs" role="table" aria-label="Data tools vs Rocco">
           <div className="vs-row vs-head" role="row"><span role="columnheader" /><span role="columnheader">Amazon data tools</span><span role="columnheader">Rocco</span></div>
-          {VS.map(([k, a, b]) => <div key={k} className="vs-row" role="row"><span role="rowheader">{k}</span><span role="cell">{a}</span><span role="cell"><b>{b}</b></span></div>)}
-        </div>
+          {VS.map(([k, a, b], i) => <div key={k} className="vs-row rv-row" role="row" style={{ ["--d" as string]: `${i * 120}ms` }}><span role="rowheader">{k}</span><span role="cell">{a}</span><span role="cell"><b>{b}</b></span></div>)}
+        </div></Reveal>
       </section>
 
       <section className="hband">
@@ -144,12 +144,12 @@ export default async function Home() {
             </ul>
           </div>
           <div className="two-vis">
-            <div className="hmsg" aria-label="Example conversation with Rocco">
-              <p className="hmsg-b me">why did sales drop yesterday?</p>
-              <p className="hmsg-b">Sales were $1,912, down 18% on your usual Tuesday. Two reasons: your Bamboo Board 3-pack held the Buy Box only 64% of the day, and &ldquo;Kitchen – Exact&rdquo; hit its budget cap by mid-afternoon. Buy Box is back to 98% today. Want me to raise that budget $40 → $60? Reply YES G1</p>
-              <p className="hmsg-b me">YES G1</p>
-              <p className="hmsg-b">Done in Amazon ✅ Budget is $60. I&apos;ll check it a week from now and tell you if it paid off.</p>
-            </div>
+            <ChatPlay lines={[
+              { me: true, text: "why did sales drop yesterday?" },
+              { text: <>Sales were $1,912, down 18% on your usual Tuesday. Two reasons: your Bamboo Board 3-pack held the Buy Box only 64% of the day, and &ldquo;Kitchen – Exact&rdquo; hit its budget cap by mid-afternoon. Buy Box is back to 98% today. Want me to raise that budget $40 → $60? Reply YES G1</> },
+              { me: true, text: "YES G1" },
+              { text: <>Done in Amazon ✅ Budget is $60. I&apos;ll check it a week from now and tell you if it paid off.</> },
+            ]} />
           </div>
         </div>
       </section>
@@ -159,6 +159,15 @@ export default async function Home() {
           <span className="kicker">Hire me</span>
           <h2 className="big-h">Put me to work<br />tomorrow morning.</h2>
           <Urgency />
+          <div className="pb-box">
+            <p className="pb-k">What you&apos;d pay in a year at $10k/mo in ads</p>
+            <PriceBars rows={[
+              { k: "Dr. PPC", note: "$299/mo + 2% of ad spend", v: 299 * 12 + 0.02 * 10000 * 12 },
+              { k: "Rocco monthly", note: `${PRICE.monthly}/mo, flat`, v: (PLAN.monthlyCents / 100) * 12, us: true },
+              { k: "Rocco yearly", note: "2 months free", v: PLAN.annualCents / 100, us: true },
+            ]} />
+            <p className="fine">Dr. PPC month-to-month price from their site (Nov 24, 2026). On their Full Circle Partner plan it&apos;s 2% of ad spend only. <a href="/compare">All comparisons →</a></p>
+          </div>
           <div className="price-card">
             <div className="price-main"><b>{PRICE.annual}</b><span>a year · 2 months free</span></div>
             <p className="price-then">or {PRICE.monthly} a month · whole team · cancel anytime</p>

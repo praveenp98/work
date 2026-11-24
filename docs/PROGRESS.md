@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Alive homepage ("wow, it's alive")
+- Decided NOT to copy Dr. PPC's long page: same section count, more motion, one action (Hire). Their wow = the product moving; ours now too.
+- **Live hero** (components/home/LiveHero.tsx): Rocco's office in a browser window on an example account (labelled) runs a morning on loop: pulls data → runs numbers → pins 3 jobs → a cursor taps Approve → "Done in Amazon ✓" → saved counter ticks +$310. Works on phones (compact stage). Reduced motion: finished state, still.
+- **Try it right here** (components/home/TryDemo.tsx): the full clickable demo account in a panel, no sign-up, no page change.
+- **Scroll motion** (components/home/Reveal.tsx): job cards stagger in, "saved" counts up, data-vs-decisions rows slide in, the texting thread plays bubble by bubble with a typing dot, price bars grow: Dr. PPC $5,988 vs Rocco $3,348 monthly / $2,790 yearly at $10k/mo ads (with the Full Circle Partner note).
+- Removed the separate "How it happens" band (the hero shows it); "What I handle" now carries #how.
+- Office events are scoped (hero / demo / dashboard) so two offices on one page don't drive each other. Speech bubble stays inside the room at edge stations.
+
 ## 2026-11-24 · Rocco's office (live dashboard, desktop)
 - components/dash/Office.tsx + lib/office.ts: Rocco walks between 6 stations (Amazon dock, Number desk, Job board, Results lab, Your bell, Nap corner), replays the last 3 days of REAL events (pulls, analyses, jobs pinned, changes made, results measured) with a speech bubble and a timed log, then settles where he is now (bell if jobs wait; nap corner with next rounds time if caught up).
 - Live: Approve / Undo / Check connection send events (lib/client/office.ts) so Rocco reacts on the spot. Time-of-day light (morning/day/dusk/night), Replay, Hide office (remembered). Phones get a one-line status bar. Reduced motion: no walking.

@@ -23,7 +23,9 @@ const time = (iso: string) => new Date(iso).toLocaleString("en-US", { weekday: "
  * is now. Approve / undo / check on this page send live events (lib/client/office.ts). Desktop gets the stage; phones
  * get the one-line status. Reduced motion: no replay, no walking.
  */
-export function Office({ events, state, compact }: { events: OfficeEvent[]; state: OfficeState; compact?: boolean }) {
+export function Office({ events, state, variant, holdMs = 7000, scope }: { events: OfficeEvent[]; state: OfficeState; variant?: "hero"; holdMs?: number; /** Only react to events sent with this scope (several offices on one page). */ scope?: string }) {
+  const stateRef = useRef(state); stateRef.current = state;
+  const eventsRef = useRef(events); eventsRef.current = events;
   const [pos, setPos] = useState<Station>(state.station);
   const [say, setSay] = useState(state.text);
   const [log, setLog] = useState<OfficeEvent[]>(events);
@@ -44,50 +46,53 @@ export function Office({ events, state, compact }: { events: OfficeEvent[]; stat
     setPos(to); setSay(text);
   }, []);
   const settle = useCallback(() => {
-    const next = state.nextRunAt ? ` · next rounds ${new Date(state.nextRunAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "";
-    go(state.station, state.text + next);
-  }, [go, state]);
+    const st = stateRef.current;
+    const next = st.nextRunAt ? ` · next rounds ${new Date(st.nextRunAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "";
+    go(st.station, st.text + next);
+  }, [go]);
 
   const replay = useCallback(() => {
     timers.current.forEach(clearTimeout); timers.current = [];
+    const events = eventsRef.current;
     if (!events.length) { settle(); return; }
     setShown(0);
     events.forEach((e, i) => timers.current.push(window.setTimeout(() => { go(e.station, e.text); setShown(i + 1); }, 400 + i * STEP_MS)));
     timers.current.push(window.setTimeout(settle, 400 + events.length * STEP_MS));
-  }, [events, go, settle]);
+  }, [go, settle]);
 
   useEffect(() => {
     setHour(new Date().getHours()); setMounted(true);
-    try { if (localStorage.getItem("rocco_office") === "closed") setOpen(false); } catch {}
+    if (!variant) { try { if (localStorage.getItem("rocco_office") === "closed") setOpen(false); } catch {} }
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
     setStill(reduce);
     if (reduce) settle(); else replay();
     const onAct = (e: Event) => {
-      const d = (e as CustomEvent<{ station: Station; text: string }>).detail;
+      const d = (e as CustomEvent<{ station: Station; text: string; scope?: string }>).detail;
+      if ((d.scope ?? undefined) !== scope) return;
       timers.current.forEach(clearTimeout); timers.current = [];
       const ev = { at: new Date().toISOString(), station: d.station, text: d.text };
       setLog((l) => [...l, ev].slice(-20)); setShown((n) => n + 1);
       go(d.station, d.text);
-      timers.current.push(window.setTimeout(settle, 7000));
+      if (holdMs > 0) timers.current.push(window.setTimeout(settle, holdMs));
     };
     window.addEventListener("rocco:act", onAct);
     return () => { window.removeEventListener("rocco:act", onAct); timers.current.forEach(clearTimeout); };
-  }, [go, replay, settle]);
+  }, [go, replay, settle, holdMs, scope]);
 
   const toggle = () => { setOpen((o) => { try { localStorage.setItem("rocco_office", o ? "closed" : "open"); } catch {} return !o; }); };
   const sky = hour < 6 || hour >= 20 ? "night" : hour < 11 ? "morning" : hour < 17 ? "day" : "dusk";
   const visible = log.slice(0, shown).slice(-6).reverse();
 
   return (
-    <section className={`of of-${sky}${compact ? " of-compact" : ""}`} aria-label="What Rocco is doing">
+    <section className={`of of-${sky}${variant ? ` of-${variant}` : ""}`} aria-label="What Rocco is doing">
       <div className="of-bar">
         <span className={`of-live${pos === "bed" ? " idle" : ""}`} aria-hidden />
         <span className="of-mini" aria-hidden><Raccoon size={22} /></span>
         <b>Rocco is {DOING[pos]}</b>
         <span className="of-say" aria-live="polite">{say}</span>
         <span className="of-btns">
-          {open && events.length > 0 && !still && <button className="linkbtn" onClick={replay}>Replay</button>}
-          <button className="linkbtn" onClick={toggle} aria-expanded={open}>{open ? "Hide office" : "Show office"}</button>
+          {!variant && open && events.length > 0 && !still && <button className="linkbtn" onClick={replay}>Replay</button>}
+          {!variant && <button className="linkbtn" onClick={toggle} aria-expanded={open}>{open ? "Hide office" : "Show office"}</button>}
         </span>
       </div>
       {open && (
@@ -104,7 +109,7 @@ export function Office({ events, state, compact }: { events: OfficeEvent[]; stat
                 <small>{s.label}</small>
               </div>
             ))}
-            <div className={`of-rocco${walking ? " walk" : ""}${left ? " left" : ""}${pos === "bed" ? " sleepy" : ""}`} style={{ left: `${x(pos)}%` }}>
+            <div className={`of-rocco${walking ? " walk" : ""}${left ? " left" : ""}${pos === "bed" ? " sleepy" : ""}${x(pos) < 20 ? " edge-l" : x(pos) > 80 ? " edge-r" : ""}`} style={{ ["--x" as string]: `${x(pos)}%` }}>
               <div className="of-bubble" key={say}>{say}</div>
               <div className="of-body"><Rocco pose={POSE[pos]} size={96} /></div>
             </div>

@@ -58,9 +58,9 @@ export function DemoApp({ film = false }: { film?: boolean }) {
     if (id === "pace") { setPaced("checking"); setTimeout(() => setPaced("making"), 1200); setTimeout(() => setPaced("done"), 2600); return; }
     if (id === "ladder") { setTimeout(() => setLevel("guardrails"), 1500); return; }
     setSt((s) => ({ ...s, [id]: "checking" }));
-    officeAct("dock", "Checking it with Amazon, then making it…");
+    officeAct("dock", "Checking it with Amazon, then making it…", "demo");
     setTimeout(() => setSt((s) => ({ ...s, [id]: "making" })), 1300);
-    setTimeout(() => { setSt((s) => ({ ...s, [id]: "done" })); officeAct("lab", "Done in Amazon ✓ I'll measure it in 7 days."); }, 3200);
+    setTimeout(() => { setSt((s) => ({ ...s, [id]: "done" })); officeAct("lab", "Done in Amazon ✓ I'll measure it in 7 days.", "demo"); }, 3200);
   }, []);
 
   // Film: starts on window.__roccoFilm.start() (the recorder calls it once the page is ready), or after 1.5s on its own.
@@ -108,7 +108,7 @@ export function DemoApp({ film = false }: { film?: boolean }) {
         <div className="dm-pane" ref={pane}>
           {tab === "today" && (
             <>
-              <Office events={DEMO_EVENTS} state={{ station: "bell", text: `${JOBS.length} jobs waiting for your OK` }} />
+              <Office scope="demo" events={DEMO_EVENTS} state={{ station: "bell", text: `${JOBS.length} jobs waiting for your OK` }} />
               <div id="dm-hero" className={`dm-hero${cls("dm-hero")}`}>
                 <span className="dm-kick">Good morning</span>
                 <h3>{JOBS.length} jobs today, worth <em>~$1,480/mo</em>.</h3>
