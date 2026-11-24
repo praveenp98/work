@@ -5,7 +5,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 
 ## 🔴 Blocks every sale
 1. **Dodo: create the two products** (docs/DODO-SETUP.md has exact clicks).
-   - "Hire Rocco: yearly": subscription, $1,190 every 1 year. "Hire Rocco: monthly": subscription, $119 every 1 month.
+   - "Hire Rocco: yearly": subscription, $2,790 every 1 year. "Hire Rocco: monthly": subscription, $279 every 1 month. (Products exist; check both PRICES were raised from $1,190/$119.)
    - Description / checkout note on both: *If you don't like the fixes I give you, you can ask your money back. 7 days guarantee.*
    - Vercel → Settings → Environment Variables (Production): `DODO_PRODUCT_ID_ANNUAL` = pdt_… and `DODO_PRODUCT_ID_MONTHLY` = pdt_… → Redeploy.
    - Until both are set the plan page says "Checkout is being switched on" (it no longer falls back to the old $99 product).
@@ -36,7 +36,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 
 ## 🟡 Before you send traffic
 7. **Founder test** (docs/FOUNDER-TEST.md, ~20 min): `/api/admin/tester?email=you@gmail.com&fresh=1` with header `Authorization: Bearer <CRON_SECRET>` → sign in → connect Habit Nest → first jobs → approve one small negative → change log → Tidy scan → team test with a second Gmail.
-8. **One real payment test** on the live site with the cheapest path: buy monthly ($119) with your card → check you land on Connect Amazon and get the "You hired me" text → refund it in Dodo → check access ends. Costs only Dodo's fee.
+8. **One real payment test** on the live site with the cheapest path: buy monthly ($279) with your card → check you land on Connect Amazon and get the "You hired me" text → refund it in Dodo → check access ends. Costs only Dodo's fee.
 9. **Slack**: either create the Slack app (docs/slack-manifest.yml → `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_SIGNING_SECRET`, ~10 min) or tell me to take Slack out of the homepage. Today the homepage promises Slack approvals but the option is hidden for customers.
 10. **TrustMRR**: connect the Dodo account so revenue shows on the leaderboard.
 11. **Hackathon tracker**: already on every page; open the Ship or Die dashboard and confirm visits show up.
@@ -55,7 +55,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 15. Emergency stop: set `ROCCO_WRITES_OFF=1` + Redeploy → no changes are made in any Amazon account until you remove it.
 
 ## 🔁 Ongoing
-16. **Every 5 hires**: raise both Dodo products (+$10 monthly, +$100 yearly) and tell me to update `PLAN` in lib/pricing.ts (next: $129 / $1,290).
+16. Price is flat ($279/mo, $2,790/yr; launch posts say "flat"). Change it only by deciding in docs/DECISIONS.md, then Dodo + lib/pricing.ts together.
 17. Log every marketing cost in docs/PROGRESS.md (hackathon rule).
 
 ## Weekly (5 minutes)
