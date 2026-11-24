@@ -104,3 +104,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 - Comparison page /compare/dr-ppc + cost slider on /pricing + answer page; product gaps closed: goal per product, undo (manual + opt-in automatic) for bids/budgets, midday budget alert (US/CA/MX).
 - White label (DataDoe: $3,000 setup + $300/mo + data plan): not now; ask for a milestone/deferred deal (docs/DATADOE-WHITELABEL-REPLY.md).
 | 2026-11-23 | Funnel analytics are first-party: a Supabase events table and `/admin/funnel`, no third-party tool | Privacy-friendly (no cookies, no IP stored), nothing new to pay for or load on the page, and the numbers sit next to the Dodo count | PostHog, Plausible, Vercel Analytics |
+
+## 2026-11-24 · Lead messaging with "text me like your Amazon manager"
+- **Decision:** iMessage / WhatsApp / Slack is a headline feature (ask questions, get answers from your account, approve with YES), not a footnote about reminders.
+- **Why:** it's what a real Amazon manager feels like and a clear edge over dashboard-only tools (Dr. PPC). Every claim maps to shipped code; LoopMessage keys and Slack env vars are still needed for it to work live.

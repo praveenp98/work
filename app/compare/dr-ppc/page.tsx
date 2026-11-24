@@ -27,6 +27,7 @@ const ROWS: [string, string, string][] = [
   ["Your team", "Inside their platform (Orbit)", "Everyone approves, every approval named; nudges on iMessage, WhatsApp, Slack"],
   ["Autonomy", "Approve every move / inside guardrails / fully autonomous", "Same three levels, plus opt-in auto-undo when a change makes things worse"],
   ["Every change logged and measured", "Yes, with rollback triggers", "Yes: checked a week later, worked / flat / undone in one tap"],
+  ["Ask your manager by text", "Their dashboard and agents", "Text me on iMessage, WhatsApp or @Rocco in Slack; answers from your account in seconds, reply YES to approve"],
   ["Midday budget alerts", "Yes (budget pacing)", "Yes, every marketplace, by text or Slack"],
   ["Goal per product", "Yes (per ASIN)", "Yes: profit / balance / growth per product"],
   ["Sign-up", "Account at fullcircleorbit.com, or book a demo", "Self-serve: Google → plan → connect Amazon, 2 minutes"],

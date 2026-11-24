@@ -1526,3 +1526,11 @@ h1, h2, .display { font-family: var(--display); }
 .rd-set > section, .rd-set > div { margin-bottom: 12px; }
 .rd-kpis { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 .rd-terms h3 { margin: 0 0 2px; }
+
+/* Homepage "text me" section */
+.hmsg-ch { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 14px 0 0; }
+.hmsg-ch li { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 14px; font-weight: 600; }
+.hmsg-can { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.hmsg-can li { font-size: 15px; line-height: 1.45; padding-left: 22px; position: relative; color: var(--muted, #4b5565); }
+.hmsg-can li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.hmsg-can b { color: var(--ink, #1c2433); }

@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Site now sells "text me like your Amazon manager" (iMessage / WhatsApp / Slack)
+- Praveen: the site never said Rocco works in iMessage/WhatsApp/Slack like a real Amazon manager, with AI answering questions there. It only said "reminders".
+- Homepage: the messaging section is now "Text me like your Amazon manager". It shows an example Q&A thread (why did sales drop → real numbers → YES G1 → done in Amazon), channel chips, and 4 capabilities (questions answered from the account, morning brief, midday budget alerts, team in Slack). Added a hero proof line, a new FAQ "Can I just text you questions?", and the plan list now says "Text me questions…".
+- /pricing team group, /compare/dr-ppc new row "Ask your manager by text", new help article `ask-rocco-by-text` (also feeds /help and llms-full.txt).
+- Claims match what's built: lib/text/handler + lib/prompts/text-reply (answers from account data, reads screenshots, YES <code> approvals), Slack mentions/DMs (lib/slack.ts). Live texting still needs Praveen's LoopMessage keys; Slack needs SLACK_CLIENT_ID/SECRET.
+
 ## 2026-11-24 · Dashboard: Data health panel, real KPI strip, search terms, settings folded
 - Praveen, 48h after connecting Habit Nest US: still "ad jobs on the way", no way to check. New **Amazon connection** panel at the top (components/dash/DataHealth.tsx, lib/health.ts, /api/w/amazon/health): live DataDoe status per account (Seller Central / Amazon Ads: connected, first load + stage, reconnect, not connected) and per report (Sales & traffic, FBA stock, Ad search terms, Ad campaigns): in + when, or exactly why not + the fix. Opens by itself when something's wrong. **Check connection now** = live status + fresh pull (once an hour). Also corrects Rocco's "Ads connected?" flag from DataDoe (admin-attached accounts had none).
 - KPI strip: total sales, sessions, conversion, ad spend, ad sales, ACoS vs target, TACoS, wasted/mo. Deltas only vs a check ≥20h older and ≥1% (no more "▲ 0%").

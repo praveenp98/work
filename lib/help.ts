@@ -129,6 +129,13 @@ export const HELP: HelpArticle[] = [
     steps: ["On your Rocco page, open \"Ping me\" (or \"Nudge me when there's work\").", "Choose where, how often and what the message says. A live preview shows the exact message.", "Tap Save & connect and send the first message from your phone (iMessage/WhatsApp), or add Rocco to Slack.", "Approve by text unlocks after you've reviewed your jobs on the site once, so you never approve something you haven't seen."],
     more: ["Turn reminders off any time on your Rocco page, or reply STOP."],
   },
+  {
+    slug: "ask-rocco-by-text", section: "Team & reminders", updated: U,
+    q: "Can I text Rocco questions on iMessage, WhatsApp or Slack?",
+    short: "Yes. Text Rocco like you'd text your Amazon manager: \"why did sales drop yesterday?\", \"is the 3-pack about to stock out?\", \"what's wasting money in Kitchen – Exact?\". Rocco answers in seconds from your connected account's real numbers, reads screenshots you send, and when a fix fits, gives you its code so you can reply YES.",
+    steps: ["Connect once: on your Rocco page open \"Ping me\", pick iMessage or WhatsApp and send the first message from your phone, or tap Add to Slack.", "Ask anything about your Amazon account in plain words. In Slack, @Rocco in a channel or DM Rocco.", "Send a screenshot of Seller Central, Amazon Ads or another tool and Rocco reads the numbers off it.", "To approve a suggested fix, reply YES and its code (e.g. YES G1). Rocco makes the change in Amazon and checks it a week later."],
+    more: ["Rocco only answers Amazon questions and never invents numbers: if the data isn't connected yet, it says what it needs.", "A chat reply never changes your account by itself. Only a YES with a code does, and only once approve by text is on.", "Everyone on your team can text Rocco; every approval is logged with who sent it."],
+  },
   // Billing
   {
     slug: "plans-and-pricing", section: "Billing", updated: U,

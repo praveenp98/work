@@ -21,7 +21,7 @@ const GROUPS: { t: string; ic: string; items: string[] }[] = [
   { t: "Every morning", ic: "☀️", items: ["Today's jobs, ranked by money, each with the reason", "Restock, listing and Buy Box alerts with the exact steps", "A one-line brief: the most important thing today"] },
   { t: "Made in Amazon for you", ic: "✅", items: ["Block wasted searches, fix bids, move budgets", "New exact campaigns from searches that already sell", "Tidy campaigns: one naming system, one portfolio per product", "Every change checked first, logged and undoable"] },
   { t: "Gets sharper every week", ic: "🧠", items: ["Every change measured a week later", "Learns your style from what you skip and why", "Reads your account's history on day one"] },
-  { t: "Your team, your way", ic: "💬", items: ["Teammates by email, every approval named", "Reminders on iMessage, WhatsApp or Slack", "3 Amazon accounts, every marketplace, your currency"] },
+  { t: "Your team, your way", ic: "💬", items: ["Teammates by email, every approval named", "Text me on iMessage, WhatsApp or Slack: questions answered from your account, approve with YES", "3 Amazon accounts, every marketplace, your currency"] },
 ];
 
 const STEPS = [

@@ -34,7 +34,8 @@ const FAQ: [string, string][] = [
   ["Is it safe to connect my account?", "You sign in on Amazon's own page through DataDoe, an Amazon-approved data partner. I never see your password, nothing changes without your approval, every change is checked with Amazon first, logged, and undoable. Remove access anytime in Seller Central."],
   ["How fast do I see fixes?", "Usually within hours of connecting. Amazon's full history keeps loading in the background for a day or two; I only need the last 30 days to start."],
   ["What exactly can you change?", "Negative keywords, bids, budgets, new exact campaigns from proven searches, campaign names and portfolios. Restock, listing and Buy Box problems come with the exact steps."],
-  ["Do I need Claude or any other AI?", "No. Everything happens on your Rocco page, with reminders on iMessage, WhatsApp or Slack if you want them."],
+  ["Can I just text you questions?", "Yes. Text me on iMessage or WhatsApp, or @Rocco in Slack, the way you'd text an Amazon manager: \"why did ACoS jump?\", \"should I restock the 3-pack?\". I answer in seconds from your connected account, read screenshots you send, and when a fix fits I give you a code to reply YES to."],
+  ["Do I need Claude or any other AI?", "No. I'm the AI. Everything happens on your Rocco page and in your messages."],
   ["Which marketplaces?", "Every Amazon marketplace: US, UK, EU, Canada, India, Japan, Australia and more. Seller Central and Amazon Ads."],
   ["What if it's not worth it?", `${PLAN.guaranteeDays}-day money-back guarantee: if you don't like the fixes I give you, ask for your money back. Cancel anytime.`],
 ];
@@ -62,6 +63,7 @@ export default async function Home() {
             <li>✓ Amazon&apos;s own sign-in</li>
             <li>✓ Nothing changes without you</li>
             <li>✓ Every change logged &amp; undoable</li>
+            <li>✓ Text me on iMessage, WhatsApp or Slack</li>
           </ul>
         </div>
         <div className="h5-vis"><HeroDashboard /></div>
@@ -124,15 +126,25 @@ export default async function Home() {
       <section className="hband">
         <div className="two">
           <div className="two-text">
-            <span className="kicker">Where you work</span>
-            <h2 className="big-h">Approve on your dashboard, or right from your messages.</h2>
-            <p className="two-lede">Pick a nudge: every morning or Mondays, on iMessage, WhatsApp or Slack. Once you&apos;ve seen how I work, reply YES to approve straight from the message.</p>
+            <span className="kicker">Where your team already talks</span>
+            <h2 className="big-h">Text me like your Amazon manager.</h2>
+            <p className="two-lede">On iMessage, WhatsApp or Slack. Ask why sales dipped, what to do about a campaign, or whether to restock, and I answer in seconds with your real numbers, at 2 PM or 2 AM. Send a screenshot and I read it. Reply YES and I make the change in Amazon.</p>
+            <ul className="hmsg-ch" aria-label="Where you can text me">
+              <li>💬 iMessage</li><li>🟢 WhatsApp</li><li>#️⃣ Slack</li>
+            </ul>
+            <ul className="hmsg-can">
+              <li><b>Questions, answered from your account.</b> Sales, ACoS, stock, any campaign or search term.</li>
+              <li><b>Morning brief, your way.</b> A one-line nudge, today&apos;s top 3 jobs, or approve by text.</li>
+              <li><b>Midday budget alerts.</b> A winning campaign about to run dry? You hear before it stops.</li>
+              <li><b>The whole team in one thread.</b> In Slack, @Rocco in any channel; every approval is named.</li>
+            </ul>
           </div>
           <div className="two-vis">
-            <div className="hmsg">
-              <p className="hmsg-b">☀️ Bamboo &amp; Co: 4 jobs waiting, worth ~$1,240/mo. Approve them here: rocco.works/me</p>
-              <p className="hmsg-b me">YES N1 G2</p>
-              <p className="hmsg-b">Done in Amazon ✅ N1, G2. I&apos;ll check the results in a week.</p>
+            <div className="hmsg" aria-label="Example conversation with Rocco">
+              <p className="hmsg-b me">why did sales drop yesterday?</p>
+              <p className="hmsg-b">Sales were $1,912, down 18% on your usual Tuesday. Two reasons: your Bamboo Board 3-pack held the Buy Box only 64% of the day, and &ldquo;Kitchen – Exact&rdquo; hit its budget cap by mid-afternoon. Buy Box is back to 98% today. Want me to raise that budget $40 → $60? Reply YES G1</p>
+              <p className="hmsg-b me">YES G1</p>
+              <p className="hmsg-b">Done in Amazon ✅ Budget is $60. I&apos;ll check it a week from now and tell you if it paid off.</p>
             </div>
           </div>
         </div>
@@ -151,7 +163,7 @@ export default async function Home() {
               <li>Approve and I make the change in Amazon</li>
               <li>Every change measured a week later</li>
               <li>Tidy your campaigns, restock and listing alerts</li>
-              <li>Reminders on iMessage, WhatsApp or Slack</li>
+              <li>Text me questions on iMessage, WhatsApp or Slack</li>
               <li>Seller Central + Amazon Ads, every marketplace</li>
             </ul>
             <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn hire-cta" />
