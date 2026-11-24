@@ -104,6 +104,13 @@ export const HELP: HelpArticle[] = [
     more: ["Automatic undo runs after the 7-day check, only for changes that made things worse, and says so in the log."],
   },
   {
+    slug: "set-your-strategy", section: "Daily work", updated: "2026-11-24",
+    q: "How do I tell Rocco my strategy?",
+    short: "Right after you connect Amazon (while the first data loads), Rocco asks for your strategy: what matters most (profit, balance or growth), target ACoS, margin before ads (sets break-even), a monthly ad budget limit, what never to cut, products with a different goal, how much Rocco does on its own, and anything it should know. It says the plan back in plain English, and every job follows it.",
+    steps: ["On your Rocco page, find \"You set the strategy. I do the work.\" (or \"Set my strategy\" on the dashboard).", "Pick the main goal; the target ACoS fills in (change it if you like).", "Optional: margin, budget limit, never-cut words (brand name, brand-defense or launch campaigns), product exceptions, notes.", "Tap Set my strategy. Your plan shows on the dashboard; tap Edit any time."],
+    more: ["Budget limit: Rocco won't propose budget raises that push total daily budgets past it, even for winners. It tells you instead.", "Never cut: searches and campaigns containing these words are never blocked or cut.", "Your notes are read by Rocco before every answer, in the app and by text."],
+  },
+  {
     slug: "goals-per-product", section: "Daily work", updated: "2026-11-24",
     q: "Can I set different goals for different products?",
     short: "Yes. Goals card → Goal per product: pick a word from the product's campaign names and choose Profit (target ACoS −20%), Balance, or Growth (+30%, to buy rank). Rocco's bids, harvests, budgets and result checks follow it.",

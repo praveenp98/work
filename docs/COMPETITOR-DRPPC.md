@@ -66,5 +66,6 @@ The %-of-spend model is their soft spot: the biggest spenders pay the most, and 
 - Post copy: docs/X-DRPPC.md.
 
 ## Parity+ (Nov 24, later)
+- Matched (Nov 24, later): strategy at onboarding (main goal, target, margin → break-even, monthly ad budget limit, never-cut, product goals, autonomy, notes) said back as a plain-English plan; feeds the rules and every AI answer.
 - Matched: autonomy ladder (3 levels), per-product goals, midday budget pacing (hourly, every marketplace), measurement window + undo on every change, a 2-minute demo film + clickable demo account (/demo).
 - Still theirs: dayparting, a full analytics suite (Orbit), agency logos/portfolio numbers, founder on camera. Our counter: flat price, Seller Central jobs (restock plans), team + messaging, every marketplace.

@@ -10,6 +10,8 @@ import { IdentifyTeam } from "@/components/Analytics";
 import { AccountsCard } from "@/components/dash/AccountsCard";
 import { GoalsCard } from "@/components/dash/GoalsCard";
 import { DataHealth } from "@/components/dash/DataHealth";
+import { StrategyCard } from "@/components/dash/StrategyCard";
+import { strategyLines, strategySet } from "@/lib/strategy";
 import { slotState } from "@/lib/accounts";
 import { currencyOf, localize, money } from "@/lib/currency";
 import { extraAccountUrl } from "@/lib/paywall";
@@ -45,6 +47,18 @@ import type { Snapshot } from "@/lib/store/types";
 import { brandSettings, buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
+
+/** Props for the strategy card of one account (lib/strategy.ts). */
+function strategyProps(ws: Awaited<ReturnType<typeof loadWorkspace>> & object, brand: string) {
+  const raw = ws.brands[brand] ?? {};
+  const s = brandSettings(ws, brand);
+  return {
+    brand,
+    init: { mainGoal: raw.mainGoal, targetAcos: s.targetAcos, breakevenAcos: raw.breakevenAcos, monthlyAdBudget: raw.monthlyAdBudget, protectedCampaigns: raw.protectedCampaigns, protectedTerms: raw.protectedTerms, goals: raw.goals, notes: raw.notes },
+    plan: strategySet(raw) ? strategyLines(s, ws.autonomy ?? "approve") : null,
+    autonomy: ws.autonomy ?? "approve",
+  };
+}
 
 /** Product words from campaign names that follow "SP | Product | Targeting | …" (Tidy's naming): goal suggestions. */
 function productWords(names: string[]): string[] {
@@ -110,6 +124,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         <RememberTeam t={token} />
         <IdentifyTeam team={ws.id} paid={access !== "none"} accounts={accounts.length} />
         {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} where={await visitorPricing()} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {access !== "none" && direct && accounts.length > 0 && <StrategyCard token={token} {...strategyProps(ws, accounts[0].name)} />}
         {access !== "none" && direct && (
           <section className="rc-example" aria-label="Example of your mornings">
             <p className="rc-ex-k">{accounts.length ? "While Amazon sends your data: here's what your mornings will look like" : "Here's what your mornings will look like"}</p>
@@ -210,6 +225,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       </header>
 
       {isDirect && <DataHealth token={token} brand={b.brand} />}
+      {access !== "none" && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen={false} />}
 
       {needsReconnect.map((a) => (
         <div key={a.id} className="rd-offer warn">
@@ -268,6 +284,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
 
         <aside className="rd-side">
+          {access !== "none" && strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
             <h3>What worked</h3>

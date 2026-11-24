@@ -1540,3 +1540,53 @@ h1, h2, .display { font-family: var(--display); }
 .hf-ic.hf-logo svg { display: block; }
 .hmsg-ch li { display: inline-flex; align-items: center; gap: 7px; }
 .hmsg-ch li svg { border-radius: 5px; box-shadow: 0 0 0 1px rgba(28,36,51,.08); }
+
+/* Strategy card (components/dash/StrategyCard.tsx) */
+.st { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius, 22px); padding: 22px; box-shadow: var(--shadow); display: grid; gap: 18px; margin: 0 0 18px; text-align: left; }
+.st-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.st-h h3 { margin: 2px 0 4px; font-size: 22px; letter-spacing: -.01em; }
+.st-h .fine { margin: 0; }
+.st-k { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.st-q { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+.st-q legend { font-weight: 700; font-size: 15.5px; margin-bottom: 10px; padding: 0; }
+.st-q legend small, .st-q label small { font-weight: 500; color: var(--muted); }
+.st-goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.st-goal, .st-level { text-align: left; display: grid; gap: 4px; padding: 14px; border-radius: 16px; border: 1.5px solid var(--line); background: #fff; cursor: pointer; font: inherit; color: var(--ink); transition: border-color .15s, box-shadow .15s, transform .15s; }
+.st-goal:hover, .st-level:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.st-goal.on, .st-level.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+.st-goal small, .st-level small { color: var(--muted); font-size: 13px; line-height: 1.4; }
+.st-ic { font-size: 22px; }
+.st-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.st-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.st-row legend { grid-column: 1 / -1; }
+.st-row label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; align-content: start; }
+.st-in { display: flex; align-items: center; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; padding: 0 12px; }
+.st-in:focus-within { border-color: var(--accent); }
+.st-in input { border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; padding: 10px 4px; width: 100%; min-width: 0; }
+.st-in i { font-style: normal; color: var(--muted); }
+.st-help { font-size: 12.5px; color: var(--muted); font-weight: 400; line-height: 1.4; }
+.st-text { width: 100%; box-sizing: border-box; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; font: inherit; font-size: 15px; background: #fff; resize: vertical; }
+.st-text:focus { outline: 0; border-color: var(--accent); }
+.st-prod { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; }
+.st-prod select { border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 10px; font: inherit; background: #fff; }
+.st-sugg { display: flex; flex-wrap: wrap; gap: 8px; }
+.st-chip { border: 1px dashed var(--line); background: transparent; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13.5px; cursor: pointer; color: var(--ink); }
+.st-chip:hover { border-color: var(--accent); color: var(--accent); }
+.st-act { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.st-err { color: var(--warn, #d9461f); margin: 0; font-size: 14px; }
+.st-plan { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 14.5px; line-height: 1.45; }
+.st-plan li::marker { color: var(--accent); font-weight: 700; }
+.st-done { gap: 12px; padding: 18px; }
+.st-done h3 { font-size: 18px; }
+.st-tease { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: color-mix(in srgb, var(--accent) 5%, var(--card)); }
+.st-tease div { display: grid; gap: 3px; }
+.st-tease small { color: var(--muted); font-size: 13.5px; }
+@media (max-width: 640px) {
+  .st { padding: 16px; }
+  .st-goals, .st-levels, .st-row { grid-template-columns: 1fr; }
+  .st-goal { grid-template-columns: auto 1fr; column-gap: 10px; }
+  .st-goal .st-ic { grid-row: span 2; align-self: center; }
+  .st-tease { flex-direction: column; align-items: stretch; }
+}
+.st-l { white-space: nowrap; }
+.st-tease .btn { white-space: nowrap; flex: none; }

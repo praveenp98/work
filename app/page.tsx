@@ -33,6 +33,7 @@ const VS: [string, string, string][] = [
 
 const FAQ: [string, string][] = [
   ["Is it safe to connect my account?", "You sign in on Amazon's own page through DataDoe, an Amazon-approved data partner. I never see your password, nothing changes without your approval, every change is checked with Amazon first, logged, and undoable. Remove access anytime in Seller Central."],
+  ["Who decides the strategy?", "You. Right after connecting, you tell me what matters (profit, balance or growth), your target ACoS, your margin, a monthly ad budget limit, what never to cut, and products with a different goal. I say the plan back in plain English, and every job I suggest follows it. Change it any time."],
   ["How fast do I see fixes?", "Usually within hours of connecting. Amazon's full history keeps loading in the background for a day or two; I only need the last 30 days to start."],
   ["What exactly can you change?", "Negative keywords, bids, budgets, new exact campaigns from proven searches, campaign names and portfolios. Restock, listing and Buy Box problems come with the exact steps."],
   ["Can I just text you questions?", "Yes. Text me on iMessage or WhatsApp, or @Rocco in Slack, the way you'd text an Amazon manager: \"why did ACoS jump?\", \"should I restock the 3-pack?\". I answer in seconds from your connected account, read screenshots you send, and when a fix fits I give you a code to reply YES to."],

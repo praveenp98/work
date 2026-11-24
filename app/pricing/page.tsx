@@ -26,7 +26,7 @@ const GROUPS: { t: string; ic: string; items: string[] }[] = [
 
 const STEPS = [
   { n: "1", t: "Hire Rocco", d: "Sign up with Google, pick yearly or monthly. 1 minute." },
-  { n: "2", t: "Connect Amazon", d: "Seller Central, then Amazon Ads, on Amazon's own sign-in. 2 minutes." },
+  { n: "2", t: "Connect Amazon, set your strategy", d: "Seller Central and Amazon Ads on Amazon's own sign-in, then profit or growth, your target, a budget limit, what never to cut. 3 minutes." },
   { n: "3", t: "Approve each morning", d: "First jobs usually within hours. Tap approve; I make the change." },
 ];
 

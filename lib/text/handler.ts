@@ -1,11 +1,12 @@
 import { applyMany } from "../apply";
+import { strategyText } from "../strategy";
 import { LIMIT_MSG, spend } from "../security";
 import { datadoeOn } from "../datadoe";
 import { SITE } from "../site";
 import { REPORT_HELP, type ReportKind } from "../analyze";
 import { benchmark } from "../rules/benchmarks";
 import type { Store } from "../store/types";
-import { applyChanges, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken, runAnalysis } from "../workspace";
+import { applyChanges, brandSettings, buildBrief, clearPending, createWorkspace, DEFAULT_BRAND, ensureLinkCode, expandCodes, FREE_PROPOSALS, latestRuns, queuePending, rememberToken, revealToken, runAnalysis } from "../workspace";
 import type { Workspace } from "../store/types";
 import { maskPhone, normPhone, parseCommand } from "./commands";
 import { dailyNumbers } from "./daily";
@@ -93,7 +94,7 @@ export async function respond(store: Store, from: string, text: string, now = ne
 /** Everything Rocco knows about a team, as plain text for the brain. */
 async function teamContext(store: Store, ws: Workspace, now: Date): Promise<string> {
   const b = await buildBrief(store, ws, now);
-  const L = [ws.about ? `They said: ${ws.about}` : "", hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring: $2,790/year or $279/month, 7-day money-back guarantee).", formatBrief(b)];
+  const L = [ws.about ? `They said: ${ws.about}` : "", ...Object.keys(ws.brands).map((k) => strategyText(brandSettings(ws, k), ws.autonomy)), hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring: $2,790/year or $279/month, 7-day money-back guarantee).", formatBrief(b)];
   const snaps = await store.listSnapshots(ws.id, { limit: 8 });
   for (const s of snaps) {
     const f = (s.extra?.findings ?? []).slice(0, 4).map((x) => `  • ${x.title}`).join("\n");

@@ -6,6 +6,8 @@ export interface BudgetSettings {
   targetAcos: number;
   breakevenAcos: number;
   goals?: import("./settings").ProductGoal[];
+  /** The owner's monthly ad budget ceiling: raises that would push total daily budgets past it are held. */
+  monthlyAdBudget?: number;
 }
 
 interface Camp { campaign: string; campaignId?: string; budget: number; spend: number; sales: number; orders: number; clicks: number }
@@ -50,12 +52,19 @@ export function analyzeBudgets(rows: CampaignRow[], days: number, s: BudgetSetti
       findings.push({ severity: "high", title: `${c.campaign} loses money`, detail: `ACoS ${Number.isFinite(a) ? Math.round(a * 100) + "%" : "with no sales"} vs breakeven ${Math.round(s.breakevenAcos * 100)}%. About $${Math.round(loss)}/month above breakeven.${util < 0.6 ? " Budget isn't the limit here: the fix is in its bids and search terms." : ""}`, line: `${c.campaign} is a money furnace with a campaign name.`, valueMonthly: r2(loss) });
     }
   }
+  let daily = camps.reduce((t, c) => t + c.budget, 0) - freed; // after the cuts above
+  const cap = s.monthlyAdBudget && s.monthlyAdBudget > 0 ? s.monthlyAdBudget / 30.4 : Infinity;
   for (const c of camps) {
     const util = c.budget > 0 ? perDay(c.spend) / c.budget : 0;
     const a = acos(c);
     if (util >= 0.9 && a <= targetFor(s, c.campaign)) {
       const proposed = r2(c.budget * 1.25);
       const extraSales = ((proposed - c.budget) * 30) / a;
+      if (daily + (proposed - c.budget) > cap) {
+        findings.push({ severity: "low", title: `${c.campaign} runs out of budget, but you're at your ad budget limit`, detail: `${Math.round(util * 100)}% budget used at ${Math.round(a * 100)}% ACoS. Raising it 25% could add ~$${Math.round(extraSales)}/month in sales, but total budgets would pass your $${Math.round(s.monthlyAdBudget!).toLocaleString("en-US")}/month limit. Raise the limit in your strategy if you want it.`, line: `${c.campaign} wants more money and you told me to hold the line.`, valueMonthly: 0 });
+        continue;
+      }
+      daily += proposed - c.budget;
       g++;
       proposals.push({ code: `G${g}`, kind: "budget", campaign: c.campaign, adGroup: "", target: c.campaign, current: c.budget, proposed, reason: `Uses ${Math.round(util * 100)}% of its budget at ${Math.round(a * 100)}% ACoS (under target). It's running out of money while profitable.`, valueMonthly: r2(extraSales), before: before(c), ids: c.campaignId ? { campaignId: c.campaignId } : undefined, undo: `Set the daily budget back to ${c.budget}.` });
       findings.push({ severity: "medium", title: `${c.campaign} runs out of budget while profitable`, detail: `${Math.round(util * 100)}% budget used at ${Math.round(a * 100)}% ACoS. Raising budget 25% could add ~$${Math.round(extraSales)}/month in sales at the same ACoS.`, line: `${c.campaign} is your best worker and you keep sending it home at lunch.`, valueMonthly: r2(extraSales) });

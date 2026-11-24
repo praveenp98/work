@@ -108,3 +108,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-24 · Lead messaging with "text me like your Amazon manager"
 - **Decision:** iMessage / WhatsApp / Slack is a headline feature (ask questions, get answers from your account, approve with YES), not a footnote about reminders.
 - **Why:** it's what a real Amazon manager feels like and a clear edge over dashboard-only tools (Dr. PPC). Every claim maps to shipped code; LoopMessage keys and Slack env vars are still needed for it to work live.
+
+## 2026-11-24 · Ask for the strategy during onboarding
+- **Decision:** right after Amazon is connected, Rocco asks for the owner's strategy (goal, target, margin, budget limit, never-cut, product goals, autonomy, notes) and says the plan back. The dashboard nags until it's set.
+- **Why:** Dr. PPC's pitch is "you set the strategy, goals and budget; it does the work". The 48h first load is dead time anyway; this fills it and makes the first diagnosis fit the owner. Budget limit and never-cut are enforced by the rules, not just shown.

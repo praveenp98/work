@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Strategy step at onboarding ("you set the strategy, I do the work")
+- Praveen asked if onboarding has the strategy part Ken (Dr. PPC) shows in his launch film. It didn't (goals sat in Settings only). Couldn't watch the X video (x.com, its mirrors and drppc.ai are blocked by the session proxy); used their public site repo: "you set the strategy, goals and budget, and Dr. PPC does the work… day-one diagnosis".
+- New `lib/strategy.ts` + `components/dash/StrategyCard.tsx` + `POST /api/w/strategy`: main goal (profit/balance/growth, presets target ACoS 20/30/40%), target ACoS, margin before ads (→ break-even, refuses a target above it), monthly ad budget limit, never-cut words (protected campaigns + terms), products with a different goal, autonomy, notes.
+- Shown right after connecting (during the 48h first load), then as "Here's how I'll run it" (plain-English plan, Edit) at the top of the dashboard sidebar; dashboard shows a "Set my strategy" bar until it's set.
+- It's real, not decoration: budget limit holds budget raises (lib/rules/budget.ts → a note instead); never-cut words block negatives; product goals move per-campaign targets; the plan + notes go into every AI answer (manager pass, Ask Rocco, texts).
+- Copy: /pricing step 2 "Connect Amazon, set your strategy"; homepage FAQ "Who decides the strategy?"; help article set-your-strategy. Tests 256 passing.
+
 ## 2026-11-24 · Site now sells "text me like your Amazon manager" (iMessage / WhatsApp / Slack)
 - Praveen: the site never said Rocco works in iMessage/WhatsApp/Slack like a real Amazon manager, with AI answering questions there. It only said "reminders".
 - Homepage: the messaging section is now "Text me like your Amazon manager". It shows an example Q&A thread (why did sales drop → real numbers → YES G1 → done in Amazon), channel chips, and 4 capabilities (questions answered from the account, morning brief, midday budget alerts, team in Slack). Added a hero proof line, a new FAQ "Can I just text you questions?", and the plan list now says "Text me questions…".

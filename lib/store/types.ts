@@ -8,7 +8,10 @@ export interface BrandSettings {
   protectedTerms?: string[]; // never negated (brand names, hero keywords)
   protectedCampaigns?: string[]; // launch / ranking / brand-defense campaigns: never auto-negated
   goals?: { match: string; goal: "profit" | "balance" | "growth" }[]; // goal per product (lib/rules/settings.ts targetFor)
-  notes?: string;
+  notes?: string; // owner's strategy notes, fed to every AI answer (lib/strategy.ts)
+  mainGoal?: "profit" | "balance" | "growth"; // account-wide strategy
+  monthlyAdBudget?: number; // ceiling: budget raises stop here (lib/rules/budget.ts)
+  strategySetAt?: string;
 }
 
 export interface PendingItem {

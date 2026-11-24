@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { strategyText } from "./strategy";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 import { hasAccess } from "./access";
@@ -78,7 +79,7 @@ export function checkPlan(raw: RawPlan, proposals: Proposal[], input: string, no
 
 /** Account facts for the prompt: latest numbers per report, target, alerts. */
 export function factsFor(b: Awaited<ReturnType<typeof buildBrief>>["perBrand"][number], account?: string): string {
-  const L = [`Account: ${account ?? b.brand}. Target ACoS ${Math.round(b.settings.targetAcos * 100)}%.`];
+  const L = [`Account: ${account ?? b.brand}. Target ACoS ${Math.round(b.settings.targetAcos * 100)}%.`, strategyText(b.settings)].filter(Boolean);
   for (const t of b.trends) {
     const nums = Object.entries(t.latest.stats).filter(([, v]) => typeof v === "number" || /^-?\d/.test(String(v))).map(([k, v]) => `${k}=${v}`).join(", ");
     L.push(`${t.kind} (${t.latest.createdAt.slice(0, 10)}): ${t.latest.headline}${nums ? ` [${nums}]` : ""}`);

@@ -46,6 +46,7 @@ export interface AnalyzeSettings {
   protectedTerms?: string[];
   protectedCampaigns?: string[];
   goals?: import("./rules/settings").ProductGoal[];
+  monthlyAdBudget?: number;
   /** For TACoS on business reports. */
   adSpend?: number;
   adSales?: number;
@@ -82,7 +83,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
   }
   if (kind === "sp_campaign") {
     const { rows, days } = parseCampaignReport(table);
-    return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven, goals: s.goals }), campaigns: { rows, days } };
+    return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven, goals: s.goals, monthlyAdBudget: s.monthlyAdBudget }), campaigns: { rows, days } };
   }
   if (kind === "sp_placement") return { kind, analysis: analyzePlacements(parsePlacementReport(table), { targetAcos: target, breakevenAcos: breakeven }) };
   if (kind === "business_report") return { kind, analysis: analyzeBusiness(parseBusinessReport(table), { adSpend: s.adSpend, adSales: s.adSales }) };
