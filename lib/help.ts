@@ -169,7 +169,7 @@ export const HELP: HelpArticle[] = [
   {
     slug: "is-it-safe", section: "Trust & safety", updated: U,
     q: "Is it safe to connect my Amazon account?",
-    short: "You sign in on Amazon's own page; Rocco never sees your password. Data comes only from Amazon's official APIs (no scraping). Nothing changes without your approval, every change is checked with Amazon first, logged and undoable, and there are daily safety limits on changes.",
+    short: "You sign in on Amazon's own page; Rocco never sees your password. Data comes only from Amazon's official APIs (no scraping). Nothing changes without your approval unless you switch on autopilot (Inside guardrails or Fully autonomous) yourself; every change is checked with Amazon first, logged and undoable, and there are daily safety limits on changes.",
     more: ["Remove access any time: Seller Central → Settings → User Permissions → Manage your apps, and in Amazon Ads → Settings → app access.", "Rocco is an independent tool, not affiliated with Amazon."],
   },
   {

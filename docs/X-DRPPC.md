@@ -10,7 +10,7 @@ UTM: `?utm_source=x&utm_medium=social&utm_campaign=drppc_launch` (LinkedIn: utm_
 > The doctor charges $299/mo + 2% of your ad spend.
 > I charge $279/mo. Flat. Forever.
 >
-> At $50k/mo in ads that's $15,588 vs $2,790 a year.
+> At $50k/mo in ads that's $15,588 vs $3,348 a year ($2,790 if you pay yearly).
 > The doctor gets paid more when you spend more. I don't.
 >
 > rocco.works/compare/dr-ppc
@@ -55,6 +55,12 @@ UTM: `?utm_source=x&utm_medium=social&utm_campaign=drppc_launch` (LinkedIn: utm_
 > Flat $279/mo. No % of your ad spend.
 
 (Attach public/demo/rocco-demo.mp4.)
+
+## Fact check (Grok, Nov 24) — applied to /compare/dr-ppc
+- Rocco HAS a fully autonomous mode, opt-in (default = approve every move). Never write "Rocco never changes anything without asking"; write "nothing changes until you say so" or "approve every move by default".
+- Compare like with like: their month-to-month vs Rocco monthly ($279 = $3,348/yr; still $2,640 cheaper at $10k ad spend), or say "yearly plan".
+- Full Circle Partner: $299 waived, 2% only → $2,400/yr at $10k spend, cheaper than Rocco below ~$11,600/mo in ads. Don't say Rocco is cheaper "for everyone".
+- Don't imply they're US-only (their site doesn't list marketplaces).
 
 ## Don't
 - Don't claim they're US-only or can't do X unless their site says so.

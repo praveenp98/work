@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const rows: [string, string, string][] = [
     ["Price", c.price, `${PRICE.annual}/yr or ${PRICE.monthly}/mo, flat`],
     ["How they charge", c.model, "Flat. Same price at any ad spend"],
-    ...costs.filter((x) => x.them !== null).map((x): [string, string, string] => [`Per year at ${$(x.s)}/mo in ads`, x.them === 0 ? "Free (your time)" : `~${$(x.them!)}`, $(roccoYear)]),
+    ...costs.filter((x) => x.them !== null).map((x): [string, string, string] => [`Per year at ${$(x.s)}/mo in ads`, x.them === 0 ? "Free (your time)" : `~${$(x.them!)}`, `${$(roccoYear)} yearly · ${$(PLAN.monthlyCents / 100 * 12)} monthly`]),
     ["What it is", c.kind, "An AI Amazon manager: you set the strategy, it finds today's jobs with the reason, you approve (dashboard, or reply YES on iMessage, WhatsApp or Slack), it makes the change in Amazon and checks it a week later"],
     ["Known for", c.focus.join(" · "), "Ads (negatives, bids, budgets, new exact campaigns) + Seller Central (restock plans, Buy Box, suppressed listings)"],
     ["Try it", c.trial ?? "See their site", `${PLAN.guaranteeDays}-day full refund, one email`],
@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     { q: `What's the difference between Rocco and ${n}?`, a: `${c.kind} Rocco is an AI Amazon manager: every morning it finds what to fix in your ads and Seller Central, shows the reason, and after you approve it makes the change in Amazon and measures it a week later. It's ${PRICE.annual} a year flat.` },
     { q: `Who is ${n} best for?`, a: `${c.bestFor}. Pick Rocco if you want a flat price, Seller Central jobs next to ads, and approvals from your phone.` },
     { q: `Can I switch from ${n} to Rocco?`, a: "Yes. Connect Amazon in Rocco; it reads your account's change history so it knows how it was run. Turn off the other tool's automatic changes first so two managers don't fight over the same bids." },
-    { q: "Does Rocco change things without asking?", a: "Not unless you tell it to. By default every change waits for a tap, is checked with Amazon first, logged, and can be undone." },
+    { q: "Does Rocco change things without asking?", a: "Not by default: every change waits for a tap. You can opt into \"inside guardrails\" or \"fully autonomous\". Either way every change is checked with Amazon first, logged, and can be undone." },
   ];
   return (
     <section className="pr cmp">
