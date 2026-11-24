@@ -9,6 +9,7 @@ import { HeroDashboard } from "@/components/home/HeroDashboard";
 import { IdentifyTeam } from "@/components/Analytics";
 import { AccountsCard } from "@/components/dash/AccountsCard";
 import { GoalsCard } from "@/components/dash/GoalsCard";
+import { DataHealth } from "@/components/dash/DataHealth";
 import { slotState } from "@/lib/accounts";
 import { currencyOf, localize, money } from "@/lib/currency";
 import { extraAccountUrl } from "@/lib/paywall";
@@ -135,17 +136,25 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const lastCheck = b.trends.map((t) => t.latest.createdAt).sort().at(-1);
   const daysOld = lastCheck ? Math.floor((Date.now() - new Date(lastCheck).getTime()) / 86_400_000) : null;
   const delta = (k: string, f: string, down = false) => {
-    const a = Number(latest(k)?.stats[f]), p = Number(prevOf(k)?.stats[f]);
+    const L = latest(k), P = prevOf(k);
+    if (!L || !P || new Date(L.createdAt).getTime() - new Date(P.createdAt).getTime() < 20 * 3_600_000) return null; // same-day re-checks aren't a trend
+    const a = Number(L.stats[f]), p = Number(P.stats[f]);
     if (!isFinite(a) || !isFinite(p) || !p) return null;
     const d = (a - p) / Math.abs(p);
+    if (Math.abs(d) < 0.01) return null;
     return { text: `${d >= 0 ? "▲" : "▼"} ${Math.abs(Math.round(d * 100))}%`, good: down ? d <= 0 : d >= 0 };
   };
   const target = Math.round(b.settings.targetAcos * 100);
   const acos = st ? Math.round(Number(st.stats.acosPct)) : null;
+  const tacos = st && biz && Number(biz.stats.sales) > 0 ? Math.round((Number(st.stats.spend) / Number(biz.stats.sales)) * 1000) / 10 : null;
   const kpis = [
-    st && { k: "Ad spend · 30 days", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
-    st && { k: "Ad sales · 30 days", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
-    biz && { k: "Total sales · 30 days", v: m(Number(biz.stats.sales)), d: delta("business_report", "sales") },
+    biz && { k: "Total sales · 30d", v: m(Number(biz.stats.sales)), d: delta("business_report", "sales") },
+    biz && Number(biz.stats.sessions) > 0 && { k: "Sessions · 30d", v: Number(biz.stats.sessions).toLocaleString("en-US"), d: delta("business_report", "sessions") },
+    biz && Number(biz.stats.conversionPct) > 0 && { k: "Conversion", v: `${Number(biz.stats.conversionPct).toFixed(1)}%`, d: delta("business_report", "conversionPct") },
+    st && { k: "Ad spend · 30d", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
+    st && { k: "Ad sales · 30d", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
+    st && acos !== null && { k: `ACoS · target ${target}%`, v: `${acos}%`, d: delta("sp_search_term", "acosPct", true) },
+    tacos !== null && { k: "TACoS", v: `${tacos}%`, d: null },
     st && { k: "Wasted / mo", v: m(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
   ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
 
@@ -170,6 +179,16 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
   const account = ws.amazon?.accounts?.find((a) => a.name === b.brand) ?? ws.amazon?.accounts?.[0];
+  // Search terms table: biggest spenders with Rocco's action on each (like a manager's console).
+  const actFor = new Map<string, { act: string; tone: string }>();
+  for (const p of shown) {
+    const k = p.target.toLowerCase();
+    if (p.kind === "negative") actFor.set(k, { act: "Block", tone: "bad" });
+    else if (p.kind === "harvest") actFor.set(k, { act: "Harvest to exact", tone: "win" });
+    else if (p.kind === "bid" && typeof p.proposed === "number" && typeof p.current === "number") actFor.set(k, { act: `Bid ${p.proposed < p.current ? "↓" : "↑"} $${p.proposed.toFixed(2)}`, tone: "warn" });
+  }
+  const termRows = ((st?.extra?.terms ?? []) as { t: string; s: number; sa: number; o: number; c: number }[]).slice().sort((x, y) => y.s - x.s).slice(0, 12);
+  const terms = termRows.map((r) => ({ ...r, ...(actFor.get(r.t.toLowerCase()) ?? (r.sa > 0 && r.s / r.sa <= b.settings.targetAcos ? { act: "On goal · keep", tone: "ok" } : r.o === 0 ? { act: "Watching (needs more clicks)", tone: "ok" } : { act: "Above target · watching", tone: "warn" })) }));
   // Ad jobs need the two Amazon Ads reports. Say so plainly when they're missing, instead of a page of steps-only jobs.
   const hasAds = b.trends.some((t) => t.kind === "sp_search_term" || t.kind === "sp_campaign");
   const adsState: "off" | "loading" | null = !isDirect || !account || hasAds ? null : account.ads === false ? "off" : "loading";
@@ -189,6 +208,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
         {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
       </header>
+
+      {isDirect && <DataHealth token={token} brand={b.brand} />}
 
       {needsReconnect.map((a) => (
         <div key={a.id} className="rd-offer warn">
@@ -220,16 +241,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>
 
-      {adsState && (
-        <div className={`rd-offer${adsState === "off" ? " warn" : ""}`} role="status">
-          {adsState === "off" ? (
-            <><div><b>Amazon Ads isn&apos;t connected for {account?.name ?? "this account"}.</b><span>Ad jobs (wasted searches, bids, budgets, new exact campaigns) are the ones I make for you in one tap. Today you only see stock and sales jobs.</span></div>
-            {account && <ConnectButton token={token} reconnect={account.id} label="Connect Amazon Ads" className="btn" />}</>
-          ) : (
-            <div><b>Your ad jobs are on the way.</b><span>Amazon Ads is connected, but Amazon is still sending me its history{adsProgress ? ` (${adsProgress}% loaded)` : ""}. A first load can take up to a day. Until then you see stock and sales jobs; the one-tap ad jobs (wasted searches, bids, budgets) show up here by themselves{ws.reminders?.channel && ws.reminders.cadence !== "off" ? ", and I'll message you" : ""}.</span></div>
-          )}
-        </div>
-      )}
 
       <div className="rd-grid">
         <div>
@@ -245,13 +256,18 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           {b.hidden > 0 && (
             <div className="rd-locked"><span>🔒 <b>{b.hidden} more fix{b.hidden === 1 ? "" : "es"}</b>{b.hiddenValue ? <> worth ~<b>{m(b.hiddenValue)}/mo</b></> : null}</span><a className="btn small" href={hireUrl(ws)}>Unlock · {PRICE.from}</a></div>
           )}
+          {terms.length > 0 && (
+            <section className="rd-card rd-terms">
+              <h3>Search terms · last 30 days</h3>
+              <p className="fine">The {terms.length} biggest spenders, and what I&apos;m doing about each.</p>
+              <div className="dm-tw"><table className="dm-t"><thead><tr><th>Search term</th><th>Clicks</th><th>Spend</th><th>Orders</th><th>ACoS</th><th>Rocco</th></tr></thead>
+                <tbody>{terms.map((r) => <tr key={r.t}><td>{r.t}</td><td>{r.c.toLocaleString("en-US")}</td><td>{m(r.s)}</td><td>{r.o}</td><td>{r.sa > 0 ? `${Math.round((r.s / r.sa) * 100)}%` : "—"}</td><td><span className={`dm-tag t-${r.tone}`}>{r.act}</span></td></tr>)}</tbody></table></div>
+              <p className="fine"><Link href={`/w/${token}/analytics`}>All terms and trends →</Link></p>
+            </section>
+          )}
         </div>
 
         <aside className="rd-side">
-          {access !== "none" && team}
-          {access !== "none" && <GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} autonomy={ws.autonomy ?? "approve"} />}
-          {access !== "none" && direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
-          {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
             <h3>What worked</h3>
@@ -263,6 +279,15 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             {coming.length ? <ul className="rd-coming">{coming.map((a) => <li key={a.id}><span>{when(a.followUpAt)}</span>Check {a.code}: {a.proposal.target.slice(0, 40)}</li>)}</ul> : <p className="fine">Results checks show up here after you approve fixes.</p>}
             {brief.season && <p className="fine">📅 {brief.season}</p>}
           </section>
+          {access !== "none" && (
+            <details className="rd-set">
+              <summary><span>⚙️ Settings</span><small>Team · goals &amp; autonomy · Amazon accounts · messages</small></summary>
+          {team}
+          {<GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} autonomy={ws.autonomy ?? "approve"} />}
+          {direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
+          {<ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
+            </details>
+          )}
           <nav className="rd-links" aria-label="More">
             <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
             <Link href={`/w/${token}/log`}>🧾 Change log</Link>

@@ -1491,3 +1491,38 @@ h1, h2, .display { font-family: var(--display); }
 .dmp-cta p { margin: 0; max-width: 640px; }
 .h5-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .dm-thread p { white-space: pre-line; }
+
+/* Data health (components/dash/DataHealth.tsx) */
+.dh { background: #fff; border: 1px solid var(--line, #e7e2d8); border-radius: 18px; margin: 10px 0 14px; overflow: hidden; }
+.dh.warn { border-color: #f3dcae; background: #fffcf5; }
+.dh-wait { padding: 12px 16px; display: flex; gap: 10px; align-items: center; color: #6b7280; font-size: 14px; }
+.dh-head { width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 16px; border: 0; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.dh-sum small { display: block; color: #6b7280; font-size: 13px; }
+.dh-tog { font-size: 13px; color: #1f6feb; }
+.dh-dot { width: 10px; height: 10px; border-radius: 99px; background: #2fa36b; display: inline-block; }
+.dh-dot.loading { background: #f0b429; animation: dhPulse 1.4s ease-in-out infinite; } .dh-dot.warn { background: #e8590c; }
+@keyframes dhPulse { 50% { opacity: .35; } }
+.dh-body { padding: 0 16px 14px; display: grid; gap: 14px; }
+.dh-acct { border-top: 1px solid #f0ece3; padding-top: 12px; display: grid; gap: 8px; }
+.dh-acct-h { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.dh-acct-h b { margin-right: 4px; }
+.dh-pill { font-size: 12px; border-radius: 99px; padding: 3px 9px; background: #f1f5f9; color: #334155; }
+.dh-pill.ok { background: #eef6ee; color: #2f6b3a; } .dh-pill.loading { background: #fff4e0; color: #8a5a00; } .dh-pill.off, .dh-pill.reauth { background: #fdecec; color: #a33a3a; }
+.dh-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dh-list li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; font-size: 14px; }
+.dh-list small { color: #6b7280; }
+.dh-ic { width: 22px; height: 22px; border-radius: 99px; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: #eef6ee; color: #2f6b3a; }
+.dh-list .s-loading .dh-ic { background: #fff4e0; color: #8a5a00; } .dh-list .s-missing .dh-ic, .dh-list .s-error .dh-ic { background: #fdecec; color: #a33a3a; } .dh-list .s-off .dh-ic { background: #f1f5f9; color: #64748b; }
+.dh-ok { margin: 2px 0 0; color: #2f6b3a; font-size: 13px; }
+.dh-why { margin: 2px 0 0; color: #374151; font-size: 13.5px; } .dh-fix { margin: 2px 0 0; color: #6b7280; font-size: 13px; }
+.dh-act { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.dh-act .fine { flex: 1 1 260px; margin: 0; }
+/* Settings group + KPI strip + terms */
+.rd-set { background: #fff; border: 1px solid var(--line, #e7e2d8); border-radius: 18px; padding: 4px 14px; }
+.rd-set > summary { cursor: pointer; list-style: none; padding: 12px 0; display: grid; gap: 2px; }
+.rd-set > summary::-webkit-details-marker { display: none; }
+.rd-set > summary span { font-weight: 600; } .rd-set > summary small { color: #6b7280; font-size: 13px; }
+.rd-set[open] > summary { border-bottom: 1px solid #f0ece3; margin-bottom: 10px; }
+.rd-set > section, .rd-set > div { margin-bottom: 12px; }
+.rd-kpis { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.rd-terms h3 { margin: 0 0 2px; }

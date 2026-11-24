@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Dashboard: Data health panel, real KPI strip, search terms, settings folded
+- Praveen, 48h after connecting Habit Nest US: still "ad jobs on the way", no way to check. New **Amazon connection** panel at the top (components/dash/DataHealth.tsx, lib/health.ts, /api/w/amazon/health): live DataDoe status per account (Seller Central / Amazon Ads: connected, first load + stage, reconnect, not connected) and per report (Sales & traffic, FBA stock, Ad search terms, Ad campaigns): in + when, or exactly why not + the fix. Opens by itself when something's wrong. **Check connection now** = live status + fresh pull (once an hour). Also corrects Rocco's "Ads connected?" flag from DataDoe (admin-attached accounts had none).
+- KPI strip: total sales, sessions, conversion, ad spend, ad sales, ACoS vs target, TACoS, wasted/mo. Deltas only vs a check ≥20h older and ≥1% (no more "▲ 0%").
+- Search terms table on the dashboard (12 biggest spenders + Rocco's action: Block / Harvest / Bid ↓ / On goal).
+- Team, Goals & autonomy, Amazon accounts, Messages folded into one ⚙️ Settings section so today's work stays on top.
+- Tests 250 passing.
+
+---
+
 ## 2026-11-24 · Unblocked the deploy: merged marketing into main, $99 gone everywhere
 - Why the live site still showed $99: the hourly pacing cron (needs Vercel Pro) made Vercel reject every deploy since the battle-mode push, so rocco.works kept serving the old $119 / $99-billed-yearly build. Pacing cron back to daily (18:20 UTC) until Pro.
 - Merged the `marketing` branch (33 commits from the builder session: /start hub, profile links, funnel events + leads, OG images, Black Friday checklist, marketing kit) into main. Conflicts only in sitemap + docs (kept both). 245 tests pass, build OK.
