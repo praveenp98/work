@@ -1534,3 +1534,9 @@ h1, h2, .display { font-family: var(--display); }
 .hmsg-can li { font-size: 15px; line-height: 1.45; padding-left: 22px; position: relative; color: var(--muted, #4b5565); }
 .hmsg-can li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 .hmsg-can b { color: var(--ink, #1c2433); }
+
+/* Official app logos in the hero + chips */
+.hf-ic.hf-logo { background: #fff; padding: 0; overflow: hidden; animation: hf-in .3s cubic-bezier(.2,.8,.2,1) both; }
+.hf-ic.hf-logo svg { display: block; }
+.hmsg-ch li { display: inline-flex; align-items: center; gap: 7px; }
+.hmsg-ch li svg { border-radius: 5px; box-shadow: 0 0 0 1px rgba(28,36,51,.08); }

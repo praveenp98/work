@@ -1,4 +1,5 @@
 import { HireButton } from "@/components/home/HireButton";
+import { BrandLogo } from "@/components/BrandLogo";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
 import { DemoVideo } from "@/components/demo/DemoVideo";
 import { HeroFlow } from "@/components/home/HeroFlow";
@@ -130,7 +131,7 @@ export default async function Home() {
             <h2 className="big-h">Text me like your Amazon manager.</h2>
             <p className="two-lede">On iMessage, WhatsApp or Slack. Ask why sales dipped, what to do about a campaign, or whether to restock, and I answer in seconds with your real numbers, at 2 PM or 2 AM. Send a screenshot and I read it. Reply YES and I make the change in Amazon.</p>
             <ul className="hmsg-ch" aria-label="Where you can text me">
-              <li>💬 iMessage</li><li>🟢 WhatsApp</li><li>#️⃣ Slack</li>
+              <li><BrandLogo app="imessage" size={20} /> iMessage</li><li><BrandLogo app="whatsapp" size={20} /> WhatsApp</li><li><BrandLogo app="slack" size={20} /> Slack</li>
             </ul>
             <ul className="hmsg-can">
               <li><b>Questions, answered from your account.</b> Sales, ACoS, stock, any campaign or search term.</li>

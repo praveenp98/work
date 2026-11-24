@@ -8,6 +8,7 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 - Praveen: the site never said Rocco works in iMessage/WhatsApp/Slack like a real Amazon manager, with AI answering questions there. It only said "reminders".
 - Homepage: the messaging section is now "Text me like your Amazon manager". It shows an example Q&A thread (why did sales drop → real numbers → YES G1 → done in Amazon), channel chips, and 4 capabilities (questions answered from the account, morning brief, midday budget alerts, team in Slack). Added a hero proof line, a new FAQ "Can I just text you questions?", and the plan list now says "Text me questions…".
 - /pricing team group, /compare/dr-ppc new row "Ask your manager by text", new help article `ask-rocco-by-text` (also feeds /help and llms-full.txt).
+- Hero: the approve step now switches app every 1.3s on its own clock (was once per 7.5s loop), with official logos (components/BrandLogo.tsx: iMessage and WhatsApp green tiles, four-colour Slack, from Simple Icons CC0). The same logos are used on the homepage chips.
 - Claims match what's built: lib/text/handler + lib/prompts/text-reply (answers from account data, reads screenshots, YES <code> approvals), Slack mentions/DMs (lib/slack.ts). Live texting still needs Praveen's LoopMessage keys; Slack needs SLACK_CLIENT_ID/SECRET.
 
 ## 2026-11-24 · Dashboard: Data health panel, real KPI strip, search terms, settings folded
