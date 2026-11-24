@@ -37,7 +37,8 @@ const FAQ: [string, string][] = [
   ["How fast do I see fixes?", "Usually within hours of connecting. Amazon's full history keeps loading in the background for a day or two; I only need the last 30 days to start."],
   ["What exactly can you change?", "Negative keywords, bids, budgets, new exact campaigns from proven searches, campaign names and portfolios. Restock, listing and Buy Box problems come with the exact steps."],
   ["Can I just text you questions?", "Yes. Text me on iMessage or WhatsApp, or @Rocco in Slack, the way you'd text an Amazon manager: \"why did ACoS jump?\", \"should I restock the 3-pack?\". I answer in seconds from your connected account, read screenshots you send, and when a fix fits I give you a code to reply YES to."],
-  ["Do I need Claude or any other AI?", "No. I'm the AI. Everything happens on your Rocco page and in your messages."],
+  ["Which AI runs Rocco?", "Anthropic's Claude Opus 5.5. It reads your account's numbers, ranks today's jobs and writes the reason for each, answers your questions on the dashboard, iMessage, WhatsApp and Slack, and reads screenshots you send. The money math (bid limits, break-even, budget caps, restock quantities) runs on fixed, tested rules, so the AI never invents a number, and changes only happen when you approve them (or inside the autopilot level you chose). It's on every plan; no AI subscription of your own needed."],
+  ["Do I need Claude or any other AI?", "No. I'm the AI, running on Claude Opus 5.5. Everything happens on your Rocco page and in your messages."],
   ["Which marketplaces?", "Every Amazon marketplace: US, UK, EU, Canada, India, Japan, Australia and more. Seller Central and Amazon Ads."],
   ["What if it's not worth it?", `${PLAN.guaranteeDays}-day money-back guarantee: if you don't like the fixes I give you, ask for your money back. Cancel anytime.`],
 ];
@@ -66,6 +67,7 @@ export default async function Home() {
             <li>✓ Nothing changes without you</li>
             <li>✓ Every change logged &amp; undoable</li>
             <li>✓ Text me on iMessage, WhatsApp or Slack</li>
+            <li>✓ Powered by Claude Opus 5.5</li>
           </ul>
         </div>
         <div className="h5-vis"><HeroDashboard /></div>

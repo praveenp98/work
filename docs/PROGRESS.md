@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Say which AI runs Rocco
+- Praveen: the site never said Rocco runs on Claude Opus 5.5 (Dr. PPC says "Powered by Opus 5.5"). Added: hero proof line, homepage FAQ "Which AI runs Rocco?", pricing included list, AI model row on /compare/dr-ppc (parity), compare pages, help article which-ai. Copy is exact: AI ranks, explains, answers and reads screenshots; money math runs on fixed tested rules; changes only on approval or the chosen autopilot level.
+- Same session: /compare/dr-ppc fixed per Grok (monthly vs monthly, Full Circle Partner price, autonomy default stated, no US-only hint).
+
 ## 2026-11-24 · Compare pages for every competitor
 - /compare (index) + /compare/<slug> for Helium 10 Ads, Teikametrics, Perpetua, Scale Insights, Ad Badger, BidX, Quartile, an Amazon PPC agency, and Amazon's free ad tools (data in lib/compare.ts; Dr. PPC keeps its own page). Each: angle H1, side-by-side with yearly cost at $5K/$10K/$30K ad spend (only where the public price says), honest "pick them if / pick Rocco if", FAQ JSON-LD, cross-links. In sitemap + footer.
 - Prices web-checked Nov 24 (most vendors don't publish exact prices: each page names its source and says "estimate, check theirs"). Rule kept: never claim a competitor lacks a feature. Teikametrics and Scale Insights are cheaper than Rocco at small ad spend; the pages show that honestly.

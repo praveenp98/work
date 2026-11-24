@@ -104,6 +104,12 @@ export const HELP: HelpArticle[] = [
     more: ["Automatic undo runs after the 7-day check, only for changes that made things worse, and says so in the log."],
   },
   {
+    slug: "which-ai", section: "Trust & safety", updated: "2026-11-24",
+    q: "Which AI does Rocco use?",
+    short: "Anthropic's Claude Opus 5.5. It reads your account's numbers, ranks today's jobs and writes the reason for each, answers your questions on the dashboard, iMessage, WhatsApp and Slack, and reads screenshots you send. The money math (bid limits, break-even, budget caps, restock quantities) runs on fixed, tested rules, so the AI never invents a number, and changes only happen when you approve them (or inside the autopilot level you chose). It's on every plan; no AI subscription of your own needed.",
+    more: ["Rocco only answers Amazon questions (it's scoped to your account and Amazon selling).", "Your data is sent to the model only to answer you and rank your jobs; it isn't used to train models (Anthropic's API terms)."],
+  },
+  {
     slug: "set-your-strategy", section: "Daily work", updated: "2026-11-24",
     q: "How do I tell Rocco my strategy?",
     short: "Right after you connect Amazon (while the first data loads), Rocco asks for your strategy: what matters most (profit, balance or growth), target ACoS, margin before ads (sets break-even), a monthly ad budget limit, what never to cut, products with a different goal, how much Rocco does on its own, and anything it should know. It says the plan back in plain English, and every job follows it.",

@@ -22,6 +22,7 @@ const ROWS: [string, string, string][] = [
   ["Per year at $10k/mo ad spend", `${$(AT[0].drppc)} (month-to-month)`, `${$(AT[0].rocco)} yearly plan · ${$(ROCCO.monthly * 12)} on monthly`],
   ["Per year at $50k/mo ad spend", `${$(AT[2].drppc)} (month-to-month)`, `${$(AT[2].rocco)} yearly plan · ${$(ROCCO.monthly * 12)} on monthly`],
   ["On Full Circle Partner", "$299 base waived: 2% of ad spend only (e.g. $2,400/yr at $10k/mo)", "No partner program; same flat price for everyone"],
+  ["AI model", "Opus 5.5 (their site: \"Powered by Opus 5.5\")", "Claude Opus 5.5, plus fixed, tested rules for every money decision"],
   ["Gets paid more when you spend more", "Yes (2% of every ad dollar)", "No. Same price at any spend"],
   ["Amazon Ads: negatives, bids, budgets, harvests", "Yes", "Yes, one tap each, made in Amazon"],
   ["Seller Central: restock, Buy Box, suppressed listings", "Their Ava agent reports on sales and profit; restock actions not listed", "Included: restock plan created in Amazon in one tap"],
