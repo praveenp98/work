@@ -201,6 +201,8 @@ export interface Store {
   listPhones(opts?: { workspaceId?: string; optedIn?: boolean }): Promise<Phone[]>;
   /** Teams with Amazon connected directly (DataDoe), for the daily pull. */
   listAmazonWorkspaces(): Promise<Workspace[]>;
+  /** Teams with a Google-signed-in owner, newest first (admin sign-ups list). */
+  listOwnedWorkspaces(limit?: number): Promise<Workspace[]>;
   addSnapshot(s: Snapshot): Promise<void>;
   listSnapshots(workspaceId: string, opts?: { brand?: string; kind?: string; limit?: number }): Promise<Snapshot[]>; // newest first
   /** Latest snapshot stats of this kind from OTHER workspaces (last 60 days), for anonymized benchmarks. */

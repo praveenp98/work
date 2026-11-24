@@ -4,6 +4,9 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Google sign-ups listed in /admin/leads
+- Sign-in emails were only stored on each team (workspaces.data.ownerEmail), never listed. /admin/leads now has a Sign-ups table: date, email (mailto), name, paid/not paid + plan, Amazon accounts connected. Not-paid sign-ups = warmest leads (reached checkout). Store.listOwnedWorkspaces added (Supabase + memory).
+
 ## 2026-11-24 · Phone menu, Sign in always visible, clickable Rocco (from session recordings)
 - Praveen ran migrations 004_events + 005_leads (that's all they need). /admin/funnel and /admin/leads now record.
 - Recordings: people tapping the Rocco logo/mascot and finding no way around. Cause (my miss): on phones the top links were hidden (<640px) with no menu, and "Sign in" only appeared after scripts loaded. Fixed: ☰ Menu on phones (Pricing, Demo, Compare, Answers, Help, Hire Rocco), Sign in rendered on the server, desktop nav adds Demo + Compare.

@@ -52,6 +52,9 @@ export class MemoryStore implements Store {
   }
   async getPhone(phone: string) { const p = this.phones.get(phone); return p ? structuredClone(p) : null; }
   async savePhone(p: Phone) { this.phones.set(p.phone, structuredClone(p)); }
+  async listOwnedWorkspaces(limit = 500) {
+    return [...this.ws.values()].filter((w) => w.ownerEmail).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, limit).map((w) => this.out(w));
+  }
   async listAmazonWorkspaces() {
     return [...this.ws.values()].filter((w) => w.amazon?.accounts?.length).map((w) => this.out(w));
   }

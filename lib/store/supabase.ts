@@ -109,6 +109,10 @@ export class SupabaseStore implements Store {
   async savePhone(p: Phone) {
     await this.q("phones", { method: "POST", body: JSON.stringify({ phone: p.phone, workspace_id: p.workspaceId, opted_out: p.optedOut, data: p }), headers: { Prefer: "resolution=merge-duplicates,return=minimal" } });
   }
+  async listOwnedWorkspaces(limit = 500) {
+    const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->>ownerEmail=not.is.null&select=id,data&order=created_at.desc&limit=${Math.min(2000, limit)}`);
+    return rows.map((r) => this.ws(r));
+  }
   async listAmazonWorkspaces() {
     const rows = await this.q<{ id: string; data: Omit<Workspace, "id"> }[]>(`workspaces?data->amazon=not.is.null&select=id,data&limit=2000`);
     return rows.map((r) => this.ws(r)).filter((w) => w.amazon?.accounts?.length);
