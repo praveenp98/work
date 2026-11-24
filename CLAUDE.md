@@ -35,6 +35,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `scripts/record-demo.js` | Re-records the 2-minute demo film (public/demo/rocco-demo.mp4) from /demo/film. |
 | `docs/X-DRPPC.md` | Launch-day posts riding Dr. PPC's launch. |
 | `docs/DATADOE-WHITELABEL-REPLY.md` | DataDoe white-label quote + draft reply (milestone deal). |
+| `lib/compare.ts` | Data for /compare/<slug> pages (competitor prices, sources, checked dates). Re-check before quoting. |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |
 | `docs/GTM-PLAYBOOK.md` | All marketing channels, buyer targets per channel, offers, daily rhythm, cold email rules. |
 | `docs/E2E-TEST.md` | Ordered end-to-end launch test checklist. |

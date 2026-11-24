@@ -4,6 +4,7 @@ import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { SpendCompare } from "@/components/SpendCompare";
 import { DRPPC, yearlyAt } from "@/lib/competitors";
+import { COMPETITORS } from "@/lib/compare";
 import { PLAN, PRICE } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
@@ -77,6 +78,11 @@ export default function Page() {
       <section className="pr-sec pr-faq">
         <h2>Questions</h2>
         <Faq items={FAQ} title={null} />
+      </section>
+
+      <section className="pr-sec">
+        <h2>Other comparisons</h2>
+        <p className="cmp-more">{COMPETITORS.map((x, i) => <span key={x.slug}>{i ? " · " : ""}<Link href={`/compare/${x.slug}`}>{x.name.replace(/ \(.*\)$/, "").replace(/^an /, "An ")}</Link></span>)} · <Link href="/compare">All</Link></p>
       </section>
     </section>
   );

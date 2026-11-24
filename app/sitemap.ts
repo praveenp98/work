@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { COMPETITORS } from "@/lib/compare";
 import { ANSWERS } from "@/lib/answers";
 import { GUIDES } from "@/lib/guides";
 import { HELP } from "@/lib/help";
@@ -18,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...ANSWERS.map((a) => ({ url: `${SITE.url}/answers/${a.slug}`, lastModified: new Date(a.updated), priority: 0.8 })),
     { url: `${SITE.url}/pricing`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/compare/dr-ppc`, lastModified: now, priority: 0.8 },
+    { url: `${SITE.url}/compare`, lastModified: now, priority: 0.7 },
+    ...COMPETITORS.map((c) => ({ url: `${SITE.url}/compare/${c.slug}`, lastModified: now, priority: 0.7 })),
     { url: `${SITE.url}/demo`, lastModified: now, priority: 0.9 },
     { url: `${SITE.url}/free/black-friday-checklist`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/help`, lastModified: now, priority: 0.7 },

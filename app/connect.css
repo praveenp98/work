@@ -1590,3 +1590,4 @@ h1, h2, .display { font-family: var(--display); }
 }
 .st-l { white-space: nowrap; }
 .st-tease .btn { white-space: nowrap; flex: none; }
+.cmp-more { line-height: 1.9; }

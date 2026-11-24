@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Compare pages for every competitor
+- /compare (index) + /compare/<slug> for Helium 10 Ads, Teikametrics, Perpetua, Scale Insights, Ad Badger, BidX, Quartile, an Amazon PPC agency, and Amazon's free ad tools (data in lib/compare.ts; Dr. PPC keeps its own page). Each: angle H1, side-by-side with yearly cost at $5K/$10K/$30K ad spend (only where the public price says), honest "pick them if / pick Rocco if", FAQ JSON-LD, cross-links. In sitemap + footer.
+- Prices web-checked Nov 24 (most vendors don't publish exact prices: each page names its source and says "estimate, check theirs"). Rule kept: never claim a competitor lacks a feature. Teikametrics and Scale Insights are cheaper than Rocco at small ad spend; the pages show that honestly.
+- Dropped Merch Jar (no verifiable pricing found).
+
 ## 2026-11-24 · Strategy step at onboarding ("you set the strategy, I do the work")
 - Praveen asked if onboarding has the strategy part Ken (Dr. PPC) shows in his launch film. It didn't (goals sat in Settings only). Couldn't watch the X video (x.com, its mirrors and drppc.ai are blocked by the session proxy); used their public site repo: "you set the strategy, goals and budget, and Dr. PPC does the work… day-one diagnosis".
 - New `lib/strategy.ts` + `components/dash/StrategyCard.tsx` + `POST /api/w/strategy`: main goal (profit/balance/growth, presets target ACoS 20/30/40%), target ACoS, margin before ads (→ break-even, refuses a target above it), monthly ad budget limit, never-cut words (protected campaigns + terms), products with a different goal, autonomy, notes.
