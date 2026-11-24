@@ -115,6 +115,7 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
           <div className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</div>
           <p className="tw-why">{job.why ?? job.summary}</p>
           {job.manualWhy && !rsOn && <p className="tw-manual">{job.manualWhy}</p>}
+          {job.mode !== "manual" && <p className="tw-guard"><span>✓ Checked with Amazon first</span><span>⏱ Measured in 7 days</span><span>{["bids_down", "bids_up", "budget_up", "budget_down"].includes(job.kind) ? "↩ Undo armed" : "↩ Logged with undo steps"}</span></p>}
         </div>
         {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
       </div>

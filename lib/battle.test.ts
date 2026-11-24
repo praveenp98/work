@@ -10,6 +10,7 @@ import { setStoreForTests } from "./store";
 import { MemoryStore } from "./store/memory";
 import { grantTrial } from "./test-utils";
 import { canUndo, reversePlan } from "./undo";
+import { autoEligible } from "./autopilot";
 import { createWorkspace } from "./workspace";
 
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
@@ -70,5 +71,21 @@ describe("POST /api/w/goals", () => {
     const fresh = (await store.getWorkspaceById(ws.id))!;
     expect(fresh.autoUndo).toBe(true);
     expect(Object.values(fresh.brands)[0]).toMatchObject({ targetAcos: 0.25 });
+  });
+});
+
+describe("autonomy ladder", () => {
+  const p = (x: Partial<Proposal>): Proposal => ({ code: "X1", kind: "negative", campaign: "C", adGroup: "", target: "t", reason: "", valueMonthly: 1, undo: "", ...x });
+  it("level 1 makes nothing on its own", () => expect(autoEligible(p({}), "approve")).toBe(false));
+  it("level 2 makes only money-saving changes", () => {
+    expect(autoEligible(p({ kind: "negative" }), "guardrails")).toBe(true);
+    expect(autoEligible(p({ kind: "bid", current: 1.2, proposed: 1 }), "guardrails")).toBe(true);
+    expect(autoEligible(p({ kind: "bid", current: 1, proposed: 1.2 }), "guardrails")).toBe(false);
+    expect(autoEligible(p({ kind: "budget", current: 40, proposed: 50 }), "guardrails")).toBe(false);
+  });
+  it("level 3 adds raises, never new campaigns or structure", () => {
+    expect(autoEligible(p({ kind: "budget", current: 40, proposed: 50 }), "auto")).toBe(true);
+    expect(autoEligible(p({ kind: "harvest" }), "auto")).toBe(false);
+    expect(autoEligible(p({ kind: "structure" }), "auto")).toBe(false);
   });
 });

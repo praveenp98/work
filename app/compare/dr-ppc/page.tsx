@@ -25,7 +25,10 @@ const ROWS: [string, string, string][] = [
   ["Seller Central: restock, Buy Box, suppressed listings", "Their Ava agent reports on sales and profit; restock actions not listed", "Included: restock plan created in Amazon in one tap"],
   ["Amazon accounts", "Not stated on their pricing", "3 included (+$49/mo each), every marketplace, local currency"],
   ["Your team", "Inside their platform (Orbit)", "Everyone approves, every approval named; nudges on iMessage, WhatsApp, Slack"],
-  ["Every change logged and measured", "Yes", "Yes: checked a week later, worked / flat / undone"],
+  ["Autonomy", "Approve every move / inside guardrails / fully autonomous", "Same three levels, plus opt-in auto-undo when a change makes things worse"],
+  ["Every change logged and measured", "Yes, with rollback triggers", "Yes: checked a week later, worked / flat / undone in one tap"],
+  ["Midday budget alerts", "Yes (budget pacing)", "Yes, every marketplace, by text or Slack"],
+  ["Goal per product", "Yes (per ASIN)", "Yes: profit / balance / growth per product"],
   ["Sign-up", "Account at fullcircleorbit.com, or book a demo", "Self-serve: Google → plan → connect Amazon, 2 minutes"],
   ["Try it", "First 30 days for $1", `${PLAN.guaranteeDays}-day full refund, one email`],
 ];
@@ -33,7 +36,7 @@ const ROWS: [string, string, string][] = [
 const FAQ = [
   { q: "What is Dr. PPC?", a: `An AI Amazon PPC manager from Full Circle, an Amazon agency, sold inside their platform Orbit. Public price: $299/mo plus 2% of ad spend, first 30 days $1 (${DRPPC.url.replace("https://", "")}, ${DRPPC.checked}).` },
   { q: "Why is Rocco cheaper for most sellers?", a: `Rocco charges a flat ${PRICE.annual} a year. A %-of-ad-spend fee grows with your budget: at $30k/mo in ads, Dr. PPC is ${$(AT[1].drppc)} a year, ${AT[1].times.toFixed(1)}× Rocco.` },
-  { q: "Is Dr. PPC good?", a: "It's built by an agency with real experience, and it has things Rocco is still adding (fully automatic mode, dayparting). If you want an agency ecosystem and don't mind paying a share of your ad spend, it's a fair pick. If you want a flat price, Seller Central jobs and your whole team in one place, pick Rocco." },
+  { q: "Is Dr. PPC good?", a: "It's built by an agency with real experience, and it has things Rocco doesn't have yet (dayparting, a full analytics suite). If you want an agency ecosystem and don't mind paying a share of your ad spend, it's a fair pick. If you want a flat price, Seller Central jobs and your whole team in one place, pick Rocco." },
   { q: "Can I switch from Dr. PPC to Rocco?", a: "Yes. Connect Amazon in Rocco and it reads your account's change history once, so it knows how the account was run before. Turn off the other tool's automatic changes first so two managers don't fight over the same bids." },
   { q: "Does Rocco change things without asking?", a: "No. Every change waits for your tap (or a teammate's), is checked with Amazon first, logged, and can be undone." },
 ];
@@ -65,7 +68,7 @@ export default function Page() {
       <section className="pr-sec">
         <h2>The honest version</h2>
         <div className="pr-groups">
-          <div className="pr-group"><h3>Pick Dr. PPC if</h3><ul><li>You want an agency&apos;s ecosystem and a demo call</li><li>You want fully automatic bidding today</li><li>Your ad spend is small and stays small</li></ul></div>
+          <div className="pr-group"><h3>Pick Dr. PPC if</h3><ul><li>You want an agency&apos;s ecosystem and a demo call</li><li>You want dayparting and an analytics suite (Orbit) today</li><li>Your ad spend is small and stays small</li></ul></div>
           <div className="pr-group"><h3>Pick Rocco if</h3><ul><li>You don&apos;t want to pay a share of your ad budget forever</li><li>You want stock, Buy Box and listings handled next to ads</li><li>Your team approves from their phone, not a dashboard</li><li>You sell outside the US</li></ul></div>
         </div>
       </section>

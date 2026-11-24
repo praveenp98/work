@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/pacing",
-      "schedule": "30 18 * * *"
+      "schedule": "20 * * * *"
     }
   ]
 }

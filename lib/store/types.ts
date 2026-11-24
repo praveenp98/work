@@ -67,6 +67,9 @@ export interface Workspace {
   };
   /** Midday budget alert sent today, per account id (YYYY-MM-DD; one message a day). */
   pacedOn?: Record<string, string>;
+  /** Autonomy ladder (lib/autopilot.ts): approve every move (default) / inside guardrails / fully autonomous. */
+  autonomy?: "approve" | "guardrails" | "auto";
+  autonomySetAt?: string;
   /** Opt-in: undo a bid/budget change in Amazon when its one-week check says it made things worse (lib/undo.ts). */
   autoUndo?: boolean;
   /** One-tap restock: ship-from address per Amazon account, and the plans Rocco created (lib/restock.ts). */

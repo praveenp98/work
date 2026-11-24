@@ -32,6 +32,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/KILL-MEMO.md` | Why the Amazon idea and its MCP pivot are on hold, plus the open options. Read first. |
 | `docs/AMAZON-GAPS.md` | Amazon problems outside the MCP connectors (AI-shopping invisibility, CPSC eFiling, tariffs). |
 | `docs/COMPETITOR-DRPPC.md` | Dr. PPC (Full Circle agency) launch: pitch, price, strengths, where Rocco wins, what to do. |
+| `scripts/record-demo.js` | Re-records the 2-minute demo film (public/demo/rocco-demo.mp4) from /demo/film. |
 | `docs/X-DRPPC.md` | Launch-day posts riding Dr. PPC's launch. |
 | `docs/DATADOE-WHITELABEL-REPLY.md` | DataDoe white-label quote + draft reply (milestone deal). |
 | `docs/COMPETITORS.md` | Competitor map, pricing, gaps and positioning. |

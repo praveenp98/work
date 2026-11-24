@@ -64,3 +64,7 @@ The %-of-spend model is their soft spot: the biggest spenders pay the most, and 
 - Undo in Amazon for bid and budget changes (change log button) + opt-in "undo automatically if it got worse" after the one-week check. Negatives / new campaigns: still steps (we don't store Amazon's new IDs yet).
 - Midday budget alert: cron 18:30 UTC (US/CA/MX), one message per account per day to teams with reminders on. Other marketplaces need Vercel Pro (hourly) or more daily crons.
 - Post copy: docs/X-DRPPC.md.
+
+## Parity+ (Nov 24, later)
+- Matched: autonomy ladder (3 levels), per-product goals, midday budget pacing (hourly, every marketplace), measurement window + undo on every change, a 2-minute demo film + clickable demo account (/demo).
+- Still theirs: dayparting, a full analytics suite (Orbit), agency logos/portfolio numbers, founder on camera. Our counter: flat price, Seller Central jobs (restock plans), team + messaging, every marketplace.

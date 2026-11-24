@@ -225,7 +225,7 @@ export async function pullAndSave(store: Store, wsId: string, account: { id: str
 }
 
 /** After a pull: the morning text with the top fixes (+ the offer for teams without a plan). */
-export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now = new Date()): Promise<void> {
+export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now = new Date(), auto: string | null = null): Promise<void> {
   if (!r.kinds.length) return;
   const fresh = (await store.getWorkspaceById(ws.id)) ?? ws;
   // The team's reminder settings (dashboard card): off, weekly on their day, or every morning.
@@ -238,7 +238,7 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   const live = new Set(open.length ? (b.perBrand.find((x) => x.brand === r.account)?.open ?? []).map((p) => p.code) : []);
   const picks = (plan?.picks ?? []).filter((p) => p.codes.every((c) => live.has(c))).slice(0, 3);
   const all = b.perBrand.find((x) => x.brand === r.account)?.open ?? [];
-  if (!all.length) return; // no work today, no message
+  if (!all.length) { if (auto) await notifyTeam(store, fresh, [`${r.account}: ${auto}`]).catch(() => 0); return; } // no work today: only the autopilot note, if any
   const codes = picks.length ? picks.flatMap((p) => p.codes) : open.map((o) => o.code);
   const total = Math.round(all.reduce((t, p) => t + p.valueMonthly, 0)).toLocaleString("en-US");
   const TITLE: Record<string, string> = { negative: "Block searches wasting money", harvest: "New exact campaign from proven searches", bid: "Fix bids", budget: "Raise budgets on winners", placement: "Tune placements", ads_down: "Ease ads on low stock", structure: "Clean up campaigns" };
@@ -257,5 +257,6 @@ export async function tellTeam(store: Store, ws: Workspace, r: SyncResult, now =
   const offer = paywall(fresh, b, "found", { now });
   if (offer) await store.saveWorkspace(fresh);
   const cur = currencyOf(ws.amazon?.accounts?.find((a) => a.name === r.account)?.country);
+  if (auto) L.splice(1, 0, auto);
   await notifyTeam(store, fresh, [localize(L.join("\n"), cur), ...(offer ? [offer.text, offer.url] : [])]).catch(() => 0);
 }

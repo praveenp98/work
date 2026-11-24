@@ -81,3 +81,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 - [ ] Vercel: confirm the new cron (/api/cron/pacing, 18:30 UTC) deployed; Hobby allows once-a-day crons.
 - [ ] Reply to DataDoe about white label (draft: docs/DATADOE-WHITELABEL-REPLY.md).
 - [ ] Post the launch-day copy (docs/X-DRPPC.md).
+
+## Vercel Pro (Nov 24)
+- [ ] Upgrade Vercel to Pro, then redeploy: the pacing cron is now hourly (`20 * * * *`); Hobby rejects hourly crons and the deploy fails until you upgrade.
+- [ ] Watch the demo film on rocco.works (homepage → ▶ Watch the 2-minute demo). Want your voice on it? Record a voice-over to the MP4 and replace public/demo/rocco-demo.mp4.

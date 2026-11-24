@@ -4,6 +4,17 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-24 · Parity+ with Dr. PPC: demo film, clickable demo, autonomy ladder, hourly pacing
+- **/demo**: clickable demo account (Bamboo & Co., demo data): Today's jobs (approve → checked with Amazon → done), midday budget alert, restock plan, Search terms with Rocco's action per term, Change log with results + auto-undo, Autonomy & goals, iMessage thread. Guided tour (~2 min) with captions.
+- **2-minute demo film**: public/demo/rocco-demo.mp4 (1.7 MB, 1280×720) + poster, recorded from /demo/film by scripts/record-demo.js (re-run after demo changes). Homepage + /demo: "▶ Watch the 2-minute demo" lightbox.
+- **Autonomy ladder** (lib/autopilot.ts): approve every move (default) / inside guardrails (negatives, bid cuts, budget cuts made each morning) / fully autonomous (all one-tap changes). Max 25/day, ±20% bids, skip-learning respected, kill switch, logged as "made by Rocco automatically", morning message line. Set on the Goals card.
+- **Budget pacing hourly**, every marketplace at 1 PM local (needs Vercel Pro: cron `20 * * * *`). ?force=1 for testing.
+- Job cards show "✓ Checked with Amazon first · ⏱ Measured in 7 days · ↩ Undo armed".
+- Help: autonomy, undo, goals per product, budget alerts. Compare page rows updated (we now match autonomy, pacing, per-product goals).
+- Tests 222 passing.
+
+---
+
 ## 2026-11-24 · Battle mode vs Dr. PPC: price up, compare page, 3 product gaps
 - Price $279/mo or $2,790/yr (was $119 / $1,190). Dodo products must be updated (docs/PRICING-MODEL.md).
 - /compare/dr-ppc, /answers/ai-amazon-ppc-manager-cost, ad-spend slider on /pricing, louder 7-day guarantee.

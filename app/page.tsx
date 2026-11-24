@@ -1,5 +1,6 @@
 import { HireButton } from "@/components/home/HireButton";
 import { HeroDashboard } from "@/components/home/HeroDashboard";
+import { DemoVideo } from "@/components/demo/DemoVideo";
 import { HeroFlow } from "@/components/home/HeroFlow";
 import { HowItHappens } from "@/components/home/HowItHappens";
 import { LogDemo } from "@/components/home/LogDemo";
@@ -52,7 +53,10 @@ export default async function Home() {
           <HeroFlow />
           <div className="h5-cta">
             <HireButton google={google} price={PRICE.from} label="Hire Rocco →" className="btn hire-cta" />
-            <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime</span>
+            <DemoVideo className="btn ghost" />
+          </div>
+          <div className="h5-sub">
+            <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime · <a href="/demo">or click around the demo →</a></span>
           </div>
           <ul className="h5-proof">
             <li>✓ Amazon&apos;s own sign-in</li>

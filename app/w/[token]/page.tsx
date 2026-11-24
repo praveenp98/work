@@ -249,7 +249,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
         <aside className="rd-side">
           {access !== "none" && team}
-          {access !== "none" && <GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} />}
+          {access !== "none" && <GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} autonomy={ws.autonomy ?? "approve"} />}
           {access !== "none" && direct && <AccountsCard token={token} accounts={accounts.map((a) => ({ id: a.id, name: a.name, country: a.country }))} slots={slotState(ws)} owner={!!who && roleOf(ws, who.email) === "owner"} extraUrl={extraAccountUrl(ws)} />}
           {access !== "none" && <ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
           {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}

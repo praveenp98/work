@@ -4,6 +4,7 @@ import { syncGroup, tellTeam } from "@/lib/datadoe-sync";
 import { refreshManager } from "@/lib/manager";
 import type { Priors } from "@/lib/memory";
 import { getStore } from "@/lib/store";
+import { autopilotLine, runAutopilot } from "@/lib/autopilot";
 
 /** One batch of the daily pull (≤ 10 accounts sharing one export per report), started by /api/cron/amazon. Answers at once, works after the response. */
 export const dynamic = "force-dynamic";
@@ -26,8 +27,10 @@ export async function POST(req: Request) {
       const r = results.get(j.id);
       if (!r?.kinds.length) return;
       await refreshManager(store, j.wsId, { priors: b.priors }).catch(() => 0); // Claude's pick of today's fixes + brief
+      // Autonomy ladder (lib/autopilot.ts): teams on "inside guardrails" or "fully autonomous" get changes made now.
+      const auto = await runAutopilot(store, j.wsId, { id: j.id, name: j.name }).catch(() => ({ made: [], failed: 0 }));
       const ws = await store.getWorkspaceById(j.wsId);
-      if (ws) await tellTeam(store, ws, r).catch(() => {});
+      if (ws) await tellTeam(store, ws, r, new Date(), autopilotLine(auto, ws)).catch(() => {});
     }));
   });
   return NextResponse.json({ ok: true, accepted: jobs.length }, { status: 202 });

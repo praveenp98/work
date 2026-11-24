@@ -87,7 +87,32 @@ export const HELP: HelpArticle[] = [
   {
     slug: "what-rocco-does-not-do", section: "Daily work", updated: U,
     q: "What doesn't Rocco do?",
-    short: "Rocco doesn't edit listings, images, A+ content or prices, run coupons or deals, change Sponsored Brands or Display campaigns, or send inventory. For those it tells you exactly what to do in Seller Central. Ask Rocco only answers questions about your Amazon business.",
+    short: "Rocco doesn't edit listings, images, A+ content or prices, run coupons or deals, or change Sponsored Brands or Display campaigns. For restock it creates the FBA shipment plan in Amazon; you box and ship. For those it tells you exactly what to do in Seller Central. Ask Rocco only answers questions about your Amazon business.",
+  },
+  {
+    slug: "autonomy", section: "Daily work", updated: "2026-11-24",
+    q: "Can Rocco make changes without me approving each one?",
+    short: "Only if you choose it. Dashboard → How much I do on my own: 1) Approve every move (default), 2) Inside guardrails: Rocco makes money-saving changes himself each morning (blocks wasted searches, lowers bids, cuts losing budgets), 3) Fully autonomous: every one-tap change, raises too. New campaigns and restock always wait for you.",
+    steps: ["Open your Rocco → Goals card → How much I do on my own.", "Pick a level and tap Save goals.", "Each morning's message says what was made on its own; every change is in the change log with one-tap undo."],
+    more: ["Guardrails always apply: bids move at most ±20% per step, at most 25 automatic changes a day, things your team skipped twice never auto-apply.", "Switch back to Approve every move anytime."],
+  },
+  {
+    slug: "undo-a-change", section: "Daily work", updated: "2026-11-24",
+    q: "How do I undo a change Rocco made?",
+    short: "Change log → ↩ Undo on the change. Bids and budgets go back to their old value in Amazon right away. Negatives and new campaigns show exact steps to reverse them by hand. You can also tick \"Undo automatically if it got worse\" in the Goals card.",
+    steps: ["Open your Rocco → Change log.", "Tap ↩ Undo next to the change and confirm."],
+    more: ["Automatic undo runs after the 7-day check, only for changes that made things worse, and says so in the log."],
+  },
+  {
+    slug: "goals-per-product", section: "Daily work", updated: "2026-11-24",
+    q: "Can I set different goals for different products?",
+    short: "Yes. Goals card → Goal per product: pick a word from the product's campaign names and choose Profit (target ACoS −20%), Balance, or Growth (+30%, to buy rank). Rocco's bids, harvests, budgets and result checks follow it.",
+    more: ["Tip: Tidy your campaigns first so every campaign name contains the product."],
+  },
+  {
+    slug: "budget-alerts", section: "Daily work", updated: "2026-11-24",
+    q: "What's the midday budget alert?",
+    short: "Around 1 PM in your marketplace, if a profitable campaign is on pace to run out of budget hours before midnight, Rocco messages your team (iMessage, WhatsApp or Slack) with the campaign, spend so far, when it runs dry and its ACoS. One message per account per day, only if reminders are on.",
   },
   // Team & reminders
   {

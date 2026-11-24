@@ -4,6 +4,12 @@ import { track } from "@/lib/analytics";
 
 type Goal = "profit" | "balance" | "growth";
 interface Row { match: string; goal: Goal }
+type Level = "approve" | "guardrails" | "auto";
+const LEVELS: { id: Level; n: string; t: string; d: string }[] = [
+  { id: "approve", n: "1", t: "Approve every move", d: "Nothing reaches Amazon until someone on your team taps Approve." },
+  { id: "guardrails", n: "2", t: "Inside guardrails", d: "I make money-saving changes myself each morning (block wasted searches, lower bids, cut losing budgets). Anything that spends more waits for you." },
+  { id: "auto", n: "3", t: "Fully autonomous", d: "I make every one-tap change myself, raises too (±20% per step, 25 a day max). New campaigns and restock still wait for you." },
+];
 const GOALS: { id: Goal; t: string; d: string }[] = [
   { id: "profit", t: "Profit", d: "20% under target" },
   { id: "balance", t: "Balance", d: "your target" },
@@ -14,7 +20,8 @@ const GOALS: { id: Goal; t: string; d: string }[] = [
  * Target ACoS for the account + a goal per product. Products are matched by a word in their campaign names
  * (Tidy puts the product in every name). Rocco's bid, harvest and budget jobs use the product's target.
  */
-export function GoalsCard({ token, brand, target, initial, suggestions, autoUndo = false }: { token: string; brand: string; target: number; initial: Row[]; suggestions: string[]; autoUndo?: boolean }) {
+export function GoalsCard({ token, brand, target, initial, suggestions, autoUndo = false, autonomy = "approve" }: { token: string; brand: string; target: number; initial: Row[]; suggestions: string[]; autoUndo?: boolean; autonomy?: Level }) {
+  const [level, setLevel] = useState<Level>(autonomy);
   const [undo, setUndo] = useState(autoUndo);
   const [acos, setAcos] = useState(Math.round(target * 100));
   const [rows, setRows] = useState<Row[]>(initial.length ? initial : []);
@@ -24,14 +31,23 @@ export function GoalsCard({ token, brand, target, initial, suggestions, autoUndo
 
   async function save() {
     setBusy(true); setMsg("");
-    const d = await fetch("/api/w/goals", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, brand, targetAcos: acos / 100, goals: rows.filter((r) => r.match.trim()), autoUndo: undo }) }).then((r) => r.json()).catch(() => null);
+    const d = await fetch("/api/w/goals", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, brand, targetAcos: acos / 100, goals: rows.filter((r) => r.match.trim()), autoUndo: undo, autonomy: level }) }).then((r) => r.json()).catch(() => null);
     setBusy(false);
     setMsg(d?.ok ? "Saved. Tomorrow's jobs use these goals." : d?.error ?? "Couldn't save. Try again.");
-    if (d?.ok) track("goals_saved", { products: rows.length, target: acos });
+    if (d?.ok) track("goals_saved", { products: rows.length, target: acos, autonomy: level });
   }
 
   return (
     <div className="rd-card gl">
+      <h3>How much I do on my own</h3>
+      <div className="gl-ladder" role="radiogroup" aria-label="Autonomy">
+        {LEVELS.map((l) => (
+          <button key={l.id} type="button" role="radio" aria-checked={level === l.id} className={level === l.id ? "on" : ""} onClick={() => setLevel(l.id)}>
+            <span className="gl-n">{l.n}</span><b>{l.t}</b><small>{l.d}</small>
+          </button>
+        ))}
+      </div>
+      <p className="fine">Every change, whoever made it: logged with its reason, checked a week later, one tap to undo. Change this anytime.</p>
       <h3>Goals</h3>
       <label className="gl-t">Target ACoS for this account
         <span><input type="number" min={5} max={100} value={acos} onChange={(e) => setAcos(Math.max(5, Math.min(100, Math.round(Number(e.target.value) || 0))))} />%</span>
