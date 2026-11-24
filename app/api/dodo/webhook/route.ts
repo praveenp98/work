@@ -3,6 +3,7 @@ import { clientIp } from "@/lib/human";
 import { allowShared } from "@/lib/limits";
 import { verifyStandardWebhook } from "@/lib/security";
 import { syncBilling } from "@/lib/billing";
+import { recordPaid } from "@/lib/events";
 import { notifyTeam } from "@/lib/notify";
 import { getPriceState } from "@/lib/payments";
 import { dollars } from "@/lib/pricing";
@@ -30,6 +31,8 @@ export async function POST(req: Request) {
   if (store && (body.data?.subscription_id || body.data?.payment_id)) {
     const r = await syncBilling(store, body);
     change = r.change;
+    // Funnel only (lib/events.ts): note that this team paid, once. Reads billing's answer, changes nothing, never throws.
+    if (r.ws && (r.change === "paid" || (!r.change && hasAccess(r.ws) && r.ws.licensed))) await recordPaid(r.ws.id);
     // /welcome often confirms the payment before the webhook lands (then change is null): still say hello, once.
     if (r.ws && !r.change && hasAccess(r.ws) && !r.ws.hiredNotifiedAt && r.ws.licensed) r.change = "paid";
     if (r.ws && r.change) {

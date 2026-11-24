@@ -1,0 +1,9 @@
+node_modules/
+src/generated/
+.remotion/
+build/
+# Your clips and tracks stay on your machine. Only the READMEs are committed.
+footage/*
+!footage/README.md
+music/*
+!music/README.md

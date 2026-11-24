@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
       { source: "/w/:path*", headers: team },
       { source: "/me", headers: team },
       { source: "/mcp/:path*", headers: team },
+      { source: "/admin/:path*", headers: team },
     ];
   },
   async rewrites() {
@@ -40,7 +41,10 @@ const nextConfig: NextConfig = {
     return [
       { source: "/connect", destination: "/", permanent: true },
       { source: "/setup", destination: "/", permanent: true },
-      { source: "/text", destination: "/", permanent: false }, // texting comes with the plan now (reminders card)
+// Profile links (marketing/brand/profiles): one short link per account, so /admin/funnel can tell them apart.
+      // Temporary redirects on purpose: the destination can change without browsers remembering the old one.
+      ...[["x", "x"], ["ig", "instagram"], ["yt", "youtube"], ["linkedin", "linkedin"]].map(([path, source]) => ({ source: `/${path}`, destination: `/start?utm_source=${source}&utm_medium=bio&utm_campaign=profile`, permanent: false })),
+            { source: "/text", destination: "/", permanent: false }, // texting comes with the plan now (reminders card)
     ];
   },
 };

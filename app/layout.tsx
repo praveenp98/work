@@ -10,6 +10,7 @@ import { SITE } from "@/lib/site";
 import { TopNav } from "@/components/TopNav";
 import { HumanContact } from "@/components/HumanContact";
 import { Analytics } from "@/components/Analytics";
+import { FunnelEvents } from "@/components/FunnelEvents";
 import "./globals.css";
 import "./connect.css";
 
@@ -20,8 +21,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: `${SITE.name}: ${SITE.tagline}`, template: `%s · ${SITE.name}` },
   description: SITE.description,
-  openGraph: { siteName: SITE.name, type: "website", images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "Rocco: I can run your Amazon business. Connect once, approve on iMessage, WhatsApp or Slack, Rocco makes the change." }] },
-  twitter: { card: "summary_large_image", site: "@roccoworks", images: ["/og-v2.png"] },
+  // Share images are made in code: app/opengraph-image.tsx + app/twitter-image.tsx (lib/og.tsx), with their own alt text.
+  openGraph: { siteName: SITE.name, type: "website" },
+  twitter: { card: "summary_large_image", site: "@roccoworks" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <HumanContact />
         <Analytics apiKey={process.env.POSTHOG_KEY || process.env.NEXT_PUBLIC_POSTHOG_KEY} uiHost={process.env.POSTHOG_UI_HOST} />
+        <FunnelEvents />
         <footer className="foot foot-min">
           <p className="foot-human">💬 Questions? Talk to a human: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> · usually answered the same day.</p>
           <Link href="/" className="brand foot-brand"><Raccoon size={40} /> <span>Rocco</span></Link>

@@ -1,0 +1,17 @@
+{
+  "id": "demo-pieces",
+  "_note": "QA spec, not a video to post: every UiScene piece and every chat look, so a change to the site CSS can be checked in one render. All account numbers are the sample account (labelled Sample account in frame).",
+  "scenes": [
+    { "type": "ui", "duration": 3.4, "caption": "the real job card, one job.", "props": { "piece": "job", "title": "One job, one tap." } },
+    { "type": "ui", "duration": 3, "caption": "the approve button, close up.", "props": { "piece": "approve" } },
+    { "type": "ui", "duration": 5, "caption": "tidy campaigns: one naming system, one portfolio per product.", "props": { "piece": "tidy", "kicker": "Structure", "title": "Tidy hundreds of campaigns." } },
+    { "type": "ui", "duration": 3, "caption": "one change log row, checked a week later.", "props": { "piece": "changelog-row", "index": 0, "title": "Measured a week later." } },
+    { "type": "ui", "duration": 3.6, "caption": "skip a fix and say why. rocco learns.", "props": { "piece": "skip", "kicker": "Gets sharper every week", "title": "I learn how you work." } },
+    { "type": "ui", "duration": 3, "caption": "day one, rocco reads what was tried before.", "props": { "piece": "before-rocco", "title": "Before Rocco." } },
+    { "type": "ui", "duration": 4, "caption": "one plan. price from the offer file.", "props": { "piece": "pricing", "title": "One plan." } },
+    { "type": "phone", "duration": 4.4, "caption": "the same thread in a green chat look.", "props": { "style": "whatsapp" } },
+    { "type": "phone", "duration": 4.4, "caption": "and in a team chat look.", "props": { "style": "slack", "title": "Or in your team chat." } },
+    { "type": "hook", "duration": 2.4, "caption": "a hook with no kicker and no mascot.", "props": { "lines": ["You approve.", "Rocco does the rest."], "highlight": ["approve."] } },
+    { "type": "end", "duration": 3, "caption": "end card with another call to action.", "props": { "cta": "comment rocco", "mascot": "party" } }
+  ]
+}

@@ -84,7 +84,7 @@ Connect Seller Central and Amazon Ads once with Amazon's own sign-in (through Da
 
 You tap approve and Rocco makes the change in Amazon: checked with Amazon first, logged, undoable. A week later he measures what it did. Skip a fix and tell him why in one tap; he learns how you work. Reminders on iMessage, WhatsApp or Slack, and approve-by-text once you've seen how he works.
 
-$1,190 a year (2 months free) or $119 a month, whole team, every marketplace. 7-day money-back guarantee.
+$2,790 a year (2 months free) or $279 a month, whole team, every marketplace. 7-day money-back guarantee.
 ```
 
 ## Tags / topics  (107 chars)
@@ -102,7 +102,7 @@ E-commerce · Marketing · Artificial Intelligence · Productivity
 ## Pricing summary  (143 chars)
 
 ```
-$1,190 a year (2 months free) or $119 a month, for the whole team, 3 Amazon accounts included (+$49/mo each extra). 7-day money-back guarantee.
+$2,790 a year (2 months free) or $279 a month, for the whole team, 3 Amazon accounts included (+$49/mo each extra). 7-day money-back guarantee.
 ```
 
 ## Maker bio  (136 chars)
@@ -122,7 +122,7 @@ Rocco does the work. Connect Seller Central and Amazon Ads once, and every morni
 
 Real work without the fluff.
 
-$119/month or $1,190/year, 7-day money-back guarantee. I'd love your toughest feedback.
+$279/month or $2,790/year, 7-day money-back guarantee. I'd love your toughest feedback.
 ```
 
 ## Show HN title  (72 chars)

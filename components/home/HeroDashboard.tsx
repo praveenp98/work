@@ -53,7 +53,7 @@ export function HeroDashboard() {
             <span className="hd-btn ghost">Show me how</span>
           </li>
         </ul>
-        <p className="hd-foot">{done ? `${done} of ${JOBS.length} jobs done in Amazon · I'll check the results next week` : "Sample account · nothing changes until you approve"}</p>
+        <p className="hd-foot">{done ? `${done} of ${JOBS.length + 1} jobs done in Amazon · I'll check the results next week` : "Sample account · nothing changes until you approve"}</p>
       </div>
     </div>
   );

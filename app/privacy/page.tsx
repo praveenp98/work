@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <section className="prose">
       <h1>Privacy</h1>
-      <p className="fine">Last updated Nov 22, 2026</p>
+      <p className="fine">Last updated Nov 23, 2026</p>
       <h2>Your Amazon data</h2>
       <p>When you connect Amazon, you sign in on Amazon&apos;s own page through DataDoe, an Amazon-approved data partner. We never see your Amazon password. Rocco reads the reports it needs (ads, search terms, campaigns, sales and traffic, inventory) and keeps what it needs to remember: report totals and headlines, the fixes it proposed, the changes you approved, why you skipped any, your settings and the measured results.</p>
       <h2>Changes in your account</h2>
@@ -20,6 +20,8 @@ export default function Page() {
         <li><b>Purchase data</b> handled by Dodo Payments, our merchant of record. We never see your full card number.</li>
         <li><b>Usage analytics</b> (pages visited, referrer, device type, which buttons were used) through PostHog, to see what works. Recordings are made only on public pages, with everything you type hidden; never inside your Rocco, and never your Amazon data.</li>
       </ul>
+      <h2>Free downloads and email</h2>
+      <p>When you ask for a free checklist or guide, we keep the email you give us, which download it was, the marketplace if you picked one, and how you found us (the link or site that brought you, remembered in one first-party cookie for 30 days). You get the download right away either way. Rocco only emails you Amazon tips and product news if you tick the box, and every one of those emails has an unsubscribe link that works in one tap, no login. To have your email deleted, write to us.</p>
       <h2>What we never do</h2>
       <ul><li>Sell your data.</li><li>Change anything in Amazon without your approval.</li><li>Share your account data with other sellers. Rocco learns from anonymous totals across accounts only (for example, how often a type of fix works), never names, products or numbers.</li></ul>
       <h2>Contact and deletion</h2>

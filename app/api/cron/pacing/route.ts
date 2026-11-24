@@ -12,7 +12,8 @@ import { getStore } from "@/lib/store";
 import { brandSettings, teamUrl } from "@/lib/workspace";
 
 /**
- * Midday budget pacing (lib/pacing.ts). Vercel Cron every hour (Pro plan); each run handles the accounts whose
+ * Midday budget pacing (lib/pacing.ts). Vercel Cron: daily at 18:20 UTC on Hobby (US 1 PM Central); set vercel.json to
+ * "20 * * * *" on Vercel Pro for every marketplace. Each run handles the accounts whose
  * marketplace is at 1 PM local, right after DataDoe's 1pm refresh of Amazon Ads performance. Every marketplace.
  * One export per 10 accounts in the same time zone, one message per account per day, only for teams with reminders on.
  */

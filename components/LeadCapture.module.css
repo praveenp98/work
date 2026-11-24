@@ -1,0 +1,13 @@
+.box { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 22px; box-shadow: var(--shadow); display: grid; gap: 14px; max-width: 520px; text-align: left; }
+.title { margin: 0; font-family: var(--display); font-weight: 500; font-size: 24px; letter-spacing: -.02em; }
+.row { display: grid; gap: 6px; }
+.row label { font-size: 13.5px; color: var(--muted); }
+.row input, .row select { width: 100%; padding: 13px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; }
+.row input:focus, .row select:focus { outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 1px; border-color: var(--accent); }
+.consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; font-size: 14.5px; line-height: 1.45; cursor: pointer; }
+.consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.cta { justify-content: center; width: 100%; }
+.err { margin: 0; color: #b4432f; font-size: 14px; }
+.done { display: grid; gap: 12px; justify-items: start; }
+.done p { margin: 0; }

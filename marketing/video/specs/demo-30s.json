@@ -1,0 +1,14 @@
+{
+  "id": "demo-30s",
+  "_note": "The 30 second product demo. Account numbers are the sample account (labelled Sample account in frame). Hook lines and the end card CTA are swapped per row by scripts/batch.mjs with batches/demo-hooks.csv.",
+  "poster": { "scene": 2, "at": 2 },
+  "scenes": [
+    { "type": "hook", "duration": 3, "caption": "i hired an ai to manage my amazon ads. it asks before it touches anything.", "props": { "lines": ["It asks before", "it touches anything."], "highlight": ["asks"], "kicker": "Your AI Amazon manager", "mascot": "hero" } },
+    { "type": "ui", "duration": 4, "caption": "you connect seller central and ads once, with amazon's own sign-in.", "props": { "piece": "connect", "taps": 2, "kicker": "Step one", "title": ["Connect once, with", "Amazon's own sign-in."] } },
+    { "type": "ui", "duration": 6, "caption": "every morning it finds what to fix, ranked by money. a few clear jobs.", "props": { "piece": "morning", "interact": false, "headingIn": "wide", "kicker": "Every morning", "title": ["A few clear jobs,", "ranked by money."] } },
+    { "type": "ui", "duration": 5, "caption": "you tap approve. it makes the change in amazon.", "props": { "piece": "morning", "taps": 1, "headingIn": "wide", "kicker": "One tap", "title": ["You approve.", "I make the change."] } },
+    { "type": "phone", "duration": 6, "caption": "or reply yes from your messages. that's the whole workflow.", "props": { "style": "imessage", "title": ["Or just", "reply YES."] } },
+    { "type": "ui", "duration": 3, "caption": "a week later it checks if it worked.", "props": { "piece": "changelog-row", "index": 0, "title": ["Checked a", "week later."] } },
+    { "type": "end", "duration": 3, "caption": "seven day money back. link in bio.", "props": { "cta": "link in bio" } }
+  ]
+}

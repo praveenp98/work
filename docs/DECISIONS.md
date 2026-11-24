@@ -103,3 +103,4 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 - Why: Dr. PPC (Full Circle agency) launched at $299/mo + 2% of ad spend. Praveen: "just a little below Dr. PPC", felt underpriced. Flat pricing is the wedge: 2–5× cheaper for real spenders and no incentive to push spend.
 - Comparison page /compare/dr-ppc + cost slider on /pricing + answer page; product gaps closed: goal per product, undo (manual + opt-in automatic) for bids/budgets, midday budget alert (US/CA/MX).
 - White label (DataDoe: $3,000 setup + $300/mo + data plan): not now; ask for a milestone/deferred deal (docs/DATADOE-WHITELABEL-REPLY.md).
+| 2026-11-23 | Funnel analytics are first-party: a Supabase events table and `/admin/funnel`, no third-party tool | Privacy-friendly (no cookies, no IP stored), nothing new to pay for or load on the page, and the numbers sit next to the Dodo count | PostHog, Plausible, Vercel Analytics |

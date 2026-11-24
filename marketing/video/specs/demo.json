@@ -1,0 +1,17 @@
+{
+  "id": "demo",
+  "_note": "Demo spec: one of every scene template. Numbers on screen come from the sample account (labelled Sample account in frame) or from marketing/config/offer.ts through offer tokens (see README). The three footage scenes point at clips that are not in the repo: without them you get a labelled slot.",
+  "poster": { "scene": 0, "at": 1.6 },
+  "scenes": [
+    { "type": "hook", "duration": 2.8, "caption": "i built an ai amazon manager.", "props": { "kicker": "Real work without the fluff", "lines": ["I can run your", "Amazon business."], "highlight": ["Amazon", "business."], "wordByWord": true, "mascot": "hero" } },
+    { "type": "footage", "duration": 3, "caption": "day 7 of building it in public.", "props": { "src": "footage/demo-a-face.mp4", "shot": "A", "label": "day 7" } },
+    { "type": "ui", "duration": 6.5, "caption": "every morning rocco finds what to fix, ranked by money. you tap approve. it makes the change in amazon.", "props": { "piece": "morning", "headingIn": "wide", "kicker": "What I handle", "title": ["The whole job,", "every morning."] } },
+    { "type": "phone", "duration": 5, "caption": "or reply yes from your messages. that's it.", "props": { "style": "imessage", "kicker": "Where you work", "title": ["Approve right from", "your messages."] } },
+    { "type": "footage", "duration": 3, "caption": "this is the real dashboard, not a mockup.", "props": { "src": "footage/demo-b-screen.mp4", "shot": "B" } },
+    { "type": "changelog", "duration": 6, "caption": "every change is logged, undoable, and checked a week later.", "props": { "kicker": "Every change, on the record", "title": ["Nothing happens", "in the dark."] } },
+    { "type": "compare", "duration": 6.5, "caption": "other tools give you data. rocco gives you decisions, then does the work." },
+    { "type": "stat", "duration": 3.6, "caption": "an hour a day on ads, bids and stock adds up.", "props": { "kicker": "What it's worth", "label": "Time spent checking ads, bids and stock", "value": "{{offer:timeMath.monthlyText}}/mo", "source": "{{offer:timeMath.hoursPerDay}} hr/day at ${{offer:timeMath.ratePerHour}}/hr" } },
+    { "type": "footage", "duration": 2.6, "caption": "so i stopped doing it by hand.", "props": { "src": "footage/demo-c-desk.mp4", "shot": "C" } },
+    { "type": "end", "duration": 4.2, "caption": "seven day money back. link in bio.", "props": { "cta": "link in bio" } }
+  ]
+}
