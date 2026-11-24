@@ -83,6 +83,7 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 ## 11. Rocco in Slack
 1. api.slack.com/apps → Create New App → From an app manifest → paste `docs/slack-manifest.yml` → Create.
 2. Basic Information → copy Client ID, Client Secret, Signing Secret → Vercel env `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_SIGNING_SECRET` → redeploy.
+2b. Slack will say the Events request URL isn't verified until the signing secret is live. After the redeploy: Event Subscriptions → Retry next to the Request URL → it turns green ✓ Verified → Save.
 3. Display information → upload `public/rocco-avatar.png` as the app icon.
 4. Test: open your Rocco page → Add to Slack → pick a channel. Rocco says hi there; mention @Rocco with "help". Check /api/health → slack: set.
 5. Later (for other teams to install): Manage Distribution → activate public distribution (no Slack review needed unless listing in the Slack Marketplace).

@@ -3,7 +3,7 @@
 # SLACK_CLIENT_ID, SLACK_CLIENT_SECRET, SLACK_SIGNING_SECRET → redeploy. Upload public/rocco-avatar.png as the app icon.
 display_information:
   name: Rocco
-  description: Your AI Amazon manager. Morning numbers, fixes you approve with a reply.
+  description: Your AI Amazon manager. Ask anything about your Amazon account, get today's jobs, approve with a reply.
   background_color: "#1c2433"
 features:
   bot_user:
