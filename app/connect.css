@@ -1300,7 +1300,6 @@ h1, h2, .display { font-family: var(--display); }
 .pc-cta { width: 100%; justify-content: center; font-size: 18px; padding: 15px 24px; margin-top: 6px; }
 .pc-guarantee { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
 .pc-quick { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 14px; font-weight: 500; }
-.pc .vc-rise { width: 100%; }
 .pc-local { margin: 0; text-align: center; }
 .pr-sec { display: grid; gap: 16px; }
 .pr-sec h2 { font-family: var(--display); font-weight: 500; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.02em; margin: 0; text-align: center; }
@@ -2043,3 +2042,18 @@ h1, h2, .display { font-family: var(--display); }
 .pt-apply form, .pt-apply [role="status"] { width: 100%; }
 @media (max-width: 860px) { .pt-steps4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 720px) { .pt-offer, .pt-steps4 { grid-template-columns: 1fr; } }
+
+/* Free read-only audit (components/home/AuditButton.tsx, components/dash/Audit.tsx) */
+.h5-alt { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.h5-alt .fine { margin: 0; }
+.h5-audit { font-size: 16px; text-decoration: none; }
+.h5-audit:hover { text-decoration: underline; }
+.pc-alt { margin: -2px 0 0; text-align: center; }
+.pc-alt .h5-audit { font-size: 15px; }
+.rc-audit { display: grid; gap: 4px; justify-items: center; text-align: center; margin: 14px auto 0; max-width: 460px; }
+.rc-audit .linkbtn { font-size: 16px; }
+.rc-audit small { color: var(--muted); font-size: 13.5px; }
+.rd-audit { margin: 0 0 14px; }
+.rd-audit span { display: block; margin-top: 2px; }
+@media (max-width: 900px) { .h5-alt { justify-content: center; text-align: center; } }
+.rd-audit .btn { white-space: nowrap; }

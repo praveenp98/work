@@ -10,7 +10,7 @@ import { supabaseEnv } from "./store";
  * Without Supabase (local dev, tests) rows are kept in memory so the funnel page still works.
  * Recording never throws: analytics must not be able to break a page, a signup or a payment.
  */
-export const CLIENT_EVENTS = ["page_view", "lead_captured", "tool_result", "call_click", "hire_click", "signup_started", "checkout_started", "link_click"] as const;
+export const CLIENT_EVENTS = ["page_view", "lead_captured", "tool_result", "call_click", "hire_click", "signup_started", "checkout_started", "link_click", "audit_started"] as const;
 /** Only the server may write these: call_booked (admin), paid (payment webhook). */
 export const SERVER_EVENTS = ["call_booked", "paid"] as const;
 export type EventName = (typeof CLIENT_EVENTS)[number] | (typeof SERVER_EVENTS)[number];
@@ -29,7 +29,7 @@ export interface EventRow {
   ref?: string | null;
   created_at?: string;
 }
-export interface FunnelRow { source: string; visits: number; leads: number; call_clicks: number; calls_booked: number; checkouts: number; paid: number }
+export interface FunnelRow { source: string; visits: number; leads: number; call_clicks: number; calls_booked: number; audits: number; checkouts: number; paid: number }
 
 // ── Cleaning what a browser sends ──────────────────────────────────────────────────────────────────────────
 /** Pages behind a private link. Their path is cut to the first segment so a team link can never be stored. */
@@ -132,13 +132,14 @@ export function funnelFromRows(rows: (EventRow & { id?: number })[], days: numbe
   rows.forEach((e, i) => {
     if (new Date(e.created_at ?? now).getTime() < since) return;
     const s = sourceOf(e);
-    const b = by.get(s) ?? { visits: new Set(), checkouts: new Set(), row: { source: s, visits: 0, leads: 0, call_clicks: 0, calls_booked: 0, checkouts: 0, paid: 0 } };
+    const b = by.get(s) ?? { visits: new Set(), checkouts: new Set(), row: { source: s, visits: 0, leads: 0, call_clicks: 0, calls_booked: 0, audits: 0, checkouts: 0, paid: 0 } };
     by.set(s, b);
     const unique = `#${e.id ?? i}`;
     if (e.event === "page_view") b.visits.add(e.anon_id ?? unique);
     else if (e.event === "lead_captured") b.row.leads++;
     else if (e.event === "call_click") b.row.call_clicks++;
     else if (e.event === "call_booked") b.row.calls_booked++;
+    else if (e.event === "audit_started") b.row.audits++;
     else if (e.event === "checkout_started") b.checkouts.add(e.ref ?? e.anon_id ?? unique);
     else if (e.event === "paid") b.row.paid++;
   });
@@ -149,7 +150,7 @@ export async function funnel(days: number): Promise<{ rows: FunnelRow[]; ok: boo
   if (!eventsPersistent()) return { rows: funnelFromRows(mem(), days), ok: true };
   const r = await sb("rpc/rocco_funnel", { method: "POST", body: JSON.stringify({ p_days: days }) });
   if (!r?.ok || !Array.isArray(r.json)) return { rows: [], ok: false };
-  return { rows: (r.json as Record<string, unknown>[]).map((x) => ({ source: String(x.source), visits: Number(x.visits), leads: Number(x.leads), call_clicks: Number(x.call_clicks), calls_booked: Number(x.calls_booked), checkouts: Number(x.checkouts), paid: Number(x.paid) })), ok: true };
+  return { rows: (r.json as Record<string, unknown>[]).map((x) => ({ source: String(x.source), visits: Number(x.visits), leads: Number(x.leads), call_clicks: Number(x.call_clicks), calls_booked: Number(x.calls_booked), audits: Number(x.audits ?? 0) /* 0 until migration 007 */, checkouts: Number(x.checkouts), paid: Number(x.paid) })), ok: true };
 }
 
 /** Newest rows first, for checking that events arrive (GET /api/admin/events). */

@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
 
       <div className="acc-card">
         <h2>Plan &amp; billing</h2>
-        {access === "none" ? <p>No active plan. <a href={hireUrl(ws)}>Hire Rocco</a></p> : (
+        {access === "audit" ? <p>Free audit (read-only): nothing changes in Amazon. <a href={hireUrl(ws)}>Hire Rocco</a> to make the changes.</p> : access === "none" ? <p>No active plan. <a href={hireUrl(ws)}>Hire Rocco</a></p> : (
           <>
             <p><b>{ws.plan === "monthly" ? "Monthly" : ws.plan === "annual" ? "Yearly" : "Active"}</b>{access === "trial" ? " · trial" : ""}{ws.comp ? " · complimentary" : ""}</p>
             {ws.paidUntil && <p className="fine">{cancelled ? "Cancelled: works until" : "Paid through"} {day(ws.paidUntil)}{ws.hiredAt ? ` · hired ${day(ws.hiredAt)}` : ""}</p>}

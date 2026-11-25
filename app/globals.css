@@ -427,9 +427,6 @@ h1, h2, .display { color: var(--ink); }
 .vc-u-top { font-size: 14px; }
 .vc-u-sub { font-size: 13px; color: var(--muted); }
 .vc-clock { font-variant-numeric: tabular-nums; letter-spacing: .01em; color: #a3500f; }
-.vc-rise { margin: 0; padding: 9px 12px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 7%, #fff); border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line)); font-size: 13.5px; line-height: 1.4; text-align: left; }
-.vc-rise b { color: var(--accent); }
-.hire .vc-rise { max-width: 520px; width: 100%; margin: 0 auto 12px; }
 
 /* Home: animated change log */
 .ld { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 16px; box-shadow: 0 24px 60px -40px rgba(28, 36, 51, .35); display: grid; gap: 10px; text-align: left; }

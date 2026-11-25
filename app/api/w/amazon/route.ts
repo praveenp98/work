@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { hasAccess } from "@/lib/access";
+import { hasAccess, isAudit } from "@/lib/access";
+import { auditConnectOk } from "@/lib/free-audit";
 import { createInvite, createReconnect, datadoeOn, getInvitation } from "@/lib/datadoe";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
@@ -14,7 +15,13 @@ export async function POST(req: Request) {
   const store = getStore();
   const ws = store && b.t ? await loadWorkspace(store, b.t) : null;
   if (!store || !ws) return NextResponse.json({ ok: false }, { status: 400 });
-  if (!hasAccess(ws)) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
+  // Paying teams, or a free audit team (one account, inside its 14 days; read-only from then on).
+  const audit = !hasAccess(ws) && isAudit(ws);
+  if (!hasAccess(ws) && !audit) return NextResponse.json({ ok: false, error: "Hire Rocco first, then connect your Amazon." }, { status: 402 });
+  if (audit && !b.remove) {
+    const ok = auditConnectOk(ws, new Date(), !!b.reconnect);
+    if (!ok.ok) return NextResponse.json({ ok: false, audit: true, error: ok.error }, { status: 402 });
+  }
   if (!datadoeOn()) return NextResponse.json({ ok: false, error: "Connecting Amazon is being switched on right now. Please try again in a few minutes." }, { status: 503 });
   // Remove an account (owner only). Its data and change log stay; Rocco stops reading it. The slot frees right away
   // if it was connected in the last 24 hours (wrong account), otherwise after 30 days (lib/accounts.ts).

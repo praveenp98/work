@@ -37,6 +37,9 @@ import { ModeSwitch } from "@/components/start/ModeSwitch";
 import { ReportSteps } from "@/components/start/ReportSteps";
 import { StartSteps } from "@/components/start/StartSteps";
 import { accessOf, trialHoursLeft } from "@/lib/access";
+import { AuditBanner, AuditStart } from "@/components/dash/Audit";
+import { auditOf, canStartAudit } from "@/lib/free-audit";
+import { trackServer } from "@/lib/track-server";
 import { REPORT_HELP } from "@/lib/analyze";
 import { datadoeOn, getAccount, loadStatus } from "@/lib/datadoe";
 import { howTo } from "@/lib/howto";
@@ -78,6 +81,7 @@ function productWords(names: string[]): string[] {
 export const metadata: Metadata = { title: "Your Rocco", description: "Today's fixes for your Amazon account, approved in one tap.", robots: { index: false, follow: false } };
 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+const AUDIT_NOTE = "Free audit: connect one Amazon account and I read it once, read-only. You see what I'd do; nothing changes in Amazon.";
 const when = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
 /**
@@ -109,6 +113,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (attachPartner(ws, readPartnerCookie((await headers()).get("cookie")))) await store.saveWorkspace(ws).catch(() => {});
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const access = accessOf(ws);
+  // paid = may make changes and run Claude. audit = free read-only audit (lib/free-audit.ts): real jobs, no writes.
+  const paid = access === "paid" || access === "trial";
+  const audit = auditOf(ws);
   const who = await actor();
   const team = <TeamCard token={token} me={who ? { email: who.email, role: roleOf(ws, who.email) } : null} people={peopleOf(ws)} google={googleOn()} />;
   const hoursLeft = trialHoursLeft(ws);
@@ -134,18 +141,21 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     return (
       <section className="rc-page">
         <RememberTeam t={token} />
-        <IdentifyTeam team={ws.id} paid={access !== "none"} accounts={accounts.length} />
-        {access === "none" ? <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} where={await visitorPricing()} /> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
-        {access !== "none" && direct && accounts.length > 0 && <StrategyCard token={token} {...strategyProps(ws, accounts[0].name)} />}
-        {access !== "none" && direct && (
+        <IdentifyTeam team={ws.id} paid={paid} accounts={accounts.length} />
+        {access === "none" || (audit && !audit.active && !accounts.length) ? <>
+          <HireCard url={hireUrl(ws)} monthlyUrl={hireUrl(ws, "monthly")} where={await visitorPricing()} />
+          {direct && canStartAudit(ws) && <AuditStart token={token} />}
+        </> : direct ? <ConnectAmazon token={token} accounts={accounts} note={note ?? (audit ? AUDIT_NOTE : undefined)} lastSync={ws.amazon?.lastSync} pinged={pinged} /> : (ws.mode === "reports" ? <ReportSteps token={token} address={await inboxAddress(store, ws)} initial={ws.inbox ?? []} /> : <StartSteps token={token} />)}
+        {paid && direct && accounts.length > 0 && <StrategyCard token={token} {...strategyProps(ws, accounts[0].name)} />}
+        {(paid || !!audit) && direct && (
           <section className="rc-example" aria-label="Example of your mornings">
             <p className="rc-ex-k">{accounts.length ? "While Amazon sends your data: here's what your mornings will look like" : "Here's what your mornings will look like"}</p>
             <HeroDashboard />
             <p className="fine">Example account. Your real jobs, from your own numbers, show up right here.</p>
           </section>
         )}
-        {access !== "none" && direct && accounts.length > 0 && <div className="rc-team"><ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} title="Ping me when my first jobs are ready" /></div>}
-        {access !== "none" && <div className="rc-team">{team}</div>}
+        {paid && direct && accounts.length > 0 && <div className="rc-team"><ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt} slackOn={slackConfigured()} title="Ping me when my first jobs are ready" /></div>}
+        {paid && <div className="rc-team">{team}</div>}
         <form action="/api/auth/signout" method="post" className="rc-out"><button className="linkbtn muted">Sign out</button></form>
       </section>
     );
@@ -191,7 +201,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const byCode = new Map(shown.map((p) => [p.code, p]));
   const plan = ws.manager?.[b.brand];
   const planOk = plan && plan.picks.length > 0 && plan.picks.every((pk) => pk.codes.every((c) => byCode.has(c)));
-  if (access !== "none" && brainOn() && shown.length && (!plan || plan.basis !== basisOf(shown)) && allow(`mgr:${ws.id}`, 1, 30 * 60_000)) {
+  if (paid && brainOn() && shown.length && (!plan || plan.basis !== basisOf(shown)) && allow(`mgr:${ws.id}`, 1, 30 * 60_000)) {
     after(() => refreshManager(store, ws.id).catch(() => 0)); // fresh plan for the next visit
   }
   // Today's work as jobs (lib/jobs.ts): grouped the way a manager works, ordered by Claude's picks, then risks, then money.
@@ -201,7 +211,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const months = ws.hiredAt ? Math.max(1, Math.ceil((Date.now() - new Date(ws.hiredAt).getTime()) / (30 * 86_400_000))) : 1;
   const shownValue = shown.reduce((t, p) => t + p.valueMonthly, 0);
   // Approve-by-text unlocks once they've looked at today's work here (not before).
-  if (access !== "none" && jobs.length && !ws.seenJobsAt) { const seen = new Date().toISOString(); after(async () => { const f = await store.getWorkspaceById(ws.id); if (f && !f.seenJobsAt) { f.seenJobsAt = seen; await store.saveWorkspace(f); } }); }
+  // Free audit: the first time its real jobs are shown (funnel: audit_ready).
+  if (audit && jobs.length && !ws.audit?.readyAt) { const at = new Date().toISOString(); after(async () => { const f = await store.getWorkspaceById(ws.id); if (f?.audit && !f.audit.readyAt) { f.audit = { ...f.audit, readyAt: at }; await store.saveWorkspace(f); trackServer(ws.id, "audit_ready", { jobs: jobs.length }); } }); }
+  if (paid && jobs.length && !ws.seenJobsAt) { const seen = new Date().toISOString(); after(async () => { const f = await store.getWorkspaceById(ws.id); if (f && !f.seenJobsAt) { f.seenJobsAt = seen; await store.saveWorkspace(f); } }); }
   const isDirect = direct && !!ws.amazon?.accounts?.length; // Rocco makes the changes in Amazon (DataDoe); else exact steps
   const coming = actions.filter((a) => a.status === "applied" || a.status === "not_enough_data").sort((x, y) => x.followUpAt.localeCompare(y.followUpAt)).slice(0, 4);
   const recent = actions.filter((a) => a.result).slice(0, 4);
@@ -246,9 +258,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         {brands.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{brands.map((x) => <Link key={x.brand} href={`/w/${token}?brand=${encodeURIComponent(x.brand)}`} className={x.brand === b.brand ? "on" : ""}>{x.brand}</Link>)}</nav>}
       </header>
 
-      {access !== "none" && <Office events={office.events} state={office.state} />}
+      {paid && <Office events={office.events} state={office.state} />}
       {isDirect && <DataHealth token={token} brand={b.brand} />}
-      {access !== "none" && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen={false} />}
+      {paid && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen={false} />}
 
       {needsReconnect.map((a) => (
         <div key={a.id} className="rd-offer warn">
@@ -256,6 +268,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <ConnectButton token={token} reconnect={a.id} label="Reconnect Amazon" className="btn" />
         </div>
       ))}
+      {audit && <AuditBanner url={hireUrl(ws)} active={audit.active} daysLeft={audit.daysLeft} />}
       {access === "none" && (
         <div className="rd-offer">
           <div><b>{hidden ? `Your plan has ended. ${hidden} fix${hidden === 1 ? "" : "es"} worth ~${m(hiddenValue)}/mo are waiting.` : "Your plan has ended."}</b><span>Rehire me to keep the daily checks and approvals: {PRICE.short}, {PRICE.then}.</span></div>
@@ -282,7 +295,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         )}
       </div>
 
-      {access !== "none" && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
+      {paid && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
 
       {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
 
@@ -291,7 +304,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       <div className="rd-grid">
         <div>
-          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} restock={isDirect && account && canRestock(account.country) ? { token, account: account.id, country: account.country, from: ws.shipFrom?.[account.id], sendUrl: sendToAmazonUrl(account.country), recent: (ws.restocks ?? []).filter((r) => r.account === account.id && Date.now() - new Date(r.at).getTime() < 7 * 86_400_000).map(({ id, at, status, items, name, by }) => ({ id, at, status, items, name, by })) } : undefined} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} locked={audit ? { url: hireUrl(ws), price: PRICE.from, found: shownValue >= 1 ? `~${m(shownValue)}/mo` : undefined } : undefined} restock={!audit && isDirect && account && canRestock(account.country) ? { token, account: account.id, country: account.country, from: ws.shipFrom?.[account.id], sendUrl: sendToAmazonUrl(account.country), recent: (ws.restocks ?? []).filter((r) => r.account === account.id && Date.now() - new Date(r.at).getTime() < 7 * 86_400_000).map(({ id, at, status, items, name, by }) => ({ id, at, status, items, name, by })) } : undefined} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
           {isDirect && (
             <Link className="rd-tidy" href={`/w/${token}/tidy`}>
               <span aria-hidden>🗂️</span>
@@ -315,8 +328,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
         </div>
 
         <aside className="rd-side">
-          {access !== "none" && strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} />}
-          {access !== "none" && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
+          {paid && strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} />}
+          {paid && brainOn() && <AskRocco token={token} brand={b.brand} examples={["What should I do first today?", "Why did ad spend change?", "What worked last month?"]} />}
           <section className="rd-card">
             <h3>What worked</h3>
             {brief.totals.applied > 0 ? <p className="fine">{brief.totals.worked} of {brief.totals.applied} changes worked{brief.saved > 0 ? ` · ${savedPhrase({ measured: brief.savedMeasured, estimated: brief.savedEstimated })}` : ""}.</p> : <p className="fine">Approve a fix and I measure what it did a week later.</p>}
@@ -327,7 +340,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             {coming.length ? <ul className="rd-coming">{coming.map((a) => <li key={a.id}><span>{when(a.followUpAt)}</span>Check {a.code}: {a.proposal.target.slice(0, 40)}</li>)}</ul> : <p className="fine">Results checks show up here after you approve fixes.</p>}
             {brief.season && <p className="fine">📅 {brief.season}</p>}
           </section>
-          {access !== "none" && (
+          {paid && (
             <details className="rd-set" id="settings">
               <summary><span>⚙️ Settings</span><small>Team · goals &amp; autonomy · Amazon accounts · messages</small></summary>
           {team}

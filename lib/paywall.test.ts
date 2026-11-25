@@ -125,7 +125,7 @@ describe("billing: Dodo subscription → trial, paid, ended", () => {
     expect(accessOf((await store.getWorkspaceById(ws.id))!)).toBe("none");
   });
 
-  it("the ladder counts unique paying customers only (trials and renewals don't move it)", async () => {
+  it("the paid count counts unique paying customers only (trials and renewals don't move it)", async () => {
     vi.stubEnv("DODO_API_KEY", "k");
     vi.stubGlobal("fetch", vi.fn(async () => Response.json({ items: [
       { status: "succeeded", subscription_id: "s1", customer: { customer_id: "c1" } },

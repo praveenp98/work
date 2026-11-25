@@ -1,4 +1,5 @@
 import { HireButton } from "@/components/home/HireButton";
+import { AuditButton } from "@/components/home/AuditButton";
 import { BrandLogo } from "@/components/BrandLogo";
 import { LiveHero } from "@/components/home/LiveHero";
 import { ChatPlay, CountUp, PriceBars, Reveal } from "@/components/home/Reveal";
@@ -61,6 +62,7 @@ export default async function Home() {
             <DemoVideo className="btn ghost" />
             <TryDemo />
           </div>
+          <p className="h5-alt"><AuditButton google={google} /><span className="fine">Connect Amazon, see what I&apos;d do. Read-only, no card.</span></p>
           <div className="h5-sub">
             <span className="fine">{PRICE.from} · {PRICE.guarantee} · cancel anytime</span>
           </div>

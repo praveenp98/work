@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { secretOk } from "@/lib/security";
-import { hasAccess } from "@/lib/access";
+import { scheduledPullOk } from "@/lib/free-audit";
 import { datadoeOn } from "@/lib/datadoe";
 import { priorsFrom } from "@/lib/memory";
 import { SITE } from "@/lib/site";
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false, error: "CRON_SECRET not set" }, { status: 503 });
   const store = getStore();
   if (!store || !datadoeOn()) return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });
-  const teams = (await store.listAmazonWorkspaces()).filter((ws) => hasAccess(ws)); // unpaid/lapsed teams cost nothing
+  const teams = (await store.listAmazonWorkspaces()).filter((ws) => scheduledPullOk(ws)); // unpaid, lapsed and free-audit teams cost nothing
   // Anonymized cross-account defaults (counts per fix type only) for the manager prompt.
   const priors = priorsFrom(await Promise.all(teams.map((ws) => store.listActions(ws.id, { limit: 300 }).catch(() => []))));
   const jobs = teams.flatMap((ws) => (ws.amazon?.accounts ?? []).map((a) => ({ wsId: ws.id, id: a.id, name: a.name, ads: a.ads })));

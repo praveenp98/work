@@ -10,6 +10,7 @@ Everything here takes minutes. Start every check at **https://rocco.works/api/he
 
 ## Every week (15 minutes, Mondays)
 - [ ] **Removed accounts**: Vercel → Logs → search `account removed by team` → delete each one in DataDoe → Accounts (DataDoe has no API for it; they cost rows until deleted).
+- [ ] **Expired free audits**: /admin/leads → rows marked "free audit" with an Amazon account, signed up 15+ days ago and still not paid → delete those Amazon accounts in DataDoe → Accounts (they cost rows; the seller keeps the read-only view, and reconnects if they hire later).
 - [ ] **DataDoe → Usage**: rows and AI tokens vs. plan. Rows climbing faster than accounts? Check retention is 6 months and only the 9 tables are on (docs/LIGHTS-ON.md step 5).
 - [ ] **Anthropic Console → Usage**: AI spend vs. the ~$2.50/seller/month estimate (docs/AI-USAGE.md).
 - [ ] **Dodo → Webhooks → Logs**: no failed deliveries. If any failed, click Replay.

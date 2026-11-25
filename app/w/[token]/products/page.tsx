@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductsStudio } from "@/components/dash/ProductsStudio";
-import { accessOf } from "@/lib/access";
+import { hasAccess } from "@/lib/access";
 import { currencyOf } from "@/lib/currency";
 import { acctLabel } from "@/lib/health";
 import { hireUrl } from "@/lib/paywall";
@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const accounts = ws.amazon?.accounts ?? [];
   const account = accounts.find((a) => a.id === sp.account) ?? accounts[0];
   const data = account ? ws.amazon?.products?.[account.id] : undefined;
-  const paid = accessOf(ws) !== "none";
+  const paid = hasAccess(ws);
   return (
     <section className="ps-page">
       <h1>Products &amp; profit</h1>

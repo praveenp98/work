@@ -27,7 +27,10 @@ $199 per seller for the first 3 months (= $66/mo), then $249 per 3 months (= $83
 
 Per seller after the fixes: about **$9–12/mo cost** against $66–83/mo revenue.
 
-Up front before the first sale: ~$140 (Vercel Pro $20, DataDoe $97 after the trial, ~$25 Claude credits). Pay at signup means unpaid sign-ups cost $0.
+Up front before the first sale: ~$140 (Vercel Pro $20, DataDoe $97 after the trial, ~$25 Claude credits). Unpaid sign-ups cost $0 unless they start the free audit (below).
+
+## Free read-only audit (Nov 25)
+**One export set per audit.** An audit team connects one Amazon account and gets one pull: 4 report exports + 2 daily-numbers exports (180-day backfill) = 6 exports × 2 tokens = **12 tokens (~$0.45)**. A retry is allowed only after a failed pull, max 3 pulls total = **36 tokens (~$1.40) worst case**. No history read, no Claude calls, no daily pulls (cron skips audit teams). The bigger cost is **rows**: DataDoe backfills history for every connected account, so delete expired unpaid audit accounts in DataDoe weekly (docs/ROUTINE.md). Abuse cap: 3 audit starts per IP per day, one Amazon account per audit, one account can't sit in two Roccos. 100 audits ≈ 1,200 tokens (~$45, mostly inside the 2,000 included) plus their rows until deleted. Not a hackathon cost (AI/API/software isn't deducted), but it is real money.
 
 ## "Before Rocco" history read (built Nov 22)
 Once per account at connect: 2 DataDoe exports (Amazon's change history + campaign names) = 4 tokens (~$0.15), plus one short Claude call over a rules-made summary (a few cents). At 100 sellers that's ~$15–25 **one time**, not monthly. Included in the plan, not an add-on.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { accessOf } from "@/lib/access";
+import { hasAccess } from "@/lib/access";
 import { syncBilling } from "@/lib/billing";
 import { getStore } from "@/lib/store";
 import { unseal } from "@/lib/vault";
@@ -23,13 +23,13 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
   const token = unseal((await cookies()).get("rocco_team")?.value);
   const store = getStore();
   let ws = token && store ? await loadWorkspace(store, token) : null;
-  if (ws && store && accessOf(ws) === "none" && (ids.payment_id || ids.subscription_id)) {
+  if (ws && store && !hasAccess(ws) && (ids.payment_id || ids.subscription_id)) {
     await syncBilling(store, { data: ids }).catch(() => null);
     ws = await loadWorkspace(store, token!);
   }
   const tries = Number(sp.try ?? 0) || 0;
   // Paid, but Dodo hasn't confirmed yet: never bounce a buyer back to "Hire Rocco". Keep checking for ~40s.
-  if (ws && token && accessOf(ws) === "none" && (ids.payment_id || ids.subscription_id)) {
+  if (ws && token && !hasAccess(ws) && (ids.payment_id || ids.subscription_id)) {
     const next = new URLSearchParams({ ...(ids.payment_id ? { payment_id: ids.payment_id } : {}), ...(ids.subscription_id ? { subscription_id: ids.subscription_id } : {}), try: String(tries + 1) });
     return (
       <section className="start-page">
@@ -45,17 +45,17 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
       </section>
     );
   }
-  if (ws && token) redirect(accessOf(ws) === "none" ? `/w/${token}` : `/w/${token}?welcome=1`);
+  if (ws && token) redirect(!hasAccess(ws) ? `/w/${token}` : `/w/${token}?welcome=1`);
   // No team in this browser (hired from a text link on another device): verify, Rocco texts the team itself.
   const paid = store && (ids.payment_id || ids.subscription_id) ? (await syncBilling(store, { data: ids }).catch(() => null))?.ws : null;
   // Paid from a text link on another device: the payment proves it's their team. A team with no Google owner yet opens
   // straight away (they claim it by signing in there); a team with an owner asks that owner to sign in.
-  const t = paid && accessOf(paid) !== "none" && !paid.ownerVerified ? revealToken(paid) : null;
+  const t = paid && hasAccess(paid) && !paid.ownerVerified ? revealToken(paid) : null;
   if (t) redirect(`/w/${t}?welcome=1`);
   return (
     <section className="start-page">
-      <h1>{paid && accessOf(paid) !== "none" ? "You hired Rocco 🎉" : "Almost there"}</h1>
-      <p className="hello-lede">{paid && accessOf(paid) !== "none" ? "Sign in with Google to open your team's Rocco and connect Amazon." : "Sign in with the Google account you hired Rocco with, and I'll open your team's Rocco."}</p>
+      <h1>{paid && hasAccess(paid) ? "You hired Rocco 🎉" : "Almost there"}</h1>
+      <p className="hello-lede">{paid && hasAccess(paid) ? "Sign in with Google to open your team's Rocco and connect Amazon." : "Sign in with the Google account you hired Rocco with, and I'll open your team's Rocco."}</p>
       <a className="btn" href="/api/auth/google?intent=signin" rel="nofollow">Sign in</a>
     </section>
   );

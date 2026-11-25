@@ -1,5 +1,6 @@
 import { after, NextResponse } from "next/server";
-import { hasAccess } from "@/lib/access";
+import { hasAccess, isAudit } from "@/lib/access";
+import { auditConnectOk, auditPullOk, noteAuditPull } from "@/lib/free-audit";
 import { slotState } from "@/lib/accounts";
 import { getAccount, getInvitation } from "@/lib/datadoe";
 import { pullAndSave } from "@/lib/datadoe-sync";
@@ -35,8 +36,11 @@ export async function GET(req: Request) {
 
   const id = q.get("sellerOrVendorId") ?? "";
   if (!/^[0-9a-f-]{36}$/i.test(id)) return back("not_found");
-  // Only paying teams can link an account (the invite needed it too; checked again here).
-  if (!hasAccess(ws)) return back("unpaid");
+  // Only paying teams, or a free audit team (one account, inside its window), can link an account (the invite
+  // needed it too; checked again here).
+  const audit = !hasAccess(ws) && isAudit(ws);
+  if (!hasAccess(ws) && !audit) return back("unpaid");
+  if (audit && !auditConnectOk(ws, new Date(), !!ws.amazon.accounts?.some((x) => x.id === id)).ok) return back("audit_limit");
   // Never trust the browser's sellerOrVendorId: ask DataDoe which account this invite actually connected, so a
   // paying user can't swap in someone else's account id from our DataDoe organization.
   const expected = ws.amazon.invite.account; // reconnect links are for one known account
@@ -58,15 +62,24 @@ export async function GET(req: Request) {
     accounts.push({ id: a.id, name: a.name, country: a.marketplaceCountryCode, connectedAt: new Date().toISOString(), ads: !!a.amazonAdsConnection });
     trackServer(ws.id, "amazon_connected", { country: a.marketplaceCountryCode, ads: !!a.amazonAdsConnection, nth: accounts.length });
     ws.amazon = { ...ws.amazon, accounts, invite: undefined };
+    // Free audit: the first pull is the audit's one pull (counted now, so a quick "Check now" can't pull again).
+    const auditPull = audit && auditPullOk(ws).ok;
+    if (audit) {
+      if (!ws.audit!.connectedAt) trackServer(ws.id, "audit_connected", { country: a.marketplaceCountryCode, ads: !!a.amazonAdsConnection });
+      ws.audit = { ...ws.audit!, connectedAt: ws.audit!.connectedAt ?? new Date().toISOString() };
+      if (auditPull) noteAuditPull(ws);
+    }
     await store.saveWorkspace(ws);
     await notifyTeam(store, ws, [`🔌 Amazon connected: ${a.name} (${a.marketplaceCountryCode})${a.amazonAdsConnection ? " + Ads" : ""}. I'm reading your account now. I'll text you the first findings.`]).catch(() => 0);
-    // First pull right away (paying teams): if Amazon's history is already there, fixes show up within a minute or two.
-    if (hasAccess(ws)) {
+    // First pull right away (paying teams, and the free audit's one pull): if Amazon's history is already there,
+    // fixes show up within a minute or two.
+    if (hasAccess(ws) || auditPull) {
       try {
         after(async () => {
           const r = await pullAndSave(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
           // One-time "Before Rocco" read (4 DataDoe tokens + one short Claude call), so memory starts with the past.
-          await importHistory(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
+          // Paying teams only: a free audit is one export set and no Claude calls.
+          if (!audit) await importHistory(store, ws.id, { id: a.id, name: a.name }).catch(() => null);
           if (r?.kinds.length) { trackServer(ws.id, "first_data_ready", { reports: r.kinds.length }); await refreshManager(store, ws.id).catch(() => 0); }
         });
       } catch { /* outside a request (tests): the daily pull picks it up */ }

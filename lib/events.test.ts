@@ -30,10 +30,11 @@ describe("funnel events", () => {
     await recordEvent({ event: "lead_captured", utm_source: "x", anon_id: "visitor-aaaa", props: { magnet: "checklist" } });
     await recordEvent({ event: "call_click", utm_source: "x" });
     await recordEvent({ event: "call_booked", utm_source: "x" });
+    await recordEvent({ event: "audit_started", utm_source: "x", anon_id: "visitor-aaaa" });
     await recordEvent({ event: "checkout_started", utm_source: "x", anon_id: "visitor-aaaa", ref: "team-1" });
     await recordEvent({ event: "checkout_started", utm_source: "x", anon_id: "visitor-aaaa", ref: "team-1" });
     const { rows } = await funnel(7);
-    expect(rows.find((r) => r.source === "x")).toEqual({ source: "x", visits: 2, leads: 1, call_clicks: 1, calls_booked: 1, checkouts: 1, paid: 0 });
+    expect(rows.find((r) => r.source === "x")).toEqual({ source: "x", visits: 2, leads: 1, call_clicks: 1, calls_booked: 1, audits: 1, checkouts: 1, paid: 0 });
     expect(rows.find((r) => r.source === "reddit.com")?.visits).toBe(1);
     expect(rows.find((r) => r.source === "direct")?.visits).toBe(1);
   });

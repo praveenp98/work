@@ -6,14 +6,15 @@ import { seal } from "@/lib/vault";
 
 /**
  * Start "Continue with Google". intent=hire → after sign-in go straight to checkout (sign up → pay → set up).
- * intent=signin → open your Rocco. The state is sealed and bound to this browser by a short-lived nonce cookie.
+ * intent=audit → start the free read-only audit (lib/free-audit.ts), then connect Amazon. intent=signin → open your Rocco. The state is sealed and bound to this browser by a short-lived nonce cookie.
  * Nothing is created until Google sends back a real, verified sign-in, so bots tapping this cost nothing.
  */
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   const u = new URL(req.url);
-  const intent = u.searchParams.get("intent") === "hire" ? "hire" : "signin";
+  const i = u.searchParams.get("intent");
+  const intent = i === "hire" || i === "audit" ? i : "signin"; // audit: start the free read-only audit after sign-in
   if (!googleOn()) return NextResponse.redirect(`${SITE.url}/${intent === "hire" ? "pricing" : ""}?signin=off`);
   const n = randomBytes(16).toString("hex");
   const p = u.searchParams.get("plan");

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActionsStudio } from "@/components/dash/ActionsStudio";
-import { accessOf } from "@/lib/access";
+import { hasAccess } from "@/lib/access";
 import { acctLabel } from "@/lib/health";
 import { hireUrl } from "@/lib/paywall";
 import { getStore } from "@/lib/store";
@@ -20,7 +20,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   if (!store || !ws) notFound();
   const accounts = ws.amazon?.accounts ?? [];
   const account = accounts.find((a) => a.id === sp.account) ?? accounts[0];
-  const paid = accessOf(ws) !== "none";
+  const paid = hasAccess(ws);
   return (
     <section className="ps-page">
       <h1>Actions</h1>
