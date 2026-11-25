@@ -69,7 +69,7 @@ export default function Page() {
         <div className="cmp-wrap">
           <table className="cmp-t">
             <thead><tr><th>Tool</th><th>What it does</th><th>Type</th></tr></thead>
-            <tbody>{TOOLS.map(([n, d, t]) => <tr key={n}><th scope="row"><code>{n}</code></th><td>{d}</td><td>{t}</td></tr>)}</tbody>
+            <tbody>{TOOLS.map(([n, d, t]) => <tr key={n}><th scope="row"><code>{n}</code></th><td data-label="What it does">{d}</td><td data-label="Type">{t}</td></tr>)}</tbody>
           </table>
         </div>
         <p className="fine">&ldquo;Changes saved data&rdquo; means Rocco&apos;s own records (your change log and settings), never your Amazon account. Your assistant asks you before running these.</p>

@@ -22,11 +22,11 @@ export default function Page() {
       </header>
       <section className="pr-sec">
         <div className="cmp-wrap">
-          <table className="cmp-t">
+          <table className="cmp-t cmp-all">
             <thead><tr><th>Rocco vs</th><th>Their price</th><th>How they charge</th></tr></thead>
             <tbody>
-              {all.map((c) => <tr key={c.slug}><th scope="row"><Link href={`/compare/${c.slug}`}>{short(c.name).replace(/^an /, "An ")}</Link></th><td>{c.price}</td><td>{c.model}</td></tr>)}
-              <tr><th scope="row"><b>Rocco</b></th><td><b>{PRICE.annual}/yr or {PRICE.monthly}/mo</b></td><td><b>Flat. Same at any ad spend</b></td></tr>
+              {all.map((c) => <tr key={c.slug}><th scope="row"><Link href={`/compare/${c.slug}`}>{short(c.name).replace(/^an /, "An ")}</Link></th><td data-label="Their price">{c.price}</td><td data-label="How they charge">{c.model}</td></tr>)}
+              <tr className="cmp-me"><th scope="row"><b>Rocco</b></th><td data-label="Price"><b>{PRICE.annual}/yr or {PRICE.monthly}/mo</b></td><td data-label="How Rocco charges"><b>Flat. Same at any ad spend</b></td></tr>
             </tbody>
           </table>
         </div>

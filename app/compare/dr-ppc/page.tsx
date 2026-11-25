@@ -63,7 +63,7 @@ export default function Page() {
         <div className="cmp-wrap">
           <table className="cmp-t">
             <thead><tr><th></th><th>Dr. PPC</th><th>Rocco</th></tr></thead>
-            <tbody>{ROWS.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td><b>{b}</b></td></tr>)}</tbody>
+            <tbody>{ROWS.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td data-label="Dr. PPC">{a}</td><td data-label="Rocco"><b>{b}</b></td></tr>)}</tbody>
           </table>
         </div>
         <p className="fine">Dr. PPC details from their public site ({DRPPC.url.replace("https://", "")}), {DRPPC.checked}, including the Full Circle Partner price. Rocco: {$(ROCCO.annual)} on the yearly plan, {$(ROCCO.monthly)}/mo ({$(ROCCO.monthly * 12)}/yr) on monthly. Prices change; check theirs before you decide. Spot something wrong? <a href={`mailto:${SITE.contactEmail}`}>Tell us</a> and we&apos;ll fix it.</p>

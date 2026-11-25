@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Fix: compare tables on phones
+- Bug: on phones every comparison table showed the column captions "Dr. PPC" and "Rocco" (hard-coded CSS from the Dr. PPC page), so the /compare overview put "Dr. PPC" over every competitor's price and "Rocco" over their pricing model; every /compare/<slug> page, /compare/claude|chatgpt and /connector were mislabelled too. Fix: each cell carries its own column name (data-label → CSS attr()), and the overview highlights Rocco's own row instead of a blue "Rocco" column. Checked at iPhone size.
+
+---
+
 ## 2026-11-25 · Dashboard menu
 - One menu on every /w/<token> page (app/w/[token]/layout.tsx + components/dash/DashNav.tsx): desktop sticky tabs (Today, Actions, Products, Images, Analytics, Change log, Tidy campaigns, Report, Settings); phones get an app-style bottom bar (Today, Actions, Products, Images, More) with a More sheet (the rest + Help + Sign out). Settings opens and scrolls to the settings panel on Today. Removed the old link row and "← Today's work" links.
 

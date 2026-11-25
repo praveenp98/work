@@ -45,7 +45,7 @@ export function AiCompare({ ai }: { ai: AiTool }) {
         <div className="cmp-wrap">
           <table className="cmp-t">
             <thead><tr><th></th><th>{n} (chat)</th><th>Rocco</th></tr></thead>
-            <tbody>{rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td><b>{b}</b></td></tr>)}</tbody>
+            <tbody>{rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td data-label={`${n} (chat)`}>{a}</td><td data-label="Rocco"><b>{b}</b></td></tr>)}</tbody>
           </table>
         </div>
         <p className="fine">{n} details from {ai.makerUrl.replace("https://", "")}, checked {ai.checked}. Assistants change fast; check theirs. Spot something wrong? <a href={`mailto:${SITE.contactEmail}`}>Tell us</a>.</p>

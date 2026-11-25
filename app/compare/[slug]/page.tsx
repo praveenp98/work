@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <div className="cmp-wrap">
           <table className="cmp-t">
             <thead><tr><th></th><th>{N}</th><th>Rocco</th></tr></thead>
-            <tbody>{rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td><b>{b}</b></td></tr>)}</tbody>
+            <tbody>{rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td data-label={N}>{a}</td><td data-label="Rocco"><b>{b}</b></td></tr>)}</tbody>
           </table>
         </div>
         <p className="fine">{N}: {c.source}, checked {CHECKED}. Yearly figures are estimates from public prices. Prices change; check theirs before you decide. Spot something wrong? <a href={`mailto:${SITE.contactEmail}`}>Tell us</a> and we&apos;ll fix it.</p>

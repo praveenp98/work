@@ -1356,6 +1356,9 @@ h1, h2, .display { font-family: var(--display); }
 .cmp-t thead th { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #6b7280); }
 .cmp-t tbody th { font-weight: 600; width: 34%; }
 .cmp-t td:last-child { background: #f3f7ff; }
+/* Overview of all competitors: no Rocco-blue column; Rocco's own row is highlighted instead. */
+.cmp-all td:last-child { background: none; }
+.cmp-all tr.cmp-me th, .cmp-all tr.cmp-me td { background: #f3f7ff; }
 
 .hire-try { margin: 10px 0 0; font-size: 15px; line-height: 1.45; background: #eef6ee; border-radius: 12px; padding: 10px 12px; }
 
@@ -1384,8 +1387,7 @@ h1, h2, .display { font-family: var(--display); }
   .cmp-t tbody th { grid-column: 1 / -1; width: auto; border-bottom: 0; padding-bottom: 2px; }
   .cmp-t td { border-bottom: 0; font-size: 14px; }
   .cmp-t td::before { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #6b7280); margin-bottom: 2px; }
-  .cmp-t td:nth-of-type(1)::before { content: "Dr. PPC"; }
-  .cmp-t td:nth-of-type(2)::before { content: "Rocco"; }
+  .cmp-t td[data-label]::before { content: attr(data-label); }
 }
 
 .gl-ladder { display: grid; gap: 8px; }
