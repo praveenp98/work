@@ -13,6 +13,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Reddit posts (organic, posted by hand)
+- `marketing/copy/reddit-posts.md`: 19 ready-to-post threads (r01 to r19) for r/FulfillmentByAmazon, r/AmazonSeller, r/AmazonFBA, r/PPC, r/ecommerce. Ecosystem news (2027 fees, Sponsored Prompts, Alexa for Shopping, 75-character titles, Agent Policy, Seller Assistant in Claude, Ads MCP, Perplexity ruling, Shop Direct, $1M insurance rule), answers to questions sellers ask AI (negative keyword math, break-even ACoS, agency check, restock math, Buy Box), and year-end frameworks.
+- Every post: no link or product mention, a "by stage" block (just starting / under 1k / 1k to 10k / 10k to 50k / 50k+ ad spend), sources listed under it for Praveen only. Facts checked Nov 25; re-check time-sensitive ones on the day.
+- Suggested calendar: r01 (Black Friday, post Nov 25 or 26) first, then about one every 2 days. Tracking table at the bottom of the file.
+- Next: Praveen posts r01; log results in the file; turn winners into LinkedIn/X posts.
+
 ## 2026-11-25 · Wrapped plays full screen, like an app
 - Opens full screen when ready (edge to edge on phones, centred 9:16 with arrows on desktop); tap sides or swipe left/right; swipe down, ✕, Esc or the phone's Back button closes it.
 - Email unlock lives inside the story (lock slide with the form + "Skip, show my card"); unlocking plays straight into the deeper cuts.
