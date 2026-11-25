@@ -15,7 +15,7 @@ import type { Proposal } from "./rules/types";
  * fails after the campaign exists, Rocco says exactly what's left to finish by hand. Not yet run live on a real
  * account (needs an account connected with edit access).
  */
-const ADS_MAP: Pull = {
+export const ADS_MAP: Pull = {
   kind: "sp_campaign", table: "amazon_ads_ads_raw", query: "ads raw", days: 1, shape: "daily",
   cols: { ad_group_id: "_g", ad_campaign_type: "_t", ad_state: "_s", ad_creative_products: "_p" },
 };

@@ -67,6 +67,8 @@ export interface Workspace {
     daily?: Record<string, import("../daily").Daily>;
     /** Profit per product (last 30 days) per account, from DataDoe's profit table (lib/profit.ts). */
     products?: Record<string, { at: string; items: import("../profit").ProductProfit[] }>;
+    /** Ad group → advertised SKUs/ASINs per account, from Ads (raw), cached ~20h (lib/term-products.ts). */
+    adGroups?: Record<string, { at: string; map: Record<string, string[]> }>;
     /** Listing edits Rocco made, with the old values for undo (lib/listings.ts). */
     listingEdits?: import("../listings").ListingEdit[];
     /** A+ drafts and submissions (lib/aplus.ts). */

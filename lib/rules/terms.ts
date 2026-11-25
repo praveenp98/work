@@ -2,8 +2,11 @@ import { aggregateTerms } from "./aggregate";
 import type { SearchTermRow } from "../parsers/searchTerm";
 import { r2 } from "./types";
 
-/** Compact per-search-term record kept in memory between reports. */
-export interface TermLite { t: string; s: number; sa: number; o: number; c: number }
+/**
+ * Compact per-search-term record kept in memory between reports. `g` = orders and sales per ad group (only ad groups
+ * where it sold), so a search can be tied to the exact products that ad group advertises (lib/term-products.ts).
+ */
+export interface TermLite { t: string; s: number; sa: number; o: number; c: number; g?: Record<string, [number, number]> }
 
 /** Top search terms by spend plus every converting term (capped), merged across campaigns. */
 export function termSnapshot(rows: SearchTermRow[], limit = 300): TermLite[] {
@@ -12,6 +15,12 @@ export function termSnapshot(rows: SearchTermRow[], limit = 300): TermLite[] {
     const e = m.get(x.searchTerm) ?? { t: x.searchTerm, s: 0, sa: 0, o: 0, c: 0 };
     e.s += x.spend; e.sa += x.sales; e.o += x.orders; e.c += x.clicks;
     m.set(x.searchTerm, e);
+  }
+  for (const r of rows) {
+    const e = m.get(r.searchTerm.toLowerCase()), g = r.ids?.adGroupId;
+    if (!e || !g || !(r.orders > 0)) continue;
+    const cur = (e.g ??= {})[g] ?? [0, 0];
+    e.g[g] = [cur[0] + r.orders, r2(cur[1] + r.sales)];
   }
   const all = [...m.values()].map((e) => ({ ...e, s: r2(e.s), sa: r2(e.sa) }));
   const bySpend = [...all].sort((a, b) => b.s - a.s).slice(0, limit);

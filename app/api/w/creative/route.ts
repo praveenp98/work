@@ -1,3 +1,4 @@
+import { adGroupMap, termsForProduct } from "@/lib/term-products";
 import { NextResponse } from "next/server";
 import { hasAccess } from "@/lib/access";
 import { imageSlotBody, newCreative, planCreatives, promptProblems, type Concept, type CreativeKind } from "@/lib/creative";
@@ -58,7 +59,9 @@ export async function POST(req: Request) {
     if (!(await spend(store, ws, "imagePlans", 1))) return NextResponse.json({ ok: false, error: LIMIT_MSG.imagePlans }, { status: 429 });
     const l = (await fetchListings(account.id, [sku])).listings[0];
     if (!l) return NextResponse.json({ ok: false, error: "Couldn't read this listing from Amazon right now." });
-    const terms = ((await store.listSnapshots(ws.id, { brand: account.name, kind: "sp_search_term", limit: 1 }))[0]?.extra?.terms ?? []) as TermLite[];
+    const all = ((await store.listSnapshots(ws.id, { brand: account.name, kind: "sp_search_term", limit: 1 }))[0]?.extra?.terms ?? []) as TermLite[];
+    // This product's own selling searches only (exact, through its ad groups); none rather than another product's.
+    const terms = termsForProduct(all, [sku, l.asin ?? ""], await adGroupMap(store, ws, account.id)).terms;
     const concepts = await planCreatives(l, terms, kind, b.note);
     if (!concepts) return NextResponse.json({ ok: false, error: "Rocco couldn't plan images from this listing. Add a few more bullets and try again." });
     trackServer(ws.id, "images_planned", { kind, n: concepts.length });

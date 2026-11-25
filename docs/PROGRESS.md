@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Exact search → product links (no best guesses)
+- Amazon's search-term report has no product column. Rocco now keeps, for every selling search, its orders and sales **per ad group**, and reads which products each Sponsored Products ad group advertises (Ads (raw), cached ~20h per account in `ws.amazon.adGroups`). A search counts for a product only through ad groups that advertise **only that ASIN** (FBA and FBM SKUs of one ASIN are one product). Orders from multi-product ad groups are shown as "shared" and never used. Module: `lib/term-products.ts` (tested).
+- Replaces the title-matching heuristic shipped earlier today. Used by: listing words (backend, title, bullets), the image planner's briefs, and Claude's `listing_gaps` tool (new `sku` input; without it the answer says the words are account-wide).
+- Habit Nest, live read-only: 1,110 SP ad groups, 919 advertise a single ASIN, 191 several.
+- Needs one fresh pull after deploy (old snapshots have no ad group data); until then the listing panel says it can't tie searches to the product yet, instead of guessing.
+- Other product links checked: new exact campaigns already use the ad group's own products; low-stock ads are a manual step.
+
 ## 2026-11-25 · Products tab: search-term fix error + wrong suggestions
 - **"idempotencyKey: has an invalid format"**: DataDoe only takes letters, digits and `: _ . -` in that key; SKU "Gym Buddy Journal-Grey" has spaces. `idemKey()` in lib/datadoe.ts now cleans every key (with a short hash so keys stay unique), for all actions. Checked with a DataDoe dry run.
 - **Title showed empty and "missing" words were already in it**: Amazon sends the title as `content.itemName`; Rocco only looked for title/name. Fixed (plus attribute fallbacks; brand read from attributes).

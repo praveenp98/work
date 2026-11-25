@@ -122,7 +122,9 @@ function Note({ children }: { children: React.ReactNode }) { return <p className
 
 function KeywordFix({ token, account, sku, l, plan, onEdit }: { token: string; account: Acc; sku: string; l: Listing; plan: KeywordPlan; onEdit: (e: ListingEdit) => void }) {
   const [busy, setBusy] = useState(false); const [msg, setMsg] = useState("");
-  if (!plan.added.length) return <section className="lp-sec"><h4>Backend search terms</h4><p className="fine">Nothing to add: every word from your selling searches is already in this listing.</p></section>;
+  const shared = plan.shared?.orders ? ` (${plan.shared.orders} more order${plan.shared.orders === 1 ? "" : "s"} came from ad groups that advertise several products; Amazon's data can't say which product sold, so I left them out.)` : "";
+  if (plan.linked === false) return <section className="lp-sec"><h4>Backend search terms</h4><p className="fine">I can&apos;t tie your ad searches to this exact product yet, so I won&apos;t suggest words. Tap Check connection now on the Today page, wait a minute, then open this product again.</p></section>;
+  if (!plan.added.length) return <section className="lp-sec"><h4>Backend search terms</h4><p className="fine">{plan.evidence.length || plan.forTitle.length ? "Nothing to add: every word from this product's selling searches is already in the listing." : "No searches sold this product through its own ad groups in the last 30 days, so there's nothing proven to add."}{shared}</p></section>;
   const go = async () => {
     setBusy(true); setMsg(""); officeAct("dock", `Checking ${sku}'s new search terms with Amazon…`);
     const d = await post({ t: token, account: account.id, op: "keywords", sku, value: plan.keywords });
@@ -133,7 +135,7 @@ function KeywordFix({ token, account, sku, l, plan, onEdit }: { token: string; a
   return (
     <section className="lp-sec">
       <h4>Add {plan.added.length} selling word{plan.added.length > 1 ? "s" : ""} to backend search terms</h4>
-      <p className="fine">From searches that already got orders: {plan.evidence.map((e) => `“${e.term}” (${e.orders} orders)`).join(", ")}.</p>
+      <p className="fine">From searches that got orders for this product, through ad groups that advertise only it: {plan.evidence.map((e) => `“${e.term}” (${e.orders} orders)`).join(", ")}.{shared}</p>
       <div className="lp-diff"><div><small>Now</small><code>{l.keywords || "(empty)"}</code></div><div><small>New</small><code>{plan.keywords}</code></div></div>
       <div className="lp-chips">{plan.added.map((w) => <span key={w}>+ {w}</span>)}</div>
       <Note>Shoppers never see backend search terms; they only help Amazon match your product to searches. I keep everything you have, add words only from searches that already sold, and stay under Amazon&apos;s 250-byte limit. Amazon checks it before it goes live.</Note>

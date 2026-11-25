@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { cleanConcepts, imageSlotBody, promptProblems } from "./creative";
-import { keywordPlan, listingImages, parseListing, termsForListing } from "./listings";
+import { keywordPlan, listingImages, parseListing } from "./listings";
+import { productsByAdGroup, termsForProduct } from "./term-products";
+import { termSnapshot } from "./rules/terms";
 import { parseStatus } from "./higgsfield";
 import { actionByType, availableFor, catalogueText, DOE_ACTIONS, itemCount } from "./doe-actions";
 import { dryRunText, planFresh, resultText, type ActionPlan } from "./action-agent";
@@ -76,13 +78,23 @@ describe("listing keywords", () => {
     expect(l.brand).toBe("Habit Nest");
     expect(l.bullets).toHaveLength(1);
   });
-  it("only uses searches that belong to this product, never the brand or a sibling's name", () => {
+  it("ties searches to a product only through ad groups that advertise just that product", () => {
+    const row = (t: string, g: string, o: number) => ({ date: "2026-11-01", campaign: "C", adGroup: g, targeting: "x", matchType: "BROAD", searchTerm: t, impressions: 100, clicks: 10, spend: 5, sales: o * 30, orders: o, ids: { adGroupId: g } });
+    const terms = termSnapshot([row("weightlifting transformation journal", "g1", 24), row("Finally Become Fit Book", "g2", 19), row("habit nest", "g3", 31), row("habit nest", "g1", 2)] as never);
+    const map = { g1: ["GB-1"], g2: ["FBF-1"], g3: ["GB-1", "FBF-1"] };
+    const r = termsForProduct(terms, ["GB-1", "B0TEST0001"], map);
+    expect(r.linked).toBe(true);
+    expect(r.terms.map((t) => [t.t, t.o])).toEqual([["weightlifting transformation journal", 24], ["habit nest", 2]]);
+    expect(r.shared).toEqual({ orders: 31, terms: 1 });
+    expect(termsForProduct(terms, ["GB-1"], null).linked).toBe(false);
     const l = parseListing(raw, "GB-1")!;
-    const terms = [["habit nest", 31], ["weightlifting transformation journal", 24], ["finally become fit book", 19], ["habit nest stretching journal", 12], ["gym journal for beginners", 5]].map(([t, o]) => ({ t: t as string, s: 0, sa: (o as number) * 30, o: o as number, c: 0 }));
-    const mine = termsForListing(l, terms, ["Finally Become Fit Workout Journal", "Habit Nest Stretching Journal"]).map((t) => t.t);
-    expect(mine).toEqual(["weightlifting transformation journal", "gym journal for beginners"]);
-    const p = keywordPlan(l, termsForListing(l, terms, []));
+    const p = keywordPlan(l, r.terms);
     expect(p.added).not.toContain("habit");
-    expect(p.added).not.toContain("nest");
+    expect(p.added).not.toContain("finally");
+  });
+  it("reads ad groups by ASIN: FBA and FBM SKUs of one book are one product", () => {
+    const ad = (g: string, asin: string, sku: string, type = "SPONSORED_PRODUCTS") => ({ ad_group_id: g, ad_campaign_type: type, ad_state: "ENABLED", ad_creative_products: JSON.stringify([{ productId: asin, productIdType: "ASIN" }, { productId: sku, productIdType: "SKU" }]) });
+    const m = productsByAdGroup([ad("g1", "0692726713", "Red FBM"), ad("g1", "0692726713", "Sunrise Red"), ad("g2", "0692726713", "Red FBM"), ad("g2", "B0OTHER001", "Blue"), ad("g3", "0692726713", "x", "SPONSORED_BRANDS")]);
+    expect(m).toEqual({ g1: ["0692726713"], g2: ["0692726713", "B0OTHER001"] });
   });
 });

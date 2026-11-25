@@ -106,28 +106,12 @@ const bytes = (s: string) => new TextEncoder().encode(s).length;
 export interface KeywordPlan {
   /** New backend keywords (old ones kept first), under 250 bytes. */
   keywords: string; added: string[];
+  /** Set by the products route: orders left out because their ad group advertises several products; false = can't link searches to products yet. */
+  shared?: { orders: number; terms: number }; linked?: boolean;
   /** Words from top-selling searches that aren't in the title / bullets: suggestions, the seller writes the text. */
   forTitle: string[]; forBullets: string[];
   /** The searches behind it, for the reason line. */
   evidence: { term: string; orders: number; sales: number }[];
-}
-
-/**
- * The selling searches that belong to THIS product. The search-term report is account-wide (no ASIN), so without this
- * a journal would be told to add a sibling product's name. A search counts when its words (minus the brand) match this
- * listing at least as well as any of the seller's other product titles. Pure brand searches ("habit nest") are skipped.
- */
-export function termsForListing(l: Pick<Listing, "title" | "bullets" | "keywords" | "description" | "brand">, terms: TermLite[], otherTitles: string[]): TermLite[] {
-  const brand = new Set(tokens(l.brand ?? "").map(stem));
-  const mine = new Set(tokens([l.title, ...l.bullets, l.keywords, l.description ?? ""].join(" ")).map(stem));
-  const others = otherTitles.filter((t) => t && t !== l.title).map((t) => new Set(tokens(t).map(stem)));
-  return terms.filter((t) => {
-    const core = tokens(t.t).map(stem).filter((w) => !brand.has(w));
-    if (!core.length) return false;
-    const score = (set: Set<string>) => core.filter((w) => set.has(w)).length;
-    const me = score(mine);
-    return me > 0 && others.every((o) => score(o) <= me);
-  });
 }
 
 /**

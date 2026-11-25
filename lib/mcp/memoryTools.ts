@@ -1,3 +1,4 @@
+import { termsForProduct } from "../term-products";
 import { allowShared } from "../limits";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import Papa from "papaparse";
@@ -109,17 +110,24 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       title: z.string().min(3).max(500),
       bullets: z.string().max(5000).optional(),
       backend_keywords: z.string().max(1000).optional(),
+      sku: z.string().max(80).optional().describe("The product's SKU or ASIN. With a connected Amazon account, only searches that sold THIS product (through ad groups advertising only it) are used."),
       brand: brandArg,
     },
     annotations: ro,
-  }, async ({ title, bullets, backend_keywords, brand }) => {
+  }, async ({ title, bullets, backend_keywords, sku, brand }) => {
     const snap = (await store.listSnapshots(ws.id, { brand: brand || DEFAULT_BRAND, kind: "sp_search_term", limit: 1 }))[0];
     if (!snap?.extra?.terms?.length) return fail("Rocco needs a search term report first. Attach one and say \"analyze this\".");
-    const gaps = listingGaps(snap.extra.terms, { title, bullets, backend: backend_keywords });
+    const acct = ws.amazon?.accounts?.find((a) => a.name === (brand || DEFAULT_BRAND)) ?? ws.amazon?.accounts?.[0];
+    const map = acct ? ws.amazon?.adGroups?.[acct.id]?.map ?? null : null;
+    const mine = sku ? termsForProduct(snap.extra.terms, [sku], map) : null;
+    if (sku && !mine?.linked) return fail("I can't tie searches to this product yet (needs a connected Amazon account and a fresh pull). Open the product in Rocco's Products tab once, then ask again.");
+    const gaps = listingGaps(mine ? mine.terms : snap.extra.terms, { title, bullets, backend: backend_keywords });
     if (!gaps.length) return text("Your listing already covers the words in every converting search term. Nice. 🦝");
     const title5 = gaps.filter((g) => g.where === "title");
     const back = gaps.filter((g) => g.where === "backend");
-    const L = [`## Listing gaps (from ${snap.createdAt.slice(0, 10)} search terms)`];
+    const L = [`## Listing gaps (from ${snap.createdAt.slice(0, 10)} search terms${mine ? `, only searches that sold ${sku} through its own ad groups` : ""})`];
+    if (!mine) L.push("", "_These come from ALL your converting searches, which can include your other products. Pass the sku for this product's own searches._");
+    if (mine?.shared.orders) L.push("", `_${mine.shared.orders} more orders came from ad groups that advertise several products; Amazon's data can't say which product sold, so they're left out._`);
     if (title5.length) { L.push("", "### Worth putting in the title (top converting terms)"); L.push(...title5.map((g) => `- "${g.term}" (${g.orders} orders, $${Math.round(g.sales)}): missing **${g.missing.join(", ")}**`)); }
     if (back.length) { L.push("", "### Add to backend search terms"); L.push(...back.map((g) => `- "${g.term}" (${g.orders} orders): missing **${g.missing.join(", ")}**`)); }
     const words = [...new Set(back.flatMap((g) => g.missing))];

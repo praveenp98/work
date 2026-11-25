@@ -143,3 +143,4 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 
 ## 2026-11-25 · Reddit is a slow channel; no agency before Dec 16
 - No Reddit agency and no uncapped Reddit Ads before Dec 16: spend comes off contest profit and the published cases need 4 weeks to 12 months. Optional capped ads test only with Praveen's approval. Brand account is labelled and never used in a sub that banned Praveen (ban evasion). Dec 16 revenue comes from direct outreach Praveen sends, free tools, yearly plans, launch sites, agency partners and LinkedIn.
+- **2026-11-25 · No best guesses tying searches to products.** A search counts for a product only via ad groups that advertise that ASIN alone; anything else is reported as shared and not used. Why: Praveen asked for exact data everywhere; account-wide terms suggested a sibling product's name.
