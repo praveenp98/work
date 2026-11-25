@@ -3,6 +3,8 @@ import { marketOf } from "@/lib/season";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { after } from "next/server";
+import { headers } from "next/headers";
+import { attachPartner, readPartnerCookie } from "@/lib/partners";
 import { AskRocco } from "@/components/dash/AskRocco";
 import { RoiCard } from "@/components/dash/RoiCard";
 import { ReminderCard } from "@/components/dash/ReminderCard";
@@ -102,6 +104,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const ws = await loadWorkspace(store, token);
   if (!ws) notFound();
   if (!ws.tokenSealed) await rememberToken(store, ws, token).catch(() => {});
+  // Sent by a partner (rocco_partner cookie, set only for approved codes): tag the team before checkout so the code
+  // rides along in Dodo's metadata (hireUrl).
+  if (attachPartner(ws, readPartnerCookie((await headers()).get("cookie")))) await store.saveWorkspace(ws).catch(() => {});
   const [brief, actions] = await Promise.all([buildBrief(store, ws), store.listActions(ws.id, { limit: 100 })]);
   const access = accessOf(ws);
   const who = await actor();

@@ -7,6 +7,7 @@ import { GUIDES } from "@/lib/guides";
 import { HELP } from "@/lib/help";
 import { SITE } from "@/lib/site";
 import { liveTools } from "@/lib/tools";
+import { ALL_PARTNER_PAGES } from "@/lib/partners";
 
 export const dynamic = "force-static";
 
@@ -58,6 +59,9 @@ export function GET() {
     "",
     "## Pricing",
     `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team, 3 Amazon accounts included (+$49/mo each extra): $2,790 a year (2 months free) or $279 a month, 7-day money-back guarantee.`,
+    "",
+    "## Partner program (for agencies, seller tools and community owners who refer sellers)",
+    ...ALL_PARTNER_PAGES.map((p) => `- [${p.metaTitle}](${SITE.url}${p.path}): ${p.metaDescription}`),
     "",
     "## Notes",
     `- ${SITE.disclaimer}`,

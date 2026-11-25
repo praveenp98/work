@@ -9,6 +9,7 @@ import { MAGNETS } from "@/lib/magnets";
 import { SELL } from "@/lib/sell-data";
 import { SELL_PUBLISHED } from "@/lib/sell";
 import { MARKETS } from "@/lib/season";
+import { ALL_PARTNER_PAGES } from "@/lib/partners";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -32,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...MARKETS.map((m) => ({ url: `${SITE.url}/amazon-seller-calendar/${m.slug}`, lastModified: now, priority: 0.8 })),
     ...MAGNETS.map((m) => ({ url: `${SITE.url}/free/${m.slug}`, lastModified: now, priority: 0.9 })),
     { url: `${SITE.url}/free/black-friday-checklist`, lastModified: now, priority: 0.8 },
+    ...ALL_PARTNER_PAGES.map((p) => ({ url: `${SITE.url}${p.path}`, lastModified: now, priority: 0.5 })), // not /p/<code> (noindex)
     { url: `${SITE.url}/help`, lastModified: now, priority: 0.7 },
     ...HELP.map((h) => ({ url: `${SITE.url}/help/${h.slug}`, lastModified: new Date(h.updated), priority: 0.6 })),
     ...["privacy", "terms", "refunds"].map((p) => ({ url: `${SITE.url}/${p}`, lastModified: now, priority: 0.2 })),

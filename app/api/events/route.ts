@@ -5,6 +5,8 @@ import { SITE } from "@/lib/site";
 import { getStore } from "@/lib/store";
 import { unseal } from "@/lib/vault";
 import { loadWorkspace } from "@/lib/workspace";
+import { readPartnerCookie } from "@/lib/partners";
+import { trackServer } from "@/lib/track-server";
 
 /**
  * Where the browser helper (lib/track.ts) sends funnel events. Accepts only the client events, only from our own
@@ -21,6 +23,9 @@ export async function POST(req: Request) {
   if (!allow(`ev:${clientIp(h)}`, 60, 60_000)) return done();
   const row = cleanClientEvent(await req.json().catch(() => null));
   if (!row) return done();
+  // Partner referral (lib/partners.ts): only ever from our own httpOnly cookie, never from the browser's body.
+  const partner = readPartnerCookie(h.get("cookie"));
+  if (partner) row.props = { ...(row.props ?? {}), partner };
   if (row.event === "checkout_started") {
     // Tag the checkout with the team (read from this browser's sealed team cookie) so "paid" can find its source.
     try {
@@ -29,6 +34,8 @@ export async function POST(req: Request) {
       const store = getStore();
       const ws = token && store ? await loadWorkspace(store, token) : null;
       if (ws) row.ref = ws.id;
+      const code = ws?.partner ?? partner;
+      if (code) { row.props = { ...(row.props ?? {}), partner: code }; trackServer(ws?.id ?? row.anon_id ?? `anon-${code}`, "partner_checkout_started", { code }); }
     } catch { /* the event still counts without it */ }
   }
   await recordEvent(row);

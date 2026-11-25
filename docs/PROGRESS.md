@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Partner program pages + referral tracking
+- Pages (static, one data file `lib/partners.ts`, shared components in `components/partners/`): `/partners` (hub, offer, payouts, link rules, FAQ, apply form), `/partners/agencies` (daily account work, trial on one client with permission, Agency Audit as client reporting), `/partners/tools` (guide together, partner-page spots, referral share), `/partners/communities` (free money leak check + share). In sitemap, llms.txt and the footer. `/p/[code]`: "<name> recommends Rocco", noindex, canonical `/`, approved codes only, else redirect home.
+- Offer from `PARTNER_SHARE` = 0.30 (**TODO Praveen: confirm**), shown as a percent with worked amounts computed from $2,790 / $279. Paid by hand (Wise/PayPal) after the 7-day guarantee, never on refunds.
+- Tracking: `proxy.ts` sets `rocco_partner` (60 days, first wins, approved only) from `/p/<code>` or `?partner=`; the code goes on the team and into Dodo checkout as `metadata_partner` (yearly + monthly); `lib/billing.ts` writes one `partner_referrals` row per team on the first payment and voids it on refund. /admin/funnel source `partner:<code>`. PostHog: partner_landing_viewed, partner_applied, partner_checkout_started, partner_sale.
+- `/admin/partners`: approve (creates the code) / pause, referrals, payouts due, Mark paid (amount + date), reminder to log each payout as a marketing cost.
+- Migration `supabase/migrations/006_partners.sql` (partners, partner_referrals, rocco_funnel with partner source; also in setup.sql). **Praveen: run it in Supabase before the first partner.**
+- Tests 341 (18 new, incl. a Dodo webhook fixture with `partner` in metadata). Copy lint clean. Partner pages ship about 1.8 KB gzip of JS more than the site-wide baseline (the apply form) and less than /pricing.
+- Next: Praveen confirms 30%, runs migration 006, approves the first partners and sends their links. Marketing costs this session: $0.
+
 ## 2026-11-25 · Products tab: search-term fix error + wrong suggestions
 - **"idempotencyKey: has an invalid format"**: DataDoe only takes letters, digits and `: _ . -` in that key; SKU "Gym Buddy Journal-Grey" has spaces. `idemKey()` in lib/datadoe.ts now cleans every key (with a short hash so keys stay unique), for all actions. Checked with a DataDoe dry run.
 - **Title showed empty and "missing" words were already in it**: Amazon sends the title as `content.itemName`; Rocco only looked for title/name. Fixed (plus attribute fallbacks; brand read from attributes).

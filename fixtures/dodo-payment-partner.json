@@ -1,0 +1,13 @@
+{
+  "payment_id": "pay_partner01",
+  "status": "succeeded",
+  "created_at": "__PAID_AT__",
+  "total_amount": 279000,
+  "currency": "USD",
+  "subscription_id": "sub_partner01",
+  "customer": { "customer_id": "cus_partner01" },
+  "metadata": { "ref": "__WORKSPACE_ID__", "partner": "acme-ppc" },
+  "product_cart": [{ "product_id": "pdt_year1", "quantity": 1 }],
+  "refunds": [],
+  "disputes": []
+}

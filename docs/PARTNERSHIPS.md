@@ -54,11 +54,26 @@ No template blast. Each message is personal and short:
 
 10 personal messages a day for 10 days = 100 conversations. Expect 10 to 20 replies and 3 to 6 real partners. Follow up once after 3 days, then stop.
 
-## Tracking
+## Tracking (built Nov 25: /partners, /admin/partners)
 
-- One partner code per partner (a Dodo discount code if it works for this, or a `?ref=` link). Check that both show up in Dodo and in /admin/funnel before the first partner goes live.
-- After day 8 of each sale (guarantee passed): pay the partner, log the payout as marketing cost in `docs/PROGRESS.md`.
-- Weekly: messages sent, replies, partners live, sellers referred, sales, payouts.
+Pages: `/partners` (hub + apply form), `/partners/agencies`, `/partners/tools`, `/partners/communities` (indexable, static), `/p/<code>` (the partner's own page: noindex, canonical `/`, only for approved codes, anything else redirects home). All copy and the share live in `lib/partners.ts` (`PARTNER_SHARE = 0.30`, TODO Praveen confirm). Never link "Could I Fire My Agency?" from a partner page (a test checks this).
+
+How a sale is tracked:
+1. A seller opens `rocco.works/p/<code>` or any page with `?partner=<code>`. `proxy.ts` sets the first-party cookie `rocco_partner` (httpOnly, 60 days) only if the code belongs to an approved partner, and never replaces an existing one (first partner wins). `?partner=` links redirect to the clean URL.
+2. When the seller signs up (Google, the Hire sheet, or their Rocco page), the code is saved on the team (`workspace.partner`), only before the first payment.
+3. Both checkout links (yearly and monthly, `hireUrl`) carry it to Dodo as `metadata_partner` → `metadata.partner` on the payment and subscription. Not `ref`: that key is the workspace id.
+4. The Dodo webhook (and /welcome) run `lib/billing.ts`: on a succeeded payment it keeps the code on the team and writes one `partner_referrals` row per team (payment id, plan, USD amount, paid_at, guarantee_ends_at = paid_at + 7 days, payout `due`). Replays and renewals are ignored. A refund or dispute marks the row refunded and the payout `void`.
+5. /admin/funnel shows the visits, checkouts and sales under `partner:<code>`. PostHog gets `partner_landing_viewed`, `partner_applied`, `partner_checkout_started`, `partner_sale` (with the code).
+
+Supabase: run `supabase/migrations/006_partners.sql` (also appended to `supabase/setup.sql`) before the first partner goes live. Until then applications still land in /admin/leads as `partner-apply`, but no codes or referrals are stored.
+
+## How Praveen approves and pays
+
+- Applications arrive on `/admin/partners` (pending, at the top) and in `/admin/leads` (lead magnet `partner-apply`). Sign in first at `/admin/login?key=<CRON_SECRET>`.
+- Approve only after the partner has agreed to have their name on their `/p/` page. Approving creates the code (from their name) and shows their link. Email it to them yourself. Pause stops new referrals (sales already tagged still count).
+- Agency trial on one client account: after approval, grant it with `/api/admin/tester?key=…&email=<their email>` once they confirm the client agreed. It never counts as a sale.
+- "Payouts due" lists sales past the 7-day guarantee and not refunded, with the amount at the partner's share. Pay by Wise or PayPal, then "Mark paid" (amount + date). **Then log it as a marketing cost** in `docs/PROGRESS.md` / `marketing_costs` (hard rule 4).
+- Links from rocco.works to a partner's site use `rel="sponsored noopener"`. Partners are told to mark their Rocco links `rel="sponsored"`. Never trade anything for a followed link.
 
 ## The honest maths
 

@@ -2,6 +2,7 @@ import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
 import { accessOf } from "@/lib/access";
 import { hireUrl } from "@/lib/paywall";
+import { attachPartner, readPartnerCookie } from "@/lib/partners";
 import { googleUser } from "@/lib/google";
 import { setSession, TEAM } from "@/lib/session";
 import { teamForUser } from "@/lib/signin";
@@ -35,7 +36,8 @@ export async function GET(req: Request) {
   const browserTeam = unseal(decodeURIComponent(cookie(TEAM) ?? ""));
   const { ws, token, created } = await teamForUser(store, user.email, browserTeam, user.name);
   trackServer(ws.id, created ? "signed_up" : "signed_in", { intent: st.i ?? "signin" });
-  if (!ws.mode) { ws.mode = modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox // prefilled at checkout
+  const tagged = attachPartner(ws, readPartnerCookie(req.headers.get("cookie"))); // sent by a partner: tag before checkout
+  if (!ws.mode || tagged) { ws.mode ??= modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox // prefilled at checkout
   const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" && st.p ? hireUrl(ws, st.p === "monthly" ? "monthly" : "annual") : `${SITE.url}/w/${token}` /* no plan picked yet: the plan step */);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });

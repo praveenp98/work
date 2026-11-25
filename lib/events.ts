@@ -110,18 +110,20 @@ async function lastCheckout(ref: string): Promise<EventRow | null> {
  * A team paid. Called from the payment webhook after billing has been decided: it reads nothing back into billing
  * and changes nothing there. Counted once per team (unique index), with the source of the checkout that led to it.
  */
-export async function recordPaid(teamId: string, plan?: string): Promise<boolean> {
+export async function recordPaid(teamId: string, plan?: string, partner?: string | null): Promise<boolean> {
   try {
     const from = await lastCheckout(teamId);
+    const p = partner ?? from?.props?.partner;
     return await recordEvent({
       event: "paid", ref: teamId, path: null, anon_id: from?.anon_id ?? null,
       utm_source: from?.utm_source ?? null, utm_medium: from?.utm_medium ?? null, utm_campaign: from?.utm_campaign ?? null, utm_content: from?.utm_content ?? null, utm_term: from?.utm_term ?? null,
-      ref_host: from?.ref_host ?? null, props: plan ? { plan } : {},
+      ref_host: from?.ref_host ?? null, props: { ...(plan ? { plan } : {}), ...(p ? { partner: p } : {}) },
     });
   } catch { return false; }
 }
 
-const sourceOf = (e: EventRow) => e.utm_source || e.ref_host || "direct";
+/** A partner's referral (props.partner, added on the server from the rocco_partner cookie) beats UTM tags. */
+const sourceOf = (e: EventRow) => (e.props?.partner ? `partner:${e.props.partner}` : e.utm_source || e.ref_host || "direct");
 
 /** Same rules as the SQL function rocco_funnel: visits and checkouts count people, the rest count events. */
 export function funnelFromRows(rows: (EventRow & { id?: number })[], days: number, now = Date.now()): FunnelRow[] {
