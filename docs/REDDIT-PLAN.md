@@ -17,7 +17,8 @@ so: reddit is a small, honest, long-term channel. the dec 16 number has to come 
 
 **now to dec 16 (realistic: a few tool runs, a few conversations, maybe 0 to 3 sales)**
 - appeal the r/AmazonSeller ban once, by modmail, honestly. separate from any brand work.
-- open one official brand account (for example u/roccoworks), labelled as rocco in name, bio and avatar. it never posts in a sub that banned praveen.
+- keep using praveen's personal account (banned only in r/AmazonSeller) in every other sub, with "i build rocco" in the bio and said whenever rocco comes up.
+- optional: one official brand account (for example u/roccoworks), labelled as rocco, only for ads comments and public replies about rocco. it never posts in r/AmazonSeller.
 - comment only, from accounts that say who they are. answer real seller questions. no links unless asked or allowed.
 - modmail r/FulfillmentByAmazon: how do they want a seller-tool founder to share free tools? do what they say.
 - optional reddit ads test, capped (section 4). promote a free tool, not the $279 page.
@@ -55,7 +56,7 @@ never trust a list of "allowed" rules from anyone, including this doc. rules cha
 
 **accounts**
 - brand account: official, labelled, owned by rocco. replies say "rocco here" or "praveen from rocco".
-- praveen's personal account: if it's only banned in r/AmazonSeller, it can keep taking part elsewhere, with "i build rocco" said whenever rocco is relevant. if reddit suspended it site-wide, do not make a new personal account; appeal through reddit instead, and use only the brand account.
+- praveen's personal account (confirmed nov 25: banned only in r/AmazonSeller, not suspended by reddit). this is the main account. it keeps its history, so it's worth more than a new brand account. use it everywhere else, and say "i build rocco" whenever rocco is relevant. put it in the profile bio too.
 - **neither account enters r/AmazonSeller** unless the mods lift the ban. using another account there is ban evasion, brand account included.
 - no persona accounts, no "customer" accounts, no friends posting for you.
 
@@ -94,7 +95,7 @@ the money counts against contest profit, so treat it as a capped test, not a gro
 - **targeting:** us only. keyword targeting on seller phrases (amazon ppc, acos, seller central, search term report, sponsored products). community targeting on the seller and ppc subs from section 2. test desktop and weekday work hours separately, as the b2b cases in the brief did.
 - **exclusions:** existing customers, leads already captured, the team.
 - **creative:** plain, helpful, reads like a short post. the claim is what the tool does with your reports, in the browser. no "ai runs your account". mention the default is approve every move, without saying it always asks (customers can choose guardrails or full autonomy).
-- **comments:** leave them open. praveen answers from the brand account within a few hours, disclosed, no arguing.
+- **comments:** leave them open. praveen answers (personal or brand account, disclosed) within a few hours, disclosed, no arguing.
 - **measurement:** `utm_source=reddit&utm_medium=paid&utm_campaign=<tool>` on every link; watch `/admin/funnel` and posthog for tool runs → email → hire. cost per completed tool run is the number that matters.
 - **kill rule:** after the first $400, if fewer than about 10 completed tool runs from us sellers, stop. if one ad clearly wins, put the rest on it.
 - **expectation:** a few tool runs and maybe 0 to 3 sales by dec 16. the case studies in the brief needed 4 to 12 weeks.
