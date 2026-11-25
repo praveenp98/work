@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Asked: X sponsorship deal with Indexsy (another hackathon entrant)
+- Advice: don't take money from another entrant. It isn't product revenue, prizes are checked by hand (the leading entry was already disqualified), and a payment between two entrants looks like collusion. The full rules page couldn't be read from here (robots blocked): Praveen to check its cheating section or ask the organizers first.
+- If Praveen pays someone on X to post about Rocco instead: it's ad spend (comes off profit), must be disclosed as paid, and is only worth it if their followers include US Amazon sellers. Log any payment.
+
 ## 2026-11-25 · Reddit plan from Grok's agency brief
 - `docs/REDDIT-PLAN.md`: Reddit can't carry $100k by Dec 16 (about 36 yearly plans in 3 weeks; organic takes 4 to 12 months per the agencies; ad and agency spend comes off contest profit). Plan: one honest appeal, a labelled brand account that stays out of subs that banned Praveen, comment-first, mod-approved AMA at 60 to 90 days, owned subreddit only if it has a job, monitoring, optional capped Reddit Ads test promoting a free tool (Praveen sets the cap; kill rule after the first $400).
 - Agencies: none before Dec 16. Later: InterTeam or Stackmatix (paid test), REDD or Karmic (organic). Grey: Growth Marketing Pro (aged account fleet), Foundation persona account, Karmic seeded AMA questions, Soar.
