@@ -50,7 +50,7 @@
           "h3": "Low-price storefronts: Amazon Haul"
         },
         {
-          "p": "**Amazon Haul** is Amazon's low-price section built to compete with Temu. It launched with price ceilings of up to **$20**, and the direct-from-China route is still **invitation-only**. Since 2026 Amazon also cross-lists select low-priced products already stored in FBA into Haul, and Haul products now appear in Amazon's main search results; sellers can only opt their whole account out, not single products [s51]. Marketplace Pulse counts about 184,000 sellers with Haul listings in November 2026, with a median price of $9.98 [s51]. For a beginner, Haul is mostly a warning sign: if your product idea is a cheap, generic item, you are competing with ultra-low-cost sellers on price alone."
+          "p": "**Amazon Haul** is Amazon's low-price section built to compete with Temu. It launched with price ceilings of up to **$20**, and the direct-from-China route is still **invitation-only**. Amazon now also cross-lists select low-priced products already stored in FBA into Haul, and Haul products now appear in Amazon's main search results; sellers can only opt their whole account out, not single products [s51]. Marketplace Pulse counts about 184,000 sellers with Haul listings in November 2026, with a median price of $9.98 [s51]. For a beginner, Haul is mostly a warning sign: if your product idea is a cheap, generic item, you are competing with ultra-low-cost sellers on price alone."
         },
         {
           "h3": "What this means for a beginner"
@@ -158,14 +158,14 @@
                 "Some fees go up and some down depending on size and price; Amazon flags changes for small and large standard items and items over $50. Check your products in the Fee Change Comparison dashboard in Profit Analytics [s47]."
               ],
               [
-                "Feb 1, 2027",
-                "Storage utilisation surcharge removed; aged inventory surcharge merged with monthly storage into one age-based rate; low-inventory-level fee also checks sales in the four weeks after assessment (announced) [s47]",
-                "Amazon says inventory that sells within six months pays flat or lower storage and aged stock pays more. Read the new rules before your first Q1 2027 shipment."
-              ],
-              [
                 "Nov 24, 2026",
                 "US reported to be preparing new tariffs on China, India, the EU and others [s39]",
                 "Importers should model higher duty scenarios before committing to large orders."
+              ],
+              [
+                "Feb 1, 2027",
+                "Storage utilisation surcharge removed; aged inventory surcharge merged with monthly storage into one age-based rate; low-inventory-level fee also checks sales in the four weeks after assessment (announced) [s47]",
+                "Amazon says inventory that sells within six months pays flat or lower storage and aged stock pays more. Read the new rules before your first Q1 2027 shipment."
               ]
             ],
             "note": "Sources are Amazon notices where available, otherwise trade press or law firms. Confirm every fee on Amazon's current fee pages in Seller Central."
