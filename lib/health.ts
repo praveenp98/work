@@ -49,6 +49,10 @@ export function accountHealth(o: {
     if (!o.sync) return { ...base, state: "missing", at, why: "Not pulled yet.", fix: "Tap Check connection now." };
     if (/Amazon Ads not connected|requires an Amazon Ads connection/i.test(err ?? "")) return { ...base, state: "missing", at, why: "The last pull tripped over another account on your team that has no Amazon Ads connection. Fixed: I now pull each account's ads on its own.", fix: "Tap Check connection now to pull again." };
     if (/not available/i.test(err ?? "")) return { ...base, state: "missing", at, why: "This table isn't switched on for the account.", fix: `Owner: DataDoe → Settings → Data → turn on the ${r.needs === "ads" ? "Amazon Ads" : "Seller Central"} tables Rocco reads (docs/FOUNDER-TEST.md), then Check connection now.` };
+    if (/Export source is disabled|table in DataDoe settings/i.test(err ?? "")) {
+      const table = err?.match(/disabled the "([^"]+)" table/)?.[1] ?? (r.needs === "ads" ? "Amazon Ads" : "Seller Central");
+      return { ...base, state: "error", at, why: `The "${table}" data feed is switched off on Rocco's side, so this report can't come in.`, fix: `Nothing for you to do if you're a customer: Rocco's team switches it back on. (Admin: DataDoe → Settings → Data tables → turn on "${table}", then Check connection now.)` };
+    }
     const pct = err?.match(/(\d+)% loaded/)?.[1];
     if (pct) return { ...base, state: "loading", at, why: `History ${pct}% loaded.`, fix: "It fills in by itself. Check again later today." };
     if (/no rows/i.test(err ?? "")) return { ...base, state: "missing", at, why: r.needs === "ads" ? "Amazon Ads is connected but sent no rows for this account (no Sponsored Products in 30 days, the ads tables are off in DataDoe, or Ads is linked to a different Amazon account)." : "Amazon sent no rows for this report.", fix: r.needs === "ads" ? "Check DataDoe → this account → Amazon Ads shows the right advertiser, and the ads tables are on. Then Check connection now." : "Check connection now. If it stays empty, email human@rocco.works." };

@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Why Habit Nest had no ad recommendations
+- Root cause (checked live against DataDoe, read-only): the **"Search Term Performance (Ads)" table is switched off** in DataDoe → Settings → Data tables. DataDoe refuses the search-term export ("Export source is disabled for this organization"); campaign data still comes in (8,843 rows). Every ads job (block waste, harvest to exact, bids) is built from search terms, so only stock jobs showed. **Praveen: switch it back on, then Check connection now on the Rocco page.**
+- The connection card now says exactly this (which table, where to turn it on; customers are told it's on Rocco's side) instead of "The last pull failed".
+- Removing PlugX: Rocco page → Settings → Amazon accounts → Remove (owner). DataDoe has no API to disconnect, so also delete it in DataDoe → Accounts so it stops costing.
+- Site "Menu" button hidden on dashboard pages (the dashboard has its own bottom bar on phones).
+
+---
+
 ## 2026-11-25 · Fix: compare tables on phones
 - Bug: on phones every comparison table showed the column captions "Dr. PPC" and "Rocco" (hard-coded CSS from the Dr. PPC page), so the /compare overview put "Dr. PPC" over every competitor's price and "Rocco" over their pricing model; every /compare/<slug> page, /compare/claude|chatgpt and /connector were mislabelled too. Fix: each cell carries its own column name (data-label → CSS attr()), and the overview highlights Rocco's own row instead of a blue "Rocco" column. Checked at iPhone size.
 

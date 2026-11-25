@@ -27,7 +27,8 @@ export function TopNav() {
       <nav className="top-left" aria-label="Main">
         {links.filter((l) => l.href !== "/demo" || !inApp).map((l) => <Link key={l.href} href={l.href}>{l.t}</Link>)}
       </nav>
-      <div className="top-menu">
+      {/* Dashboard pages have their own menu (components/dash/DashNav.tsx): no site Menu there. */}
+      {!/^\/w\//.test(path) && <div className="top-menu">
         <button className="top-menu-btn" aria-expanded={open} aria-controls="top-menu-list" onClick={() => { setOpen((o) => !o); if (!open) track("menu_opened"); }}>
           <span aria-hidden>{open ? "✕" : "☰"}</span> Menu
         </button>
@@ -37,7 +38,7 @@ export function TopNav() {
             {!inApp && <Link href="/pricing" className="top-menu-cta">Hire Rocco →</Link>}
           </nav>
         )}
-      </div>
+      </div>}
     </div>
   );
 }
