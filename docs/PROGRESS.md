@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Account page + menu (sign out, settings, help, delete)
+- New **Account** page (`/w/<token>/account`): who's signed in + Sign out, plan & billing (paid until, how to cancel), team & Amazon accounts (→ Settings), help links, and **Delete my Rocco** (owner only, type DELETE).
+- Delete is blocked while a Dodo plan is active ("cancel it first"). Closing unlinks owner + teammates, releases Amazon accounts (kept in removedAccounts), stops texts, rotates the private link. Logic: `lib/account.ts` (tested). API: `POST /api/w/account`.
+- Menu: Account added to the desktop tabs and the phone More sheet (Analytics, Change log, Tidy, Report, Account, Settings, Help, Sign out). The top-left Help link is gone on dashboard pages.
+- Admin: when a Rocco is deleted, the server log lists its DataDoe accounts. Delete them in DataDoe and erase the data within 30 days (docs/ROUTINE.md).
+
 ## 2026-11-25 · Why Habit Nest had no ad recommendations
 - Root cause (checked live against DataDoe, read-only): the **"Search Term Performance (Ads)" table is switched off** in DataDoe → Settings → Data tables. DataDoe refuses the search-term export ("Export source is disabled for this organization"); campaign data still comes in (8,843 rows). Every ads job (block waste, harvest to exact, bids) is built from search terms, so only stock jobs showed. **Praveen: switch it back on, then Check connection now on the Rocco page.**
 - The connection card now says exactly this (which table, where to turn it on; customers are told it's on Rocco's side) instead of "The last pull failed".

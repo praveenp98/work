@@ -21,7 +21,8 @@ export function TopNav() {
   const inApp = /^\/(w|me|welcome)(\/|$)/.test(path);
   const [open, setOpen] = useState(false);
   useEffect(() => setOpen(false), [path]);
-  const links = inApp ? LINKS.filter((l) => l.href === "/help") : LINKS;
+  // Dashboard pages (/w/…) carry their own menu with Help and Account; other app pages keep just Help.
+  const links = /^\/w\//.test(path) ? [] : inApp ? LINKS.filter((l) => l.href === "/help") : LINKS;
   return (
     <div className="top-nav">
       <nav className="top-left" aria-label="Main">

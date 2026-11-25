@@ -1948,3 +1948,17 @@ h1, h2, .display { font-family: var(--display); }
   body.has-dashbar .human-pill { bottom: calc(82px + env(safe-area-inset-bottom)); }
   body.has-dashbar .sticky-hire { display: none; }
 }
+
+/* Account page */
+.acc { display: grid; gap: 14px; max-width: 760px; }
+.acc-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: grid; gap: 8px; }
+.acc-card h2 { margin: 0; font-size: 18px; }
+.acc-card p { margin: 0; }
+.acc-card .btn { justify-self: start; }
+.acc-danger { border-color: #fecaca; }
+.acc-del { display: grid; gap: 10px; }
+.acc-del label { display: grid; gap: 6px; font-size: 14.5px; }
+.acc-del input { font: inherit; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); max-width: 220px; }
+.acc-row { display: flex; gap: 10px; align-items: center; }
+.danger-btn { color: #b42318 !important; border-color: #fecaca !important; }
+.btn.small.danger-btn:not(.ghost) { background: #d92d20; color: #fff !important; border-color: #d92d20 !important; }

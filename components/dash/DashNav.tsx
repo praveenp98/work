@@ -12,6 +12,7 @@ const ITEMS = [
   { path: "/log", label: "Change log", icon: "🧾" },
   { path: "/tidy", label: "Tidy campaigns", icon: "🗂️" },
   { path: "/report", label: "Report", icon: "📄" },
+  { path: "/account", label: "Account", icon: "👤" },
 ] as const;
 
 /**

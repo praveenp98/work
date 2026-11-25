@@ -17,6 +17,8 @@ Everything here takes minutes. Start every check at **https://rocco.works/api/he
 - [ ] **What sellers asked for that Rocco can't do** (Vercel Logs → `[ai] Their question`): note the top 3 in docs/PROGRESS.md; the most asked becomes the next job type.
 - [ ] **Marketing costs** of the week logged in docs/PROGRESS.md (hackathon rule).
 
+- **Deleted Roccos:** search the Vercel logs for `rocco_deleted` / "delete in DataDoe". Delete the listed Amazon accounts in DataDoe → Accounts (stops the cost) and erase that workspace's stored data within 30 days (promised on the Account page).
+
 ## Every month (30 minutes)
 - [ ] **Exchange rates** for "N× what I cost" on non-US accounts: if a rate moved more than ~10%, ask Claude to update `lib/currency.ts`.
 - [ ] **Help center**: turn the month's repeated questions into /help articles (lib/help.ts).

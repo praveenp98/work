@@ -52,6 +52,9 @@ export interface Workspace {
   trialEndsAt?: string;
   subscriptionId?: string;
   subStatus?: string;
+  /** Closed by the owner ("Delete my Rocco", lib/account.ts); data erased by the admin within 30 days. */
+  deletedAt?: string;
+  deletedBy?: string;
   /** How this team feeds Rocco: Claude + Amazon's connectors (US), or Amazon's scheduled report emails (elsewhere). */
   mode?: "claude" | "reports";
   /** Report inbox (mode "reports"): last 20 emails and when the first real report arrived. */
