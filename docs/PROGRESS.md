@@ -12,6 +12,28 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Partnerships plan
+- `docs/PARTNERSHIPS.md`: one offer (30% of the first payment, paid after the 7-day guarantee, logged as marketing cost), partner types in order (small US-seller PPC freelancers/agencies, warm network, non-competing seller tools incl. DataDoe, community owners, courses, Higgsfield content), how to find 30 targets, 10 personal messages a day, tracking with a code per partner.
+- Next: Praveen builds the target sheet and starts messaging today. Check that a Dodo discount code or ?ref= link shows up in Dodo and /admin/funnel before the first partner goes live.
+
+## 2026-11-25 · Asked: a deal with Higgsfield
+- Higgsfield is the hackathon's prize sponsor. Don't ask it for money or a paid deal before Dec 16: it isn't Rocco revenue, and money from the prize sponsor to an entrant looks worse than money from a competitor. Ask the organizers first if anything paid comes up.
+- Clean version: make Rocco's ads and demo clips with Higgsfield (already the plan in docs/HIGGSFIELD.md), post them tagging @higgsfield_ai, and ask for a reshare. Higgsfield's affiliate program (up to 25% for 12 months) is side income, not contest revenue. A "make your listing video with Higgsfield" feature inside Rocco is a post-Dec 16 idea.
+
+## 2026-11-25 · Asked: X sponsorship deal with Indexsy (another hackathon entrant)
+- Advice: don't take money from another entrant. It isn't product revenue, prizes are checked by hand (the leading entry was already disqualified), and a payment between two entrants looks like collusion. The full rules page couldn't be read from here (robots blocked): Praveen to check its cheating section or ask the organizers first.
+- If Praveen pays someone on X to post about Rocco instead: it's ad spend (comes off profit), must be disclosed as paid, and is only worth it if their followers include US Amazon sellers. Log any payment.
+
+## 2026-11-25 · Reddit plan from Grok's agency brief
+- `docs/REDDIT-PLAN.md`: Reddit can't carry $100k by Dec 16 (about 36 yearly plans in 3 weeks; organic takes 4 to 12 months per the agencies; ad and agency spend comes off contest profit). Plan: one honest appeal, a labelled brand account that stays out of subs that banned Praveen, comment-first, mod-approved AMA at 60 to 90 days, owned subreddit only if it has a job, monitoring, optional capped Reddit Ads test promoting a free tool (Praveen sets the cap; kill rule after the first $400).
+- Agencies: none before Dec 16. Later: InterTeam or Stackmatix (paid test), REDD or Karmic (organic). Grey: Growth Marketing Pro (aged account fleet), Foundation persona account, Karmic seeded AMA questions, Soar.
+- Answered: the personal account is banned only in r/AmazonSeller (not site-wide). It stays the main account everywhere else, with disclosure; a brand account is optional, for ads replies.
+
+## 2026-11-25 · Reddit: ban, rate limit, rewrite as briefs
+- Praveen was banned on r/AmazonSeller and rate-limited posting the Black Friday post. r/FulfillmentByAmazon rules (seen Nov 25): no AI-generated text (instant ban), no promotion without mod approval, no naming buyers/sellers.
+- `marketing/copy/reddit-posts.md` rewritten: the 19 paste-ready posts are withdrawn. Now a posting playbook (appeal by modmail, no second account, 2-week comment-only warm-up, one post a week, 80/20, disclosure) + 17 topic briefs (facts with sources + questions only Praveen can answer). Praveen writes every post himself.
+- Next: modmail r/AmazonSeller once; comment-only for 2 weeks; ask r/FulfillmentByAmazon mods how to share the free tools.
+
 ## 2026-11-25 · Beginner guides live: /sell-on-amazon + 8 marketplaces
 - All 9 guides fact-checked against official pages (Amazon seller sites + fee PDFs, tax authorities, Marketplace Pulse) and published (SELL_PUBLISHED=true). In sitemap, llms.txt and the footer ("Start selling"). Details, URLs and what's still unverifiable: docs/BEGINNER-GUIDES.md.
 
