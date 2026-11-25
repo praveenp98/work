@@ -289,6 +289,7 @@ h1, h2, .display { color: var(--ink); }
 
 /* AI layer: morning brief, manager picks, later fixes, Ask Rocco */
 .rd-brief { margin: 6px 0 0; font-size: 17px; line-height: 1.45; color: var(--ink); max-width: 46ch; }
+.rd-split { margin: 4px 0 0; font-size: 14px; color: var(--muted, #6b7280); }
 .rd-fix.is-pick { border-left: 3px solid var(--accent); }
 .rd-more { margin-top: 14px; }
 .rd-more > summary { cursor: pointer; color: var(--muted); font-weight: 600; font-size: 14px; padding: 8px 0; list-style: none; }

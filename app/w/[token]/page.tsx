@@ -262,6 +262,12 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="rd-hero">
         <Greeting className="rd-kicker" />
         <h1>{jobs.length ? (shownValue >= 1 ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today to <em>protect your sales</em>.</>) : "All clear today."}</h1>
+        {jobs.length > 1 && (() => {
+          // Say how the jobs split, so "N jobs" here and "Approve all" below never look like they disagree.
+          const tap = jobs.filter((j) => j.mode === "auto").length, make = jobs.filter((j) => j.mode === "create").length, you = jobs.filter((j) => j.mode === "manual").length;
+          const parts = [tap && `${tap} I make in one tap`, make && `${make} new campaign${make === 1 ? "" : "s"} to review`, you && `${you} step${you === 1 ? "" : "s"} for you`].filter(Boolean);
+          return parts.length > 1 ? <p className="rd-split">{parts.join(" · ")}{shownValue >= 1 ? " · the $ is an estimate" : ""}</p> : null;
+        })()}
         {planOk && plan!.brief && <p className="rd-brief">{localize(plan!.brief, cur)}</p>}
         {acos !== null && (
           <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>

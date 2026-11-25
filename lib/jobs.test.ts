@@ -1,4 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { restockTitle } from "./jobs";
+import { analyzeStock } from "./rules/stock";
 import { applyMany, planFor } from "./apply";
 import { skusByAdGroup } from "./create-campaign";
 import { buildJobs } from "./jobs";
@@ -72,5 +74,16 @@ describe("making the changes", () => {
     expect(m.get("10")).toEqual([{ id: "W4-3ZND-PRCY", type: "SKU" }, { id: "B0ASIN", type: "ASIN" }]);
     expect(m.has("11")).toBe(false);
     expect(m.has("12")).toBe(false);
+  });
+});
+
+describe("stock wording", () => {
+  it("says out of stock when it already is, not 'before it runs out'", () => {
+    expect(restockTitle(1, 1)).toBe("Restock 1 product: it's out of stock");
+    expect(restockTitle(3, 1)).toBe("Restock 3 products (1 already out of stock)");
+    expect(restockTitle(2, 0)).toBe("Restock 2 products before they run out");
+    const a = analyzeStock([{ sku: "BSJ", asin: "B0X", name: "Budgeting Sidekick Journal", available: 0, inbound: 0, sold30: 2, daysOfSupply: 0 } as never]);
+    expect(a.findings[0].title).toMatch(/out of stock/);
+    expect(a.proposals[0].reason).toMatch(/out of stock\. Pause its ads/);
   });
 });

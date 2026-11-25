@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Today tab: counts and wording
+- "5 jobs today" vs "Approve all 2 jobs" looked like a conflict: the headline counts every job, the button only one-tap jobs. A line under the headline now splits them ("2 I make in one tap · 3 steps for you · the $ is an estimate"), and the button says "Approve the 2 one-tap jobs".
+- Out-of-stock products: "out of stock", not "0 days of stock" / "before it runs out"; the ads job says pause its ads; the restock detail says the 30-day pace undercounts demand because it was out part of that time.
+- Low-stock ads note no longer says "once your Amazon Ads data is in" (it is in): "easing one product's ads isn't one tap yet".
+- ~$ value checked: it is only the "lower bids" job: per keyword, spend above target ACoS × (2 × bid cut, max 100%). Estimate, now labelled as one.
+
 ## 2026-11-25 · Exact search → product links (no best guesses)
 - Amazon's search-term report has no product column. Rocco now keeps, for every selling search, its orders and sales **per ad group**, and reads which products each Sponsored Products ad group advertises (Ads (raw), cached ~20h per account in `ws.amazon.adGroups`). A search counts for a product only through ad groups that advertise **only that ASIN** (FBA and FBM SKUs of one ASIN are one product). Orders from multi-product ad groups are shown as "shared" and never used. Module: `lib/term-products.ts` (tested).
 - Replaces the title-matching heuristic shipped earlier today. Used by: listing words (backend, title, bullets), the image planner's briefs, and Claude's `listing_gaps` tool (new `sku` input; without it the answer says the words are account-wide).

@@ -86,7 +86,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { t
     <div className="tw">
       <div className="tw-head">
         <h2>Today&apos;s work</h2>
-        {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve all {openAuto.length} jobs · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</button>}
+        {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve the {openAuto.length} one-tap jobs{openAuto.some((j) => j.value > 0) ? <> · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</> : null}</button>}
       </div>
       <ul className="tw-list">
         {visible.map((j, i) => <JobCard key={j.id} restock={restock} cur={cur} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}

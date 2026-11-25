@@ -63,6 +63,12 @@ function kindOf(p: Proposal): keyof typeof META {
   return p.kind as "placement" | "structure";
 }
 
+export function restockTitle(n: number, out: number): string {
+  if (out >= n) return n === 1 ? "Restock 1 product: it's out of stock" : `Restock ${n} products: they're out of stock`;
+  if (out > 0) return `Restock ${n} products (${out} already out of stock)`;
+  return n === 1 ? "Restock 1 product before it runs out" : `Restock ${n} products before they run out`;
+}
+
 /** Seller Central jobs from the latest reports (steps, not approvals). */
 function sellerJobs(snaps: { inv?: Snapshot; biz?: Snapshot; lh?: Snapshot }): Job[] {
   const out: Job[] = [];
@@ -71,7 +77,7 @@ function sellerJobs(snaps: { inv?: Snapshot; biz?: Snapshot; lh?: Snapshot }): J
   if (atRisk > 0) {
     // Only the running-out findings (the inventory report also flags overstock and dead stock: different jobs).
     const items = (f(snaps.inv) as { title: string; detail?: string; valueMonthly?: number; restock?: { sku: string; suggest: number } }[]).filter((x) => x.restock || /stock left|run(s)? out|out of stock/i.test(`${x.title} ${x.detail ?? ""}`)).slice(0, 8).map((x, i) => ({ code: `R${i + 1}`, label: x.title, detail: x.detail ?? "", value: x.valueMonthly ?? 0, ...(x.restock ? { sku: x.restock.sku, qty: x.restock.suggest } : {}) }));
-    out.push({ id: "restock", kind: "restock", icon: "🚚", title: atRisk === 1 ? "Restock 1 product before it runs out" : `Restock ${atRisk} products before they run out`, summary: "Running out costs sales and ranking. Send a shipment to FBA now.", value: items.reduce((t, x) => t + x.value, 0), mode: "manual", codes: [], items, steps: "Seller Central → Inventory → FBA Inventory → Restock Inventory, then Send to Amazon for these SKUs." });
+    out.push({ id: "restock", kind: "restock", icon: "🚚", title: restockTitle(atRisk, items.filter((x) => /out of stock/i.test(x.label)).length), summary: "Running out costs sales and ranking. Send a shipment to FBA now.", value: items.reduce((t, x) => t + x.value, 0), mode: "manual", codes: [], items, steps: "Seller Central → Inventory → FBA Inventory → Restock Inventory, then Send to Amazon for these SKUs." });
   }
   const notSelling = Number(snaps.lh?.stats.problems ?? 0);
   if (notSelling > 0) out.push({ id: "listings", kind: "listings", icon: "🚨", title: `Fix ${s(notSelling, "listing")} that can't sell`, summary: "Suppressed or inactive listings: every day off is lost sales.", value: 0, mode: "manual", codes: [], items: f(snaps.lh).slice(0, 8).map((x, i) => ({ code: `L${i + 1}`, label: x.title, detail: x.detail ?? "", value: 0 })), steps: "Seller Central → Inventory → Manage All Inventory → filter Inactive/Suppressed → Fix." });
@@ -87,7 +93,7 @@ export const MANUAL_WHY: Partial<Record<JobKind, string>> = {
   restock: "Steps for you in Seller Central (about 10 minutes). Connect Amazon directly and I create the shipment plan for you.",
   listings: "You do this one: fixing a suppressed listing means editing it in Seller Central.",
   buybox: "You do this one: price and offer changes stay with you.",
-  stock_ads: "You do this one for now: once your Amazon Ads data is in, I'll lower these ads in one tap.",
+  stock_ads: "You do this one for now: easing one product's ads isn't one tap yet. Steps below.",
   placement: "You do this one for now: placement changes aren't one-tap yet.",
   structure: "You do this one for now: structure fixes need a look before anything moves.",
 };
