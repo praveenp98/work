@@ -1,8 +1,12 @@
-# Pricing (current, Nov 22, 2026)
+# Pricing (current, Nov 25, 2026)
 
-**$119 a month, or $1,190 a year (2 months free).** Yearly is shown first and preselected. 7-day money-back guarantee on both. Whole team, unlimited brands, no free plan, pay at signup. Source of truth in code: `lib/pricing.ts`. Dodo setup: `docs/DODO-SETUP.md`.
+**$279 a month, or $2,790 a year (2 months free, ~$233/mo billed yearly).** Flat: the same at any ad spend and for every team. Yearly is shown first and preselected. **14-day money-back guarantee** on both. Whole team, 3 Amazon accounts included (+$49/mo each extra), no free plan, pay at signup. Source of truth in code: `lib/pricing.ts` (`PLAN`); the guarantee length is one constant, `GUARANTEE_DAYS` in `lib/guarantee.ts` (pricing copy and partner payouts both read it). Dodo setup: `docs/DODO-SETUP.md`.
 
-**Price rise (Nov 22, Praveen):** every 5 hires, +$10 on monthly and +$100 on yearly (keeps 2 months free). Shown on the plan step and pricing page with hires left at today's price. Applied by hand: raise both Dodo products and `PLAN` in `lib/pricing.ts` together (next: $129/mo, $1,290/yr).
+**Guarantee 7 → 14 days (Nov 25, Praveen):** Rocco measures each change about a week after it is made, so two weeks covers at least one measured result before a seller decides. Partner payouts wait for the same 14 days.
+
+**No price ladder (Nov 25, Praveen):** the "prices go up every 5 hires (+$10/mo, +$100/yr)" line and its "hires left at this price" count are gone from the site, help and marketing. Prices stay flat; no rising-price urgency.
+
+**Praveen, in Dodo:** if the product descriptions say "7-day guarantee", change them to "14-day guarantee" (Dodo → Products → Rocco · Yearly / Rocco · Monthly → Description).
 
 **Team:** the owner adds teammates by email from the dashboard (they sign in with Google), can remove them, hand the Rocco over, and reset the private link. Billing stays on the card that paid.
 
@@ -102,7 +106,7 @@ Dodo charges each buyer in their own currency at a PPP-adjusted price; the site'
 
 ## Nov 24, 2026 (Praveen): $279/mo or $2,790/yr, "just a little below Dr. PPC"
 - Was $119 / $1,190. Dr. PPC launched at $299/mo + 2% of ad spend (docs/COMPETITOR-DRPPC.md); Praveen felt Rocco was underpriced.
-- New: **$279/month or $2,790/year** (2 months free, ~$233/mo billed yearly). Extra Amazon account still +$49/mo. 7-day guarantee, now said as "Try it 7 days on your own account. Not useful? Every cent back, one email."
+- New: **$279/month or $2,790/year** (2 months free, ~$233/mo billed yearly). Extra Amazon account still +$49/mo. 7-day guarantee (14 days since Nov 25), then said as "Try it 7 days on your own account. Not useful? Every cent back, one email."
 - Flat at any ad spend: at $10k/mo ads Dr. PPC is $5,988/yr, at $50k $15,588/yr; Rocco $2,790.
 - **Before this deploy takes effect, update Dodo:** set the yearly product to $2,790 and the monthly to $279 (or create new products and swap DODO_PRODUCT_ID_ANNUAL / _MONTHLY in Vercel). Until then the site shows $279 but Dodo charges the old price. If PPP local prices are listed in LOCAL_PRICES, update those too.
 - Code: lib/pricing.ts (PLAN), tests updated.

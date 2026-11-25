@@ -30,7 +30,7 @@ Contest maths: one-time, annual and lifetime payments all count as money receive
 - **Free 60-second audit** (Ad Waste + Rufus Ads) is the front door everywhere
 - **Black Friday / Cyber Monday (Nov 27 – Dec 1):** "Founding Member" offer, e.g. Pro annual at $199 (instead of $299) or **Founding Lifetime $499, capped at 100 seats.** Lifetime counts in full for the contest; the cap protects long-term revenue
 - **Agency bundle:** first 10 agencies get 2 extra workspaces free
-- **7-day refund guarantee**, stated loudly
+- **14-day refund guarantee**, stated loudly
 - **Urgency that's true:** "Sponsored Prompts are already billing you" and "Q4 peak ad waste"
 
 ## 3. Daily operating rhythm (founder, ~4–5 hours/day on growth)

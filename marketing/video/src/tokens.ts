@@ -4,7 +4,7 @@ import { SAMPLE } from "../../config/sample";
 /**
  * Specs are JSON, so they can't import the offer. Instead a spec writes {{offer:price.from}} or
  * {{sample:brand}} and the value is filled in from marketing/config at render time. A price typed into a spec
- * by hand would go stale at the next price rise; a token can't.
+ * by hand would go stale if the price changed; a token can't.
  */
 const ROOTS: Record<string, unknown> = { offer: OFFER, sample: SAMPLE };
 const TOKEN = /\{\{(offer|sample):([a-zA-Z0-9_.]+)\}\}/g;

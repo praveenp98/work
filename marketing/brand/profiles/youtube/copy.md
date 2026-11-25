@@ -56,7 +56,7 @@ On this channel:
 • How Rocco works, on a sample account
 
 Free tools, no login: rocco.works/tools
-$2,790/year or $279/month. 7-day money-back.
+$2,790/year or $279/month. 14-day money-back.
 
 Rocco is an independent tool and is not affiliated with, endorsed by or sponsored by Amazon.
 ```
@@ -99,7 +99,7 @@ Built from the scenes of `marketing/video/specs/demo-30s.json` plus one face-cam
 | 21 to 27s | One tap on "Approve all 6", the job flips to done | you approve. it makes the change in amazon. |
 | 27 to 33s | The YES thread | or you reply yes from your messages. |
 | 33 to 38s | Change log row flips to "worked" | a week later it checks if it worked. every change is logged and undoable. |
-| 38 to 45s | End card: rocco.works, $233/mo billed yearly, 7-day money-back | on this channel: one amazon ads problem and its fix, every video. subscribe, or try rocco at rocco.works. |
+| 38 to 45s | End card: rocco.works, $233/mo billed yearly, 14-day money-back | on this channel: one amazon ads problem and its fix, every video. subscribe, or try rocco at rocco.works. |
 
 ## Playlists
 

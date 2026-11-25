@@ -12,7 +12,7 @@ Expect roughly **15–25 emails per 10 new sellers in week one**, then **~1 per 
 | 1 | "Connected but no jobs yet" | 25% | /help/first-jobs-not-showing | Check /api/health; in DataDoe check the account's first load. Reply with the macro below. |
 | 2 | Amazon sign-in / permission errors | 15% | /help/connect-errors | Tell them to use the primary user, connect Ads on step 2. |
 | 3 | "Approval failed" | 10% | /help/approve-failed | Check DataDoe → Actions are on (all 7). Reconnect if needed. |
-| 4 | Refund within 7 days | 10% | /help/refund | Dodo → Transactions → Refund (full) → Subscriptions → cancel. Access ends automatically. |
+| 4 | Refund within 14 days | 10% | /help/refund | Dodo → Transactions → Refund (full) → Subscriptions → cancel. Access ends automatically. |
 | 5 | Cancel / invoice | 10% | /help/cancel, /help/invoice | Point to the Dodo receipt link. |
 | 6 | Can't get back in / wrong Google account | 10% | /help/sign-in-problems | Ask which email they paid with; check it's the owner on the team. |
 | 7 | Teammate access / hand over | 5% | /help/add-teammates | — |

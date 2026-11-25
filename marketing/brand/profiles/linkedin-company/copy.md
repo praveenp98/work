@@ -40,7 +40,7 @@ How it connects: you sign in on Amazon's own page through DataDoe, an Amazon-app
 
 Who it's for: Amazon sellers, brand owners and agencies on any marketplace, including the US, UK, EU, Canada, India, Japan and Australia. Teams are included: add teammates by email, and every approval shows who made it.
 
-Pricing: $2,790 a year (2 months free) or $279 a month. Whole team. 3 Amazon accounts included (each marketplace counts as one), +$49/mo each extra. 7-day money-back guarantee.
+Pricing: $2,790 a year (2 months free) or $279 a month. Whole team. 3 Amazon accounts included (each marketplace counts as one), +$49/mo each extra. 14-day money-back guarantee.
 
 Rocco is an independent tool and is not affiliated with, endorsed by or sponsored by Amazon.
 

@@ -27,7 +27,7 @@ create table if not exists partner_referrals (
   amount numeric(10,2) not null,                 -- USD the seller paid
   currency text,                                 -- what Dodo charged in
   paid_at timestamptz not null,
-  guarantee_ends_at timestamptz not null,        -- paid_at + 7 days; no payout before this
+  guarantee_ends_at timestamptz not null,        -- paid_at + 14 days (GUARANTEE_DAYS); no payout before this
   refunded boolean not null default false,
   payout_status text not null default 'due' check (payout_status in ('due', 'paid', 'void')),
   payout_paid_at timestamptz,

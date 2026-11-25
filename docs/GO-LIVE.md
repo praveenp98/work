@@ -18,8 +18,8 @@ The code is ready. These steps need Praveen's accounts. Each one says which env 
 `<script defer src="https://www.ship-or-die.com/hackathon/verify.js" data-site="f9fac6eeac39ef1b81208010816a97a15278f3aa">` is rendered in `<head>` on every page (`components/Tracker.tsx` via `app/layout.tsx`). Verified on the production build (one tag per page).
 After deploy: open rocco.works, then press "Check installation" in the hackathon dashboard. Do this before sharing any link.
 
-## 3. Payments: Dodo Payments (USD) — single Founding Lifetime plan on a price ladder
-Vercel env: `DODO_API_KEY` (required for the ladder). Dodo webhook → `https://rocco.works/api/dodo/webhook`.
+## 3. Payments: Dodo Payments (USD): yearly + monthly plans, flat price (no ladder)
+Vercel env: `DODO_API_KEY` (required for billing checks and the paying-customer count). Dodo webhook → `https://rocco.works/api/dodo/webhook`.
 Polar is out (doesn't support individuals in India). Code now uses Dodo: see `docs/DODO-SETUP.md`.
 ✅ Products created and wired by Claude (IDs in `docs/DODO-SETUP.md`). Praveen: finish KYC/payouts, click a checkout link once, make one real purchase (refund after) to confirm the license email + unlock, connect Dodo to TrustMRR.
 
@@ -37,7 +37,7 @@ Without Supabase, "Get my personal Rocco" and `/mcp/<key>` return "memory isn't 
 - Cold-email sending domains stay separate (`docs/LAUNCH-SETUP.md`); ask before buying.
 
 ## 6. Decisions Praveen needs to approve
-- [ ] Refund policy: 7 days, "if Rocco finds nothing useful" (refunds reduce contest profit; short window recommended).
+- [ ] Refund policy: 14 days, "if Rocco finds nothing useful" (refunds reduce contest profit; short window recommended).
 - [ ] Pricing as on `/pricing` (from plan v2).
 - [ ] Business postal address for email footers (CAN-SPAM) and Polar.
 
@@ -94,7 +94,7 @@ Add `ANTHROPIC_API_KEY` (console.anthropic.com → API keys) in Vercel → redep
 2. Vercel → env `DODO_PRODUCT_ID` = that id → redeploy. (The old one-time product stays as legacy; its buyers keep lifetime access.)
 3. Dodo → Developer → Webhooks → endpoint `https://rocco.works/api/dodo/webhook`, events: all `subscription.*` and `payment.*`.
 4. Test in test mode first if possible: start a trial with a test card → your Rocco page shows "Free trial: 3 days left" and the team gets "🎉 Your 3-day free trial is on". Then text CANCEL → "Cancelled ✅".
-5. Check: does Dodo keep an existing subscriber's renewal price when the product price goes up (ladder)? Tell Claude the answer before we promise "your price stays locked".
+5. (No price ladder since Nov 25, 2026: prices are flat, so there is no renewal-price question.)
 
 ## 13. Sign in with Google (Nov 19)
 Flow: Hire Rocco → Continue with Google → Dodo checkout (prefilled, tagged with the team) → /welcome → setup. Returning users: "Sign in" (top right) → their Rocco. Without the keys the sheet falls back to the work-email form.

@@ -17,7 +17,7 @@ rocco | amazon ppc + ads manager
 ```text
 Your AI Amazon manager 🦝
 I find what to fix every morning. You approve, I make the change.
-7-day money-back · any marketplace
+14-day money-back · any marketplace
 ```
 
 125 / 150 characters
@@ -48,7 +48,7 @@ Images in this folder: `avatar-320x320.png`, five highlight covers, three grid c
 | 1 | how it works | `highlight-how-it-works-1080x1920.png` | connect once, morning list, approve, checked a week later |
 | 2 | fixes | `highlight-fixes-1080x1920.png` | one story per job: block wasted searches, fix bids, exact campaigns, budgets, stock, tidy |
 | 3 | approve by text | `highlight-approve-by-text-1080x1920.png` | the YES thread on iMessage, WhatsApp and Slack |
-| 4 | pricing | `highlight-pricing-1080x1920.png` | $2,790/year or $279/month, 7-day money-back, what's included |
+| 4 | pricing | `highlight-pricing-1080x1920.png` | $2,790/year or $279/month, 14-day money-back, what's included |
 | 5 | india | `highlight-india-1080x1920.png` | works on Amazon India, checkout shows local price |
 
 Instagram shows only the centre of a cover, in a small circle: each cover is one emoji on a white disc so nothing gets cut.
@@ -59,7 +59,7 @@ Instagram shows only the centre of a cover, in a small circle: each cover is one
 |---|---|---|---|
 | 1 | Reel, `demo-30s-9x16.mp4` | `grid-cover-1-what-rocco-is-1080x1350.png` | What Rocco is. The clip shows the sample account, labelled "Sample account" on screen. |
 | 2 | Reel, `demo-15s-9x16.mp4` | `grid-cover-2-one-job-1080x1350.png` | One job, one tap: the morning list, approve, done |
-| 3 | Carousel | `grid-cover-3-pricing-1080x1350.png` | Pricing and the 7-day money-back guarantee, worded exactly as on the site |
+| 3 | Carousel | `grid-cover-3-pricing-1080x1350.png` | Pricing and the 14-day money-back guarantee, worded exactly as on the site |
 
 **Caption for pin 1**
 
@@ -68,7 +68,7 @@ I'm Rocco, an AI Amazon manager.
 
 Every morning I find what to fix in your ads, bids and stock. You approve. I make the change in Amazon, then check it worked.
 
-7-day money-back. Link in bio.
+14-day money-back. Link in bio.
 ```
 
 191 / 2200 characters

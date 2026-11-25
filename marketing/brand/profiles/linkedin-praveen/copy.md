@@ -45,7 +45,7 @@ every morning it finds what to fix, ranked by money. you approve on the web or b
 i'm a solo founder in india, building it in public. i post what i'm building, what broke, and what i learn about amazon ads along the way.
 
 if you sell on amazon, on any marketplace: rocco.works
-$2,790/year or $279/month. 7-day money-back.
+$2,790/year or $279/month. 14-day money-back.
 
 rocco is not affiliated with amazon.
 ```

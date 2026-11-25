@@ -15,7 +15,7 @@ rocco · ai amazon manager
 **Bio** (who, what, proof, guarantee)
 
 ```text
-Your AI Amazon manager. Every morning I find what to fix in your ads, bids and stock. You approve, I make the change. Logged and undoable. 7-day money-back.
+Your AI Amazon manager. Every morning I find what to fix in your ads, bids and stock. You approve, I make the change. Logged and undoable. 14-day money-back.
 ```
 
 156 / 160 characters
@@ -60,7 +60,7 @@ Every morning I find what to fix in your ads, bids and stock. You approve. I mak
 ```text
 Hire me or look around: rocco.works/x
 
-$233/mo billed yearly. 7-day money-back.
+$233/mo billed yearly. 14-day money-back.
 ```
 
 78 / 280 characters

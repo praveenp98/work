@@ -14,7 +14,7 @@ import { hasAccess } from "@/lib/access";
 /**
  * Dodo webhook (subscription.* and payment.* events). The body is not trusted: it only names a subscription or
  * payment, which lib/billing fetches from Dodo's API. Updates the team's trial/paid state, tells the team, and
- * re-syncs the price ladder (counts paying customers only).
+ * re-syncs the paying-customer count (counts paying customers only).
  */
 let last = 0;
 export async function POST(req: Request) {

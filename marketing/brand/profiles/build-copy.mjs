@@ -8,7 +8,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadConfig, MARKETING_DIR } from "../../scripts/load-config.mjs";
 
-const { OFFER, HANDLES, PRICE_RISE } = await loadConfig();
+const { OFFER, HANDLES } = await loadConfig();
 const DIR = path.join(MARKETING_DIR, "brand", "profiles");
 const G = `${OFFER.guarantee.days}-day money-back`;
 const count = (s) => [...s].length;
@@ -284,7 +284,7 @@ One folder per account: \`copy.md\` (exact text with character counts) and the i
 | Link | rocco.works/x | rocco.works/ig | rocco.works/linkedin | rocco.works/yt | rocco.works/linkedin |
 | Banner headline | You approve. Rocco does the rest. | (no banner) | You approve. Rocco does the rest. | Fix one Amazon ads problem at a time. | Your AI Amazon manager. You approve, it does the rest. |
 
-Rules that hold on every account: the name in text is "Rocco"; "Not affiliated with Amazon" appears wherever Amazon's name is prominent; prices come from \`marketing/config/offer.ts\`; the guarantee is ${OFFER.guarantee.days} days; any Bamboo & Co number carries "Sample account"; the price rise is worded "${OFFER.priceRise.line}" (every ${PRICE_RISE.everyHires} hires).
+Rules that hold on every account: the name in text is "Rocco"; "Not affiliated with Amazon" appears wherever Amazon's name is prominent; prices come from \`marketing/config/offer.ts\`; the guarantee is ${OFFER.guarantee.days} days; any Bamboo & Co number carries "Sample account"; the price is flat (no "price goes up" lines).
 
 ## Not live yet
 

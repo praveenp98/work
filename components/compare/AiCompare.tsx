@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
+import { NotForYou } from "@/components/compare/NotForYou";
 import { PLAN, PRICE } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
@@ -58,6 +59,8 @@ export function AiCompare({ ai }: { ai: AiTool }) {
           <div className="pr-group"><h3>Hire Rocco if</h3><ul><li>You want to be told what&apos;s wrong without asking</li><li>You want every change logged, capped and undoable</li><li>You want to know, a week later, whether it made money</li><li>Your team needs to approve from their phones</li></ul></div>
         </div>
       </section>
+
+      <NotForYou />
 
       <section className="pr-sec pr-faq">
         <h2>Questions</h2>

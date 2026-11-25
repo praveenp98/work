@@ -58,7 +58,7 @@ export function GET() {
     `- [All comparisons](${SITE.url}/compare): Helium 10 Ads, Teikametrics, Perpetua, Scale Insights, Ad Badger, BidX, Quartile, agencies, Amazon's free tools.`,
     "",
     "## Pricing",
-    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team, 3 Amazon accounts included (+$49/mo each extra): $2,790 a year (2 months free) or $279 a month, 7-day money-back guarantee.`,
+    `- [Hire Rocco](${SITE.url}/pricing): one plan for the whole team, 3 Amazon accounts included (+$49/mo each extra): $2,790 a year (2 months free) or $279 a month, 14-day money-back guarantee.`,
     "",
     "## Partner program (for agencies, seller tools and community owners who refer sellers)",
     ...ALL_PARTNER_PAGES.map((p) => `- [${p.metaTitle}](${SITE.url}${p.path}): ${p.metaDescription}`),

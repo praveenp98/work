@@ -2,9 +2,9 @@
  * The offer, in one place. Every marketing asset (videos, PDFs, pages, emails, carousels) reads price, guarantee,
  * links and handles from here. Never type a price into an asset.
  *
- * Plan prices and guarantee days come from the app's own source, lib/pricing.ts (PLAN). When the price rises:
- * Praveen raises both Dodo products and PLAN in lib/pricing.ts (docs/ROUTINE.md), then re-render the assets.
- * The values the app only has as page copy (price-rise step, included accounts, time math) are defined here and
+ * Plan prices and guarantee days come from the app's own source, lib/pricing.ts (PLAN). The price is flat (no price
+ * ladder since Nov 25, 2026). If PLAN ever changes, re-render the assets.
+ * The values the app only has as page copy (included accounts, time math) are defined here and
  * mirror components/start/ValueCalc.tsx and components/PricingPlans.tsx. If the site changes them, change them here.
  *
  * Keep this file to erasable TypeScript (no enums, no path aliases) so plain Node can load it:
@@ -20,8 +20,6 @@ const annual = PLAN.annualCents / 100; // 2790
 const perMonthAnnual = Math.round(annual / 12); // 233
 const saveYearly = monthly * 12 - annual; // 558
 
-/** Mirrors PriceRise in components/start/ValueCalc.tsx. Applied by hand, so the step is copy, not code. */
-export const PRICE_RISE = { everyHires: 5, monthlyStep: 10, annualStep: 100 } as const;
 /** Mirrors components/PricingPlans.tsx and app/pricing/page.tsx. */
 export const ACCOUNTS = { included: 3, extraPerMonth: 49 } as const;
 /** Mirrors ValueCalc: hours a day x 22 workdays x $35 an hour. Always show the assumption next to the result. */
@@ -57,16 +55,8 @@ export const OFFER = {
     checkoutNote: "Secure checkout by Dodo Payments.",
   },
 
-  priceRise: {
-    ...PRICE_RISE,
-    /** "Prices go up every 5 hires: +$10 a month, +$100 a year." */
-    line: `Prices go up every ${PRICE_RISE.everyHires} hires: +${usd(PRICE_RISE.monthlyStep)} a month, +${usd(PRICE_RISE.annualStep)} a year.`,
-    nextMonthly: monthly + PRICE_RISE.monthlyStep, // 129
-    nextAnnual: annual + PRICE_RISE.annualStep, // 1290
-  },
-
   guarantee: {
-    days: PLAN.guaranteeDays, // 7
+    days: PLAN.guaranteeDays, // 14 (GUARANTEE_DAYS in lib/guarantee.ts)
     short: `${PLAN.guaranteeDays}-day money-back guarantee`,
     full: `If you don't like the fixes I give you in your first ${PLAN.guaranteeDays} days, email human@rocco.works and you get a full refund. No call, no forms.`,
   },
@@ -87,12 +77,6 @@ export const OFFER = {
   disclaimerFull: "Rocco is an independent tool and is not affiliated with, endorsed by or sponsored by Amazon.",
   dataPartner: "You sign in on Amazon's own page through DataDoe, an Amazon-approved data partner. Rocco never sees your password. Remove access anytime in Seller Central.",
 } as const;
-
-/**
- * Hires left at today's price. `sold` is live (GET https://rocco.works/api/price, field "sold"). Never bake the
- * result into a rendered asset: it goes stale with the next hire. In static assets use the priceRise.line only.
- */
-export const hiresLeftAtThisPrice = (sold: number) => PRICE_RISE.everyHires - (sold % PRICE_RISE.everyHires);
 
 // ── Links and handles ────────────────────────────────────────────────────────────────────────────────────────
 export const SITE_URL = "https://rocco.works";
@@ -150,7 +134,6 @@ export function hackathonDay(date: string | Date = new Date()): number {
 /** Every dollar amount an asset may state about the offer. marketing/scripts/lint-copy.mjs builds its allowlist from this. */
 export const OFFER_DOLLAR_AMOUNTS: readonly number[] = [
   monthly, annual, perMonthAnnual, saveYearly,
-  PRICE_RISE.monthlyStep, PRICE_RISE.annualStep, OFFER.priceRise.nextMonthly, OFFER.priceRise.nextAnnual,
   ACCOUNTS.extraPerMonth,
   TIME_MATH.ratePerHour, timeCostMonthly,
   HACKATHON.prize,

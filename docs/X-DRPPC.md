@@ -20,7 +20,7 @@ UTM: `?utm_source=x&utm_medium=social&utm_campaign=drppc_launch` (LinkedIn: utm_
 >
 > Where we differ: they price on % of ad spend. I think an AI manager that earns more when you spend more has the wrong incentive. Rocco is a flat $2,790/yr for your whole team, 3 Amazon accounts, ads AND Seller Central (restock plans, Buy Box, suppressed listings).
 >
-> Built solo, in public, for the Ship or Die hackathon. Try it for 7 days on your own account; not useful, every cent back.
+> Built solo, in public, for the Ship or Die hackathon. Try it for 14 days on your own account; not useful, every cent back.
 
 ## Post 3 (Rocco): the calculator
 > Slide your ad spend. Watch the "2% of ad spend" bar grow. Watch mine not move.

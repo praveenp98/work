@@ -38,7 +38,7 @@ a short list of what to fix. i tap approve. it makes the change in amazon.
 
 or i just reply yes.
 
-link in bio. 7-day money-back.
+link in bio. 14-day money-back.
 
 ### tiktok (9:16)
 

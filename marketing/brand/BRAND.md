@@ -19,7 +19,7 @@ Last checked against the homepage, /pricing, /press and /guides copy in the repo
 **Proof we're allowed to use.** Only the facts in BRIEF.md:
 - How it connects: Amazon's own sign-in through DataDoe, an Amazon-approved data partner. Rocco never sees the password. Access can be removed anytime in Seller Central.
 - What it does: the six jobs, the change log, undo, the check a week later, the "Before Rocco" read on day one, learning from skips.
-- The offer: price, 7-day money-back guarantee, 3 accounts, whole team (read `marketing/config/offer.ts`, never type a price).
+- The offer: price, 14-day money-back guarantee, 3 accounts, whole team (read `marketing/config/offer.ts`, never type a price).
 - The time math, with its assumption shown every time.
 - The sample account, Bamboo & Co, always labelled "Sample account".
 
@@ -133,7 +133,7 @@ Two voices. Never mix them in one piece.
 | 5 | Show the assumption with the number: "1 hr/day at $35/hr". | A number with no source, or a number that is not in BRIEF.md. |
 | 6 | Label the demo: "sample account" on every Bamboo & Co frame. | Present the sample numbers as a customer's result. |
 | 7 | Compare with a category: "data dashboards", "PPC agencies", "doing it yourself". | Name a competitor, or say "the only" or "the best". |
-| 8 | Say the guarantee exactly: 7 days, email, full refund, no call, no forms. | Round it up or soften it. See example 8 below. |
+| 8 | Say the guarantee exactly: 14 days, email, full refund, no call, no forms. | Round it up or soften it. See example 8 below. |
 | 9 | Short sentences. One idea each. Commas, periods, colons, "to". | Em dashes, stacked adjectives, three-part lists for rhythm. |
 | 10 | "DataDoe is an Amazon-approved data partner." | Anything that reads as Amazon endorsing Rocco. |
 
@@ -158,11 +158,11 @@ Examples of the Don't column (never ship these):
 | revolutionary, game-changer | warning | say what it does |
 | unlock, supercharge | warning | fix, find, cut |
 | effortless | warning | "one tap to approve" |
-| guaranteed results | warning | the 7-day money-back guarantee, worded exactly |
+| guaranteed results | warning | the 14-day money-back guarantee, worded exactly |
 | set and forget | warning | "nothing changes until you approve" (fine as the name of the enemy in section 4) |
 | AI-powered as a lead | warning | lead with the job; "AI Amazon manager" is fine as the category |
 | "shipped in 7 days" to sellers | warning | the origin line in section 3 |
-| 30-day (guarantee) | error | 7-day |
+| 30-day (guarantee) | error | 14-day |
 | free plan (as a feature) | error | "no free plan: reading an Amazon account costs real money to run" |
 | trusted by | error | nothing, until there is permissioned proof |
 | testimonials, reviews, star ratings | error | the proof slot, when Praveen has written permission |
@@ -242,7 +242,7 @@ Headline sizes are the largest allowed: a long line shrinks to fit. Captions are
 | Dashboards show data and leave the work to you | Homepage: "Other tools give you data. I give you decisions." and its table |
 | DataDoe, password never seen, remove access anytime | BRIEF.md product facts |
 | Approve on web, iMessage, WhatsApp, Slack | BRIEF.md product facts |
-| 7 days, email, full refund, no call, no forms | BRIEF.md price |
+| 14 days, email, full refund, no call, no forms | BRIEF.md price |
 | No free plan and why | BRIEF.md price |
 | "1 hr/day at $35/hr" | BRIEF.md time math |
 | Rocco is "he"; long name; "Hire Rocco" | `lib/site.ts` description; `content/launch-kit.json`; site buttons |

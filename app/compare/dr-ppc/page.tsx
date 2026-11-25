@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { SpendCompare } from "@/components/SpendCompare";
-import { DRPPC, ROCCO, yearlyAt } from "@/lib/competitors";
+import { NotForYou } from "@/components/compare/NotForYou";
+import { SpendTable } from "@/components/compare/SpendTable";
+import { DRPPC, ROCCO, TYPICAL_SPENDS, yearlyAt } from "@/lib/competitors";
 import { COMPETITORS } from "@/lib/compare";
 import { PLAN, PRICE } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
@@ -15,12 +17,11 @@ export const metadata: Metadata = {
 };
 
 const $ = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
-const AT = [10000, 30000, 50000].map((s) => ({ s, ...yearlyAt(s) }));
+const AT = TYPICAL_SPENDS.map((s) => ({ s, ...yearlyAt(s) })); // $2k, $5k, $10k a month in ads
 
 const ROWS: [string, string, string][] = [
   ["Price", "$299/mo + 2% of ad spend", `${PRICE.annual}/yr or ${PRICE.monthly}/mo, flat`],
-  ["Per year at $10k/mo ad spend", `${$(AT[0].drppc)} (month-to-month)`, `${$(AT[0].rocco)} yearly plan · ${$(ROCCO.monthly * 12)} on monthly`],
-  ["Per year at $50k/mo ad spend", `${$(AT[2].drppc)} (month-to-month)`, `${$(AT[2].rocco)} yearly plan · ${$(ROCCO.monthly * 12)} on monthly`],
+  ["Per year at $2k / $5k / $10k a month in ads", `${AT.map((x) => $(x.drppc)).join(" / ")} (month-to-month)`, `${$(ROCCO.annual)} at any spend on the yearly plan · ${$(ROCCO.monthly * 12)} on monthly`],
   ["On Full Circle Partner", "$299 base waived: 2% of ad spend only (e.g. $2,400/yr at $10k/mo)", "No partner program; same flat price for everyone"],
   ["AI model", "Opus 5.5 (their site: \"Powered by Opus 5.5\")", "Claude Opus 5.5, plus fixed, tested rules for every money decision"],
   ["Gets paid more when you spend more", "Yes (2% of every ad dollar)", "No. Same price at any spend"],
@@ -39,7 +40,7 @@ const ROWS: [string, string, string][] = [
 
 const FAQ = [
   { q: "What is Dr. PPC?", a: `An AI Amazon PPC manager from Full Circle, an Amazon agency, sold inside their platform Orbit. Public price: $299/mo plus 2% of ad spend, first 30 days $1 (${DRPPC.url.replace("https://", "")}, ${DRPPC.checked}).` },
-  { q: "Why is Rocco cheaper for most sellers?", a: `Rocco charges a flat ${PRICE.annual} a year. A %-of-ad-spend fee grows with your budget: at $30k/mo in ads, Dr. PPC is ${$(AT[1].drppc)} a year, ${AT[1].times.toFixed(1)}× Rocco.` },
+  { q: "Is Rocco cheaper than Dr. PPC?", a: `On Dr. PPC's month-to-month price, yes at every spend: Rocco is a flat ${PRICE.annual} a year, and Dr. PPC is $299 a month plus 2% of ad spend. At $5,000 a month in ads that's ${$(AT[1].drppc)} a year, ${AT[1].times.toFixed(1)}× Rocco's yearly plan; at $2,000 it's ${$(AT[0].drppc)}. On Full Circle Partner (the $299 base waived, 2% only) Dr. PPC is cheaper than Rocco below about $11,600 a month in ads.` },
   { q: "Is Dr. PPC good?", a: "It's built by an agency with real experience, and it has things Rocco doesn't have yet (dayparting, a full analytics suite). If you want an agency ecosystem and don't mind paying a share of your ad spend, it's a fair pick. If you want a flat price, Seller Central jobs and your whole team in one place, pick Rocco." },
   { q: "Can I switch from Dr. PPC to Rocco?", a: "Yes. Connect Amazon in Rocco and it reads your account's change history once, so it knows how the account was run before. Turn off the other tool's automatic changes first so two managers don't fight over the same bids." },
   { q: "Does Rocco change things without asking?", a: "Not by default. Rocco starts on \"approve every move\": each change waits for a tap from you or a teammate. You can choose \"inside guardrails\" (Rocco makes money-saving moves itself) or \"fully autonomous\" (every one-tap change, ±20% a step, 25 a day). Either way every change is checked with Amazon first, logged, and can be undone." },
@@ -57,6 +58,8 @@ export default function Page() {
       </header>
 
       <section className="pr-sec"><SpendCompare /></section>
+
+      <SpendTable />
 
       <section className="pr-sec">
         <h2>Side by side</h2>
@@ -76,6 +79,8 @@ export default function Page() {
           <div className="pr-group"><h3>Pick Rocco if</h3><ul><li>You don&apos;t want to pay a share of your ad budget forever</li><li>You want stock, Buy Box and listings handled next to ads</li><li>Your team approves from their phone, not a dashboard</li><li>You want to start today without a demo or a partner plan</li></ul></div>
         </div>
       </section>
+
+      <NotForYou />
 
       <section className="pr-sec pr-faq">
         <h2>Questions</h2>

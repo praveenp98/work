@@ -168,12 +168,13 @@ export const HELP: HelpArticle[] = [
     slug: "plans-and-pricing", section: "Billing", updated: U,
     q: "How much does Rocco cost?",
     short: `${PRICE.line} One plan covers your whole team and 3 Amazon accounts (each marketplace counts as one); each extra account is +$49 a month.`,
-    more: ["Prices go up every 5 hires (+$10 a month, +$100 a year). Your price is the one you pay at checkout."],
+    more: ["The price is flat: the same for every team, whatever you spend on ads."],
   },
   {
     slug: "refund", section: "Billing", updated: U,
     q: "How do I get a refund?",
     short: `${G}-day money-back guarantee: if you don't like the fixes Rocco gives you in your first ${G} days, email human@rocco.works from the email you paid with and you get a full refund. No call, no forms.`,
+    more: [`Why ${G} days: Rocco measures each change about a week after it is made, so you see at least one measured result before you decide.`],
   },
   {
     slug: "cancel", section: "Billing", updated: U,

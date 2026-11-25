@@ -12,6 +12,6 @@
     { "type": "compare", "duration": 6.5, "caption": "other tools give you data. rocco gives you decisions, then does the work." },
     { "type": "stat", "duration": 3.6, "caption": "an hour a day on ads, bids and stock adds up.", "props": { "kicker": "What it's worth", "label": "Time spent checking ads, bids and stock", "value": "{{offer:timeMath.monthlyText}}/mo", "source": "{{offer:timeMath.hoursPerDay}} hr/day at ${{offer:timeMath.ratePerHour}}/hr" } },
     { "type": "footage", "duration": 2.6, "caption": "so i stopped doing it by hand.", "props": { "src": "footage/demo-c-desk.mp4", "shot": "C" } },
-    { "type": "end", "duration": 4.2, "caption": "seven day money back. link in bio.", "props": { "cta": "link in bio" } }
+    { "type": "end", "duration": 4.2, "caption": "fourteen day money back. link in bio.", "props": { "cta": "link in bio" } }
   ]
 }

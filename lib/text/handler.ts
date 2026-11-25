@@ -94,7 +94,7 @@ export async function respond(store: Store, from: string, text: string, now = ne
 /** Everything Rocco knows about a team, as plain text for the brain. */
 async function teamContext(store: Store, ws: Workspace, now: Date): Promise<string> {
   const b = await buildBrief(store, ws, now);
-  const L = [ws.about ? `They said: ${ws.about}` : "", ...Object.keys(ws.brands).map((k) => strategyText(brandSettings(ws, k), ws.autonomy)), hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring: $2,790/year or $279/month, 7-day money-back guarantee).", formatBrief(b)];
+  const L = [ws.about ? `They said: ${ws.about}` : "", ...Object.keys(ws.brands).map((k) => strategyText(brandSettings(ws, k), ws.autonomy)), hasAccess(ws) ? "Plan: active (all fixes unlocked)." : "Plan: none yet (needs hiring: $2,790/year or $279/month, 14-day money-back guarantee).", formatBrief(b)];
   const snaps = await store.listSnapshots(ws.id, { limit: 8 });
   for (const s of snaps) {
     const f = (s.extra?.findings ?? []).slice(0, 4).map((x) => `  • ${x.title}`).join("\n");
@@ -165,7 +165,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
   await store.savePhone({ ...p, stage: undefined, lastSeenAt: now.toISOString(), optedOut: cmd.kind === "stop" ? true : cmd.kind === "start" ? false : p.optedOut });
 
   if (attachments.length && ws) {
-    if (!hasAccess(ws, now)) return { bubbles: ["I read reports and screenshots for teams that hired me 🦝 Hire me here (7-day money-back guarantee):", hireUrl(ws)] };
+    if (!hasAccess(ws, now)) return { bubbles: ["I read reports and screenshots for teams that hired me 🦝 Hire me here (14-day money-back guarantee):", hireUrl(ws)] };
     if (!(await spend(store, ws, "ask"))) return LIMIT_MSG.ask;
     const file = attachments.find(isTable);
     if (file) return readReport(store, ws, file, now);
@@ -196,7 +196,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
     const n = b.perBrand.reduce((t, x) => t + x.hidden, 0);
     const v = b.perBrand.reduce((t, x) => t + (x.hiddenValue ?? 0), 0);
     const lead = n ? `💰 I found ~$${Math.round(v).toLocaleString("en-US")}/mo across ${n} fixes in your account.` : "I'm ready when you are 🦝";
-    return { bubbles: [`${lead} Hire me to see and approve them: $2,790 a year (2 months free) or $279 a month, 7-day money-back guarantee.`, hireUrl(ws)] };
+    return { bubbles: [`${lead} Hire me to see and approve them: $2,790 a year (2 months free) or $279 a month, 14-day money-back guarantee.`, hireUrl(ws)] };
   }
 
   switch (cmd.kind) {
@@ -215,7 +215,7 @@ async function core(store: Store, from: string, text: string, now: Date, attachm
       // License keys are retired (one key could unlock unlimited teams). Access comes only from a payment for this team.
       void cmd.key; void validateLicenseKey;
       if (hasAccess(ws, now)) return "Your plan is active 🦝 Text “brief” and let's get to work.";
-      return { bubbles: ["License keys don't unlock Rocco anymore. Hire me for this team here (7-day money-back guarantee). Bought a key before? Email human@rocco.works and we'll move you over.", hireUrl(ws)] };
+      return { bubbles: ["License keys don't unlock Rocco anymore. Hire me for this team here (14-day money-back guarantee). Bought a key before? Email human@rocco.works and we'll move you over.", hireUrl(ws)] };
     }
     case "demo": {
       const d = await demoMorning(now);

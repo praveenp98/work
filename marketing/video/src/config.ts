@@ -1,5 +1,5 @@
 /** The one door to the offer and the sample account. Scenes import from here, never from literals. */
-export { OFFER, PRICE_RISE, ACCOUNTS, TIME_MATH, LINKS, HANDLES, SITE_URL } from "../../config/offer";
+export { OFFER, ACCOUNTS, TIME_MATH, LINKS, HANDLES, SITE_URL } from "../../config/offer";
 export { SAMPLE, SAMPLE_DOLLAR_AMOUNTS } from "../../config/sample";
 import { SAMPLE, SAMPLE_DOLLAR_AMOUNTS } from "../../config/sample";
 
