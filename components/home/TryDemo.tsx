@@ -10,7 +10,7 @@ export function TryDemo({ label = "Try it right here", className = "btn ghost" }
   const [open, setOpen] = useState(false);
   // Clicking Rocco in the hero opens the demo (only the first TryDemo on the page listens).
   useEffect(() => {
-    const k = () => { if (document.querySelector(".td")) return; setOpen(true); track("demo_tour_started", { where: "rocco_click" }); };
+    const k = () => { if (document.querySelector(".trd")) return; setOpen(true); track("demo_tour_started", { where: "rocco_click" }); };
     window.addEventListener("rocco:try", k);
     return () => window.removeEventListener("rocco:try", k);
   }, []);
@@ -25,10 +25,10 @@ export function TryDemo({ label = "Try it right here", className = "btn ghost" }
     <>
       <button className={className} onClick={() => { setOpen(true); track("demo_tour_started", { where: "home_panel" }); }}>{label}</button>
       {open && (
-        <div className="td" role="dialog" aria-modal="true" aria-label="Rocco demo account" onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
-          <div className="td-box">
-            <div className="td-h"><b>Demo account · click anything</b><button className="linkbtn" onClick={() => setOpen(false)} aria-label="Close">Close ✕</button></div>
-            <div className="td-body"><DemoApp /></div>
+        <div className="trd" role="dialog" aria-modal="true" aria-label="Rocco demo account" onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
+          <div className="trd-box">
+            <div className="trd-h"><b>Demo account · click anything</b><button className="linkbtn" onClick={() => setOpen(false)} aria-label="Close">Close ✕</button></div>
+            <div className="trd-body"><DemoApp /></div>
           </div>
         </div>
       )}

@@ -28,7 +28,8 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
      5. `amazon_ads_ads_raw` (which products each campaign advertises: new campaigns, Tidy)
      6. `amazon_ads_product_catalog` (product titles: readable names)
      7. `amazon_ads_entity_history` ("Before Rocco" change history)
-     8. `amazon_sales_and_traffic_with_cogs` (sales, sessions, Buy Box: listing jobs)
+     8. `amazon_profit_by_sku_and_date` (sales, sessions, Buy Box AND profit per product; replaces `amazon_sales_and_traffic_with_cogs`, which DataDoe retired on Nov 22, 2026). Premium table.
+     8b. `amazon_profit_by_date` (daily account profit for the date-range numbers). Premium table.
      9. `amazon_fba_inventory_health` (stock: restock jobs)
    - If DataDoe asks "delete existing data?" for the ones you turn off, yes is fine: Rocco never reads them.
    - Saves the row bill: ~$440–1,420/mo → ~$100–350/mo at 100 sellers.

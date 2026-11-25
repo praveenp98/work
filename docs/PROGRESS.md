@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Products & profit + listing edits + A+ drafts
+- **Found and fixed:** DataDoe retired `amazon_sales_and_traffic_with_cogs` on Nov 22. Business pull now reads `amazon_profit_by_sku_and_date` (traffic columns de-duplicated per ASIN+date as DataDoe requires); daily numbers read `amazon_profit_by_date` (now incl. profit). **Praveen: switch both on in DataDoe → Settings → Data (premium tables).**
+- **Products & profit** (/w/[token]/products, components/dash/ProductsStudio.tsx, lib/profit.ts): per product 30-day sales, units, fees, ads, product cost, profit, margin, break-even ACoS. Missing costs entered inline → DataDoe POST /cogs (effective 180 days back). Profit tile added to Your numbers.
+- **Listing keyword fixes** (lib/listings.ts): words from searches that sold → backend search terms (keeps existing, never protected words, <250 bytes); title/bullets editable with suggestions; DataDoe dry run → Amazon VALIDATION_PREVIEW → write; old values saved, one-tap Undo.
+- **Listing issue fixes:** Amazon's issues per listing with a value box per attribute → LISTINGS_DETAILS_UPDATE (verified first).
+- **A+ drafts** (lib/aplus.ts, lib/prompts/aplus.ts): Claude drafts text-only Standard A+ from listing facts + selling searches, rules filter (no prices/guarantees/reviews/health claims), seller edits, VALIDATE → ADD → PUBLISH; never replaces existing A+; English stores only.
+- Notes written like a senior manager, calm not scary. Also fixed: Try-it panel CSS (.td) clashed with Tidy page (.td) → renamed .trd.
+- Tests 279. Not yet run against a live account (needs DataDoe Listings/A+ actions on, which Praveen enabled).
+
 ## 2026-11-25 · Listings / A+ question
 - Praveen enabled DataDoe actions for listings, A+ content, restock (FBA inbound) and MCF.
 - Rocco does NOT edit listings or A+ yet: listing jobs today are alerts + steps (suppressed listings, Buy Box) and listing keyword gaps as suggestions. DataDoe offers AMAZON_LISTINGS_UPDATE (title, bullets, search terms, images), AMAZON_LISTINGS_FIND, AMAZON_APLUS_CONTENT_ADD/UPDATE/VALIDATE/PUBLISH. Proposed build: one-tap backend search terms + bullets from converting searches (preview, Amazon validation, undo by saving the old values), then suppressed-listing fixes; A+ later (needs images/copy, Amazon moderation).

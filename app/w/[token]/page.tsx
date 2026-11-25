@@ -322,6 +322,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             </details>
           )}
           <nav className="rd-links" aria-label="More">
+            <Link href={`/w/${token}/products`}>💰 Products &amp; profit</Link>
             <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
             <Link href={`/w/${token}/log`}>🧾 Change log</Link>
             <Link href={`/w/${token}/tidy`}>🗂️ Tidy campaigns</Link>

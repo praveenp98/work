@@ -1,4 +1,5 @@
 import { teamUrl } from "./workspace";
+import { asinDayRows, profitBySku, type ProductProfit } from "./profit";
 import { ADS_COLS, SALES_COLS, dayStr, mergeDaily, needsBackfill, rollup, type Daily, type Day } from "./daily";
 import { currencyOf, localize } from "./currency";
 import { REPORT_HELP, type ReportKind } from "./analyze";
@@ -17,7 +18,7 @@ import Papa from "papaparse";
 const BASE = (process.env.DATADOE_API_URL || "https://api.datadoe.com/api/v1").replace(/\/$/, "");
 const H = (body?: unknown) => ({ "datadoe-api-key": process.env.DATADOE_API_KEY ?? "", ...(body ? { "content-type": "application/json" } : {}) }); // no content-type on bodiless calls: DataDoe rejects a JSON DELETE with no body
 
-type Shape = "daily" | "sum_by_asin" | "latest_by_sku" | "sum_by_campaign";
+type Shape = "daily" | "sum_by_asin" | "latest_by_sku" | "sum_by_campaign" | "profit_by_asin";
 export interface Pull { kind: ReportKind; table: string; query: string; days: number; shape: Shape; cols: Record<string, string> }
 
 /** DataDoe column → Amazon report header, per table. Only these columns are exported. */
@@ -31,8 +32,10 @@ export const PULLS: Pull[] = [
     cols: { date: "_date", ad_campaign_name: "Campaign Name", ad_campaign_status: "Campaign Status", ad_campaign_budget_amount: "Budget", ad_impressions: "Impressions", ad_clicks: "Clicks", ad_spend: "Spend", ad_sales: "7 Day Total Sales", ad_orders: "7 Day Total Orders", ad_campaign_id: "Campaign Id", ad_campaign_type: "_type" },
   },
   {
-    kind: "business_report", table: "amazon_sales_and_traffic_with_cogs", query: "sessions", days: 30, shape: "sum_by_asin",
-    cols: { child_asin: "(Child) ASIN", product_name: "Title", session: "Sessions - Total", page_views: "Page Views - Total", total_units: "Units Ordered", total_sales: "Ordered Product Sales", buybox_percentage: "Featured Offer (Buy Box) Percentage" },
+    // Nov 22, 2026: DataDoe retired amazon_sales_and_traffic_with_cogs. The profit table carries the same Sales &
+    // Traffic columns (per child ASIN, repeated on each SKU row) plus profit per SKU (fees, COGS, ad spend netted).
+    kind: "business_report", table: "amazon_profit_by_sku_and_date", query: "sku profit", days: 30, shape: "profit_by_asin",
+    cols: { date: "_d", child_asin: "(Child) ASIN", sku: "_sku", product_name: "Title", total_sessions: "Sessions - Total", total_page_views: "Page Views - Total", units_ordered: "Units Ordered", ordered_product_sales: "Ordered Product Sales", avg_buybox_percentage: "Featured Offer (Buy Box) Percentage", profit: "_p", total_sales: "_ts", total_units_sold: "_tu", total_fees: "_f", cogs_total: "_c", ad_spend: "_a", refund_cost: "_r", cogs_present: "_cp" },
   },
   {
     kind: "inventory", table: "amazon_fba_inventory_health", query: "fba stock", days: 3, shape: "latest_by_sku",
@@ -42,7 +45,7 @@ export const PULLS: Pull[] = [
 
 /** Two small extra exports for the daily numbers (date-range view). Failures never block the morning jobs. */
 const DAILY: { pull: Pull; cols: Record<string, keyof Day> }[] = [
-  { pull: { kind: "business_report", table: "amazon_sales_and_traffic_with_cogs", query: "sessions", days: 35, shape: "daily", cols: { date: "_d", total_sales: "_s", total_units: "_u", session: "_se", page_views: "_pv" } }, cols: SALES_COLS },
+  { pull: { kind: "business_report", table: "amazon_profit_by_date", query: "profit by date", days: 35, shape: "daily", cols: { date: "_d", ordered_product_sales: "_s", units_ordered: "_u", total_sessions: "_se", total_page_views: "_pv", profit: "_p", cogs_present: "_cp" } }, cols: SALES_COLS },
   { pull: { kind: "sp_campaign", table: "amazon_ads_performance_by_campaign_by_date", query: "campaign", days: 35, shape: "daily", cols: { date: "_d", ad_spend: "_as", ad_sales: "_asa", ad_orders: "_ao", ad_clicks: "_ac", ad_impressions: "_ai" } }, cols: ADS_COLS },
 ];
 
@@ -129,6 +132,25 @@ export function toAmazonTable(rows: Record<string, unknown>[], p: Pull): unknown
   const sp = rows.filter((r) => !("ad_campaign_type" in r) || !r.ad_campaign_type || /PRODUCT/i.test(String(r.ad_campaign_type)));
   const out = Object.entries(p.cols).filter(([, h]) => !h.startsWith("_"));
   if (p.shape === "daily") return [out.map(([, h]) => h), ...sp.map((r) => out.map(([c]) => r[c] ?? ""))];
+
+  if (p.shape === "profit_by_asin") {
+    // Sales & Traffic columns repeat on every SKU row of an ASIN and date: one row per ASIN and date first, then sum.
+    const days = asinDayRows(sp, ["total_sessions", "total_page_views", "units_ordered", "ordered_product_sales", "avg_buybox_percentage"]);
+    const by = new Map<string, Record<string, number | string>>();
+    for (const r of days) {
+      const k = String(r.child_asin);
+      const a = by.get(k) ?? { child_asin: k, product_name: String(r.product_name ?? ""), total_sessions: 0, total_page_views: 0, units_ordered: 0, ordered_product_sales: 0, _bb: 0 };
+      const pv = num(r.total_page_views);
+      a.total_sessions = (a.total_sessions as number) + num(r.total_sessions);
+      a.total_page_views = (a.total_page_views as number) + pv;
+      a.units_ordered = (a.units_ordered as number) + num(r.units_ordered);
+      a.ordered_product_sales = (a.ordered_product_sales as number) + num(r.ordered_product_sales);
+      a._bb = (a._bb as number) + num(r.avg_buybox_percentage) * pv;
+      by.set(k, a);
+    }
+    const rowsOut = [...by.values()].map((a) => ({ ...a, avg_buybox_percentage: (a.total_page_views as number) > 0 ? `${((a._bb as number) / (a.total_page_views as number)).toFixed(1)}%` : "" }));
+    return [out.map(([, h]) => h), ...rowsOut.map((r) => out.map(([c]) => (r as Record<string, unknown>)[c] ?? ""))];
+  }
 
   if (p.shape === "sum_by_asin") {
     const by = new Map<string, Record<string, number | string>>();
@@ -240,6 +262,7 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
     } catch (e) { console.warn(`[sync] daily ${pull.kind}: ${msg(e)}`); }
   }));
 
+  const products = new Map<string, ProductProfit[]>();
   for (const job of jobs) {
     const r = res.get(job.id)!;
     const ws = await store.getWorkspaceById(job.wsId);
@@ -250,6 +273,7 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
       if (err) { r.errors.push(`${f.p.kind}: ${err}`); continue; }
       const rows = f.by.get(job.id) ?? [];
       if (!rows.length) { r.errors.push(`${f.p.kind}: no rows yet${f.progress != null && f.progress < 100 ? ` (history ${f.progress}% loaded)` : ""}`); continue; }
+      if (f.p.shape === "profit_by_asin") products.set(job.id, profitBySku(rows).slice(0, 60));
       try { await runAnalysis(store, ws, job.name, toAmazonTable(rows, f.p)); r.kinds.push(f.p.kind); }
       catch (e) { r.errors.push(`${f.p.kind}: ${e instanceof Error ? e.message.slice(0, 160) : "failed"}`); }
     }
@@ -263,7 +287,9 @@ export async function syncGroup(store: Store, jobs: Job[], now = new Date()): Pr
     const all = Object.values(syncs);
     const days = daily.get(job.id);
     const dailyAll = days && Object.keys(days).length ? { ...(fresh.amazon?.daily ?? {}), [job.id]: mergeDaily(fresh.amazon?.daily?.[job.id], days) } : fresh.amazon?.daily;
-    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, syncs, ...(dailyAll ? { daily: dailyAll } : {}), lastSync: { at: now.toISOString(), kinds: [...new Set(all.flatMap((x) => x.kinds))], errors: all.flatMap((x) => x.errors) } };
+    const prods = products.get(job.id);
+    const productsAll = prods?.length ? { ...(fresh.amazon?.products ?? {}), [job.id]: { at: now.toISOString(), items: prods } } : fresh.amazon?.products;
+    fresh.amazon = { ...(fresh.amazon ?? { accounts: [] }), schedules, syncs, ...(dailyAll ? { daily: dailyAll } : {}), ...(productsAll ? { products: productsAll } : {}), lastSync: { at: now.toISOString(), kinds: [...new Set(all.flatMap((x) => x.kinds))], errors: all.flatMap((x) => x.errors) } };
     await store.saveWorkspace(fresh);
   }
   return res;

@@ -117,3 +117,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 - **Decision:** submit Rocco's MCP connector to Claude's Connectors Directory and ChatGPT's plugin directory, pitched as "your Amazon account's memory and watchdog".
 - **Why:** sellers spend their day in those assistants; it's free distribution and the connector already exists. Homepage stays "Rocco runs your Amazon"; the listing uses "Claude gives advice. Rocco keeps the receipts."
 - **Done to pass review:** tool hints fixed, server instructions rewritten to describe (not direct) behaviour, public docs page /connector, privacy section.
+
+## 2026-11-25 · Profit per product, listing edits and A+ drafts
+- **Decision:** show profit per product from DataDoe's profit table (seller enters product cost once); let Rocco edit backend keywords, title/bullets and fix listing issues (Amazon preview first, undo for text fields); A+ as "Rocco drafts, you approve", text-only, never replacing existing A+.
+- **Why:** sellers' first worry is profit; listings drive conversion; DataDoe exposes the actions. Calm, manager-style notes instead of scary warnings.

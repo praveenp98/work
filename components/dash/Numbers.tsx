@@ -34,6 +34,7 @@ export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: stri
   };
   const tiles = [
     cur.hasSales && { k: "Total sales", v: money(cur.sales), d: ch(cur.sales, prev.sales) },
+    cur.hasProfit && { k: cur.costMissing ? "Profit · some costs missing" : "Profit", v: money(cur.profit), d: ch(cur.profit, prev.profit) },
     cur.hasSales && { k: "Units", v: cur.units.toLocaleString("en-US"), d: ch(cur.units, prev.units) },
     cur.hasSales && { k: "Sessions", v: cur.sessions.toLocaleString("en-US"), d: ch(cur.sessions, prev.sessions) },
     cur.hasSales && { k: "Conversion", v: pct(cur.conv), d: ch(cur.conv, prev.conv, false, true) },

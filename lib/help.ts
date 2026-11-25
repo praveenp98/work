@@ -110,6 +110,20 @@ export const HELP: HelpArticle[] = [
     more: ["Rocco only answers Amazon questions (it's scoped to your account and Amazon selling).", "Your data is sent to the model only to answer you and rank your jobs; it isn't used to train models (Anthropic's API terms)."],
   },
   {
+    slug: "profit-per-product", section: "Daily work", updated: "2026-11-25",
+    q: "How does Rocco show profit per product?",
+    short: "Your Rocco page → Products & profit. For each product over the last 30 days: sales, units, Amazon fees, ad spend, your product cost, profit, margin and break-even ACoS. Profit comes from Amazon via DataDoe with fees, refunds and ad spend already netted. Add your cost per unit once (and inbound shipping per unit if you like); Rocco applies it back 6 months.",
+    steps: ["Open Products & profit from your Rocco page.", "Products marked 'before cost' need a cost: type the cost per unit (and shipping per unit) and tap Save product costs.", "Profit updates with the next data pull (tomorrow morning, or Check connection now)."],
+    more: ["Break-even ACoS = margin before ads. Bids and budgets above it lose money on every sale.", "Profit counts shipped orders, so the last day or two fill in as orders ship."],
+  },
+  {
+    slug: "listing-changes", section: "Daily work", updated: "2026-11-25",
+    q: "Can Rocco change my listings and A+ content?",
+    short: "Yes, with your approval, from Products & profit → Listing. Rocco adds words from searches that already sell to your backend search terms, lets you edit the title and bullets with suggestions, fixes the issues Amazon flags on a listing, and drafts text-only A+ content you edit and send for Amazon's review. Amazon checks every change before it goes live, and title, bullet and keyword changes can be undone in one tap.",
+    steps: ["Products & profit → Listing → next to a product.", "Backend search terms: review the before/after, then Update search terms in Amazon.", "Title and bullets: edit the text (Rocco shows which selling words are missing), then Save. Change one thing at a time on your best sellers and give it two weeks.", "A+: Draft A+ with Rocco, edit every word, Send to Amazon for review (usually within 7 days)."],
+    more: ["Needs DataDoe's Listings and A+ actions switched on and the account connected with read & write access.", "A+ needs Brand Registry; Rocco never replaces A+ you already have and keeps to text (add images in Seller Central).", "Attribute fixes for listing issues can't be undone automatically; Amazon validates the value first."],
+  },
+  {
     slug: "set-your-strategy", section: "Daily work", updated: "2026-11-24",
     q: "How do I tell Rocco my strategy?",
     short: "Right after you connect Amazon (while the first data loads), Rocco asks for your strategy: what matters most (profit, balance or growth), target ACoS, margin before ads (sets break-even), a monthly ad budget limit, what never to cut, products with a different goal, how much Rocco does on its own, and anything it should know. It says the plan back in plain English, and every job follows it.",

@@ -21,6 +21,14 @@ async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
   return (res.status === 204 ? undefined : await res.json()) as T;
 }
 
+/** Seller product costs (COGS) → DataDoe, which nets them out of profit per SKU (POST /cogs, max 1000 rows). */
+export const upsertCogs = (sellerOrVendorId: string, rows: Record<string, unknown>[]) =>
+  call<{ sellerOrVendorId: string; upsertedCount: number }>("/cogs", { method: "POST", body: JSON.stringify({ sellerOrVendorId, cogsToUpsert: rows }) });
+
+/** Products sold in the last 30 days with no COGS yet (GET /cogs/missing). */
+export const missingCogs = (sellerOrVendorId: string) =>
+  call<{ hasUploadedRows: boolean; missingItemsCount: number; items: { sku: string | null; childAsin: string | null; productName: string | null; unitsSold: number; reason: string }[] }>(`/cogs/missing?sellerOrVendorId=${encodeURIComponent(sellerOrVendorId)}&limit=200`);
+
 export interface Invitation { id: string; invitationUrl: string; expiresAt: string }
 
 /** One-time link (7 days) the team opens to connect Seller Central (+ optional Ads). `ref` = Rocco workspace id. */

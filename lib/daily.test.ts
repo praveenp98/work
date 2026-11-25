@@ -5,17 +5,17 @@ import { ADS_COLS, SALES_COLS, mergeDaily, needsBackfill, previousPeriod, rollup
 describe("daily numbers", () => {
   it("rolls export rows into days and sums every field", () => {
     const d = rollup([
-      { date: "2026-11-01", total_sales: "$1,200.50", total_units: "30", session: "600", page_views: "900" },
-      { date: "2026-11-01", total_sales: "100", total_units: "2", session: "40", page_views: "50" },
-      { date: "2026-11-02", total_sales: "800", total_units: "20", session: "500", page_views: "700" },
-      { date: "", total_sales: "999" },
+      { date: "2026-11-01", ordered_product_sales: "$1,200.50", units_ordered: "30", total_sessions: "600", total_page_views: "900" },
+      { date: "2026-11-01", ordered_product_sales: "100", units_ordered: "2", total_sessions: "40", total_page_views: "50" },
+      { date: "2026-11-02", ordered_product_sales: "800", units_ordered: "20", total_sessions: "500", total_page_views: "700" },
+      { date: "", ordered_product_sales: "999" },
     ], SALES_COLS);
-    expect(d["2026-11-01"]).toEqual({ s: 1300.5, u: 32, se: 640, pv: 950 });
+    expect(d["2026-11-01"]).toEqual({ s: 1300.5, u: 32, se: 640, pv: 950, p: 0 });
     expect(Object.keys(d)).toEqual(["2026-11-01", "2026-11-02"]);
   });
 
   it("merges sales and ads for the same day, newest pull wins, keeps the last N days", () => {
-    const a = rollup([{ date: "2026-11-01", total_sales: "100" }], SALES_COLS);
+    const a = rollup([{ date: "2026-11-01", ordered_product_sales: "100" }], SALES_COLS);
     const b = rollup([{ date: "2026-11-01", ad_spend: "20", ad_sales: "80" }], ADS_COLS);
     expect(mergeDaily(a, b)["2026-11-01"]).toMatchObject({ s: 100, as: 20, asa: 80 });
     expect(mergeDaily({ "2026-11-01": { s: 1 }, "2026-11-02": { s: 2 }, "2026-11-03": { s: 3 } }, {}, 2)).toEqual({ "2026-11-02": { s: 2 }, "2026-11-03": { s: 3 } });

@@ -62,6 +62,12 @@ export interface Workspace {
     accounts: { id: string; name: string; country: string; connectedAt: string; ads?: boolean }[];
     /** Daily totals per account (lib/daily.ts) for the dashboard's date-range numbers. */
     daily?: Record<string, import("../daily").Daily>;
+    /** Profit per product (last 30 days) per account, from DataDoe's profit table (lib/profit.ts). */
+    products?: Record<string, { at: string; items: import("../profit").ProductProfit[] }>;
+    /** Listing edits Rocco made, with the old values for undo (lib/listings.ts). */
+    listingEdits?: import("../listings").ListingEdit[];
+    /** A+ drafts and submissions (lib/aplus.ts). */
+    aplus?: import("../aplus").AplusRecord[];
     invite?: { id: string; url: string; expiresAt: string; account?: string };
     /** DataDoe recurring export ids per account and report kind (created on the first pull). */
     schedules?: Record<string, Record<string, string>>;

@@ -30,11 +30,13 @@ describe("DataDoe exports → Amazon-shaped reports (columns verified on a real 
     expect(detectKind(t)).toBe("sp_campaign");
   });
 
-  it("sales & traffic: summed per ASIN with page-view-weighted Buy Box; inventory: latest snapshot per SKU", () => {
+  it("sales & traffic (profit table): one row per ASIN and date (FBA + FBM SKUs repeat traffic), then summed; Buy Box page-view-weighted", () => {
     const b = toAmazonTable([
-      { child_asin: "B0X", product_name: "Journal", session: "100", page_views: "100", total_units: "4", total_sales: "80", buybox_percentage: "100" },
-      { child_asin: "B0X", product_name: "Journal", session: "50", page_views: "300", total_units: "1", total_sales: "20", buybox_percentage: "80" },
+      { date: "2026-11-01", child_asin: "B0X", sku: "FBA-1", product_name: "Journal", total_sessions: "100", total_page_views: "100", units_ordered: "4", ordered_product_sales: "80", avg_buybox_percentage: "100" },
+      { date: "2026-11-01", child_asin: "B0X", sku: "FBM-1", product_name: "Journal", total_sessions: "100", total_page_views: "100", units_ordered: "4", ordered_product_sales: "80", avg_buybox_percentage: "100" },
+      { date: "2026-11-02", child_asin: "B0X", sku: "FBA-1", product_name: "Journal", total_sessions: "50", total_page_views: "300", units_ordered: "1", ordered_product_sales: "20", avg_buybox_percentage: "80" },
     ], pull("business_report"));
+    expect(b[1][(b[0] as string[]).indexOf("Units Ordered")]).toBe(5); // not 9: the FBM row repeats the ASIN's traffic
     const bh = b[0] as string[];
     expect(b[1][bh.indexOf("Sessions - Total")]).toBe(150);
     expect(b[1][bh.indexOf("Featured Offer (Buy Box) Percentage")]).toBe("85.0%");
@@ -70,7 +72,7 @@ describe("group pull: one export per report for many accounts", () => {
       const url = String(u), m = init?.method ?? "GET";
       if (url.includes("/exports/sources")) {
         const q = decodeURIComponent(url.match(/query=([^&]+)/)![1]);
-        const p = PULLS.find((x) => x.query === q)!;
+        const p = PULLS.find((x) => x.query === q) ?? { kind: `daily_${q.replace(/\W/g, "_")}`, table: q === "campaign" ? "amazon_ads_performance_by_campaign_by_date" : "amazon_profit_by_date" };
         return Response.json({ sources: [{ id: `src-${p.kind}`, name: p.kind, tableName: p.table, requiresDatePeriod: true, initialLoadProgress: 100 }] });
       }
       if (url.endsWith("/exports") && m === "POST") { const body = JSON.parse(String(init!.body)); created.push(body); return Response.json({ id: `ex-${body.sourceId}` }); }
