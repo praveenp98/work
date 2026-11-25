@@ -8,13 +8,13 @@
   "title": "How to start selling on Amazon Germany in 2026: the complete guide",
   "description": "Sell on Amazon.de in 2026: €39 plan, FBA fees from €2.33, VAT/OSS, LUCID, GPSR, the end of the €150 customs exemption and your first 90 days.",
   "tldr": [
-    "The Professional plan costs €39/month excl. VAT; Individual is €0.99 per item. Choose Professional if you expect 40+ sales a month or want ads [s1].",
-    "Germany-only FBA fees (July 2026 card) start at €2.33 for light envelopes; a standard parcel up to 900 g costs €3.44 [s4], plus a 1.5% fuel surcharge since April 2026 [s8].",
-    "Peak season fee of €0.21–€0.44 per parcel from 15 Oct 2026 to 14 Jan 2027, and Q4 storage at €52.20/m³/month vs €27.54 the rest of the year [s4][s1].",
-    "2026 referral cuts: home products 8% up to €20, pet food/clothing and grocery 5% up to €10, clothing 5% up to €15 [s3].",
-    "Stock in German warehouses means a German VAT registration; Pan-EU usually means registrations in six countries [s35]. The EU distance-selling threshold is €10,000 [s28].",
-    "The EU €150 duty exemption ended on 1 July 2026: €3 duty per low-value item, plus a €2 handling fee from November 2026 [s24][s26].",
-    "Before you ship: LUCID packaging registration, GPSR data and an EU Responsible Person, CE documents, and German-language labels and listings.",
+    "The Professional plan costs €39/month excl. VAT; Individual is €0.99 per item sold. Amazon suggests Individual only below about 40 sales a month [s1].",
+    "Germany-only FBA fees (1 July 2026 rate card) start at €2.33 for a light envelope; a standard parcel up to 900 g costs €3.44 [s6]. A fuel and logistics surcharge applies on top: 1.5% from April 2026, 2% from 2 November 2026 [s7].",
+    "Peak fee of €0.21–€0.44 per parcel from 15 Oct 2026 to 14 Jan 2027, and standard-size storage at €52.20/m³/month in Oct–Dec vs €27.54 the rest of the year [s6][s1].",
+    "Referral cuts: home products 8% up to €20; pet clothing and food, grocery and vitamins 5% up to €10; clothing 5% up to €15 and 10% for €15–€20 [s3][s1].",
+    "German VAT is 19% standard [s41]. Stock in German warehouses means a German VAT registration, and Pan-EU needs one in every country where stock is stored [s41][s7]. The EU distance-selling threshold is €10,000 [s28].",
+    "The EU €150 duty exemption ended on 1 July 2026: low-value imports now pay a flat €3 duty per item [s24], and an EU handling fee is being added [s26].",
+    "Before you ship: LUCID packaging registration, GPSR data and an EU Responsible Person, CE documents where needed, and German-language labels and listings [s42][s43].",
     "Rufus is now part of \"Alexa for Shopping\" on Amazon.de [s21]: clear German listings that answer buyer questions get recommended."
   ],
   "sections": [
@@ -52,8 +52,8 @@
         {
           "ul": [
             "Germany is big, mature and competitive. You win with a **branded product that solves a specific problem**, not with the cheapest copy.",
-            "Fees in Europe fell slightly in 2026 [s2], but new surcharges (fuel, peak season) came in [s8][s10]. Model your margin with today's rate card, not a 2024 YouTube video.",
-            "Germany is also your base for the rest of the EU. One Amazon Europe account lets you list in other EU stores later (see \"grow\").",
+            "Fees fell slightly in 2026 [s2], but fuel and peak surcharges came in [s7][s6]. Model your margin with today's rate card.",
+            "Germany is also your base for the rest of the EU (see \"grow\").",
             "Compliance (VAT, packaging registration, product safety) is stricter than in the US. Budget time for it before your first shipment."
           ]
         }
@@ -64,7 +64,7 @@
       "title": "What changed in 2025–2026 that you must know",
       "blocks": [
         {
-          "p": "This is the dated list of changes that affect a new Amazon.de seller. Rate cards changed several times in 2026 (1 February, 17 April and 1 July versions exist), so always check the newest one [s6]."
+          "p": "The dated changes that matter for a new Amazon.de seller. Rate cards changed several times in 2026, so always check the newest one [s6]."
         },
         {
           "table": {
@@ -75,74 +75,69 @@
             ],
             "rows": [
               [
-                "Feb 2025",
-                "New returns processing fee structure for FBA in Europe [s12]",
-                "Products with high return rates pay a fee per return. Keep return rates low with accurate photos and size info."
+                "13 Dec 2024",
+                "EU General Product Safety Regulation (GPSR) applies [s43]",
+                "Every non-food product needs an EU Responsible Person and safety information (see \"compliance\")."
+              ],
+              [
+                "1 Jan 2025",
+                "German small-business VAT limits raised to €25,000 (previous year) and €100,000 (current year) [s31]",
+                "Only relevant to German-resident sellers."
               ],
               [
                 "Jun 2025",
                 "Amazon Haul launches in Germany (app only, max €20) [s22]",
-                "More price pressure on cheap, generic items. Pick products where brand and quality matter."
-              ],
-              [
-                "1 Jan 2025",
-                "German small-business VAT exemption limits raised to €25,000 (previous year) and €100,000 (current year) [s31]",
-                "Only relevant to German-resident sellers. Most marketplace sellers still register for VAT normally (see \"tax\")."
+                "More price pressure on cheap, generic items."
               ],
               [
                 "15 Dec 2025",
-                "FBA parcel fees cut by about €0.32 on average in Germany, France, Italy, Spain and the UK [s40]",
-                "Slightly lower fulfilment cost per unit for parcels."
+                "FBA parcel fees cut by €0.32 on average in Germany and other big stores; clothing referral fee cut to 5% up to €15 and 10% for €15–€20 [s3]",
+                "Slightly cheaper fulfilment and better margins on cheap clothing."
               ],
               [
-                "Early 2026",
-                "Average European fee cut of €0.17 per unit; Low-Price FBA extended to items up to €20 (average €0.45 lower per unit for newly eligible items) [s2]",
-                "Items priced at €20 or less can get cheaper fulfilment. Check eligibility in Seller Central."
-              ],
-              [
-                "Feb 2026",
-                "Referral fee cuts: Home products 15% → 8% up to €20; pet clothing and food 15% → 5% up to €10; grocery and vitamins 8% → 5% up to €10; clothing 5% up to €15 and 10% from €15 to €20 [s3]",
-                "Low-priced items in these categories keep more margin. Above the bands the old rates still apply."
+                "1 Feb 2026",
+                "Referral cuts: home products 15% → 8% up to €20; pet clothing and food 15% → 5% up to €10; grocery and vitamins 8% → 5% up to €10. Low-Price FBA extended to items up to €20 [s3][s2]",
+                "Low-priced items keep more margin. Above the bands the normal rates apply."
               ],
               [
                 "17 Apr 2026",
-                "1.5% fuel and logistics surcharge on FBA fulfilment fees in Germany and nine other European stores [s8][s5]",
-                "Add about 1.5% to every FBA fee in your calculator."
+                "1.5% fuel and logistics surcharge on FBA fulfilment fees in Germany and nine other European stores [s1]",
+                "Add it to every FBA fee in your calculator."
               ],
               [
                 "1 Jul 2026",
-                "End of the EU €150 customs-duty exemption; a temporary flat €3 duty per item on low-value parcels until the full customs reform applies [s24][s27]",
-                "Matters if you ship small parcels from outside the EU straight to customers. FBA stock imported in bulk already paid normal duty."
+                "End of the EU €150 customs-duty exemption; flat €3 duty per item on low-value imports until the EU customs data hub runs (planned for 2028) [s24][s25]",
+                "Matters if you ship small parcels from outside the EU straight to customers."
               ],
               [
-                "Jul 2026",
-                "New European FBA rate card (fees effective 1 July 2026) [s6]",
+                "1 Jul 2026",
+                "New European FBA rate card [s6]",
                 "Use this card (or newer) for all calculations."
               ],
               [
-                "Mid-Jul 2026",
-                "Amazon announces a peak season fulfilment fee for the UK and Germany [s10]",
-                "Higher fees in Q4 (below)."
+                "3 Sep 2026",
+                "Pan-EU products must have an active Amazon.nl listing; Belgium follows from 26 Feb 2027 [s7]",
+                "Plan Dutch (and later Belgian) listings before joining Pan-EU."
               ],
               [
                 "15 Oct 2026 – 14 Jan 2027",
-                "Peak season fee on small and standard parcels in Germany: +€0.21 to +€0.44 per unit by weight [s4]; average about €0.27 [s11]",
-                "Price Q4 with this fee included. Envelopes, oversize and Low-Price FBA are excluded [s4][s11]."
+                "Peak fee on small and standard parcels sold from German stock: +€0.21 to +€0.44 per unit [s6]",
+                "Envelopes, oversize and Low-Price FBA are excluded [s6]."
               ],
               [
                 "Oct–Dec 2026",
-                "Q4 storage for standard-size items in Germany: €52.20 per cubic metre per month (vs €27.54 in January–September) [s1][s11]",
+                "Standard-size storage: €52.20 per cubic metre per month (vs €27.54 in January–September) [s1]",
                 "Don't send six months of stock in October."
               ],
               [
-                "1 Nov 2026",
-                "EU handling fee of €2 per item on low-value consignments, per UK government guidance [s26] (some sources still call the date expected [s39])",
-                "Another reason not to ship single parcels from China/India directly to EU customers."
+                "2 Nov 2026",
+                "Fuel and logistics surcharge rises from 1.5% to 2% [s7]",
+                "Use 2% in today's calculations."
               ],
               [
-                "2 Nov 2026",
-                "Fuel surcharge reported to rise to 2% of FBA fulfilment fees [s4]",
-                "Not confirmed by an Amazon page in our research; check your fee preview."
+                "Nov 2026",
+                "EU €2 per item handling fee on low-value imports, per UK government guidance [s26]",
+                "Check the current status with your customs broker."
               ],
               [
                 "Nov 2026",
@@ -150,14 +145,14 @@
                 "Write listings that answer real questions in German."
               ]
             ],
-            "note": "Dates come from the sources cited; some secondary sources disagree on exact dates (for example January vs February 2026 for referral cuts) [s2][s3]. Confirm in Seller Central under Fees and News."
+            "note": "Confirm dates and amounts in Seller Central under Fees and News before you rely on them."
           }
         },
         {
           "callout": {
             "tone": "new",
-            "title": "No inbound placement fee in Europe (yet)",
-            "text": "Unlike the US, the European rate card has no inbound placement fee and no excess inventory fee. Amazon controls how much you send with capacity limits instead [s4]."
+            "title": "No inbound placement fee in Europe",
+            "text": "Unlike the US, the European rate card has no inbound placement fee [s6]. Amazon manages how much you can send with capacity limits instead."
           }
         }
       ]
@@ -174,7 +169,7 @@
             "You want to sell in the EU. Germany is the largest Amazon store in Europe [s14] and the usual hub for Pan-European FBA [s7].",
             "You have (or will build) a brand and can get German-language packaging, labels and listings right.",
             "You can handle VAT registration and monthly filings, or will pay an accountant to do it.",
-            "Your product is light and standard-size. German FBA fees for parcels under 900 g start around €3.39–€3.44 [s4], which works for items selling at €20 or more."
+            "Your product is light and standard-size. German FBA fees for standard parcels up to 900 g are €3.39–€3.44 [s6], which works for items selling at €20 or more."
           ]
         },
         {
@@ -196,9 +191,9 @@
         {
           "ul": [
             "**EU-based sellers** (e.g. from Poland, Netherlands, Austria) can use the EU's One-Stop-Shop (OSS) to declare VAT on cross-border sales to consumers in other EU countries through their home tax office [s28][s29]. But stock stored in a German warehouse means German VAT registration (see \"tax\").",
-            "**Non-EU sellers** (e.g. India, China, UK, US, Turkey) need a German VAT registration as soon as stock sits in German warehouses. German tax law gives non-EU businesses a centrally assigned tax office based on their home country [s34]. For some sales the marketplace itself becomes the \"deemed supplier\" and handles VAT (see \"tax\") [s30].",
-            "**From China and India** in particular: plan to ship inventory to Amazon in bulk (sea or air freight, cleared through EU customs) rather than sending single parcels. From July 2026 low-value parcels pay a flat €3 duty per item [s24], and an EU handling fee is coming [s26].",
-            "**From the UK**: Remote Fulfilment lets you sell UK-stored FBA stock to German, French, Italian and Spanish customers, for products priced up to €135 [s9]."
+            "**Non-EU sellers** (e.g. India, China, UK, US, Turkey) need a German VAT registration as soon as they sell goods stored in Germany [s41]. Germany assigns non-EU businesses a central tax office based on their home country [s34]. For some sales the marketplace becomes the \"deemed supplier\" and handles VAT [s30].",
+            "**From China and India** in particular: ship inventory to Amazon in bulk (sea or air freight, cleared through EU customs) rather than single parcels. Since July 2026 low-value imports pay a flat €3 duty per item [s24]. You also need an EORI number to import into the EU [s42].",
+            "**From the UK**: Remote Fulfilment lets you sell UK-stored FBA stock to customers in Germany, France, Italy and Spain; check product and price limits in Seller Central [s44]."
           ]
         },
         {
@@ -246,20 +241,19 @@
         },
         {
           "ul": [
-            "A valid passport or national ID card (name must match everything else exactly).",
-            "Proof of address dated recently (bank or credit card statement, or a utility bill) in the same name.",
-            "Business registration documents if you register as a company (for example, a commercial register extract).",
-            "A bank account statement for the account that will receive euro payouts.",
-            "A chargeable credit or debit card.",
-            "A phone number you can receive calls and texts on.",
-            "Your VAT number if you already have one (you can add it later, but you need it before stock sits in German warehouses)."
+            "A valid passport or national ID card for every beneficial owner (name must match everything else exactly).",
+            "Proof of address: a utility bill or bank statement in the same name.",
+            "For companies: a commercial register extract or trade licence not older than 90 days [s42].",
+            "Proof of a bank account that can receive euro payouts [s42].",
+            "A chargeable credit or debit card and a phone number.",
+            "Your VAT number if you already have one (you need it before stock sits in German warehouses)."
           ]
         },
         {
           "h3": "Identity verification"
         },
         {
-          "p": "After you submit the form, Amazon verifies your identity. In Europe this may include a short **video call** with an Amazon team member, where you show the original ID document you uploaded. You book a slot in Seller Central. Use a quiet room, a good camera, and have the exact documents you uploaded in your hand. Some sellers are instead asked for an in-person check or extra documents. Follow the instructions in Seller Central and never pay a third party who promises to \"speed up verification\"."
+          "p": "Amazon says verification usually takes 24 hours to 5 business days once all documents are in, and up to 10 business days in busy periods [s42]. You may be asked for a short **video call** where you show the original ID you uploaded. Use a quiet room and have the exact documents in hand. Never pay a third party who promises to \"speed up verification\"."
         },
         {
           "h3": "The steps"
@@ -301,7 +295,7 @@
       "title": "Every cost of selling on Amazon.de",
       "blocks": [
         {
-          "p": "All Amazon fees below are in euros. Fees change often. Use Amazon's Revenue Calculator and the latest rate card before ordering stock [s6]."
+          "p": "All fees below are in euros and come from Amazon's pricing page and the 1 July 2026 rate card. Fees change often, so check the Revenue Calculator before ordering stock [s1][s6]."
         },
         {
           "h3": "1. Subscription"
@@ -328,52 +322,56 @@
           "h3": "2. Referral fees (Amazon's commission)"
         },
         {
-          "p": "The referral fee is a percentage of the sale price, charged on every order. Most Amazon.de categories sit between about 8% and 15% [s38]. The 2026 cuts below matter for low-priced items [s3]:"
+          "p": "The referral fee is a percentage of the total sale price (including shipping and gift wrap), with a minimum of €0.30 per item in most categories. Most categories sit between 8% and 15% [s1]. Examples:"
         },
         {
           "table": {
             "head": [
               "Category",
-              "Referral fee from 2026"
+              "Referral fee"
             ],
             "rows": [
               [
-                "Home products, price up to €20",
-                "8% (was 15%) [s3]"
+                "Home products (\"Household Essentials\")",
+                "8% up to €20; 15% above [s1][s3]"
               ],
               [
-                "Home products, above €20",
-                "15% (unchanged rate above the new band) [s3]"
+                "Kitchen; Toys and games; Sports & Outdoors; Pet Supplies",
+                "15% [s1]"
               ],
               [
-                "Pet clothing and pet food, up to €10",
-                "5% (was 15%) [s3]"
+                "Beauty, Health & Personal Care; Baby",
+                "8% up to €10; 15% above [s1]"
               ],
               [
-                "Grocery & gourmet, vitamins, up to €10",
-                "5% (was 8%) [s3]"
+                "Pet clothing and food; Grocery; Vitamins and supplements",
+                "5% up to €10; 15% above [s1]"
               ],
               [
-                "Clothing & accessories, up to €15",
-                "5% [s3]"
+                "Clothing and accessories",
+                "5% up to €15; 10% for €15–€20; 15% above €20 [s1]"
               ],
               [
-                "Clothing & accessories, €15–€20",
-                "10% [s3]"
+                "Consumer electronics; Computers",
+                "7% [s1]"
               ],
               [
-                "Most other categories",
-                "roughly 8–15%; check the Amazon.de fee page for your exact category [s38][s1]"
+                "Electronic and computer accessories",
+                "15% on the first €100; 8% on the rest [s1]"
+              ],
+              [
+                "Everything else",
+                "15% [s1]"
               ]
             ],
-            "note": "We could not verify current Amazon.de rates for beauty, toys, sports, kitchen or electronics from an official source. Look them up in Seller Central (Fees > Referral fees) or on sell.amazon.de before you pick a product."
+            "note": "See the full list on sell.amazon.de or in Seller Central (Fees > Referral fees) for your exact category."
           }
         },
         {
           "h3": "3. FBA fulfilment fees (Germany only stock)"
         },
         {
-          "p": "FBA (Fulfilment by Amazon) means Amazon stores, picks, packs and ships your products and handles returns. The fee depends on the size tier and weight. These are the Germany-only (\"DE only\") rates from the 1 July 2026 rate card, as tabled by Amalytix [s4]:"
+          "p": "FBA (Fulfilment by Amazon) means Amazon stores, picks, packs and ships your products and handles returns. The fee depends on size tier and weight. These are the \"DE Only\" rates for stock stored in Germany [s6]:"
         },
         {
           "table": {
@@ -386,55 +384,55 @@
               [
                 "Light envelope",
                 "up to 20 g",
-                "€2.33 [s4]"
+                "€2.33 [s6]"
               ],
               [
                 "Light envelope",
                 "up to 100 g",
-                "€2.54 [s4]"
+                "€2.54 [s6]"
               ],
               [
                 "Standard envelope",
                 "up to 210 g",
-                "€2.57 [s4]"
+                "€2.57 [s6]"
               ],
               [
                 "Standard envelope",
                 "up to 460 g",
-                "€2.68 [s4]"
+                "€2.68 [s6]"
               ],
               [
                 "Small parcel (max 35×25×12 cm)",
                 "up to 150 g",
-                "€3.38 [s4]"
+                "€3.38 [s6]"
               ],
               [
                 "Small parcel",
                 "up to 3.9 kg",
-                "€4.54 [s4]"
+                "€4.54 [s6]"
               ],
               [
                 "Standard parcel (max 45×34×26 cm)",
                 "up to 150 g",
-                "€3.39 [s4]"
+                "€3.39 [s6]"
               ],
               [
                 "Standard parcel",
                 "up to 900 g",
-                "€3.44 [s4]"
+                "€3.44 [s6]"
               ],
               [
                 "Standard parcel",
                 "up to 1.9 kg",
-                "€3.95 [s4]"
+                "€3.95 [s6]"
               ],
               [
                 "Standard parcel",
                 "up to 11.9 kg",
-                "€6.65 [s4]"
+                "€6.65 [s6]"
               ]
             ],
-            "note": "Add the fuel and logistics surcharge (1.5% from 17 April 2026 [s8]; reported 2% from 2 November 2026 [s4]) and, between 15 Oct 2026 and 14 Jan 2027, the peak fee of €0.21–€0.44 on small and standard parcels [s4]. If your German stock is not in the Central Europe Programme (storage in Poland and Czechia), Amazon adds €0.26 per unit shipped from German fulfilment centres [s6][s36]. Oversize rates: see the rate card."
+            "note": "Add the fuel and logistics surcharge (2% since 2 November 2026 [s7]) and, from 15 Oct 2026 to 14 Jan 2027, the peak fee of €0.21–€0.44 on small and standard parcels [s6]. If you join the Central Europe Programme (storage in Poland and Czechia too), each unit is €0.26 cheaper, e.g. €3.18 for a standard parcel up to 900 g [s6][s36]. Products with lithium batteries or dangerous goods pay €0.10 extra per unit. Oversize: see the rate card."
           }
         },
         {
@@ -449,23 +447,23 @@
             "rows": [
               [
                 "Monthly storage, January–September",
-                "€27.54 per cubic metre per month [s1][s11]"
+                "€27.54 per cubic metre per month [s1]"
               ],
               [
                 "Monthly storage, October–December",
-                "€52.20 per cubic metre per month [s1][s11]"
+                "€52.20 per cubic metre per month [s1]"
               ],
               [
-                "Q4 storage, clothing and similar items",
-                "€29.23 per cubic metre per month [s11]"
+                "Clothing, shoes, bags, eyewear",
+                "€19.99 (Jan–Sep) / €29.23 (Oct–Dec) per cubic metre per month [s1]"
               ],
               [
-                "Storage utilisation surcharge (if your stock is high vs sales)",
-                "from €14.85 per cubic metre per month [s5]"
+                "Storage utilisation surcharge (stock high vs sales, ratio above 22 weeks)",
+                "from €14.85 per cubic metre per month; new sellers are exempt for their first 52 weeks [s6]"
               ],
               [
                 "Aged inventory surcharge",
-                "starts at 241 days in stock, from €47.99 per cubic metre per month [s5]"
+                "from 241 days in stock, starting at €47.99 per cubic metre per month [s6]"
               ]
             ]
           }
@@ -478,18 +476,17 @@
         },
         {
           "ul": [
-            "**Low-inventory cost coverage fee (Pan-EU):** charged on standard-size products in Pan-European FBA when your stock falls below 28 days of supply across Germany, France, Italy and Spain [s6][s4]. Running out is expensive twice: lost sales plus this fee.",
-            "**Returns processing fee:** since February 2025 FBA returns in Europe can carry a processing fee, mainly for products with high return rates [s12]. In Germany shoppers return a lot, especially clothing, so this matters.",
-            "**Returnless refunds:** FBA Returnless Resolutions lets you refund a customer without taking a low-value item back; it is live on Amazon.de [s13]. You save return costs but cannot resell the item.",
-            "**No inbound placement fee and no excess inventory fee in Europe**; capacity limits apply instead [s4].",
-            "**Refund administration fee, removal and disposal fees, long-term storage:** check the current rate card [s6]. We could not verify current amounts."
+            "**Low-inventory cost coverage fee (Pan-EU):** charged on standard-size Pan-EU products when stock falls below 28 days of supply across Germany, France, Italy and Spain [s6].",
+            "**Returns processing fees:** clothing and shoes pay 50% of the fulfilment fee per return; in other categories, products whose return rate passes a category threshold pay a per-return fee [s6].",
+            "**No inbound placement fee in Europe**; capacity limits apply instead [s6].",
+            "**Removal, disposal and liquidation:** e.g. local return-to-seller from €0.50 and disposal from €0.74 per small unit [s6]. Check the rate card for your size."
           ]
         },
         {
           "h3": "6. Advertising"
         },
         {
-          "p": "Cost per click (CPC, what you pay each time a shopper clicks your ad) varies widely by keyword and category. We did not find a reliable, current public average for Amazon.de, so look at the suggested bids in the Amazon Ads console for your own keywords before you set a budget."
+          "p": "Cost per click (CPC) varies widely by keyword and category. Use the suggested bids in the Amazon Ads console for your own keywords before you set a budget."
         },
         {
           "h3": "7. Example starting budget (illustration only)"
@@ -566,45 +563,45 @@
           "h3": "VAT basics"
         },
         {
-          "p": "VAT (value added tax; in German \"Umsatzsteuer\" or \"Mehrwertsteuer\") is charged on almost every sale to German consumers and is included in the price shoppers see. You collect it and pay it to the tax office, minus VAT you paid on business costs. Check the current German standard and reduced rates for your product category with your adviser; food, books and some other goods use the reduced rate."
+          "p": "VAT (\"Umsatzsteuer\" or \"Mehrwertsteuer\") is charged on almost every sale to German consumers and is included in the price shoppers see. The standard rate in Germany is **19%** [s41]; a reduced 7% rate applies to some goods such as many foods and books, so confirm your product's rate with your adviser. You collect VAT and pay it to the tax office, minus VAT you paid on business costs."
         },
         {
           "h3": "When do you need a German VAT registration?"
         },
         {
           "ul": [
-            "**You store stock in Germany** (FBA in German warehouses, including Pan-EU): you need a German VAT registration, because sales are made from German stock [s35].",
-            "**Pan-European FBA**: Amazon may store your stock in several countries, so you need VAT registrations in each storage country, typically Germany, France, Italy, Spain, Poland and Czechia [s35].",
-            "**EFN (European Fulfilment Network)**: stock stays in one country, so usually one registration, but higher fees on cross-border orders [s35][s7].",
-            "**Distance sales from another EU country**: there is a single EU-wide threshold of **€10,000** per year of cross-border sales to consumers. Below it you can charge your home-country VAT; above it you charge the customer's country VAT, usually declared through the **One-Stop-Shop (OSS)** [s28][s29]. The €10,000 limit replaced older national thresholds on 1 July 2021 [s28]."
+            "**You store stock in Germany** (FBA in German warehouses): you need a German VAT registration. For non-EU sellers Amazon states this directly [s41], and Amazon asks for a valid German VAT ID when goods are warehoused in Germany [s42].",
+            "**Pan-European FBA**: you need a VAT number in each country where you allow Amazon to store goods; Pan-EU needs at least two storage countries [s7]. Joining the Central Europe Programme can add Poland and Czechia [s36].",
+            "**EFN (European Fulfilment Network)**: stock stays in one country and ships cross-border for a higher fee, so a VAT number is generally not needed in the destination store [s7].",
+            "**Distance sales from another EU country**: a single EU-wide threshold of **€10,000** a year of cross-border sales to consumers has applied since 1 July 2021. Above it you charge the customer's country VAT, usually declared through the **One-Stop-Shop (OSS)** [s28][s29]."
           ]
         },
         {
           "h3": "Two German numbers: Steuernummer and USt-IdNr"
         },
         {
-          "p": "When the German tax office registers you, you get a **Steuernummer** (tax number, used on your VAT returns). Marketplace sellers also need a **USt-IdNr** (VAT identification number, starting \"DE\"), which Amazon asks for. Since July 2021 marketplaces ask for a valid German VAT ID rather than the old paper certificate [s32]."
+          "p": "When the German tax office registers you, you get a **Steuernummer** (tax number, used on your VAT returns) and a **USt-IdNr** (VAT identification number, starting \"DE\"), which Amazon asks for [s42]. Since July 2021 marketplaces ask for a valid German VAT ID rather than the old paper certificate [s32]."
         },
         {
           "h3": "The old §22f certificate"
         },
         {
-          "p": "From 2019, German law (§22f of the VAT Act) made marketplaces like Amazon collect a tax-office certificate from sellers, or risk being liable for unpaid VAT [s33]. Since July 2021 the valid German VAT ID replaced the certificate in practice [s32]. If an old guide tells you to request an \"F22 certificate\", it is out of date, but the principle remains: Amazon can block your German listings if your VAT details are missing or invalid."
+          "p": "From 2019, §22f of the German VAT Act made marketplaces collect a tax-office certificate from sellers [s33]. Guides that tell you to request an \"F22 certificate\" are out of date [s32], but Amazon can still block German listings if your VAT details are missing or invalid."
         },
         {
           "h3": "Non-EU sellers and the \"deemed supplier\" rule"
         },
         {
-          "p": "Since July 2021, for certain sales by non-EU sellers, the marketplace is treated as the seller for VAT (the \"deemed supplier\"). The non-EU seller makes a zero-rated sale to the marketplace, and the marketplace makes the taxable sale to the consumer and pays the VAT [s30][s28]. This covers imported consignments of €150 or less, and B2C sales inside the EU by non-EU sellers from EU stock [s28][s30]. Even then, if your stock sits in a German warehouse you will usually still need a German VAT registration for imports and stock movements. Don't assume \"Amazon handles VAT\" means \"I need no registration\"."
+          "p": "Since July 2021, for certain sales by non-EU sellers, the marketplace is treated as the seller for VAT (the \"deemed supplier\") and pays the VAT on the sale to the consumer [s30][s28]. This covers imported consignments of €150 or less and B2C sales inside the EU by non-EU sellers from EU stock [s28][s30]. If your stock sits in a German warehouse you will still need a German VAT registration [s41]. Don't assume \"Amazon handles VAT\" means \"I need no registration\"."
         },
         {
-          "p": "Non-EU businesses are handled by centrally assigned German tax offices based on their home country [s34]. Your adviser or the German tax administration can tell you which office covers your country."
+          "p": "Non-EU businesses are handled by centrally assigned German tax offices based on their home country [s34]."
         },
         {
           "h3": "Customs: the €150 exemption is gone"
         },
         {
-          "p": "Goods bought from outside the EU in consignments of up to €150 used to be free of customs duty. That exemption ended on 1 July 2026. A temporary flat **€3 duty per item** now applies to these low-value parcels until the EU customs data hub takes over [s24][s27], expected in 2028 [s27][s25]. A separate **€2 per item EU handling fee** applies from 1 November 2026, according to UK government guidance [s26]. For FBA sellers shipping in bulk, these rules mostly don't apply, because bulk imports already pay normal duty and import VAT. They matter if you ship single parcels from China or India straight to EU customers."
+          "p": "Goods imported from outside the EU in consignments of up to €150 used to be free of customs duty. That exemption ended on 1 July 2026. A temporary flat **€3 duty per item** now applies until the EU customs data hub takes over, planned for 2028 [s24][s25][s27]. UK government guidance also describes a **€2 per item EU handling fee** from November 2026 [s26]; check the current status with your customs broker. Bulk FBA imports already pay normal duty and import VAT, so this mostly matters if you ship single parcels to EU customers."
         },
         {
           "h3": "Small business exemption (German residents only)"
@@ -618,7 +615,7 @@
         {
           "ul": [
             "**German residents:** register a business (Gewerbeanmeldung) at your local town hall before you start; you then pay income tax, possibly trade tax, and VAT.",
-            "**Non-residents:** you normally pay income tax in your home country on profits. Germany taxes your VAT, not your income, unless you have a permanent establishment there. Ask your home-country accountant.",
+            "**Non-residents:** you normally pay income tax in your home country on profits, unless you have a permanent establishment in Germany. Ask your home-country accountant.",
             "**Keep records:** Amazon's VAT transaction reports and settlement reports are what your accountant needs."
           ]
         },
@@ -635,76 +632,68 @@
       "title": "Product compliance: GPSR, CE, packaging, electronics, batteries, trademarks",
       "blocks": [
         {
-          "p": "The EU and Germany have more product rules than most marketplaces. Amazon checks many of them automatically and blocks listings that miss them. Do this work before you order stock, because labels and packaging must be right at the factory."
+          "p": "The EU and Germany have more product rules than most marketplaces. Amazon says listings can be removed if products lack compliance documents or fail EPR rules [s42]. Do this work before you order stock, because labels and packaging must be right at the factory."
         },
         {
           "h3": "Gated and restricted categories"
         },
         {
-          "p": "Some categories need Amazon's approval or extra documents before you can list: for example food and supplements, cosmetics, toys in peak season, medical devices and some electronics. Search your product in Seller Central (\"Add a product\") to see if approval is needed."
+          "p": "Some categories need Amazon's approval or extra documents before you can list, for example some food, supplements, cosmetics, medical and electrical products. Search your product in Seller Central (\"Add a product\") to see if approval is needed."
         },
         {
           "h3": "GPSR and the EU Responsible Person"
         },
         {
-          "p": "The EU **General Product Safety Regulation (GPSR)** applies to consumer products sold to EU customers, online and offline. In practice for Amazon sellers:"
+          "p": "The EU **General Product Safety Regulation (GPSR)** has applied to non-food consumer products since 13 December 2024 [s43]. Amazon's requirements:"
         },
         {
           "ul": [
-            "Every product needs an **economic operator based in the EU** (a manufacturer, importer, authorised representative or fulfilment service provider) who is responsible for safety. If you are outside the EU, you appoint a service provider to act as your **EU Responsible Person**.",
-            "Your listing must show the manufacturer's name and contact details, the EU responsible person's details, product identifiers (type, batch or serial number), and warnings and safety information in German.",
-            "You enter this in Seller Central under \"Manage Your Compliance\". Missing GPSR data is a common reason listings are hidden.",
-            "Keep a product risk assessment and technical documentation, and act fast on safety complaints."
+            "An **EU-based Responsible Person** for every non-food product, with contact details on the product, packaging or an accompanying document [s43]. Sellers outside the EU usually appoint a service provider; Amazon's Service Provider Network lists some [s42].",
+            "**Manufacturer details** (and importer, if any) on the product and in the listing, a **unique product identifier** such as a type, batch or serial number, and **warnings and safety information** in the listing and on the product [s43].",
+            "Enter it all in Seller Central's **Manage Your Compliance** dashboard [s43]. For the exact legal duties (risk analysis, technical documentation), check with a product-safety adviser."
           ]
         },
         {
           "h3": "CE marking"
         },
         {
-          "p": "Many product types (toys, electrical and electronic goods, machinery, personal protective equipment, some cosmetics packaging rules aside) must carry the **CE mark**. It means the manufacturer declares the product meets the relevant EU directives. You need the EU Declaration of Conformity and test reports from an accredited lab. A CE mark without real testing is illegal and is one of the fastest ways to lose a listing after a customer complaint."
+          "p": "Many product types (toys, electrical and electronic goods, machinery, personal protective equipment) must carry the **CE mark**, which means the manufacturer declares the product meets the EU rules for it. Amazon expects the EU Declaration of Conformity [s42], and you should hold the technical file, usually including test reports. A CE mark without the conformity work behind it is illegal and a fast way to lose a listing."
         },
         {
           "h3": "German EPR: packaging, electronics, batteries"
         },
         {
-          "p": "EPR (extended producer responsibility) means whoever first puts packaging or products on the German market pays for their recycling. Amazon.de asks for proof for the relevant categories."
+          "p": "EPR (extended producer responsibility) means whoever first puts packaging or products on the German market pays for their recycling. Amazon lists LUCID packaging registration and WEEE (electronic waste) rules among the main compliance areas for Amazon.de [s42]."
         },
         {
           "ul": [
-            "**Packaging (Verpackungsgesetz):** if you sell packaged goods to German consumers, register in the public **LUCID** register (run by the Zentrale Stelle Verpackungsregister) and sign a contract with a packaging compliance scheme (\"duales System\"). Enter your LUCID number in Seller Central. This applies to nearly every seller, including FBA sellers from abroad.",
-            "**Electrical and electronic equipment (ElektroG / WEEE):** register with **stiftung ear** before selling anything with a plug or battery-powered electronics, and print the crossed-out wheelie-bin symbol on the product. Non-German sellers need an authorised representative in Germany for this registration.",
-            "**Batteries:** products with batteries (including built-in ones) need battery registration with stiftung ear under German battery law, which is being updated to implement the EU Battery Regulation. Check the current rules before you list."
+            "**Packaging (Verpackungsgesetz):** if you sell packaged goods to German consumers, register in the **LUCID** register of the Zentrale Stelle Verpackungsregister and join a packaging compliance scheme. This applies to sellers abroad too. Check the details with the Zentrale Stelle.",
+            "**Electrical and electronic equipment (ElektroG / WEEE):** register with **stiftung ear** before selling products with a plug or battery-powered electronics, and mark them with the crossed-out wheelie-bin symbol. Sellers based outside Germany usually need an authorised representative there. Check with stiftung ear.",
+            "**Batteries:** products with batteries, including built-in ones, need a separate battery registration under German battery law. Check the current rules with stiftung ear.",
+            "**Amazon's EPR services:** Amazon lists EPR service providers and runs an \"EPR Pay on Behalf\" service that pays eco-contributions for your Amazon sales where available [s45]. Check in Seller Central what it covers in Germany; it does not replace your own registrations."
           ]
         },
         {
           "h3": "German-language labels and listings"
         },
         {
-          "p": "Your listing, safety warnings, instructions for use and labels should be in **German**. Use a native speaker or a professional translator, not raw machine translation: Alexa for Shopping and German customers both notice bad German [s21]. Units must be metric. Textile products need fibre content labelling. Cosmetics, food and toys have their own labelling rules."
+          "p": "Your listing, safety warnings, instructions and labels should be in **German**. Use a native speaker or professional translator, not raw machine translation: Alexa for Shopping and German customers both notice bad German [s21]. Use metric units. Textiles, cosmetics, food and toys have their own labelling rules."
         },
         {
           "h3": "Impressum (legal notice)"
         },
         {
-          "p": "German law requires businesses that sell online to show clear provider information (the \"Impressum\"): legal name, address, how to contact you quickly (email and usually phone), commercial register and VAT ID where applicable. On Amazon, this appears through your seller profile's business information, so fill in Seller Central's \"Legal Information\" section completely and keep it current. German competitors and associations can send costly warning letters (\"Abmahnungen\") for missing or wrong information."
+          "p": "German law requires online sellers to show clear provider information (the \"Impressum\"): legal name, address, fast contact options, and register and VAT numbers where applicable. On Amazon this comes from your seller profile, so complete the business and legal information in Seller Central. Missing or wrong details can attract costly warning letters (\"Abmahnungen\") from competitors."
         },
         {
           "h3": "Trademarks and Brand Registry"
         },
         {
           "ul": [
-            "**Which trademark:** an **EU trademark (EUIPO)** covers all EU countries in one application; a **German trademark (DPMA)** covers Germany only and is usually cheaper. Both are accepted for Amazon Brand Registry.",
-            "**Timing:** registration takes months, partly because of an opposition period. Apply as early as possible, ideally before you order packaging with your brand name.",
-            "**Brand Registry** gives you A+ content, Brand Stores, Sponsored Brands ads, Brand Analytics, Vine and stronger protection against hijackers. You can enrol with a pending application in many cases; check the current rules in Brand Registry.",
-            "**IP Accelerator:** where available, Amazon's IP Accelerator connects you to vetted IP law firms and can give you Brand Registry benefits while your application is pending. Check if it covers EUIPO/DPMA filings for you."
+            "An **EU trademark (EUIPO)** covers all EU countries in one application; a **German trademark (DPMA)** covers only Germany and is usually cheaper. Check fees and timelines with EUIPO or DPMA.",
+            "Registration takes months, partly because of an opposition period. Apply before you print branded packaging.",
+            "**Brand Registry** unlocks A+ content, Brand Stores, Sponsored Brands, Brand Analytics and Vine, plus stronger brand protection. Check Brand Registry's current rules on pending applications and Amazon's IP Accelerator."
           ]
-        },
-        {
-          "callout": {
-            "tone": "warn",
-            "title": "We could not verify fees and dates here",
-            "text": "Registration fees, processing times and the exact GPSR, battery and packaging rules change. Check EUIPO, DPMA, LUCID, stiftung ear and Amazon's Manage Your Compliance page for current details before you pay anyone."
-          }
         }
       ]
     },
@@ -718,7 +707,7 @@
         {
           "ul": [
             "**Price €20–€50.** Enough room to pay the referral fee, FBA fee and ads. Under €20, fees and Haul-level price expectations squeeze you [s22].",
-            "**Small and light.** Fits a standard parcel under 900 g, so the FBA fee is about €3.44 [s4].",
+            "**Small and light.** Fits a standard parcel up to 900 g, so the FBA fee is about €3.44 [s6].",
             "**Not electrical, no batteries, not a toy, food or cosmetic** for your first product. Less certification and EPR work.",
             "**Clear improvement possible.** Read 1–3 star reviews of top sellers to find what buyers hate. Fix it.",
             "**Steady demand all year,** not just Christmas.",
@@ -748,24 +737,24 @@
                 "example"
               ],
               [
-                "German VAT included in that price",
-                "depends on rate; at the standard rate about a sixth of the price",
-                "ask your adviser"
+                "German VAT at 19%",
+                "€3.99",
+                "[s41]"
               ],
               [
                 "Referral fee, home product above €20: 15%",
                 "€3.75",
-                "[s3]"
+                "[s1]"
               ],
               [
                 "FBA fee, standard parcel up to 900 g (DE only)",
                 "€3.44",
-                "[s4]"
+                "[s6]"
               ],
               [
-                "Fuel surcharge at 1.5% of FBA fee",
-                "€0.05",
-                "[s8]"
+                "Fuel and logistics surcharge, 2% of FBA fee",
+                "€0.07",
+                "[s7]"
               ],
               [
                 "Storage (0.006 m³, Jan–Sep, one month)",
@@ -774,7 +763,7 @@
               ],
               [
                 "Amazon fees subtotal",
-                "about €7.41",
+                "about €7.43",
                 ""
               ],
               [
@@ -788,7 +777,7 @@
                 "example"
               ]
             ],
-            "note": "After about €4 of VAT, €7.41 of Amazon fees, €6 of product and €3 of ads, this example leaves roughly €4.50 per unit before returns, packaging registration and tax. That is thin. Raise the price, lower product cost, or pick a product with a better ratio. Priced at €19.99 instead, the 8% home referral rate and Low-Price FBA could apply [s3][s2]; run both scenarios in the Revenue Calculator."
+            "note": "After €3.99 of VAT, €7.43 of Amazon fees, €6 of product and €3 of ads, this example leaves roughly €4.50 per unit before returns, packaging fees and income tax. That is thin. At €19.99 the 8% home rate applies and Low-Price FBA may apply [s1][s2]; run both scenarios in the Revenue Calculator."
           }
         },
         {
@@ -811,7 +800,7 @@
             "Fragile, liquid, heavy or oversize: higher FBA fees and damage returns.",
             "Gated categories or dangerous goods (aerosols, batteries, flammables).",
             "Patented designs or famous brands' look-alikes: IP complaints can kill a listing overnight.",
-            "Needs lots of size variants (clothing) for a first product: high returns [s12]."
+            "Needs lots of size variants (clothing) for a first product: high returns, and clothing returns cost 50% of the fulfilment fee [s6]."
           ]
         }
       ]
@@ -835,28 +824,23 @@
               ],
               [
                 "Pan-European FBA",
-                "Amazon spreads your stock across EU countries and charges local fees; needs VAT registrations in each storage country [s7][s35]",
-                "Sellers ready for full EU tax setup"
+                "You allow storage in at least two EU countries and pay local fees there; VAT number needed in each storage country [s7]",
+                "Sellers ready for a full EU tax setup"
               ],
               [
                 "EFN (European Fulfilment Network)",
-                "Stock in one country; Amazon ships cross-border to other EU stores for a higher fee [s7][s35]",
+                "Stock in one country; Amazon ships to other EU stores for a cross-border fee [s7]",
                 "Testing other EU stores without new VAT registrations"
               ],
               [
                 "Remote Fulfilment (UK ↔ EU)",
-                "UK FBA stock sold to DE, FR, IT, ES customers; ASIN price limit €135 [s9]",
+                "Stock in the UK or EU, orders shipped to the other side [s44]",
                 "UK-based sellers"
               ],
               [
                 "FBM (Fulfilment by Merchant)",
                 "You or a 3PL warehouse ship orders yourself",
                 "Large, slow-moving or custom products"
-              ],
-              [
-                "Prime by sellers",
-                "FBM with the Prime badge if you meet Amazon's strict delivery standards",
-                "Experienced FBM sellers"
               ]
             ]
           }
@@ -865,7 +849,7 @@
           "h3": "Central Europe Programme (CEP)"
         },
         {
-          "p": "If you join CEP, Amazon may store your German FBA stock in Poland and Czechia as well as Germany [s36][s7]. If you don't, you pay an extra **€0.26 per unit** shipped from German fulfilment centres [s6]. But storing in Poland and Czechia can trigger VAT registrations there too [s35]. Decide with your tax adviser."
+          "p": "If you join CEP, Amazon may store your German FBA stock in Poland and Czechia as well, and you save €0.26 per unit shipped [s36][s6]. But storage in Poland and Czechia can trigger VAT registrations there too [s7]. Decide with your tax adviser."
         },
         {
           "h3": "Shipping stock in"
@@ -875,8 +859,8 @@
             "Create a shipment in Seller Central (\"Send to Amazon\"). Amazon tells you which warehouse(s) to send to.",
             "Label every unit with its FNSKU barcode (or let the manufacturer print it), unless you use manufacturer barcodes with stickerless commingling (not recommended for brands).",
             "Follow Amazon's packaging and prep rules: bag loose items, protect fragile items, box weight and size limits.",
-            "Import: your freight forwarder or customs broker clears goods into the EU. You (or your agent) are importer of record and pay duty and import VAT. Amazon is not your importer.",
-            "Watch capacity limits: Europe uses capacity limits rather than inbound placement fees [s4]."
+            "Import: your freight forwarder or customs broker clears goods into the EU. You (or your agent) are importer of record, need an EORI number, and pay duty and import VAT [s42].",
+            "Watch capacity limits: Europe has no inbound placement fee [s6]."
           ]
         },
         {
@@ -885,7 +869,7 @@
         {
           "ul": [
             "Keep at least 28 days of stock in Pan-EU to avoid the low-inventory fee [s6].",
-            "Don't exceed about 3 months of stock outside Q4. Storage jumps to €52.20 per cubic metre in October–December [s1], and aged stock is surcharged from 241 days [s5].",
+            "Outside Q4, keep stock to about 3 months. Storage jumps to €52.20 per cubic metre in October–December [s1], and aged stock is surcharged from 241 days [s6].",
             "Plan Q4 inventory to arrive by early October; warehouses get congested in peak season.",
             "Lead time = production + freight + customs + Amazon check-in. From Asia by sea, plan for many weeks."
           ]
@@ -1073,7 +1057,7 @@
               [
                 "Late November",
                 "Black Friday and Cyber Monday week",
-                "Biggest deal week of the year; peak fees apply from 15 October [s4]"
+                "Biggest deal week of the year; peak fees apply from 15 October [s6]"
               ],
               [
                 "December",
@@ -1083,12 +1067,12 @@
               [
                 "15 Oct – 14 Jan",
                 "Peak fulfilment fee period in Germany",
-                "+€0.21–€0.44 per parcel [s4]; build into Q4 prices"
+                "+€0.21–€0.44 per parcel [s6]; build into Q4 prices"
               ],
               [
                 "January",
                 "Returns and post-holiday slowdown",
-                "Watch returns, reduce stock before aged-inventory surcharges [s5]"
+                "Watch returns, reduce stock before aged-inventory surcharges [s6]"
               ],
               [
                 "Spring",
@@ -1108,15 +1092,14 @@
           "h3": "Expanding across Europe from Germany"
         },
         {
-          "p": "With one European Seller Central account you can list in other EU stores. The usual order: Austria buys from Amazon.de directly; then France, Italy and Spain (big, Pan-EU core markets [s6]); then the Netherlands, Poland, Sweden, Belgium and Ireland, smaller stores where competition can be lower. Ireland had promotional FBA rates with a 50% discount on local and Pan-EU fees in 2026 [s8]."
+          "p": "With one European Seller Central account you can list in other EU stores. The usual order: Austria buys from Amazon.de directly; then France, Italy and Spain; then the Netherlands, Poland, Sweden, Belgium and Ireland, where competition can be lower. Ireland's FBA fees are promotional, 50% below standard local and Pan-EU rates [s6]."
         },
         {
           "ul": [
-            "**Translate properly:** each store needs listings in its own language (Dutch for NL, Polish for PL, Swedish for SE, French or Dutch for BE, English for IE).",
-            "**Start with EFN** to test demand from your German stock with one VAT registration [s35][s7].",
-            "**Move to Pan-European FBA** when a country sells well: local fees and faster delivery, but VAT registrations where stock is stored [s7][s35].",
-            "**Compliance travels with you:** GPSR covers the whole EU, but packaging EPR is country by country (France, Spain and others have their own schemes).",
-            "**Remote Fulfilment** connects UK and EU stores for products up to €135 [s9]."
+            "**Translate properly:** each store needs listings in its own language.",
+            "**Start with EFN** to test demand from your German stock with one VAT registration [s7].",
+            "**Move to Pan-European FBA** when a country sells well; Pan-EU products need an Amazon.nl listing from September 2026 [s7].",
+            "**Compliance travels with you:** GPSR covers the whole EU, but packaging EPR is country by country."
           ]
         }
       ]
@@ -1127,21 +1110,17 @@
       "blocks": [
         {
           "ol": [
-            "**Sending stock to Germany without a German VAT number.** Amazon can block your listings and the tax office can claim back VAT. Register first [s35][s32].",
-            "**No LUCID packaging registration.** Required for nearly every seller of packaged goods to German consumers; Amazon checks it.",
-            "**Missing GPSR information** (manufacturer, EU responsible person, German safety info). Listings get suppressed.",
-            "**Fake or missing CE paperwork.** A complaint or market-surveillance check removes the product and can cost you the stock.",
+            "**Sending stock to Germany without a German VAT number.** Amazon can block your listings [s41][s42]. Register first.",
+            "**Skipping LUCID, GPSR or CE paperwork.** Listings get removed, and a complaint can cost you the stock [s42][s43].",
             "**Bad German.** Machine-translated listings lose sales and confuse Alexa for Shopping [s21].",
-            "**Ignoring fee changes.** Using old FBA rates instead of the 2026 card plus fuel and peak surcharges [s4][s8].",
-            "**Over-stocking before Q4.** Storage nearly doubles from October [s1][s11], and aged stock is surcharged from 241 days [s5].",
+            "**Using old fee tables.** Use the 2026 rate card plus fuel and peak surcharges [s6][s7].",
+            "**Over-stocking before Q4.** Storage nearly doubles from October [s1], and aged stock is surcharged from 241 days [s6].",
             "**Running out of stock.** You lose ranking and, in Pan-EU, pay the low-inventory fee below 28 days of supply [s6].",
-            "**Review manipulation.** Paying for reviews, \"free product for 5 stars\", review groups, or asking friends and family. Amazon suspends accounts for this and German consumer law also forbids fake reviews. Use Vine and Request a Review only.",
-            "**Opening a second account or using a \"rented\" one.** Related or borrowed accounts get suspended.",
-            "**Copying a famous design or brand.** IP complaints remove listings fast; repeated complaints suspend accounts.",
-            "**Inauthentic or condition complaints.** Keep invoices from your supplier; Amazon may ask for them to prove authenticity.",
-            "**Late shipments and cancellations on FBM.** Keep late shipment rate and cancellation rate within Amazon's account health targets, or use FBA.",
-            "**Missing Impressum/business information.** Fill in Seller Central's legal information completely to avoid German warning letters.",
-            "**Shipping small parcels from Asia directly to EU customers.** Since July 2026 each low-value item pays €3 duty [s24], plus a €2 handling fee from November 2026 [s26]."
+            "**Review manipulation.** Paid reviews, \"free product for 5 stars\" or review groups get accounts suspended. Use Vine and Request a Review only.",
+            "**A second or \"rented\" account.** Related or borrowed accounts get suspended.",
+            "**Copying a famous design or brand.** IP complaints remove listings fast. Keep supplier invoices to prove authenticity.",
+            "**Missing Impressum details.** Complete Seller Central's legal information to avoid warning letters.",
+            "**Shipping small parcels from Asia directly to EU customers.** Since July 2026 each low-value item pays €3 duty [s24]."
           ]
         }
       ]
@@ -1155,28 +1134,22 @@
             "Read the latest European FBA rate card and fee pages [s6][s1].",
             "Pick 3–5 product ideas; validate demand in Product Opportunity Explorer.",
             "Check each idea for gating, CE, electronics, batteries and GPSR requirements.",
-            "Run the numbers in the Revenue Calculator with 2026 fees, surcharges and VAT.",
+            "Run the numbers in the Revenue Calculator with 2026 fees, surcharges and 19% VAT.",
             "Choose a brand name; search EUIPO and DPMA; file your trademark.",
             "Talk to a marketplace tax adviser; decide Germany-only, EFN or Pan-EU.",
-            "Register for German VAT (Steuernummer and USt-IdNr); register OSS if you're EU-based.",
-            "Register in LUCID and sign a packaging compliance contract.",
-            "If needed: register with stiftung ear for electronics and batteries.",
+            "Register for German VAT; register for OSS if you're EU-based. Get an EORI number.",
+            "Register in LUCID, join a packaging scheme, and register with stiftung ear if needed.",
             "Appoint an EU Responsible Person if you're outside the EU.",
-            "Order samples from 2–3 suppliers; test quality; get lab testing and CE documents if needed.",
-            "Open the Amazon.de Professional seller account; pass identity verification.",
-            "Fill in tax, VAT, legal (Impressum) and compliance details in Seller Central.",
-            "Design German packaging and labels with all safety, CE, WEEE and manufacturer information.",
-            "Place the first order (enough for about 2–3 months of expected sales).",
-            "Book freight and customs clearance; you are the importer.",
-            "Create the listing in German: title, bullets, images, A+ (with Brand Registry).",
-            "Create the FBA shipment; label units with FNSKU barcodes.",
-            "Enrol in Brand Registry as soon as your trademark allows.",
-            "Launch: Sponsored Products (auto + exact), coupon, Vine.",
+            "Order samples; test quality; get CE documents if needed.",
+            "Open the Amazon.de Professional account and pass verification.",
+            "Fill in tax, legal (Impressum) and compliance details in Seller Central.",
+            "Design German packaging and labels with all safety, CE, WEEE and manufacturer details.",
+            "Order about 2–3 months of expected sales; book freight and customs.",
+            "Create the German listing and the FBA shipment.",
+            "Launch: Sponsored Products (auto + exact), coupon, Vine once Brand Registry allows.",
             "Weekly: search term report, negatives, bids, stock level.",
-            "Request reviews on every eligible order.",
-            "Plan Q4: stock in by early October, include peak fees [s4].",
-            "Add EFN for France, Italy and Spain once Germany is profitable.",
-            "Review fees and account health every month."
+            "Plan Q4: stock in by early October, include peak fees [s6].",
+            "Add EFN for France, Italy and Spain once Germany is profitable."
           ]
         }
       ]
@@ -1189,7 +1162,7 @@
     },
     {
       "q": "How much does it cost to start selling on Amazon Germany?",
-      "a": "The Professional plan is €39 a month plus VAT, or €0.99 per item on the Individual plan. On top come referral fees (mostly about 8–15%), FBA fees from about €2.33 for a light envelope to €3.44 for a standard parcel under 900 g, storage, ads and stock. A realistic first product launch often needs €4,000–€6,000 including inventory, registrations and ads."
+      "a": "The Professional plan is €39 a month plus VAT, or €0.99 per item on the Individual plan. On top come referral fees (mostly 8–15%), FBA fees from €2.33 for a light envelope to €3.44 for a standard parcel under 900 g, storage, ads and stock. The example budget in this guide comes to about €4,400–€5,400 for one product."
     },
     {
       "q": "Do I need a German VAT number to sell on Amazon.de?",
@@ -1197,19 +1170,19 @@
     },
     {
       "q": "Does Amazon pay the VAT for me?",
-      "a": "Only in some cases. For certain sales by non-EU sellers, Amazon is the 'deemed supplier' and collects and pays the VAT. But you usually still need a VAT registration for stock stored in Germany, imports and returns. Ask a tax adviser before you send stock."
+      "a": "Only in some cases. For certain sales by non-EU sellers, Amazon is the 'deemed supplier' and collects and pays the VAT. But you usually still need a VAT registration for stock stored in Germany, imports and stock movements. Ask a tax adviser before you send stock."
     },
     {
       "q": "What is LUCID and do I really need it?",
-      "a": "LUCID is Germany's public packaging register. If you sell packaged goods to German consumers, you must register and pay a packaging scheme for recycling. Amazon asks for your LUCID number, and selling without it can get your listings blocked."
+      "a": "LUCID is Germany's public packaging register. If you sell packaged goods to German consumers, you must register there and join a packaging compliance scheme. Amazon lists LUCID registration as part of selling on Amazon.de, and missing EPR details can get listings removed."
     },
     {
       "q": "What is GPSR and what do I need for Amazon?",
-      "a": "GPSR is the EU's General Product Safety Regulation. Your listings must show the manufacturer, an EU-based responsible person, product identifiers and safety information in the local language. Enter it in Seller Central under Manage Your Compliance."
+      "a": "GPSR is the EU's General Product Safety Regulation, in force since 13 December 2024. Your non-food products need an EU-based Responsible Person, manufacturer details, a product identifier and safety information. Enter them in Seller Central's Manage Your Compliance dashboard."
     },
     {
       "q": "Is Pan-European FBA worth it for a beginner?",
-      "a": "Usually not on day one. Pan-EU gives local fees across the EU but requires VAT registrations in every country where stock is stored (often six). Start with Germany, test other countries with EFN, and switch to Pan-EU once you have steady sales."
+      "a": "Usually not on day one. Pan-EU gives local fees in the countries where you allow storage (at least two), but you need a VAT number in each of them. Start with Germany, test other stores with EFN, and switch to Pan-EU once sales are steady."
     },
     {
       "q": "Do I need to write my listings in German?",
@@ -1221,15 +1194,15 @@
     },
     {
       "q": "What happened to the €150 customs exemption?",
-      "a": "It ended on 1 July 2026. Low-value parcels from outside the EU now pay a flat €3 duty per item, and an extra €2 handling fee applies from November 2026. Bulk FBA imports already paid normal duty, so this mostly hurts direct parcel shipping."
+      "a": "It ended on 1 July 2026. Low-value goods imported from outside the EU now pay a flat €3 duty per item, and an EU handling fee is being added. Bulk FBA imports already paid normal duty, so this mostly hurts direct parcel shipping. Check current rules with your customs broker."
     },
     {
       "q": "What are the peak season fees on Amazon.de?",
-      "a": "From 15 October 2026 to 14 January 2027, Amazon adds a peak fee of about €0.21–€0.44 per unit on small and standard parcels in Germany. Storage also rises to €52.20 per cubic metre per month from October to December. Build both into your Q4 prices."
+      "a": "From 15 October 2026 to 14 January 2027, Amazon adds €0.21–€0.44 per unit to small and standard parcels sold from German stock. Standard-size storage also rises to €52.20 per cubic metre per month from October to December. Build both into your Q4 prices."
     },
     {
       "q": "How long does Amazon.de account verification take?",
-      "a": "It varies from a few days to several weeks. Delays usually come from mismatched names or addresses, blurry documents or missing the video verification call. Prepare matching documents and book the earliest call slot."
+      "a": "Amazon says verification usually takes 24 hours to 5 business days once all documents are in, and up to 10 business days in busy periods. Delays mostly come from mismatched names, unclear copies or expired documents."
     },
     {
       "q": "Can I sell in Austria with my Amazon.de account?",
@@ -1257,24 +1230,10 @@
     },
     {
       "id": "s3",
-      "title": "2026 updates to European referral and Fulfilment by Amazon fees (Seller Forums)",
+      "title": "2026 updates to European referral and Fulfilment by Amazon fees (News_Amazon post)",
       "publisher": "Amazon Seller Central DE",
       "url": "https://sellercentral.amazon.de/seller-forums/discussions/t/b3ec0524-ae08-4f43-85fe-81988e194d7c",
       "date": "2025-12"
-    },
-    {
-      "id": "s4",
-      "title": "Amazon FBA Fees 2026: EU Rate Card as Tables",
-      "publisher": "Amalytix",
-      "url": "https://www.amalytix.com/en/knowledge/logistics/amazon-fba-fees/",
-      "date": "2026-11"
-    },
-    {
-      "id": "s5",
-      "title": "Amazon seller fees in Germany: referral and FBA",
-      "publisher": "Profitkonsole",
-      "url": "https://profitkonsole.de/en/blog/amazon-seller-fees-germany",
-      "date": "2026"
     },
     {
       "id": "s6",
@@ -1285,52 +1244,10 @@
     },
     {
       "id": "s7",
-      "title": "Fulfilment by Amazon in Europe (Pan-European FBA, EFN)",
+      "title": "Pan-European FBA and the European Fulfilment Network",
       "publisher": "Amazon (sell.amazon.de)",
       "url": "https://sell.amazon.de/en/versand-durch-amazon/Europa",
       "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s8",
-      "title": "Low-price FBA rates and 2026 fulfilment surcharge notice",
-      "publisher": "Amazon (sell.amazon.es)",
-      "url": "https://sell.amazon.es/tarifas-precio-bajo-logistica-de-amazon",
-      "date": "2026"
-    },
-    {
-      "id": "s9",
-      "title": "Remote Fulfilment between the UK and EU",
-      "publisher": "Amazon (sell.amazon.co.uk)",
-      "url": "https://sell.amazon.co.uk/fulfilment-by-amazon/remote-fulfilment",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s10",
-      "title": "Amazon FBA Fee Hikes in US and EU 2026: How Sellers Can Respond",
-      "publisher": "Shoplazza",
-      "url": "https://www.shoplazza.com/blog/amazon-fba-fee-increase-us-eu",
-      "date": "2026-07"
-    },
-    {
-      "id": "s11",
-      "title": "Amazon FBA storage and peak fees in Europe: Q4 2026",
-      "publisher": "AX Holding Group",
-      "url": "https://www.axholdinggroup.com/en/blog/amazon-fba-storage-fees-europe",
-      "date": "2026"
-    },
-    {
-      "id": "s12",
-      "title": "Amazon introduces updated return fees for Europe sellers starting February 2025",
-      "publisher": "PPC Land",
-      "url": "https://ppc.land/amazon-introduces-updated-return-fees-for-europe-sellers-starting-february-2025/",
-      "date": "2025"
-    },
-    {
-      "id": "s13",
-      "title": "Amazon lets shoppers keep returns: FBA returnless resolutions",
-      "publisher": "Shopappy",
-      "url": "https://shopappy.com/?p=12688",
-      "date": "2026"
     },
     {
       "id": "s14",
@@ -1480,13 +1397,6 @@
       "date": "2017-11"
     },
     {
-      "id": "s35",
-      "title": "Pan-EU FBA vs EFN (2026): which European setup, and the VAT registrations each one forces",
-      "publisher": "AMZBase",
-      "url": "https://amzbase.com/guides/pan-eu-fba-vs-efn/",
-      "date": "2026"
-    },
-    {
       "id": "s36",
       "title": "Central Europe Programme",
       "publisher": "Amazon (sell.amazon.de)",
@@ -1501,25 +1411,39 @@
       "date": "2024"
     },
     {
-      "id": "s38",
-      "title": "Selling on Amazon Germany in 2026: Fees, Compliance & First Steps",
-      "publisher": "AdsMasters",
-      "url": "https://adsmasters.de/selling-on-amazon-germany/",
-      "date": "2026"
+      "id": "s41",
+      "title": "VAT information for sellers (VAT rates; when to register in Germany)",
+      "publisher": "Amazon (sell.amazon.de)",
+      "url": "https://sell.amazon.de/en/informationen/steuerinformationen",
+      "date": "accessed 2026-11-25"
     },
     {
-      "id": "s40",
-      "title": "Amazon fees 2026: reductions and fuel surcharge",
-      "publisher": "Office1",
-      "url": "https://www.office1.cloud/en/guide/amazon-fees-2026-reductions-and-fuel-surcharge",
-      "date": "2026"
+      "id": "s42",
+      "title": "Compliance Hub: guide for selling partners",
+      "publisher": "Amazon (sell.amazon.de)",
+      "url": "https://sell.amazon.de/en/verkaufspartner-compliance-hub",
+      "date": "accessed 2026-11-25"
     },
     {
-      "id": "s39",
-      "title": "EU €3 customs duty and €2 handling fee: what changes for direct parcels and FBA stock",
-      "publisher": "VSON Trading",
-      "url": "https://www.vsontrading.com/en/insights/eu-3-euro-duty-2-euro-handling-fee/",
-      "date": "2026"
+      "id": "s43",
+      "title": "Important Announcement: General Product Safety Regulation (GPSR) Implementation",
+      "publisher": "Amazon Seller Central DE (Seller Forums)",
+      "url": "https://sellercentral.amazon.de/seller-forums/discussions/t/611e88dd-bc36-4cdd-b74b-380416e8c28e",
+      "date": "2024"
+    },
+    {
+      "id": "s44",
+      "title": "Fulfilment by Amazon (incl. Remote Fulfilment between the UK and the EU)",
+      "publisher": "Amazon (sell.amazon.de)",
+      "url": "https://sell.amazon.de/en/versand-durch-amazon",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s45",
+      "title": "Environmental compliance: EPR services and EPR Pay on Behalf",
+      "publisher": "Amazon (sell.amazon.de)",
+      "url": "https://sell.amazon.de/en/einhaltungs-losungen/umweltsicherheit",
+      "date": "accessed 2026-11-25"
     }
   ]
 }
