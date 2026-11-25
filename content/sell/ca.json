@@ -9,12 +9,12 @@
  "description": "Sell on Amazon.ca in 2026: CAD 29.99 plan, referral and FBA fees, GST/HST/PST/QST, bilingual labels, US tariffs and your first 90 days.",
  "tldr": [
   "The Professional plan costs CAD 29.99 a month (Individual: CAD 1.49 per unit sold) and one North America Unified Account covers Amazon.ca, Amazon.com and Amazon.com.mx [s1][s2].",
-  "Most categories pay a 15% referral fee with a CAD 0.40 minimum; electronics pay 8% [s7].",
-  "FBA fulfilment for a small item starts around CAD 4.46–5.92, plus a 3.5% fuel surcharge since April 17, 2026 and peak fees averaging CAD 0.39 from Oct 15, 2026 to Jan 14, 2027 [s4][s5][s8].",
+  "Most categories pay a 15% referral fee with a CAD 0.40 minimum; computers and consumer electronics pay 8% [s38].",
+  "FBA fulfilment starts at CAD 4.46 (envelope) or CAD 5.92 (standard, first 100 g), plus a 3.5% fuel surcharge since April 17, 2026 and holiday peak fees from Oct 15, 2026 to Jan 14, 2027 [s38][s4][s37].",
   "Amazon collects GST/HST on your Amazon.ca sales until you register; you must register once sales pass CAD 30,000 in a quarter or four quarters [s10][s13].",
   "Amazon collects PST/RST/QST in BC, Saskatchewan, Manitoba and Quebec on eligible sales shipped from inside Canada [s10].",
-  "Labels need English and French; Quebec's Bill 96 rules for packaging and trademarks apply since June 1, 2025 [s31][s33].",
-  "US–Canada tariffs changed again in 2026: a US 10% tariff on non-CUSMA Canadian goods since July 24 and new Canadian counter-tariffs from September 8 [s20][s24].",
+  "Labels need English and French; Quebec's stricter Bill 96 (Law 14) rules on product packaging and trademarks took effect June 1, 2025 [s31][s33].",
+  "US–Canada tariffs changed again in 2026, including a US 10% tariff on non-CUSMA Canadian goods and new Canadian counter-tariffs; check CBSA and canada.ca for current rates [s20][s24].",
   "Plan 90 days: listing, Vine, Sponsored Products, weekly search-term clean-up, then decide on a second product or Amazon.com."
  ],
  "sections": [
@@ -43,7 +43,7 @@
      "h3": "AI shopping and cheap-goods competition"
     },
     {
-     "p": "Amazon's AI shopping assistant, Rufus, answers shopper questions using your listing text, images, Q&A and reviews. Check whether it shows in your Amazon.ca app and in which language; either way, write listings that answer the real questions a buyer asks (size, what's in the box, who it's for) in plain words. On the low-price side, Amazon now runs a **Low-Price FBA** rate for items under CAD 14, which lowers fulfilment fees for cheap products [s8]. That makes very cheap items more competitive, so a beginner should avoid racing to the bottom on price."
+     "p": "Amazon's AI shopping assistant, Rufus, answers shopper questions using your listing text, images, Q&A and reviews. Check whether it shows in your Amazon.ca app and in which language; either way, write listings that answer the real questions a buyer asks (size, what's in the box, who it's for) in plain words. On the low-price side, Amazon.ca runs a **Low-Price FBA** rate: products priced under CAD 14 get FBA rates CAD 0.80 lower than standard [s38]. That makes very cheap items more competitive, so a beginner should avoid racing to the bottom on price."
     },
     {
      "callout": {
@@ -90,9 +90,9 @@
         "Most consumer goods from the US became cheaper to import again."
        ],
        [
-        "Feb 20, 2026",
-        "US Supreme Court ruled the IEEPA tariffs unlawful, which voided the 35% US tariff on non-CUSMA Canadian goods [s23][s24].",
-        "US importers may claim refunds for IEEPA duties paid from Feb 4, 2025 to Feb 24, 2026 [s25]."
+        "Feb 2026",
+        "US Supreme Court ruled the IEEPA tariffs unlawful, ending the 35% US tariff on non-CUSMA Canadian goods [s23][s24].",
+        "Importers of record who paid IEEPA duties may be able to claim refunds; check the current process with US CBP or a customs broker [s25]."
        ],
        [
         "Apr 17, 2026",
@@ -105,32 +105,32 @@
         "If you sell Canadian stock into the US, proving CUSMA origin saves real money."
        ],
        [
-        "Aug 22, 2026",
-        "US 50% tariffs under Section 338 on a list of Canadian products, with no CUSMA exemption, reported by trade guides [s27].",
-        "Check your product's tariff code against the list before shipping to the US."
+        "2026",
+        "US 50% tariffs under Section 338 on a list of Canadian products, with no CUSMA exemption, as reported by trade guides [s27].",
+        "Check your product's tariff code against the current US list before shipping to the US."
        ],
        [
         "Sep 8, 2026",
-        "Canada's new counter-tariffs of 15%, 25% and 50% on about C$27.6 billion of US goods took effect (announced Aug 25, 2026) [s20][s21].",
-        "Goods like appliances, electronics and paper from the US can again cost more to bring into Canada."
+        "Canada's new counter-tariffs of 15%, 25% and 50% on about C$27.6 billion of US goods took effect [s20].",
+        "Goods like appliances, electronics and paper from the US can again cost more to bring into Canada. The list has been revised; check the current one on canada.ca."
        ],
        [
         "Oct 15, 2026 – Jan 14, 2027",
-        "Holiday peak FBA fulfilment fees apply in Canada, averaging about CAD 0.39 per unit, with the 3.5% surcharge on top [s5].",
+        "Holiday peak FBA fulfilment fees apply, with the 3.5% surcharge on top [s37]. A fee guide reports the Canadian increase averages about CAD 0.39 per unit [s5].",
         "Price your Q4 products with the peak fee included."
        ],
        [
-        "Nov 9, 2026",
-        "Amendments to Canada's US Surtax Remission Order (tariff relief) came into force [s22].",
-        "If you import affected US goods, you may be able to apply for relief."
+        "2025–2026",
+        "Canada offers remission (tariff relief) for some counter-tariffed US goods, and has amended the rules several times [s21][s22].",
+        "If you import affected US goods, check the Department of Finance pages for whether you can apply for relief."
        ],
        [
-        "2026",
-        "Low-Price FBA rate for items under CAD 14 (reported as CAD 0.80 below standard rates) [s8]. A 2025 guide listed a CAD 11 threshold and CAD 0.55 discount [s9].",
-        "Cheap items are cheaper to fulfil. Confirm the current threshold in Seller Central."
+        "Current",
+        "Low-Price FBA: products priced under CAD 14 get FBA rates CAD 0.80 below standard [s38].",
+        "Cheap items are cheaper to fulfil. Confirm the threshold in Seller Central before you price."
        ]
       ],
-      "note": "Tariff entries come from Government of Canada pages, CBC, Blakes and trade guides [s18]–[s27]. Sources disagree on some 2026 details; confirm current rates with CBSA and US CBP before you rely on them."
+      "note": "Tariff entries come from Government of Canada pages, news reports and trade guides. Sources disagree on some 2026 details and rates keep changing; check CBSA, canada.ca and US CBP for current rates before you rely on them."
      }
     },
     {
@@ -175,7 +175,7 @@
     },
     {
      "ul": [
-      "You can register through the North America Unified Account. If you register in the US or Mexico store you pay USD 39.99 a month; registering in Canada costs CAD 29.99 a month [s2].",
+      "You can register through the North America Unified Account. If you register through the US store (a North America and Brazil unified account) you pay USD 39.99 a month; a Canada account used only for Canada costs CAD 29.99 a month [s2].",
       "You will need a way to receive payouts. Amazon supports bank accounts in many countries; check the current list during registration.",
       "Under Canada's platform rules, a non-resident seller who is not registered for GST/HST and does not carry on business in Canada generally does not have to register when selling goods through a platform like Amazon, because Amazon collects the tax [s11][s12]. Ask a Canadian tax adviser if you hold stock in Canada, since the rules depend on your facts.",
       "Your labels still need a Canadian dealer name and address if the product is made outside Canada, under the Consumer Packaging and Labelling rules [s33][s34]."
@@ -216,8 +216,8 @@
         "More than 30 units a month, ads, bulk tools, Brand Registry features [s1]"
        ],
        [
-        "Professional via US or Mexico registration",
-        "USD 39.99 per month, covers all three North American stores [s2]",
+        "Professional via US registration",
+        "USD 39.99 per month, covers the US, Canada, Mexico and Brazil stores [s2]",
         "Sellers mainly targeting Amazon.com"
        ]
       ],
@@ -280,7 +280,7 @@
    "title": "Every cost, in CAD",
    "blocks": [
     {
-     "p": "Amazon.ca charges you in layers: a plan fee, a referral fee on every sale, and, if you use FBA, fulfilment and storage fees. Ads, samples, photos and stock are on top. The numbers below come from Amazon pages and 2025–2026 fee guides. Always confirm them in the Amazon.ca Revenue Calculator before you buy stock."
+     "p": "Amazon.ca charges you in layers: a plan fee, a referral fee on every sale, and, if you use FBA, fulfilment and storage fees. Ads, samples, photos and stock are on top. The numbers below come from the Amazon.ca pricing page unless marked otherwise [s38]. Always confirm them in the Amazon.ca Revenue Calculator before you buy stock."
     },
     {
      "h3": "Subscription"
@@ -301,8 +301,8 @@
         "CAD 1.49 per unit sold [s1]"
        ],
        [
-        "Professional, registered from US or Mexico",
-        "USD 39.99 / month for all North American stores [s2]"
+        "Professional, registered through the US store",
+        "USD 39.99 / month for the US, Canada, Mexico and Brazil stores [s2]"
        ]
       ]
      }
@@ -318,39 +318,47 @@
       ],
       "rows": [
        [
-        "Home & Kitchen, and most 'everything else'",
-        "15% [s7]"
+        "Home & Kitchen, Toys, Sports, Office, Pet, Lawn & Garden, Everything Else",
+        "15% [s38]"
        ],
        [
-        "Computers and consumer electronics",
-        "8% [s7]"
+        "Computers, Consumer Electronics, Video Game Consoles",
+        "8% [s38]"
        ],
        [
-        "Automotive and powersports",
-        "12% [s7]"
+        "Electronic Accessories",
+        "15% on the portion up to CAD 100, 8% above [s38]"
        ],
        [
-        "Clothing",
-        "Tiered by price: 10% below CAD 20, 17% above, as reported [s7]"
+        "Beauty, Health & Personal Care; Baby",
+        "8% if total price is CAD 15 or less, 15% above [s38]"
+       ],
+       [
+        "Automotive and Powersports; Business, Industrial & Scientific",
+        "12% [s38]"
+       ],
+       [
+        "Clothing and Accessories",
+        "10% if total price is under CAD 20, 17% at CAD 20 or more [s38]"
        ],
        [
         "Eyewear",
-        "17% [s7]"
+        "17% [s38]"
        ],
        [
         "Tires",
-        "10% [s7]"
+        "10% [s38]"
        ],
        [
-        "Amazon device accessories",
-        "45% [s7]"
+        "Amazon Device Accessories",
+        "45% [s38]"
        ],
        [
         "Minimum per item (most categories)",
-        "CAD 0.40 [s6][s7]"
+        "CAD 0.40 [s38]"
        ]
       ],
-      "note": "Amazon charges the higher of the percentage or the per-item minimum [s7]. The US minimum (USD 0.30) does not apply on Amazon.ca. Media items also carry a closing fee; check the current amount in Seller Central. Full category list: the Amazon.ca pricing page."
+      "note": "Amazon charges the greater of the percentage or the per-item minimum, and the percentage applies to the total price including shipping and gift wrap [s38]. Some categories (such as grocery and media) have no CAD 0.40 minimum. For media items, check Seller Central for any closing fee. Full category list: the Amazon.ca pricing page [s38]."
      }
     },
     {
@@ -366,31 +374,41 @@
       "rows": [
        [
         "Envelope, first 100 g",
-        "from CAD 4.46 [s8]",
-        "Steps up by weight to about CAD 5.62 at 500 g [s8]"
+        "CAD 4.46 [s38]",
+        "Steps up by weight to CAD 5.62 at 400–500 g [s38]"
        ],
        [
-        "Small standard, 0–100 g",
-        "CAD 5.92 non-peak, CAD 6.32 peak (2025 table) [s9]",
-        "A 2026 calculator still lists CAD 5.92 for the first 100 g [s8]"
+        "Standard size, first 100 g",
+        "CAD 5.92 [s38]",
+        "CAD 8.49 at 900 g–1 kg; CAD 10.32 at 1.5 kg [s38]"
        ],
        [
-        "Low-Price FBA (item under CAD 14)",
-        "Reported CAD 0.80 below the standard rate [s8]",
-        "Threshold and discount were different in 2025 [s9]"
+        "Small oversize, first 500 g",
+        "CAD 15.43 [s38]",
+        "+CAD 0.46 per extra 500 g [s38]"
+       ],
+       [
+        "Low-Price FBA (price under CAD 14)",
+        "CAD 0.80 below the standard rate [s38]",
+        "Confirm eligibility in Seller Central"
        ],
        [
         "Fuel and logistics surcharge",
         "+3.5% on FBA fulfilment fees since Apr 17, 2026 [s4]",
-        "Added at billing on top of the rate card [s8]"
+        "Charged on the fulfilment fee, not the sale price [s4]"
+       ],
+       [
+        "Lithium batteries and dangerous goods",
+        "+CAD 0.11 per unit [s38]",
+        "On top of the fulfilment fee"
        ],
        [
         "Holiday peak (Oct 15, 2026 – Jan 14, 2027)",
-        "Average +CAD 0.39 per unit [s5]",
-        "Surcharge applies on top [s5]"
+        "Peak rates apply [s37]; reported average about +CAD 0.39 per unit [s5]",
+        "The 3.5% surcharge applies on top [s37]"
        ]
       ],
-      "note": "These are examples only. Larger and heavier tiers cost much more; use the Revenue Calculator with your exact size and weight."
+      "note": "Shipping weight is the greater of actual and dimensional weight [s38]. Larger tiers cost much more; use the Revenue Calculator with your exact size and weight."
      }
     },
     {
@@ -398,11 +416,12 @@
     },
     {
      "ul": [
-      "**Monthly storage** is charged per cubic foot and is higher from October to December. We could not verify the current Amazon.ca rates, so check the FBA fee page in Seller Central Canada.",
-      "**Aged inventory surcharges** apply to stock that sits too long. Send small batches at first.",
-      "**Inbound placement fee** and **low-inventory-level fee** exist on Amazon.com; check in Seller Central whether and how they apply to your Amazon.ca shipments before relying on US guides.",
-      "**Returns processing** and **removal/disposal** fees apply in some categories. Check the current list.",
-      "**Refund administration fee**: when you refund a buyer, Amazon keeps part of the referral fee. Check the current rule in Seller Central."
+      "**Monthly storage** is charged per cubic metre of daily average volume: CAD 40 (standard size) and CAD 28 (oversize) from January to September, rising to CAD 77 and CAD 49 from October to December [s38].",
+      "**Aged inventory** surcharges apply to stock stored over about 180 days, and a high storage utilization fee can apply too [s38][s36]. Send small batches at first.",
+      "**Inbound placement service** fees apply to some standard and large bulky shipments [s36]; check the current rates in Seller Central Canada rather than US guides.",
+      "**Returns processing** (when Amazon offers the buyer free return shipping) and **removal/disposal** orders are charged per item [s36]. Check the current amounts in Seller Central.",
+      "**Refund administration fee**: when you refund a buyer, Amazon returns your referral fee minus the lesser of CAD 5.00 or 20% of that referral fee [s38].",
+      "**FBA New Selection** can give eligible new products free inbound shipping, storage, removals and returns processing, with conditions [s36]."
      ]
     },
     {
@@ -421,7 +440,7 @@
      "h3": "Worked example: one sale (example only)"
     },
     {
-     "p": "A CAD 25 kitchen gadget that fits the small standard tier (under 100 g), sold with FBA outside peak season:"
+     "p": "A CAD 25 kitchen gadget in the standard size tier (first 100 g), sold with FBA outside peak season:"
     },
     {
      "table": {
@@ -435,11 +454,11 @@
         "25.00"
        ],
        [
-        "Referral fee 15% [s7]",
+        "Referral fee 15% [s38]",
         "−3.75"
        ],
        [
-        "FBA fee 5.92 [s8] + 3.5% surcharge [s4]",
+        "FBA fee 5.92 [s38] + 3.5% surcharge [s4]",
         "−6.13"
        ],
        [
@@ -447,7 +466,7 @@
         "15.12"
        ]
       ],
-      "note": "Example only. In peak season add about CAD 0.39 [s5]. If you are not GST/HST-registered, the GST/HST charged on Amazon's fees is an extra cost [s17]."
+      "note": "Example only. In peak season the fee is higher (reported average about CAD 0.39 more [s5]). If you are not GST/HST-registered, the GST/HST charged on Amazon's fees is an extra cost [s17]."
      }
     },
     {
@@ -569,7 +588,7 @@
       "Amazon says marketplace facilitator rules are in effect across Canada. It calculates, collects and remits tax on eligible third-party sales shipped from within Canada; imports from outside Canada are excluded [s10].",
       "Provincial dates on Amazon's page: Saskatchewan PST from Jul 1, 2021; Quebec QST from Nov 1, 2021; Manitoba RST from Dec 1, 2021; British Columbia PST from Jul 1, 2022 [s10].",
       "Federal GST/HST: Amazon collects it only when you are **not** registered for GST/HST. Once your GST/HST number is in Seller Central, Amazon stops collecting it and passes it to you in your payout, and you remit it to the CRA [s10][s17].",
-      "A simplified GST/HST registration (numbers ending in RT9999) is treated as unregistered for Amazon.ca sales [s16]. Amazon's page also excludes simplified-regime registrations from the 'you stay responsible' rule [s10].",
+      "A simplified GST/HST registration (numbers ending in RT9999) is treated as unregistered for Amazon.ca sales [s16].",
       "Under the federal rules from July 1, 2021, a registered platform operator must charge GST/HST on goods sold through it by unregistered vendors, resident or not [s11][s12]."
      ]
     },
@@ -637,10 +656,10 @@
     },
     {
      "ul": [
-      "Product packaging, inserts, instructions and warranties sold in Quebec must be in French; another language can appear but not more prominently [s31][s32].",
-      "From Jun 1, 2025, generic or descriptive words on packaging must be in French, even beside a trademark. A trademark can stay in another language only if it is a registered trademark and no French version is registered [s31][s32].",
-      "Stock made before Jun 1, 2025 can be sold until Jun 1, 2027 under conditions [s32].",
-      "Out-of-province sellers who ship into Quebec are covered too, and websites selling to Quebec buyers need French [s32]."
+      "Quebec's Charter of the French Language requires French on product packaging, labels, inserts, instructions and warranties. Another language can appear, but generally not more prominently than the French [s31][s32].",
+      "From Jun 1, 2025, generic or descriptive words on packaging need French even when they are part of a trademark. A trademark can generally stay only in another language if it is registered under the federal Trademarks Act and no French version is registered [s31][s32].",
+      "Products made before Jun 1, 2025 can, under conditions, be sold until Jun 1, 2027 [s32].",
+      "If your products are sold to Quebec buyers, assume these rules apply to your packaging even if you are based elsewhere. The details are technical; check the Office québécois de la langue française (OQLF) or a Quebec lawyer for your case [s31]."
      ]
     },
     {
@@ -673,7 +692,7 @@
     {
      "ul": [
       "Sells for about CAD 25–60, so fees leave room for profit.",
-      "Small and light: fits the small standard or large standard tier and weighs under 1 kg.",
+      "Small and light: fits the envelope or standard size tier and weighs under 1 kg [s38].",
       "Not fragile, not seasonal, no batteries or liquids, not for babies or young children.",
       "Not gated and not regulated by special Health Canada rules.",
       "Searched all year in both English and French.",
@@ -684,7 +703,7 @@
      "h3": "The margin rule of thumb"
     },
     {
-     "p": "Aim for at least 30% of the price left after Amazon fees, landed product cost and ads. Using the example in the costs section, a CAD 25 item keeps about CAD 15.12 after the referral and FBA fees [s7][s8][s4]. To keep 30% (CAD 7.50) you can spend about CAD 7.62 per unit on landed product cost, inbound shipping, storage and ads combined. If your landed cost is already CAD 5, that leaves only about CAD 2.62 for ads and storage, which is tight. This is why many beginners pick a higher price point. (Example only.)"
+     "p": "Aim for at least 30% of the price left after Amazon fees, landed product cost and ads. Using the example in the costs section, a CAD 25 item keeps about CAD 15.12 after the referral and FBA fees [s38][s4]. To keep 30% (CAD 7.50) you can spend about CAD 7.62 per unit on landed product cost, inbound shipping, storage and ads combined. If your landed cost is already CAD 5, that leaves only about CAD 2.62 for ads and storage, which is tight. This is why many beginners pick a higher price point. (Example only.)"
     },
     {
      "h3": "Validate demand with official Amazon tools"
@@ -765,7 +784,7 @@
       "Create a shipment in Send to Amazon. Label every unit with its FNSKU barcode and every box with Amazon's box label.",
       "Follow Amazon's prep rules (poly bags, bubble wrap, suffocation warnings in English and French for bags).",
       "If you import into Canada, you or your broker are the importer of record. Get a BN with an import-export program account, use a customs broker for your first shipments, and know your tariff code.",
-      "US goods that qualify under CUSMA can enter with lower or no duty. Commercial low-value shipments up to CAD 3,300 can use simplified courier processing [s28]. Postal shipments from the US and Mexico, and all small shipments from other countries, keep a CAD 20 duty and tax relief threshold [s29]. Couriered CUSMA shipments are commonly described as duty and tax free up to CAD 40 and duty free up to CAD 150 [s30]; confirm with CBSA.",
+      "US goods that qualify under CUSMA can enter with lower or no duty. Commercial low-value shipments up to CAD 3,300 can use simplified courier processing [s28]. Postal shipments, and small shipments from outside the US and Mexico, keep a CAD 20 duty and tax relief threshold [s29]. Couriered CUSMA shipments are generally duty and tax free up to CAD 40 and duty free up to CAD 150 [s28]; confirm current thresholds with CBSA.",
       "From China or India, shipments enter under normal duty rates; check the Canadian Customs Tariff for your code."
      ]
     },
@@ -777,7 +796,7 @@
       "Order enough for 60–90 days of expected sales, plus time for shipping and receiving.",
       "Send a first small batch (100–300 units) to learn real sales speed before reordering.",
       "Watch Restock Inventory in Seller Central weekly. Running out kills your ranking; too much stock costs storage and aged fees.",
-      "Plan Q4 stock early. Peak fees start Oct 15 [s5] and warehouses get busy."
+      "Plan Q4 stock early. Peak fees start Oct 15 [s37] and warehouses get busy."
      ]
     }
    ]
@@ -956,7 +975,7 @@
        ],
        [
         "Mid-October to mid-January",
-        "Holiday peak fees in force (2026: Oct 15 – Jan 14) [s5]",
+        "Holiday peak fees in force (2026: Oct 15 – Jan 14) [s37]",
         "Price with the peak fee included"
        ],
        [
@@ -988,7 +1007,7 @@
     },
     {
      "ul": [
-      "**Amazon.com (US)**: the biggest next step. With the unified account you can list there without a second subscription [s1][s2]. Check US tariffs first: a 10% Section 301 tariff on most Canadian goods with CUSMA exemptions, and 50% Section 338 tariffs on listed products [s24][s27]. Sector tariffs on steel, aluminum and similar goods also still apply [s24].",
+      "**Amazon.com (US)**: the biggest next step. With the unified account you can list there without a second subscription [s1][s2]. Check US tariffs first: a 10% Section 301 tariff on most Canadian goods with CUSMA exemptions, and 50% Section 338 tariffs on listed products [s24][s27]. Sector tariffs on steel, aluminum and similar goods also still apply [s24]. Rates change often; check US CBP for current figures.",
       "**Amazon.com.mx (Mexico)**: included in the same account; needs Spanish listings and Mexican tax setup.",
       "**Europe, UK and others**: separate registration through Amazon Global Selling; start only once Canada is profitable."
      ]
@@ -1008,7 +1027,7 @@
     {
      "ol": [
       "**Using US fee numbers.** Amazon.ca fees are in CAD and different. Use the Amazon.ca Revenue Calculator.",
-      "**Forgetting the 3.5% surcharge and peak fees.** Since Apr 17, 2026 FBA fees carry a 3.5% surcharge [s4], and peak fees run Oct 15 – Jan 14 [s5].",
+      "**Forgetting the 3.5% surcharge and peak fees.** Since Apr 17, 2026 FBA fees carry a 3.5% surcharge [s4], and peak fees run Oct 15 – Jan 14 [s37].",
       "**English-only labels.** Missing French on product identity breaks federal rules [s33]; Quebec needs much more [s31].",
       "**Wrong GST/HST setup.** Entering a GST/HST number means you, not Amazon, remit GST/HST [s10][s17]. Don't enter one you don't actively file.",
       "**Ignoring tariffs.** Check both Canada's counter-tariff lists [s20] and US tariffs [s27] before importing or exporting.",
@@ -1065,11 +1084,11 @@
  "faq": [
   {
    "q": "How much does it cost to sell on Amazon Canada?",
-   "a": "The Professional plan is CAD 29.99 a month, or the Individual plan charges CAD 1.49 per unit sold. On top, you pay a referral fee per sale (15% in many categories) and, with FBA, fulfilment fees starting around CAD 4–6 per small unit plus a 3.5% surcharge since April 2026."
+   "a": "The Professional plan is CAD 29.99 a month, or the Individual plan charges CAD 1.49 per unit sold. On top, you pay a referral fee per sale (15% in many categories, CAD 0.40 minimum) and, with FBA, fulfilment fees from CAD 4.46 (envelope) or CAD 5.92 (standard, first 100 g), plus a 3.5% surcharge since April 17, 2026."
   },
   {
    "q": "If I sign up on Amazon.ca, can I also sell on Amazon.com?",
-   "a": "Yes. A Professional account is a North America Unified Account that covers the US, Canadian and Mexican stores without a second subscription. If you register through the US or Mexico store, the fee is USD 39.99 a month instead of CAD 29.99."
+   "a": "Yes. A Professional account is a unified account that covers the US, Canadian and Mexican stores without a second subscription. If you register through the US store, the fee is USD 39.99 a month (and also covers Brazil); a Canada account used only for Canada is CAD 29.99."
   },
   {
    "q": "Do I need a GST number to sell on Amazon.ca?",
@@ -1085,7 +1104,7 @@
   },
   {
    "q": "Do my products really need French labels?",
-   "a": "Yes. Federal rules require the product identity in English and French, and Quebec's Bill 96 requires French on packaging, instructions and warranties, with generic words in French even beside a trademark since June 1, 2025. The simplest approach is one bilingual pack for all of Canada."
+   "a": "Yes. Federal rules require the product identity in English and French, and Quebec's Bill 96 (Law 14) requires French on packaging, instructions and warranties. Since June 1, 2025, generic words on packaging generally need French even beside a trademark. The simplest approach is one bilingual pack for all of Canada; check the OQLF for your exact case."
   },
   {
    "q": "Is Amazon FBA worth it in Canada?",
@@ -1097,7 +1116,7 @@
   },
   {
    "q": "How do US–Canada tariffs affect me as an Amazon seller?",
-   "a": "If you import US goods into Canada, check Canada's counter-tariff lists (new rates of 15–50% took effect September 8, 2026 on certain goods). If you sell Canadian goods into the US, most face a 10% US tariff unless they qualify under CUSMA, and some listed products face 50%."
+   "a": "If you import US goods into Canada, check Canada's current counter-tariff list on canada.ca (new rates of 15–50% took effect September 8, 2026 on certain goods, and the list has been revised). If you sell Canadian goods into the US, most face a 10% US tariff unless they qualify under CUSMA, and some listed products face 50%. Rates change often, so check CBSA and US CBP before you ship."
   },
   {
    "q": "How long does a Canadian trademark take for Brand Registry?",
@@ -1126,7 +1145,7 @@
   },
   {
    "id": "s2",
-   "title": "Sell on Amazon Canada (global selling)",
+   "title": "Sell on Amazon in Canada (global selling)",
    "publisher": "Amazon",
    "url": "https://sell.amazon.com/global-selling/canada",
    "date": "accessed 2026-11-25"
@@ -1141,9 +1160,9 @@
   {
    "id": "s4",
    "title": "Fuel and logistics-related surcharge: FBA, MCF, and BWP in US and CA",
-   "publisher": "Amazon Seller Forums",
+   "publisher": "Amazon (Seller Central news)",
    "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/7cbc0233-ee5b-4359-978a-dee7cad5c6f4",
-   "date": "2026"
+   "date": "2026-04"
   },
   {
    "id": "s5",
@@ -1151,34 +1170,6 @@
    "publisher": "AMZ Prep",
    "url": "https://amzprep.com/holiday-peak-fulfillment-fees/",
    "date": "2026"
-  },
-  {
-   "id": "s6",
-   "title": "Amazon Canada Selling Fees: Full CAD Breakdown",
-   "publisher": "Forceget",
-   "url": "https://forceget.com/blog/amazon-canada-selling-fees/",
-   "date": "2026"
-  },
-  {
-   "id": "s7",
-   "title": "Amazon Canada Seller Fees 2026: Complete Marketplace Guide",
-   "publisher": "EcomCalcTools",
-   "url": "https://ecomcalctools.com/blog/fees-amazon/amazon-fees-canada-2026/",
-   "date": "2026"
-  },
-  {
-   "id": "s8",
-   "title": "Amazon Canada FBA Fees Calculator (CAD)",
-   "publisher": "Tnaado Tools",
-   "url": "https://tools.tnaado.ca/calculators/business/amazon-fba-fees-canada-calculator/",
-   "date": "2026-10"
-  },
-  {
-   "id": "s9",
-   "title": "Amazon Canada FBA Fees Explained: 2025 Guide",
-   "publisher": "My Amazon Guy",
-   "url": "https://myamazonguy.com/amazon-canada/amazon-canada-fba-fees/",
-   "date": "2025"
   },
   {
    "id": "s10",
@@ -1321,13 +1312,6 @@
    "date": "2020"
   },
   {
-   "id": "s30",
-   "title": "Canada customs rules for parcels",
-   "publisher": "Parcels App",
-   "url": "https://parcelsapp.com/en/customs/canada",
-   "date": "accessed 2026-11-25"
-  },
-  {
    "id": "s31",
    "title": "Everything you need to know about Quebec's Law 14 (Bill 96)",
    "publisher": "CFIB",
@@ -1367,6 +1351,20 @@
    "title": "Fulfilment by Amazon (FBA)",
    "publisher": "Amazon",
    "url": "https://sell.amazon.ca/fulfilment-by-amazon",
+   "date": "accessed 2026-11-25"
+  },
+  {
+   "id": "s37",
+   "title": "Holiday 2026: Same fees, same eligibility, earlier deadlines",
+   "publisher": "Amazon (Seller Central news)",
+   "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/3e31fbb7-04e0-4ed4-873e-f74b1052e2ff",
+   "date": "2026"
+  },
+  {
+   "id": "s38",
+   "title": "Selling on Amazon fees: plans, referral fees, FBA and storage fees",
+   "publisher": "Amazon",
+   "url": "https://sell.amazon.ca/pricing",
    "date": "accessed 2026-11-25"
   }
  ]
