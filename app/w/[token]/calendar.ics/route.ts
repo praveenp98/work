@@ -1,3 +1,5 @@
+import { marketOf } from "@/lib/season";
+import { seasonEvents } from "@/lib/season-ics";
 import { getStore } from "@/lib/store";
 import { loadWorkspace } from "@/lib/workspace";
 
@@ -33,9 +35,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
   }
   const monday = new Date("2026-11-23T00:00:00Z");
   events.push(allDay(`brief-${ws.id}`, monday, "🦝 Rocco: Monday brief", 'Open your Rocco (rocco.works → Sign in): today\'s jobs are ready. Tap approve and Rocco makes them in Amazon.', "FREQ=WEEKLY;BYDAY=MO"));
-  for (const [d, t] of [["2026-11-25", "Set Black Friday budgets tonight"], ["2026-11-27", "Black Friday: check budgets 3–4×"], ["2026-11-30", "Cyber Monday: check budgets 3–4×"], ["2026-12-01", "BFCM post-mortem: run reports for Nov 19–30"]] as const) {
-    events.push(allDay(`bfcm-${d}`, new Date(d + "T00:00:00Z"), `🦝 ${t}`, "From Rocco's peak-season playbook."));
-  }
+  events.push(...seasonEvents(marketOf(ws.amazon?.accounts?.[0]?.country), `ws-${ws.id}`, "Open your Rocco (rocco.works → Sign in) for today's jobs."));
   const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//rocco.works//Rocco//EN", "CALSCALE:GREGORIAN", "X-WR-CALNAME:Rocco (Amazon)", "REFRESH-INTERVAL;VALUE=DURATION:PT6H", ...events, "END:VCALENDAR"].join("\r\n");
   return new Response(body, { headers: { "content-type": "text/calendar; charset=utf-8", "cache-control": "no-store" } });
 }

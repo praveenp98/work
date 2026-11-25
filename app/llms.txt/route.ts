@@ -1,4 +1,7 @@
 import { MAGNETS } from "@/lib/magnets";
+import { SELL } from "@/lib/sell-data";
+import { SELL_PUBLISHED } from "@/lib/sell";
+import { MARKETS } from "@/lib/season";
 import { ANSWERS } from "@/lib/answers";
 import { GUIDES } from "@/lib/guides";
 import { HELP } from "@/lib/help";
@@ -30,6 +33,12 @@ export function GET() {
     "",
     "## Answers",
     ...ANSWERS.map((a) => `- [${a.q}](${SITE.url}/answers/${a.slug}): ${a.short}`),
+    "",
+    ...(SELL_PUBLISHED ? ["## Start selling on Amazon (beginner guides per marketplace, sourced, updated 2026)"] : []),
+    ...(SELL_PUBLISHED ? SELL : []).map((g) => `- [${g.title}](${SITE.url}/sell-on-amazon${g.slug === "index" ? "" : `/${g.slug}`}): ${g.description}`),
+    "",
+    "## Amazon seller calendar (sales, holidays, fee changes, and what to change before/during/after)",
+    ...MARKETS.map((m) => `- [Amazon seller calendar: ${m.name}](${SITE.url}/amazon-seller-calendar/${m.slug})`),
     "",
     "## Guides",
     ...GUIDES.map((g) => `- [${g.title}](${SITE.url}/guides/${g.slug}): ${g.description}`),

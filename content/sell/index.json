@@ -1,0 +1,973 @@
+{
+  "slug": "index",
+  "marketplace": "All marketplaces",
+  "country": "Worldwide",
+  "flag": "🌍",
+  "currency": "",
+  "updated": "2026-11-25",
+  "title": "How to start selling on Amazon in 2026: which marketplace, what it costs, what changed",
+  "description": "Start selling on Amazon in 2026: compare 8 marketplaces, business models and budgets, plus every fee, tariff and AI shopping change since 2025.",
+  "tldr": [
+    "Third-party sellers made 61% of Amazon's paid units in Q3 2026 and about 69% of 2025 GMV [s1][s4].",
+    "Only about 165,000 new sellers launched on Amazon.com in 2025, a decade low and 44% down on 2024; 59.9% of launches came from China [s3].",
+    "Amazon's AI assistant (Rufus, now Alexa for Shopping in the US) reached 300M+ customers in 2025; your listing, reviews and Q&A feed its answers [s2][s7].",
+    "The US is roughly ten times bigger than any other Amazon country (about $489.7B of 2025 net sales) but also the most competitive [s34].",
+    "2026 fees: US referral unchanged and FBA up about $0.08/unit [s13]; Europe net about +£0.02/€0.02 per FBA unit [s14]; India zero referral fees on many items under ₹1,000 [s15].",
+    "US duty-free de minimis ended for all countries on 29 Aug 2025, and US tariffs changed again in Feb and Jul 2026 [s17][s20][s21].",
+    "EU: GPSR responsible person required since Dec 2024, and a €3 duty on small parcels since 1 Jul 2026 [s25][s22].",
+    "Start on one marketplace (usually where you live), budget for ads and a 20% buffer, and never use grey-hat review or dropshipping shortcuts."
+  ],
+  "sections": [
+    {
+      "id": "state",
+      "title": "The state of selling on Amazon worldwide in 2026",
+      "blocks": [
+        {
+          "p": "Amazon is still the biggest place in the world to sell physical products online, and independent sellers are still at the centre of it. But 2026 is not 2016. Fewer new people are joining, the ones who stay are bigger and better funded, and the way shoppers find products is changing because of AI. This section gives you the honest picture, with numbers, before you spend a single dollar."
+        },
+        {
+          "h3": "Third-party sellers still sell most of what Amazon ships"
+        },
+        {
+          "p": "A **third-party seller** (also called a 3P seller) is anyone who is not Amazon itself: a small brand, a reseller, a factory, a one-person shop. Amazon buying stock and reselling it is called **first-party** (1P). In the third quarter of 2026, third-party sellers made up **61% of paid units** sold on Amazon worldwide, down from 62% a year earlier; the figure was 60% in Q1 2026 and 61% in Q2 2026 [s1]. Marketplace Pulse notes that this share had sat on a plateau of 61–62% for five quarters through 2025, and that Q1 2026 was the first time it fell two quarters in a row, largely because grocery (mostly sold by Amazon itself) is growing [s5][s4]."
+        },
+        {
+          "p": "Measured by value instead of units, sellers matter even more: Marketplace Pulse estimates third-party sellers were about **69% of Amazon's gross merchandise value (GMV)** in 2025, a year in which Amazon's total GMV passed **$800 billion** [s4]. GMV means the total value of everything sold, before fees and refunds."
+        },
+        {
+          "p": "Amazon also earns a lot from sellers. Its **third-party seller services** revenue (commissions, fulfilment and shipping fees charged to sellers) was about **$52.8 billion in Q4 2025, up 11%** year on year [s2], and **$46.5 billion in Q3 2026, up about 9%** [s1]. That money is your fees. It tells you two things: the channel is huge, and Amazon is a business partner that charges well for access."
+        },
+        {
+          "h3": "Fewer new sellers, more professional competition"
+        },
+        {
+          "p": "Here is the number every beginner should know. Marketplace Pulse counted only about **165,000 new sellers** who launched their first listing on Amazon.com in 2025. That is the **lowest total since it began tracking in 2015** and **44% fewer than in 2024** [s3]. The number of active sellers on Amazon.com fell from about **2.4 million in 2021 to about 1.65 million** at the end of 2025 [s3]."
+        },
+        {
+          "p": "Where are new sellers coming from? Mostly China. Marketplace Pulse found **59.9% of first-time launches on Amazon.com in 2025** came from sellers based in China, slightly down from 62.3% in 2024 [s3]. Chinese sellers tend to be manufacturers or sit next to factories, so they often win on price and speed of product development."
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "What this means for you",
+            "text": "Fewer newcomers is not the same as less competition. The sellers who remain are more experienced, and many are factory-direct. You win by picking niches where brand, quality, design, local knowledge or customer service matter more than the lowest price."
+          }
+        },
+        {
+          "h3": "AI shopping is changing how products are found"
+        },
+        {
+          "p": "Amazon launched an AI shopping assistant called **Rufus**. It answers shopper questions using product listings, reviews and Q&A. Amazon says Rufus had **250 million** active customers by Q3 2025, that shoppers who used it were 60% more likely to complete a purchase, and that it was on track for over $10 billion in incremental annualized sales [s6]. By its full-year 2025 report, Amazon said **more than 300 million customers** used Rufus and it helped deliver **nearly $12 billion** in incremental annualized sales [s2]. These are Amazon's own estimates, not audited numbers."
+        },
+        {
+          "p": "In the US, on **13 May 2026** Amazon folded Rufus into **Alexa for Shopping**, a single assistant available on the Amazon app, website and Echo devices, with no Prime membership needed [s7]. The Rufus name is being retired in the interface, though its technology still powers parts of the experience [s8]. Outside the US, check which assistant your marketplace shows."
+        },
+        {
+          "p": "Amazon is also experimenting with **agentic shopping**, meaning AI that does the buying for the shopper. In April 2025 it began testing **Buy for Me**, which lets some US shoppers buy items from brands' own websites without leaving the Amazon app [s9][s10]. Reporting on Alexa for Shopping mentions features that can buy on a shopper's behalf, such as auto-buy when a price drops [s8]. One research firm claims the assistant narrows roughly 50 search results down to about five suggested products; treat that as a third-party estimate, but the direction is clear [s39]. If the AI does not understand your product, fewer shoppers will ever see it."
+        },
+        {
+          "h3": "Advertising keeps getting bigger"
+        },
+        {
+          "p": "Amazon's advertising revenue was about **$21.3 billion in Q4 2025, up 23%** [s2], and **$17.2 billion in Q1 2026, up 24%** [s12]. Most of that is sellers and brands paying for Sponsored Products and similar ads. Amazon does not publish average cost-per-click, so be careful with any blog that quotes one global figure; but rising ad revenue means more money is competing for the same shopper attention. Budget for ads from day one."
+        },
+        {
+          "h3": "Low-price rivals and Amazon's answer: Haul"
+        },
+        {
+          "p": "Temu, Shein and TikTok Shop pulled shoppers toward very cheap, often direct-from-China goods. Amazon responded with **Amazon Haul**, a low-price section launched in the US in November 2024 where most items were $20 or less; Amazon now says Haul has over a million items under $10 [s31]. Haul expanded to more countries in 2025, as tariffs squeezed Chinese rivals [s32], and launched as **Amazon Bazaar** in 14 more countries in November 2025 [s33]. The US ending its duty-free treatment of low-value parcels in 2025 also hit the direct-to-door cross-border model these rivals rely on [s17]."
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Beginner takeaway",
+            "text": "Don't try to beat Haul, Temu or factory sellers on rock-bottom prices. A beginner with a small budget wins with a clearly better product in a specific niche, a listing an AI assistant can understand, and tight control of costs."
+          }
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "title": "The biggest 2025–2026 changes affecting sellers everywhere",
+      "blocks": [
+        {
+          "p": "These are the changes that affect most new sellers, whichever marketplace you choose. Each marketplace guide has its own local list; this one covers the global picture."
+        },
+        {
+          "table": {
+            "head": [
+              "Date",
+              "Change",
+              "Who it affects"
+            ],
+            "rows": [
+              [
+                "Mar–Apr 2025",
+                "Amazon India removed referral fees on more than 1.2 crore (12 million) products priced under ₹300, effective 7 April 2025 [s16].",
+                "Sellers of low-price items on Amazon.in."
+              ],
+              [
+                "Apr 2025",
+                "Amazon began testing **Buy for Me**, an agent that buys from brands' own websites inside the Amazon app, for a subset of US shoppers [s9][s10].",
+                "Brands with their own websites; a signal of where AI shopping is heading."
+              ],
+              [
+                "2 May 2025",
+                "US stopped duty-free de minimis entry for low-value shipments from China and Hong Kong [s18].",
+                "Anyone shipping low-value parcels from China/HK direct to US buyers."
+              ],
+              [
+                "29 Aug 2025",
+                "US suspended duty-free de minimis treatment for **all countries**, regardless of value or origin (Executive Order signed 30 July 2025) [s17][s18].",
+                "Every seller shipping goods into the US, including cross-border FBM sellers from India, UK, EU and China."
+              ],
+              [
+                "Sep 2025",
+                "Amazon upgraded its seller AI assistant (first launched as **Project Amelia** in 2024 [s27]) into an agentic **Seller Assistant** that can monitor the account, flag issues and, with permission, take actions [s28].",
+                "All sellers using Seller Central in supported countries."
+              ],
+              [
+                "Dec 2025–Jan 2026",
+                "Europe: Amazon cut fees by an average of £0.15/€0.17 per unit, with referral cuts in some high-volume categories and FBA parcel fee reductions; the net change for FBA units is a small average **increase** of £0.02/€0.02 [s14].",
+                "Sellers on Amazon UK, DE, FR, IT, ES and other European stores."
+              ],
+              [
+                "15 Jan 2026",
+                "US: referral fees unchanged for 2026; FBA fulfilment fees up an average of **$0.08 per unit**, with no new FBA fee types [s13].",
+                "All US FBA sellers."
+              ],
+              [
+                "20 Feb 2026",
+                "US Supreme Court struck down tariffs imposed under IEEPA; a temporary **10% global tariff under Section 122** started 24 Feb 2026 [s20].",
+                "Everyone importing into the US."
+              ],
+              [
+                "Mar 2026",
+                "Amazon India expanded zero referral fees to over 12.5 crore products priced under ₹1,000 across 1,800+ categories [s15].",
+                "Sellers on Amazon.in with items under ₹1,000."
+              ],
+              [
+                "25 Mar 2026",
+                "US: Sponsored Products and Sponsored Brands **prompts** (ads inside AI shopping answers) left beta and became billable, using normal CPC bidding [s11].",
+                "All US advertisers; you are enrolled automatically."
+              ],
+              [
+                "13 May 2026",
+                "US: Rufus merged into **Alexa for Shopping** across app, web and Echo [s7][s8].",
+                "Everyone selling in the US: AI answers now sit in the search experience."
+              ],
+              [
+                "24 Jun 2026",
+                "US customs turned the de minimis suspension into an indefinite rule [s19].",
+                "Cross-border shippers into the US."
+              ],
+              [
+                "1 Jul 2026",
+                "EU: a flat **€3 customs duty** per item category on parcels under €150, as an interim step until the €150 duty exemption is removed fully [s22][s23].",
+                "Anyone shipping small parcels into the EU from outside."
+              ],
+              [
+                "24 Jul 2026",
+                "US: the 150-day Section 122 tariff expired; the government moved to Section 301 and Section 232 duties instead [s21].",
+                "US importers: check current duty for your product's HS code."
+              ],
+              [
+                "2026 (ongoing)",
+                "Identity checks increasingly reach existing sellers who change bank, address or account details, and failed checks can deactivate an account [s37]. US high-volume sellers must re-certify their details under the INFORM Act at least yearly [s38].",
+                "Every seller."
+              ]
+            ],
+            "note": "Dates as announced; fee and tariff details change often. Confirm in Seller Central and with official customs sites before you price a product."
+          }
+        },
+        {
+          "h3": "Two compliance changes that never went away"
+        },
+        {
+          "ul": [
+            "**EU General Product Safety Regulation (GPSR)** has applied since **13 December 2024** to all consumer products placed on the EU market, wherever they are made [s25]. Products need an EU-based **responsible person** (manufacturer, importer or authorised representative), and Amazon asks sellers to add responsible-person and manufacturer details plus safety information to listings; non-compliant offers can be deactivated [s26].",
+            "**EU customs reform**: the Council agreed to remove the €150 customs duty exemption so duty is charged from the first euro; that full change depends on a new EU customs data hub, while the €3 flat duty bridges the gap from July 2026 [s24][s22]. A separate per-parcel handling fee is being introduced by the EU; check the current amount before quoting landed costs [s24]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "new",
+            "title": "Tariffs: the one-line rule",
+            "text": "US tariffs changed several times in 2025–2026 [s20][s21]. Never use a duty rate from a blog or an old supplier quote. Look up your product's tariff code on the official customs site, or ask a licensed customs broker, on the week you place your order."
+          }
+        }
+      ]
+    },
+    {
+      "id": "choose",
+      "title": "Which marketplace should a beginner start on?",
+      "blocks": [
+        {
+          "p": "Amazon runs separate stores (marketplaces) in many countries. Each has its own customers, competition, taxes and product rules. You can sell on several later, but almost every successful seller starts with **one**. Pick the one you can legally, logistically and financially handle best, not just the biggest."
+        },
+        {
+          "h3": "Size: what Amazon actually discloses"
+        },
+        {
+          "p": "Amazon only breaks out net sales for four countries. In 2025, Statista's compilation of Amazon's figures put the **US at about $489.7 billion**, **Germany about $45.9 billion**, the **UK about $43.3 billion** and **Japan about $30.7 billion**, with all other countries together at about **$107.7 billion** [s34]. Net sales here means Amazon's reported revenue (including its own retail sales and seller fees), not the total value sellers sell, but it shows the relative size clearly: the US is roughly ten times any other single market."
+        },
+        {
+          "table": {
+            "head": [
+              "Marketplace",
+              "Size / maturity",
+              "Competition",
+              "Tax setup difficulty",
+              "Compliance difficulty",
+              "Good for"
+            ],
+            "rows": [
+              [
+                "United States (amazon.com)",
+                "Largest by far, ~$489.7B 2025 net sales [s34]; very mature",
+                "Very high",
+                "Medium (Amazon collects most state sales tax; you handle income tax and import duty)",
+                "Medium (CPSC rules, category gating; tariffs volatile [s21])",
+                "Sellers with a budget for ads and inventory; US residents; brands"
+              ],
+              [
+                "United Kingdom (amazon.co.uk)",
+                "~$43.3B 2025 net sales [s34]; mature",
+                "High",
+                "Medium–High (VAT registration usually needed for non-UK stock)",
+                "Medium (UK product safety marking; GPSR does not apply in Great Britain, but does in Northern Ireland)",
+                "UK residents; a gateway to Europe"
+              ],
+              [
+                "Germany / EU (amazon.de, .fr, .it, .es …)",
+                "Germany ~$45.9B 2025 net sales [s34]; many countries, one account",
+                "High",
+                "High (VAT in each country where stock sits; packaging and electronics take-back registrations)",
+                "High (GPSR responsible person [s25][s26], EPR, CE marking, local languages)",
+                "Sellers ready to handle paperwork; EU residents; expansion after UK/US"
+              ],
+              [
+                "Japan (amazon.co.jp)",
+                "~$30.7B 2025 net sales [s34]; mature",
+                "Medium–High",
+                "High (consumption tax and invoice system; often needs local help)",
+                "High (PSE and other local marks; Japanese-language labels and support)",
+                "Patient sellers with Japanese support; high-quality niche goods"
+              ],
+              [
+                "Canada (amazon.ca)",
+                "Not broken out by Amazon (part of 'other' [s34]); mid-sized",
+                "Medium",
+                "Medium (GST/HST; provincial taxes)",
+                "Medium (bilingual labelling rules in many categories)",
+                "North American sellers; easy add-on to US"
+              ],
+              [
+                "India (amazon.in)",
+                "Not broken out [s34]; fast-moving, price-sensitive",
+                "High on price",
+                "Medium (GST registration is the norm for sellers)",
+                "Medium (BIS certification for many categories)",
+                "India-based sellers; low-cost items, helped by zero referral fees under ₹1,000 [s15]"
+              ],
+              [
+                "Australia (amazon.com.au)",
+                "Not broken out [s34]; younger marketplace",
+                "Lower–Medium",
+                "Medium (GST once over the registration threshold)",
+                "Medium (mandatory safety standards, electrical rules)",
+                "Sellers wanting less crowded categories; Australians"
+              ],
+              [
+                "UAE (amazon.ae)",
+                "Not broken out [s34]; small but growing",
+                "Lower–Medium",
+                "Medium (VAT; trade licence often needed)",
+                "Medium (local conformity rules, Arabic labelling in some categories)",
+                "Gulf-based sellers; testing a new region"
+              ]
+            ],
+            "note": "Size column from Amazon's disclosed net sales as compiled by Statista [s34]. Competition, tax and compliance ratings are our **editorial judgement** for a typical beginner, not official data. Each marketplace guide covers the exact rules."
+          }
+        },
+        {
+          "h3": "Guidance by your situation"
+        },
+        {
+          "ul": [
+            "**You live in India.** Start on **Amazon.in** if your goal is learning cheaply: you can buy locally, ship domestically, and Amazon India waived referral fees on a huge range of products under ₹1,000 in 2026 [s15]; Flipkart has moved the same way [s40]. Expect fierce price competition. If you already manufacture quality goods (textiles, home, handicrafts, ayurveda with the right certifications), consider exporting to the **US, UK or UAE** through Amazon's global selling programs once you have a tested product, and budget for US tariffs and the end of duty-free small parcels [s17].",
+            "**You live in the UK.** Start on **Amazon.co.uk**. You can then add the EU, but only once you have handled VAT and GPSR (a responsible person in the EU) [s25][s26]. Many UK sellers add the US next because it is so much bigger [s34].",
+            "**You live in the US.** Start on **Amazon.com**. The market is enormous [s34], but plan for ads and tariff costs [s21]. Canada is a natural second step.",
+            "**You live in the EU.** Start on your home country's store, then expand within Europe from one account. Being EU-based makes GPSR easier because you can act as the responsible person yourself.",
+            "**You live in the UAE or Gulf.** Amazon.ae is smaller and less crowded, which is useful while learning. Add Saudi Arabia or the US later.",
+            "**You have a small budget (under a few thousand dollars or equivalent).** Choose your home marketplace, a lighter business model (wholesale, arbitrage or handmade) and avoid importing. Your biggest risk is running out of cash before you learn.",
+            "**You live in China or elsewhere outside your target market.** You can register for most marketplaces from abroad, but you face extra identity checks [s37], tax registrations and import rules. Read the 'fit' section of each marketplace guide first."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "A simple rule",
+            "text": "Start where you live, unless your home marketplace is tiny or you have a strong reason (a product made for a specific country). Local knowledge of customers, taxes and returns is worth more than a bigger audience you don't understand."
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "title": "Business models compared for beginners in 2026",
+      "blocks": [
+        {
+          "p": "A **business model** is how you get the products you sell. The model decides your startup cost, risk and how much time you spend. Here are the six that most beginners consider."
+        },
+        {
+          "table": {
+            "head": [
+              "Model",
+              "What it is",
+              "Startup cost",
+              "Risk",
+              "Time to first sale",
+              "What's working in 2026"
+            ],
+            "rows": [
+              [
+                "Private label",
+                "Your own brand on a product made by a factory",
+                "High (inventory, samples, photos, ads, trademark)",
+                "High: you own unsold stock",
+                "Slow (often months)",
+                "Differentiated products in specific niches; strong listings for AI answers; brand-protection via Brand Registry"
+              ],
+              [
+                "Wholesale",
+                "Buy branded goods from the brand or its distributor and resell",
+                "Medium (opening orders)",
+                "Medium: competing for the Buy Box with other resellers",
+                "Medium",
+                "Brands that want an authorised Amazon partner; tight inventory and price control"
+              ],
+              [
+                "Online / retail arbitrage",
+                "Buy discounted retail goods (online or in shops) and resell for more",
+                "Low–medium",
+                "Medium–High: inauthentic-item complaints, brand restrictions",
+                "Fast",
+                "Works as a learning step; keep every invoice; many brands are restricted"
+              ],
+              [
+                "Handmade",
+                "You make the product yourself (Amazon Handmade program)",
+                "Low",
+                "Low–Medium",
+                "Medium",
+                "Personalised and gift items; limited by how much you can make"
+              ],
+              [
+                "Dropshipping",
+                "Supplier ships directly to the buyer",
+                "Low",
+                "High: policy violations, late delivery, no quality control",
+                "Fast",
+                "Only allowed if you are the seller of record on all paperwork (see below)"
+              ],
+              [
+                "Print on demand",
+                "Designs printed when ordered, often via Amazon's own programs",
+                "Low",
+                "Medium: IP/trademark complaints on designs",
+                "Fast",
+                "Original designs only; never copy brands, characters or slogans you don't own"
+              ]
+            ],
+            "note": "Cost and risk levels are editorial judgements for a typical beginner."
+          }
+        },
+        {
+          "h3": "Amazon's dropshipping rules, in plain words"
+        },
+        {
+          "p": "Dropshipping is allowed on Amazon only under strict conditions. You must be the **seller of record**: your supplier agreement must name you as the owner of the goods before the customer buys, and your name must be the only seller identified on packing slips, invoices and packaging [s35]. You may **not** buy from another retailer and have it ship to your customer under its name [s35][s36]. You also stay responsible for returns [s36]. Breaking these rules hurts your account health and can stop you from shipping orders yourself [s36]."
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "The 'Amazon-to-eBay' trap in reverse",
+            "text": "Buying from Walmart, Temu or AliExpress and having them ship straight to your Amazon customer breaks the policy. It is one of the fastest ways new sellers lose their accounts."
+          }
+        },
+        {
+          "h3": "Which model should you choose?"
+        },
+        {
+          "ul": [
+            "**Want to build a lasting asset and have budget:** private label.",
+            "**Want lower risk and repeatable sales:** wholesale with brands that approve you.",
+            "**Want to learn the platform cheaply:** a few months of arbitrage or handmade, with clean invoices, before investing in your own brand.",
+            "**Have design skills:** print on demand with 100% original artwork.",
+            "**Be careful with:** dropshipping. It looks cheap but has the highest account risk."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "title": "Realistic starting budgets and money traps",
+      "blocks": [
+        {
+          "p": "Nobody can give you one honest number for 'how much to start', because product cost, size, marketplace and ad competition vary enormously. What you can do is build your own budget from real quotes and Amazon's own fee calculator. The examples below show the **structure**. The dollar amounts are **illustrative assumptions** we chose to make the arithmetic clear, not quotes or averages."
+        },
+        {
+          "h3": "Example A: private label (illustrative)"
+        },
+        {
+          "table": {
+            "head": [
+              "Line item",
+              "How to estimate it",
+              "Illustrative amount"
+            ],
+            "rows": [
+              [
+                "Samples from 2–3 suppliers",
+                "Supplier quotes plus courier",
+                "$200"
+              ],
+              [
+                "First order",
+                "Units × landed cost per unit (product + freight + duty). Example: 300 units × $6",
+                "$1,800"
+              ],
+              [
+                "Photos and video",
+                "Freelancer or your own setup",
+                "$300"
+              ],
+              [
+                "Trademark filing",
+                "Official fee in your country (check the government trademark office)",
+                "Check official fee"
+              ],
+              [
+                "Subscription",
+                "Professional plan, first 2–3 months (check your marketplace's pricing page)",
+                "Check Seller Central"
+              ],
+              [
+                "Launch ads",
+                "Daily budget × 60 days. Example: $20/day",
+                "$1,200"
+              ],
+              [
+                "Buffer",
+                "At least 20% of everything above for surprises",
+                "~$700"
+              ]
+            ],
+            "note": "All amounts are assumptions for the example. Your real numbers come from supplier quotes, your marketplace's Revenue Calculator and current tariffs [s21]."
+          }
+        },
+        {
+          "p": "On those assumptions, the total is roughly **$4,000–5,000 before the trademark and subscription**. Notice that ads and the buffer are almost as big as the stock. Many beginners budget only for inventory."
+        },
+        {
+          "h3": "Example B: wholesale or arbitrage (illustrative)"
+        },
+        {
+          "ul": [
+            "Opening order or first buying trip: e.g. $1,000.",
+            "Subscription and prep supplies (labels, bags, boxes): check current prices.",
+            "Small ad budget for listings where you share the Buy Box: e.g. $5–10 a day.",
+            "Buffer for returns and slow sellers: at least 20%."
+          ]
+        },
+        {
+          "h3": "Example C: handmade or print on demand (illustrative)"
+        },
+        {
+          "ul": [
+            "Materials or design time for your first 10–20 products.",
+            "Photos (often you can do these yourself with a phone and natural light).",
+            "Ads: start very small, e.g. $5 a day, and only on products that already convert."
+          ]
+        },
+        {
+          "h3": "The money traps"
+        },
+        {
+          "ul": [
+            "**Ordering too much.** Big orders lower your unit cost but freeze cash and risk long-term storage fees if sales are slow. Amazon's Seller Assistant now flags slow-moving stock before long-term storage fees hit [s28]; listen to it.",
+            "**Forgetting fees per unit.** Fulfilment fees change every year (in the US, up an average $0.08 per unit in 2026 [s13]; in Europe, small net changes [s14]). Recalculate margins each January.",
+            "**Ignoring tariffs and duties.** US tariffs changed at least three times in 2026 alone [s20][s21], and the EU added a €3 duty on small parcels [s22].",
+            "**Paying for courses and 'done-for-you' services before your first sale.** Amazon's free Seller University covers the basics.",
+            "**Underfunding ads.** A product with no reviews and no ads often gets no traffic at all.",
+            "**Mixing personal and business money.** Open a separate bank account so taxes and profit are clear.",
+            "**Cash flow gaps.** Amazon pays out on a schedule, while suppliers and ad bills want money now. Plan at least two months of costs without sales."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "Use Amazon's calculator",
+            "text": "Before you order, run every product through the Revenue Calculator in Seller Central for your marketplace. It applies the current referral and fulfilment fees for that country."
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "title": "The skills that matter now",
+      "blocks": [
+        {
+          "p": "Selling on Amazon in 2026 rewards a small set of skills. You don't need all of them on day one, but you need to know they exist."
+        },
+        {
+          "h3": "1. Listing for AI shopping"
+        },
+        {
+          "p": "Amazon's AI assistant answers shoppers using your **listing, your reviews and your Q&A** [s6]. With hundreds of millions of shoppers using it [s2], and the US version now sitting inside search [s7], your listing has to answer real questions clearly. If an AI picks only a handful of products to suggest [s39], vague listings lose."
+        },
+        {
+          "ul": [
+            "Write the title, bullets and description to answer specific questions: who it's for, size, material, what's included, how to use it, what it works with.",
+            "State facts, not hype. 'Fits mattresses 10–14 inches deep' beats 'perfect fit for any bed'.",
+            "Fill in every relevant attribute field in Seller Central, not only the text.",
+            "Read your reviews and questions. Fix the listing (or the product) where shoppers are confused.",
+            "Amazon's own generative AI listing tools can draft and improve listings: more than 900,000 selling partners have used them, and Amazon says sellers accept the output with few or no edits about 90% of the time [s30][s41]. Always check the facts it writes."
+          ]
+        },
+        {
+          "h3": "2. Images and video"
+        },
+        {
+          "p": "Images do most of the selling, especially on mobile. Aim for a clean main image, then images that show scale, use, details and a comparison. Short video helps too. Amazon offers AI tools for generating A+ content and video ads [s30]; use them as drafts and keep your claims accurate."
+        },
+        {
+          "h3": "3. Advertising"
+        },
+        {
+          "p": "Learn Sponsored Products first: you pay when a shopper clicks your ad (cost-per-click, CPC). Learn three numbers: **ACoS** (advertising cost of sale = ad spend ÷ ad sales), **TACoS** (total advertising cost of sale = ad spend ÷ all sales) and **conversion rate** (orders ÷ clicks). In the US, ads now also appear inside AI shopping answers as **sponsored prompts**, which became billable in March 2026 and are switched on by default [s11]. Amazon claims prompt clicks convert better, but it hasn't published pricing beyond normal CPC bidding [s11]."
+        },
+        {
+          "h3": "4. Account health"
+        },
+        {
+          "p": "Your **Account Health** page shows whether you are at risk of suspension: late shipments, cancellations, customer complaints, policy and IP violations. Check it every day in your first months. In the EU, it is also where you prove GPSR compliance [s26]. Amazon's agentic Seller Assistant monitors the account and flags issues [s28], but you are still responsible."
+        },
+        {
+          "h3": "5. Cash flow and unit economics"
+        },
+        {
+          "p": "Know, for each product, the full cost per unit: product, freight, duty, referral fee, fulfilment fee, storage, returns and ads. Recalculate when fees change [s13][s14] and when tariffs change [s21]. The sellers who survive are the ones who know their real profit per unit."
+        },
+        {
+          "callout": {
+            "tone": "new",
+            "title": "Amazon's AI helpers for sellers",
+            "text": "Seller Assistant (first called Project Amelia) can answer questions about your metrics and, with your permission, take actions [s27][s28]. Amazon hasn't published adoption or performance data for it [s29], so treat its advice like a smart colleague's, not a guarantee."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mistakes",
+      "title": "The top global beginner mistakes and suspension causes",
+      "blocks": [
+        {
+          "p": "Most new accounts that fail do so for avoidable reasons. Here are the big ones, roughly in order of how often they hurt beginners."
+        },
+        {
+          "ol": [
+            "**Failing or rushing identity verification.** Documents must match exactly (names, addresses, bank details). Failed verification can mean full deactivation, and checks now also happen when you change bank or address details [s37]. Change account details slowly and only when needed.",
+            "**Opening a second account.** Most marketplaces allow one account per seller unless Amazon approves more. Linked accounts (same device, bank, address) can be suspended together.",
+            "**Selling items you can't prove are authentic.** Arbitrage and wholesale sellers need supplier invoices. Retail receipts are often not accepted for brand complaints.",
+            "**Breaking the dropshipping policy.** Shipping from another retailer under its name, or with its packing slip, violates Amazon rules [s35][s36].",
+            "**Using someone else's brand, images or designs.** Trademark and copyright complaints are a top suspension cause, especially in print on demand.",
+            "**Review manipulation.** Paying for reviews, giving refunds or gifts for reviews, asking friends to review, or asking only happy customers to review all break Amazon's rules and can get you banned. Use Vine and the 'Request a Review' button only.",
+            "**Missing product compliance.** No GPSR responsible person in the EU [s25][s26], missing safety certificates, wrong labels or restricted products listed without approval.",
+            "**Ignoring tariffs and duties.** Pricing from an old duty rate in a year when US tariffs changed repeatedly [s20][s21].",
+            "**Late shipments and cancellations (FBM).** If you ship yourself, missed dispatch dates and cancellations damage Account Health fast.",
+            "**Bad unit economics.** Choosing a product with thin margins that only works without ads, returns or fee increases [s13].",
+            "**Ordering too much stock first time.** Cash is locked, storage fees grow, and you can't afford to fix the listing or run ads.",
+            "**Copying listing claims you can't support.** 'Medical-grade', 'FDA approved', 'organic' and similar claims without proof lead to listing removals.",
+            "**Not reading Account Health and Seller Central messages.** Many suspensions start as a warning that wasn't read in time.",
+            "**Trusting grey-hat 'hacks'.** Anything that games search, reviews or rankings eventually gets caught, and the whole account pays."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "If you get suspended",
+            "text": "Don't open a new account. Read the notice carefully, fix the root cause, and submit a clear plan of action through Seller Central. Speed and honesty matter."
+          }
+        }
+      ]
+    },
+    {
+      "id": "next",
+      "title": "What to do next",
+      "blocks": [
+        {
+          "p": "You now know where Amazon stands in 2026, what changed, and which model and marketplace might fit you. Here is a short path from here."
+        },
+        {
+          "ol": [
+            "**Pick your first marketplace** using the comparison table above. If in doubt, start where you live.",
+            "**Read that marketplace's full guide** below: it covers account setup, every fee with tables, tax registrations, product rules, the first 90 days and ads.",
+            "**Pick a business model** that fits your budget and risk tolerance.",
+            "**Build a budget** from real quotes and the Revenue Calculator, plus a 20% buffer and an ad budget.",
+            "**Prepare your documents** for identity verification before you register, so everything matches.",
+            "**Validate one product** with Amazon's own tools (Product Opportunity Explorer once you have an account) before ordering stock.",
+            "**Launch small, learn fast**, and only scale what is profitable after fees, ads and returns."
+          ]
+        },
+        {
+          "p": "Choose a marketplace guide below to continue."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Is it still worth starting an Amazon business in 2026 or is it too saturated?",
+      "a": "It can still be worth it, but it's harder than it was. New seller launches on Amazon.com fell to about 165,000 in 2025, a decade low, and many remaining sellers are experienced or factory-direct. Beginners who pick a specific niche, build a clear listing and control costs can still win."
+    },
+    {
+      "q": "How much money do I need to start selling on Amazon?",
+      "a": "It depends on the model. Arbitrage, handmade or print on demand can start with a few hundred to a couple of thousand dollars. Private label usually needs several thousand because you pay for stock, photos and ads up front. Build your budget from real quotes and Amazon's Revenue Calculator, and keep a 20% buffer."
+    },
+    {
+      "q": "Which Amazon marketplace is best for beginners?",
+      "a": "Usually the one where you live, because you understand the customers, taxes and returns. The US is by far the biggest (about $490 billion of Amazon net sales in 2025) but also the most competitive. The UK, Canada, Australia and UAE are smaller but can be easier to learn on."
+    },
+    {
+      "q": "Can I sell on Amazon US from India or another country?",
+      "a": "Yes, Amazon accepts sellers from many countries on its US store. You'll need a valid ID, a bank account that can receive payouts, and to handle US import rules. Since August 2025 there is no duty-free treatment for low-value parcels into the US, so price in duties from the start."
+    },
+    {
+      "q": "Is dropshipping allowed on Amazon?",
+      "a": "Only if you are the seller of record. Your supplier agreement must name you as the owner, and only your name can appear on packing slips, invoices and packaging. Buying from another retailer and having them ship to your customer is not allowed and can hurt your account."
+    },
+    {
+      "q": "What is Rufus and does it affect my listings?",
+      "a": "Rufus is Amazon's AI shopping assistant, used by more than 300 million customers in 2025 according to Amazon. In the US it became part of Alexa for Shopping in May 2026. It answers shoppers using your listing, reviews and Q&A, so clear, factual listings get recommended more."
+    },
+    {
+      "q": "Did Amazon raise its fees in 2026?",
+      "a": "In the US, referral fees stayed the same and FBA fulfilment fees rose by an average of $0.08 per unit from January 15, 2026. In Europe, Amazon cut some fees but the net effect for FBA units was a small increase of about £0.02/€0.02 on average. Amazon India expanded zero referral fees to many items under ₹1,000."
+    },
+    {
+      "q": "Do I need a trademark to sell on Amazon?",
+      "a": "Not to sell, but you need one (registered or pending, depending on the program and country) to join Brand Registry, which gives you brand protection, A+ content and more ad options. It's essential for private label."
+    },
+    {
+      "q": "What is GPSR and do I need to care if I'm not in Europe?",
+      "a": "GPSR is the EU product safety law that has applied since 13 December 2024. If you sell into the EU from anywhere, your products need an EU-based responsible person and safety information on the listing, or Amazon can deactivate the offer."
+    },
+    {
+      "q": "How do tariffs affect me as a new seller?",
+      "a": "If you import into the US, tariffs can change your profit overnight. In 2026 the Supreme Court struck down one set of tariffs, a temporary 10% global tariff replaced them, and that expired in July with other duties taking over. Check your product's current duty on the official customs site before every order."
+    },
+    {
+      "q": "What gets new Amazon seller accounts suspended?",
+      "a": "The most common causes are failed identity verification, selling items without proof of authenticity, trademark or copyright complaints, review manipulation, dropshipping violations and missing product compliance. Opening a second account to get around a problem makes it worse."
+    },
+    {
+      "q": "Can I use AI to write my Amazon listings?",
+      "a": "Yes. Amazon's own generative AI tools have been used by more than 900,000 selling partners. Always check every fact it writes, because you are responsible for wrong claims on your listing."
+    },
+    {
+      "q": "Should I compete with Temu and Amazon Haul on price?",
+      "a": "No. Haul has over a million items under $10, and factory-direct sellers can always go lower. Compete on quality, a specific use case, better information and service instead."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Amazon.com Announces Third Quarter Results (Q3 2026)",
+      "publisher": "Amazon / Business Wire",
+      "url": "https://www.businesswire.com/news/home/20261028373648/en/Amazon.com-Announces-Third-Quarter-Results",
+      "date": "2026-10"
+    },
+    {
+      "id": "s2",
+      "title": "Amazon.com Announces Fourth Quarter Results (Q4 2025, Form 8-K exhibit)",
+      "publisher": "Amazon / SEC EDGAR",
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000002/amzn-20251231xex991.htm",
+      "date": "2026-02"
+    },
+    {
+      "id": "s3",
+      "title": "Amazon New Seller Numbers Hit Decade Low in 2025",
+      "publisher": "Marketplace Pulse",
+      "url": "https://www.marketplacepulse.com/articles/amazon-seller-registrations-hit-decade-low-in-2025",
+      "date": "2026-01"
+    },
+    {
+      "id": "s4",
+      "title": "Amazon GMV Surpassed $800 Billion in 2025",
+      "publisher": "Marketplace Pulse",
+      "url": "https://www.marketplacepulse.com/articles/amazon-gmv-surpassed-800-billion-in-2025",
+      "date": "2026-02"
+    },
+    {
+      "id": "s5",
+      "title": "Amazon Is Regaining 1P Unit Share",
+      "publisher": "Marketplace Pulse",
+      "url": "https://marketplacepulse.com/articles/amazon-is-regaining-1p-unit-share",
+      "date": "2026-05"
+    },
+    {
+      "id": "s6",
+      "title": "Amazon says its AI shopping assistant Rufus is on pace to pull in an extra $10 billion in sales",
+      "publisher": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/news/amazon-says-ai-shopping-assistant-152500992.html",
+      "date": "2025-10"
+    },
+    {
+      "id": "s7",
+      "title": "Amazon pushes Alexa+ deeper into AI-powered shopping",
+      "publisher": "Axios",
+      "url": "https://axios.com/2026/05/13/amazon-alexa-ai-shopping-assistant",
+      "date": "2026-05-13"
+    },
+    {
+      "id": "s8",
+      "title": "Amazon unifies Alexa and Rufus as AI rivals move into online shopping",
+      "publisher": "GeekWire",
+      "url": "https://www.geekwire.com/2026/amazon-unifies-alexa-and-rufus-as-ai-rivals-move-into-online-shopping/",
+      "date": "2026-05"
+    },
+    {
+      "id": "s9",
+      "title": "Amazon's new AI agent will shop third-party stores for you",
+      "publisher": "TechCrunch",
+      "url": "https://techcrunch.com/2025/04/03/amazons-new-ai-agent-will-shop-third-party-stores-for-you",
+      "date": "2025-04-03"
+    },
+    {
+      "id": "s10",
+      "title": "Amazon Shopping app tests 'Buy for Me' with brands",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://aboutamazon.com/news/retail/amazon-shopping-app-buy-for-me-brands",
+      "date": "2025-04"
+    },
+    {
+      "id": "s11",
+      "title": "Amazon's AI shopping prompts are now billable: what changed on March 25",
+      "publisher": "PPC Land",
+      "url": "https://ppc.land/amazons-ai-shopping-prompts-are-now-billable-what-changed-on-march-25/",
+      "date": "2026-03"
+    },
+    {
+      "id": "s12",
+      "title": "Andy Jassy on Amazon Ads growth, AI tools in Q1 2026 earnings",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://www.aboutamazon.com/news/company-news/andy-jassy-amazon-ads-q1-2026-earnings",
+      "date": "2026-04"
+    },
+    {
+      "id": "s13",
+      "title": "2026 Updates to US Referral and Fulfillment by Amazon Fees",
+      "publisher": "Amazon Seller Central (seller forums announcement)",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/f3fa3211-820b-4e2e-a023-158a9cf55f99",
+      "date": "2025-12"
+    },
+    {
+      "id": "s14",
+      "title": "Update to European Referral and Fulfilment by Amazon fees for 2026",
+      "publisher": "Amazon (aboutamazon.eu)",
+      "url": "https://www.aboutamazon.eu/news/empowering-small-business/update-to-european-referral-and-fulfilment-by-amazon-fees-for-2026",
+      "date": "2025-11"
+    },
+    {
+      "id": "s15",
+      "title": "Amazon announces zero referral fees on over 12.5 crore products; sellers to save up to 70% in fees",
+      "publisher": "Amazon India (press.aboutamazon.com)",
+      "url": "https://press.aboutamazon.com/in/2026/3/amazon-announces-zero-referral-fees-on-over-12-5-crore-products-sellers-to-save-up-to-70-in-fees",
+      "date": "2026-03"
+    },
+    {
+      "id": "s16",
+      "title": "Amazon India Cuts Referral Fee On Products Under INR 300",
+      "publisher": "Inc42",
+      "url": "https://inc42.com/buzz/amazon-india-cuts-referral-fee-on-products-under-inr-300",
+      "date": "2025-03"
+    },
+    {
+      "id": "s17",
+      "title": "Suspending Duty-Free De Minimis Treatment for All Countries",
+      "publisher": "The White House",
+      "url": "https://www.whitehouse.gov/presidential-actions/2025/07/suspending-duty-free-de-minimis-treatment-for-all-countries/",
+      "date": "2025-07-30"
+    },
+    {
+      "id": "s18",
+      "title": "Suspension of Duty-Free De Minimis Treatment (fact sheet, updated 08/18/2025)",
+      "publisher": "U.S. Customs and Border Protection",
+      "url": "https://www.cbp.gov/sites/default/files/2025-08/factsheet_suspension_of_duty-free_de_minimis_treatment.pdf",
+      "date": "2025-08-18"
+    },
+    {
+      "id": "s19",
+      "title": "Indefinite Suspension of the De Minimis Exemption for Merchandise Arriving Through All Modes Other Than the International Postal Network",
+      "publisher": "Federal Register (CBP)",
+      "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12670/indefinite-suspension-of-the-de-minimis-exemption-for-merchandise-arriving-through-all-modes-other",
+      "date": "2026-06-24"
+    },
+    {
+      "id": "s20",
+      "title": "Supreme Court Strikes Down IEEPA Tariffs; Trump Responds With Section 122 Global Surcharge",
+      "publisher": "Troutman Pepper Locke",
+      "url": "https://www.troutman.com/insights/supreme-court-strikes-down-ieepa-tariffs-trump-responds-with-section-122-global-surcharge/",
+      "date": "2026-02"
+    },
+    {
+      "id": "s21",
+      "title": "Active Presidential Tariff Actions in 2026: Fact Sheet (R49481)",
+      "publisher": "Congressional Research Service (via EveryCRSReport)",
+      "url": "https://www.everycrsreport.com/reports/R49481.html",
+      "date": "2026"
+    },
+    {
+      "id": "s22",
+      "title": "Customs: Council agrees to levy customs duty on small parcels as of 1 July 2026",
+      "publisher": "Council of the European Union",
+      "url": "https://www.consilium.europa.eu/en/press/press-releases/2025/12/12/customs-council-agrees-to-levy-customs-duty-on-small-parcels-as-of-1-july-2026/",
+      "date": "2025-12-12"
+    },
+    {
+      "id": "s23",
+      "title": "Council gives final green light to new customs duty rules for small parcels",
+      "publisher": "Council of the European Union",
+      "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/02/11/council-gives-final-green-light-to-new-customs-duty-rules-for-small-parcels/",
+      "date": "2026-02-11"
+    },
+    {
+      "id": "s24",
+      "title": "EU action on the influx of small parcels",
+      "publisher": "Council of the European Union",
+      "url": "https://www.consilium.europa.eu/en/policies/eu-action-influx-of-small-parcels/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s25",
+      "title": "New EU product safety laws now in place",
+      "publisher": "Competition and Consumer Protection Commission (Ireland)",
+      "url": "https://www.ccpc.ie/news-and-media/news/article/2024/12/13/new-eu-product-safety-laws-now-in-place",
+      "date": "2024-12-13"
+    },
+    {
+      "id": "s26",
+      "title": "GPSR: sellers can prove their GPSR compliance on their Account Health page",
+      "publisher": "Amazon Selling Partner API changelog",
+      "url": "https://developer-docs.amazon.com/sp-api/changelog/sellers-can-prove-their-gpsr-compliance-on-their-account-health-page",
+      "date": "2024-12"
+    },
+    {
+      "id": "s27",
+      "title": "Amazon launches a powerful new generative AI-based selling assistant codenamed Project Amelia",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://www.aboutamazon.com/news/innovation-at-amazon/amazon-project-amelia",
+      "date": "2024-09"
+    },
+    {
+      "id": "s28",
+      "title": "Amazon launches AI agent to help sellers complete tasks and manage their businesses",
+      "publisher": "TechCrunch",
+      "url": "https://techcrunch.com/2025/09/17/amazon-launches-ai-agent-to-help-sellers-complete-tasks-and-manage-their-businesses/",
+      "date": "2025-09-17"
+    },
+    {
+      "id": "s29",
+      "title": "Takeaways from Amazon's pitch at its annual conference for third-party sellers",
+      "publisher": "Modern Retail",
+      "url": "https://www.modernretail.co/operations/what-amazon-pitched-at-its-annual-conference-for-third-party-sellers/",
+      "date": "2026-09"
+    },
+    {
+      "id": "s30",
+      "title": "Amazon sellers can now automatically improve product listings with our new Gen AI tool (Enhance My Listing)",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://www.aboutamazon.com/news/innovation-at-amazon/amazon-generative-ai-seller-growth-shopping-experience",
+      "date": "2025-05 (updated)"
+    },
+    {
+      "id": "s31",
+      "title": "Amazon Haul: ultra-low prices",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://www.aboutamazon.com/news/retail/amazon-haul-ultra-low-prices-under-10",
+      "date": "2025-11"
+    },
+    {
+      "id": "s32",
+      "title": "Amazon expands low-cost Haul service and launches shopping event as tariffs squeeze Chinese rivals",
+      "publisher": "GeekWire",
+      "url": "https://www.geekwire.com/2025/amazon-expands-low-cost-haul-service-and-launches-shopping-event-as-tariffs-squeeze-chinese-rivals/",
+      "date": "2025"
+    },
+    {
+      "id": "s33",
+      "title": "Amazon launches Haul as 'Bazaar' in 14 countries",
+      "publisher": "Shopifreaks",
+      "url": "https://www.shopifreaks.com/amazon-launches-haul-as-bazaar-in-14-countries/",
+      "date": "2025-11"
+    },
+    {
+      "id": "s34",
+      "title": "Amazon top markets by net sales, 2025",
+      "publisher": "Statista",
+      "url": "https://www.statista.com/statistics/672782/net-sales-of-amazon-leading-markets/",
+      "date": "2026"
+    },
+    {
+      "id": "s35",
+      "title": "How to dropship on Amazon in 2025",
+      "publisher": "Amazon (sell.amazon.com)",
+      "url": "https://sell.amazon.com/blog/dropshipping-on-amazon",
+      "date": "2025"
+    },
+    {
+      "id": "s36",
+      "title": "Important: Drop Shipping Policy update",
+      "publisher": "Amazon Seller Central (seller forums)",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/673fc46fa652feabf550e10375452fbc",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s37",
+      "title": "Amazon Seller Identity Verification Suspension 2026: Video Calls, Document Rejections, and How to Get Reinstated",
+      "publisher": "DAM Law Firm",
+      "url": "https://damlawfirm.com/blog/amazon-seller-identity-verification-suspension-2026/",
+      "date": "2026"
+    },
+    {
+      "id": "s38",
+      "title": "Amazon Policy Tracker 2026: Seller Compliance Changes, Dated",
+      "publisher": "Autopilot Brand",
+      "url": "https://www.autopilotbrand.com/resources/amazon-policy-tracker",
+      "date": "2026"
+    },
+    {
+      "id": "s39",
+      "title": "Rufus shows 5 products, not 50: what brands must know about Amazon's AI filter",
+      "publisher": "PPC Land",
+      "url": "https://ppc.land/rufus-shows-5-products-not-50-what-brands-must-know-about-amazons-ai-filter/",
+      "date": "2026"
+    },
+    {
+      "id": "s40",
+      "title": "After Flipkart, Amazon India expands zero referral fees as market leans toward zero-commission models",
+      "publisher": "YourStory",
+      "url": "https://yourstory.com/2026/03/amazon-india-expands-zero-referral-fees-125-crore-products-flipkarts-commission-waiver",
+      "date": "2026-03"
+    },
+    {
+      "id": "s41",
+      "title": "Amazon selling partners can now access even more generative AI features to create high-quality product listings",
+      "publisher": "Amazon (aboutamazon.com)",
+      "url": "https://www.aboutamazon.com/news/innovation-at-amazon/amazon-generative-ai-powered-product-listings",
+      "date": "2024"
+    }
+  ]
+}

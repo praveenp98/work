@@ -1844,3 +1844,24 @@ h1, h2, .display { font-family: var(--display); }
 .lp-err { color: #c2410c; }
 .lp-log { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; width: 100%; font-size: 13px; } .lp-log li { display: flex; justify-content: space-between; gap: 10px; }
 @media (max-width: 760px) { .ps-sum { grid-template-columns: 1fr 1fr; } .lp-diff { grid-template-columns: 1fr; } .lp-attr { grid-template-columns: 1fr; } }
+
+/* Season card on the dashboard (components/dash/SeasonCard.tsx) */
+.ss { margin: 14px 0; padding: 16px 18px; border-radius: 22px; background: linear-gradient(135deg, #fff7ed, #fff); border: 1px solid #fed7aa; display: grid; gap: 12px; }
+.ss.is-live { background: linear-gradient(135deg, #fee2e2, #fff); border-color: #fecaca; }
+.ss-quiet { background: #fff; border-color: var(--line); gap: 6px; }
+.ss-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.ss-k { font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #c2410c; }
+.ss.is-live .ss-k { color: #b91c1c; }
+.ss h3 { margin: 4px 0 0; font-size: 22px; letter-spacing: -.02em; }
+.ss-note { margin: 4px 0 0; font-size: 13.5px; color: var(--muted); }
+.ss-count { flex: none; display: grid; justify-items: center; min-width: 64px; padding: 8px 10px; border-radius: 16px; background: #fff; border: 1px solid #fed7aa; }
+.ss-count b { font-size: 24px; line-height: 1; } .ss-count small { font-size: 11px; color: var(--muted); }
+.ss-acts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: ss; }
+.ss-acts li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: #fff; border: 1px solid var(--line); }
+.ss-acts li > div { display: grid; gap: 2px; }
+.ss-acts small { color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+.ss-go { font-size: 13.5px; font-weight: 700; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.ss-auto, .ss-ok { font-size: 12.5px; font-weight: 600; color: #18794e; white-space: nowrap; }
+.ss-next { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; color: var(--muted); }
+.ss-next a { color: var(--accent); font-weight: 600; text-decoration: none; }
+@media (max-width: 560px) { .ss-acts li { grid-template-columns: 1fr; } }

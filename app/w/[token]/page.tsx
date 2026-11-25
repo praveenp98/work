@@ -1,3 +1,5 @@
+import { SeasonCard } from "@/components/dash/SeasonCard";
+import { marketOf } from "@/lib/season";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { after } from "next/server";
@@ -273,6 +275,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
 
+
+      {access !== "none" && <SeasonCard market={marketOf(account?.country)} token={token} jobKinds={jobs.map((j) => j.kind)} />}
 
       <div className="rd-grid">
         <div>

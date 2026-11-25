@@ -1,0 +1,1528 @@
+{
+  "slug": "us",
+  "marketplace": "Amazon.com",
+  "country": "United States",
+  "flag": "🇺🇸",
+  "currency": "USD",
+  "updated": "2026-11-25",
+  "title": "How to start selling on Amazon US in 2026: the complete beginner's guide",
+  "description": "Start selling on Amazon.com in 2026: $39.99 plan, 2026–2027 FBA fees, sales tax, tariffs after de minimis, CPSC rules and your first 90 days.",
+  "tldr": [
+    "Professional plan is $39.99/month; Individual is $0.99 per unit sold and can't run ads [s1][s2].",
+    "Third-party sellers sold about 61% of paid units on Amazon in Q4 2025: it's a big but professional market [s21].",
+    "FBA fees rose ~$0.08/unit on Jan 15, 2026, a 3.5% fuel surcharge started Apr 17, 2026, and another ~$0.19/unit rise starts Jan 15, 2027 [s5][s7][s14].",
+    "Most categories pay a 15% referral fee; on a $25 kitchen item Amazon's fees come to about $10 (example) [s19][s10].",
+    "Amazon stopped prepping and labelling US FBA inventory on Jan 1, 2026; you must do it [s31].",
+    "De minimis duty-free entry ended for all countries on Aug 29, 2025; tariffs changed again in 2026, so get a current duty quote [s33][s36].",
+    "Amazon collects sales tax in marketplace facilitator states; most states' economic nexus threshold is $100,000 [s41][s40].",
+    "Payouts are held until 7 days after delivery (DD+7), so keep a cash buffer [s42]."
+  ],
+  "sections": [
+    {
+      "id": "state",
+      "title": "Where Amazon.com stands in 2026",
+      "blocks": [
+        {
+          "p": "Amazon.com is still the biggest and most competitive Amazon store in the world. Most of what you buy there is not sold by Amazon itself. **Third-party sellers** (independent businesses like the one you are about to start) sold about **61% of paid units in Q4 2025**, after 62% in Q3 2025, according to Amazon's own quarterly disclosures as summarised by AMZ Monitor [s21]. In plain terms: roughly six out of ten things shipped from Amazon come from sellers like you."
+        },
+        {
+          "p": "Seller counts are harder to pin down because Amazon does not publish them. Third-party estimates put active sellers worldwide at about **1.9 million** in 2025 and new seller sign-ups at about **165,000** for the year, a sharp drop from earlier years [s22]. Treat these as rough estimates. The direction matters more than the exact number: fewer new sellers are joining, but the ones already there are larger, more professional and better funded."
+        },
+        {
+          "h3": "Competition and costs are rising"
+        },
+        {
+          "p": "Amazon raised US FBA (Fulfilment by Amazon, where Amazon stores, packs and ships your stock) fees again on **January 15, 2026**, by about **$0.08 per unit on average** [s5]. It added a **3.5% fuel and logistics surcharge** on FBA fees from **April 17, 2026** [s7][s8], and on **November 5, 2026** it announced another average rise of about **$0.19 per unit** from **January 15, 2027** [s14]. Referral fees (Amazon's commission on each sale) did not change in 2025 or 2026 [s6]. Each fee change on its own is small. Together they mean your margin plan must be built on next year's fees, not this year's."
+        },
+        {
+          "p": "Advertising is the other big cost. Amazon does not publish average cost-per-click (CPC, the price you pay each time a shopper clicks your ad) figures, and the numbers quoted online vary widely by category, so this guide does not quote one. Check the suggested bids for your own keywords inside the Amazon Ads console before you set a budget."
+        },
+        {
+          "h3": "AI shopping: Rufus changes how shoppers find products"
+        },
+        {
+          "p": "**Rufus** is Amazon's AI shopping assistant: shoppers type or say a question (\"best stroller for a small car boot\") and Rufus answers with products. On the Q3 2025 earnings call Amazon said 250 million customers used Rufus that year and that it was on track for more than **$10 billion** in extra annualised sales [s23]. Amazon later said Rufus drove nearly **$12 billion** in incremental annualised sales in 2025 [s24]. In April 2026 Amazon said monthly Rufus users were up **115%** year over year [s25] and described Rufus as able to research products, track prices and buy automatically when a price target is hit [s26]."
+        },
+        {
+          "p": "Amazon also sells ads inside these conversations, called **sponsored prompts**: suggested questions that appear in search results and on product pages. Amazon said nearly **20%** of shoppers who interact with a brand prompt continue the conversation about that brand [s26]. What this means for you: your listing has to answer real questions in plain language (size, use, who it is for, what is in the box), because an AI is now reading it on the shopper's behalf."
+        },
+        {
+          "h3": "Low-price storefronts: Amazon Haul"
+        },
+        {
+          "p": "**Amazon Haul** is Amazon's low-price section built to compete with Temu and Shein. Items are capped at **$20**, and seller participation is **invite-only**; there is no public sign-up in Seller Central [s27][s45]. For a beginner, Haul is mostly a warning sign rather than an opportunity: if your product idea is a cheap, generic item, you are competing with ultra-low-cost sellers on price alone."
+        },
+        {
+          "h3": "What this means for a beginner"
+        },
+        {
+          "ul": [
+            "The US is the largest prize, but it is a professional market. Plan to compete on a real brand, real product differences and good listings, not on finding an empty niche.",
+            "Build your numbers on 2027 fees, include the fuel surcharge, and leave room for advertising.",
+            "Write listings for humans and for AI: clear answers, real use cases, no keyword stuffing.",
+            "Avoid cheap commodity products that Haul and overseas marketplaces sell for less."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "The short version",
+            "text": "Amazon.com is big, mature and getting more expensive. It still rewards sellers who pick a differentiated product, price it with honest fee math, and keep stock in."
+          }
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "title": "What changed in 2025–2026 (and what is already announced for 2027)",
+      "blocks": [
+        {
+          "p": "These are the changes a new US seller is most likely to run into. Dates are the effective dates. Fee pages change often, so confirm each one in Seller Central before you rely on it."
+        },
+        {
+          "table": {
+            "head": [
+              "Date",
+              "Change",
+              "What it means for you"
+            ],
+            "rows": [
+              [
+                "Feb 20, 2025",
+                "Partial shipment splits (inbound placement option) limited to bulky products [s13]",
+                "Standard-size sellers choose between one inbound location (pay a placement fee) or Amazon-optimised splits (no placement fee)."
+              ],
+              [
+                "May 2, 2025",
+                "Duty-free de minimis entry ended for goods from China and Hong Kong [s35]",
+                "Small parcels from China no longer enter duty-free; duties apply."
+              ],
+              [
+                "Jul 28, 2025",
+                "Amazon announced the end of US FBA prep and labelling services [s32]",
+                "You (or a prep centre) must label and prep every unit before it reaches Amazon."
+              ],
+              [
+                "Aug 29, 2025",
+                "De minimis suspended for goods from all countries [s33]",
+                "Low-value imports from India, China or anywhere else now need a proper customs entry and duty payment."
+              ],
+              [
+                "Jan 1, 2026",
+                "Amazon stopped offering prep and item labelling for US FBA shipments [s31]",
+                "Unprepped or unlabelled stock can be refused or charged; budget for prep."
+              ],
+              [
+                "Jan 15, 2026",
+                "FBA fees up about $0.08/unit on average; no new fee types; referral fees unchanged [s5][s6]",
+                "Small rise, but fees are now split into price bands (under $10, $10–$50, over $50) [s10]."
+              ],
+              [
+                "Jan 15, 2026",
+                "Low-inventory-level fee measured per FNSKU (each variation) instead of per parent product [s6][s16]",
+                "A colour or size that runs low can trigger the fee even if the whole product family is in stock."
+              ],
+              [
+                "Feb 20, 2026",
+                "US Supreme Court ruled IEEPA does not authorise tariffs; 2025 \"reciprocal\" tariffs invalidated [s36]",
+                "Some tariffs paid in 2025 may be refundable to the importer of record; other tariffs (e.g. Section 301 on China) are separate."
+              ],
+              [
+                "Feb 24, 2026",
+                "Temporary 10% global import surcharge under Section 122 [s36]",
+                "A flat extra duty on most imports while it lasted."
+              ],
+              [
+                "Mar 12, 2026",
+                "DD+7 payout reserve rolled out to remaining US/Canada accounts [s42][s43]",
+                "Money from a sale is held until 7 days after delivery. Plan cash flow for slower payouts."
+              ],
+              [
+                "Apr 17, 2026",
+                "3.5% fuel and logistics surcharge on FBA fees [s7][s8]",
+                "Add 3.5% to every FBA fee in your calculator. Multi-Channel Fulfilment and Buy with Prime followed on May 2, 2026 [s9]."
+              ],
+              [
+                "Jun 23–26, 2026",
+                "Prime Day moved to June and ran four days [s28]",
+                "Event planning shifts earlier in the year; don't assume July."
+              ],
+              [
+                "Jun 24, 2026",
+                "CBP rules indefinitely suspend de minimis in regulations; statute repeal due July 1, 2027 [s34]",
+                "The end of duty-free low-value imports is permanent, not temporary."
+              ],
+              [
+                "Jul 24, 2026",
+                "Section 122 surcharge expired (reported) [s37]",
+                "The Court of International Trade ruled against the surcharge in May 2026 but limited relief to three named importers [s38]. Tariff rates keep moving; check current rates before every order."
+              ],
+              [
+                "Oct 6–7, 2026",
+                "Prime Big Deal Days (October Prime Day) [s30]",
+                "Second big event of the year; deals must be submitted weeks in advance."
+              ],
+              [
+                "Nov 5, 2026",
+                "Amazon announced 2027 US fees: FBA up about $0.19/unit on average from Jan 15, 2027 [s14]",
+                "Biggest rises for small standard items priced $10–$50 (about $0.40) and over $50 (about $0.70) [s14]."
+              ],
+              [
+                "Feb 1, 2027",
+                "Storage and low-inventory changes; one age-based fee replaces the storage utilisation and aged inventory surcharges (announced) [s15]",
+                "Read the new storage rules before your first Q1 2027 shipment."
+              ],
+              [
+                "Nov 2026",
+                "US reported to be preparing new tariffs on China, India, the EU and others [s39]",
+                "Importers should model higher duty scenarios before committing to large orders."
+              ]
+            ],
+            "note": "Sources are Amazon forum notices where available, otherwise trade press. Confirm every fee on Amazon's current fee pages in Seller Central."
+          }
+        },
+        {
+          "callout": {
+            "tone": "new",
+            "title": "Biggest operational change",
+            "text": "Since January 1, 2026 Amazon no longer preps or labels inventory for you in the US [s31]. Your supplier or a prep centre must apply barcode labels and any required bagging before stock ships."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fit",
+      "title": "Is Amazon.com the right place for you to start?",
+      "blocks": [
+        {
+          "h3": "Start here if"
+        },
+        {
+          "ul": [
+            "You live in the US or can legally operate a US business, with a US bank account and a valid card.",
+            "You have a product with a clear difference (better design, bundle, niche use) and margin after fees and ads.",
+            "You can fund at least one full inventory order plus three months of advertising without needing the payouts back quickly (remember DD+7 [s42]).",
+            "You are ready to handle sales tax, product safety documents and, if you import, customs."
+          ]
+        },
+        {
+          "h3": "Think twice if"
+        },
+        {
+          "ul": [
+            "Your idea is a cheap generic item under $20 that sells on price alone (you will compete with Haul and overseas sellers [s27]).",
+            "Your margin only works on this year's fees, before the 3.5% surcharge [s7] and the 2027 increase [s14].",
+            "Your product is for children, is electrical, edible or applied to skin, and you have no plan for testing and certificates.",
+            "You need the money back within a few weeks."
+          ]
+        },
+        {
+          "h3": "Selling from outside the US (India, China and elsewhere)"
+        },
+        {
+          "p": "Amazon.com accepts sellers from many countries. You register with your home-country ID and business documents and go through the same identity verification [s3]. What changes is money, tax and shipping:"
+        },
+        {
+          "ul": [
+            "**Payouts:** you need a bank account that can receive USD payouts. Amazon's registration guide asks for a bank account and a card during sign-up [s3]. Many non-US sellers use Amazon's own currency conversion or a US-dollar receiving account; compare the conversion fees.",
+            "**US tax forms:** non-US sellers complete Amazon's tax interview with the non-US form (W-8BEN for individuals, W-8BEN-E for entities). Whether you owe US income tax depends on your country's tax treaty and how you operate; ask a cross-border accountant.",
+            "**Customs:** if you ship stock from India or China, someone must be the **importer of record** (the party responsible for paying duty and meeting import rules). Amazon is not your importer. Since August 29, 2025 low-value shipments no longer enter duty-free [s33], so every shipment needs a proper entry.",
+            "**Tariffs:** rates changed several times in 2025–2026 and more changes were reported as this guide was written [s36][s37][s39]. Get a current duty quote from a licensed customs broker for your product's HTS code (the customs classification number) before you order."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Don't plan on the old cheap parcel model",
+            "text": "Shipping individual orders from China or India to US buyers duty-free is over [s33][s34]. Plan on bulk freight into FBA or a US warehouse, with duty paid at entry."
+          }
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "title": "Opening your Amazon.com seller account, step by step",
+      "blocks": [
+        {
+          "h3": "Choose a plan"
+        },
+        {
+          "table": {
+            "head": [
+              "Plan",
+              "Price",
+              "Best for"
+            ],
+            "rows": [
+              [
+                "Individual",
+                "$0.99 per unit sold, plus referral fees [s1]",
+                "Testing with fewer than about 40 sales a month. Cannot run Amazon Ads [s2]."
+              ],
+              [
+                "Professional",
+                "$39.99 per month, plus referral fees [s1]",
+                "Anyone building a brand: needed for ads, Brand Registry tools and most growth features."
+              ]
+            ],
+            "note": "At 40 sales a month the Individual plan costs $39.60, roughly the same as Professional; above that Professional is cheaper (example math from [s1])."
+          }
+        },
+        {
+          "p": "If you plan to launch a branded product with advertising, go straight to **Professional**. You can switch plans later in Seller Central."
+        },
+        {
+          "h3": "Documents you need"
+        },
+        {
+          "p": "Amazon's registration guide lists [s3]:"
+        },
+        {
+          "ul": [
+            "A **government-issued photo ID** (passport or driver's licence).",
+            "A **credit or debit card** that can be charged.",
+            "A **bank account** for payouts.",
+            "**Business registration** details if you sign up as a business.",
+            "**Proof of address** dated within the **last 180 days**, such as a bank or credit card statement [s3].",
+            "**Tax information** (SSN or EIN for US sellers; W-8 forms for non-US sellers)."
+          ]
+        },
+        {
+          "h3": "Identity verification"
+        },
+        {
+          "p": "Amazon verifies every new seller. You either take a photo of your face with your ID or join a **video call** with an Amazon associate, holding your ID and proof of address [s3]. Amazon says verification usually takes **three business days or less** [s3]. Seller forum guidance says to upload scanned or photographed originals (not screenshots) and keep total uploads under **50 MB** [s4]."
+        },
+        {
+          "h3": "Common reasons for rejection or delay"
+        },
+        {
+          "ul": [
+            "**Name or address mismatch** between your ID, statement and the form. This is the most common cause of rejection [s44].",
+            "Expired ID or a statement older than 180 days [s3].",
+            "Screenshots, cropped images or edited PDFs instead of clear originals [s4].",
+            "A card or bank account in someone else's name.",
+            "Opening a second account, or using a device or address linked to a suspended account."
+          ]
+        },
+        {
+          "h3": "Timeline"
+        },
+        {
+          "p": "Plan on one to three weeks from sign-up to a verified account if your documents are clean: the form itself takes an hour or two, verification usually takes up to three business days [s3], and the video call slot and any re-upload add time. Use that waiting time to finalise your product, barcodes and listing content."
+        },
+        {
+          "h3": "Pre-flight checklist"
+        },
+        {
+          "ol": [
+            "Decide individual vs company, and get your EIN (US company) or home-country registration ready.",
+            "Make sure your name and address read **exactly the same** on ID, statement, card and bank account.",
+            "Get a statement dated within the last 180 days [s3].",
+            "Use a dedicated business email and phone number.",
+            "Have the camera, ID and original documents ready in case Amazon offers a video call.",
+            "Choose Professional if you will advertise [s2]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "title": "Every cost of selling on Amazon.com",
+      "blocks": [
+        {
+          "p": "Amazon publishes its fees in Seller Central and on its pricing pages. The tables below come from Amazon notices and from 2026 rate-card summaries by trade sources; use them for planning and check the live numbers with Amazon's **Revenue Calculator** before you buy stock."
+        },
+        {
+          "h3": "1. Subscription"
+        },
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Cost"
+            ],
+            "rows": [
+              [
+                "Professional plan",
+                "$39.99 per month [s1]"
+              ],
+              [
+                "Individual plan",
+                "$0.99 per unit sold [s1]"
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "2. Referral fees (Amazon's commission)"
+        },
+        {
+          "p": "A **referral fee** is a percentage of the total sale price (item plus shipping), with a $0.30 minimum in most categories [s20]. Rates by common beginner category:"
+        },
+        {
+          "table": {
+            "head": [
+              "Category",
+              "Referral fee"
+            ],
+            "rows": [
+              [
+                "Home & Kitchen",
+                "15% [s19]"
+              ],
+              [
+                "Toys & Games",
+                "15% [s19]"
+              ],
+              [
+                "Sports & Outdoors",
+                "15% [s19]"
+              ],
+              [
+                "Pet Supplies",
+                "15% [s19]"
+              ],
+              [
+                "Beauty & Personal Care",
+                "8% if total price is $10 or less; 15% above $10 [s19]"
+              ],
+              [
+                "Baby Products",
+                "8% if $10 or less; 15% above $10 [s19]"
+              ],
+              [
+                "Health & Personal Care",
+                "8% if $10 or less; 15% above $10 (some tables show a flat 15%) [s19]"
+              ],
+              [
+                "Clothing & Accessories",
+                "5% up to $15; 10% from $15 to $20; 17% above $20 [s19]"
+              ],
+              [
+                "Consumer Electronics",
+                "8% [s19]"
+              ],
+              [
+                "Media (books, music, video, software)",
+                "Referral fee plus a $1.80 closing fee per item [s20]"
+              ]
+            ],
+            "note": "Referral fees did not change in 2025 or 2026 [s6]. Some category tiers are reported differently by different sources; confirm on Amazon's referral fee page."
+          }
+        },
+        {
+          "h3": "3. FBA fulfilment fees (per unit)"
+        },
+        {
+          "p": "Since January 15, 2026, FBA fees depend on **size tier**, **weight** and the item's **price band**: under $10, $10–$50, or over $50 [s10]. Examples for the $10–$50 band:"
+        },
+        {
+          "table": {
+            "head": [
+              "Size tier and weight",
+              "2026 FBA fee ($10–$50 band)",
+              "With 3.5% surcharge"
+            ],
+            "rows": [
+              [
+                "Small standard, up to 2 oz",
+                "$3.32 [s10]",
+                "about $3.44"
+              ],
+              [
+                "Small standard, up to 10 oz",
+                "$3.68 [s10]",
+                "about $3.81"
+              ],
+              [
+                "Large standard, 2.25–2.5 lb",
+                "$6.10 [s10]",
+                "about $6.31 [s10]"
+              ],
+              [
+                "Large standard, 2.75–3 lb",
+                "$6.67 [s10][s11]",
+                "about $6.90"
+              ],
+              [
+                "Large standard, over 3 lb",
+                "$6.97 for the first 3 lb + $0.08 per extra 4 oz [s10][s11]",
+                "add 3.5%"
+              ]
+            ],
+            "note": "Rate cards print fees without the 3.5% fuel and logistics surcharge in force since April 17, 2026 [s7]; the surcharge column is our arithmetic. Higher peak-season rates apply from mid-October to mid-January [s10]. From Jan 15, 2027 FBA fees rise again by about $0.19/unit on average [s14]."
+          }
+        },
+        {
+          "h3": "4. Storage"
+        },
+        {
+          "table": {
+            "head": [
+              "Storage type",
+              "Jan–Sep",
+              "Oct–Dec"
+            ],
+            "rows": [
+              [
+                "Standard-size, per cubic foot per month",
+                "$0.78 [s12]",
+                "$2.40 [s12]"
+              ],
+              [
+                "Oversize / bulky, per cubic foot per month",
+                "$0.56 [s12]",
+                "$1.40 [s12]"
+              ]
+            ],
+            "note": "Long-term (aged inventory) surcharges apply on top of base storage for stock held a long time, plus a storage utilisation surcharge for sellers with too much stock relative to sales [s12]. From Feb 1, 2027 Amazon is replacing those two surcharges with one age-based fee (announced) [s15]."
+          }
+        },
+        {
+          "h3": "5. Inbound, low-inventory and returns fees"
+        },
+        {
+          "table": {
+            "head": [
+              "Fee",
+              "How it works"
+            ],
+            "rows": [
+              [
+                "Inbound placement service fee",
+                "When you create a shipment you choose how it is split. **Amazon-optimised splits** (several locations) carry no placement fee; sending everything to **one location** costs a per-unit fee, reported at roughly $0.14–$1.90 per standard-size unit in 2026 depending on size, weight and region [s13]."
+              ],
+              [
+                "Low-inventory-level fee",
+                "Charged per unit when your stock falls below about **28 days of supply**, measured per FNSKU since January 2026; reported at about $0.32–$1.11 per standard-size unit [s16]. Products that ship few units and new sellers can be exempt; check your exemption in Seller Central."
+              ],
+              [
+                "Returns processing fee",
+                "Charged on returned units when your return rate is above the threshold for your category; apparel and shoes are charged on returns regardless of rate [s17]."
+              ],
+              [
+                "Refund administration fee",
+                "When you refund an order, Amazon keeps the lesser of **$5.00 or 20% of the referral fee** [s17][s18]."
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "6. Advertising"
+        },
+        {
+          "p": "Amazon does not publish average CPCs. Pull suggested bids for your top keywords in the Amazon Ads console and multiply by the clicks you need (see the ads section). A beginner who skips this step usually underestimates launch costs."
+        },
+        {
+          "h3": "Worked example: a $25 kitchen gadget"
+        },
+        {
+          "p": "**Example only**, built from the cited 2026 fees. A $25 Home & Kitchen item in a large standard box at 2.25–2.5 lb:"
+        },
+        {
+          "table": {
+            "head": [
+              "Line",
+              "Amount"
+            ],
+            "rows": [
+              [
+                "Sale price",
+                "$25.00"
+              ],
+              [
+                "Referral fee 15% [s19]",
+                "−$3.75"
+              ],
+              [
+                "FBA fee incl. 3.5% surcharge [s10]",
+                "−$6.31"
+              ],
+              [
+                "Amazon fees subtotal",
+                "−$10.06 (about 40% of price)"
+              ],
+              [
+                "Left before product, freight, duty, storage, ads",
+                "$14.94"
+              ]
+            ],
+            "note": "If the product, freight and duty cost $6, you have about $8.94 left for storage, returns, ads and profit."
+          }
+        },
+        {
+          "h3": "Example starting budget"
+        },
+        {
+          "p": "**Illustrative example** for a first branded product, using your own supplier quotes. Amounts are placeholders to show the shape of a budget, not market prices:"
+        },
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Samples",
+                "Order from 2–3 suppliers before committing."
+              ],
+              [
+                "First inventory order",
+                "Usually the largest line. Enough for about 3 months of expected sales."
+              ],
+              [
+                "Freight, duty and customs broker",
+                "Get a quote with current tariffs [s37][s39]."
+              ],
+              [
+                "Barcodes, labels and prep",
+                "Required since Amazon stopped prepping in Jan 2026 [s31]."
+              ],
+              [
+                "Testing and certificates",
+                "Required for children's products and many regulated items."
+              ],
+              [
+                "Photos and listing design",
+                "Main image, lifestyle images, infographics, A+ content."
+              ],
+              [
+                "Trademark filing",
+                "Needed for Brand Registry."
+              ],
+              [
+                "Professional plan",
+                "$39.99/month [s1]."
+              ],
+              [
+                "Launch ads",
+                "Budget from suggested bids × target clicks for 60–90 days."
+              ],
+              [
+                "Cash buffer",
+                "At least one extra month of fees and ads, because of DD+7 payouts [s42]."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax",
+      "title": "Tax and legal basics in the US",
+      "blocks": [
+        {
+          "h3": "Sales tax and marketplace facilitator laws"
+        },
+        {
+          "p": "The US has no national VAT. Instead, most states charge **sales tax**. Under **marketplace facilitator laws**, the marketplace (Amazon) calculates, collects and remits sales tax on orders it processes in those states, so you normally do not collect it yourself on Amazon orders [s41]. You still need to know where you have **nexus** (a tax connection to a state)."
+        },
+        {
+          "p": "**Economic nexus** is triggered by selling more than a state's threshold into it. As of 2026, 41 states use **$100,000** in sales, Alabama and Mississippi use **$250,000**, and California, New York and Texas use **$500,000** [s40]. Some states also count transactions, but several have dropped that test: Illinois removed its 200-transaction test from **January 1, 2026** [s40]. **Physical nexus** can also come from inventory: FBA stores your stock in warehouses in many states, which can create nexus there."
+        },
+        {
+          "ul": [
+            "If you only sell on Amazon, Amazon handles collection in facilitator states [s41]. Some states still expect a registration or a return even when all your sales are through a marketplace; check each state's department of revenue.",
+            "If you also sell on your own website or other channels, those sales may require you to register and collect yourself once you cross a threshold [s40].",
+            "Thresholds and rules change; confirm on each state's revenue department site."
+          ]
+        },
+        {
+          "h3": "Registrations you may need"
+        },
+        {
+          "ul": [
+            "**US sellers:** a business entity (often an LLC) is optional but common; an **EIN** (Employer Identification Number) from the IRS lets you open a business bank account and file business taxes.",
+            "**Non-US sellers:** complete Amazon's tax interview with the right W-8 form. Some foreign sellers get an EIN or ITIN for tax treaty claims or US filings; a cross-border accountant can tell you whether you need one.",
+            "**Importers:** the importer of record needs a customs bond and usually a customs broker. Since the end of de minimis, every commercial import needs a formal or informal entry with duty paid [s33]."
+          ]
+        },
+        {
+          "h3": "Income tax"
+        },
+        {
+          "p": "Your profit (sales minus Amazon fees, product cost, freight, duty, ads and other expenses) is taxable income. Amazon sends a Form 1099-K reporting your gross payments when you pass the IRS reporting threshold; check the current threshold on irs.gov because it has changed several times. Keep every invoice and your Amazon settlement reports from day one."
+        },
+        {
+          "h3": "When to get an accountant"
+        },
+        {
+          "ul": [
+            "Before you form a company or import your first order.",
+            "If you are a non-US seller (treaty and US filing questions).",
+            "When your sales pass about $100,000 into any one state, or you add a non-Amazon channel [s40].",
+            "If you paid IEEPA tariffs in 2025–2026, to ask about refunds [s36][s37]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "This is not tax advice",
+            "text": "Rules differ by state and by your home country. Use this as a map, then confirm with your state's department of revenue, the IRS and a qualified accountant."
+          }
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "title": "Product compliance, restrictions and Brand Registry",
+      "blocks": [
+        {
+          "h3": "Restricted and gated categories"
+        },
+        {
+          "p": "Some categories and products need Amazon's approval before you can list (\"gated\"), and some are banned. Before you choose a product, search the product type in Seller Central (Add a Product) to see if it shows \"approval required\". Common gated or restricted areas include grocery, topicals and supplements, children's products, some electronics, pesticides and anything making medical claims. Approval usually needs invoices from a legitimate supplier and safety documents."
+        },
+        {
+          "h3": "US product safety rules (CPSC)"
+        },
+        {
+          "p": "The **Consumer Product Safety Commission (CPSC)** sets mandatory rules for many consumer products. Products designed for children need a **Children's Product Certificate (CPC)** based on testing by a **CPSC-accepted third-party lab**. Many other regulated products need a **General Certificate of Conformity (GCC)**. Amazon asks for these documents in Seller Central and can remove listings without them. CPSC has also moved certificate data to electronic filing with customs for imports, so if you import regulated products, ask your customs broker and lab about eFiling before your goods ship. Check cpsc.gov for the current requirements for your product."
+        },
+        {
+          "ul": [
+            "Children's products, toys, baby gear: CPC, lab test reports, tracking labels.",
+            "Electrical items: safety testing and, for radio devices, FCC rules.",
+            "Cosmetics, food contact items, supplements: FDA rules and labelling.",
+            "Products with batteries, aerosols or flammables: dangerous goods (hazmat) review before FBA will accept them."
+          ]
+        },
+        {
+          "h3": "Labelling"
+        },
+        {
+          "ul": [
+            "English labelling, country of origin marking for imports, and any warnings your product's rules require.",
+            "An FBA barcode label (FNSKU) or eligible manufacturer barcode on each unit. Since Jan 1, 2026 you must apply labels yourself or through a prep centre [s31].",
+            "Don't make claims you can't prove (\"FDA approved\", \"antibacterial\", \"non-toxic\") without documentation; these trigger listing removals."
+          ]
+        },
+        {
+          "h3": "Trademarks and Brand Registry"
+        },
+        {
+          "p": "**Amazon Brand Registry** gives you control of your listings, A+ content, Brand Store, Vine, Sponsored Brands ads and brand protection tools. It requires a registered or pending trademark from an eligible office; in the US that is the **USPTO** (United States Patent and Trademark Office). Brand Registry can accept a **pending** application, so file early. Registration itself can take many months; check the USPTO's current processing-time page for an up-to-date estimate."
+        },
+        {
+          "p": "Amazon's **IP Accelerator** connects brands with vetted IP law firms at pre-negotiated rates and can give earlier access to Brand Registry protections while the trademark is pending. It is optional; any qualified trademark attorney can file for you."
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "Do this first",
+            "text": "File your word mark (brand name) before you place your first inventory order. Then you can apply for Brand Registry as soon as you have the application serial number."
+          }
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Choosing your first product with data",
+      "blocks": [
+        {
+          "h3": "Criteria that work for beginners"
+        },
+        {
+          "ul": [
+            "**Price $20–$50.** High enough to cover fees and ads; the worked example shows Amazon fees take about 40% of a $25 item [s10][s19].",
+            "**Small and light.** Small standard and light large standard tiers keep FBA fees down [s10]. Every extra pound and inch costs you, and 2027 raises small-standard fees the most [s14].",
+            "**Steady, year-round demand.** Avoids being stuck with stock and paying $2.40 per cubic foot in Q4 storage [s12].",
+            "**A real improvement** you can explain in one sentence, which also helps AI assistants recommend you [s26].",
+            "**Not gated, not regulated** (for your first product), no batteries, liquids or claims.",
+            "**Reviews you can beat:** top sellers have complaints you can fix (read their 1–3 star reviews)."
+          ]
+        },
+        {
+          "h3": "Margin rule of thumb"
+        },
+        {
+          "p": "Aim for at least **30% net margin before ads** and a landed cost (product + freight + duty + prep) of no more than about a quarter of your price. Using the worked example ($25 item, $10.06 Amazon fees): if landed cost is $6, you keep $8.94 before storage, returns and ads, about 36% [s10][s19]. If your margin is thin at today's fees, add the 2027 increase [s14] and the current tariff for your product before deciding."
+        },
+        {
+          "h3": "Validating demand with Amazon's own tools"
+        },
+        {
+          "ul": [
+            "**Product Opportunity Explorer** (Seller Central): search volume, growth, number of products, average price and return rates by niche.",
+            "**Brand Analytics** (after Brand Registry): top search terms and which products win clicks and sales.",
+            "**Revenue Calculator**: test fees on similar products by size and price.",
+            "**Amazon Ads console**: suggested bids for your main keywords, which tell you what traffic will cost.",
+            "Read Rufus answers for your category questions as a shopper, to see which products and features it highlights [s23]."
+          ]
+        },
+        {
+          "h3": "Red flags"
+        },
+        {
+          "ul": [
+            "Seasonal (Christmas, Halloween, summer only).",
+            "Fragile (glass, ceramics) or heavy/oversize.",
+            "Patented or trademarked designs you might infringe; search patents before ordering.",
+            "Children's, electrical, food, cosmetics or supplements as a first product (compliance cost and risk).",
+            "Under $15 commodity items competing with Haul [s27].",
+            "Categories where the top listings all have thousands of reviews and the same Chinese factories behind them.",
+            "High tariff exposure from a single country with no alternative supplier [s39]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Don't copy, improve",
+            "text": "Selling an identical copy of a branded product invites IP complaints and price wars. Change something meaningful and protect it with your own brand."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fulfil",
+      "title": "Fulfilment: FBA, FBM and US programs",
+      "blocks": [
+        {
+          "h3": "Your options"
+        },
+        {
+          "table": {
+            "head": [
+              "Option",
+              "How it works",
+              "Good for"
+            ],
+            "rows": [
+              [
+                "FBA (Fulfilment by Amazon)",
+                "You send stock to Amazon; Amazon stores, picks, packs, ships, handles returns and customer service; your listing shows Prime.",
+                "Most beginners selling small, steady products."
+              ],
+              [
+                "FBM (Fulfilled by Merchant)",
+                "You store and ship orders yourself or through a 3PL (third-party logistics warehouse).",
+                "Bulky, slow or custom items; testing before FBA."
+              ],
+              [
+                "Seller Fulfilled Prime (SFP)",
+                "You ship yourself but meet Prime delivery standards, so you get the Prime badge.",
+                "Experienced FBM sellers with strong logistics; not a first-month option."
+              ],
+              [
+                "Multi-Channel Fulfilment (MCF)",
+                "Amazon ships orders from your other sales channels (own website, other marketplaces) using your FBA stock.",
+                "Selling outside Amazon without a second warehouse. Fuel surcharge applies since May 2, 2026 [s9]."
+              ],
+              [
+                "Buy with Prime",
+                "Adds Prime checkout and delivery to your own website, fulfilled from FBA stock.",
+                "Brands driving traffic to their own site. Fuel surcharge applies since May 2, 2026 [s9]."
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Sending stock in"
+        },
+        {
+          "ol": [
+            "Create the shipment in **Send to Amazon** in Seller Central.",
+            "Choose your inbound placement option: Amazon-optimised splits (no placement fee) or one location (placement fee) [s13].",
+            "Label every unit with its FNSKU and prep it to Amazon's packaging rules yourself or at a prep centre; Amazon no longer does this in the US [s31][s32].",
+            "Use Amazon's partnered carrier or your own freight forwarder; label each carton with Amazon's carton labels.",
+            "Track receiving. Stock usually takes days to weeks to become available; plan for it."
+          ]
+        },
+        {
+          "h3": "Stock planning basics"
+        },
+        {
+          "ul": [
+            "Keep at least **28 days of supply** at all times to avoid the low-inventory-level fee [s16], but not so much that aged or utilisation surcharges apply [s12].",
+            "Reorder point = daily sales × (production time + shipping time + receiving time) + safety stock.",
+            "Q4 storage costs about three times more per cubic foot than January–September [s12]; arrive in time for peak, then let stock run down.",
+            "Running out of stock hurts ranking for weeks. It is the most expensive mistake after a bad product choice."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Your first 90 days, week by week",
+      "blocks": [
+        {
+          "h3": "Before day 1"
+        },
+        {
+          "ul": [
+            "Trademark filed, Brand Registry applied (or pending).",
+            "Inventory checked in at FBA, labelled and prepped [s31].",
+            "Listing complete: title, 5 bullets, description, backend keywords, all images."
+          ]
+        },
+        {
+          "h3": "Weeks 1–2: listing and launch"
+        },
+        {
+          "ul": [
+            "**Main image** on pure white, product filling the frame. 6–8 more images: lifestyle, size, features, what's in the box, comparison.",
+            "**Title** with brand, product type, key feature and size/quantity. Readable, no keyword stuffing.",
+            "**Bullets** that answer the questions shoppers ask Rufus: who is it for, how it's used, size, materials, care, warranty [s26].",
+            "**A+ Content** (after Brand Registry): comparison chart and brand story.",
+            "Enrol in **Amazon Vine** (Brand Registry): Amazon invites trusted reviewers to get free units and post honest reviews. You choose up to a set number of units.",
+            "Start **Sponsored Products** ads (see the ads section).",
+            "Set a launch price slightly below your target, or add a **coupon**, to help early conversion."
+          ]
+        },
+        {
+          "h3": "Weeks 3–4: first data"
+        },
+        {
+          "ul": [
+            "Check your search term report: which terms convert, which waste money.",
+            "Add negative keywords. Move proven terms into exact-match campaigns.",
+            "Watch your unit session percentage (conversion rate) in Business Reports.",
+            "Use **Request a Review** on eligible orders."
+          ]
+        },
+        {
+          "h3": "Weeks 5–8: optimise"
+        },
+        {
+          "ul": [
+            "Test a new main image or title if conversion is weak.",
+            "Add Sponsored Brands (headline ads) once you have Brand Registry and some reviews.",
+            "Raise price step by step toward target as reviews come in.",
+            "Place your reorder now so you never stock out."
+          ]
+        },
+        {
+          "h3": "Weeks 9–12: stabilise"
+        },
+        {
+          "ul": [
+            "Shift budget to campaigns that are profitable.",
+            "Build a simple Brand Store.",
+            "Plan for the next event (Prime Day, Prime Big Deal Days, Black Friday) [s28][s30].",
+            "Decide: second product, new variation, or new marketplace."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Checkpoint",
+              "What \"good\" looks like"
+            ],
+            "rows": [
+              [
+                "Day 30",
+                "Listing indexed for main keywords, first Vine reviews, ads spending on budget, no stockout risk."
+              ],
+              [
+                "Day 60",
+                "Reviews at a healthy rating, conversion improving, ads ACoS trending down, reorder placed."
+              ],
+              [
+                "Day 90",
+                "Organic sales growing, TACoS falling, price near target, a clear plan for product two."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ads",
+      "title": "Amazon advertising for beginners",
+      "blocks": [
+        {
+          "h3": "Campaign types"
+        },
+        {
+          "ul": [
+            "**Sponsored Products**: ads for a single listing in search results and on product pages. Start here.",
+            "**Sponsored Brands**: headline ads with your logo and several products (needs Brand Registry).",
+            "**Sponsored Display**: retargeting and product-page ads, on and off Amazon.",
+            "**Sponsored prompts**: ads inside Rufus conversations, a newer format [s26]."
+          ]
+        },
+        {
+          "h3": "Key terms"
+        },
+        {
+          "ul": [
+            "**ACoS** (Advertising Cost of Sale) = ad spend ÷ ad sales. $30 spend for $100 ad sales = 30% ACoS.",
+            "**TACoS** (Total ACoS) = ad spend ÷ total sales (ads + organic). Shows whether ads are building organic sales.",
+            "**Break-even ACoS** = your margin before ads. In the $25 example with a $6 landed cost, margin before ads is about 36%, so ACoS above 36% loses money on each ad sale [s10][s19]."
+          ]
+        },
+        {
+          "h3": "Starter structure"
+        },
+        {
+          "ol": [
+            "**Auto campaign**: Amazon chooses targets. Use it to discover search terms.",
+            "**Manual exact**: your 5–15 most relevant keywords.",
+            "**Manual phrase/broad**: wider versions to find new terms.",
+            "**Product targeting**: your listing on competitor pages where you have a clear advantage."
+          ]
+        },
+        {
+          "h3": "Starter budget"
+        },
+        {
+          "p": "Set the daily budget from real bids: take the suggested bid for your main keywords in the Ads console, decide how many clicks you need per day (at a 10% conversion rate, 10 clicks ≈ 1 sale), and multiply. Keep the total within what you can afford for 60–90 days."
+        },
+        {
+          "h3": "Sensible early targets"
+        },
+        {
+          "ul": [
+            "Days 1–30: expect ACoS above your break-even. You are buying data and early sales.",
+            "Days 30–60: bring ACoS toward break-even on proven keywords.",
+            "Day 90+: aim for ACoS below break-even and a falling TACoS."
+          ]
+        },
+        {
+          "h3": "Weekly routine"
+        },
+        {
+          "ol": [
+            "Download the search term report.",
+            "Add negatives: irrelevant terms and terms with many clicks and no sales.",
+            "Move converting search terms into exact campaigns.",
+            "Adjust bids: up on profitable terms, down on expensive ones.",
+            "Check budget: campaigns running out of budget early in the day.",
+            "Look at TACoS and organic rank, not just ACoS."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grow",
+      "title": "Growing after launch",
+      "blocks": [
+        {
+          "h3": "Reviews, done right"
+        },
+        {
+          "ul": [
+            "**Amazon Vine** for early honest reviews (Brand Registry).",
+            "**Request a Review** button or automation in Seller Central, which sends Amazon's standard request.",
+            "Product inserts may thank the buyer and point to support, but never ask for a positive review or offer anything in return.",
+            "Fix the product when reviews show a real problem; it raises rating faster than any tactic."
+          ]
+        },
+        {
+          "h3": "Brand tools"
+        },
+        {
+          "ul": [
+            "**Brand Store**: a free multi-page store on Amazon.",
+            "**A+ Content** and **Brand Analytics** for search and competitor insight.",
+            "**Sponsored Brands** ads to drive traffic to your store."
+          ]
+        },
+        {
+          "h3": "US deals and events calendar"
+        },
+        {
+          "table": {
+            "head": [
+              "Event",
+              "2026 timing",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Prime Day",
+                "June 23–26, 2026 (four days) [s28]",
+                "Moved from July to June to avoid the FIFA World Cup and the US 250th anniversary [s29]."
+              ],
+              [
+                "Prime Big Deal Days",
+                "October 6–7, 2026 [s30]",
+                "Second Prime event; deals submitted well in advance."
+              ],
+              [
+                "Black Friday / Cyber Monday",
+                "Black Friday is November 27, 2026",
+                "Biggest sales week; storage is at Q4 rates [s12]."
+              ],
+              [
+                "Holiday season",
+                "November–December",
+                "Higher peak FBA fees apply mid-October to mid-January [s10]."
+              ],
+              [
+                "New Year / spring",
+                "January–March",
+                "Fitness, organising, Valentine's, Easter; good for launching with lower ad competition."
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Event deals (Lightning Deals, Best Deals, Prime Exclusive Discounts) are submitted in Seller Central under Deals and Promotions. Amazon sets eligibility (rating, review count, price history). Coupons are the easiest first promotion."
+        },
+        {
+          "h3": "Expanding to other marketplaces"
+        },
+        {
+          "ul": [
+            "**Canada and Mexico** through Amazon's North America unified account. Note the fuel surcharge also applies to Remote Fulfilment from the US into Canada, Mexico and Brazil [s7].",
+            "**UK and EU** later, once you have compliance documents for those markets.",
+            "Use Amazon's **Build International Listings** tool to copy listings across."
+          ]
+        },
+        {
+          "h3": "Off-Amazon traffic"
+        },
+        {
+          "ul": [
+            "**Amazon Attribution** tracks clicks you send from social, email or search ads to Amazon.",
+            "**Brand Referral Bonus** credits brand-registered sellers for sales from that tracked outside traffic; check the current rate in Seller Central.",
+            "**Buy with Prime** and **MCF** let you sell on your own site using FBA stock [s9]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mistakes",
+      "title": "The most common beginner mistakes (and account-health risks)",
+      "blocks": [
+        {
+          "ol": [
+            "**Picking a product on hype, not math.** Run the fee math with 2027 fees, the 3.5% surcharge and current tariffs first [s7][s14][s39].",
+            "**Underfunding cash flow.** Payouts are held until 7 days after delivery [s42]; plan for it.",
+            "**Mismatched documents during sign-up.** Name and address must match everywhere [s44].",
+            "**Opening a second account** without Amazon's approval, or logging in from a device tied to a suspended account. This can link and suspend both.",
+            "**Shipping unlabelled or unprepped stock.** Amazon no longer preps in the US [s31].",
+            "**Stocking out** after launch, then losing rank and paying low-inventory fees [s16].",
+            "**Over-ordering** before demand is proven, then paying Q4 and aged storage [s12].",
+            "**Review manipulation**: paying for reviews, rebates in exchange for reviews, friends-and-family reviews, review swaps. These lead to suspension and listing removal.",
+            "**Listing restricted or unsafe products** without certificates (children's products, electrical, supplements).",
+            "**Copying a branded design** and receiving IP (trademark, patent, copyright) complaints, which damage account health.",
+            "**Selling items as \"new\" without supplier invoices**; inauthentic complaints need proof of authentic sourcing.",
+            "**Ignoring tariffs and the importer-of-record role** when importing [s33][s36].",
+            "**FBM late shipments and cancellations**, which harm performance metrics and Buy Box (the 'Add to Cart' box) eligibility.",
+            "**Ignoring Account Health** in Seller Central. Check it daily; respond to every notification before its deadline.",
+            "**Keyword-stuffed listings** that read badly for humans and for Rufus [s26]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "What gets accounts suspended",
+            "text": "Fake or incentivised reviews, multiple accounts, unverifiable identity, inauthentic or counterfeit goods, unsafe products and repeated IP complaints. None of these are worth the risk."
+          }
+        }
+      ]
+    },
+    {
+      "id": "checklist",
+      "title": "Your do-this-in-order checklist",
+      "blocks": [
+        {
+          "ol": [
+            "Decide whether Amazon.com fits your budget and product (see 'Is Amazon.com right for you').",
+            "Set up your business entity, EIN or home-country registration and a bank account that receives USD.",
+            "Shortlist 3–5 product ideas with Product Opportunity Explorer.",
+            "Run fee math on each using 2026 and 2027 fees plus the 3.5% surcharge [s10][s14][s7].",
+            "Check if the category is gated and which safety certificates apply.",
+            "Get a current duty quote from a customs broker if you import [s37][s39].",
+            "Order samples from 2–3 suppliers.",
+            "File your trademark with the USPTO.",
+            "Register for a Professional seller account [s1].",
+            "Complete identity verification with matching documents [s3].",
+            "Complete the tax interview (W-9 or W-8BEN/W-8BEN-E).",
+            "Apply for Brand Registry with your pending trademark.",
+            "Get product testing and certificates done.",
+            "Order photos and listing content.",
+            "Place your first inventory order (about three months of expected sales).",
+            "Arrange labelling and prep with your supplier or a prep centre [s31].",
+            "Create the FBA shipment and choose the inbound placement option [s13].",
+            "Publish the listing, A+ content and enrol in Vine.",
+            "Launch Sponsored Products auto and exact campaigns.",
+            "Run the weekly ads routine and check Account Health daily.",
+            "Place your reorder by week 6–8 to avoid stockouts.",
+            "Plan for the next Amazon event [s28][s30].",
+            "Review results at day 90 and plan product two."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "How much does it cost to start selling on Amazon in the US?",
+      "a": "The Professional plan is $39.99 a month, plus referral fees (usually 15%) and FBA fees per unit. The big costs are inventory, freight, duty, photos and launch ads, which depend on your product. Build a budget from supplier quotes and suggested ad bids rather than a generic number."
+    },
+    {
+      "q": "Individual or Professional plan?",
+      "a": "Individual costs $0.99 per item sold and has no monthly fee, but you can't run ads. Professional is $39.99 a month. If you sell more than about 40 units a month or want to advertise and build a brand, choose Professional."
+    },
+    {
+      "q": "Can I sell on Amazon.com from India or China?",
+      "a": "Yes. You register with your home documents, pass identity verification, and complete a W-8BEN or W-8BEN-E tax form. You will need a way to receive USD payouts and someone to act as importer of record for your shipments, since US de minimis duty-free entry has ended."
+    },
+    {
+      "q": "Do I have to collect sales tax on Amazon?",
+      "a": "Generally no for Amazon orders: under marketplace facilitator laws Amazon collects and remits sales tax in states with those laws. You still need to watch for nexus if you sell through other channels, and confirm any state registration rules with an accountant."
+    },
+    {
+      "q": "What are Amazon's FBA fees in 2026?",
+      "a": "They depend on size, weight and price band. For a $10–$50 item, a small standard unit up to 2 oz is about $3.32 and a large standard unit of 2.25–2.5 lb about $6.10, before the 3.5% fuel surcharge. Fees rise again on January 15, 2027 by about $0.19 per unit on average."
+    },
+    {
+      "q": "How long does Amazon seller verification take?",
+      "a": "Amazon says identity verification usually takes three business days or less once you submit documents or finish the video call. Delays usually come from name or address mismatches or old statements, so make everything match before you start."
+    },
+    {
+      "q": "Do I need a trademark to sell on Amazon?",
+      "a": "Not to sell, but you need one (registered or pending) for Brand Registry, which unlocks A+ content, Vine, Sponsored Brands and brand protection. File with the USPTO early because registration can take many months."
+    },
+    {
+      "q": "How did tariffs and the end of de minimis change things?",
+      "a": "Since August 29, 2025 low-value imports from all countries need proper customs entries and duty. Tariff rates changed several times in 2026 after the Supreme Court struck down IEEPA tariffs, and new increases were reported in November 2026. Get a current duty quote before each order."
+    },
+    {
+      "q": "Does Amazon still label and prep my FBA inventory?",
+      "a": "No. Since January 1, 2026 Amazon no longer offers prep and item labelling for US FBA shipments. Your supplier or a prep centre must label and pack each unit to Amazon's rules."
+    },
+    {
+      "q": "How long until I get paid by Amazon?",
+      "a": "Under the DD+7 policy, money from a sale becomes available seven days after the order is delivered, then goes out in your next disbursement. Plan for a few weeks between a sale and cash in your bank."
+    },
+    {
+      "q": "What is a good ACoS for a new product?",
+      "a": "In the first month ACoS is often above break-even while you gather data. Your break-even ACoS equals your margin before ads; for example about 36% on a $25 product with $10 of Amazon fees and $6 landed cost. Aim to get below break-even by day 60–90."
+    },
+    {
+      "q": "What is Rufus and does it affect my listing?",
+      "a": "Rufus is Amazon's AI shopping assistant, used by hundreds of millions of shoppers and credited by Amazon with about $12 billion in extra sales in 2025. It reads your listing to answer shoppers' questions, so write clear, specific answers about use, size and who the product is for."
+    },
+    {
+      "q": "Can I get reviews faster?",
+      "a": "Use Amazon Vine and the Request a Review button. Never pay for reviews, give refunds or gifts for reviews, or ask friends and family; Amazon suspends accounts for review manipulation."
+    },
+    {
+      "q": "Should I join Amazon Haul?",
+      "a": "You can't simply join; Haul is invite-only and caps items at $20. For most beginners a differentiated branded product in the main store is a better bet."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Frequently Asked Questions (FAQ): selling plans",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com/learn/faq",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s2",
+      "title": "Amazon Individual vs Professional Seller: 2026 Guide",
+      "publisher": "Aura",
+      "url": "https://goaura.com/blog/amazon-individual-seller",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s3",
+      "title": "Amazon seller registration in 5 steps",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com/sell/registration-guide",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s4",
+      "title": "Tips to Prepare for Your Identity Verification Video Call",
+      "publisher": "Amazon Seller Forums",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/07334d0d-4586-4ca1-ab91-4ed49203f254",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s5",
+      "title": "2026 Updates to US Referral and Fulfillment by Amazon Fees",
+      "publisher": "Amazon Seller Forums",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/f3fa3211-820b-4e2e-a023-158a9cf55f99",
+      "date": "2025-10"
+    },
+    {
+      "id": "s6",
+      "title": "Amazon FBA Fee Changes 2026: Every New Rate Compared",
+      "publisher": "Nova Analytics",
+      "url": "https://novadata.io/resources/blog/2026-amazon-fba-fee-changes",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s7",
+      "title": "Fuel and logistics-related surcharge: FBA, MCF, and BWP in US and CA",
+      "publisher": "Amazon Seller Forums",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/7cbc0233-ee5b-4359-978a-dee7cad5c6f4",
+      "date": "2026-04"
+    },
+    {
+      "id": "s8",
+      "title": "Amazon to add fuel and logistics surcharges",
+      "publisher": "Digital Commerce 360",
+      "url": "https://www.digitalcommerce360.com/2026/04/03/amazon-to-add-fuel-and-logistics-surcharges/",
+      "date": "2026-04-03"
+    },
+    {
+      "id": "s9",
+      "title": "Amazon's 3.5% fuel surcharge is coming - and sellers are furious",
+      "publisher": "PPC Land",
+      "url": "https://ppc.land/amazons-3-5-fuel-surcharge-is-coming-and-sellers-are-furious/",
+      "date": "2026-04"
+    },
+    {
+      "id": "s10",
+      "title": "Amazon FBA Fees 2026: Standard and Bulky Rate Changes",
+      "publisher": "BriskCalc",
+      "url": "https://briskcalc.com/amazon-fba-fees-2026/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s11",
+      "title": "2026 Amazon FBA Fee Changes: Full Rate Card for Sellers",
+      "publisher": "GOAT Consulting",
+      "url": "https://www.goatconsulting.com/amazon-fulfillment/amazon-fba-fee-changes-for-2026",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s12",
+      "title": "Amazon FBA Storage Fees 2026: Rates, Surcharges, Dates",
+      "publisher": "SellerMagnet",
+      "url": "https://blog.sellermagnet.com/post/amazon-fba-storage-fees-2026/en",
+      "date": "2026-10"
+    },
+    {
+      "id": "s13",
+      "title": "Amazon Inbound Placement Service Fee 2026: Rate Card",
+      "publisher": "SellerMagnet",
+      "url": "https://blog.sellermagnet.com/post/amazon-inbound-placement-service-fee-2026/en",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s14",
+      "title": "Amazon sellers face average $0.19 FBA fee rise from January 15, 2027",
+      "publisher": "PPC Land",
+      "url": "https://ppc.land/amazon-sellers-face-average-0-19-fba-fee-rise-from-january-15-2027/",
+      "date": "2026-11"
+    },
+    {
+      "id": "s15",
+      "title": "Amazon 2027 FBA fee changes: $0.19 more per unit from January 15",
+      "publisher": "Nova Analytics",
+      "url": "https://novadata.io/resources/news/amazon-2027-fba-fee-changes-us",
+      "date": "2026-11"
+    },
+    {
+      "id": "s16",
+      "title": "Amazon Low Inventory Fee: Rates and How to Avoid It",
+      "publisher": "Prepvia",
+      "url": "https://www.prepvia.com/blogs/amazon-low-inventory-level-fee-explained",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s17",
+      "title": "Amazon Returns Processing Fees: 2026 Rate Card",
+      "publisher": "Feedvisor",
+      "url": "https://feedvisor.com/university/returns-processing-fees/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s18",
+      "title": "What an Amazon Return Actually Costs You",
+      "publisher": "Sellerboard",
+      "url": "https://blog.sellerboard.com/2026/08/25/what-an-amazon-return-actually-costs-you-return-processing-fee-refund-admin-and-the-unit-you-never-get-back/",
+      "date": "2026-08-25"
+    },
+    {
+      "id": "s19",
+      "title": "Amazon Referral Fees by Category: Full 2026 Rate Table",
+      "publisher": "SellerGuards",
+      "url": "https://sellerguards.com/amazon-referral-fees.html",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s20",
+      "title": "Amazon Referral Fees Explained: Rates by Category (2026)",
+      "publisher": "AMZBase",
+      "url": "https://amzbase.com/guides/amazon-referral-fees/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s21",
+      "title": "Amazon Third-Party Sellers in 2025: What the Official Q3 & Q4 Data Really Tells Us",
+      "publisher": "AMZ Monitor",
+      "url": "https://amzmonitor.com/blogs/amazon-third-party-sellers-2025-q3-q4-data-analysis",
+      "date": "2026"
+    },
+    {
+      "id": "s22",
+      "title": "Amazon Seller Statistics (2026)",
+      "publisher": "SmartScout",
+      "url": "https://www.smartscout.com/blog/amazon-seller-statistics",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s23",
+      "title": "Amazon says its AI shopping assistant Rufus is on pace to pull in an extra $10 billion in sales",
+      "publisher": "Fortune via Yahoo Finance",
+      "url": "https://finance.yahoo.com/news/amazon-says-ai-shopping-assistant-152500992.html",
+      "date": "2025-11"
+    },
+    {
+      "id": "s24",
+      "title": "Amazon's AI shopping assistant drove $12 billion in sales for 2025",
+      "publisher": "PPC Land",
+      "url": "https://ppc.land/amazons-ai-shopping-assistant-drove-12-billion-in-sales-for-2025/",
+      "date": "2026-02"
+    },
+    {
+      "id": "s25",
+      "title": "Amazon says its AI shopping assistant is gaining traction, with Rufus users up 115%",
+      "publisher": "Modern Retail",
+      "url": "https://www.modernretail.co/technology/amazon-says-its-ai-shopping-assistant-is-gaining-traction-with-rufus-users-up-115/",
+      "date": "2026-04"
+    },
+    {
+      "id": "s26",
+      "title": "Amazon (AMZN) Q1 2026 Earnings Call Transcript",
+      "publisher": "The Motley Fool",
+      "url": "https://www.fool.com/earnings/call-transcripts/2026/04/29/amazon-amzn-q1-2026-earnings-call-transcript/",
+      "date": "2026-04-29"
+    },
+    {
+      "id": "s27",
+      "title": "Amazon Haul for Sellers (2026): Invite-Only, and What Amazon Has Actually Published",
+      "publisher": "AMZBase",
+      "url": "https://amzbase.com/guides/amazon-haul-for-sellers/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s28",
+      "title": "Prime Day 2026: Amazon's 4-day deal event starts June 23",
+      "publisher": "About Amazon",
+      "url": "https://www.aboutamazon.com/news/retail/amazon-prime-day-june-2026",
+      "date": "2026-06"
+    },
+    {
+      "id": "s29",
+      "title": "Amazon Prime Day 2026 dates announced, avoiding major event clashes",
+      "publisher": "9to5Mac",
+      "url": "https://9to5mac.com/2026/06/02/amazon-prime-day-2026-dates-announced-avoiding-major-event-clashes/",
+      "date": "2026-06-02"
+    },
+    {
+      "id": "s30",
+      "title": "When Is October Prime Day 2026? What To Know About the 48-Hour Sale",
+      "publisher": "NBC News Select",
+      "url": "https://www.nbcnews.com/select/shopping/october-prime-day-dates-2026-rcna597737",
+      "date": "2026-09"
+    },
+    {
+      "id": "s31",
+      "title": "Amazon ends US prep and labeling services in 2026",
+      "publisher": "Packaging Insights",
+      "url": "https://www.packaginginsights.com/news/amazon-fba-packaging-labeling-changes-2026.html",
+      "date": "2025"
+    },
+    {
+      "id": "s32",
+      "title": "Amazon FBA Stops Prep Services: FBA Changes Sellers Must Know",
+      "publisher": "AMZ Prep",
+      "url": "https://amzprep.com/amazon-stops-prep-services/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s33",
+      "title": "CSMS # 66065494 - Suspension of Duty-Free De Minimis Treatment for All Countries",
+      "publisher": "U.S. Customs and Border Protection",
+      "url": "https://content.govdelivery.com/accounts/USDHSCBP/bulletins/3f01456",
+      "date": "2025-08"
+    },
+    {
+      "id": "s34",
+      "title": "Indefinite Suspension of the De Minimis Exemption for Mail Shipments and New Postal Informal Entry Process",
+      "publisher": "Federal Register (CBP)",
+      "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12669/indefinite-suspension-of-the-de-minimis-exemption-for-mail-shipments-and-new-postal-informal-entry",
+      "date": "2026-06-24"
+    },
+    {
+      "id": "s35",
+      "title": "U.S. Ends De Minimis Exemption",
+      "publisher": "GHY International",
+      "url": "https://www.ghy.com/trade-compliance/us-to-end-de-minimis-exemption-for-low-value-imports-on-august-29/",
+      "date": "2025-08"
+    },
+    {
+      "id": "s36",
+      "title": "Supreme Court Strikes Down IEEPA Tariffs; Trump Responds With Section 122 Global Surcharge",
+      "publisher": "Troutman Pepper Locke",
+      "url": "https://www.troutman.com/insights/supreme-court-strikes-down-ieepa-tariffs-trump-responds-with-section-122-global-surcharge/",
+      "date": "2026-02"
+    },
+    {
+      "id": "s37",
+      "title": "IEEPA Tariffs Ended: Refunds and What Still Applies",
+      "publisher": "ExFreight",
+      "url": "https://www.exfreight.com/ieepa-reciprocal-tariffs-2025-2026-country-rates-and-importer-guide/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s38",
+      "title": "US Trade Court Strikes Down Section 122 Tariffs",
+      "publisher": "Skadden",
+      "url": "https://www.skadden.com/insights/publications/2026/05/us-trade-court-strikes-down-section-122-tariffs",
+      "date": "2026-05"
+    },
+    {
+      "id": "s39",
+      "title": "U.S. preparing tariff hike on China, E.U. and 14 other nations",
+      "publisher": "Quartz",
+      "url": "https://qz.com/us-prepares-tariffs-china-eu-industrial-subsidies-112426",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "s40",
+      "title": "Economic Nexus: State-by-State Handbook for 2026",
+      "publisher": "Numeral",
+      "url": "https://www.numeral.com/blog/economic-nexus",
+      "date": "2026"
+    },
+    {
+      "id": "s41",
+      "title": "Marketplace Facilitator Laws by State: 2026 Guide",
+      "publisher": "NexusRules",
+      "url": "https://www.nexusrules.com/marketplace-facilitator-laws",
+      "date": "2026"
+    },
+    {
+      "id": "s42",
+      "title": "Amazon DD+7 Payout Delay",
+      "publisher": "Nova Analytics",
+      "url": "https://novadata.io/resources/news/amazon-dd7-disbursement-reserve-march-2026",
+      "date": "2026-03"
+    },
+    {
+      "id": "s43",
+      "title": "DD+7 March 12, 2026",
+      "publisher": "Amazon Seller Forums",
+      "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/cd0dfc4d-fbc5-4ded-a0b1-4c7ed989c107",
+      "date": "2026-03"
+    },
+    {
+      "id": "s44",
+      "title": "Amazon Seller Identity Verification Suspension 2026",
+      "publisher": "DAM Law Firm",
+      "url": "https://damlawfirm.com/blog/amazon-seller-identity-verification-suspension-2026/",
+      "date": "2026"
+    },
+    {
+      "id": "s45",
+      "title": "Amazon Haul for Sellers 2026: Rules, Fees and the Catch",
+      "publisher": "SellerMagnet",
+      "url": "https://blog.sellermagnet.com/post/amazon-haul-sellers-2026/en",
+      "date": "accessed 2026-11-25"
+    }
+  ]
+}

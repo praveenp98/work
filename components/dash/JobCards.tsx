@@ -114,7 +114,7 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
   const verb = job.mode === "create" ? "Create campaign" : chosen.length === job.codes.length ? `Approve${job.codes.length > 1 ? ` all ${job.codes.length}` : ""}` : `Approve ${chosen.length}`;
 
   return (
-    <li className={`tw-job${state ? ` is-${state}` : ""}${first && !state ? " is-first" : ""}`}>
+    <li id={`job-${job.kind}`} className={`tw-job${state ? ` is-${state}` : ""}${first && !state ? " is-first" : ""}`}>
       <div className="tw-top">
         <span className="tw-ic" aria-hidden>{job.icon}</span>
         <div className="tw-txt">

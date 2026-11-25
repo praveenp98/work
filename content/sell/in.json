@@ -1,0 +1,1470 @@
+{
+  "slug": "in",
+  "marketplace": "Amazon.in",
+  "country": "India",
+  "flag": "🇮🇳",
+  "currency": "INR",
+  "updated": "2026-11-25",
+  "title": "How to start selling on Amazon India in 2026: the complete beginner's guide",
+  "description": "Sell on Amazon.in in 2026: zero referral fee under ₹1,000, closing and shipping fees, GSTIN, 0.5% TCS and 0.1% TDS, BIS/FSSAI rules and a first-90-days plan.",
+  "tldr": [
+    "Since 16 March 2026 Amazon.in charges **zero referral fee on products priced under ₹1,000** across 1,800+ categories (about 12.5 crore products). Closing fees and shipping fees still apply [s1][s2].",
+    "Closing fees went **up** on 7 September 2026 by ₹1 (items up to ₹500) and ₹3 (above ₹500) for FBA, Easy Ship and Seller Flex. Third-party guides list Easy Ship closing fees of ₹2 / ₹23 / ₹48 / ₹79 across the price bands [s5][s7]. Check your exact fee in the Revenue Calculator.",
+    "You need a **GSTIN** for taxable goods from your first sale. The ₹40 lakh threshold does not protect online sellers of goods [s14][s15]. Small sellers inside one state can use an **enrolment ID** instead, but only for sales within their own state [s12][s13].",
+    "Amazon deducts **0.5% GST TCS** (Section 52) and **0.1% income-tax TDS** (Section 194-O) from your payouts. Both are credits you claim back, not extra costs [s9][s10].",
+    "GST moved to mainly **5% and 18% slabs** (plus 40% for luxury and sin goods) from 22 September 2025. Check your product's HSN rate [s16].",
+    "Many products need **BIS certification** under Quality Control Orders, food needs an **FSSAI licence**, and every pack needs **Legal Metrology** declarations. Some QCOs were withdrawn in late 2025, so check the current list [s21][s22].",
+    "Brand Registry is free but needs a trademark. Registration with IP India can take many months to years [s24][s25].",
+    "Exporting via **Amazon Global Selling** is big: Indian sellers have passed $20 billion in cumulative exports [s36]. US tariffs on Indian goods have changed several times since August 2025, so check today's rate before you ship [s37][s39][s41]."
+  ],
+  "sections": [
+    {
+      "id": "state",
+      "title": "Where Amazon India stands in 2026",
+      "blocks": [
+        {
+          "p": "Amazon.in is one of India's two biggest online marketplaces, alongside Flipkart. Amazon has said it plans to invest **$35 billion in India by 2030** [s29]. Its biggest sale, the Great Indian Festival, drew a record **276 crore visits** in 2025 [s33]. In short: lots of shoppers, and lots of sellers competing for them."
+        },
+        {
+          "h3": "How many sellers, and how crowded is it?"
+        },
+        {
+          "p": "Amazon India does not publish a current seller count. One third-party estimate puts India at about **205,884 active sellers**, roughly 7% of Amazon's sellers worldwide [s43]. Treat it as a rough guide. Competition differs by category. Fashion, home, beauty and electronics accessories are crowded. Under ₹1,000 is now even more crowded, because the zero referral fee makes cheap items more attractive to list [s1]."
+        },
+        {
+          "p": "Small businesses are growing on the platform. During Prime Day 2025 the number of small and medium businesses that got at least one sale rose more than 30% over the year before [s32]."
+        },
+        {
+          "h3": "Fees went down, ads may go up"
+        },
+        {
+          "p": "Amazon has cut seller fees four times since September 2024: a September 2024 cut, zero referral fee under ₹300 from April 2025, a temporary under-₹1,000 waiver in late 2025, and the permanent under-₹1,000 rule from March 2026 [s4][s1][s6]. Lower fees bring in more sellers. On the Seller Central forums, sellers have warned that some of the savings may go on higher ad costs as more sellers bid on the same keywords [s44]. That is seller opinion, not Amazon data, but plan for it."
+        },
+        {
+          "h3": "Low-price storefronts and quick commerce"
+        },
+        {
+          "ul": [
+            "**Amazon Bazaar** is a low-price storefront inside the Amazon.in app for unbranded fashion and home products, with prices under ₹600 [s26][s27]. At launch Amazon offered Bazaar sellers zero referral fee [s27]. It competes with Meesho for price-sensitive shoppers.",
+            "**Amazon Now** is Amazon's delivery-in-minutes service. It reached **$1 billion in annualised gross sales** by September 2026 [s28], and Amazon has announced plans to take it to more than 300 cities [s29]. It competes with Blinkit, Swiggy Instamart, Zepto and Flipkart Minutes. For a beginner, it mainly matters in grocery, personal care and daily essentials, where shoppers now expect same-day or faster delivery."
+          ]
+        },
+        {
+          "h3": "AI shopping: Rufus in India"
+        },
+        {
+          "p": "**Rufus** is Amazon's AI shopping assistant. It answers shopper questions using product listings, reviews and other information. It launched in beta on the Amazon.in app in August 2024 [s30]. We could not find official 2025–2026 India usage numbers. What it means for you: write listings that answer real questions clearly (size, material, what's in the box, who it's for), because AI assistants pull from that text."
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "What this means for a beginner",
+            "text": "India is a price-driven market with low fees under ₹1,000 and very fast delivery expectations. You win by picking a niche you understand, keeping your costs tight, getting the Prime badge through FBA or Easy Ship Prime where possible, and building a brand so you're not competing on price alone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "title": "What changed in 2025–2026 (dated list)",
+      "blocks": [
+        {
+          "p": "These changes affect your fees, taxes, labels and export plans. Each row has a source. Always confirm the current rule in Seller Central or on the government site before you act."
+        },
+        {
+          "table": {
+            "head": [
+              "Date",
+              "Change",
+              "What it means for you"
+            ],
+            "rows": [
+              [
+                "7 Apr 2025",
+                "Zero referral fee on 1.2 crore+ products priced below ₹300 across 135+ categories. Amazon called it its highest-ever fee cut [s4].",
+                "The first big push into cheap items. Since replaced by the ₹1,000 rule."
+              ],
+              [
+                "Jul 2025",
+                "Prime Day 2025 (12–14 July) came with seller rewards of up to ₹3 lakh for adding selection, and up to 90% savings on fees for the second unit in multi-unit orders [s31].",
+                "Amazon pays sellers to grow selection before big events. Watch Seller Central for the next edition."
+              ],
+              [
+                "27 Aug 2025",
+                "US tariffs on most Indian goods reached 50% (10% baseline, 25% reciprocal, plus an extra 25%) [s37].",
+                "Exporting to Amazon.com got much more expensive for many categories."
+              ],
+              [
+                "29 Aug 2025",
+                "The US ended the duty-free de minimis exemption for low-value shipments from India [s38].",
+                "Shipping single parcels direct to US buyers now attracts duty. Bulk shipping into FBA became more important."
+              ],
+              [
+                "22 Sep 2025",
+                "GST 2.0: most goods moved to 5% or 18%; a 40% rate for luxury and sin goods [s16].",
+                "Many products' GST rate changed. Re-check your HSN codes and prices."
+              ],
+              [
+                "12 Nov 2025",
+                "The government withdrew 14 BIS Quality Control Orders on polymers and fibres [s21].",
+                "Some raw materials no longer need BIS. Finished products may still need it. Check the current list."
+              ],
+              [
+                "Nov–Dec 2025",
+                "Temporary zero referral fee for items under ₹1,000 until 31 December [s6].",
+                "A trial run of the 2026 rule."
+              ],
+              [
+                "2–7 Feb 2026",
+                "US–India interim trade deal: US reciprocal tariff cut from 25% to 18%; the extra 25% removed from 7 February [s39][s40].",
+                "Exports to the US got cheaper again."
+              ],
+              [
+                "Late Feb 2026",
+                "Reports say a US Supreme Court ruling struck down the earlier higher tariffs and a temporary 10% tariff was applied [s41].",
+                "US duty rates are moving. Check the rate on the day you ship."
+              ],
+              [
+                "13 Feb 2026",
+                "Legal Metrology amendment: e-commerce sites must let shoppers search and filter imported packaged goods by country of origin [s19].",
+                "If you sell imported goods, your country of origin must be correct on the listing."
+              ],
+              [
+                "16 Mar 2026",
+                "Zero referral fee under ₹1,000 across 1,800+ categories (12.5 crore+ products). Easy Ship fees for items under ₹300 cut by more than 20%. Referral fees in some high-demand categories above ₹1,000 cut by 4% to 9.5% [s1][s2][s3].",
+                "The biggest change for beginners. Pricing just under ₹1,000 can save a lot."
+              ],
+              [
+                "16 Mar 2026",
+                "Self Ship closing fee cut from ₹45 to ₹20 for items under ₹300, and from ₹35 to ₹26 for ₹300–500 [s7].",
+                "Self Ship got cheaper for low-price items."
+              ],
+              [
+                "1 Apr 2026",
+                "Income-tax TDS on e-commerce moved from Section 194-O to Section 393 of the new Income-tax Act, 2025, at the same 0.1% rate (per tax guides) [s11].",
+                "Same deduction, new section number on your tax forms."
+              ],
+              [
+                "27 Apr 2026",
+                "Second Legal Metrology amendment pushed the country-of-origin filter start date to 1 July 2027 [s20].",
+                "More time to prepare, but get origin data right now."
+              ],
+              [
+                "23 Jul 2026",
+                "Press Note 3 (2026): foreign-owned e-commerce firms may hold inventory, but only for exporting goods made in India [s18].",
+                "Could open new export routes where Amazon buys Indian-made goods to sell abroad."
+              ],
+              [
+                "7 Sep 2026",
+                "Closing fees for FBA, Easy Ship and Seller Flex up by ₹1 (items up to ₹500) and ₹3 (above ₹500) [s5][s7].",
+                "A small fee rise. Update your margin sheet."
+              ],
+              [
+                "8 Oct 2026",
+                "Great Indian Festival 2026 started (Prime early access 7 October) [s34].",
+                "The biggest sales window of the year."
+              ]
+            ],
+            "note": "Third-party fee guides sometimes disagree. Treat any fee here as a starting point and confirm it in Seller Central's fee schedule or the Revenue Calculator [s5][s7]."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fit",
+      "title": "Is Amazon India right for you?",
+      "blocks": [
+        {
+          "h3": "Good fit if you…"
+        },
+        {
+          "ul": [
+            "Live in India, or have an Indian business with a GSTIN, PAN and an Indian bank account.",
+            "Can source or make products in India at a low cost. Indian buyers are price-sensitive, and many winning products sit under ₹1,000, where referral fees are now zero [s1].",
+            "Want a large home market first, then exports later through Amazon Global Selling [s36].",
+            "Are a manufacturer or trader from a production hub (textiles, home goods, handicrafts) with stock you can sell at good margins."
+          ]
+        },
+        {
+          "h3": "Think twice if you…"
+        },
+        {
+          "ul": [
+            "Want to sell high-priced items with thin margins. Above ₹1,000 the category referral fee applies again [s1].",
+            "Plan to sell products that need BIS, FSSAI or other licences and you don't have them yet. Get these first.",
+            "Can't handle returns. Return rates in fashion are high in most markets; build a returns allowance into your price."
+          ]
+        },
+        {
+          "h3": "If you're based outside India"
+        },
+        {
+          "p": "Selling on Amazon.in is built around Indian businesses. The marketplace model is the only one open to foreign investment: Amazon's India marketplace cannot own the stock it sells, and no single seller (with its group companies) may make more than 25% of the marketplace's sales [s17]. Sellers register with Indian tax details such as a GSTIN [s47]. A foreign brand usually sells in India through an Indian company, an importer or a distributor that holds the GSTIN and handles imports. Get advice from an Indian chartered accountant (CA) before you set this up."
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "Indian sellers: you can also go global",
+            "text": "Amazon Global Selling lets Indian businesses sell on Amazon.com, Amazon.co.uk, Amazon.ae and other sites. See the \"grow\" section for numbers and the US tariff situation."
+          }
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "title": "Opening your Amazon.in seller account, step by step",
+      "blocks": [
+        {
+          "p": "Amazon.in fees are charged per order (referral, closing and shipping or weight handling) rather than as a large monthly subscription [s2][s6]. Check the current fee page in Seller Central before you sign up in case anything changes."
+        },
+        {
+          "h3": "Documents you need"
+        },
+        {
+          "ul": [
+            "**GSTIN** (GST number) for taxable goods. Sellers of GST-exempt goods such as books can register with a PAN and an exempt-seller option [s46].",
+            "Or a GST **enrolment ID**, if you are an unregistered seller selling only within your own state (see the tax section) [s12].",
+            "**PAN** card (of the business or proprietor).",
+            "A **bank account** in the business's or proprietor's name, for payouts.",
+            "A mobile number, an email address and a pickup address [s47].",
+            "Your products' details: brand name, HSN code and GST rate, and any licences (BIS, FSSAI) your category needs."
+          ]
+        },
+        {
+          "h3": "Steps"
+        },
+        {
+          "ol": [
+            "Go to sell.amazon.in and choose to register. Use an email you will keep for the business.",
+            "Enter your business name exactly as it appears on your GST certificate.",
+            "Add your GSTIN (or enrolment ID / exempt option) and PAN.",
+            "Add your bank account for payouts.",
+            "Set your pickup or shipping address and choose how you'll fulfil orders (FBA, Easy Ship or Self Ship).",
+            "Create your first listing, or match to an existing listing if you sell a product already on Amazon.",
+            "Complete any identity checks Amazon asks for and wait for approval."
+          ]
+        },
+        {
+          "h3": "Common reasons for delay or rejection"
+        },
+        {
+          "ul": [
+            "Name mismatch between GST certificate, PAN and bank account.",
+            "A GSTIN that is cancelled, suspended or not linked to the address you entered.",
+            "Blurry or cropped document uploads.",
+            "Trying to list a restricted category without the licence or approval it needs."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "One account only",
+            "text": "Do not open a second seller account to get a 'fresh start' or to split categories without Amazon's approval. Linked duplicate accounts are a common cause of suspension."
+          }
+        },
+        {
+          "h3": "Pre-flight checklist"
+        },
+        {
+          "ul": [
+            "GST certificate shows the right legal name and address",
+            "PAN and bank account match the same name",
+            "HSN code and GST rate known for each product",
+            "BIS / FSSAI / other licences in hand if needed",
+            "Brand name chosen and trademark application filed (optional but useful)",
+            "Product photos and a test listing ready"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "title": "Every cost of selling on Amazon.in",
+      "blocks": [
+        {
+          "p": "Amazon.in charges up to three main fees on each order: a **referral fee** (a percentage of the sale price), a **closing fee** (a fixed amount based on price band and fulfilment method), and a **shipping or weight handling fee** (if Amazon ships the item). An 18% GST is added to Amazon's fees [s6]. The **Revenue Calculator** in Seller Central gives the exact figure for your product."
+        },
+        {
+          "h3": "Referral fee"
+        },
+        {
+          "table": {
+            "head": [
+              "Your item's price",
+              "Referral fee",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Under ₹1,000",
+                "₹0 in 1,800+ categories [s1]",
+                "Not every product qualifies automatically. One seller reported a beauty item cut below ₹1,000 still showed a fee [s45]. Check each listing."
+              ],
+              [
+                "₹1,000 and above",
+                "Category percentage",
+                "Rates vary by category. Some high-demand categories were cut by 4% to 9.5% in March 2026 [s1][s3]."
+              ]
+            ],
+            "note": "We could not verify a current category-by-category referral table from Amazon's own page, so we do not list rates here. Look up your category in the Seller Central fee schedule or Revenue Calculator before you price."
+          }
+        },
+        {
+          "h3": "Closing fee (after 7 September 2026)"
+        },
+        {
+          "table": {
+            "head": [
+              "Item price",
+              "Easy Ship",
+              "Self Ship"
+            ],
+            "rows": [
+              [
+                "Up to ₹300",
+                "₹2",
+                "₹20"
+              ],
+              [
+                "₹301–500",
+                "₹23",
+                "₹26"
+              ],
+              [
+                "₹501–1,000",
+                "₹48",
+                "₹51"
+              ],
+              [
+                "Above ₹1,000",
+                "₹79",
+                "₹101"
+              ]
+            ],
+            "note": "From third-party fee guides as of October 2026 [s7][s5]. FBA closing fees depend on price band and category fee group, and guides disagree, so check the Revenue Calculator."
+          }
+        },
+        {
+          "h3": "Weight handling (shipping) fees"
+        },
+        {
+          "p": "When Amazon delivers your order (FBA or Easy Ship), you pay a weight handling fee. It depends on the item's weight and whether the buyer is **local** (same city), **regional** (same zone) or **national** (anywhere else). Easy Ship fees for items under ₹300 were cut in March 2026; seller forum posts describe the saving as ₹15 per unit (₹10 off weight handling and ₹5 off the closing fee) [s3]."
+        },
+        {
+          "table": {
+            "head": [
+              "FBA, regional delivery",
+              "Weight handling fee"
+            ],
+            "rows": [
+              [
+                "First 500 g",
+                "₹39"
+              ],
+              [
+                "500 g to 1 kg",
+                "₹54"
+              ],
+              [
+                "1 kg to 2 kg",
+                "₹78"
+              ]
+            ],
+            "note": "From a third-party guide as of 2026 [s7]. National delivery costs more and local less. Confirm the current slabs in Seller Central."
+          }
+        },
+        {
+          "h3": "FBA storage"
+        },
+        {
+          "p": "FBA charges a monthly storage fee per cubic foot of space your stock uses. Third-party guides in 2026 quote figures from roughly ₹25 to ₹55 per cubic foot per month, with some saying the rate rises in October–December [s8][s48]. The figures conflict, so check the current fee page. The lesson is simple: don't send more stock than you can sell in about two to three months."
+        },
+        {
+          "h3": "Tax deductions from your payout (not costs)"
+        },
+        {
+          "table": {
+            "head": [
+              "Deduction",
+              "Rate",
+              "How you get it back"
+            ],
+            "rows": [
+              [
+                "GST TCS (Section 52)",
+                "0.5% of net taxable sales [s9]",
+                "Shows in your GST electronic cash ledger; use it to pay GST [s9]."
+              ],
+              [
+                "Income-tax TDS (Section 194-O / 393)",
+                "0.1% of gross sales [s10][s11]",
+                "Shows in your income-tax record; set it against your tax or claim a refund [s10]."
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Advertising"
+        },
+        {
+          "p": "Ads are paid per click. We could not find a credible published average cost per click for Amazon.in, so set your own budget and track it in the Amazon Ads console. See the ads section for a starter plan."
+        },
+        {
+          "h3": "Example: a realistic starting budget"
+        },
+        {
+          "p": "This is an **example** for a small first order of one product. Your numbers will differ. Only the Amazon fee mentioned is from a source."
+        },
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Example amount"
+            ],
+            "rows": [
+              [
+                "Inventory: 300 units at ₹200 landed cost",
+                "₹60,000"
+              ],
+              [
+                "Samples from 2–3 suppliers",
+                "₹5,000"
+              ],
+              [
+                "Packaging and labels",
+                "₹6,000"
+              ],
+              [
+                "Product photos (DIY setup or a local photographer)",
+                "₹5,000–10,000"
+              ],
+              [
+                "Trademark application (check IP India's fee)",
+                "Check current fee"
+              ],
+              [
+                "Ads for the first 8 weeks at an example ₹500/day",
+                "₹28,000"
+              ],
+              [
+                "Licences you need (BIS, FSSAI), if any",
+                "Varies"
+              ],
+              [
+                "Buffer for returns and surprises (10%)",
+                "₹10,000"
+              ],
+              [
+                "**Total (example)**",
+                "**about ₹1.15–1.2 lakh plus licences**"
+              ]
+            ],
+            "note": "Amazon's per-order fees come out of each sale, not upfront. Under ₹1,000 the referral fee is ₹0 [s1]."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax",
+      "title": "Tax and legal: GST, TCS, TDS and income tax",
+      "blocks": [
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Not tax advice",
+            "text": "These are the basics. Rules change and depend on your situation. A chartered accountant (CA) who works with e-commerce sellers is worth it from day one."
+          }
+        },
+        {
+          "h3": "GST registration: the key rule"
+        },
+        {
+          "p": "Most Indian businesses don't need GST until their turnover crosses a threshold. **Online sellers of goods are different.** Section 24 of the CGST Act requires anyone selling goods through an e-commerce operator that collects tax at source to register, whatever their turnover [s14][s15]. In practice, that means you need a GSTIN to sell taxable goods on Amazon.in."
+        },
+        {
+          "h3": "The exceptions"
+        },
+        {
+          "ul": [
+            "**Unregistered sellers within one state.** Since 1 October 2023, a seller without GST registration can sell goods through e-commerce operators if they have a PAN, get an **enrolment number** on the GST portal, sell only within their own state, and make no inter-state sales [s12][s13].",
+            "**Composition scheme sellers.** The composition scheme is a simpler GST option for small businesses that pay a flat rate. Composition taxpayers can now sell goods through e-commerce operators, but **only within their own state** [s12][s13].",
+            "**Exempt goods.** Sellers of GST-exempt goods such as books can register on Amazon with a PAN using the exempt-seller route [s46]."
+          ]
+        },
+        {
+          "p": "The catch with the first two: buyers in other states won't be able to order from you. That cuts your market a lot. Most sellers who want to grow take a regular GSTIN."
+        },
+        {
+          "h3": "GST rates on your products"
+        },
+        {
+          "p": "From 22 September 2025, GST moved to two main slabs, **5% and 18%**, with a **40%** rate for a small set of luxury and sin goods [s16]. Many items that were at 12% went to 5%, and most at 28% went to 18% [s16]. Your rate depends on the product's HSN code. Your listing price on Amazon.in includes GST."
+        },
+        {
+          "h3": "Who collects what"
+        },
+        {
+          "ul": [
+            "**You** charge GST to the buyer (it's inside your price) and file GST returns.",
+            "**Amazon** deducts **TCS of 0.5%** of your net taxable sales under Section 52 of the CGST Act. The rate was cut from 1% to 0.5% from 10 July 2024 [s9]. Amazon reports it in its GSTR-8 return, and the amount appears in your electronic cash ledger [s9].",
+            "**Amazon** also deducts **TDS of 0.1%** of gross sales under income-tax Section 194-O (1% before 1 October 2024). Resident individuals and HUFs with sales under ₹5 lakh through one platform who have given a PAN or Aadhaar are exempt. Without a PAN, the rate is 5% [s10]. From 1 April 2026 this sits in Section 393 of the Income-tax Act, 2025, at the same rate [s11]."
+          ]
+        },
+        {
+          "p": "Example using these rates: on ₹10,000 of net taxable sales, Amazon holds back about ₹50 of TCS and ₹10 of TDS. Both are credits in your name, not lost money, as long as your returns are filed."
+        },
+        {
+          "h3": "Income tax"
+        },
+        {
+          "p": "Your Amazon profit is business income. You pay income tax on profit (sales minus GST, fees, stock and other costs), not on sales. Keep every invoice. Reconcile Amazon's monthly settlement reports with your books."
+        },
+        {
+          "h3": "When to get a CA"
+        },
+        {
+          "ul": [
+            "Before you register for GST, to pick the right type of registration.",
+            "When you start selling in more than one state or storing stock in FBA warehouses in other states (this can create extra GST registration needs; ask your CA).",
+            "Before you export.",
+            "Every month for GST filings, unless you're confident doing them yourself."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "title": "Product compliance: BIS, FSSAI, Legal Metrology and trademarks",
+      "blocks": [
+        {
+          "h3": "Restricted and gated categories"
+        },
+        {
+          "p": "Some categories need Amazon's approval or a licence before you can list. Examples include food and grocery, health and personal care, and items that fall under a BIS Quality Control Order. Seller Central shows whether a product needs approval when you try to list it."
+        },
+        {
+          "h3": "BIS certification and Quality Control Orders (QCOs)"
+        },
+        {
+          "p": "A **Quality Control Order** makes BIS certification (usually the ISI mark) compulsory for a product. Selling a QCO product without valid certification can lead to delisting and legal action. The list changes often. In November 2025 the government withdrew 14 QCOs on polymers and fibres such as polypropylene, PVC and polyester yarns [s21]. These were mostly raw materials. Many consumer products, including electrical goods and toys, have their own orders, so check the BIS list of products under compulsory certification before you buy stock."
+        },
+        {
+          "h3": "FSSAI for food"
+        },
+        {
+          "ul": [
+            "Food sellers need an FSSAI licence or registration, and the platform must display it [s22].",
+            "Food delivered to buyers must have at least **30% of its shelf life or 45 days** left at delivery [s22][s23]. Check the exact wording for your case.",
+            "Food and non-food items should be kept apart in transit [s23]."
+          ]
+        },
+        {
+          "h3": "Legal Metrology (Packaged Commodities) Rules"
+        },
+        {
+          "p": "Every pre-packed product sold in India must carry key declarations on the pack and on the listing, such as the manufacturer or importer's name and address, net quantity, MRP, date of manufacture or import, consumer care details and country of origin. A 2026 amendment adds that e-commerce sites must let shoppers filter imported goods by country of origin [s19]. A second amendment moved that filter's start date to 1 July 2027 [s20]. If you import, your origin data must be correct."
+        },
+        {
+          "h3": "Trademarks and Brand Registry"
+        },
+        {
+          "ul": [
+            "**Brand Registry** is free and gives you tools like A+ Content, Brand Stores, Sponsored Brands ads and stronger protection against copycats. It needs a trademark [s24].",
+            "File your trademark with IP India. Guides quote full registration times from 6–18 months to well over a year [s24][s25].",
+            "Some sources say Amazon accepts a pending Indian application for Brand Registry, but others say practice is inconsistent. Check in Seller Central [s25].",
+            "**IP Accelerator** is Amazon's program that connects you with vetted trademark law firms and can give you Brand Registry benefits before your trademark is granted [s25]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "File the trademark on day one",
+            "text": "Because registration takes a long time, file your trademark as soon as you choose your brand name, even before your first stock arrives."
+          }
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Choosing your first product with data",
+      "blocks": [
+        {
+          "h3": "What to look for"
+        },
+        {
+          "ul": [
+            "**Price:** ₹300–999 is a sweet spot in 2026 because the referral fee is ₹0 under ₹1,000 [s1]. Remember closing and shipping still apply.",
+            "**Small and light:** weight handling rises with weight [s7]. Under 500 g is easiest.",
+            "**Sturdy:** fragile items break and get returned.",
+            "**No licence headaches for your first try,** unless you already hold BIS or FSSAI.",
+            "**Room to be better:** read 1–3 star reviews of competitors and fix what buyers complain about.",
+            "**Steady demand all year,** not only at Diwali or one season."
+          ]
+        },
+        {
+          "h3": "Validate demand with Amazon's own tools"
+        },
+        {
+          "ul": [
+            "**Product Opportunity Explorer** (in Seller Central, where available) shows search volume and how many sellers compete for a niche.",
+            "**Brand Analytics** (after Brand Registry) shows the top search terms and which products get clicks.",
+            "Amazon.in search: type your keyword, note how many results show, their prices and review counts, and the autocomplete suggestions.",
+            "**Revenue Calculator** in Seller Central: enter a similar product to see fees."
+          ]
+        },
+        {
+          "h3": "Margin rule of thumb, with a worked example"
+        },
+        {
+          "p": "Aim for at least 25–30% of the selling price as profit after all costs, including ads. Here's an **example** for a product priced at ₹799, sent by Self Ship. Amazon fees are from cited sources; the rest are assumptions."
+        },
+        {
+          "table": {
+            "head": [
+              "Line",
+              "Amount",
+              "Source / note"
+            ],
+            "rows": [
+              [
+                "Selling price (includes GST)",
+                "₹799.00",
+                "Your choice"
+              ],
+              [
+                "GST in the price (assume 18%: 799 × 18/118)",
+                "−₹121.88",
+                "Your rate depends on HSN [s16]"
+              ],
+              [
+                "Referral fee",
+                "₹0.00",
+                "Under ₹1,000 [s1]"
+              ],
+              [
+                "Self Ship closing fee (₹501–1,000 band)",
+                "−₹51.00",
+                "[s7]"
+              ],
+              [
+                "18% GST on Amazon's fee",
+                "−₹9.18",
+                "[s6]; often claimable as input credit, ask your CA"
+              ],
+              [
+                "Your courier cost",
+                "−₹70.00",
+                "Assumption"
+              ],
+              [
+                "Product landed cost",
+                "−₹200.00",
+                "Assumption"
+              ],
+              [
+                "Packaging",
+                "−₹20.00",
+                "Assumption"
+              ],
+              [
+                "Ads per unit sold",
+                "−₹80.00",
+                "Assumption"
+              ],
+              [
+                "Returns allowance (5% of price)",
+                "−₹40.00",
+                "Assumption"
+              ],
+              [
+                "**Profit per unit**",
+                "**₹206.94 (about 26%)**",
+                ""
+              ]
+            ],
+            "note": "TCS (0.5%) and TDS (0.1%) are left out because they are credits you claim back [s9][s10]. If the price were ₹1,050, the referral fee would come back and the closing fee would rise to the above-₹1,000 band [s1][s7]."
+          }
+        },
+        {
+          "h3": "Red flags"
+        },
+        {
+          "ul": [
+            "Seasonal products (rakhis, diyas, winter wear) as your only item",
+            "Fragile glass or ceramics",
+            "Products under a QCO without BIS certification",
+            "Copies of patented or branded designs",
+            "Heavy or bulky items where weight handling eats the margin",
+            "Categories full of big brands with thousands of reviews"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fulfil",
+      "title": "FBA, Easy Ship, Self Ship and Seller Flex",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Option",
+              "How it works",
+              "Best for"
+            ],
+            "rows": [
+              [
+                "**FBA** (Fulfilment by Amazon)",
+                "You send stock to Amazon's warehouses. Amazon stores, packs, ships and handles returns. You pay weight handling and storage [s7][s8].",
+                "Fast-moving products; getting the Prime badge."
+              ],
+              [
+                "**Easy Ship**",
+                "You store and pack. Amazon's courier picks up from you and delivers [s7].",
+                "Beginners who want Amazon delivery without sending stock in."
+              ],
+              [
+                "**Self Ship**",
+                "You store, pack and ship with your own courier. Closing fees are different [s7].",
+                "Sellers with good courier rates or bulky items."
+              ],
+              [
+                "**Seller Flex**",
+                "Amazon runs fulfilment from your own warehouse. Named alongside FBA and Easy Ship in the 2026 closing-fee change [s5].",
+                "Larger sellers with their own warehouse; ask Amazon if you qualify."
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Which should a beginner choose?"
+        },
+        {
+          "p": "Many beginners start with **Easy Ship** to learn without locking up cash in a warehouse. After you see steady sales, move your best sellers to **FBA** for the Prime badge and faster delivery. Compare the total cost per unit for each option in the Revenue Calculator."
+        },
+        {
+          "h3": "Sending stock to FBA"
+        },
+        {
+          "ol": [
+            "Create a shipment in Seller Central (Send to Amazon).",
+            "Label each unit with an Amazon barcode (FNSKU) unless your listing allows the manufacturer barcode.",
+            "Pack items so they survive transit; bag loose items; mark sets as sets.",
+            "Book the pickup or delivery to the fulfilment centre Amazon assigns.",
+            "Check the received quantity after a few days and raise a case if anything is missing."
+          ]
+        },
+        {
+          "h3": "Stock planning basics"
+        },
+        {
+          "ul": [
+            "Restock point = daily sales × (supplier lead time + transit + a safety buffer of 1–2 weeks).",
+            "Keep about 6–10 weeks of stock in FBA, not more, to control storage fees [s8].",
+            "Build stock 4–6 weeks before the Great Indian Festival in October [s34].",
+            "Running out of stock hurts your search ranking. Too much stock costs storage. Check weekly."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Your first 90 days, week by week",
+      "blocks": [
+        {
+          "h3": "Weeks 1–2: listing"
+        },
+        {
+          "ul": [
+            "Title: brand + main keyword + key feature + size/quantity. Keep it readable.",
+            "Five bullet points that answer buyers' real questions (material, size, use, what's in the box, care).",
+            "Seven or more images: white-background main image, lifestyle, size chart, close-ups, infographic.",
+            "Backend search terms with Hindi and regional spellings shoppers use.",
+            "Correct HSN code, GST rate and Legal Metrology details."
+          ]
+        },
+        {
+          "h3": "Weeks 3–4: go live"
+        },
+        {
+          "ul": [
+            "Launch price slightly below competitors, without going below your cost floor.",
+            "Turn on Sponsored Products ads (automatic campaign first).",
+            "If you have Brand Registry: add A+ Content and enrol in **Vine** (free reviews from trusted reviewers; check current enrolment terms).",
+            "Add a coupon or a 'Prime Day Launch'-type badge if Amazon offers one at the time [s31]."
+          ]
+        },
+        {
+          "h3": "Weeks 5–8: learn"
+        },
+        {
+          "ul": [
+            "Move converting search terms from the auto campaign into a manual exact-match campaign.",
+            "Add negative keywords for terms that spend without sales.",
+            "Use **Request a Review** on every eligible order.",
+            "Fix the listing where buyers ask questions or return items."
+          ]
+        },
+        {
+          "h3": "Weeks 9–13: scale"
+        },
+        {
+          "ul": [
+            "Raise bids on profitable keywords; cut losers.",
+            "Reorder stock based on real daily sales.",
+            "Plan for the next big sale event.",
+            "Add a second variation (colour, size or pack) of your winner."
+          ]
+        },
+        {
+          "h3": "What good looks like"
+        },
+        {
+          "table": {
+            "head": [
+              "Day",
+              "Good sign"
+            ],
+            "rows": [
+              [
+                "Day 30",
+                "Listing indexed for main keywords; first 10–20 sales; some reviews from Vine or buyers; no account health warnings."
+              ],
+              [
+                "Day 60",
+                "Daily sales most days; ads ACoS falling week on week; you know your 5 best keywords."
+              ],
+              [
+                "Day 90",
+                "Organic sales are a growing share of total sales; you are profitable after ads, or have a clear path there; stock reorder planned."
+              ]
+            ],
+            "note": "These are rules of thumb, not Amazon benchmarks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ads",
+      "title": "Amazon Ads for beginners in India",
+      "blocks": [
+        {
+          "h3": "Ad types"
+        },
+        {
+          "ul": [
+            "**Sponsored Products:** ads for single products in search results and on product pages. Start here.",
+            "**Sponsored Brands:** a banner with your logo and several products. Needs Brand Registry.",
+            "**Sponsored Display:** ads that follow shoppers on and off Amazon. Use later."
+          ]
+        },
+        {
+          "h3": "Key terms"
+        },
+        {
+          "ul": [
+            "**CPC** (cost per click): what you pay each time someone clicks your ad.",
+            "**ACoS** (advertising cost of sale): ad spend ÷ ad sales. If you spend ₹200 and get ₹1,000 of ad sales, ACoS is 20%.",
+            "**TACoS** (total ACoS): ad spend ÷ all sales, including organic. It shows if ads are lifting your whole business.",
+            "**Break-even ACoS:** your profit margin before ads. In the example in the product section, profit before ads is about ₹287 on ₹799, so break-even ACoS is about 36%."
+          ]
+        },
+        {
+          "h3": "A starter structure"
+        },
+        {
+          "ol": [
+            "**Auto campaign:** Amazon picks the keywords. Budget: an amount you can afford for 4–6 weeks, for example ₹300–500 a day (your choice, not an Amazon benchmark).",
+            "**Manual exact campaign:** add the 5–10 search terms that bring sales.",
+            "**Manual phrase/broad campaign:** to discover more terms around your main keyword.",
+            "**Product targeting:** show your product on competitor pages where yours is clearly better or cheaper."
+          ]
+        },
+        {
+          "h3": "Sensible early targets"
+        },
+        {
+          "p": "In the first month, accept an ACoS above break-even while you collect data and reviews. By day 60–90, aim for ACoS at or below break-even, and a TACoS that is falling as organic sales grow. These are rules of thumb; set your own limits from your margin."
+        },
+        {
+          "h3": "Negative keywords"
+        },
+        {
+          "p": "Negative keywords stop your ads showing for searches that don't fit. Add terms like other brands' names, wrong sizes, 'free', or the wrong material once they've spent the price of one or two sales without converting."
+        },
+        {
+          "h3": "Weekly routine (30 minutes)"
+        },
+        {
+          "ol": [
+            "Download the search term report.",
+            "Move winners to exact match.",
+            "Add negatives for wasted spend.",
+            "Adjust bids: up on terms below target ACoS, down on terms above.",
+            "Check budgets aren't running out early in the day.",
+            "Note TACoS in a sheet to see the trend."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Ads can't fix a weak listing",
+            "text": "If people click but don't buy, fix the price, main image, reviews or title first. More ad spend on a weak listing just burns money."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grow",
+      "title": "Growing after launch: reviews, events and going global",
+      "blocks": [
+        {
+          "h3": "Reviews, done right"
+        },
+        {
+          "ul": [
+            "Use **Vine** for your first reviews if you have Brand Registry.",
+            "Use the **Request a Review** button or automation in Seller Central.",
+            "Never pay for reviews, offer refunds for reviews, or ask friends and family to review. These get accounts suspended."
+          ]
+        },
+        {
+          "h3": "Brand Store and A+ Content"
+        },
+        {
+          "p": "With Brand Registry you can build a free **Brand Store** (your own pages on Amazon) and add **A+ Content** (rich images and text on your listing). Both usually lift conversion."
+        },
+        {
+          "h3": "India's sales calendar"
+        },
+        {
+          "table": {
+            "head": [
+              "Event",
+              "When",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Republic Day and other national-holiday sales",
+                "Around 26 January and 15 August",
+                "Check Seller Central for dates."
+              ],
+              [
+                "Prime Day India",
+                "July in 2025 (12–14 July) [s31]",
+                "Amazon offered seller rewards and fee savings in 2025 [s31]."
+              ],
+              [
+                "Great Indian Festival",
+                "Started 8 October 2026; Prime early access 7 October; early deals from 25 September [s34]",
+                "The biggest event; 276 crore visits in 2025 [s33]."
+              ],
+              [
+                "Diwali, Dussehra and wedding season",
+                "October–December",
+                "Gifting, home décor, ethnic wear and electronics peak."
+              ],
+              [
+                "Raksha Bandhan, Holi and regional festivals",
+                "Spread across the year",
+                "Good for gifts and themed products."
+              ]
+            ],
+            "note": "Event dates move each year. Watch Seller Central announcements and register deals early."
+          }
+        },
+        {
+          "h3": "Selling abroad with Amazon Global Selling"
+        },
+        {
+          "p": "**Amazon Global Selling** helps Indian businesses list and sell on Amazon sites abroad, such as Amazon.com (US), Amazon.co.uk (UK), Amazon.ae (UAE) and others. It's one of the most popular next steps for Indian sellers."
+        },
+        {
+          "ul": [
+            "Scale: Indian sellers have passed **$20 billion** in cumulative exports through Amazon, with about $7 billion in a single year, and the exporter base grew to about **200,000** sellers [s36]. Amazon has set a goal of **$80 billion** in Indian e-commerce exports by 2030 [s42].",
+            "Amazon's own India pages earlier reported $13 billion in cumulative exports by the end of 2024 and over 125,000 MSME exporters [s35].",
+            "Press Note 3 (2026) lets foreign-owned e-commerce companies hold inventory for exports of Indian-made goods [s18]. Watch for new export programs built on this."
+          ]
+        },
+        {
+          "h3": "US tariffs: check before you ship"
+        },
+        {
+          "p": "The US is the biggest export market, but duties have changed several times:"
+        },
+        {
+          "ol": [
+            "From 27 August 2025, most Indian goods faced a combined 50% US tariff [s37].",
+            "From 29 August 2025, the US ended duty-free entry for low-value parcels from India (de minimis) [s38].",
+            "In February 2026 an interim trade deal cut the reciprocal tariff to 18% and removed the extra 25% from 7 February [s39][s40].",
+            "Reports from late February 2026 say a US Supreme Court ruling struck down the earlier tariffs and a temporary 10% tariff applied [s41]."
+          ]
+        },
+        {
+          "p": "Because of these changes, confirm the duty for your product's tariff code on the day you ship, and price your US listings with duty included. The UK and UAE are often simpler first export markets to test. Ask a customs broker or your freight forwarder about export incentives under India's Foreign Trade Policy and check the DGFT website."
+        },
+        {
+          "h3": "Off-Amazon traffic"
+        },
+        {
+          "p": "Instagram, YouTube Shorts and WhatsApp are strong channels in India. Send traffic straight to your listing or Brand Store. If you have Brand Registry, check whether Amazon's **Brand Referral Bonus** program is available on Amazon.in for your account."
+        }
+      ]
+    },
+    {
+      "id": "mistakes",
+      "title": "The most common beginner mistakes (and account risks)",
+      "blocks": [
+        {
+          "ol": [
+            "**Starting without a GSTIN** and then finding you can't sell to other states [s12].",
+            "**Pricing at ₹1,000 or above by accident.** A ₹50 change can bring back the full referral fee [s1].",
+            "**Ignoring closing and shipping fees** because 'referral is zero'. Zero referral is not zero cost [s2].",
+            "**Selling QCO products without BIS** or food without FSSAI. This can lead to delisting and legal trouble [s22].",
+            "**Wrong or missing Legal Metrology details** (MRP, net quantity, manufacturer or importer, country of origin) [s19].",
+            "**Using another brand's name, logo or images.** IP complaints can get listings removed and accounts suspended.",
+            "**Calling products 'original' or 'branded' when they aren't.** Authenticity complaints are a serious account-health risk.",
+            "**Buying fake or incentivised reviews.** One of the fastest ways to lose your account.",
+            "**Late dispatch on Easy Ship or Self Ship.** Ship on time and confirm shipment; late shipments hurt account health.",
+            "**Opening a second account** without permission.",
+            "**Over-stocking FBA** and paying storage on slow stock [s8].",
+            "**Not claiming TCS and TDS credits,** which are your money [s9][s10].",
+            "**Using a product's old GST rate** after the September 2025 change [s16].",
+            "**Exporting to the US without checking the current tariff** [s41]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Check Account Health weekly",
+            "text": "Open the Account Health page in Seller Central every week. Respond to any warning within the time it gives, with clear documents."
+          }
+        }
+      ]
+    },
+    {
+      "id": "checklist",
+      "title": "Your do-this-in-order checklist",
+      "blocks": [
+        {
+          "ol": [
+            "Pick a product niche you understand, ideally priced ₹300–999 [s1].",
+            "Check if it needs BIS, FSSAI or other licences.",
+            "Choose a brand name and file a trademark with IP India.",
+            "Get PAN and open a business bank account.",
+            "Talk to a CA and get a GSTIN (or an enrolment ID if you'll sell in one state only) [s12][s14].",
+            "Find the HSN code and current GST rate for your product [s16].",
+            "Order samples from 2–3 suppliers.",
+            "Build a margin sheet using the Revenue Calculator and the fees above.",
+            "Register at sell.amazon.in with matching documents.",
+            "Pick your fulfilment option: Easy Ship to start, FBA later.",
+            "Prepare packaging with Legal Metrology declarations [s19].",
+            "Shoot 7+ product photos.",
+            "Write the listing (title, bullets, description, search terms).",
+            "Create the listing and check the referral fee shows correctly [s45].",
+            "Apply for Brand Registry once your trademark application allows it [s25].",
+            "Launch with an auto Sponsored Products campaign.",
+            "Enrol in Vine and add A+ Content after Brand Registry.",
+            "Run the weekly ads routine and add negatives.",
+            "Track TCS and TDS credits each month [s9][s10].",
+            "Plan stock for the Great Indian Festival 6 weeks ahead [s34].",
+            "Add variations or a second product after day 90.",
+            "Explore Amazon Global Selling once India is profitable [s36]."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can I sell on Amazon India without GST?",
+      "a": "Only in limited cases. Sellers of exempt goods like books can register with a PAN, and small sellers can sell within their own state using a GST enrolment ID. To sell taxable goods to buyers in other states you need a GSTIN, whatever your turnover."
+    },
+    {
+      "q": "Is it true Amazon charges zero commission under ₹1,000?",
+      "a": "Yes for the referral fee: since 16 March 2026 it's zero for products under ₹1,000 in 1,800+ categories. You still pay a closing fee and shipping or weight handling fees, plus 18% GST on those fees."
+    },
+    {
+      "q": "How much money do I need to start selling on Amazon.in?",
+      "a": "There's no big upfront Amazon fee; fees come out of each sale. A realistic small start with one product (stock, samples, packaging, photos, a few weeks of ads) is often around ₹1 lakh or more, plus any licences your product needs. Start small and reorder once it sells."
+    },
+    {
+      "q": "Why is Amazon cutting 0.5% and 0.1% from my payments?",
+      "a": "The 0.5% is GST TCS under Section 52 and the 0.1% is income-tax TDS under Section 194-O (now Section 393). Both are deposited in your name. Claim them through your GST returns and income-tax return."
+    },
+    {
+      "q": "FBA or Easy Ship: which is better for a new seller?",
+      "a": "Easy Ship is easier to start with because you keep stock at home and Amazon picks up. FBA gives you the Prime badge and faster delivery but you pay storage. Many sellers start on Easy Ship and move best sellers to FBA."
+    },
+    {
+      "q": "Do I need a trademark to sell on Amazon India?",
+      "a": "No, you can sell without one. But you need a trademark for Brand Registry, which unlocks A+ Content, Brand Stores, Sponsored Brands and better protection. IP India registration can take many months, so file early."
+    },
+    {
+      "q": "What products need BIS certification?",
+      "a": "Any product covered by a Quality Control Order, which includes many electrical goods, toys and other consumer items. The list changes; some raw-material QCOs were withdrawn in November 2025. Check the BIS compulsory certification list before you buy stock."
+    },
+    {
+      "q": "Can I sell food or homemade snacks on Amazon?",
+      "a": "Yes, with an FSSAI licence or registration, correct labels and Amazon's category approval. Food must reach the buyer with at least 30% of its shelf life or 45 days left."
+    },
+    {
+      "q": "Can someone outside India sell on Amazon.in?",
+      "a": "It's built for Indian businesses with a GSTIN, PAN and Indian bank account. Foreign brands usually sell through an Indian company, importer or distributor. Get advice from an Indian CA first."
+    },
+    {
+      "q": "When is the best time to launch?",
+      "a": "Launch at least 6–8 weeks before a big sale so you have reviews and data. The Great Indian Festival started on 8 October in 2026, and Prime Day ran in July in 2025."
+    },
+    {
+      "q": "Is selling on Amazon India saturated?",
+      "a": "Popular low-price categories are crowded, especially now that items under ₹1,000 have zero referral fees. Beginners still win in narrower niches with better products, clearer listings and a brand."
+    },
+    {
+      "q": "Can I export from India to Amazon US?",
+      "a": "Yes, through Amazon Global Selling. Indian sellers have passed $20 billion in cumulative exports. US tariffs on Indian goods have changed several times since August 2025, so check the current duty for your product before you ship."
+    },
+    {
+      "q": "What gets an Amazon India seller account suspended?",
+      "a": "Common causes: fake or paid reviews, selling counterfeit or unauthorised branded goods, IP complaints, duplicate accounts, late shipments and high order defect rates, and selling regulated products without licences."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Amazon India expands zero referral fees to 12.5 crore products across 1,800+ categories",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/small-business/amazon-seller-fee-reduction-zero-referral-march-2026",
+      "date": "2026-03"
+    },
+    {
+      "id": "s2",
+      "title": "Reduce your Amazon selling costs: complete guide to seller fee change 2026",
+      "publisher": "Amazon (sell.amazon.in seller blog)",
+      "url": "https://sell.amazon.in/seller-blog/reduce-your-amazon-selling-costs--complete-guide-to-seller-fee-change-2026",
+      "date": "2026-03"
+    },
+    {
+      "id": "s3",
+      "title": "Amazon.in fee updates, effective March 16, 2026",
+      "publisher": "Amazon Seller Central India forums",
+      "url": "https://sellercentral.amazon.in/seller-forums/discussions/t/5edc203d-8623-4838-8ed3-b3fc6289cb45",
+      "date": "2026-03"
+    },
+    {
+      "id": "s4",
+      "title": "Amazon announces zero referral fees for over 1.2 crore products; highest-ever reduction in selling fees",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/small-business/amazon-highest-ever-selling-fees-cut",
+      "date": "2025-04"
+    },
+    {
+      "id": "s5",
+      "title": "Amazon Seller Fees in India 2026: Referral, Closing and FBA",
+      "publisher": "ComplyLocal",
+      "url": "https://complylocal.com/blog/amazon-seller-fees-india/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s6",
+      "title": "Amazon Seller Fees in India Explained (2026 Guide)",
+      "publisher": "GrowthLife",
+      "url": "https://growthlife.in/amazon-seller-fees/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s7",
+      "title": "Amazon FBA vs Easy Ship vs Self Ship India 2026: Fees",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/amazon-fba-vs-easy-ship-vs-self-ship/",
+      "date": "2026-10"
+    },
+    {
+      "id": "s8",
+      "title": "Amazon FBA Fees & Charges India 2026: Complete Fee Structure",
+      "publisher": "SW Cybernetics",
+      "url": "https://swcybernetics.in/knowledge-base/amazon-fba-fees-charges-india-2026",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s9",
+      "title": "GST on E-Commerce Operators 2026: TCS, GSTR-8",
+      "publisher": "TaxGarden",
+      "url": "https://taxgarden.in/blog/gst-on-ecommerce-operators-tcs-section-52-india-2026",
+      "date": "2026"
+    },
+    {
+      "id": "s10",
+      "title": "TDS on E-Commerce Sales (Section 194-O): 0.1% rate, Rs 5 lakh exemption, and how to claim it back",
+      "publisher": "TaxGst.in",
+      "url": "https://taxgst.in/tds-ecommerce-sellers-section-194-o/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s11",
+      "title": "TDS on Ecommerce Sales 194O / 393 guide, FY 2026-27",
+      "publisher": "TaxGarden",
+      "url": "https://taxgarden.in/blog/tds-on-ecommerce-payments-section-194o-393-guide-india-fy-2026-27",
+      "date": "2026"
+    },
+    {
+      "id": "s12",
+      "title": "e-Book on e-Commerce Operators & GST",
+      "publisher": "NACIN (CBIC training academy), Visakhapatnam",
+      "url": "https://www.nacin.gov.in/ZCVisakhapatnam/Images/Documents/EBooks/e-Book%20on%20e-Commerce%20Operators%20and%20GST%20-%20NACIN%20Vizag%20(September,%202024).pdf",
+      "date": "2024-09"
+    },
+    {
+      "id": "s13",
+      "title": "GST Compliance for E-commerce Operators: Complete Guide",
+      "publisher": "TaxGroww",
+      "url": "https://taxgroww.com/gst-compliance-for-e-commerce-operators/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s14",
+      "title": "Compulsory GST Registration Under Section 24",
+      "publisher": "TaxBuddy",
+      "url": "https://www.taxbuddy.com/blog/compulsory-registration-gst-section-24",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s15",
+      "title": "FAQs on TCS under GST (Law Committee, GST Council)",
+      "publisher": "CBIC",
+      "url": "https://cbic-gst.gov.in/pdf/FAQs-TCS-30-11-2018.pdf",
+      "date": "2018-11"
+    },
+    {
+      "id": "s16",
+      "title": "GST 2.0 Reform: New GST Rates and Exemptions w.e.f. September 22, 2025",
+      "publisher": "TaxGuru",
+      "url": "https://taxguru.in/goods-and-service-tax/gst-2-0-reform-new-gst-rates-exemptions-w-e-f-september-22-2025.html",
+      "date": "2025-09"
+    },
+    {
+      "id": "s17",
+      "title": "Guidelines for FDI on e-commerce (consolidated FDI policy extract)",
+      "publisher": "DPIIT, Ministry of Commerce & Industry",
+      "url": "https://www.dpiit.gov.in/static/uploads/2025/07/b6c50d2edd0fcb817287b0088fc043ef.pdf",
+      "date": "2025-07"
+    },
+    {
+      "id": "s18",
+      "title": "FDI in inventory-based model of e-commerce permitted exclusively for exports",
+      "publisher": "Legal 500",
+      "url": "https://www.legal500.com/intelligence/india/international-law/fdi-in-inventory-based-model-of-e-commerce-permitted-exclusively-for-exports",
+      "date": "2026-07"
+    },
+    {
+      "id": "s19",
+      "title": "Legal Metrology (Packaged Commodities) Amendment Rules, 2026 explained",
+      "publisher": "SCC Online",
+      "url": "https://www.scconline.com/blog/post/2026/02/21/legal-metrology-packaged-commodities-amendment-rules-2026-explained/",
+      "date": "2026-02"
+    },
+    {
+      "id": "s20",
+      "title": "Legal Metrology (Packaged Commodities) Second Amendment Rules, 2026",
+      "publisher": "TeamLease RegTech",
+      "url": "https://www.teamleaseregtech.com/updates/article/55254/legal-metrology-packaged-commodities-second-amendment-rules-2026/",
+      "date": "2026-04"
+    },
+    {
+      "id": "s21",
+      "title": "Withdrawal of BIS Quality Control Orders for select raw materials",
+      "publisher": "Department of Commerce (trade.gov.in) newsletter",
+      "url": "https://content.trade.gov.in/News_Letter/Issue+23_1_Withdrawal+of+BIS+Quality+Control+Orders+for+Select+Raw+Materials.pdf",
+      "date": "2025-11"
+    },
+    {
+      "id": "s22",
+      "title": "Direction on licensing of e-commerce food business operators",
+      "publisher": "FSSAI",
+      "url": "https://www.fssai.gov.in/upload/advisories/2022/12/638edf17bdbb2Direction_Licensing_28_11_2022_.pdf",
+      "date": "2022-11"
+    },
+    {
+      "id": "s23",
+      "title": "FSSAI directs e-commerce FBOs to ensure minimum shelf life for delivered products",
+      "publisher": "News On AIR (Prasar Bharati)",
+      "url": "https://www.newsonair.gov.in/fssai-directs-e-commerce-fbos-to-ensure-minimum-30-shelf-life-for-delivered-products-to-enhance-food-safety-standards",
+      "date": "2024-11"
+    },
+    {
+      "id": "s24",
+      "title": "Amazon Brand Registry India: Free, But You Need a Trademark",
+      "publisher": "Vakilsearch",
+      "url": "https://vakilsearch.com/article/amazon-brand-registry-india-trademark/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s25",
+      "title": "Amazon Brand Registry India 2026: Eligibility, Steps",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/amazon-brand-registry-india-guide/",
+      "date": "2026"
+    },
+    {
+      "id": "s26",
+      "title": "Amazon Bazaar: definition, low prices, deals and how to access",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/retail/amazon-bazaar-value-shopping",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s27",
+      "title": "Now you can buy affordable products on Amazon Bazaar under Rs 600",
+      "publisher": "Business Standard",
+      "url": "https://www.business-standard.com/finance/personal-finance/now-you-can-buy-affordable-products-on-amazon-bazaar-under-rs-600-124041500312_1.html",
+      "date": "2024-04"
+    },
+    {
+      "id": "s28",
+      "title": "Amazon Now hits $1 bn annualised gross sales as quick-commerce battle grows",
+      "publisher": "Business Standard",
+      "url": "https://www.business-standard.com/companies/news/amazon-now-hits-1-bn-annualised-gross-sales-as-quick-commerce-battle-grows-126091400733_1.html",
+      "date": "2026-09"
+    },
+    {
+      "id": "s29",
+      "title": "Amazon India expands Amazon Now 'delivery-in-minutes' to over 300 cities",
+      "publisher": "NewsBytes",
+      "url": "https://www.newsbytesapp.com/news/business/amazon-india-expands-amazon-now-delivery-in-minutes-to-over-300-cities/tldr",
+      "date": "2026-06"
+    },
+    {
+      "id": "s30",
+      "title": "Amazon launches AI assistant Rufus in India to help shoppers with their queries",
+      "publisher": "Business Today",
+      "url": "https://www.businesstoday.in/technology/artificial-intelligence/story/amazon-launches-ai-assistant-rufus-in-india-to-help-shoppers-with-their-queries-443140-2024-08-27",
+      "date": "2024-08"
+    },
+    {
+      "id": "s31",
+      "title": "Prime Day 2025: Amazon announces seller rewards to empower Indian small businesses",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/small-business/amazon-prime-day-boost-small-business-india",
+      "date": "2025-07"
+    },
+    {
+      "id": "s32",
+      "title": "Amazon Prime Day 2025 breaks all records: small businesses thrive across India",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/retail/india-biggest-ever-prime-day-2025-results",
+      "date": "2025-07"
+    },
+    {
+      "id": "s33",
+      "title": "Amazon Great Indian Festival 2025 sees record 276 crore visits",
+      "publisher": "About Amazon India",
+      "url": "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-2025-highlights-results",
+      "date": "2025"
+    },
+    {
+      "id": "s34",
+      "title": "Amazon Great Indian Festival 2026: Prime Early Access date, time and offers",
+      "publisher": "Goodreturns",
+      "url": "https://www.goodreturns.in/news/amazon-great-indian-festival-2026-check-prime-early-access-date-time-top-deals-offers-1539297.html",
+      "date": "2026-10"
+    },
+    {
+      "id": "s35",
+      "title": "Enabling exports (Amazon Smbhav pledges)",
+      "publisher": "Amazon India",
+      "url": "https://smbhav.amazon.in/pledges/exports",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s36",
+      "title": "Amazon says India's e-commerce exports top $20 billion, despite US tariffs",
+      "publisher": "Reuters via AOL",
+      "url": "https://www.aol.com/articles/amazon-says-indias-e-commerce-092142204.html",
+      "date": "2025"
+    },
+    {
+      "id": "s37",
+      "title": "US Tariff on India: navigating 50% tariff rate and trade rules",
+      "publisher": "India Briefing",
+      "url": "https://www.india-briefing.com/news/us-india-tariff-50-percent-new-rules-impact-exporters-39458.html/",
+      "date": "2025-08"
+    },
+    {
+      "id": "s38",
+      "title": "US suspends de minimis duty exemption: what it means for small Indian online sellers",
+      "publisher": "Outlook Business",
+      "url": "https://www.outlookbusiness.com/economy-and-policy/us-suspends-de-minimis-duty-exemption-what-it-means-for-small-indian-online-sellers",
+      "date": "2025-08"
+    },
+    {
+      "id": "s39",
+      "title": "US-India strike interim trade deal, cut tariffs to 18%",
+      "publisher": "India Briefing",
+      "url": "https://www.india-briefing.com/news/us-india-interim-trade-agreement-18-percent-tariff-42514.html/",
+      "date": "2026-02"
+    },
+    {
+      "id": "s40",
+      "title": "United States removes tariffs on imports from India",
+      "publisher": "KPMG TaxNewsFlash",
+      "url": "https://kpmg.com/us/en/taxnewsflash/news/2026/02/united-states-removes-tariffs-imports-india.html",
+      "date": "2026-02"
+    },
+    {
+      "id": "s41",
+      "title": "India balance of trade news: US tariff changes",
+      "publisher": "Trading Economics",
+      "url": "https://tradingeconomics.com/india/balance-of-trade/news/494916",
+      "date": "2026"
+    },
+    {
+      "id": "s42",
+      "title": "Amazon targets India e-commerce exports of $80 billion by 2030 despite US tariffs",
+      "publisher": "Business News (via Infinity Compliance e-paper)",
+      "url": "https://epaper.infinitycompliance.in/business/amazon-targets-india-e-commerce-exports-of-80-billion-by-2030-despite-us-tariffs-business-news/",
+      "date": "2025"
+    },
+    {
+      "id": "s43",
+      "title": "Amazon Seller Statistics 2026",
+      "publisher": "Sumtracker",
+      "url": "https://www.sumtracker.com/blog/amazon-inventory-statistics",
+      "date": "2026"
+    },
+    {
+      "id": "s44",
+      "title": "Amazon's March 16 fee update looks like a gift, but is it really?",
+      "publisher": "Amazon Seller Central India forums",
+      "url": "https://sellercentral.amazon.in/seller-forums/discussions/t/29c58781-99ad-4f0b-8547-08198c9f61c6",
+      "date": "2026-03"
+    },
+    {
+      "id": "s45",
+      "title": "Amazon say that under 1000 they not charge referral fee",
+      "publisher": "Amazon Seller Central India forums",
+      "url": "https://sellercentral.amazon.in/seller-forums/discussions/t/5e899af3-8b20-4e54-a5d4-c5b59d76e78b",
+      "date": "2026-03"
+    },
+    {
+      "id": "s46",
+      "title": "How to sell on Amazon without GST in India 2026: rules",
+      "publisher": "SW Cybernetics",
+      "url": "https://swcybernetics.in/knowledge-base/sell-on-amazon-without-gst",
+      "date": "2026"
+    },
+    {
+      "id": "s47",
+      "title": "GST for Amazon sellers in India: registration, TCS and returns",
+      "publisher": "DisyTax",
+      "url": "https://disytax.com/gst-for-amazon-sellers/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s48",
+      "title": "Amazon FBA India 2026: fees, Send to Amazon, when it pays",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/amazon-fba-india-guide/",
+      "date": "2026"
+    }
+  ]
+}

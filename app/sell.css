@@ -58,3 +58,21 @@
   .sl-tool > svg, .sl-tool > img { display: none; }
   .sl-body { font-size: 16.5px; }
 }
+/* Seller calendar (/amazon-seller-calendar) */
+.cal { max-width: 900px; margin: 0 auto; padding: 12px 0 40px; }
+.cal h1 { font-size: clamp(30px, 5vw, 48px); letter-spacing: -.03em; margin: 6px 0 10px; }
+.cal-sub { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 8px 0 16px; }
+.cal-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; }
+.cal-tabs a { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; text-decoration: none; color: var(--ink); font-size: 14px; }
+.cal-tabs a.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.cal-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.cal-ev { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 16px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+.cal-ev.k-peak { border-left: 5px solid #f97316; } .cal-ev.k-gifting { border-left: 5px solid #ec4899; } .cal-ev.k-fees { border-left: 5px solid #64748b; } .cal-ev.k-reset, .cal-ev.k-returns { border-left: 5px solid #0ea5e9; }
+.cal-date { display: grid; align-content: start; gap: 2px; }
+.cal-date b { font-size: 20px; } .cal-date small { color: var(--muted); } .cal-date em { font-style: normal; font-size: 12px; color: #c2410c; font-weight: 700; }
+.cal-body h2 { font-size: 21px; margin: 0 0 4px; }
+.cal-phases { display: grid; gap: 4px; margin-top: 6px; }
+.cal-phases summary { cursor: pointer; padding: 6px 0; font-size: 15px; }
+.cal-phases summary span { color: var(--muted); font-size: 13.5px; margin-left: 6px; }
+.cal-phases ul { margin: 4px 0 8px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; line-height: 1.5; }
+@media (max-width: 560px) { .cal-ev { grid-template-columns: 1fr; gap: 6px; } }

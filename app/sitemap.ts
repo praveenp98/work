@@ -6,6 +6,9 @@ import { HELP } from "@/lib/help";
 import { SITE } from "@/lib/site";
 import { liveTools } from "@/lib/tools";
 import { MAGNETS } from "@/lib/magnets";
+import { SELL } from "@/lib/sell-data";
+import { SELL_PUBLISHED } from "@/lib/sell";
+import { MARKETS } from "@/lib/season";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -25,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...COMPETITORS.map((c) => ({ url: `${SITE.url}/compare/${c.slug}`, lastModified: now, priority: 0.7 })),
     { url: `${SITE.url}/demo`, lastModified: now, priority: 0.9 },
     { url: `${SITE.url}/free`, lastModified: now, priority: 0.9 },
+    ...(SELL_PUBLISHED ? SELL : []).map((g) => ({ url: `${SITE.url}/sell-on-amazon${g.slug === "index" ? "" : `/${g.slug}`}`, lastModified: new Date(g.updated), priority: 0.9 })),
+    ...MARKETS.map((m) => ({ url: `${SITE.url}/amazon-seller-calendar/${m.slug}`, lastModified: now, priority: 0.8 })),
     ...MAGNETS.map((m) => ({ url: `${SITE.url}/free/${m.slug}`, lastModified: now, priority: 0.9 })),
     { url: `${SITE.url}/free/black-friday-checklist`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/help`, lastModified: now, priority: 0.7 },

@@ -1,3 +1,4 @@
+import { SELL_PUBLISHED } from "@/lib/sell";
 import { Notice } from "@/components/Notice";
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
@@ -14,6 +15,7 @@ import { FunnelEvents } from "@/components/FunnelEvents";
 import "./globals.css";
 import "./magnets.css";
 import "./wrapped.css";
+import "./sell.css";
 import "./connect.css";
 
 const display = Raleway({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600"], display: "swap" });
@@ -61,6 +63,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/answers">Answers</Link>
             <Link href="/#how">How it works</Link>
             <Link href="/pricing">Pricing</Link>
+            {SELL_PUBLISHED && <Link href="/sell-on-amazon">Start selling</Link>}
+            <Link href="/amazon-seller-calendar/us">Seller calendar</Link>
             <Link href="/free">Free tools</Link>
             <Link href="/compare">Compare</Link>
             <Link href="/connector">Rocco in Claude &amp; ChatGPT</Link>

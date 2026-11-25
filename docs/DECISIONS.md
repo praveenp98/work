@@ -133,3 +133,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-25 · Wrapped share links carry numbers only
 - **Decision:** the public Wrapped link is a short code of numbers (persona, units, pace, top share, conversion, period; sales only if shown). Product names and search terms appear only on the seller's own screen.
 - **Why:** the old link was a long base64 blob that looked broken on X and exposed product names; no database table needed.
+
+## 2026-11-25 · One seller calendar drives the dashboard, brief, feeds and public pages
+- **Decision:** a single computed calendar (lib/season.ts) per marketplace with phased actions; Amazon-announced events shown as "expected"; beginner guides stay unpublished until fact-checked against official pages.
+- **Why:** Praveen wants timely, relevant actions (Black Friday now); hard-coded dates go stale. Wrong fees on beginner pages would cost trust.

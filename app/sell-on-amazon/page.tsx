@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SellArticle } from "@/components/sell/SellArticle";
+import { notFound } from "next/navigation";
 import { SELL, sellBySlug } from "@/lib/sell-data";
+import { SELL_PUBLISHED } from "@/lib/sell";
 
 const g = sellBySlug("index")!;
 export const metadata: Metadata = { title: g.title, description: g.description, alternates: { canonical: "/sell-on-amazon" }, openGraph: { type: "article", title: g.title, description: g.description } };
 
 /** Hub: the global picture + a card per marketplace guide. */
 export default function Page() {
+  if (!SELL_PUBLISHED) notFound();
   const markets = SELL.filter((x) => x.slug !== "index");
   const cards = (
     <div className="sl-cards" aria-label="Pick your marketplace">

@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Seller calendar on the dashboard + public calendars; beginner guides drafted (hidden)
+- **lib/season.ts**: the seller's year per marketplace (US, UK, DE/EU, CA, IN, AU, JP, AE). Dates computed every year (Thanksgiving→BF/CM, Easter, Mother's/Father's Day per country, Diwali/Ramadan/Eid tables); Prime Day, Prime Big Deal Days, Great Indian Festival, White Friday, 11.11, Hatsuuri marked "expected" until Amazon announces. Phases per event (prepare −35d, ramp −14d, live, cool-down +7d; gifting: gift rush, last orders; Jan reset; Q4 storage; holiday returns) with concrete account actions.
+- **Dashboard SeasonCard** (above today's jobs): today = "Black Friday & Cyber Monday in 2 days · Ramp up" with actions that jump to the matching job ("In today's jobs ↓"), say "Rocco does this" (midday budget alerts) or link to the page. Goes red "LIVE" on the day. Morning brief line now comes from the calendar (replaced hard-coded BFCM tips).
+- **Public**: /amazon-seller-calendar/<market> (12 months, phases, actions, Event JSON-LD, FAQ) + subscribe feed /amazon-seller-calendar/feed/<market> (reminders 5 and 2 weeks before each event). Team calendar feed uses the same events. Footer: Seller calendar. Sitemap + llms.txt.
+- **Beginner guides** (content/sell/*.json, 9 guides, ~5–7k words, 16–48 sources each) drafted by research agents; sources were blocked + search limit hit, so a fact-check pass against official pages is running (network now allows Amazon seller pages + tax authorities). Pages built (/sell-on-amazon) but hidden behind SELL_PUBLISHED=false until checked.
+- Tests 311.
+
+---
+
 ## 2026-11-25 · Wrapped plays full screen, like an app
 - Opens full screen when ready (edge to edge on phones, centred 9:16 with arrows on desktop); tap sides or swipe left/right; swipe down, ✕, Esc or the phone's Back button closes it.
 - Email unlock lives inside the story (lock slide with the form + "Skip, show my card"); unlocking plays straight into the deeper cuts.

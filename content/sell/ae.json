@@ -1,0 +1,1221 @@
+{
+  "slug": "ae",
+  "marketplace": "Amazon.ae",
+  "country": "United Arab Emirates",
+  "flag": "🇦🇪",
+  "currency": "AED",
+  "updated": "2026-11-25",
+  "title": "How to start selling on Amazon UAE in 2026: the complete beginner's guide",
+  "description": "Sell on Amazon.ae in 2026: documents, AED referral and FBA fees, 2025–26 fee changes, UAE VAT for residents and non-residents, and your first 90 days.",
+  "tldr": [
+    "Most Amazon.ae referral fees sit between 4.5% and 15% of the sale price, with a 1 AED minimum in most categories. Home and Kitchen are 15%, Toys and Sports 14%, Consumer Electronics 7% [s1].",
+    "Amazon.ae has been offering the Professional selling plan with no monthly subscription fee for a limited time. Check that the offer is still live before you plan around it [s1][s8].",
+    "FBA (Fulfilment by Amazon) fees start at 7.5 AED per unit. Since 1 August 2025 they are higher for items that sell above AED 25 than for items at AED 25 or less [s1][s2].",
+    "Since 15 January 2026, FBA stock held 270–365 days pays a long-term storage fee of 8 AED per cubic foot, on top of the normal 2 AED per cubic foot per month [s1][s3].",
+    "Easy Ship (Amazon picks up from you and delivers) starts at 14 AED per shipment, and you can charge buyers up to 10 AED shipping per shipment [s1].",
+    "UAE VAT registration becomes mandatory for residents once taxable supplies pass AED 375,000 in 12 months. For non-resident sellers the threshold is effectively nil [s11][s12].",
+    "To register you need an Emirates ID, a trade licence (or a power of attorney if you act for the owner), proof of address under 3 months old and a bank account [s4][s6].",
+    "Amazon cannot act as the importer for your FBA stock. Sellers based abroad need a UAE importer of record with a customs code [s13][s14]."
+  ],
+  "sections": [
+    {
+      "id": "state",
+      "title": "Where Amazon UAE stands in 2026",
+      "blocks": [
+        {
+          "p": "Amazon.ae is Amazon's store for the United Arab Emirates. It is one of three Amazon stores in the Middle East and North Africa, next to Amazon.sa (Saudi Arabia) and Amazon.eg (Egypt) [s10]. Prices, fees and payouts are in UAE dirhams (AED)."
+        },
+        {
+          "p": "For a beginner, the UAE is a different game from the US or UK. The country is small, so the total number of shoppers is much lower. But buyers are used to shopping online, delivery distances are short, and many sellers treat the UAE as a base for the wider Gulf region. Amazon itself pitches the UAE and Saudi Arabia as a pair for sellers expanding into the Middle East [s10]."
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "No reliable public numbers",
+            "text": "Amazon does not publish an official count of Amazon.ae sellers, sales or third-party share, and we could not verify any third-party figure for this guide. Treat any \"X thousand sellers\" claim you see online with caution unless it links to Amazon or a regulator."
+          }
+        },
+        {
+          "h3": "What competition looks like"
+        },
+        {
+          "ul": [
+            "**Fewer sellers per search than in the US.** In many niches you are competing with a handful of local brands, regional distributors and sellers based in India, China and Europe, not thousands of private labels.",
+            "**Big brands are often present, sold by Amazon itself.** In electronics, phones and appliances you often compete against Amazon-sold stock and authorised distributors. Fees in those categories are low (for example 7% for Consumer Electronics and 5% for Home Entertainment) [s1], but margins are thin and brand gating is common.",
+            "**Fashion, home, kitchen, toys and sports carry higher referral fees (14–15%)** [s1]. These categories leave more room for private-label brands with good design and listings, but you pay more to Amazon per sale.",
+            "**Bilingual listings matter.** The UAE has a large expatriate population and also Arabic-speaking shoppers. Listings with good English and Arabic titles, bullets and images reach both groups."
+          ]
+        },
+        {
+          "h3": "Ad costs, AI shopping and low-price storefronts"
+        },
+        {
+          "p": "Amazon Ads is available on Amazon.ae, with Sponsored Products and brand ad formats. We could not find a credible public source for average cost per click (CPC) in AED, so this guide does not quote one. Your own campaign data after 2–3 weeks is the only number worth trusting."
+        },
+        {
+          "p": "In the US, Amazon has rolled out an AI shopping assistant called Rufus and a low-price storefront called Haul. We could not confirm from an official source that either has launched on Amazon.ae as of November 2026. Whether or not an AI assistant reaches the UAE store, the advice is the same: write complete, factual listings that answer real buyer questions (size, material, compatibility, what is in the box). AI shopping tools read that text."
+        },
+        {
+          "h3": "What this means for you"
+        },
+        {
+          "ul": [
+            "The UAE rewards **focused, well-made products with strong listings** more than very high volume.",
+            "Watch the **AED 25 price line**. FBA fees change at that price, and the fixed fees eat a big share of a cheap item [s1].",
+            "Plan to expand to **Saudi Arabia** early if the product works. Amazon runs the two stores side by side for sellers [s10]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "title": "What changed in 2025–2026",
+      "blocks": [
+        {
+          "p": "These are the dated changes we could confirm from Amazon's own pages and seller forum announcements. Amazon.ae changes fees with short notice, so check **Seller Central > News** and the fee pages every month."
+        },
+        {
+          "table": {
+            "head": [
+              "Date",
+              "Change",
+              "What it means for you"
+            ],
+            "rows": [
+              [
+                "1 Aug 2025",
+                "Home Entertainment referral fee cut from 7% to 5% [s2]",
+                "TVs, speakers and similar items cost less to sell. Margins are still thin because prices are competitive."
+              ],
+              [
+                "1 Aug 2025",
+                "Business, Industrial and Scientific Supplies referral fee raised from 10% to 11% [s2]",
+                "B2B-type products (tools, lab and office supplies) pay 1 point more per sale."
+              ],
+              [
+                "1 Aug 2025",
+                "FBA fulfilment fees raised across size tiers and weights [s2]. Fee tables are now split by selling price: AED 25 or less, and above AED 25 [s1]",
+                "Items priced above AED 25 pay a higher fulfilment fee than cheaper items of the same size. Re-run your margins with the new tables."
+              ],
+              [
+                "15 Jan 2026",
+                "Long-term storage fee of 8 AED per cubic foot for stock held more than 270 and under 365 days [s3]",
+                "Before this, slow stock was mainly charged after a year. Now you start paying more after about 9 months. Send smaller, more frequent shipments."
+              ],
+              [
+                "2026 (ongoing)",
+                "Professional plan offered with no monthly subscription fee \"for a limited time\" [s1][s8]",
+                "You can start on the Professional plan without a monthly fee while the offer lasts. Check the live terms on registration day."
+              ],
+              [
+                "No change found",
+                "Easy Ship rate table still shows \"effective August 22, 2022\" [s1]",
+                "Easy Ship prices have been stable for a long time, but confirm them in Seller Central before quoting shipping costs."
+              ]
+            ],
+            "note": "Fees above are from Amazon.ae pricing pages and Seller Central forum announcements [s1][s2][s3]. Amazon can change any of them, so always confirm in Seller Central."
+          }
+        },
+        {
+          "callout": {
+            "tone": "new",
+            "title": "Tax changes",
+            "text": "UAE VAT and corporate tax rules have been updated several times since they started. We could not verify the details of any 2025–2026 amendments for this guide. Check the Federal Tax Authority (tax.gov.ae) news page, or ask a UAE tax agent, before you register."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fit",
+      "title": "Is Amazon UAE right for you?",
+      "blocks": [
+        {
+          "h3": "Good fit"
+        },
+        {
+          "ul": [
+            "You live in the UAE, or already have (or plan to set up) a UAE company with a trade licence. Amazon's registration is built around a UAE trade licence or commercial registration plus an Emirates ID [s4][s5].",
+            "You already sell in India, Saudi Arabia, Europe or the US and want a second, less crowded store.",
+            "Your product sells at a price that leaves room for a 14–15% referral fee plus FBA fees. Mid-priced items (well above AED 25) usually work better than very cheap ones [s1].",
+            "You can sell in English and Arabic, or will pay for good Arabic translation."
+          ]
+        },
+        {
+          "h3": "Think twice"
+        },
+        {
+          "ul": [
+            "You want to sell very cheap items (under AED 25). Fixed fees take a big bite, as the cost tables below show.",
+            "You need large volume fast. The UAE is a smaller market than the US, UK or India.",
+            "Your product needs lots of certificates (electronics, cosmetics, food, children's products) and you have not yet looked at UAE conformity rules. See the compliance section.",
+            "You are not willing to handle customs and an importer of record if you are based abroad."
+          ]
+        },
+        {
+          "h3": "If you are based outside the UAE (India, China, Europe, US)"
+        },
+        {
+          "p": "Amazon says sellers outside the Middle East can open UAE and Saudi Arabia accounts from the **Sell Globally** dashboard in Seller Central, and that a business outside the region may not need a local entity to sell in the UAE or Saudi Arabia [s10]. In practice, there are three common routes:"
+        },
+        {
+          "ol": [
+            "**Global Selling with FBA.** You register as an international seller and send stock to Amazon's UAE fulfilment centres. Amazon cannot be the importer of your goods, so you need a UAE importer of record (IOR): a company with a UAE customs code that clears the goods and pays duty and import VAT [s13][s14].",
+            "**Ship from abroad to the buyer.** Some items on Amazon.ae are sent to buyers from outside the UAE. For those orders, Amazon treats the sale as happening outside the UAE and the buyer acts as importer for customs [s9]. Delivery is slower, and buyers may pay import charges.",
+            "**Set up a UAE company.** A mainland or free zone licence gives you a local trade licence, a UAE bank account, the ability to get your own customs code, and a simpler VAT position. It costs money and paperwork up front. Ask a licensed company formation adviser which licence activity covers e-commerce on marketplaces."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Mainland vs free zone",
+            "text": "Whether a free zone licence lets you sell to UAE consumers through Amazon, or only a mainland (DET) licence does, depends on the free zone and the licence activity. Sources disagree on this. Get written confirmation from the licence issuer before you pay for a licence."
+          }
+        },
+        {
+          "h3": "Bank and currency"
+        },
+        {
+          "p": "Amazon needs a bank account where it can send your sales money [s4]. A UAE account in AED is the simplest. If you register from abroad, check in Seller Central which foreign bank accounts and currency conversion options are available for Amazon.ae payouts at the time you sign up."
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "title": "Opening your Amazon.ae seller account, step by step",
+      "blocks": [
+        {
+          "h3": "Choose a plan"
+        },
+        {
+          "table": {
+            "head": [
+              "Plan",
+              "Monthly fee",
+              "Best for"
+            ],
+            "rows": [
+              [
+                "Professional",
+                "One flat monthly fee, currently waived \"for a limited time\" on Amazon.ae [s1][s8]",
+                "Anyone planning to sell more than about 40 units a month, use FBA properly, run ads or register a brand [s1]"
+              ],
+              [
+                "Individual",
+                "No monthly fee. A per-item fee applies, and Amazon.ae does not publish the amount on its seller site [s8]",
+                "Testing a few items. Ask Selling Partner Support for the current per-item fee before listing [s8]"
+              ]
+            ],
+            "note": "Referral fees and FBA or Easy Ship fees apply on both plans [s1]."
+          }
+        },
+        {
+          "p": "For almost every beginner building a brand, the **Professional plan** is the right choice, especially while the monthly fee is waived. It unlocks advertising, more listing tools and brand programs."
+        },
+        {
+          "h3": "Documents you need"
+        },
+        {
+          "ul": [
+            "A business email address, or an existing Amazon customer account you are happy to use for selling [s4].",
+            "A phone number where Amazon can reach you [s4].",
+            "**National ID**: for UAE residents, your Emirates ID [s4].",
+            "**For businesses**: your trade licence (some Amazon pages call it a commercial registration) if you are the owner, or a power of attorney if you are a legal representative or account manager [s4][s5][s6].",
+            "**For individuals**: proof of address, such as a recent bank statement, credit card statement or utility bill, less than 3 months old [s4][s6].",
+            "A bank account for payouts [s4]."
+          ]
+        },
+        {
+          "h3": "The steps"
+        },
+        {
+          "ol": [
+            "Go to Amazon's UAE seller site (sell.amazon.ae) and choose to sign up.",
+            "Sign in with your business email or existing Amazon account, and choose the Professional plan.",
+            "Enter your business details exactly as they appear on your trade licence: legal name, licence number, address.",
+            "Upload your ID and business documents. Make sure the scans are sharp, in colour and show all four corners.",
+            "Add your bank account and a payment card.",
+            "Complete identity verification. Amazon may ask for a video call or extra documents. Join the call with your original ID and licence.",
+            "Wait for approval. Times vary from a day or two to several weeks, depending on how complete your documents are.",
+            "Once approved, set up your tax details, shipping settings and returns address before you list anything."
+          ]
+        },
+        {
+          "h3": "Why applications get delayed or rejected"
+        },
+        {
+          "ul": [
+            "Name or address on the licence does not match what you typed.",
+            "Licence expired, or expires soon.",
+            "Proof of address older than 3 months [s4].",
+            "Blurry, cropped or black-and-white scans.",
+            "The person registering is not the licence owner and there is no power of attorney [s4].",
+            "Using details (card, bank, address, device) linked to another seller account. Amazon treats this as a possible duplicate account."
+          ]
+        },
+        {
+          "h3": "Pre-flight checklist"
+        },
+        {
+          "ul": [
+            "Trade licence valid for at least several more months, with a licence activity that covers online trading.",
+            "Emirates ID valid, and the same name on licence, bank and card.",
+            "A fresh bank or utility statement (under 3 months) [s4].",
+            "A dedicated email and phone number used only for this seller account.",
+            "A quiet room and good internet for the verification call.",
+            "If abroad: your importer of record lined up before you create your first FBA shipment [s13]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "title": "Every cost of selling on Amazon.ae",
+      "blocks": [
+        {
+          "p": "Amazon's own FBA fee formula is **referral fee + closing fee + fulfilment fee + storage fees** [s1]. Below is each part, then a worked example. All fees are in AED. Amazon.ae fees can change at short notice, so confirm in Seller Central and with the Revenue Calculator before you order stock."
+        },
+        {
+          "h3": "1. Subscription"
+        },
+        {
+          "p": "Professional plan: monthly fee waived for a limited time at the time of writing [s1][s8]. Individual plan: per-item fee not published on the seller site, so ask support [s8]."
+        },
+        {
+          "h3": "2. Referral fees (Amazon's commission on each sale)"
+        },
+        {
+          "p": "The referral fee is a percentage of the total price the buyer pays, including shipping and gift wrap, or the category minimum, whichever is greater [s1]. Most categories have a 1 AED minimum [s1]."
+        },
+        {
+          "table": {
+            "head": [
+              "Category",
+              "Referral fee",
+              "Minimum"
+            ],
+            "rows": [
+              [
+                "Apparel",
+                "15%",
+                "1 AED"
+              ],
+              [
+                "Home",
+                "15%",
+                "1 AED"
+              ],
+              [
+                "Kitchen",
+                "15%",
+                "Check table"
+              ],
+              [
+                "Toys",
+                "14%",
+                "Check table"
+              ],
+              [
+                "Sports",
+                "14%",
+                "Check table"
+              ],
+              [
+                "Baby products",
+                "8% if total price is 50 AED or less; 15% above 50 AED",
+                "Check table"
+              ],
+              [
+                "Grocery",
+                "5% up to 50 AED; 11% above 50 AED",
+                "0 AED"
+              ],
+              [
+                "Jewellery",
+                "16% on the part of the price up to 1,000 AED; 5% on any part above 1,000 AED",
+                "Check table"
+              ],
+              [
+                "Consumer Electronics",
+                "7%",
+                "Check table"
+              ],
+              [
+                "Home Entertainment",
+                "5% (cut from 7% on 1 Aug 2025)",
+                "Check table"
+              ],
+              [
+                "Business, Industrial and Scientific Supplies",
+                "11% (up from 10% on 1 Aug 2025)",
+                "Check table"
+              ],
+              [
+                "All other categories",
+                "10%",
+                "Check table"
+              ]
+            ],
+            "note": "Rates from the Amazon.ae pricing page [s1] and the 1 August 2025 fee announcement [s2]. Some category rows on the public page are hard to read (Beauty, for example), so check your exact category in Seller Central before you price."
+          }
+        },
+        {
+          "h3": "3. Closing fee"
+        },
+        {
+          "p": "Amazon's formula includes a closing fee [s1], but the public pricing page does not give a UAE amount. It mainly applies to certain media-type categories on other Amazon stores. Check the fee preview for your exact product in Seller Central."
+        },
+        {
+          "h3": "4. FBA fulfilment fees (pick, pack, ship to the buyer)"
+        },
+        {
+          "p": "On Amazon.ae, an item is **standard size** if, fully packed, it weighs 12 kg or less and is no bigger than 45 × 34 × 26 cm. Anything larger is oversize [s1]. Fulfilment fees start at 7.5 AED per unit [s1]. Since 1 August 2025 there are two fee tables: one for items selling at AED 25 or less, one for items above AED 25 [s1][s2]."
+        },
+        {
+          "table": {
+            "head": [
+              "Example size tier (packed weight)",
+              "Sale price AED 25 or less",
+              "Sale price above AED 25"
+            ],
+            "rows": [
+              [
+                "Small envelope, up to 0.1 kg",
+                "5.5 AED",
+                "7.5 AED"
+              ],
+              [
+                "Standard parcel, up to 0.5 kg",
+                "7.5 AED",
+                "9.5 AED"
+              ],
+              [
+                "Standard parcel, up to 1 kg",
+                "8.5 AED",
+                "10.5 AED"
+              ]
+            ],
+            "note": "Example rows as reproduced in a 2026 third-party guide that quotes Amazon's 1 August 2025 tables [s7]. We could not read the full official table directly, so check the Amazon.ae FBA calculator [s1] for your product before you rely on these numbers."
+          }
+        },
+        {
+          "h3": "5. Easy Ship fees (Amazon collects from you and delivers)"
+        },
+        {
+          "table": {
+            "head": [
+              "Standard parcel weight",
+              "Easy Ship fee per shipment"
+            ],
+            "rows": [
+              [
+                "First 250 g",
+                "14.0 AED"
+              ],
+              [
+                "Up to 500 g",
+                "14.5 AED"
+              ],
+              [
+                "Each extra 500 g, up to 2 kg",
+                "+0.5 AED"
+              ],
+              [
+                "2–3 kg",
+                "17.5 AED"
+              ]
+            ],
+            "note": "From the Amazon.ae pricing page, table marked \"effective August 22, 2022\" [s1]. You may charge the buyer a shipping fee of up to 10 AED per shipment [s1]. Heavier tiers: check Seller Central."
+          }
+        },
+        {
+          "h3": "6. Storage fees"
+        },
+        {
+          "table": {
+            "head": [
+              "Fee",
+              "Rate",
+              "When"
+            ],
+            "rows": [
+              [
+                "Monthly storage",
+                "2 AED per cubic foot per month",
+                "All FBA stock [s1]"
+              ],
+              [
+                "Long-term storage",
+                "8 AED per cubic foot",
+                "Stock in UAE fulfilment centres more than 270 and under 365 days, from 15 Jan 2026 [s3]"
+              ],
+              [
+                "Long-term storage (over a year)",
+                "Separate fee, amount not shown on the public page",
+                "Stock held 365 days or more [s1][s8]"
+              ]
+            ],
+            "note": "One cubic foot is about 28.3 litres, roughly a box of 30 × 30 × 30 cm."
+          }
+        },
+        {
+          "h3": "7. Other fees to ask about"
+        },
+        {
+          "p": "Amazon.ae's public pages do not list a UAE inbound placement fee, low-inventory fee, returns processing fee or refund administration fee the way the US and EU rate cards do. That does not mean they can never apply. Look under **Seller Central > Fees** and the FBA fee pages for any charges on removals, disposals, labelling or prep services before you send stock."
+        },
+        {
+          "h3": "Worked examples (examples only, using the fees above)"
+        },
+        {
+          "table": {
+            "head": [
+              "Product",
+              "Referral fee",
+              "FBA fee",
+              "Amazon fees total",
+              "Share of price"
+            ],
+            "rows": [
+              [
+                "Toy, sells for AED 60, 0.5 kg packed",
+                "14% = 8.40",
+                "9.50",
+                "17.90 AED",
+                "about 30%"
+              ],
+              [
+                "Kitchen gadget, sells for AED 120, 1 kg packed",
+                "15% = 18.00",
+                "10.50",
+                "28.50 AED",
+                "about 24%"
+              ],
+              [
+                "Small item in 'all other', sells for AED 20, 0.1 kg",
+                "10% = 2.00",
+                "5.50",
+                "7.50 AED",
+                "about 38%"
+              ],
+              [
+                "Jewellery, sells for AED 1,500, small envelope",
+                "16% × 1,000 + 5% × 500 = 185.00",
+                "7.50",
+                "192.50 AED",
+                "about 13%"
+              ]
+            ],
+            "note": "Referral rates from [s1]; FBA rows from [s7]. These exclude storage, ads, VAT, returns and your product cost. They show why very cheap items are hard: fixed fees take a much bigger share."
+          }
+        },
+        {
+          "h3": "A realistic starting budget (example)"
+        },
+        {
+          "p": "This is an illustration, not a quote. Your numbers will differ. It assumes one simple product, 300 units, a UAE trade licence already in place, and FBA."
+        },
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Example amount (AED)",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Samples from 3 suppliers",
+                "1,000",
+                "Includes courier"
+              ],
+              [
+                "First stock, 300 units",
+                "9,000",
+                "Example landed cost of 30 AED each, including freight, duty and IOR fees"
+              ],
+              [
+                "Photos and Arabic/English copy",
+                "2,000",
+                "Main image, lifestyle images, translation"
+              ],
+              [
+                "Barcodes and labels",
+                "300",
+                "Check Amazon's barcode rules"
+              ],
+              [
+                "Ads for the first 60 days",
+                "3,000",
+                "About 50 AED a day"
+              ],
+              [
+                "Vine enrolment, if eligible",
+                "Check Seller Central",
+                "Fee varies by marketplace"
+              ],
+              [
+                "Buffer for fees, returns and surprises",
+                "2,000",
+                ""
+              ],
+              [
+                "Total example",
+                "about 17,300",
+                "Plus your licence and accounting costs"
+              ]
+            ],
+            "note": "All amounts are assumptions for illustration only, not sourced fees."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax",
+      "title": "Tax and legal basics in the UAE",
+      "blocks": [
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Not tax advice",
+            "text": "UAE tax rules depend on where you live, where your company is set up and what you sell. Use this section to know which questions to ask, then confirm with the Federal Tax Authority (FTA) or a registered UAE tax agent."
+          }
+        },
+        {
+          "h3": "VAT (value added tax)"
+        },
+        {
+          "p": "The UAE charges VAT on most goods. The FTA sets the rules, runs registration and publishes guides at tax.gov.ae. Check the current standard rate on the FTA website before you set prices, because Amazon.ae prices shown to buyers normally include VAT."
+        },
+        {
+          "ul": [
+            "**Mandatory registration (residents):** you must register if your taxable supplies over the previous 12 months exceed AED 375,000, or you expect them to exceed it in the next 30 days [s11].",
+            "**Voluntary registration:** possible from a lower level, AED 187,500 [s11].",
+            "**Deadline:** apply within 30 days of becoming required to register [s11].",
+            "**Non-resident sellers:** the AED 375,000 threshold does not apply to foreign businesses [s11]. The FTA's e-commerce guide says a non-resident must register if it makes any taxable supplies in the UAE, unless someone else in the UAE is responsible for accounting for the VAT. So for non-residents the threshold is, in effect, nil [s12].",
+            "**Non-residents cannot register voluntarily** on the basis of taxable expenses alone [s12]."
+          ]
+        },
+        {
+          "p": "Once registered you get a **TRN** (tax registration number). You add it in Seller Central, charge VAT in your prices, file VAT returns with the FTA and can usually reclaim VAT on business costs such as import VAT and Amazon's fees."
+        },
+        {
+          "h3": "Does Amazon collect VAT for you?"
+        },
+        {
+          "p": "We could not confirm from an official source that Amazon.ae collects and pays UAE VAT on behalf of third-party sellers for domestic sales, the way marketplaces do in the EU or UK. Assume **you** are responsible for your VAT unless the FTA or Amazon tells you otherwise in writing. The FTA e-commerce guide [s12] is the best place to start."
+        },
+        {
+          "h3": "Corporate tax and income"
+        },
+        {
+          "p": "The UAE now has a federal corporate tax on business profits, and it offers a small business relief for businesses below a revenue limit. UAE-licensed companies, including many free zone companies, normally have to register for corporate tax even if they end up paying nothing. Check the current rate, the relief threshold and registration deadlines on tax.gov.ae, because the rules have been refined since the tax was introduced. If you are a non-resident selling from abroad, your home country's income tax rules also apply to your Amazon profit."
+        },
+        {
+          "h3": "When to get an accountant"
+        },
+        {
+          "ul": [
+            "Before you choose between mainland and free zone, or between a UAE company and selling from abroad.",
+            "Before your first FBA import, so customs, import VAT and your VAT registration line up.",
+            "When your sales get close to the VAT threshold (residents), or before your first sale (non-residents) [s11][s12].",
+            "Before your first corporate tax return."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "title": "Product rules, certificates and your brand",
+      "blocks": [
+        {
+          "h3": "Restricted and gated categories"
+        },
+        {
+          "p": "Some categories and brands need Amazon's approval before you can list them. Common examples on all Amazon stores include grocery and food, beauty and personal care, health products, jewellery, watches, branded electronics and toys. In Seller Central, search for a product and click **Apply to sell** to see if it is gated. Never list a well-known brand you are not authorised to sell."
+        },
+        {
+          "h3": "UAE conformity and safety rules"
+        },
+        {
+          "p": "The UAE has its own product conformity system. We could not verify the current details for this guide, so treat the list below as **questions to check with the regulator**, not final answers:"
+        },
+        {
+          "ul": [
+            "**Product conformity (ECAS / EQM):** many regulated products need a conformity certificate under the UAE schemes run by the Ministry of Industry and Advanced Technology (MoIAT). Check whether your product is on the regulated list before you order stock.",
+            "**Electronics with radio or telecom functions** (Bluetooth, Wi-Fi, mobile) are usually subject to type approval by the Telecommunications and Digital Government Regulatory Authority (TDRA).",
+            "**Cosmetics, personal care and food** usually need product registration with the relevant authority (for example, emirate-level registration systems). Food and some cosmetics may also need halal certification where relevant.",
+            "**Labelling:** Arabic labelling is commonly required for consumer goods, food and cosmetics. Check exactly which fields must be in Arabic for your category.",
+            "**Children's products, batteries and chargers** are high-risk categories almost everywhere. Expect to show test reports."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "Ask Amazon what it needs",
+            "text": "Amazon can ask you for compliance documents at any time, and may stop your listing until you provide them. Keep test reports, conformity certificates and invoices in one folder per product from day one."
+          }
+        },
+        {
+          "h3": "Trademarks and Brand Registry"
+        },
+        {
+          "p": "Amazon Brand Registry is available on Amazon.ae [s15]. It gives you more control over your listings, brand ad formats, A+ Content (rich images and text on the product page), a Brand Store and tools to report copies. To join, you normally need a registered trademark or a pending application in a country Amazon accepts. UAE trademarks are filed with the Ministry of Economy. We could not verify the current processing time, so check the Ministry's website and plan for several months."
+        },
+        {
+          "p": "On other marketplaces, Amazon runs an IP Accelerator program that links sellers to vetted trademark lawyers and gives earlier Brand Registry access once a filing is made. Check the Brand Registry page in Seller Central to see if IP Accelerator is offered for UAE filings when you apply."
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Choosing your first product with data",
+      "blocks": [
+        {
+          "h3": "What a good first product looks like"
+        },
+        {
+          "ul": [
+            "**Sells well above AED 25**, ideally AED 60–200. Fees take a smaller share (see the worked examples) [s1][s7].",
+            "**Small and light.** Fits in a standard parcel under 1 kg, so FBA and storage stay cheap [s1].",
+            "**Not gated, not regulated, not seasonal.** Avoid needing conformity certificates or category approval for your first launch.",
+            "**Simple to make well.** No moving parts, no batteries, no sizes that drive returns.",
+            "**Can be improved.** Read the 1–3 star reviews of current sellers. If they all complain about the same thing, you have a reason to exist."
+          ]
+        },
+        {
+          "h3": "Margin rule of thumb"
+        },
+        {
+          "p": "A common starting rule: after Amazon fees, your landed product cost should be **no more than about a third of the selling price**, leaving room for ads, returns, storage, VAT and profit."
+        },
+        {
+          "p": "**Worked example** (example only). A kitchen gadget sells for AED 120 and weighs 1 kg packed. Referral fee 15% = 18.00 AED [s1]. FBA fee 10.50 AED [s7]. Amazon fees = 28.50 AED. If your landed cost is 35 AED and you spend about 15 AED per unit on ads early on, you keep about 41.50 AED before storage, returns and VAT. If you are VAT-registered, part of the AED 120 is VAT that goes to the FTA, so work out your true net price first."
+        },
+        {
+          "h3": "Validate demand with Amazon's own tools"
+        },
+        {
+          "ol": [
+            "Search Amazon.ae for your keyword in English and Arabic. Note how many results there are, the review counts on page one and the price spread.",
+            "Check the **Best Sellers Rank** of the top 10 listings over a few weeks.",
+            "Once your account is live, use **Product Opportunity Explorer** in Seller Central (where available for your marketplace) to see search volume and trends.",
+            "After you register a brand, use **Brand Analytics** for search term data.",
+            "Use the **Revenue Calculator** on the Amazon.ae FBA calculator page to check fees for your exact size and price [s1]."
+          ]
+        },
+        {
+          "h3": "Red flags"
+        },
+        {
+          "ul": [
+            "Seasonal items (only sell around Ramadan, Eid or back-to-school).",
+            "Fragile glass or ceramics. Breakage drives returns and bad reviews.",
+            "Heavy or oversize items. Anything over 12 kg or 45 × 34 × 26 cm moves into oversize fees [s1].",
+            "Gated or regulated categories (supplements, cosmetics, electronics, children's products).",
+            "Patented or trademarked designs. Search before you copy any shape or name.",
+            "Products where page one is all big brands sold by Amazon."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fulfil",
+      "title": "FBA, Easy Ship or self-fulfilment",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Option",
+              "How it works",
+              "Cost basis",
+              "Best for"
+            ],
+            "rows": [
+              [
+                "FBA (Fulfilment by Amazon)",
+                "You send stock to Amazon's UAE fulfilment centres. Amazon stores, packs, delivers and handles returns and customer service [s1]",
+                "Fulfilment fee per unit from 7.5 AED, plus storage [s1]",
+                "Most beginners. Fast delivery and Prime badge help win the Buy Box"
+              ],
+              [
+                "Easy Ship",
+                "You store and pack. Amazon picks up the parcel and delivers it [s1]",
+                "From 14 AED per shipment, by weight [s1]",
+                "Sellers with their own space, bulky or slow items"
+              ],
+              [
+                "Self-fulfilment (FBM)",
+                "You store, pack and use your own courier",
+                "Your courier rates",
+                "Experienced sellers, special items. Hard to match Amazon's delivery speed"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "**Buy Box** means the \"Add to Cart\" button on a product page. When several sellers offer the same product, Amazon picks one seller to win it based on price, delivery speed and seller performance. FBA usually helps."
+        },
+        {
+          "h3": "Getting stock into Amazon's UAE warehouses"
+        },
+        {
+          "ol": [
+            "Create the listing and choose FBA as the fulfilment channel.",
+            "Create a shipment in **Send to Amazon** in Seller Central. Enter box contents, weights and sizes.",
+            "Label every unit with its Amazon barcode (FNSKU) unless you use manufacturer barcodes and Amazon allows it, and label every box.",
+            "If importing: your importer of record clears customs, pays duty and import VAT, and books delivery to the fulfilment centre. Amazon cannot be your importer [s13][s14].",
+            "Track the shipment until Amazon shows it as received. Check the received quantity matches what you sent."
+          ]
+        },
+        {
+          "h3": "Stock planning basics"
+        },
+        {
+          "ul": [
+            "Aim to hold about 6–10 weeks of stock in FBA. Less risks running out; more risks the long-term storage fee after 270 days [s3].",
+            "Reorder when stock covers your supplier lead time plus shipping plus 2–3 weeks of buffer.",
+            "Before big events (Ramadan, White Friday), send stock early. Warehouses get busy.",
+            "Remove or discount slow stock before it reaches 270 days [s3]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Your first 90 days, week by week",
+      "blocks": [
+        {
+          "h3": "Weeks 1–2: build the listing"
+        },
+        {
+          "ul": [
+            "Title: brand + what it is + key feature + size or quantity. Write an Arabic version too.",
+            "Five bullets that answer real buyer questions: size, material, what is included, how to use, care.",
+            "7+ images: white-background main image, lifestyle shots, size chart, infographic with Arabic and English text.",
+            "Backend search terms: synonyms and Arabic spellings you could not fit in the title.",
+            "Use Amazon's listing guide for UAE for formatting rules."
+          ]
+        },
+        {
+          "h3": "Weeks 2–4: go live"
+        },
+        {
+          "ul": [
+            "Price slightly below the main competitors to win first sales. Do not go below your break-even.",
+            "If your brand is registered, add **A+ Content** and enrol eligible products in **Vine** (Amazon's program that gives free units to trusted reviewers in exchange for honest reviews), if Vine is offered on Amazon.ae for your account.",
+            "Start Sponsored Products ads (see the ads section).",
+            "Add a small coupon to stand out in search results."
+          ]
+        },
+        {
+          "h3": "Weeks 5–8: learn and fix"
+        },
+        {
+          "ul": [
+            "Read every review and every return reason. Fix the listing or the product.",
+            "Add negative keywords to stop spending on searches that do not sell.",
+            "Move winning search terms into exact-match campaigns."
+          ]
+        },
+        {
+          "h3": "Weeks 9–13: steady state"
+        },
+        {
+          "ul": [
+            "Raise the price in small steps as reviews arrive.",
+            "Place your second stock order based on real sales speed.",
+            "Plan your first deal for the next big event."
+          ]
+        },
+        {
+          "table": {
+            "head": [
+              "Checkpoint",
+              "What good looks like"
+            ],
+            "rows": [
+              [
+                "Day 30",
+                "Listing complete in English and Arabic, first 5–10 reviews (Vine or organic), ads running, no account health warnings"
+              ],
+              [
+                "Day 60",
+                "Daily organic sales starting, ad spend below 30–40% of ad sales on main keywords, return rate understood"
+              ],
+              [
+                "Day 90",
+                "Product profitable after ads, second order placed, organic sales at least equal to ad sales"
+              ]
+            ],
+            "note": "These are rules of thumb, not Amazon targets."
+          }
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "Free help from Amazon",
+            "text": "Amazon UAE runs free webinars and events for new sellers [s16]. Seller University videos in Seller Central cover every tool in this guide."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ads",
+      "title": "Advertising on Amazon.ae for beginners",
+      "blocks": [
+        {
+          "h3": "Campaign types"
+        },
+        {
+          "ul": [
+            "**Sponsored Products:** ads for single products in search results and on product pages. Start here.",
+            "**Sponsored Brands:** a banner with your logo and several products, for brand-registered sellers.",
+            "**Sponsored Display:** ads that follow shoppers who viewed your product or similar ones."
+          ]
+        },
+        {
+          "h3": "Key terms"
+        },
+        {
+          "ul": [
+            "**ACoS** (advertising cost of sale) = ad spend ÷ ad sales. Spend 30 AED to get 100 AED of ad sales and your ACoS is 30%.",
+            "**TACoS** (total ACoS) = ad spend ÷ all sales, including organic. It shows if ads are lifting your whole business.",
+            "**CPC** (cost per click): what you pay each time a shopper clicks your ad.",
+            "**Break-even ACoS**: your profit margin before ads. If you keep 35% of the price before ads, an ACoS above 35% loses money."
+          ]
+        },
+        {
+          "h3": "A starter structure"
+        },
+        {
+          "ol": [
+            "**Auto campaign:** Amazon chooses searches. Starter budget around 30 AED a day (an example, not an Amazon rule).",
+            "**Manual exact campaign:** 5–15 main keywords in English and Arabic. Around 20 AED a day.",
+            "**Product targeting campaign:** target competitor products with fewer, weaker reviews. Around 10 AED a day."
+          ]
+        },
+        {
+          "p": "Early on, an ACoS above your break-even is normal while you collect data and reviews. Aim to get below break-even by day 60–90."
+        },
+        {
+          "h3": "Weekly routine"
+        },
+        {
+          "ol": [
+            "Download the search term report.",
+            "Add search terms with clicks but no sales as **negative keywords** (searches you block).",
+            "Move search terms that sell into the exact campaign.",
+            "Lower bids on keywords far above your target ACoS. Raise bids a little on keywords that are profitable.",
+            "Check TACoS against last week."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grow",
+      "title": "Growing after launch",
+      "blocks": [
+        {
+          "h3": "Reviews, done right"
+        },
+        {
+          "ul": [
+            "Use the **Request a Review** button in Seller Central on each order, or let Amazon's automatic requests work.",
+            "Use **Vine** where available for new products.",
+            "Put a simple, neutral insert in the box with care instructions. Never ask for a positive review or offer anything in return.",
+            "Never buy reviews, swap reviews, or refund buyers in return for reviews. These get accounts suspended."
+          ]
+        },
+        {
+          "h3": "Brand Store and A+"
+        },
+        {
+          "p": "Once you are in Brand Registry [s15], build a **Brand Store** (a free multi-page shop on Amazon) and add A+ Content to every product. Send all your social media and influencer traffic to the Brand Store."
+        },
+        {
+          "h3": "UAE sales calendar"
+        },
+        {
+          "table": {
+            "head": [
+              "Event",
+              "When (check each year)",
+              "What to do"
+            ],
+            "rows": [
+              [
+                "Ramadan",
+                "Moves about 11 days earlier each year (Islamic calendar)",
+                "Home, kitchen, gifting, fashion and food demand rises. Stock up 6–8 weeks before"
+              ],
+              [
+                "Eid al-Fitr and Eid al-Adha",
+                "Islamic calendar",
+                "Gifts, clothing, toys. Run coupons the week before"
+              ],
+              [
+                "Prime Day",
+                "Announced by Amazon each year",
+                "Apply for deals in Seller Central weeks ahead"
+              ],
+              [
+                "11.11 and White Friday (the region's Black Friday)",
+                "November",
+                "The biggest sales period of the year in the region. Plan deals and stock from September"
+              ],
+              [
+                "Dubai Shopping Festival",
+                "Winter season",
+                "Local shopping season. Good for coupons and Sponsored Brands"
+              ],
+              [
+                "Back to school",
+                "Before the school year starts",
+                "Stationery, bags, kids' items"
+              ]
+            ],
+            "note": "Event dates change each year. Check Seller Central's deals and events pages for deadlines."
+          }
+        },
+        {
+          "h3": "Expanding to Saudi Arabia and Egypt"
+        },
+        {
+          "p": "Amazon runs country-specific accounts for the UAE, Saudi Arabia (Amazon.sa) and Egypt (Amazon.eg), and you add them through the **Sell Globally** dashboard in Seller Central [s10]. Each has its own Professional plan fees and its own rules [s10]. Saudi Arabia is usually the natural next step: it is a bigger market, shoppers speak Arabic, and many products sell in both. Before you expand, check Saudi product conformity, labelling and VAT rules separately. They are not the same as the UAE's."
+        },
+        {
+          "h3": "Off-Amazon traffic"
+        },
+        {
+          "p": "Send your Instagram, TikTok and WhatsApp audiences to your Brand Store or product page. Check Seller Central for Brand Referral Bonus availability on Amazon.ae, which rewards brands that bring outside traffic on some Amazon stores."
+        }
+      ]
+    },
+    {
+      "id": "mistakes",
+      "title": "Common beginner mistakes (and how to avoid them)",
+      "blocks": [
+        {
+          "ol": [
+            "**Mismatched registration details.** Names and addresses must match the licence, ID and bank exactly [s4].",
+            "**Opening a second account.** Using the same card, bank or address as another seller account can get both suspended. One business, one account.",
+            "**Ignoring the AED 25 line.** Cheap items pay a much higher share in fixed fees [s1][s7].",
+            "**Sending too much stock.** Stock older than 270 days pays 8 AED per cubic foot long-term storage [s3].",
+            "**No importer of record.** Foreign sellers' FBA shipments get stuck at customs [s13][s14].",
+            "**Assuming Amazon handles VAT.** Non-residents must register for VAT from the first taxable sale [s12].",
+            "**Skipping conformity certificates.** Regulated products can be blocked by customs or removed by Amazon.",
+            "**English-only listings.** You miss Arabic-speaking shoppers and searches.",
+            "**Selling branded goods without authorisation.** Leads to IP complaints and inauthentic-item claims, a fast route to suspension. Keep supplier invoices.",
+            "**Copying a competitor's photos or design.** Infringes copyright or design rights.",
+            "**Review manipulation.** Paying for reviews, review swaps and \"free product for a 5-star review\" break Amazon's rules.",
+            "**Late shipments and cancellations (Easy Ship or FBM).** These hurt account health. Use FBA if you cannot ship on time every day.",
+            "**Not checking account health weekly.** Respond to every warning before the deadline.",
+            "**Running ads with no negative keywords.** Budget leaks into searches that never convert.",
+            "**Using old fee numbers.** Fees changed in August 2025 and January 2026 [s2][s3]. Re-check before every order."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "checklist",
+      "title": "Your do-this-in-order checklist",
+      "blocks": [
+        {
+          "ol": [
+            "Decide your route: UAE company, or international seller with an importer of record [s10][s13].",
+            "If setting up a company: get written confirmation that your licence activity allows online selling to UAE buyers.",
+            "Speak to a UAE tax agent about VAT and corporate tax [s11][s12].",
+            "Gather documents: Emirates ID, trade licence or power of attorney, fresh proof of address, bank account [s4][s6].",
+            "Register on Amazon.ae on the Professional plan while the fee waiver lasts [s1][s8].",
+            "Pass identity verification.",
+            "Register for VAT if required (residents over AED 375,000; non-residents from the first taxable sale) [s11][s12].",
+            "Shortlist 3–5 product ideas that sell above AED 25 and pack under 1 kg [s1].",
+            "Check gating and UAE conformity rules for each.",
+            "Run every idea through the Amazon.ae Revenue Calculator [s1].",
+            "Order samples from at least three suppliers.",
+            "File your trademark with the UAE Ministry of Economy (or your home country).",
+            "Order your first batch, small (about 2–3 months of expected sales).",
+            "Book your importer of record and freight if importing [s13].",
+            "Create the listing in English and Arabic, with 7+ images.",
+            "Create your FBA shipment and label units and boxes.",
+            "Enrol in Brand Registry once your trademark is filed or registered [s15].",
+            "Add A+ Content and enrol in Vine if available.",
+            "Launch Sponsored Products: auto, exact and product-targeting campaigns.",
+            "Run the weekly ads routine and add negative keywords.",
+            "Request reviews the right way. Never pay for them.",
+            "Check account health and stock levels every week.",
+            "Plan deals for Ramadan, Eid, Prime Day and White Friday.",
+            "Once profitable, expand to Amazon.sa through Sell Globally [s10]."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do I need a trade licence to sell on Amazon UAE?",
+      "a": "If you register as a UAE business, Amazon asks for a trade licence (or commercial registration) and an Emirates ID. Amazon also says sellers based outside the region may not need a local company to sell in the UAE, but then you need an importer of record for FBA stock. Confirm the rules for your licence type before you pay for one."
+    },
+    {
+      "q": "Can I sell on Amazon.ae from India without a UAE company?",
+      "a": "Yes, through Amazon's Sell Globally route, but plan for the extra pieces: a UAE importer of record to clear your FBA shipments, UAE VAT registration from your first taxable sale as a non-resident, and payouts to an eligible bank account. Many Indian sellers start this way and set up a UAE company later."
+    },
+    {
+      "q": "How much does it cost to sell on Amazon UAE per month?",
+      "a": "The Professional plan's monthly fee has been waived for a limited time, so the main costs are per sale: a referral fee (most categories 4.5% to 15%) plus FBA fees from 7.5 AED per unit, and storage at 2 AED per cubic foot per month. Ads, product cost and VAT come on top."
+    },
+    {
+      "q": "What is the Amazon UAE referral fee for home and kitchen?",
+      "a": "Home and Kitchen are both 15% of the total sale price on Amazon.ae, with a 1 AED minimum for Home. Toys and Sports are 14%. Check your exact category in Seller Central, because some categories have price-based tiers."
+    },
+    {
+      "q": "Is FBA worth it in the UAE?",
+      "a": "For most beginners, yes. FBA fees start at 7.5 AED per unit, and Amazon handles delivery, returns and customer service, which helps you win the Buy Box. Easy Ship, where Amazon collects parcels from you, starts at 14 AED per shipment and suits bulky or slow items."
+    },
+    {
+      "q": "Do I have to register for VAT before selling on Amazon.ae?",
+      "a": "UAE residents must register once taxable supplies pass AED 375,000 in 12 months (or are expected to in the next 30 days), and can register voluntarily from AED 187,500. Non-residents must register if they make any taxable supplies in the UAE, so in practice from the first sale. Confirm with the FTA or a tax agent."
+    },
+    {
+      "q": "How long does Amazon UAE account verification take?",
+      "a": "It ranges from a day or two to several weeks. Most delays come from blurry scans, expired licences, names that don't match, or proof of address older than 3 months."
+    },
+    {
+      "q": "Can a free zone company sell on Amazon.ae?",
+      "a": "It depends on the free zone and the licence activity. Some free zone licences are set up for e-commerce, others limit trade with mainland customers. Get written confirmation from the licence issuer that your activity covers online selling to UAE consumers."
+    },
+    {
+      "q": "Can I use one account for Amazon UAE, Saudi Arabia and Egypt?",
+      "a": "You manage them from Seller Central, but Amazon treats the UAE, Saudi Arabia and Egypt as country-specific accounts that you add through the Sell Globally dashboard, each with its own plan fees and rules. Check product compliance and VAT separately in each country."
+    },
+    {
+      "q": "What is the long-term storage fee on Amazon.ae?",
+      "a": "Since 15 January 2026, stock held in UAE fulfilment centres more than 270 and under 365 days pays 8 AED per cubic foot, on top of the normal 2 AED per cubic foot per month. A separate fee applies after 365 days. Send smaller shipments more often to avoid it."
+    },
+    {
+      "q": "Do I need Arabic on my listing and packaging?",
+      "a": "An Arabic version of your listing helps you reach Arabic-speaking shoppers and searches. Many regulated products, such as food and cosmetics, also need Arabic on the label. Check the labelling rules for your category before you print packaging."
+    },
+    {
+      "q": "How do I get Brand Registry in the UAE?",
+      "a": "You need a trademark, registered or in some cases pending, in a country Amazon accepts. UAE trademarks are filed with the Ministry of Economy. Then apply through Brand Registry in Seller Central to unlock A+ Content, a Brand Store, brand ads and better protection."
+    },
+    {
+      "q": "What gets an Amazon UAE seller account suspended?",
+      "a": "The usual causes are duplicate accounts, review manipulation, selling counterfeit or unauthorised branded goods, poor delivery performance, and ignoring account health warnings. Keep supplier invoices and compliance documents for every product."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "FBA Calculator and pricing (Amazon.ae fees)",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/pricing",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s2",
+      "title": "Updated fees take effect on August 1, 2025",
+      "publisher": "Amazon Seller Central UAE forums",
+      "url": "https://sellercentral.amazon.ae/seller-forums/discussions/t/67b29708-3987-4ec7-bfe7-5aff83026555",
+      "date": "2025-07"
+    },
+    {
+      "id": "s3",
+      "title": "Update to UAE long-term storage fees as of Jan 15",
+      "publisher": "Amazon Seller Central UAE forums",
+      "url": "https://sellercentral.amazon.ae/seller-forums/discussions/t/ded91abf-3628-488d-8366-ae0dd6764eb2",
+      "date": "2025-12"
+    },
+    {
+      "id": "s4",
+      "title": "How to Sell on Amazon UAE: A Complete Beginner's Guide",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/beginners-guide",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s5",
+      "title": "How and What to Sell on Amazon in UAE",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/sell",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s6",
+      "title": "How to Sell on Amazon UAE: Learn to Become Amazon Seller",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/learn",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s7",
+      "title": "How to Sell on Amazon.ae 2026: Setup, Fees, FBA",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/how-to-sell-on-amazon-ae/",
+      "date": "2026"
+    },
+    {
+      "id": "s8",
+      "title": "Amazon.ae Seller Fees 2026: What You Pay in AED",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/amazon-ae-seller-fees/",
+      "date": "2026-09"
+    },
+    {
+      "id": "s9",
+      "title": "Items sold by third-party sellers that are fulfilled by Amazon from outside the UAE: Terms and Conditions",
+      "publisher": "Amazon.ae Customer Service",
+      "url": "https://www.amazon.ae/gp/help/customer/display.html?nodeId=GH9K5JWN3ADFZV45",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s10",
+      "title": "Expand to the Middle East (United Arab Emirates (UAE) and Saudi Arabia)",
+      "publisher": "Amazon Global Selling",
+      "url": "https://sell.amazon.com/global-selling/middle-east",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s11",
+      "title": "Registration for VAT",
+      "publisher": "Federal Tax Authority (UAE)",
+      "url": "https://tax.gov.ae/en/taxes/Vat/vat.topics/registration.for.vat.aspx",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s12",
+      "title": "E-Commerce VAT Guide (VATGEC1)",
+      "publisher": "Federal Tax Authority (UAE)",
+      "url": "https://tax.gov.ae/DownloadOpenTextFile?fileUrl=en%2FVAT_VAT_Guides%2FE_Commerce%2FE_Commerce_VAT+Guide_EN_09_08_2020_EN.pdf",
+      "date": "2020-08"
+    },
+    {
+      "id": "s13",
+      "title": "Send Inventory to Amazon.ae FBA 2026: India and UAE",
+      "publisher": "Blooprint",
+      "url": "https://blooprint.in/blog/send-inventory-to-amazon-ae-fba/",
+      "date": "2026"
+    },
+    {
+      "id": "s14",
+      "title": "How to Sell on Amazon UAE (2026): FBA Setup, Customs, Fees & Tax",
+      "publisher": "Business Dubai",
+      "url": "https://www.businessdubai.ae/blogs/amazon-fba-business-dubai",
+      "date": "2026"
+    },
+    {
+      "id": "s15",
+      "title": "Amazon Brand Registry UAE",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/brand-registry",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s16",
+      "title": "Learn about Selling on Amazon UAE (webinars and events)",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.ae/webinars-and-events",
+      "date": "accessed 2026-11-25"
+    }
+  ]
+}

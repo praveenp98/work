@@ -19,6 +19,9 @@ export interface SellGuide {
   sections: SellSection[]; faq: { q: string; a: string }[]; sources: SellSource[];
 }
 
+/** Guides go live (pages, sitemap, llms.txt, footer) only after the fact-check pass. */
+export const SELL_PUBLISHED = false;
+
 /** Order on the hub and in navigation. */
 export const SELL_ORDER = ["us", "uk", "de", "ca", "in", "au", "jp", "ae"] as const;
 

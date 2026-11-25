@@ -1,3 +1,4 @@
+import { marketOf, seasonLine } from "./season";
 import { targetFor } from "./rules/settings";
 import { reversePlan, undoInAmazon } from "./undo";
 import { sortFindings } from "./rules/types";
@@ -177,12 +178,7 @@ export async function revertChanges(store: Store, ws: Workspace, ids: string[]) 
   return hit;
 }
 
-const BFCM = [
-  { until: "2026-11-25", text: "Black Friday is Nov 27. Add negatives and harvest winners this week so peak budget goes to buyers." },
-  { until: "2026-11-30", text: "Peak week: check budgets 3–4× a day on Black Friday (Nov 27) and Cyber Monday (Nov 30)." },
-  { until: "2026-12-05", text: "Post-mortem time: run a search term report for Nov 19–30 and pull bids back toward normal." },
-  { until: "2026-12-20", text: "Gifting season: keep winners funded through mid-December; watch stock cover." },
-];
+// Seasonal line: lib/season.ts (per marketplace, every year).
 
 /** Everything Rocco knows, distilled into today's to-do list. */
 export async function buildBrief(store: Store, ws: Workspace, now = new Date()) {
@@ -216,8 +212,7 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
     });
     return { brand, settings: brandSettings(ws, brand), trends, open, hidden, hiddenValue, openValue: open.reduce((t, p) => t + p.valueMonthly, 0), stale };
   });
-  const iso = now.toISOString().slice(0, 10);
-  const season = BFCM.find((b) => iso <= b.until)?.text ?? null;
+  const season = seasonLine(marketOf(ws.amazon?.accounts?.[0]?.country), now);
   return { due, recentResults, saved, savedMeasured: sv.measured, savedEstimated: sv.estimated, perBrand, season, totals: { applied: actions.length, worked: actions.filter((a) => a.status === "worked").length } };
 }
 

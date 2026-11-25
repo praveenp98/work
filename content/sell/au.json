@@ -1,0 +1,1398 @@
+{
+  "slug": "au",
+  "marketplace": "Amazon.com.au",
+  "country": "Australia",
+  "flag": "🇦🇺",
+  "currency": "AUD",
+  "updated": "2026-11-25",
+  "title": "How to start selling on Amazon Australia in 2026: the complete beginner's guide",
+  "description": "Sell on Amazon.com.au in 2026: A$49.95 plan, June 2026 FBA fee cuts, GST and the A$75,000 threshold, ACCC safety rules, and your first 90 days.",
+  "tldr": [
+    "Amazon Australia's sales hit A$4.77 billion in 2025, up from A$3.81 billion, and seller-fee revenue rose to A$1.14 billion [s12][s11].",
+    "Choose the Professional plan (A$49.95/month excl. GST); the Individual plan (A$0.99/item) can't advertise [s1].",
+    "Referral fees are mostly 6–15% with no minimum; Amazon cut selected FBA fees from 10 June 2026, with lower fees for items under A$13 [s1].",
+    "Register for GST once turnover reaches A$75,000; Amazon collects 10% GST on imported items worth A$1,000 or less shipped from overseas [s22][s18][s23].",
+    "Overseas sellers who keep stock in Australia can't use simplified GST registration; plan for standard registration with an ABN [s21][s20].",
+    "Consignments over A$1,000 need an import declaration, plus processing and biosecurity charges, duty and import GST [s24][s25][s26].",
+    "Avoid button batteries, magnets and mains-powered items for a first product: mandatory standards and EESS rules apply, and the ACCC is enforcing them on marketplaces [s28][s29][s37].",
+    "Australian Consumer Law guarantees can't be excluded: no 'no refunds' terms [s33][s34]."
+  ],
+  "sections": [
+    {
+      "id": "state",
+      "title": "Where Amazon Australia stands in 2026",
+      "blocks": [
+        {
+          "p": "Amazon.com.au is still a young marketplace compared with Amazon.com or Amazon.co.uk, but it is growing fast. Amazon's Australian filings for calendar 2025 show total sales of **A$4.77 billion**, up from A$3.81 billion in 2024 [s12]. Amazon's own direct product sales on the Australian site reached A$2.33 billion, up 20% year on year [s11]."
+        },
+        {
+          "p": "The part that matters most to you is the money Amazon earns from independent sellers. Revenue from **third-party seller services** (the fees sellers like you pay) reached **A$1.14 billion** in 2025, up from A$839 million [s11][s12]. A third-party seller is any business that lists its own products on Amazon, as opposed to Amazon selling stock it bought itself. Fast growth in that line means more sellers, more orders, or both."
+        },
+        {
+          "table": {
+            "head": [
+              "Amazon Australia, 2025",
+              "Amount",
+              "Source"
+            ],
+            "rows": [
+              [
+                "Total sales",
+                "A$4.77 billion (2024: A$3.81 billion)",
+                "[s12]"
+              ],
+              [
+                "Amazon's own product sales",
+                "A$2.33 billion (+20%)",
+                "[s11]"
+              ],
+              [
+                "Third-party seller services",
+                "A$1.14 billion (2024: A$839 million)",
+                "[s11][s12]"
+              ],
+              [
+                "Subscriptions (Prime etc.)",
+                "A$632.8 million",
+                "[s11]"
+              ],
+              [
+                "Advertising",
+                "A$392.2 million",
+                "[s11]"
+              ]
+            ],
+            "note": "Figures from Amazon's Australian financial filings as reported by the press in 2026. Advertising grew 58.1% to A$242 million in 2024 [s13]."
+          }
+        },
+        {
+          "h3": "Competition and advertising costs"
+        },
+        {
+          "p": "Advertising is Amazon Australia's fastest-growing line. It went from A$242 million in 2024, up 58.1% [s13], to A$392.2 million in 2025 [s11]. More advertisers bidding on the same search results usually means higher cost per click over time. Plan your budget on the assumption that ads will get more expensive, not cheaper."
+        },
+        {
+          "p": "Globally, third-party sellers sold about **62% of units and 69% of the value** of goods sold on Amazon in 2025, according to Marketplace Pulse [s14]. The same research found that the number of new sellers joining Amazon worldwide in 2025 was the lowest since it began tracking in 2015, down 44% on 2024 [s14]. Fewer newcomers is good news for you: the field is not getting flooded the way it was in 2020–2021."
+        },
+        {
+          "h3": "AI shopping assistants"
+        },
+        {
+          "p": "In the US, Amazon's AI shopping assistant Rufus was folded into a new assistant called **Alexa for Shopping** in May 2026 [s15]. We could not confirm that Rufus or Alexa for Shopping is live for Amazon.com.au shoppers at the time of writing. Either way, the direction is clear: shoppers increasingly ask questions in plain language and get answers built from your listing text, images, reviews and Q&A. Write listings that answer real questions (size, materials, what is in the box, who it is for), not keyword lists."
+        },
+        {
+          "callout": {
+            "tone": "tip",
+            "title": "What this means for a beginner",
+            "text": "Australia is big enough to build a real business, small enough that many niches still have only a handful of serious sellers, and growing at 20%+ a year [s11][s12]. The catch: ad spend is growing even faster [s13][s11], so your margins must survive paid traffic from day one."
+          }
+        },
+        {
+          "p": "We could not confirm whether Amazon runs a separate low-price storefront (like Haul in the US) on Amazon.com.au. Check the Amazon.com.au homepage and Seller Central news before you plan around one. For category data (what is growing or saturated), use Amazon's own Product Opportunity Explorer once your account is open; it shows search volume and growth by niche for this marketplace."
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "title": "What changed in 2025–2026",
+      "blocks": [
+        {
+          "p": "These are the changes a beginner should know about. Fees and rules change often, so treat this as a starting point and check **Seller Central News** weekly."
+        },
+        {
+          "table": {
+            "head": [
+              "Date",
+              "Change",
+              "What it means for you"
+            ],
+            "rows": [
+              [
+                "10 June 2026",
+                "Amazon cut selected FBA and Multi-Channel Fulfilment (MCF) fees, calling it one of its largest-ever fee reductions. Cuts depend on category, size tier and item price [s1].",
+                "FBA is cheaper than it was in 2025 for many products. Recheck your margins with the current fee table."
+              ],
+              [
+                "10 June 2026",
+                "Lower fulfilment fees for items priced under A$13. Amazon's fee table shows a small envelope at A$3.64 under A$13 (A$3.20 in Home and Kitchen and Pet Products) vs A$4.55 at A$13 or more [s1].",
+                "Low-price items are now more viable on FBA. But the referral fee and ad costs still bite on cheap items."
+              ],
+              [
+                "June 2026",
+                "Amazon said other FBA and MCF fulfilment fees remain unchanged \"at this time\"; its pricing page still lists the Professional plan at A$49.95 a month [s1].",
+                "The headline change was to fulfilment. Still recheck your category's referral fee on the pricing page."
+              ],
+              [
+                "7–13 July 2026",
+                "Prime Day Australia ran for seven days, on separate dates from the US event [s16][s17].",
+                "Prime Day in Australia does not always match the US. Watch for the 2027 dates in Seller Central."
+              ],
+              [
+                "2025–2026",
+                "The ACCC took Amazon Commercial Services to the Federal Court over backpacks allegedly sold without the required button battery warnings. It is the first such case against an online marketplace [s28].",
+                "Product safety is now an enforcement priority on marketplaces [s31]. Expect stricter listing checks and takedowns."
+              ],
+              [
+                "2025–2026",
+                "The ACCC issued takedown requests to Amazon, eBay, Kogan and Fruugo for toys and games with small, dangerous magnets [s32].",
+                "Toys and magnets are high-risk categories for beginners."
+              ],
+              [
+                "September 2025",
+                "ATO updated its guidance for non-resident businesses on how Australian GST works [s22].",
+                "If you are based overseas, the registration choice (simplified vs standard) depends on whether your stock is in Australia. See the Tax section."
+              ],
+              [
+                "2025 (global)",
+                "New seller sign-ups on Amazon worldwide fell 44% vs 2024, the lowest since 2015 [s14].",
+                "Less new competition than in past years."
+              ],
+              [
+                "May 2026 (US)",
+                "Rufus became Alexa for Shopping in the US [s15].",
+                "AI shopping is changing how products get found. Watch for an Australian rollout."
+              ]
+            ],
+            "note": "Check Seller Central News for later changes; this table covers what we could verify as of 25 November 2026."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fit",
+      "title": "Is Amazon Australia right for you?",
+      "blocks": [
+        {
+          "h3": "Who should start here"
+        },
+        {
+          "ul": [
+            "**Australian residents and businesses.** You can open an account with local ID, a local bank account and (for a business) an ABN or ACN [s3]. Your stock, customers and tax office are all in one country.",
+            "**Sellers with a product that suits Australian life**: outdoor, pet, home, baby and similar everyday categories, where you can ship stock into an Amazon warehouse here.",
+            "**Overseas brands that already sell in the US or UK** and want a second, less crowded market. Amazon lets merged accounts list in other stores, with a separate Professional fee of US$39.99 a month split across the countries where you have active listings [s1]."
+          ]
+        },
+        {
+          "h3": "Who should think twice"
+        },
+        {
+          "ul": [
+            "People hoping for US-level volume. Amazon Australia's total sales of A$4.77 billion in 2025 [s12] are a small fraction of Amazon's US business. Niches are smaller, so order fewer units per product.",
+            "Anyone planning to ship small parcels from overseas one at a time. It works, but delivery is slow compared with Prime, and Amazon will collect 10% GST on those sales [s23], which you must price in.",
+            "Sellers of electrical goods, toys for young children, or products with button batteries who are not ready to handle Australian safety rules (see Compliance) [s29][s36]."
+          ]
+        },
+        {
+          "h3": "Selling from outside Australia (India, China, US, UK and elsewhere)"
+        },
+        {
+          "p": "Overseas sellers can register. Amazon asks for a government ID, proof of address, a chargeable credit card, a bank account for payouts and tax information [s2][s3]. Amazon accepts Visa, Mastercard or Amex credit or debit cards that can be charged internationally; prepaid cards, gift certificates and services like PayPal are not accepted [s3][s4]. Amazon pays your sales proceeds into a bank account [s1], so you need an account that can receive Australian-dollar payouts in a country Amazon supports. Check the deposit-method list during sign-up."
+        },
+        {
+          "p": "There are two models for overseas sellers:"
+        },
+        {
+          "ul": [
+            "**Ship from overseas to each customer.** Goods worth A$1,000 or less are \"low value imported goods\", and Amazon calculates, collects and pays the 10% GST to the ATO [s23][s18]. Simple, but slow delivery hurts conversion.",
+            "**Ship stock into Australia first (FBA or a local warehouse).** Delivery is fast and you can get the Prime badge. But because the goods are already in Australia when sold, the sale is not a low-value import: you have your own GST obligation and the ATO says you cannot use simplified GST registration [s21]. Most overseas sellers in this model use standard GST registration with an ABN, and often an Australian registered tax agent [s20]."
+          ]
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Don't skip the tax step",
+            "text": "If you warehouse stock in Australia and your GST turnover reaches A$75,000 a year, you must register for GST [s22]. Get advice before you ship your first container, not after."
+          }
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "title": "Opening your seller account",
+      "blocks": [
+        {
+          "h3": "Choose a plan"
+        },
+        {
+          "table": {
+            "head": [
+              "Plan",
+              "Price (excl. GST)",
+              "Best for",
+              "Limits"
+            ],
+            "rows": [
+              [
+                "Individual",
+                "A$0.99 per item sold, plus other selling fees [s1]",
+                "Testing, fewer than 50 items a month [s1][s2]",
+                "No advertising, no promotions, no bulk listing, single user, can't apply to sell in additional categories [s2]"
+              ],
+              [
+                "Professional",
+                "A$49.95 per month while you have active listings, any number of units [s1]",
+                "Anyone launching a brand",
+                "None of the above limits; needed for ads, coupons and most growth tools [s1]"
+              ]
+            ],
+            "note": "Referral fees apply on both plans [s1]. If you later expand to other Amazon stores through merged accounts, a separate US$39.99/month Professional fee is split across those countries [s1]."
+          }
+        },
+        {
+          "p": "If you plan to run ads (and you should), choose **Professional**. You can't advertise on the Individual plan [s1], and at 51 items a month the Individual per-item fee already costs more than the flat A$49.95 (51 × A$0.99 = A$50.49) [s1]."
+        },
+        {
+          "h3": "Documents you need"
+        },
+        {
+          "ul": [
+            "A **government-issued photo ID** such as a passport or national ID [s2][s3].",
+            "**Proof of address**: a bank statement, credit card statement, payment provider statement, certified bank letter, utility bill or lease. Amazon's guide asks for one dated within the last 180 days [s3][s4].",
+            "A **phone number** and email address [s2].",
+            "A **chargeable credit or debit card** (Visa, Mastercard or Amex; not prepaid) [s3][s4].",
+            "A **bank account** for payouts [s2][s3].",
+            "**Tax information** [s2]. For a business, your company registration number, which can be your Australian Business Number (ABN) or Australian Company Number (ACN) [s3].",
+            "Names on every document should match exactly, including business name and address."
+          ]
+        },
+        {
+          "h3": "Identity verification and the video call"
+        },
+        {
+          "p": "Amazon runs **Seller Identity Verification** before your account goes live [s4]. You choose either **Instant Identity Verification** (a photo of your face and your ID) or a **video call** with an Amazon associate [s3][s4]. On the call you show the **original** documents you uploaded at registration, including your ID and your bank or card statement [s4]; copies or different documents are not accepted [s5]. Sellers on the Australian forums report long waits to connect; if a call fails you can book a new one, and if your account stays deactivated after the call, contact Seller Support or Account Health [s5]."
+        },
+        {
+          "h3": "Typical timeline"
+        },
+        {
+          "p": "Amazon says you can often finish registration in a few hours, and identity verification usually takes **four business days or less** [s3]. Allow longer if a document is rejected or you wait for a video-call slot. Amazon may also ask for extra documents later, depending on where you want to sell [s3]."
+        },
+        {
+          "h3": "Common reasons for delay or rejection"
+        },
+        {
+          "ul": [
+            "Name or address on the ID doesn't match the name or address typed in the form.",
+            "Proof of address is older than allowed [s4] or is a screenshot instead of a full statement.",
+            "Using a prepaid card, gift card or PayPal as your payment method [s3].",
+            "Bringing different documents (or copies) to the video call [s5].",
+            "Opening a second account without meeting Amazon's conditions [s3], or being linked to a previously suspended account (shared card, bank, address or device)."
+          ]
+        },
+        {
+          "h3": "Pre-flight checklist"
+        },
+        {
+          "ol": [
+            "Decide: sole trader or company. Get an ABN (Australian residents) or decide on your GST registration route (overseas).",
+            "Scan your passport or ID in colour, all four corners visible.",
+            "Download a recent bank or card statement showing your name and address [s4].",
+            "Confirm your credit or debit card works for international charges [s3].",
+            "Open the payout bank account in the exact legal name you will register with.",
+            "Use one device and one internet connection you will keep using.",
+            "Keep the originals beside you for the video call [s5]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "title": "Every cost, in tables",
+      "blocks": [
+        {
+          "p": "All Amazon fees below are quoted excluding GST unless stated. Fees change; always confirm in Seller Central or with Amazon's Revenue Calculator before you order stock."
+        },
+        {
+          "h3": "Subscription"
+        },
+        {
+          "table": {
+            "head": [
+              "Fee",
+              "Amount"
+            ],
+            "rows": [
+              [
+                "Professional plan",
+                "A$49.95/month [s1]"
+              ],
+              [
+                "Individual plan",
+                "A$0.99 per item sold [s1]"
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Referral fees (Amazon's commission on each sale)"
+        },
+        {
+          "p": "A **referral fee** is a percentage of the total sale price that Amazon keeps. Most are between 6% and 15% depending on category. It is calculated on the total sales price, including delivery and gift wrapping, and Amazon Australia has no minimum or maximum referral fee [s1]. Some categories use a split rate based on price."
+        },
+        {
+          "table": {
+            "head": [
+              "Category",
+              "Referral fee"
+            ],
+            "rows": [
+              [
+                "Baby Products",
+                "8% if total price is A$20 or less; 11% above A$20 [s1]"
+              ],
+              [
+                "Beauty, Health and Personal Care",
+                "8% if A$20 or less; 13% above A$20 [s1]"
+              ],
+              [
+                "Clothing & Accessories",
+                "10% if A$20 or less; 13% above A$20 [s1]"
+              ],
+              [
+                "Pet Products",
+                "10% if A$20 or less; 13% above A$20 [s1]"
+              ],
+              [
+                "Tools & Home Improvement",
+                "10% if A$20 or less; 13% above A$20 [s1]"
+              ],
+              [
+                "Home and Kitchen",
+                "13% [s1]"
+              ],
+              [
+                "Toys & Games",
+                "12% [s1]"
+              ],
+              [
+                "Sports and Outdoors",
+                "13% on the portion up to A$200; 12% above [s1]"
+              ],
+              [
+                "Consumer Electronics",
+                "8% [s1]"
+              ],
+              [
+                "Electronics Accessories",
+                "13.5% [s1]"
+              ],
+              [
+                "Office Products",
+                "13% [s1]"
+              ],
+              [
+                "Automotive and Powersports",
+                "10.5% [s1]"
+              ],
+              [
+                "Everything else",
+                "15% [s1]"
+              ]
+            ],
+            "note": "From Amazon's Australian pricing page, November 2026. Media items (books, DVDs, music, software, video games) also pay a A$1.00 closing fee per item, and some categories need Amazon's approval before you list [s1]. Check the current table for your exact category before you calculate margin."
+          }
+        },
+        {
+          "h3": "FBA fulfilment fees"
+        },
+        {
+          "p": "**FBA (Fulfilment by Amazon)** means Amazon stores your stock, packs each order, delivers it and handles customer service and returns. You pay a fulfilment fee per unit, set by size tier, weight and (since 10 June 2026) item price and fee category [s1]."
+        },
+        {
+          "table": {
+            "head": [
+              "Example",
+              "Item price",
+              "Fee per unit"
+            ],
+            "rows": [
+              [
+                "Small envelope (up to 20 × 15 × 1 cm, 75 g)",
+                "Under A$13, Home and Kitchen or Pet Products",
+                "A$3.20 [s1]"
+              ],
+              [
+                "Small envelope (up to 20 × 15 × 1 cm, 75 g)",
+                "Under A$13, other categories",
+                "A$3.64 [s1]"
+              ],
+              [
+                "Small envelope (up to 20 × 15 × 1 cm, 75 g)",
+                "A$13 or more",
+                "A$4.55 [s1]"
+              ],
+              [
+                "Parcel, 501–1,000 g",
+                "Under A$13, Home and Kitchen or Pet Products",
+                "A$4.36 [s1]"
+              ],
+              [
+                "Parcel, 501–1,000 g",
+                "A$20 or more, any category",
+                "A$7.24 [s1]"
+              ]
+            ],
+            "note": "From Amazon's FBA fee table on its Australian pricing page (fees from 10 June 2026, excl. GST). Parcel weight is the greater of actual and dimensional weight (L × W × H in cm ÷ 4,000). Look up your exact size tier and fee category in Seller Central's fee preview [s1]."
+          }
+        },
+        {
+          "h3": "Storage fees"
+        },
+        {
+          "table": {
+            "head": [
+              "Fee",
+              "January–September",
+              "October–December"
+            ],
+            "rows": [
+              [
+                "Monthly storage, standard size",
+                "A$37.00 per cubic metre",
+                "A$51.80 per cubic metre"
+              ],
+              [
+                "Monthly storage, oversize",
+                "A$34.20 per cubic metre",
+                "A$48.00 per cubic metre"
+              ]
+            ],
+            "note": "From Amazon's Australian pricing page; charged on the daily average volume your stock takes up [s1]."
+          }
+        },
+        {
+          "table": {
+            "head": [
+              "Aged inventory surcharge (stock stored too long)",
+              "Rate"
+            ],
+            "rows": [
+              [
+                "271–300 days",
+                "A$155 per cubic metre [s1]"
+              ],
+              [
+                "301–330 days",
+                "A$175 per cubic metre [s1]"
+              ],
+              [
+                "331–365 days",
+                "A$185 per cubic metre [s1]"
+              ],
+              [
+                "366 days or more",
+                "A$370 per cubic metre or A$0.12 per unit, whichever is greater [s1]"
+              ]
+            ],
+            "note": "Assessed on the 15th of each month, separately from monthly storage [s1]. The lesson: don't send more than about 3–4 months of stock."
+          }
+        },
+        {
+          "h3": "Other fees to look up"
+        },
+        {
+          "p": "Amazon Australia may charge other fees such as inbound placement, low-inventory, returns processing, removal and disposal, and a refund administration fee. We could not verify current Australian amounts for these, so look them up on the FBA fee pages in Seller Central before you build your price."
+        },
+        {
+          "h3": "Example: what Amazon keeps on one sale"
+        },
+        {
+          "p": "**Example only.** A baby product sells for A$25 and fits in a small envelope. Referral fee: 11% (price above A$20) = A$2.75 [s1]. FBA fee: A$4.55 (price A$13 or more) [s1]. Total Amazon fees = **A$7.30**, or 29% of the price, before storage, ads, product cost and shipping to Amazon."
+        },
+        {
+          "h3": "Example starting budget"
+        },
+        {
+          "p": "**Example only, your numbers will differ.** These amounts are our illustration, not Amazon figures, apart from the plan fee."
+        },
+        {
+          "table": {
+            "head": [
+              "Item",
+              "Example amount"
+            ],
+            "rows": [
+              [
+                "Professional plan, first 3 months",
+                "A$149.85 (3 × A$49.95) [s1]"
+              ],
+              [
+                "Samples from 3 suppliers",
+                "A$150–300"
+              ],
+              [
+                "First order, 300 units at A$6 landed",
+                "A$1,800"
+              ],
+              [
+                "Freight, customs broker, duty and import GST",
+                "Depends on value; consignments over A$1,000 need an import declaration and charges [s24][s25][s26]"
+              ],
+              [
+                "Photos and simple infographics",
+                "A$300–800"
+              ],
+              [
+                "Barcodes, labels, packaging",
+                "A$100–300"
+              ],
+              [
+                "Ads, first 60 days (A$20/day)",
+                "A$1,200"
+              ],
+              [
+                "Buffer for surprises",
+                "A$500"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax",
+      "title": "Tax and legal",
+      "blocks": [
+        {
+          "p": "This section is general information, not tax advice. Rules are set by the **Australian Taxation Office (ATO)**; use their pages or an Australian registered tax agent for your situation."
+        },
+        {
+          "h3": "GST basics"
+        },
+        {
+          "p": "**GST (Goods and Services Tax)** is Australia's 10% consumption tax. You must register for GST when your current or projected GST turnover reaches **A$75,000** a year (A$150,000 for non-profits) [s22][s40]. Below that, registration is optional. Once registered, you charge GST on Australian sales, lodge activity statements, and can usually claim back GST you paid on business costs, including GST paid at the border on imports [s20][s27]."
+        },
+        {
+          "h3": "Low-value imported goods: when Amazon collects GST"
+        },
+        {
+          "p": "Goods with a customs value of **A$1,000 or less** (except tobacco and alcohol) that are shipped from overseas to Australian consumers are \"low value imported goods\" [s18]. When these are sold through an **electronic distribution platform** like Amazon, the platform operator is generally treated as the supplier and is responsible for the GST [s18]. Amazon confirms it calculates, collects and remits 10% GST on low value imported goods sold by third-party sellers and shipped from overseas, applied per item even if the order total is above A$1,000 [s23]. Those sales don't count towards your own GST turnover [s18]."
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "FBA stock is not a low-value import",
+            "text": "Once your goods are in an Australian warehouse, the sale happens in Australia. The ATO says a non-resident who imports goods, warehouses them here and then sells online has its own GST obligation for those sales and cannot use simplified registration [s21]."
+          }
+        },
+        {
+          "h3": "Registration options for overseas sellers"
+        },
+        {
+          "table": {
+            "head": [
+              "Option",
+              "How it works",
+              "Who it suits"
+            ],
+            "rows": [
+              [
+                "Simplified GST registration",
+                "Uses an ATO reference number (ARN), no ABN. Quarterly returns, pay electronically. You can't issue tax invoices or claim GST credits [s19].",
+                "Sellers of imported services, digital products or low value imported goods only [s19]"
+              ],
+              [
+                "Standard GST registration",
+                "Apply for an ABN through the Australian Business Register. You can issue tax invoices and claim GST credits, including on import GST. You may need an Australian registered tax agent [s20].",
+                "Overseas sellers who keep stock in Australia [s21][s20]"
+              ]
+            ],
+            "note": "You can switch between the two but not hold both at once [s19][s20]. A non-resident physically present in Australia for more than 183 days in 12 months may have other obligations [s22]."
+          }
+        },
+        {
+          "h3": "Australian residents"
+        },
+        {
+          "ul": [
+            "Get an **ABN** (free via the Australian Business Register). Amazon accepts an ABN or ACN as your business registration number [s3], and the Amazon Business program asks for an ABN or a Statement by a Supplier form [s39].",
+            "Register for GST once you reach or expect to reach A$75,000 in GST turnover [s40]. Many sellers register earlier so they can claim GST on imports and fees.",
+            "Amazon can't produce a GST tax invoice for third-party sellers who are not registered for GST [s23], which may matter to business buyers."
+          ]
+        },
+        {
+          "h3": "Customs and importing your stock"
+        },
+        {
+          "p": "When you ship stock into Australia (for example, from China or India to an FBA warehouse), you are the importer:"
+        },
+        {
+          "ul": [
+            "Consignments over **A$1,000** need a full **Import Declaration**, and all duties, taxes and charges must be paid before the goods are released [s24].",
+            "**Import processing charge** examples: A$90 for a documentary declaration on A$1,000–A$10,000 consignments; A$152 electronic and A$192 documentary at A$10,000 or more [s25].",
+            "A separate **biosecurity charge** applies to full import declarations: A$48 by air, A$71 by sea [s26].",
+            "**Customs duty** depends on your product's tariff classification; there is no single rate [s24].",
+            "**Import GST** is 10% of the value of the taxable importation, which includes customs value, duty, and transport and insurance to Australia [s27].",
+            "Most beginners use a licensed customs broker or a freight forwarder who handles the declaration."
+          ]
+        },
+        {
+          "h3": "Income tax"
+        },
+        {
+          "p": "Profit from selling is taxable income. Australian residents report it through their sole trader or company tax return. Overseas sellers are generally taxed at home but should check their country's tax treaty with Australia. Keep every invoice, freight bill and Amazon settlement report."
+        },
+        {
+          "h3": "When to get an accountant"
+        },
+        {
+          "ul": [
+            "Before your first import if you are overseas and plan to use FBA.",
+            "When you approach A$75,000 in turnover [s22].",
+            "When you choose between sole trader and company.",
+            "If you sell in more than one country."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "title": "Product compliance and restrictions",
+      "blocks": [
+        {
+          "p": "Australia enforces product safety hard, and online marketplaces are a stated ACCC priority [s31]. The **ACCC (Australian Competition and Consumer Commission)** runs product safety through productsafety.gov.au. Its view is that safety rules apply to marketplaces that possess or control goods, just as they apply to other suppliers [s28]. As the seller, you are responsible for your product being legal."
+        },
+        {
+          "h3": "Gated and restricted categories"
+        },
+        {
+          "p": "Some categories and products need Amazon's approval before you can list them (\"gated\"), and some are banned. The list changes; check **Add a Product** in Seller Central, which tells you if approval is needed. Beginners should avoid gated categories for a first product."
+        },
+        {
+          "h3": "Mandatory standards: button batteries"
+        },
+        {
+          "p": "Australia has **four mandatory standards** for button and coin batteries and products that contain them: two safety standards (batteries must be secured so children can't easily remove them, plus testing) and two information standards (warnings on packaging and instructions) [s29][s30]. Online listings must also show a visible, prominent, legible warning [s30]. The ACCC's first Federal Court case against an online marketplace over mandatory standards concerned children's backpacks allegedly sold without these warnings [s28]."
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "High-risk products for beginners",
+            "text": "Anything with a button battery, small powerful magnets [s32], children's toys, or mains-powered electrical items. Each has extra rules, testing and enforcement attention."
+          }
+        },
+        {
+          "h3": "Other mandatory standards"
+        },
+        {
+          "p": "There are many more mandatory safety and information standards (for example toys for young children, cots, and other children's products). Before you order, search the ACCC's **Search mandatory standards** tool on productsafety.gov.au for your product type, and ask your supplier for test reports to the Australian standard, not just a CE or US certificate."
+        },
+        {
+          "h3": "Electrical safety: RCM and EESS"
+        },
+        {
+          "p": "Mains-powered electrical goods fall under the **Electrical Equipment Safety System (EESS)** [s36]. Equipment is rated Level 1, 2 or 3 by risk. Level 2 and Level 3 equipment must be registered on the national database, and Level 3 equipment also needs a certificate of conformity [s37]. The **responsible supplier** is whoever makes or imports the goods into Australia, and must also be registered [s37]. Compliant products carry the **RCM (Regulatory Compliance Mark)** [s38]. If you're an overseas seller, you usually need an Australian entity or partner to act as responsible supplier."
+        },
+        {
+          "h3": "Australian Consumer Law: refunds and warranties"
+        },
+        {
+          "ul": [
+            "**Consumer guarantees apply automatically** and can't be removed by your terms [s33][s34].",
+            "**Major failure:** the customer chooses a refund or a replacement [s33].",
+            "**Minor failure:** you can choose to repair, replace or refund [s33].",
+            "Any warranty you offer is **in addition** to these rights, not instead of them [s35].",
+            "You don't have to refund a change of mind under the guarantees [s33] (Amazon's own return policy may still require it).",
+            "Don't write \"no refunds\" or \"manufacturer warranty only\" in listings or inserts. The ACCC has flagged such terms as potentially misleading [s34]."
+          ]
+        },
+        {
+          "h3": "Labelling and language"
+        },
+        {
+          "p": "Use English on packaging, instructions and warnings, and include any warnings a mandatory standard requires [s29]. Make sure product claims (\"organic\", \"waterproof\", \"BPA-free\") are true and you can prove them."
+        },
+        {
+          "h3": "Trademarks and Brand Registry"
+        },
+        {
+          "p": "**Amazon Brand Registry** gives brand owners tools to protect their listings and unlocks features such as A+ Content (rich images and text on the product page), Sponsored Brands ads and a Brand Store. It needs a pending or registered trademark [s3]. You can file an Australian trademark with **IP Australia**. We could not verify IP Australia's current processing times or Amazon's list of accepted trademark offices and programs (such as IP Accelerator) for Australia, so check both before planning your launch. File early: the trademark is usually the slowest step."
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Choosing your first product with data",
+      "blocks": [
+        {
+          "h3": "Criteria that work in Australia"
+        },
+        {
+          "ul": [
+            "**Small and light.** The smallest FBA tier costs A$3.20–A$4.55 per unit [s1]; bulky items cost far more to ship and store, especially from October to December [s1].",
+            "**Selling price around A$25–A$60.** High enough that a 29% fee share (see the Costs example) still leaves room for product cost and ads.",
+            "**Not gated, no batteries, no mains power, not for young children** for your first launch [s29][s32][s37].",
+            "**Year-round demand**, not just Christmas or summer.",
+            "**Room to be better**: competitors with ratings under about 4.3 stars and reviews that repeat the same complaint you can fix."
+          ]
+        },
+        {
+          "h3": "Rule of thumb: the one-third split"
+        },
+        {
+          "p": "A simple target: Amazon fees about one-third of the price, landed product cost about one-third, and the last third for ads, returns and profit. **Example only:** a A$25 baby product with A$7.30 in referral + FBA fees [s1] leaves A$17.70. If landed cost is A$6, you have A$11.70 before storage, ads and returns. Spend A$4 per sale on ads and you keep about A$7.70 a unit, before GST if you are registered."
+        },
+        {
+          "h3": "Validate demand with Amazon's tools"
+        },
+        {
+          "ol": [
+            "**Product Opportunity Explorer** (Seller Central, Professional plan): search volume, growth and the number of top products for a niche on Amazon.com.au.",
+            "**Amazon search bar**: type your product and note the auto-suggestions; these are real shopper phrases.",
+            "**Revenue Calculator**: enter a similar product to see current fees for your size tier.",
+            "Read the 1–3 star reviews of the top 10 products. List every complaint.",
+            "Check the ACCC mandatory standards search for your product type."
+          ]
+        },
+        {
+          "h3": "Red flags"
+        },
+        {
+          "ul": [
+            "Strong seasonality (Christmas-only, summer-only).",
+            "Fragile items (glass, ceramics) that break in transit.",
+            "Gated categories or anything with button batteries, magnets or mains power [s29][s32][s37].",
+            "Products with patents or well-known brands; ask a patent attorney if a design looks unique.",
+            "Heavy or oversize items with high fulfilment and storage costs [s1]."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fulfil",
+      "title": "FBA, FBM and getting stock to Amazon",
+      "blocks": [
+        {
+          "h3": "Your options"
+        },
+        {
+          "table": {
+            "head": [
+              "Option",
+              "How it works",
+              "Pros",
+              "Cons"
+            ],
+            "rows": [
+              [
+                "FBA",
+                "Amazon stores, packs, ships and handles returns",
+                "Prime badge, fast delivery, less admin; fees cut from 10 June 2026 [s1]",
+                "Storage and aged-stock fees [s1]; prep rules"
+              ],
+              [
+                "FBM / MFN (Merchant Fulfilled Network)",
+                "You or your 3PL warehouse ship each order",
+                "No Amazon storage fees; good for bulky or slow items",
+                "You must meet delivery promises; harder to win the Buy Box"
+              ],
+              [
+                "Ship from overseas (FBM)",
+                "You post each order from your home country",
+                "No import step",
+                "Slow; Amazon collects 10% GST on items up to A$1,000 [s23]"
+              ],
+              [
+                "Multi-Channel Fulfilment (MCF)",
+                "Amazon ships your orders from other sales channels using your FBA stock",
+                "One stock pool for your website and Amazon; MCF fees also cut in June 2026 [s1]",
+                "Fees per order"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "The **Buy Box** is the \"Add to Cart\" box on a product page. Most sales go through it, and Amazon favours offers with fast, reliable delivery, which is one reason FBA usually wins for beginners."
+        },
+        {
+          "p": "We could not confirm whether **Seller Fulfilled Prime** (Prime badge on self-shipped orders) is open to new sellers in Australia right now; check the Programs page in Seller Central."
+        },
+        {
+          "h3": "Sending stock in"
+        },
+        {
+          "ol": [
+            "Create a shipment in Seller Central (**Send to Amazon**).",
+            "Label each unit with an FNSKU barcode (Amazon's own barcode) unless your product qualifies for manufacturer barcodes.",
+            "Pack and label cartons exactly as Seller Central instructs.",
+            "Book freight and a customs broker; clear customs and pay duty and import GST before release [s24][s27].",
+            "Deliver to the warehouse Amazon assigns. Check Seller Central for any inbound placement fees for your chosen option."
+          ]
+        },
+        {
+          "h3": "Stock planning basics"
+        },
+        {
+          "ul": [
+            "Send 6–10 weeks of stock at first, not 6 months. Aged surcharges start at 271 days, and standard-size storage costs rise 40% in Oct–Dec (A$37.00 to A$51.80 per cubic metre) [s1].",
+            "Reorder when stock covers lead time (production + shipping + customs + check-in) plus 2–3 weeks.",
+            "Running out kills your ranking, and getting it back costs ad money. Running out is usually worse than storage fees."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Your first 90 days, week by week",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "When",
+              "Do this",
+              "Good looks like"
+            ],
+            "rows": [
+              [
+                "Week 1",
+                "Create the listing: clear title (brand + what it is + key feature + size), 5 benefit-led bullet points, full backend keywords, every attribute filled.",
+                "Listing is live with no errors."
+              ],
+              [
+                "Week 1–2",
+                "Photos: white-background main image, 6+ secondary images (in use, size, what's in box, infographic), a short video if you can.",
+                "Images answer questions before buyers ask."
+              ],
+              [
+                "Week 2",
+                "Send stock to FBA; enrol in Vine if eligible (Brand Registry).",
+                "Stock checked in, offer shows Prime."
+              ],
+              [
+                "Week 2–3",
+                "Launch ads: one automatic Sponsored Products campaign + one manual exact campaign (see Ads).",
+                "First clicks and orders."
+              ],
+              [
+                "Week 3–4",
+                "Price slightly below the main competitor; add a coupon if margin allows (Professional only [s1]).",
+                "Conversion rate (orders ÷ sessions) above your category's typical level."
+              ],
+              [
+                "Day 30",
+                "Add A+ Content (needs Brand Registry). Review the search term report; add negatives.",
+                "First reviews; ads producing sales daily."
+              ],
+              [
+                "Day 31–60",
+                "Move winning search terms to exact campaigns; cut waste; test a second main image.",
+                "Ad cost falling as a share of sales; organic orders appear."
+              ],
+              [
+                "Day 61–90",
+                "Raise price in small steps; plan the reorder; set up Brand Store.",
+                "Organic sales are a growing share; you're profitable after ads, or you know why not."
+              ]
+            ]
+          }
+        },
+        {
+          "callout": {
+            "tone": "warn",
+            "title": "Never buy reviews",
+            "text": "Paying for reviews, giving free products for reviews, or asking friends and family to review gets accounts suspended. Use Vine and Amazon's Request a Review button only."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ads",
+      "title": "Advertising for beginners",
+      "blocks": [
+        {
+          "h3": "Key terms"
+        },
+        {
+          "ul": [
+            "**CPC (cost per click)**: what you pay each time someone clicks your ad.",
+            "**ACoS (advertising cost of sale)**: ad spend ÷ ad sales. A$20 spent for A$80 of ad sales = 25% ACoS.",
+            "**TACoS (total ACoS)**: ad spend ÷ all sales (ads + organic). This shows if ads are lifting your whole business.",
+            "**Break-even ACoS**: your profit margin before ads. In the Costs example (A$11.70 margin on A$25), break-even ACoS is about 47%."
+          ]
+        },
+        {
+          "h3": "Campaign types"
+        },
+        {
+          "ul": [
+            "**Sponsored Products**: ads for a single product in search results and on product pages. Start here.",
+            "**Sponsored Brands**: a banner with your logo and several products. Needs Brand Registry.",
+            "**Sponsored Display**: reach shoppers on and off Amazon who viewed similar products. Leave until later."
+          ]
+        },
+        {
+          "p": "Ads require the Professional plan [s1]. Amazon's Australian ad business grew 58.1% in 2024 [s13] and reached A$392.2 million in 2025 [s11], so expect competition for clicks to keep rising."
+        },
+        {
+          "h3": "Starter structure (example)"
+        },
+        {
+          "ol": [
+            "**Auto campaign**: Amazon picks searches. Example budget A$10/day.",
+            "**Manual exact campaign**: 10–20 keywords you're confident in. Example budget A$10/day.",
+            "After 2 weeks, move search terms that sell from the auto campaign into the exact campaign, and add them as negatives in the auto campaign."
+          ]
+        },
+        {
+          "h3": "Sensible early targets"
+        },
+        {
+          "p": "In the first 30 days, an ACoS above break-even is normal while you collect data and reviews. By day 60–90, aim for ACoS below break-even and a TACoS that falls month by month. Your category's CPCs determine the rest; the Amazon Ads console shows suggested bids for each keyword."
+        },
+        {
+          "h3": "Negative keywords"
+        },
+        {
+          "p": "A **negative keyword** stops your ad showing for a search. Add searches that get clicks but no sales after a reasonable number of clicks, and searches that are clearly irrelevant (wrong size, wrong product, competitor brand names you can't beat)."
+        },
+        {
+          "h3": "Weekly routine"
+        },
+        {
+          "ol": [
+            "Download the search term report.",
+            "Add negatives for wasted spend.",
+            "Move winners to exact match.",
+            "Adjust bids: lower on high-ACoS keywords, raise on profitable ones (small steps).",
+            "Check TACoS and stock cover before raising budgets."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grow",
+      "title": "Growing after launch",
+      "blocks": [
+        {
+          "h3": "Reviews done right"
+        },
+        {
+          "ul": [
+            "**Amazon Vine**: Amazon invites trusted reviewers to get your product free and post honest reviews. Available to Brand Registry sellers; check enrolment fees and limits in Seller Central.",
+            "**Request a Review** button: on each order in Seller Central, sends Amazon's standard review request.",
+            "A good product, honest listing and helpful insert (no review asks tied to rewards) do the rest."
+          ]
+        },
+        {
+          "h3": "Brand Store and A+ Content"
+        },
+        {
+          "p": "With Brand Registry you can build a free multi-page **Brand Store** on Amazon and add **A+ Content** to listings. Both help conversion and give you a page to send outside traffic to."
+        },
+        {
+          "h3": "Events calendar for Australia"
+        },
+        {
+          "table": {
+            "head": [
+              "Event",
+              "When",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Prime Day",
+                "July (2026: 7–13 July) [s16][s17]",
+                "Australia's dates have differed from the US [s17]. Deals are submitted weeks ahead."
+              ],
+              [
+                "End of financial year (EOFY) sales",
+                "June",
+                "Big retail moment in Australia; check Amazon's deals calendar for dates."
+              ],
+              [
+                "Black Friday / Cyber Monday",
+                "Late November",
+                "Check Seller Central for deal submission deadlines."
+              ],
+              [
+                "Christmas and Boxing Day",
+                "December",
+                "Storage fees are higher in Oct–Dec [s1]; ship stock early."
+              ],
+              [
+                "Back to school, Mother's/Father's Day",
+                "Varies",
+                "Useful for gift and kids' categories."
+              ]
+            ],
+            "note": "Only Prime Day dates are confirmed from sources here. Confirm all deal windows and deadlines in Seller Central's Deals page."
+          }
+        },
+        {
+          "h3": "Expanding to other marketplaces"
+        },
+        {
+          "p": "Once you're profitable in Australia, the common next steps are **Amazon.com (US)**, **Amazon.co.uk (UK)**, **Amazon.co.jp (Japan)** and **Amazon.sg (Singapore)**. Merged accounts can list in other Amazon stores, with a separate Professional fee equivalent to US$39.99 a month split across the countries where you have active listings [s1]. Each new country has its own tax registration, product safety rules and fee table, and Amazon may ask for extra documents per country [s3]. Start with one, and treat it like a new launch."
+        },
+        {
+          "h3": "Off-Amazon traffic"
+        },
+        {
+          "p": "Send your own traffic (social media, email, creators) to your Brand Store or listings. Use Amazon's attribution links in the Ads console, where available, to measure what that traffic does."
+        }
+      ]
+    },
+    {
+      "id": "mistakes",
+      "title": "The most common beginner mistakes",
+      "blocks": [
+        {
+          "ol": [
+            "**Ignoring Australian safety standards.** Button batteries, magnets and electrical goods have mandatory rules and active enforcement [s28][s29][s32][s37].",
+            "**Writing \"no refunds\" or \"warranty only\".** Consumer guarantees can't be removed [s33][s34].",
+            "**Using simplified GST registration while holding stock in Australia.** The ATO says that's not available to you [s21].",
+            "**Under-pricing for fees.** Referral plus FBA can be close to 30% of the price (see the Costs example) [s1].",
+            "**Overstocking.** Aged-inventory surcharges start at 271 days, and Q4 storage costs 40% more [s1].",
+            "**Choosing the Individual plan, then wondering why you can't advertise** [s1].",
+            "**Mismatched documents at registration**, or showing copies on the video call [s4][s5].",
+            "**Opening a second account** or sharing cards/bank accounts with a suspended one.",
+            "**Buying or incentivising reviews.** Leads to suspension.",
+            "**Using brand names or images you don't own.** Leads to IP complaints and listing removals; repeat complaints can suspend your account.",
+            "**Unprovable claims** (\"medical grade\", \"organic\", \"100% safe\").",
+            "**Letting FBM orders ship late** or without tracking. Late shipment rates hurt your account health.",
+            "**No trademark before launch.** No Brand Registry means no A+ Content, Vine or brand protection.",
+            "**Ignoring import costs.** Duty, import GST, processing and biosecurity charges add up [s25][s26][s27].",
+            "**Running out of stock in your first 90 days.** Rankings drop and you pay to rebuild them."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "checklist",
+      "title": "Do this, in order",
+      "blocks": [
+        {
+          "ol": [
+            "Decide your structure (sole trader or company) and get an ABN, or choose your GST route if you're overseas [s19][s20].",
+            "Pick a product idea using Amazon search and the criteria in this guide.",
+            "Check the ACCC mandatory standards search and EESS rules for that product [s29][s37].",
+            "Check whether the category is gated in Seller Central.",
+            "File your trademark with IP Australia.",
+            "Gather ID, a recent proof of address, credit card and bank details [s2][s3][s4].",
+            "Register on the Professional plan (A$49.95/month) [s1].",
+            "Pass identity verification; keep originals for the video call [s5].",
+            "Run Product Opportunity Explorer and the Revenue Calculator on your idea.",
+            "Order samples from 2–3 suppliers; ask for Australian test reports.",
+            "Calculate landed cost including duty, import GST and charges [s25][s26][s27].",
+            "Confirm margin after fees and an ad allowance (one-third rule).",
+            "Place a small first order (6–10 weeks of stock).",
+            "Book freight and a customs broker [s24].",
+            "Create the listing and shoot photos.",
+            "Label and send stock with Send to Amazon.",
+            "Apply for Brand Registry when your trademark qualifies.",
+            "Launch auto + exact Sponsored Products campaigns.",
+            "Enrol in Vine; use Request a Review on orders.",
+            "Do the weekly ads routine every week.",
+            "Register for GST when you reach A$75,000 turnover [s22] (or earlier, on advice).",
+            "Add A+ Content and a Brand Store.",
+            "Plan deals around Prime Day, EOFY, Black Friday and Christmas.",
+            "Reorder before you run out.",
+            "Once profitable, plan your next marketplace."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "How much does it actually cost to sell on Amazon Australia?",
+      "a": "The Professional plan is A$49.95 a month excluding GST, or the Individual plan charges A$0.99 per item sold. On top of that you pay a referral fee, mostly 6–15% of the price, and FBA fees if Amazon ships for you. For a small A$25 item, referral plus FBA can be around A$7."
+    },
+    {
+      "q": "Do I need an ABN to sell on Amazon Australia?",
+      "a": "Not always. Amazon accepts an ABN or ACN for business registrations, and Amazon Business asks for an ABN or a Statement by a Supplier form. Overseas sellers who keep stock in Australia usually need standard GST registration, which uses an ABN."
+    },
+    {
+      "q": "Do I have to register for GST?",
+      "a": "Only once your GST turnover reaches or is expected to reach A$75,000 a year. Many sellers register earlier so they can claim GST paid on imports and costs. Ask a tax agent for your situation."
+    },
+    {
+      "q": "I'm in India/China. Can I sell on Amazon.com.au?",
+      "a": "Yes. You need ID, proof of address, an internationally chargeable credit or debit card and a bank account that can receive payouts. If you ship each order from overseas, Amazon collects GST on items up to A$1,000. If you use FBA, you have your own GST obligations and can't use simplified registration."
+    },
+    {
+      "q": "Who collects GST on my Amazon sales?",
+      "a": "For low value imported goods (A$1,000 or less) shipped from overseas, Amazon collects and pays the 10% GST. For stock already in Australia, it's your responsibility if you're registered or required to register."
+    },
+    {
+      "q": "Is FBA worth it in Australia?",
+      "a": "For most beginners, yes. FBA gives you the Prime badge and fast delivery, and Amazon cut selected FBA fees from 10 June 2026. Avoid it for bulky, slow-selling items where storage fees eat your margin."
+    },
+    {
+      "q": "How long does Amazon Australia seller verification take?",
+      "a": "Amazon says registration often takes a few hours and identity verification usually four business days or less. Delays usually come from mismatched documents or waiting for a video-call slot. Bring the original documents you uploaded."
+    },
+    {
+      "q": "Individual or Professional plan?",
+      "a": "Professional if you'll sell more than about 50 items a month or want to advertise. The Individual plan can't run ads, promotions or bulk listings."
+    },
+    {
+      "q": "Do I need RCM or other certification?",
+      "a": "If you sell mains-powered electrical goods, they fall under the EESS and may need registration and certification, with an Australian responsible supplier. Products with button batteries have four mandatory standards. Check the ACCC's mandatory standards search for anything aimed at children."
+    },
+    {
+      "q": "Can I put 'no refunds' on my listing?",
+      "a": "No. Australian Consumer Law guarantees apply automatically. For a major failure the customer chooses a refund or replacement, and warranties can't replace those rights."
+    },
+    {
+      "q": "When is Prime Day in Australia?",
+      "a": "In 2026 it ran for seven days, 7–13 July, on different dates from the US. Watch Seller Central for 2027 dates and deal deadlines."
+    },
+    {
+      "q": "How much should I spend on ads at the start?",
+      "a": "There's no official number. A common approach is a small daily budget split across one auto and one exact Sponsored Products campaign, then cutting waste weekly. Make sure your margin can survive the ad cost."
+    },
+    {
+      "q": "Is Amazon Australia too competitive now?",
+      "a": "It's growing fast: total sales went from A$3.81 billion in 2024 to A$4.77 billion in 2025. Many niches still have few serious sellers, but ad costs are rising, so pick products with healthy margins."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Amazon Australia Online Seller Fees",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com.au/pricing",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s2",
+      "title": "Learn about the different selling plans on Amazon",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com.au/learn/selling-plans",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s3",
+      "title": "How to register as an Amazon seller",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com.au/sell/registration-guide",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s4",
+      "title": "Amazon Registration Guide: Seller Identity Verification",
+      "publisher": "Amazon",
+      "url": "https://m.media-amazon.com/images/G/35/sp-marketing-toolkit/Sellerfacingguides/Amazon_Registration_Guide_SIV.pdf",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s5",
+      "title": "My Amazon.com.au Seller Account Video Call Problem!",
+      "publisher": "Amazon Seller Forums (AU)",
+      "url": "https://sellercentral.amazon.com.au/seller-forums/discussions/t/fb30326f-0a39-47be-9a98-598fe40c4fe8",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s11",
+      "title": "Subscriptions, advertising surpass product sales for Amazon Australia",
+      "publisher": "Inside Retail Australia",
+      "url": "https://insideretail.com.au/digital/ecommerce/subscriptions-advertising-surpass-product-sales-for-amazon-australia-202604",
+      "date": "2026-04"
+    },
+    {
+      "id": "s12",
+      "title": "Online retail behemoth Amazon racks up another $1b in sales in Australia",
+      "publisher": "The Nightly",
+      "url": "https://thenightly.com.au/business/online-retail-behemoth-amazon-racks-up-another-1b-in-sales-in-australia-c-22198124",
+      "date": "2026"
+    },
+    {
+      "id": "s13",
+      "title": "Amazon ad juggernaut accelerates past $240m as DSP eats share",
+      "publisher": "Mi-3",
+      "url": "https://www.mi-3.com.au/03-03-2025/advertising-supercharging-amazons-growth-australia-58-cent-totally-revs-closing-4bn",
+      "date": "2025-03"
+    },
+    {
+      "id": "s14",
+      "title": "Amazon GMV Surpassed $800 Billion in 2025",
+      "publisher": "Marketplace Pulse",
+      "url": "https://www.marketplacepulse.com/articles/amazon-gmv-surpassed-800-billion-in-2025",
+      "date": "2026"
+    },
+    {
+      "id": "s15",
+      "title": "Goodbye Rufus: Amazon Launches Alexa for Shopping",
+      "publisher": "Flipflow",
+      "url": "https://www.flipflow.io/en/blog-en/amazon-launches-alexa-for-shopping/",
+      "date": "2026-05"
+    },
+    {
+      "id": "s16",
+      "title": "Amazon Prime Day Australia 2026 (Tuesday 7 July - Monday 13 July)",
+      "publisher": "OzBargain",
+      "url": "https://www.ozbargain.com.au/node/961868",
+      "date": "2026-07"
+    },
+    {
+      "id": "s17",
+      "title": "Amazon Prime Day Australia 2026: 7-Day Sale Is Live",
+      "publisher": "Tech Times",
+      "url": "https://www.techtimes.com/articles/319804/20260706/amazon-prime-day-australia-2026-7-day-sale-live-most-discounts-not-new-lows.htm",
+      "date": "2026-07-06"
+    },
+    {
+      "id": "s18",
+      "title": "GST on low value imported goods",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/gst-for-non-resident-businesses/gst-on-low-value-imported-goods",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s19",
+      "title": "Simplified GST registration",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/gst-for-non-resident-businesses/gst-registration-for-non-resident-businesses/simplified-gst-registration",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s20",
+      "title": "Standard GST registration",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/gst-for-non-resident-businesses/gst-registration-for-non-resident-businesses/standard-gst-registration",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s21",
+      "title": "Non-resident businesses making online sales to Australia",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/gst-for-non-resident-businesses/non-resident-businesses-making-online-sales-to-australia",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s22",
+      "title": "How Australian GST works",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/gst-for-non-resident-businesses/how-australian-gst-works",
+      "date": "2025-09"
+    },
+    {
+      "id": "s23",
+      "title": "About GST on Australian Low Value Imported Goods (LVIG)",
+      "publisher": "Amazon.com.au Customer Service",
+      "url": "https://www.amazon.com.au/gp/help/customer/display.html?nodeId=GLG7LLTZ49B4ESPF",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s24",
+      "title": "Import declarations",
+      "publisher": "Australian Border Force",
+      "url": "https://www.abf.gov.au/imports/Pages/How-to-import/Import-declarations.aspx",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s25",
+      "title": "Cost of importing goods: import processing charge",
+      "publisher": "Australian Border Force",
+      "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/charges/import-processing-charge",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s26",
+      "title": "Cost of importing goods: other importing charges",
+      "publisher": "Australian Border Force",
+      "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/charges",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s27",
+      "title": "GST and imported goods",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/rules-for-specific-transactions/international-transactions/gst-and-imported-goods",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s28",
+      "title": "Amazon in court over alleged missing button battery warnings on children's unicorn backpacks",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/media-release/amazon-in-court-over-alleged-missing-button-battery-warnings-on-children%E2%80%99s-unicorn-backpacks",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s29",
+      "title": "Products containing button and coin batteries mandatory information standard",
+      "publisher": "Product Safety Australia (ACCC)",
+      "url": "https://www.productsafety.gov.au/business/search-mandatory-standards/button-and-coin-batteries-mandatory-standards/products-containing-button-and-coin-batteries-mandatory-information-standard",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s30",
+      "title": "Button/coin battery safety: guide for business on the mandatory standards",
+      "publisher": "Product Safety Australia (ACCC)",
+      "url": "https://www.productsafety.gov.au/system/files/button-coin-battery-safety-guide-business-application-mandatory-standards.pdf",
+      "date": "2024-12"
+    },
+    {
+      "id": "s31",
+      "title": "Unsafe products in online marketplaces among ACCC product safety priorities",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/media-release/unsafe-products-in-online-marketplaces-among-accc-product-safety-priorities",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s32",
+      "title": "ACCC issues takedown requests to Amazon, eBay, Kogan and Fruugo for toys and games containing potentially deadly small magnets",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/media-release/accc-issues-takedown-requests-to-amazon-ebay-kogan-and-fruugo-for-toys-and-games-containing-potentially-deadly-small-magnets",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s33",
+      "title": "Repair, replace, refund, cancel (for business)",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/business/problem-with-a-product-or-service-you-sold/repair-replace-refund-cancel",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s34",
+      "title": "ACCC sweep uncovers concerning online shopping return policies and terms and conditions",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/media-release/accc-sweep-uncovers-concerning-online-shopping-return-policies-and-terms-and-conditions",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s35",
+      "title": "Advertising and selling guide: warranties against defects",
+      "publisher": "ACCC",
+      "url": "https://www.accc.gov.au/publications/advertising-and-selling-guide/advertising-and-selling-guide/consumer-guarantees/warranties-against-defects",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s36",
+      "title": "About the EESS",
+      "publisher": "Electrical Equipment Safety System",
+      "url": "https://www.eess.gov.au/about/about-the-eess/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s37",
+      "title": "Equipment Safety Rules",
+      "publisher": "Electrical Equipment Safety System",
+      "url": "https://www.eess.gov.au/wp-content/uploads/2019/04/003-Equipment-Safety-Rules.pdf",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s38",
+      "title": "The New Australian Regulatory Compliance Mark",
+      "publisher": "In Compliance Magazine",
+      "url": "https://incompliancemag.com/the-new-australian-regulatory-compliance-mark/",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s39",
+      "title": "Sell with Amazon Business",
+      "publisher": "Amazon",
+      "url": "https://sell.amazon.com.au/programs/amazon-business",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s40",
+      "title": "Registering for GST",
+      "publisher": "Australian Taxation Office",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst",
+      "date": "accessed 2026-11-25"
+    }
+  ]
+}
