@@ -1,4 +1,4 @@
-import { accessOf } from "./access";
+import { hasAccess, isAudit } from "./access";
 import { markJoined, roleOf } from "./team";
 import type { Store, Workspace } from "./store/types";
 import { createWorkspace, ensureLinkCode, loadWorkspace, rememberToken, revealToken } from "./workspace";
@@ -15,11 +15,11 @@ export async function teamForUser(store: Store, email: string, browserToken?: st
   if (browserToken) {
     const ws = await loadWorkspace(store, browserToken);
     // A paid team this person was invited to beats an unpaid team that happens to be in this browser.
-    const invited = ws && accessOf(ws) === "none" ? (await store.findWorkspacesByMember(e)).find((w) => roleOf(w, e) === "member" && accessOf(w) !== "none" && revealToken(w)) : undefined;
+    const invited = ws && !hasAccess(ws) ? (await store.findWorkspacesByMember(e)).find((w) => roleOf(w, e) === "member" && hasAccess(w) && revealToken(w)) : undefined;
     if (invited) { if (markJoined(invited, e, name)) await store.saveWorkspace(invited); return { ws: invited, token: revealToken(invited)!, created: false }; }
     // This browser's own team: claim it if nobody verified owns it yet. A PAID team without an owner is only claimed by
     // the email it was bought with, so someone who got a forwarded link can't take it over by signing in.
-    const claimable = ws && !ws.ownerVerified && (accessOf(ws) === "none" || !ws.checkoutEmail || ws.checkoutEmail.toLowerCase() === e);
+    const claimable = ws && !ws.ownerVerified && (!hasAccess(ws) || !ws.checkoutEmail || ws.checkoutEmail.toLowerCase() === e);
     if (ws && (claimable || (ws.ownerVerified && ws.ownerEmail?.toLowerCase() === e))) {
       if (ws.ownerEmail !== e || !ws.ownerVerified || (name && ws.ownerName !== name)) { ws.ownerEmail = e; ws.ownerVerified = true; if (name) ws.ownerName = name; await store.saveWorkspace(ws); }
       await rememberToken(store, ws, browserToken);
@@ -35,7 +35,7 @@ export async function teamForUser(store: Store, email: string, browserToken?: st
   // Then teams they were added to as a member (invites only work for this exact Google-verified email).
   const owned = (await store.findWorkspacesByOwner(e)).filter((w) => w.ownerVerified && revealToken(w));
   const joined = (await store.findWorkspacesByMember(e)).filter((w) => roleOf(w, e) === "member" && revealToken(w));
-  const best = owned.find((w) => accessOf(w) !== "none") ?? joined.find((w) => accessOf(w) !== "none") ?? owned[0] ?? joined[0];
+  const best = owned.find((w) => hasAccess(w)) ?? joined.find((w) => hasAccess(w)) ?? owned.find((w) => isAudit(w)) ?? owned[0] ?? joined[0];
   if (best) {
     if (roleOf(best, e) === "member" ? markJoined(best, e, name) : !!name && best.ownerName !== name && !!(best.ownerName = name)) await store.saveWorkspace(best);
     return { ws: best, token: revealToken(best)!, created: false };

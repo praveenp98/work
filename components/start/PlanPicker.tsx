@@ -1,7 +1,7 @@
 "use client";
 import { track } from "@/lib/analytics";
 import { useState } from "react";
-import { PriceRise, ValueCalc } from "@/components/start/ValueCalc";
+import { ValueCalc } from "@/components/start/ValueCalc";
 import { fmtLocal, type LocalPrice } from "@/lib/ppp";
 
 export interface Where { name: string; local: LocalPrice | null }
@@ -34,7 +34,6 @@ export function PlanPicker({ annualUrl, monthlyUrl, where }: { annualUrl: string
       </div>
       {L ? <p className="fine pp-local">Local price for {where!.name}, charged in {L.currency}. (List price $2,790 / $279.)</p>
         : where ? <p className="fine pp-local">In {where.name}? Checkout shows your price in your own currency, often lower than USD.</p> : null}
-      <PriceRise />
       <ValueCalc plan={plan} compact />
       {ready ? (
         <a className="btn rc-btn" href={url} onClick={() => { setBusy(true); track("checkout_clicked", { plan }); }}>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { LoadingText } from "@/components/LoadingText";
 import type { Job } from "@/lib/jobs";
 import { RestockPanel, type RestockCtx } from "./RestockPanel";
+import { TrialSheet } from "./TrialSheet";
 
 type Res = { status: "applied" | "manual" | "failed" | "queued"; how?: string; reason?: string };
 const REASONS = [
@@ -28,9 +29,9 @@ const post = (url: string, body: object) => fetch(url, { method: "POST", headers
 /**
  * Today's work as jobs (lib/jobs.ts): "Block 6 searches that waste money", "New exact campaign: 3 proven searches",
  * "Restock 2 products". One Approve per job (untick anything you don't want). direct = Rocco makes it in Amazon;
- * otherwise exact steps + "I've made these changes".
+ * otherwise exact steps + "I've made these changes". locked = free read-only audit: every approve opens the hire sheet.
  */
-export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week, following }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency; restock?: RestockCtx; week?: { found: number; value: number; approved: number; cooling: number }; following?: string }) {
+export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week, following, locked }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency; restock?: RestockCtx; week?: { found: number; value: number; approved: number; cooling: number }; following?: string; locked?: { url: string; price: string; found?: string } }) {
   const $ = (n: number) => money(n, cur);
   const [res, setRes] = useState<Record<string, Res>>({});
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
@@ -39,8 +40,11 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week,
   const [note, setNote] = useState<Record<string, string>>({});
   const visible = jobs.filter((j) => !skipped.has(j.id));
   const openAuto = visible.filter((j) => j.mode === "auto" && j.codes.some((c) => !res[c]));
+  const [sheet, setSheet] = useState(false);
+  const hire = (from: string) => { track("audit_hire_clicked", { from }); setSheet(true); };
 
   async function approve(job: Job, codes: string[]) {
+    if (locked) return hire(job.kind); // free audit: read-only, nothing is sent
     track("job_approved", { kind: job.kind, changes: codes.length, mode: job.mode });
     if (!codes.length) return;
     setBusy(job.id);
@@ -67,6 +71,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week,
     setBusy(null);
   }
   async function made(job: Job, codes: string[]) {
+    if (locked) return hire("made");
     setBusy(job.id);
     const d = (await post("/api/w/applied", { t: token, brand, codes })) as { ok?: boolean; logged?: string[] } | null;
     setBusy(null);
@@ -79,6 +84,7 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week,
     if (job.codes.length) post("/api/w/skip", { t: token, brand, codes: job.codes, reason });
   }
   async function approveAll() {
+    if (locked) return hire("approve_all");
     for (const j of openAuto) await approve(j, j.codes.filter((c) => !res[c]));
   }
 
@@ -104,7 +110,8 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week,
         {visible.map((j, i) => <JobCard key={j.id} restock={restock} cur={cur} job={j} first={i === 0} res={res} busy={busy === j.id} anyBusy={!!busy} direct={direct} note={note[j.id]} onApprove={(c) => approve(j, c)} onMade={(c) => made(j, c)} onSkip={(r) => skip(j, r)} />)}
       </ul>
       {thanks && <p className="tw-thanks" role="status"><span aria-hidden>🧠</span> <b>{thanks.title}</b>: {thanks.reason}</p>}
-      <p className="fine"><b>Real work without the fluff.</b> {direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
+      {locked && <TrialSheet url={locked.url} price={locked.price} found={locked.found} open={sheet} audit onClose={() => setSheet(false)} />}
+      <p className="fine"><b>Real work without the fluff.</b> {locked ? "Free audit: read-only, nothing changes in Amazon. Hire me, tap approve, and I make these changes: checked first, logged, and undoable." : direct ? "Approve and I make the changes in Amazon: checked first, logged, and undoable. Nothing changes without you." : "Nothing changes without your approval. Every change is logged and checked a week later."}</p>
     </div>
   );
 }

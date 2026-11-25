@@ -5,6 +5,7 @@ import { refreshManager } from "@/lib/manager";
 import type { Priors } from "@/lib/memory";
 import { getStore } from "@/lib/store";
 import { autopilotLine, runAutopilot } from "@/lib/autopilot";
+import { scheduledPullOk } from "@/lib/free-audit";
 
 /** One batch of the daily pull (≤ 10 accounts sharing one export per report), started by /api/cron/amazon. Answers at once, works after the response. */
 export const dynamic = "force-dynamic";
@@ -16,7 +17,10 @@ export async function POST(req: Request) {
   if (!secret && process.env.NODE_ENV === "production") return NextResponse.json({ ok: false }, { status: 503 });
   const store = getStore();
   const b = (await req.json().catch(() => ({}))) as { jobs?: { wsId: string; id: string; name: string; ads?: boolean }[]; delaySec?: number; priors?: Priors };
-  const jobs = (b.jobs ?? []).slice(0, 10);
+  const jobs0 = (b.jobs ?? []).slice(0, 10);
+  // Checked again here (not only in the dispatcher): a team that isn't paying (free audit, lapsed) never gets a scheduled pull.
+  const ok = store ? await Promise.all(jobs0.map(async (j) => { const ws = await store.getWorkspaceById(j.wsId).catch(() => null); return !!ws && scheduledPullOk(ws); })) : [];
+  const jobs = jobs0.filter((_, i) => ok[i]);
   if (!store || !jobs.length) return NextResponse.json({ ok: false }, { status: 400 });
   after(async () => {
     await new Promise((r) => setTimeout(r, Math.min(Math.max(b.delaySec ?? 0, 0), 60) * 1000));

@@ -1,6 +1,9 @@
 import { modeFor, regionFromRequest } from "@/lib/region";
 import { NextResponse } from "next/server";
-import { accessOf } from "@/lib/access";
+import { hasAccess } from "@/lib/access";
+import { AUDIT_IP_LIMIT, canStartAudit, startAudit } from "@/lib/free-audit";
+import { clientIp } from "@/lib/human";
+import { allowShared } from "@/lib/limits";
 import { hireUrl } from "@/lib/paywall";
 import { attachPartner, readPartnerCookie } from "@/lib/partners";
 import { googleUser } from "@/lib/google";
@@ -38,7 +41,13 @@ export async function GET(req: Request) {
   trackServer(ws.id, created ? "signed_up" : "signed_in", { intent: st.i ?? "signin" });
   const tagged = attachPartner(ws, readPartnerCookie(req.headers.get("cookie"))); // sent by a partner: tag before checkout
   if (!ws.mode || tagged) { ws.mode ??= modeFor(regionFromRequest(req)); await store.saveWorkspace(ws); } // US: Claude; elsewhere: report inbox // prefilled at checkout
-  const res = NextResponse.redirect(st.i === "hire" && accessOf(ws) === "none" && st.p ? hireUrl(ws, st.p === "monthly" ? "monthly" : "annual") : `${SITE.url}/w/${token}` /* no plan picked yet: the plan step */);
+  // "See my account free first": start the read-only audit (once per team, a few per IP a day). Over the IP limit the
+  // page still opens, with the plan step and the free-audit button (which says to try later).
+  if (st.i === "audit" && canStartAudit(ws) && (await allowShared(`audit:${clientIp(req.headers)}`, AUDIT_IP_LIMIT.max, AUDIT_IP_LIMIT.windowMs)) && startAudit(ws)) {
+    await store.saveWorkspace(ws);
+    trackServer(ws.id, "audit_started", { method: "google" });
+  }
+  const res = NextResponse.redirect(st.i === "hire" && !hasAccess(ws) && st.p ? hireUrl(ws, st.p === "monthly" ? "monthly" : "annual") : `${SITE.url}/w/${token}` /* no plan picked yet: the plan step */);
   setSession(res, { email: user.email, name: user.name, sub: user.sub }, token);
   res.cookies.set("rocco_gstate", "", { path: "/api/auth/google", maxAge: 0 });
   return res;

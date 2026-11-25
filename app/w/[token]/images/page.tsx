@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ImageStudio } from "@/components/dash/ImageStudio";
-import { accessOf } from "@/lib/access";
+import { hasAccess } from "@/lib/access";
 import { acctLabel } from "@/lib/health";
 import { higgsfieldOn } from "@/lib/higgsfield";
 import { hireUrl } from "@/lib/paywall";
@@ -24,7 +24,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const items = account ? (ws.amazon?.products?.[account.id]?.items ?? []) : [];
   const products = [...items].sort((a, b) => b.sales - a.sales).map((p) => ({ sku: p.sku, asin: p.asin, title: p.title || p.sku }));
   if (sp.sku) products.sort((a, b) => (a.sku === sp.sku ? -1 : b.sku === sp.sku ? 1 : 0));
-  const paid = accessOf(ws) !== "none";
+  const paid = hasAccess(ws);
   return (
     <section className="ps-page">
       <h1>Listing &amp; A+ images</h1>

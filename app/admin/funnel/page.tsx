@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
  */
 const COLS: { key: keyof Omit<FunnelRow, "source">; label: string }[] = [
   { key: "visits", label: "Visits" }, { key: "leads", label: "Leads" }, { key: "call_clicks", label: "Call clicks" },
-  { key: "calls_booked", label: "Calls booked" }, { key: "checkouts", label: "Checkouts" }, { key: "paid", label: "Paid" },
+  { key: "calls_booked", label: "Calls booked" }, { key: "audits", label: "Free audits" }, { key: "checkouts", label: "Checkouts" }, { key: "paid", label: "Paid" },
 ];
 const cell: React.CSSProperties = { padding: "10px 14px", borderTop: "1px solid var(--line)", textAlign: "right", fontVariantNumeric: "tabular-nums" };
 const head: React.CSSProperties = { ...cell, borderTop: 0, fontSize: 12, fontWeight: 600, letterSpacing: ".06em", textTransform: "uppercase", color: "var(--muted)" };

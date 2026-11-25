@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { ADMIN_COOKIE, adminCookieOk } from "@/lib/events";
 import { groupLeads, leadsPersistent, listLeads } from "@/lib/leads";
-import { accessOf } from "@/lib/access";
+import { accessOf, hasAccess } from "@/lib/access";
 import { getStore } from "@/lib/store";
 
 export const metadata: Metadata = { title: "Leads", robots: { index: false, follow: false } };
@@ -20,7 +20,7 @@ export default async function Page() {
   const { leads, ok } = await listLeads(2000);
   const store = getStore();
   const signups = store ? await store.listOwnedWorkspaces(300).catch(() => []) : [];
-  const PAID: Record<string, string> = { paid: "paid", trial: "trial", none: "not paid" };
+  const PAID: Record<string, string> = { paid: "paid", trial: "trial", audit: "free audit", none: "not paid" };
   const groups = groupLeads(leads);
   const day = (s?: string) => (s ? new Date(s).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "");
   return (
@@ -33,7 +33,7 @@ export default async function Page() {
 
       <div>
         <h2 style={{ margin: "0 0 4px", fontSize: 24 }}>Sign-ups (Google)</h2>
-        <p className="fine" style={{ margin: "0 0 10px" }}>Everyone who signed in with Google, newest first: {signups.length} · {signups.filter((w) => accessOf(w) !== "none").length} paying · {signups.filter((w) => w.amazon?.accounts?.length).length} connected Amazon. Not-paid sign-ups are your warmest leads: they reached the checkout step.</p>
+        <p className="fine" style={{ margin: "0 0 10px" }}>Everyone who signed in with Google, newest first: {signups.length} · {signups.filter((w) => hasAccess(w)).length} paying · {signups.filter((w) => w.amazon?.accounts?.length).length} connected Amazon. Not-paid sign-ups are your warmest leads: they reached the checkout step.</p>
         <div style={card}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead><tr><th style={head}>Signed up</th><th style={head}>Email</th><th style={head}>Name</th><th style={head}>Plan</th><th style={head}>Amazon</th></tr></thead>

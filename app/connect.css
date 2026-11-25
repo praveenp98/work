@@ -2047,3 +2047,18 @@ h1, h2, .display { font-family: var(--display); }
 .ji-tag.t-follow-up { color: #9a5b00; background: #fff7e6; border-color: #f3d9a4; }
 .nm-costs { margin: 0 0 10px; padding: 10px 12px; border-radius: 12px; background: #fff7e6; border: 1px solid #f3d9a4; font-size: 13.5px; line-height: 1.45; }
 .nm-costs a { font-weight: 600; }
+
+/* Free read-only audit (components/home/AuditButton.tsx, components/dash/Audit.tsx) */
+.h5-alt { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.h5-alt .fine { margin: 0; }
+.h5-audit { font-size: 16px; text-decoration: none; }
+.h5-audit:hover { text-decoration: underline; }
+.pc-alt { margin: -2px 0 0; text-align: center; }
+.pc-alt .h5-audit { font-size: 15px; }
+.rc-audit { display: grid; gap: 4px; justify-items: center; text-align: center; margin: 14px auto 0; max-width: 460px; }
+.rc-audit .linkbtn { font-size: 16px; }
+.rc-audit small { color: var(--muted); font-size: 13.5px; }
+.rd-audit { margin: 0 0 14px; }
+.rd-audit span { display: block; margin-top: 2px; }
+@media (max-width: 900px) { .h5-alt { justify-content: center; text-align: center; } }
+.rd-audit .btn { white-space: nowrap; }

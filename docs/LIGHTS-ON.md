@@ -16,6 +16,9 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 4c. **Supabase → SQL Editor**: paste `supabase/migrations/003_limits.sql` → Run (shared spam limits + "reply once" for texts). /api/health shows `rocco_hits: ok` when done. Until then Rocco uses per-server limits (works, just less strict).
 4d. **Supabase → SQL Editor**: paste `supabase/migrations/004_events.sql` → Run (funnel events). Then open `rocco.works/admin/login?key=<CRON_SECRET>` to see `/admin/funnel`. Until it runs, events are dropped quietly.
 4e. **Supabase → SQL Editor**: paste `supabase/migrations/005_leads.sql` → Run (lead magnet emails). Leads then show at `/admin/leads`. Until it runs, lead forms still give the download but the email is not saved.
+4f. **Supabase → SQL Editor**: paste `supabase/migrations/007_free_audit.sql` → Run ("Free audits" column on /admin/funnel). The free audit itself works without it.
+
+**Signup flow (Nov 25):** two paths. *Hire Rocco* → sign in → plan → Dodo checkout → /welcome → connect Amazon. *See my account free first* → sign in (Google `intent=audit`, or email) → connect one Amazon account → one pull → read-only jobs with a "Hire me to make these changes" banner; paying later keeps the same team and connection. Details: `lib/free-audit.ts`, docs/COSTS.md (cost per audit), docs/ROUTINE.md (delete expired audit accounts weekly).
 
 ## 🟠 Blocks "Rocco makes the change in Amazon"
 4. **DataDoe → Settings → Actions**: turn on `AMAZON_ADS_TARGETS_ADD`, `AMAZON_ADS_TARGETS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_UPDATE`, `AMAZON_ADS_CAMPAIGNS_ADD`, `AMAZON_ADS_AD_GROUPS_ADD`, `AMAZON_ADS_ADS_ADD`, `AMAZON_ADS_PORTFOLIOS_ADD`. (All are off by default; approvals fail without them.)

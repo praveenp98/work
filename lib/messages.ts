@@ -11,6 +11,7 @@ export function amazonNote(code?: string | null): string | undefined {
   if (c === "taken") return "That Amazon account is already connected to another Rocco. If it's yours, write to human@rocco.works and we'll move it over.";
   if (c === "mismatch") return "That sign-in didn't match the link I made for you, so I didn't connect anything. Tap Connect Amazon for a fresh link.";
   if (c === "unpaid") return "Your plan isn't active, so I didn't connect the account. Hire Rocco, then connect Amazon.";
+  if (c === "audit_limit") return "The free audit covers one Amazon account for 14 days, so I didn't add this one. Hire Rocco to connect more.";
   if (c === "check_failed") return "I couldn't confirm the connection with my data partner just now. Nothing was linked. Try Connect Amazon again in a minute.";
   if (c === "not_found") return "Amazon connected, but your account isn't showing on my side yet. Give it a minute, then tap Connect Amazon again.";
   if (/ALREADY|EXIST|DUPLICATE|IN_USE/i.test(c)) return "This Amazon account is already connected through my data partner (maybe from an earlier try). Email human@rocco.works and I'll link it to your Rocco right away; nothing else to do on your side.";

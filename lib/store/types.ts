@@ -119,6 +119,12 @@ export interface Workspace {
   plan?: "annual" | "monthly";
   /** Partner code that sent this team (lib/partners.ts): first partner wins, set before the first payment, sent to Dodo as metadata.partner. */
   partner?: string;
+  /**
+   * Free read-only audit (lib/free-audit.ts): started (once per team), how many DataDoe pulls it used (the first + a
+   * retry only after a failed one), when Amazon got connected and when the first jobs were shown. Read-only: nothing
+   * writes for an audit team. Paying keeps the same team, connection and data.
+   */
+  audit?: { startedAt: string; pulls: number; lastPullAt?: string; connectedAt?: string; readyAt?: string };
   /** Free access granted by the founder for testing (/api/admin/tester). Never counted as a hire. */
   comp?: string;
   /** Fixes the team skipped on the dashboard (lib/memory.ts): Rocco learns what this account doesn't want. */

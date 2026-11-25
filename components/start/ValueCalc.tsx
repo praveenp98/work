@@ -6,7 +6,6 @@ import { countdown, nextEvent } from "@/lib/urgency";
 /**
  * The paywall's case, all honest:
  *  - Urgency: a live countdown to the next real selling event (Black Friday, Cyber Monday…), never a fake timer.
- *  - PriceRise: "prices go up by $10 every 5 hires", with how many hires are left at today's price (Dodo count).
  *  - ValueCalc: what the daily account checks cost in a team's own time (hours a day × $35/hour, stated) next to
  *    Rocco's price. Works for brands and agencies alike (an agency's managers do these same checks).
  */
@@ -37,14 +36,6 @@ export function Urgency() {
   );
 }
 
-export function PriceRise() {
-  const sold = useSold();
-  const left = sold === null ? null : 5 - (sold % 5);
-  return (
-    <p className="vc-rise"><span aria-hidden>📈</span> Prices go up every 5 hires: +$10 a month, +$100 a year.{left !== null && <> <b>{left} {left === 1 ? "hire" : "hires"} left</b> at this price.</>}</p>
-  );
-}
-
 export function ValueCalc({ plan = "annual", compact }: { plan?: "annual" | "monthly"; compact?: boolean }) {
   const [i, setI] = useState(1);
   const sold = useSold();
@@ -60,7 +51,7 @@ export function ValueCalc({ plan = "annual", compact }: { plan?: "annual" | "mon
         <div className="vc-bar"><span>That time</span><i><s style={{ width: "100%" }} /></i><b>{$(team)}/mo</b></div>
         <div className="vc-bar me"><span>Rocco</span><i><s style={{ width: `${pct}%` }} /></i><b>{$(cost)}/mo</b></div>
       </div>
-      <p className="vc-note">At ${RATE} an hour. I do the daily checks and line up the changes; you or your team just approve. Brands and agencies: 3 accounts included, +$49/mo each extra.</p>
+      <p className="vc-note">At ${RATE} an hour, {WORKDAYS} workdays a month. I do the daily checks and line up the changes; you or your team just approve. Brands and agencies: 3 accounts included, +$49/mo each extra.</p>
       {sold !== null && sold >= 5 && <p className="vc-proof">✅ {sold} brands have hired me.</p>}
     </div>
   );

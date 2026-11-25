@@ -5,7 +5,7 @@ import { sortFindings } from "./rules/types";
 import { savingsOf } from "./savings";
 import { randomUUID } from "node:crypto";
 import { seal, unseal } from "./vault";
-import { hasAccess } from "./access";
+import { canSeeJobs, isAudit } from "./access";
 import { analyze, REPORT_HELP, type AnalyzeOutput, type ReportKind } from "./analyze";
 import { evaluateAction, evaluateBudget } from "./rules/results";
 import { diffTerms, termSnapshot, type TermDiff } from "./rules/terms";
@@ -126,6 +126,8 @@ export async function latestRuns(store: Store, ws: Workspace, brand: string): Pr
 
 /** Record approved proposals as applied changes with a follow-up date. */
 export async function applyChanges(store: Store, ws: Workspace, codes: string[], opts: { runId?: string; brand?: string; note?: string; freeLimit?: number; patch?: Record<string, Partial<Proposal>> } = {}) {
+  // Free audit teams are read-only (lib/free-audit.ts): nothing is ever logged as made for them.
+  if (isAudit(ws)) throw new Error("This is a free audit, so it's read-only. Hire Rocco to make changes.");
   const brand = opts.brand || DEFAULT_BRAND;
   const runs = opts.runId ? [await store.getRun(ws.id, opts.runId)].filter((r): r is Run => !!r) : await latestRuns(store, ws, brand);
   if (!runs.length) throw new Error("No proposals yet. Analyze a report first.");
@@ -200,7 +202,7 @@ export async function buildBrief(store: Store, ws: Workspace, now = new Date()) 
     const trends = [...latestByKind.entries()].map(([kind, list]) => ({ kind, latest: list[0], previous: list[1] ?? null }));
     const kinds = new Set<string>();
     const brandRuns = runs.filter((r) => r.brand === brand && !kinds.has(r.kind) && kinds.add(r.kind));
-    const open_ = hasAccess(ws, now);
+    const open_ = canSeeJobs(ws, now); // paid, trial or free audit: every job is visible (audit: read-only)
     const visible = (r: Run) => (open_ ? r.proposals : r.proposals.slice(0, FREE_PROPOSALS));
     const hidden = open_ ? 0 : brandRuns.reduce((t, r) => t + Math.max(0, r.proposals.length - FREE_PROPOSALS), 0);
     const locked: Proposal[] = open_ ? [] : brandRuns.flatMap((r) => r.proposals.slice(FREE_PROPOSALS));
