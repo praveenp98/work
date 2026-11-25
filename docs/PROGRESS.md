@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Asked: a deal with Higgsfield
+- Higgsfield is the hackathon's prize sponsor. Don't ask it for money or a paid deal before Dec 16: it isn't Rocco revenue, and money from the prize sponsor to an entrant looks worse than money from a competitor. Ask the organizers first if anything paid comes up.
+- Clean version: make Rocco's ads and demo clips with Higgsfield (already the plan in docs/HIGGSFIELD.md), post them tagging @higgsfield_ai, and ask for a reshare. Higgsfield's affiliate program (up to 25% for 12 months) is side income, not contest revenue. A "make your listing video with Higgsfield" feature inside Rocco is a post-Dec 16 idea.
+
 ## 2026-11-25 · Asked: X sponsorship deal with Indexsy (another hackathon entrant)
 - Advice: don't take money from another entrant. It isn't product revenue, prizes are checked by hand (the leading entry was already disqualified), and a payment between two entrants looks like collusion. The full rules page couldn't be read from here (robots blocked): Praveen to check its cheating section or ask the organizers first.
 - If Praveen pays someone on X to post about Rocco instead: it's ad spend (comes off profit), must be disclosed as paid, and is only worth it if their followers include US Amazon sellers. Log any payment.
