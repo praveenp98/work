@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Reddit: ban, rate limit, rewrite as briefs
+- Praveen was banned on r/AmazonSeller and rate-limited posting the Black Friday post. r/FulfillmentByAmazon rules (seen Nov 25): no AI-generated text (instant ban), no promotion without mod approval, no naming buyers/sellers.
+- `marketing/copy/reddit-posts.md` rewritten: the 19 paste-ready posts are withdrawn. Now a posting playbook (appeal by modmail, no second account, 2-week comment-only warm-up, one post a week, 80/20, disclosure) + 17 topic briefs (facts with sources + questions only Praveen can answer). Praveen writes every post himself.
+- Next: modmail r/AmazonSeller once; comment-only for 2 weeks; ask r/FulfillmentByAmazon mods how to share the free tools.
+
 ## 2026-11-25 · Beginner guides live: /sell-on-amazon + 8 marketplaces
 - All 9 guides fact-checked against official pages (Amazon seller sites + fee PDFs, tax authorities, Marketplace Pulse) and published (SELL_PUBLISHED=true). In sitemap, llms.txt and the footer ("Start selling"). Details, URLs and what's still unverifiable: docs/BEGINNER-GUIDES.md.
 

@@ -59,7 +59,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/AI-USAGE.md` | Every place Claude runs, limits, cost, Amazon-only scope (`lib/prompts/scope.ts`). |
 | `docs/ANALYTICS.md` | Hackathon tracker + PostHog setup, funnel events, dashboards to build. |
 | `docs/SECURITY.md` | Threat model, what's protected, env vars Praveen must set, kill switch. |
-| `marketing/copy/reddit-posts.md` | 19 hand-posted Reddit threads (no links), by-stage advice, sources, calendar, results log. |
+| `marketing/copy/reddit-posts.md` | Reddit playbook + topic briefs (facts, sources, questions). **No paste-ready text:** r/FulfillmentByAmazon bans AI-written posts; Praveen writes every word. Banned on r/AmazonSeller (appeal only). |
 | `docs/LEAD-MAGNETS.md` | 10 free tools at /free (what each does, how gating works, post copy for Reddit/LinkedIn/X). |
 | `lib/season.ts` | Seller calendar per marketplace (events, phases, actions) → dashboard SeasonCard, brief, feeds, /amazon-seller-calendar. |
 | `content/sell/*.json` | Beginner guides per marketplace (/sell-on-amazon), live; how they were checked + URLs in `docs/BEGINNER-GUIDES.md`. Switch: `SELL_PUBLISHED` in lib/sell.ts. |

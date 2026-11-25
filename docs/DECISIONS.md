@@ -137,3 +137,6 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-25 · One seller calendar drives the dashboard, brief, feeds and public pages
 - **Decision:** a single computed calendar (lib/season.ts) per marketplace with phased actions; Amazon-announced events shown as "expected"; beginner guides stay unpublished until fact-checked against official pages.
 - **Why:** Praveen wants timely, relevant actions (Black Friday now); hard-coded dates go stale. Wrong fees on beginner pages would cost trust.
+
+## 2026-11-25 · No AI-written text on Reddit
+- Claude gives Reddit research briefs only; Praveen writes every post and comment himself. Why: r/FulfillmentByAmazon bans AI-generated text, Praveen got banned on r/AmazonSeller after posting AI-written copy, and passing AI text off as his own in subs that ban it would be deceptive. No second accounts; Rocco is mentioned only with mod approval or when asked, with disclosure.
