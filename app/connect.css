@@ -2062,3 +2062,9 @@ h1, h2, .display { font-family: var(--display); }
 .rd-audit span { display: block; margin-top: 2px; }
 @media (max-width: 900px) { .h5-alt { justify-content: center; text-align: center; } }
 .rd-audit .btn { white-space: nowrap; }
+.rc-reports ul { list-style: none; margin: 4px 0 6px; padding: 0; display: grid; gap: 6px; text-align: left; }
+.rc-reports li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; font-size: 14px; }
+.rc-reports li > span { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--bg); color: var(--muted); }
+.rc-reports li.s-ok > span { background: #e7f6ee; color: #1f7a4f; }
+.rc-reports li.s-error > span { background: #fdecea; color: #b42318; }
+.rc-reports small { color: var(--muted); }

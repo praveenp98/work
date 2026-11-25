@@ -6,6 +6,7 @@ import { WAIT } from "@/lib/messages";
 import { Urgency } from "@/components/start/ValueCalc";
 import { PlanPicker } from "@/components/start/PlanPicker";
 import { RoccoHead } from "@/components/Rocco";
+import type { AccountHealth } from "@/lib/health";
 
 /**
  * The one setup step: connect Amazon (through DataDoe, an Amazon-approved data partner). Seller Central, then Ads.
@@ -26,6 +27,16 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
     }, 6000);
     return () => clearInterval(t);
   }, [accounts.length, token]);
+  // Real per-report status from DataDoe (lib/health.ts), not an animation: what's in, what's still loading, what's off.
+  const [health, setHealth] = useState<AccountHealth[] | null>(null);
+  useEffect(() => {
+    if (!accounts.length) return;
+    const load = () => fetch("/api/w/amazon/health", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).then((d) => d?.ok && setHealth(d.accounts)).catch(() => null);
+    load();
+    const t = setInterval(load, 120_000); // the health check allows 30 an hour
+    return () => clearInterval(t);
+  }, [accounts.length, token]);
+
   async function connect() {
     setBusy("connect"); setMsg(""); track("amazon_connect_clicked", { more: accounts.length > 0 });
     const d = (await fetch("/api/w/amazon", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { url?: string; error?: string } | null;
@@ -72,20 +83,41 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
       <ul className="rc-progress">
         {accounts.map((a) => (
           <li key={a.name + a.country}>
-            <span className="ok">✓</span><div><b>{a.name} · {a.country}</b><small>{a.status}</small>
+            <span className="ok">✓</span><div><b>{a.name.trim().toUpperCase() === a.country.trim().toUpperCase() ? `Amazon ${a.country}` : `${a.name} · ${a.country}`}</b><small>{a.status}</small>
               {a.ads === false && a.id && <span className="rc-noads">Amazon Ads isn&apos;t connected, so no ad jobs yet (wasted searches, bids, budgets). <ConnectButton token={token} reconnect={a.id} label="Connect Amazon Ads →" className="linkbtn" /></span>}
             </div>
           </li>
         ))}
       </ul>
       {/* One status line at a time: the Check now answer replaces the waiting line instead of adding a second one. */}
-      {busy === "check" ? <LoadingText steps={["Asking Amazon for the latest reports…", "Reading ads, sales and stock…", "Finding what to fix…"]} every={8000} />
+      {busy === "check" ? <LoadingText steps={["Asking Amazon for the latest reports…", "Reading what's in so far…", "Finding what to fix…"]} every={8000} />
         : msg ? <p className="fine" role="status">{msg}</p>
         : lastSync?.errors?.length && !lastSync.kinds.length ? <p className="fine">Amazon is still sending me your history (a first load can take a few hours). This page opens your fixes by itself when it&apos;s in{pinged ? ", and I'll message you" : ""}.</p>
         : slow ? <p className="fine">{WAIT.firstLoadSlow}</p>
-        : <LoadingText steps={["Reading 30 days of search terms…", "Reading campaigns, budgets and bids…", "Reading sales, traffic and Buy Box…", "Checking stock cover for every SKU…", "Finding what to fix, ranked by money…", "Grouping it into today's jobs…"]} every={9000} />}
+        : health?.length ? <ReportStatus health={health} />
+        : <p className="fine">Checking with Amazon what&apos;s in so far…</p>}
       <button className="btn rc-btn" disabled={!!busy} onClick={check}>{busy === "check" ? "Checking…" : "Check now"}</button>
       <button className="linkbtn" disabled={!!busy} onClick={connect}>+ Connect another Amazon account</button>
+    </div>
+  );
+}
+
+const MARK: Record<string, string> = { ok: "✓", loading: "…", missing: "○", off: "○", error: "!" };
+/** One line per report Rocco reads, with its real state (reports that need Amazon Ads say so when Ads isn't connected). */
+function ReportStatus({ health }: { health: AccountHealth[] }) {
+  return (
+    <div className="rc-reports">
+      {health.map((a) => (
+        <ul key={a.id} aria-label={`What's in for ${a.name}`}>
+          {a.reports.map((r) => (
+            <li key={r.kind} className={`s-${r.state}`}>
+              <span aria-hidden>{MARK[r.state] ?? "…"}</span>
+              <div><b>{r.name}</b> <small>{r.state === "ok" ? "in" : r.why ?? (r.state === "loading" ? "Amazon is still sending this" : "not in yet")}</small></div>
+            </li>
+          ))}
+        </ul>
+      ))}
+      <p className="fine">Amazon sends history in batches, so this fills in over a few hours. I check again every couple of minutes.</p>
     </div>
   );
 }

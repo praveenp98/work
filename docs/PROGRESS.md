@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Connect screen: real status instead of a fake checklist
+- Praveen's free-audit test: Seller Central connected, Ads not, yet the waiting screen "ticked" search terms and campaigns. That list was a timed animation. Now it shows each report's real state from DataDoe (the same health check as the dashboard card, refreshed every 2 minutes): in / Amazon still sending / needs Amazon Ads.
+- Copy fixed: "first fixes within a few minutes" said one thing, "first data loading (a few hours)" another. Truth: Amazon's first load takes a few hours (up to 48). Account label "CA · CA" now reads "Amazon CA".
+
 ## 2026-11-25 · Dashboard fix list, part 2
 - #8 Day to day (`lib/job-history.ts`, tested): nothing changed in the last 7 days is suggested again (its result isn't in yet); each item is tagged "suggested before" or "follow-up: changed before, still off target"; the jobs header shows "This week: N distinct fixes found (~$X/mo, each counted once) · M approved · K on hold while I measure".
 - #9 Strategy: when not set, the strategy form opens before the jobs, and the jobs header says which strategy they follow ("Balance · 30% target ACoS (my defaults: set your strategy above)").
