@@ -71,6 +71,8 @@ export interface Workspace {
     products?: Record<string, { at: string; items: import("../profit").ProductProfit[] }>;
     /** Ad group → advertised SKUs/ASINs per account, from Ads (raw), cached ~20h (lib/term-products.ts). */
     adGroups?: Record<string, { at: string; map: Record<string, string[]> }>;
+    /** Instant first look per account (lib/first-look.ts), cached ~6h. */
+    firstLook?: Record<string, import("../first-look").FirstLook>;
     /** Listing edits Rocco made, with the old values for undo (lib/listings.ts). */
     listingEdits?: import("../listings").ListingEdit[];
     /** A+ drafts and submissions (lib/aplus.ts). */

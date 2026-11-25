@@ -7,6 +7,7 @@ import { Urgency } from "@/components/start/ValueCalc";
 import { PlanPicker } from "@/components/start/PlanPicker";
 import { RoccoHead } from "@/components/Rocco";
 import type { AccountHealth } from "@/lib/health";
+import { FirstLook } from "@/components/start/FirstLook";
 
 /**
  * The one setup step: connect Amazon (through DataDoe, an Amazon-approved data partner). Seller Central, then Ads.
@@ -89,6 +90,7 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
           </li>
         ))}
       </ul>
+      <FirstLook token={token} />
       {/* One status line at a time: the Check now answer replaces the waiting line instead of adding a second one. */}
       {busy === "check" ? <LoadingText steps={["Asking Amazon for the latest reports…", "Reading what's in so far…", "Finding what to fix…"]} every={8000} />
         : msg ? <p className="fine" role="status">{msg}</p>

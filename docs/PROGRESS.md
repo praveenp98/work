@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Instant first look while history loads
+- Praveen asked for it after the free-audit test (history takes hours). New `lib/first-look.ts` (tested) + `POST /api/w/amazon/first-look` + `components/start/FirstLook.tsx` on the waiting screen.
+- Two live reads: the **Listings** snapshot (`amazon_listings_with_cogs`, no date range, so it's there right after connecting) + Amazon's own issue check on the top 20 active SKUs. Findings with real counts and named products: out of stock at Amazon with nothing inbound, stranded stock, listing errors, inactive, no backend search terms, fewer than 3 bullets, no product cost.
+- Live on Habit Nest (read-only): 13 seconds. 49 SKUs, 25 active: 2 out of stock with nothing on the way, 1 with Amazon errors, 16 inactive, 2 with no backend search terms, 1 with no cost.
+- Cost: one DataDoe export (~2 tokens) + one read action per look; cached 6h per account; max 4 fresh looks an hour per team. Paid, trial and active free-audit teams.
+
 ## 2026-11-25 · Connect screen: real status instead of a fake checklist
 - Praveen's free-audit test: Seller Central connected, Ads not, yet the waiting screen "ticked" search terms and campaigns. That list was a timed animation. Now it shows each report's real state from DataDoe (the same health check as the dashboard card, refreshed every 2 minutes): in / Amazon still sending / needs Amazon Ads.
 - Copy fixed: "first fixes within a few minutes" said one thing, "first data loading (a few hours)" another. Truth: Amazon's first load takes a few hours (up to 48). Account label "CA · CA" now reads "Amazon CA".

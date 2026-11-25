@@ -45,3 +45,5 @@ Once per account at connect: 2 DataDoe exports (Amazon's change history + campai
 - Boost: $449/mo billed annually ($579 monthly), 100 brands; plus Partner Connect (client connect links back to your app + webhooks) $19/mo → **~$470–600/mo**.
 - REST API limits: 100 requests/min, 10 exports/min, 30 writes/min per token. Full white-labeling is "in build", not available.
 - Verdict: **not cheaper** than DataDoe after the fixes (~$350–600/mo all-in for DataDoe), it's a competitor (they sell daily AI recommendations with approve/reject), and switching means rebuilding the connection, pulls and writes. Stay on DataDoe.
+
+**Instant first look (Nov 25):** one Listings export (~2 DataDoe tokens) + one AMAZON_LISTINGS_FIND read per connected account, cached 6 hours, at most 4 an hour per team. Runs for free audits too.
