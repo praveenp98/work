@@ -22,7 +22,7 @@ Format for all: vertical 9:16 for Reels, Shorts, TikTok and X; 16:9 cut for the 
 | 0–3s | "Everyone told me: just give Claude your Amazon reports." | Phone: a text "bro just give claude your excel files 😂" |
 | 3–12s | "And it's brilliant. It'll tell you what to change. Then it forgets. It doesn't check your account tomorrow, and it won't tell you next week whether that change lost you money." | Claude-style chat (generic, no logo) with a long answer |
 | 12–25s | "Rocco runs on Claude, but it does the loop. It checks every morning, keeps bid moves inside safe limits, logs every change with an undo, and measures each one a week later." | Office: dock → desk → board → lab; change log with Undo |
-| 25–35s | "Claude gives advice. Rocco keeps the receipts. Try it on your own account for seven days at rocco.works." | End card with that line |
+| 25–35s | "Claude gives advice. Rocco keeps the receipts. Try it on your own account for two weeks at rocco.works." | End card with that line |
 
 ## 3. "Is my agency actually doing anything?" (30s) — the midnight conversation
 | Time | You say | On screen |
@@ -47,7 +47,7 @@ Format for all: vertical 9:16 for Reels, Shorts, TikTok and X; 16:9 cut for the 
 2. Show the strategy step: "I tell it profit or growth, my budget limit, what never to cut."
 3. Show the morning: jobs ranked by money, approve, done in Amazon.
 4. Show the receipts: change log, result a week later, undo.
-5. "Dr. PPC charges $299 plus 2% of your ad spend. Rocco is $279 flat. Seven days to try it on your own account, every cent back if it's not worth it."
+5. "Dr. PPC charges $299 plus 2% of your ad spend. Rocco is $279 flat. Two weeks to try it on your own account, every cent back if it's not worth it."
 
 ---
 

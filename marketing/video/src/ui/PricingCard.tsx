@@ -22,7 +22,6 @@ export const PricingCard: React.FC<{ pressed?: boolean }> = ({ pressed }) => (
         <li>✓ Whole team</li><li>✓ {ACCOUNTS.included} Amazon accounts</li><li>✓ Every marketplace</li><li>✓ Cancel anytime</li>
       </ul>
     </div>
-    <p className="vc-rise"><span aria-hidden>📈</span> {OFFER.priceRise.line}</p>
     <p className="fine pc-local">{OFFER.price.currencyNote} Extra Amazon accounts +${ACCOUNTS.extraPerMonth}/mo each. {OFFER.price.checkoutNote}</p>
   </div>
 );

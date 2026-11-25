@@ -6,14 +6,14 @@ Read this first in every session. Then read `docs/PROGRESS.md` (latest entries a
 Praveen's workspace for the **Ship or Die $100K Hackathon** (Nov 16 – Dec 16, 2026, profit-scored, solo entry).
 Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an Amazon account alongside Claude/ChatGPT connectors (see STATUS below).
 
-> **STATUS (Nov 24, 2026): rocco.works sells "Hire Rocco": $2,790/yr or $279/mo (flat; vs Dr. PPC $299 + 2% of spend), 7-day money-back guarantee, pay at signup → connect Amazon (DataDoe) → today's jobs approved in one tap and made in Amazon. Left for Praveen: Dodo yearly + monthly products (docs/DODO-SETUP.md), DataDoe Settings → Actions + retention (docs/FOUNDER-TEST.md, docs/COSTS.md), LoopMessage keys, founder test on Habit Nest.**
+> **STATUS (Nov 25, 2026): rocco.works sells "Hire Rocco": $2,790/yr or $279/mo (flat, no price ladder; vs Dr. PPC $299 + 2% of spend), 14-day money-back guarantee (`GUARANTEE_DAYS`, lib/guarantee.ts), pay at signup → connect Amazon (DataDoe) → today's jobs approved in one tap and made in Amazon. Left for Praveen: Dodo yearly + monthly products (docs/DODO-SETUP.md), DataDoe Settings → Actions + retention (docs/FOUNDER-TEST.md, docs/COSTS.md), LoopMessage keys, founder test on Habit Nest.**
 
 ## Source-of-truth files
 | File | Purpose |
 |---|---|
 | `amazon-seller-copilot-prd.md` | The PRD: product map, pricing, GTM (outbound + SEO/AEO), tech plan, 30-day plan. **Follow it.** |
 | `100k-hackathon-ideas.md` | All ideas considered and why they were dropped/parked. Don't revive dropped ideas without asking. |
-| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** $2,790/yr or $279/mo, 7-day guarantee. |
+| `docs/PRICING-MODEL.md` | **Pricing (approved, live):** $2,790/yr or $279/mo, 14-day guarantee. |
 | `docs/DODO-SETUP.md` | **Payments:** Dodo products (one-time, license keys), env vars, test purchase, TrustMRR. |
 | `docs/MOAT.md` | Moat (memory/proof, benchmarks, audience, personality), Rocco Daily content format, conversion levers. |
 | `docs/POLAR-SETUP.md` | Obsolete (Polar can't onboard individuals in India). |
@@ -61,7 +61,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/SECURITY.md` | Threat model, what's protected, env vars Praveen must set, kill switch. |
 | `marketing/copy/reddit-posts.md` | Reddit playbook + topic briefs (facts, sources, questions). **No paste-ready text:** r/FulfillmentByAmazon bans AI-written posts; Praveen writes every word. Banned on r/AmazonSeller (appeal only). |
 | `docs/REDDIT-PLAN.md` | Reddit plan (Nov 25): 30/60/90, sub research method, compliant organic, capped ads test, agency verdict (none before Dec 16), weekly cadence, Inkstreak note. Reddit is not the Dec 16 lever. |
-| `docs/PARTNERSHIPS.md` | Partner plan (Nov 25): 30% of first payment after the 7-day guarantee, partner types in order (PPC freelancers/agencies first), how to find 30 targets, personal outreach, tracking, maths. |
+| `docs/PARTNERSHIPS.md` | Partner plan (Nov 25): 30% of first payment after the 14-day guarantee, partner types in order (PPC freelancers/agencies first), how to find 30 targets, personal outreach, tracking, maths. |
 | `docs/PARTNER-PAGES-PROMPT.md` | Paste-ready build prompt: /partners hub + 3 type pages, noindex /p/[code], `partner` cookie → Dodo metadata (not `ref`), partners tables, /admin/partners payouts, rel="sponsored" links, light static pages. |
 | `lib/partners.ts` / `lib/partner-db.ts` | Partner program (live): copy + `PARTNER_SHARE` for /partners, /partners/agencies, /tools, /communities, /p/[code]; `proxy.ts` sets the `rocco_partner` cookie; `metadata.partner` at checkout → billing → `partner_referrals`; /admin/partners approves and records payouts. Migration 006. |
 | `docs/LEAD-MAGNETS.md` | 10 free tools at /free (what each does, how gating works, post copy for Reddit/LinkedIn/X). |

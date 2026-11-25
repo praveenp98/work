@@ -6,7 +6,7 @@ What's left before Rocco can take real money and run real accounts. In order. Ch
 ## 🔴 Blocks every sale
 1. **Dodo: create the two products** (docs/DODO-SETUP.md has exact clicks).
    - "Hire Rocco: yearly": subscription, $2,790 every 1 year. "Hire Rocco: monthly": subscription, $279 every 1 month. (Products exist; check both PRICES were raised from $1,190/$119.)
-   - Description / checkout note on both: *If you don't like the fixes I give you, you can ask your money back. 7 days guarantee.*
+   - Description / checkout note on both: *If you don't like the fixes I give you, you can ask your money back. 14-day guarantee.* (Was 7 days until Nov 25: if the Dodo descriptions still say 7, change them to 14.)
    - Vercel → Settings → Environment Variables (Production): `DODO_PRODUCT_ID_ANNUAL` = pdt_… and `DODO_PRODUCT_ID_MONTHLY` = pdt_… → Redeploy.
    - Until both are set the plan page says "Checkout is being switched on" (it no longer falls back to the old $99 product).
 2. **Dodo webhook**: ✅ endpoint created (receives every event). Last step: click the 👁 on "Signing secret", copy it, and paste it in Vercel as `DODO_WEBHOOK_SECRET` (Production) → Redeploy. Don't paste it in chat.

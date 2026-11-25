@@ -92,13 +92,6 @@
 .setup-block pre { margin: 0; white-space: pre; overflow-x: auto; }
 .setup-conns .card .tag { justify-self: start; }
 
-/* price ladder */
-.ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
-.rung { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; display: grid; gap: 2px; text-align: center; }
-.rung b { font-family: var(--display); font-size: 24px; }
-.rung span { font-size: 12px; color: var(--muted); }
-.rung.past { opacity: .45; }
-.rung.now { border: 2px solid var(--accent); opacity: 1; background: color-mix(in srgb, var(--accent) 8%, var(--card)); }
 
 /* press kit */
 .copygrid { display: grid; gap: 12px; }
@@ -1169,6 +1162,7 @@ h1, h2, .display { font-family: var(--display); }
 .hlearn-chips span.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, #fff); font-weight: 600; }
 .hlearn-a { margin: 0; padding: 10px 12px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 6%, #fff); font-size: 14px; }
 .hlearn-roi { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; padding: 10px 12px; border-radius: 14px; background: color-mix(in srgb, #1f9d63 7%, #fff); border: 1px solid color-mix(in srgb, #1f9d63 25%, var(--line)); font-size: 13px; }
+.sample-note { margin: 8px 0 0; font-size: 12px; }
 .hlearn-roi span { color: var(--muted); } .hlearn-roi b { font-size: 18px; } .hlearn-roi em { font-style: normal; font-weight: 700; color: #1f7a4f; margin-left: auto; }
 .hmsg-b { margin: 0; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 18px 6px; background: var(--bg2); font-size: 14px; line-height: 1.45; }
 .hmsg-b.me { justify-self: end; border-radius: 18px 18px 6px 18px; background: var(--accent); color: #fff; font-weight: 600; }
@@ -1300,7 +1294,6 @@ h1, h2, .display { font-family: var(--display); }
 .pc-cta { width: 100%; justify-content: center; font-size: 18px; padding: 15px 24px; margin-top: 6px; }
 .pc-guarantee { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
 .pc-quick { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 14px; font-weight: 500; }
-.pc .vc-rise { width: 100%; }
 .pc-local { margin: 0; text-align: center; }
 .pr-sec { display: grid; gap: 16px; }
 .pr-sec h2 { font-family: var(--display); font-weight: 500; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.02em; margin: 0; text-align: center; }
@@ -1359,6 +1352,13 @@ h1, h2, .display { font-family: var(--display); }
 /* Overview of all competitors: no Rocco-blue column; Rocco's own row is highlighted instead. */
 .cmp-all td:last-child { background: none; }
 .cmp-all tr.cmp-me th, .cmp-all tr.cmp-me td { background: #f3f7ff; }
+/* Cost at typical ad spend (components/compare/SpendTable.tsx): both Rocco columns blue. */
+.cmp-spend tbody th { width: 22%; }
+.cmp-spend td.us { background: #f3f7ff; }
+.cmp-spend td small { color: var(--muted, #6b7280); font-size: 12.5px; }
+.cmp-spend td b small { font-weight: 400; }
+/* Who Rocco isn't worth it for yet (components/compare/NotForYou.tsx) */
+.cmp-not { margin: 0; padding-left: 20px; display: grid; gap: 10px; line-height: 1.5; }
 
 .hire-try { margin: 10px 0 0; font-size: 15px; line-height: 1.45; background: #eef6ee; border-radius: 12px; padding: 10px 12px; }
 

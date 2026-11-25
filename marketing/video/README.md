@@ -86,7 +86,7 @@ A video is a JSON file in `specs/`: an ordered list of scenes with a duration (s
 | `compare` | CompareScene: two-column table, rows one by one | `leftTitle` (a category, never a named product), `rightTitle`, `rows` |
 | `stat` | StatScene: one number and its source | `value`, `source` (required), `label`, `kicker` |
 | `footage` | FootageScene: your own clip | `src`, `shot` (`A`, `B`, `C`), `startFrom`, `fit`, `focus`, `volume`, `label`, `blur` |
-| `end` | EndCard: rocco.works, price, guarantee, price rise, CTA, mascot | `cta`, `mascot` |
+| `end` | EndCard: rocco.works, price, guarantee, CTA, mascot | `cta`, `mascot` |
 
 `ui`, `phone`, `changelog` and `compare` also take `kicker`, `title` (a string or a list of lines), `blueLine` and `headingIn` (`"wide"` keeps the heading for 16:9 only, which gives a tall piece like the morning card the whole frame in the vertical formats).
 
@@ -100,7 +100,7 @@ Specs are JSON and cannot import the offer, so they use tokens that are filled i
 { "type": "stat", "duration": 3.5, "props": { "value": "{{offer:timeMath.monthlyText}}/mo", "source": "{{offer:timeMath.hoursPerDay}} hr/day at ${{offer:timeMath.ratePerHour}}/hr" } }
 ```
 
-`{{offer:path}}` reads `marketing/config/offer.ts` (`OFFER`), `{{sample:path}}` reads `marketing/config/sample.ts` (`SAMPLE`). A token that does not exist stops the render. The end card and the pricing piece read the offer directly. When the price rises, change `PLAN` in `lib/pricing.ts` and render again.
+`{{offer:path}}` reads `marketing/config/offer.ts` (`OFFER`), `{{sample:path}}` reads `marketing/config/sample.ts` (`SAMPLE`). A token that does not exist stops the render. The end card and the pricing piece read the offer directly. If the price ever changes, change `PLAN` in `lib/pricing.ts` and render again.
 
 ### Rules the code enforces
 

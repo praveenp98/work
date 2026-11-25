@@ -9,6 +9,6 @@
     { "type": "ui", "duration": 5, "caption": "you tap approve. it makes the change in amazon.", "props": { "piece": "morning", "taps": 1, "headingIn": "wide", "kicker": "One tap", "title": ["You approve.", "I make the change."] } },
     { "type": "phone", "duration": 6, "caption": "or reply yes from your messages. that's the whole workflow.", "props": { "style": "imessage", "title": ["Or just", "reply YES."] } },
     { "type": "ui", "duration": 3, "caption": "a week later it checks if it worked.", "props": { "piece": "changelog-row", "index": 0, "title": ["Checked a", "week later."] } },
-    { "type": "end", "duration": 3, "caption": "seven day money back. link in bio.", "props": { "cta": "link in bio" } }
+    { "type": "end", "duration": 3, "caption": "fourteen day money back. link in bio.", "props": { "cta": "link in bio" } }
   ]
 }

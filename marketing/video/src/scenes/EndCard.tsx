@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { enter, pop } from "../anim";
-import { OFFER, PRICE_RISE, SITE_URL } from "../config";
+import { OFFER, SITE_URL } from "../config";
 import { useAreas } from "../layout";
 import { displayStyle, T } from "../theme";
 import { Rocco } from "../ui/Mascot";
@@ -15,7 +15,7 @@ export interface EndCardProps {
 
 const site = SITE_URL.replace(/^https?:\/\//, "");
 
-/** Scene 9. Where to go, what it costs (from offer.ts), the guarantee, the price rise, one CTA, and Rocco. */
+/** Scene 9. Where to go, what it costs (from offer.ts), the guarantee, one CTA, and Rocco. */
 export const EndCard: React.FC<EndCardProps> = ({ cta, mascot = "wave" }) => {
   const frame = useCurrentFrame();
   const { wide, u, content } = useAreas();
@@ -27,7 +27,6 @@ export const EndCard: React.FC<EndCardProps> = ({ cta, mascot = "wave" }) => {
       <div style={{ fontSize: 50 * k, fontWeight: 600, color: T.ink, ...enter(frame, 2, 9) }}>{OFFER.price.from}</div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 14 * k, justifyContent: wide ? "flex-start" : "center", ...enter(frame, 4, 9) }}>
         <span style={pill}>🛡️ {OFFER.guarantee.days}-day money-back</span>
-        <span style={pill}>📈 price goes up every {PRICE_RISE.everyHires} hires</span>
       </div>
       <div style={{ marginTop: 10 * k, padding: `${24 * k}px ${54 * k}px`, borderRadius: 999, background: T.accent, color: "#fff", fontSize: 50 * k, fontWeight: 600, boxShadow: "0 10px 26px rgba(31,111,235,.35)", ...pop(frame, 6, 9, 0.9) }}>{cta}</div>
       <div style={{ fontSize: 24 * k, color: T.muted, ...enter(frame, 8, 9, 10) }}>{OFFER.disclaimer}</div>

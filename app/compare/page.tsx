@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NotForYou } from "@/components/compare/NotForYou";
 import { CHECKED, COMPETITORS } from "@/lib/compare";
 import { PRICE } from "@/lib/pricing";
 
@@ -32,6 +33,7 @@ export default function Page() {
         </div>
         <p className="fine">Public prices and listings, checked {CHECKED}. Most vendors don&apos;t publish exact prices; each page says where its numbers came from.</p>
       </section>
+      <NotForYou />
     </section>
   );
 }

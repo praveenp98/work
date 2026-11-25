@@ -6,7 +6,7 @@ import { POST as apply } from "../app/api/partners/apply/route";
 import { proxy } from "../proxy";
 import { funnelFromRows } from "./events";
 import { approvedPartner, cleanApplication, listPartners, listReferrals, markPayoutPaid, recordReferral, resetPartnersForTests, savePartnerApplication, setPartnerStatus } from "./partner-db";
-import { ALL_PARTNER_PAGES, attachPartner, cleanCode, cookieToSet, EXAMPLE, guaranteeEnds, LANDING, makeCode, PARTNER_SHARE, payoutDue, payoutFor, readPartnerCookie, sharePct } from "./partners";
+import { ALL_PARTNER_PAGES, attachPartner, cleanCode, cookieToSet, EXAMPLE, GUARANTEE_DAYS, guaranteeEnds, LANDING, makeCode, PARTNER_SHARE, payoutDue, payoutFor, readPartnerCookie, sharePct } from "./partners";
 import { checkoutUrl } from "./payments";
 import { hireUrl } from "./paywall";
 import { setStoreForTests } from "./store";
@@ -111,11 +111,12 @@ describe("checkout metadata", () => {
 describe("payouts", () => {
   const paid = new Date("2026-12-01T10:00:00Z");
   const r = { paid_at: paid.toISOString(), guarantee_ends_at: guaranteeEnds(paid), refunded: false, payout_status: "due" as const };
-  it("are due only once the 7-day guarantee has passed and the seller hasn't refunded", () => {
-    expect(r.guarantee_ends_at).toBe("2026-12-08T10:00:00.000Z");
-    expect(payoutDue(r, new Date(paid.getTime() + 6 * DAY))).toBe(false);
-    expect(payoutDue(r, new Date(paid.getTime() + 7 * DAY - 1))).toBe(false);
-    expect(payoutDue(r, new Date(paid.getTime() + 7 * DAY))).toBe(true);
+  it("the guarantee is 14 days, from one constant", () => expect(GUARANTEE_DAYS).toBe(14));
+  it("are due only once the 14-day guarantee has passed and the seller hasn't refunded", () => {
+    expect(r.guarantee_ends_at).toBe("2026-12-15T10:00:00.000Z");
+    expect(payoutDue(r, new Date(paid.getTime() + 13 * DAY))).toBe(false);
+    expect(payoutDue(r, new Date(paid.getTime() + GUARANTEE_DAYS * DAY - 1))).toBe(false);
+    expect(payoutDue(r, new Date(paid.getTime() + GUARANTEE_DAYS * DAY))).toBe(true);
     expect(payoutDue({ ...r, refunded: true }, new Date(paid.getTime() + 30 * DAY))).toBe(false);
     expect(payoutDue({ ...r, payout_status: "paid" }, new Date(paid.getTime() + 30 * DAY))).toBe(false);
     expect(payoutDue({ ...r, payout_status: "void" }, new Date(paid.getTime() + 30 * DAY))).toBe(false);
@@ -133,10 +134,11 @@ describe("payouts", () => {
     expect(await recordReferral({ ...sale, workspaceId: "ws-2", partner: "nobody" })).toBe("unknown_partner");
     const ref = (await listReferrals()).referrals[0];
     expect(await markPayoutPaid(ref.id!, 837, "2026-12-03", new Date(paid.getTime() + 2 * DAY))).toMatchObject({ ok: false, error: "not_due" });
-    expect(await markPayoutPaid(ref.id!, -5, "2026-12-09", new Date(paid.getTime() + 8 * DAY))).toMatchObject({ ok: false });
-    expect(await markPayoutPaid(ref.id!, 837, "2026-12-09", new Date(paid.getTime() + 8 * DAY))).toMatchObject({ ok: true });
+    expect(await markPayoutPaid(ref.id!, 837, "2026-12-09", new Date(paid.getTime() + 8 * DAY))).toMatchObject({ ok: false, error: "not_due" }); // day 8: still inside the 14-day guarantee
+    expect(await markPayoutPaid(ref.id!, -5, "2026-12-16", new Date(paid.getTime() + 15 * DAY))).toMatchObject({ ok: false });
+    expect(await markPayoutPaid(ref.id!, 837, "2026-12-16", new Date(paid.getTime() + 15 * DAY))).toMatchObject({ ok: true });
     expect((await listReferrals()).referrals[0]).toMatchObject({ payout_status: "paid", payout_amount: 837 });
-    expect(await markPayoutPaid(ref.id!, 837, "2026-12-09", new Date(paid.getTime() + 8 * DAY))).toMatchObject({ ok: false }); // not twice
+    expect(await markPayoutPaid(ref.id!, 837, "2026-12-16", new Date(paid.getTime() + 15 * DAY))).toMatchObject({ ok: false }); // not twice
   });
 });
 

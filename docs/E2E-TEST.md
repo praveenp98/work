@@ -36,7 +36,7 @@ Tick each line; if a step fails, note what you saw and tell Claude.
 - [ ] Buy on /pricing with a real card ($99) → redirected to /thanks → receipt email has a license key.
 - [ ] In Claude: "Rocco, activate my license" + key → "License active". Approval lists now show all fixes; export_changes works.
 - [ ] Website Ad Roast unlock box accepts the key.
-- [ ] /api/price shows sold: 1, live: true. (Ladder steps at 5 sales.)
+- [ ] /api/price shows sold: 1, live: true. (Price stays flat: no ladder.)
 - [ ] Refund the test purchase in Dodo (refunds count against contest profit; do it before real customers).
 - [ ] TrustMRR shows the Dodo-verified revenue.
 

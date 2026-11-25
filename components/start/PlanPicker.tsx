@@ -41,7 +41,7 @@ export function PlanPicker({ annualUrl, monthlyUrl, where }: { annualUrl: string
           {busy ? "Opening secure checkout…" : plan === "annual" ? `Continue · ${yr} a year →` : `Continue · ${mo} a month →`}
         </a>
       ) : <p className="tm-err" role="status">Checkout is being switched on right now. Please try again in a few minutes, or email human@rocco.works.</p>}
-      <p className="pp-guarantee">🛡️ <b>Try me for 7 days on your own account.</b> Not useful? Every cent back, one email, no call. {plan === "annual" ? "Renews yearly; cancel the renewal anytime." : "Cancel anytime."}</p>
+      <p className="pp-guarantee">🛡️ <b>Try me for 14 days on your own account.</b> Not useful? Every cent back, one email, no call. {plan === "annual" ? "Renews yearly; cancel the renewal anytime." : "Cancel anytime."}</p>
     </div>
   );
 }

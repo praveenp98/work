@@ -8,7 +8,7 @@ const STEPS = [2000, 5000, 10000, 20000, 30000, 50000, 75000, 100000, 150000, 25
 
 /** "What a %-of-ad-spend tool costs you vs Rocco": one slider, two bars, the difference per year. */
 export function SpendCompare({ title = "The more you spend, the more they charge." }: { title?: string }) {
-  const [i, setI] = useState(2);
+  const [i, setI] = useState(1); // starts at $5,000 a month: a typical account, not a big one
   const spend = STEPS[i];
   const y = yearlyAt(spend);
   const max = Math.max(y.drppc, y.rocco, ROCCO.monthly * 12);

@@ -26,7 +26,7 @@ export const productFor = (plan: PlanId = "annual") => validId(plan === "monthly
 /** Every product whose payments count as hiring Rocco. */
 /** Only the current plans unlock Rocco (a new purchase of an old product must not grant a year). */
 export const ourProducts = () => [process.env.DODO_PRODUCT_ID_ANNUAL, process.env.DODO_PRODUCT_ID_MONTHLY].filter(Boolean) as string[];
-/** Old products: still counted as past hires on the price ladder, never as new access. */
+/** Old products: still counted as past hires (the paying-customer count), never as new access. */
 export const pastProducts = () => [PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean) as string[];
 
 /** "Extra Amazon account" subscription (+$49/mo each). Unset = extra accounts are by email. */

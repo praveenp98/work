@@ -99,6 +99,7 @@ export default async function Home() {
               <div className="hlearn-chips"><span>✅ Already done</span><span className="on">🧭 Not my strategy</span><span>⚠️ Too risky</span><span>⏰ Not now</span></div>
               <p className="hlearn-a">🧠 Noted. Say it twice for this kind of fix and I&apos;ll stop suggesting it.</p>
               <div className="hlearn-roi"><span>Rocco has saved you</span><b><CountUp to={1284} prefix="$" /></b><em>13× what I cost</em></div>
+              <p className="fine sample-note">Sample account · made-up numbers, not a customer</p>
             </Reveal>
           </div>
         </div>
@@ -150,6 +151,7 @@ export default async function Home() {
               { me: true, text: "YES G1" },
               { text: <>Done in Amazon ✅ Budget is $60. I&apos;ll check it a week from now and tell you if it paid off.</> },
             ]} />
+            <p className="fine sample-note">Sample conversation · made-up brand and numbers</p>
           </div>
         </div>
       </section>

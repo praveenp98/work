@@ -27,7 +27,7 @@ export function TryDemo({ label = "Try it right here", className = "btn ghost" }
       {open && (
         <div className="trd" role="dialog" aria-modal="true" aria-label="Rocco demo account" onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
           <div className="trd-box">
-            <div className="trd-h"><b>Demo account · click anything</b><button className="linkbtn" onClick={() => setOpen(false)} aria-label="Close">Close ✕</button></div>
+            <div className="trd-h"><b>Demo account · made-up numbers · click anything</b><button className="linkbtn" onClick={() => setOpen(false)} aria-label="Close">Close ✕</button></div>
             <div className="trd-body"><DemoApp /></div>
           </div>
         </div>

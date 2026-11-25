@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
+import { NotForYou } from "@/components/compare/NotForYou";
 import { CHECKED, COMPETITORS, competitor, roccoYear, yearlyCost } from "@/lib/compare";
+import { TYPICAL_SPENDS } from "@/lib/competitors";
 import { PLAN, PRICE } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 
@@ -31,7 +33,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (!c) notFound();
   const n = short(c.name);
   const N = title(n);
-  const spends = [5000, 10000, 30000];
+  const spends = TYPICAL_SPENDS; // $2k, $5k, $10k a month in ads
   const costs = spends.map((s) => ({ s, them: yearlyCost(c, s) }));
   const rows: [string, string, string][] = [
     ["Price", c.price, `${PRICE.annual}/yr or ${PRICE.monthly}/mo, flat`],
@@ -76,6 +78,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <div className="pr-group"><h3>Pick Rocco if</h3><ul>{c.pickRocco.map((x) => <li key={x}>{x}</li>)}</ul></div>
         </div>
       </section>
+
+      <NotForYou />
 
       <section className="pr-sec pr-faq">
         <h2>Questions</h2>

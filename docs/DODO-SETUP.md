@@ -7,7 +7,7 @@ All plans are **one-time payments** (count in full for the contest).
 ## Status (Nov 17, single plan — done by Claude via the Dodo API)
 - **One live product: "Hire Rocco"** (renamed Nov 17 from Rocco Founding Lifetime) `pdt_0Ns7dcv01gDgTlIQC1O1b`, starts $99 one-time, license keys ON, tax category SaaS. Default in `lib/payments.ts`.
 - The 4 earlier products (Holiday/Seller/Pro/Agency) are **archived**.
-- **Price ladder:** +$10 every 5 sales, cap $499 (`lib/pricing.ts`). The site counts succeeded payments from the Dodo API and PATCHes the product price automatically (on page render, cached 60s, and on every Dodo webhook).
+- **Price ladder (removed Nov 25, 2026; prices are flat now):** was +$10 every 5 sales, cap $499 (`lib/pricing.ts`). The site counts succeeded payments from the Dodo API and PATCHes the product price automatically (on page render, cached 60s, and on every Dodo webhook).
 - **Praveen must add in Vercel:** `DODO_API_KEY` (same key; server-only). Without it the site shows $99 and the price never steps up.
 - **Praveen must add in Dodo → Webhooks:** endpoint `https://rocco.works/api/dodo/webhook`, events payment.succeeded (+ refund events). The body isn't trusted; it only triggers a re-count.
 - Verified live from the sandbox: payments count (0), price read, sync, license check (fake key rejected).
@@ -44,7 +44,7 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
 1. **Dodo → Products → Add product → Subscription.** Name **Rocco · Yearly**. Price **$1,190 USD**, billed **every 1 year**, no trial, no discount. Tax category: SaaS / digital services. License keys: off.
    - **Description (this is the text buyers see on Dodo's payment page):**
      > Rocco: real work without the fluff. Connect Seller Central and Amazon Ads once; every morning Rocco finds the fixes worth making, you approve, and he makes the change in Amazon and checks the result a week later. Whole team, unlimited brands. 2 months free vs monthly.
-     > **If you don't like the fixes I give you, ask for your money back. 7-day guarantee.**
+     > **If you don't like the fixes I give you, ask for your money back. 14-day guarantee.**
      > Self-serve software, not affiliated with Amazon.
 2. **Add product → Subscription** again. Name **Rocco · Monthly**. Price **$119 USD**, billed **every 1 month**, no trial. Same tax category and description (without "2 months free vs monthly"), keeping the guarantee line.
 3. Open each product and copy its ID (starts with `pdt_`).
@@ -55,12 +55,12 @@ Until both IDs are in Vercel, checkout falls back to the older `DODO_PRODUCT_ID`
    - Then **Deployments → latest → Redeploy**.
 5. Test: rocco.works → Connect Amazon → pick Yearly → checkout must say $1,190/year; back, pick Monthly → $119/month. Pay once with a real card, then refund yourself (step 7) to check the full loop.
 6. Webhook: no change (same endpoint, both products count as hiring Rocco).
-7. **Money-back guarantee (7 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
+7. **Money-back guarantee (14 days):** refunds are manual. Dodo → Transactions → the payment → **Refund** (full), then cancel the subscription in Dodo → Subscriptions. Refunds reduce hackathon profit; log each one in docs/PROGRESS.md.
 8. **Brand (Dodo → Settings → Business / Branding):** logo https://rocco.works/rocco-avatar.png, name Rocco, brand color #1f6feb, support email human@rocco.works. The checkout layout itself is Dodo's.
 
 ## Extra Amazon account product (Nov 22)
 - Dodo → Products → Add product → **Subscription**. Name **Rocco · Extra Amazon account**. Price **$49 USD every 1 month**, no trial, localized pricing on.
 - Description: "One more Amazon account (marketplace) on your Rocco plan. Cancel anytime."
 - Copy the product id → Vercel `DODO_PRODUCT_ID_EXTRA_ACCOUNT` → Redeploy.
-- How it works: the dashboard's Amazon accounts card shows "Add an account · $49/mo" when the plan's 3 accounts are in use. Each paid subscription adds one slot while it's active; refund, failure or cancel at period end removes it. Extra accounts don't count as new hires on the price ladder.
+- How it works: the dashboard's Amazon accounts card shows "Add an account · $49/mo" when the plan's 3 accounts are in use. Each paid subscription adds one slot while it's active; refund, failure or cancel at period end removes it. Extra accounts don't count as new hires in the paying-customer count.
 

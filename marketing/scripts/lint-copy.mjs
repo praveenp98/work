@@ -11,7 +11,8 @@
  *
  * Fails on:
  *   em-dash          the U+2014 character, anywhere
- *   guarantee-30     "30-day money-back", "30-day guarantee", "30 day money" (the guarantee is 7 days)
+ *   guarantee-30     "30-day money-back", "30-day guarantee", "30 day money" (the guarantee is 14 days)
+ *   guarantee-7      "7-day money-back", "7-day guarantee", "7-day refund", "try it for 7 days" (old length; it is 14 days since Nov 25)
  *   free-plan        "free plan" offered as a feature ("no free plan" and the "is there a free plan?" question pass)
  *   trusted-by       "trusted by"
  *   testimonial      testimonial text outside the hidden proof slot (see PROOF SLOT below)
@@ -59,7 +60,8 @@ const amountOf = (m) => {
 };
 
 const PHRASES = [
-  { rule: "guarantee-30", re: /30[\s-]?days?[\s-]+(?:money|guarantee|refund)|30[\s-]?days?[\s-]+(?:full[\s-]+)?money[\s-]?back/i, why: "the guarantee is 7 days" },
+  { rule: "guarantee-30", re: /30[\s-]?days?[\s-]+(?:money|guarantee|refund)|30[\s-]?days?[\s-]+(?:full[\s-]+)?money[\s-]?back/i, why: "the guarantee is 14 days" },
+  { rule: "guarantee-7", re: /\b(?:7|seven)[\s-]?days?[\s-]+(?:money|guarantee|(?:full[\s-]+)?refund)|\btry (?:it|me) (?:for )?(?:7|seven) days\b/i, why: "the guarantee is 14 days now (lib/guarantee.ts)" },
   { rule: "trusted-by", re: /trusted\s+by/i, why: "no social proof we can't back" },
   { rule: "plugs-into", re: /plugs?\s+in\s?to\s+claude/i, why: "old positioning: Rocco needs no Claude or other AI" },
 ];
@@ -147,6 +149,8 @@ function selfTest() {
     ["guarantee-30", "30-day money-back guarantee"],
     ["guarantee-30", "a 30 day money back promise"],
     ["guarantee-30", "30-day guarantee"],
+    ["guarantee-7", "7-day money-back guarantee"],
+    ["guarantee-7", "Try me for 7 days on your own account"],
     ["free-plan", "Start on the free plan today"],
     ["trusted-by", "Trusted by sellers everywhere"],
     ["plugs-into", "Rocco plugs into Claude"],
@@ -160,10 +164,11 @@ function selfTest() {
     ["sample-label", `Rocco has saved you ${D}1,284`],
   ];
   const clean = [
-    `${D}1,190 a year or ${D}119 a month. ${D}99/mo billed yearly, save ${D}238.`,
+    `${D}2,790 a year or ${D}279 a month. ${D}233/mo billed yearly, save ${D}558.`,
     `1 hour a day at ${D}35 an hour is ${D}770 a month.`,
-    `Prices go up every 5 hires: +${D}10 a month, +${D}100 a year. Extra accounts +${D}49/mo.`,
-    "7-day money-back guarantee. No free plan: reading an account costs money.",
+    `The price is flat. Extra accounts +${D}49/mo.`,
+    "14-day money-back guarantee. No free plan: reading an account costs money.",
+    "Every change is measured 7 days later.",
     "Is there a free plan? No.",
     `Sample account: ${SAMPLE.brand}, 4 jobs worth ~${D}1,240/mo. Bid ${D}1.20 to ${D}0.95.`,
     `the ${D}100K Ship or Die hackathon`,

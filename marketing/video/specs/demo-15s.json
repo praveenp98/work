@@ -7,6 +7,6 @@
     { "type": "ui", "duration": 3.5, "caption": "this is what my amazon account tells me every morning.", "props": { "piece": "morning", "interact": false, "headingIn": "wide", "kicker": "Every morning", "title": ["A few clear jobs,", "ranked by money."] } },
     { "type": "ui", "duration": 4, "caption": "i tap approve. it makes the change in amazon.", "props": { "piece": "morning", "taps": 1, "headingIn": "wide", "kicker": "One tap", "title": ["You approve.", "I make the change."] } },
     { "type": "phone", "duration": 4.5, "caption": "or i just reply yes.", "props": { "style": "imessage", "title": ["Or just", "reply YES."] } },
-    { "type": "end", "duration": 3, "caption": "seven day money back. link in bio.", "props": { "cta": "link in bio" } }
+    { "type": "end", "duration": 3, "caption": "fourteen day money back. link in bio.", "props": { "cta": "link in bio" } }
   ]
 }

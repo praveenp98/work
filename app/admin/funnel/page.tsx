@@ -64,7 +64,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
           <span style={{ marginLeft: "auto", fontWeight: 600 }}>{goal - paid > 0 ? `${goal - paid} to go` : "Goal reached"}</span>
         </div>
         <div style={{ height: 12, borderRadius: 99, background: "var(--bg2)", overflow: "hidden" }}><div style={{ width: `${pct}%`, height: "100%", background: "#1f9d63", borderRadius: 99 }} /></div>
-        <p className="fine" style={{ margin: 0 }}>{price?.live ? "Counted from Dodo payments (the same count the price rise uses)." : `Dodo couldn't be reached from here, so this is the number of "paid" events in the last 30 days.`}</p>
+        <p className="fine" style={{ margin: 0 }}>{price?.live ? "Counted from Dodo payments (unique paying customers)." : `Dodo couldn't be reached from here, so this is the number of "paid" events in the last 30 days.`}</p>
       </div>
 
       <Table title="Last 7 days" rows={week.rows} ok={week.ok} />

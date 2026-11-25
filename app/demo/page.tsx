@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <section className="pr dmp">
       <header className="pr-head">
-        <span className="h5-kicker">Demo account · demo data</span>
+        <span className="h5-kicker">Demo account · made-up brand and numbers</span>
         <h1>See me run an Amazon account.</h1>
         <p className="pr-sub">Watch the 2-minute tour, or click around yourself. This is the same screen your team gets every morning.</p>
         <DemoVideo />

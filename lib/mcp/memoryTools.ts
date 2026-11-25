@@ -171,7 +171,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       L.push(...res.actions.map((a) => proposalLine(a.proposal) + ` · id \`${a.id.slice(0, 8)}\``));
       if (res.dupes.length) L.push(`Already logged: ${res.dupes.join(", ")}.`);
       if (res.unknown.length) L.push(`Unknown codes: ${res.unknown.join(", ")}.`);
-      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($2,790/yr or $279/mo): ${hireUrl(ws)}. 7-day money-back guarantee.`);
+      if (res.locked.length) L.push(`Not logged: ${res.locked.join(", ")}. Changes need an active Rocco ($2,790/yr or $279/mo): ${hireUrl(ws)}. 14-day money-back guarantee.`);
       return text(L.join("\n"));
     } catch (e) {
       return fail(e instanceof Error ? e.message : "Couldn't log those changes.");

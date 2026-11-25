@@ -36,8 +36,8 @@ Last checked against the repo and the live site (rocco.works, rocco.works/pricin
 
 - $2,790/year (= $233/mo billed yearly, 2 months free, saves $558) or $279/month.
 - Whole team. 3 Amazon accounts included (each marketplace counts as one), +$49/mo each extra.
-- Prices go up every 5 hires: +$10 a month, +$100 a year.
-- 7-day money-back guarantee: "if you don't like the fixes I give you in your first 7 days, email human@rocco.works and you get a full refund. No call, no forms."
+- The price is flat: no price ladder, no "price goes up" lines (removed Nov 25, 2026).
+- 14-day money-back guarantee: "if you don't like the fixes I give you in your first 14 days, email human@rocco.works and you get a full refund. No call, no forms."
 - No free plan (reading an Amazon account costs real money to run).
 - Secure checkout by Dodo Payments. Prices in USD; checkout shows local price.
 - Time math on the site: 1 hour/day checking ads, bids and stock at $35/hour = $770/mo, vs Rocco at $233/mo (yearly). Always show the assumption (1 hr/day, $35/hr; the site multiplies by 22 workdays) when you use $770.
@@ -47,13 +47,11 @@ Last checked against the repo and the live site (rocco.works, rocco.works/pricin
 | What | Where | Notes |
 |---|---|---|
 | Plan prices, guarantee days | `lib/pricing.ts` (`PLAN`) | App code. Do not edit from this branch. |
-| Everything an asset says about the offer | `marketing/config/offer.ts` | Imports `PLAN`. Adds price-rise step, accounts, time math, guarantee text, links, handles, `utm()`, `hackathonDay()`. |
+| Everything an asset says about the offer | `marketing/config/offer.ts` | Imports `PLAN`. Adds accounts, time math, guarantee text, links, handles, `utm()`, `hackathonDay()`. |
 | Sample account numbers and label | `marketing/config/sample.ts` | "Bamboo & Co". The only account numbers an asset may show. |
 | Loading the config from Node scripts | `marketing/scripts/load-config.mjs` | Needs Node 22.18+. No packages. |
 
-Price rise: it is applied by hand. Praveen raises both Dodo products and `PLAN` in `lib/pricing.ts` (docs/ROUTINE.md). `offer.ts` follows on its own; then re-render every asset. The step itself (+$10 / +$100 every 5 hires) is only page copy in the app (`components/start/ValueCalc.tsx`, `lib/help.ts`), so it is defined in `offer.ts` (`PRICE_RISE`).
-
-"Hires left at this price" is live (`GET /api/price`, field `sold`; `hiresLeftAtThisPrice(sold)`). Never bake it into a rendered asset.
+The price is flat. There is no price ladder and no "hires left at this price" count (removed Nov 25, 2026). If `PLAN` in `lib/pricing.ts` ever changes, `offer.ts` follows on its own; then re-render every asset.
 
 ## Hard rules
 
@@ -61,7 +59,7 @@ Price rise: it is applied by hand. Praveen raises both Dodo products and `PLAN` 
 2. The sample account "Bamboo & Co" and its numbers (4 jobs worth ~$1,240/mo, $1,284 saved, 13x what I cost, $212/mo less wasted, Before Rocco: 214 changes in 90 days, and the rest of `config/sample.ts`) always carry a visible "Sample account" label in every frame, image or page where they appear.
 3. Never use real seller account data (including Praveen's test accounts) in any asset unless Praveen says that seller agreed in writing. Blur or replace it.
 4. No em dashes (U+2014) anywhere: copy, captions, scripts, emails, user-facing text. Use commas, periods, colons or "to".
-5. Never write a 30-day guarantee. It is 7-day.
+5. Never write a 30-day guarantee. It is 14-day.
 6. Don't claim Amazon endorses Rocco. "Amazon-approved data partner" refers to DataDoe only.
 7. No competitor claims that can't be verified. Compare against categories ("data dashboards", "PPC agencies", "doing it yourself"), never named products.
 8. Don't change product logic, billing, auth, DataDoe or cron code. Marketing pages may import existing UI components and copy. If shared code must be touched, stop and ask Praveen.
@@ -136,9 +134,8 @@ Brand tokens: `app/globals.css` line 252 (`--bg #f4f2ee`, `--card #fcfbf9`, `--i
 | Data vs decisions table | `app/page.tsx` L24 to 30 (`VS`) and L114 to 117 (inline, `.vs`) | 5 rows: "Amazon data tools" vs "Rocco" | No component. Data array + markup to copy. Compares a category, not a named product. |
 | Messages (iMessage / WhatsApp / Slack) | `app/page.tsx` L128 to 132 (inline, `.hmsg`) | 3 bubbles: morning nudge, "YES N1 G2", "Done in Amazon" | No component. Copy markup and CSS. No sample label next to it on the site: add one. |
 | Pricing card (home) | `app/page.tsx` L142 to 155 (inline, `.price-card`) | $2,790 a year, or $279 a month, 6 ticks, guarantee line | No component. Imports `HireButton` (checkout sheet, needs the app's API). Rebuild from `offer.ts`. |
-| Pricing card (pricing page) | `components/PricingPlans.tsx` (`.pc`) | Yearly / Monthly switch, $233/month billed yearly, "2 months free", guarantee, quick ticks, price-rise line | Not as is: imports `HireButton` (calls `/api/hire`) and `PriceRise` (calls `/api/price`). Rebuild from `offer.ts`. |
-| Price rise | `PriceRise` in `components/start/ValueCalc.tsx` (`.vc-rise`) | "Prices go up every 5 hires: +$10 a month, +$100 a year." plus "N hires left at this price" (live count) | Renders anywhere, but "hires left" only appears when `/api/price` answers. |
-| Countdown | `Urgency` in `components/start/ValueCalc.tsx` (`.vc-urgent`), logic in `lib/urgency.ts` | Live countdown to the next real selling event (Black Friday Nov 27, Cyber Monday Nov 30, last gifting week Dec 15) | `lib/urgency.ts` is pure (`nextEvent`, `countdown`, `urgencyLine`) and imports anywhere. The component uses `Date.now()` and needs the `@/` alias. Note: it counts down to selling events, not to the price rise. |
+| Pricing card (pricing page) | `components/PricingPlans.tsx` (`.pc`) | Yearly / Monthly switch, $233/month billed yearly, "2 months free", guarantee, quick ticks | Not as is: imports `HireButton` (calls `/api/hire`). Rebuild from `offer.ts`. |
+| Countdown | `Urgency` in `components/start/ValueCalc.tsx` (`.vc-urgent`), logic in `lib/urgency.ts` | Live countdown to the next real selling event (Black Friday Nov 27, Cyber Monday Nov 30, last gifting week Dec 15) | `lib/urgency.ts` is pure (`nextEvent`, `countdown`, `urgencyLine`) and imports anywhere. The component uses `Date.now()` and needs the `@/` alias. Note: it counts down to selling events only. |
 | Time calculator | `ValueCalc` in `components/start/ValueCalc.tsx` (`.vc`) | Slider 0.5 to 4 hours/day x 22 workdays x $35/hour vs Rocco's monthly price, two bars | Needs the `@/` alias (`@/lib/pricing`, `@/lib/urgency`). Fetches `/api/price` and fails quietly. `timeCost()` is exported and pure. |
 | What I handle | `app/page.tsx` L15 to 22 (`JOBS`, inline `.hjobs`) | The 6 jobs with one-line descriptions | No component. Data array to copy. |
 | FAQ | `app/page.tsx` L32 to 39, `app/pricing/page.tsx` L31 to 40, `lib/help.ts` | Safety, speed, what changes, marketplaces, guarantee, billing | Plain data. `lib/help.ts` is the long form (also at /llms-full.txt). |
@@ -161,7 +158,7 @@ Not on the live homepage any more (old copy inside, do not reuse as is): `compon
 
 ## Share images (Open Graph / X cards)
 
-Made in code, not as static files: `lib/og.tsx` (`ogImage()`), 1200x630, the site's fonts and raccoon, footer "rocco.works · 7-day money-back" from `offer.ts`. A page gets its own card with two small files next to its `page.tsx`: `opengraph-image.tsx` and `twitter-image.tsx` (copy any existing pair). Pages without their own inherit the homepage card. Every new marketing page in this pack gets a pair. `public/og.png` and `public/og-v2.png` are copies of the homepage card for anything that still links the old files.
+Made in code, not as static files: `lib/og.tsx` (`ogImage()`), 1200x630, the site's fonts and raccoon, footer "rocco.works · 14-day money-back" from `offer.ts`. A page gets its own card with two small files next to its `page.tsx`: `opengraph-image.tsx` and `twitter-image.tsx` (copy any existing pair). Pages without their own inherit the homepage card. Every new marketing page in this pack gets a pair. `public/og.png` and `public/og-v2.png` are copies of the homepage card for anything that still links the old files.
 
 ## Funnel tracking
 
@@ -206,11 +203,10 @@ Open questions for Praveen:
 3. Resolved Nov 22: `marketing/video` is excluded in the root `tsconfig.json` and in `.vercelignore`, so the Remotion studio is not type-checked or uploaded with the app. `marketing/config/*.ts` is still type-checked by the app build and passes.
 
 Things in the repo that differ from the facts above:
-- Home FAQ and home price card word the guarantee as "if you don't like the fixes I give you, ask for your money back" (no "first 7 days", no email). The pricing page has the full wording. Assets use the full wording.
+- Home FAQ and home price card word the guarantee as "if you don't like the fixes I give you, ask for your money back" (no "first 14 days", no email). The pricing page has the full wording. Assets use the full wording.
 - The sample account is not one brand on the site: the hero sells cutting boards, the change log blocks "free yoga mat" and bids on "bamboo sheets queen". `config/sample.ts` copies both as they are.
 - The "How a fix happens" phone ($4,120 sales, ACoS 24%, ~$2,900, +$63/mo, +$210/mo, ~$3,170) and the home messages bubble carry no sample label on the site.
-- `lib/pricing.ts` still says "no ladder any more" (`nextPriceCents: null`) and `lib/urgency.ts` says 'no "price goes up" we don\'t mean', while the site shows the every-5-hires rise. The rise is manual, so there is no code to import for it.
-- The site's countdown is to Black Friday / Cyber Monday / Dec 15, not to a price rise.
+- The site's countdown is to Black Friday / Cyber Monday / Dec 15. There is no price rise (flat price since Nov 25).
 - The $770 figure assumes 22 workdays a month (not stated on the site, which says only "At $35 an hour").
 - `ValueCalc` shows "N brands have hired me" once 5 or more have paid. That count is live and real; assets must not state a count unless Praveen gives one.
 - Stale pre-pivot copy still in the repo (not reachable from the live nav, but do not copy from it): CLAUDE.md "What this repo is" (hosted MCP server alongside Claude/ChatGPT connectors); `app/connect/page.tsx` and `app/setup/page.tsx` (both redirect to /; "Rocco is free to add; a one-time license"); `lib/answers.ts` and `lib/guides.ts` (live at /answers and /guides: "Rocco is free to add next to it", Claude/ChatGPT connector how-tos); `app/w/[token]/calendar.ics/route.ts` ("In Claude or ChatGPT, ask Rocco"); `components/home/DayWithRocco.tsx` ("Applied in Claude after your confirm"); `docs/LAUNCH-KIT.md` (one-time $99, +$10 every 5 sales, capped at $499); `docs/DODO-SETUP.md` (automatic ladder).

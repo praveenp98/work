@@ -30,7 +30,7 @@ const TOUR: Step[] = [
   { tab: "autonomy", focus: "dm-goals", cap: "Set a goal per product: profit, balance or growth. My bids and budgets follow it.", ms: 7000 },
   { tab: "messages", focus: "dm-phone", cap: "No dashboard habit needed. I nudge your team on iMessage, WhatsApp or Slack.", ms: 9000 },
   { card: "price", cap: "$279 a month, flat. Not 2% of your ad spend. Whole team, 3 Amazon accounts, every marketplace.", ms: 7000 },
-  { card: "outro", cap: "Try me for 7 days on your own account. Not useful? Every cent back.", ms: 6000 },
+  { card: "outro", cap: "Try me for 14 days on your own account. Not useful? Every cent back.", ms: 6000 },
 ];
 export const TOUR_MS = TOUR.reduce((t, s) => t + s.ms, 0);
 
@@ -97,7 +97,7 @@ export function DemoApp({ film = false }: { film?: boolean }) {
       {!film && (
         <div className="dm-bar">
           {step === null
-            ? <span className="fine">Demo account, demo data. Click anything, or <button className="linkbtn" onClick={() => { setStep(0); track("demo_tour_started"); }}>play the guided tour here</button>.</span>
+            ? <span className="fine">Demo account: a made-up brand with made-up numbers, not a customer. Click anything, or <button className="linkbtn" onClick={() => { setStep(0); track("demo_tour_started"); }}>play the guided tour here</button>.</span>
             : <span className="fine">Guided tour playing. <button className="linkbtn" onClick={() => setStep(null)}>Stop</button></span>}
         </div>
       )}
@@ -195,7 +195,7 @@ export function DemoApp({ film = false }: { film?: boolean }) {
         <div className={`dm-card dm-card-${cur.card}`}>
           {cur.card === "intro" && <><svg className="dm-logo" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="dmi" /></svg><h2>Rocco</h2><p>Your AI Amazon manager. You approve, I do the rest.</p></>}
           {cur.card === "price" && <><h2>$279/mo. Flat.</h2><p>Not 2% of your ad spend. Whole team · 3 Amazon accounts · every marketplace · ads and Seller Central.</p></>}
-          {cur.card === "outro" && <><svg className="dm-logo" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="wow" id="dmo" /></svg><h2>rocco.works</h2><p>Try me 7 days on your own account. Not useful? Every cent back.</p></>}
+          {cur.card === "outro" && <><svg className="dm-logo" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="wow" id="dmo" /></svg><h2>rocco.works</h2><p>Try me 14 days on your own account. Not useful? Every cent back.</p></>}
         </div>
       )}
       {cur && !cur.card && <div className="dm-cap" role="status"><svg className="dm-cap-av" viewBox="15 5 170 140" aria-hidden><RoccoHead mood="smirk" id="dmc" /></svg><p>{cur.cap}</p><i style={{ animationDuration: `${cur.ms}ms` }} key={step} /></div>}

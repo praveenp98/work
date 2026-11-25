@@ -8,7 +8,7 @@ Build the partner program pages and referral tracking for rocco.works. Read `CLA
 
 ## Goal
 
-Partners (small Amazon ads freelancers and agencies, non-competing seller tools, seller community and newsletter owners) send US Amazon sellers to Rocco. A partner earns a share of the seller's first payment, paid by Praveen by hand after the 7-day money-back period. Partners apply, Praveen approves each one, and every sale is tracked to the partner who sent it.
+Partners (small Amazon ads freelancers and agencies, non-competing seller tools, seller community and newsletter owners) send US Amazon sellers to Rocco. A partner earns a share of the seller's first payment, paid by Praveen by hand after the 14-day money-back period. Partners apply, Praveen approves each one, and every sale is tracked to the partner who sent it.
 
 ## Pages (keep it to these; no page per partner type unless listed)
 
@@ -25,7 +25,7 @@ All copy for these pages lives in one data file (`lib/partners.ts`), rendered by
 ## The offer (config, not hard-coded)
 
 - `PARTNER_SHARE` constant in `lib/partners.ts`, default `0.30` of the first payment. Praveen hasn't confirmed 30%: put a `// TODO(Praveen): confirm` next to it and show the value from the constant on every page.
-- Paid only after the seller is past the 7-day guarantee and hasn't refunded. Paid by Praveen by Wise or PayPal. Say this plainly on the pages.
+- Paid only after the seller is past the 14-day guarantee and hasn't refunded. Paid by Praveen by Wise or PayPal. Say this plainly on the pages.
 - No upfront fees, no paid posts, no retainers.
 
 ## Referral tracking
@@ -59,7 +59,7 @@ All copy for these pages lives in one data file (`lib/partners.ts`), rendered by
 
 ## Tests and docs
 
-- Unit tests: code validation, cookie first-wins, metadata passthrough, payout due only after 7 days and not refunded, unknown code redirects.
+- Unit tests: code validation, cookie first-wins, metadata passthrough, payout due only after 14 days and not refunded, unknown code redirects.
 - Fixture-test the Dodo webhook path with a `partner` in metadata.
 - Update `docs/PARTNERSHIPS.md` (how tracking works, how Praveen approves and pays), add a `CLAUDE.md` row, add a `docs/PROGRESS.md` entry, add a `docs/DECISIONS.md` line for the `partner` metadata key. Push to `main`.
 

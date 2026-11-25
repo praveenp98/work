@@ -13,7 +13,6 @@ Everything here takes minutes. Start every check at **https://rocco.works/api/he
 - [ ] **DataDoe → Usage**: rows and AI tokens vs. plan. Rows climbing faster than accounts? Check retention is 6 months and only the 9 tables are on (docs/LIGHTS-ON.md step 5).
 - [ ] **Anthropic Console → Usage**: AI spend vs. the ~$2.50/seller/month estimate (docs/AI-USAGE.md).
 - [ ] **Dodo → Webhooks → Logs**: no failed deliveries. If any failed, click Replay.
-- [ ] **Price rise**: hires count ÷ 5. Crossed a step? Raise both Dodo products (+$10 monthly, +$100 yearly) and ask Claude to update `PLAN` in lib/pricing.ts.
 - [ ] **What sellers asked for that Rocco can't do** (Vercel Logs → `[ai] Their question`): note the top 3 in docs/PROGRESS.md; the most asked becomes the next job type.
 - [ ] **Marketing costs** of the week logged in docs/PROGRESS.md (hackathon rule).
 

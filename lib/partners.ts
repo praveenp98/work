@@ -1,4 +1,7 @@
 import { PLAN } from "./pricing";
+import { GUARANTEE_DAYS, GUARANTEE_MS } from "./guarantee";
+
+export { GUARANTEE_DAYS };
 
 /**
  * Partner program (docs/PARTNERSHIPS.md): copy for /partners, /partners/agencies, /partners/tools,
@@ -37,7 +40,7 @@ export const EXAMPLE = {
   monthlyPayout: usd(payoutFor(PLAN.monthlyCents / 100)),
 };
 export const OFFER_LINE = `${sharePct()} of the seller's first payment: ${EXAMPLE.yearlyPayout} on a yearly plan (${EXAMPLE.yearly}), ${EXAMPLE.monthlyPayout} on a monthly plan (${EXAMPLE.monthly}).`;
-export const PAYOUT_LINE = `Paid by Praveen (Rocco's founder) by Wise or PayPal, once the seller is past the ${PLAN.guaranteeDays}-day money-back guarantee and hasn't asked for a refund.`;
+export const PAYOUT_LINE = `Paid by Praveen (Rocco's founder) by Wise or PayPal, once the seller is past the ${GUARANTEE_DAYS}-day money-back guarantee and hasn't asked for a refund.`;
 
 // ── Codes, cookie, payouts (pure, tested in lib/partners.test.ts) ───────────────────────────────────────────
 /** A partner code: 3 to 24 lowercase letters, digits or single hyphens inside. */
@@ -83,7 +86,7 @@ export function attachPartner<T extends { partner?: string; licensed?: boolean; 
 
 export type PayoutStatus = "due" | "paid" | "void";
 export interface ReferralLike { paid_at: string; guarantee_ends_at: string; refunded: boolean; payout_status: PayoutStatus }
-export const guaranteeEnds = (paidAt: Date | string) => new Date(new Date(paidAt).getTime() + PLAN.guaranteeDays * 86_400_000).toISOString();
+export const guaranteeEnds = (paidAt: Date | string) => new Date(new Date(paidAt).getTime() + GUARANTEE_MS).toISOString();
 /** A payout is due once the guarantee window has fully passed, the seller hasn't refunded, and it isn't paid yet. */
 export const payoutDue = (r: ReferralLike, now = new Date()) => r.payout_status === "due" && !r.refunded && new Date(r.guarantee_ends_at).getTime() <= now.getTime();
 
@@ -128,7 +131,7 @@ export const BASE_FAQ: QA[] = [
   { q: "When and how am I paid?", a: `${PAYOUT_LINE} You get a note with the seller's plan and the amount.` },
   { q: "Does it cost anything to join?", a: "No. No fees, no paid posts, no retainers, no minimums." },
   { q: "How is a sale tracked to me?", a: `Your link (rocco.works/p/your-code, or any rocco.works page with ?partner=your-code) sets a first-party cookie for ${COOKIE_DAYS} days. If the seller hires Rocco in that time, the code goes into the checkout and the sale is tagged to you. If two partners send the same seller, the first one wins.` },
-  { q: "What if the seller refunds?", a: `Then there is no payout for that seller. That's why payouts wait until the ${PLAN.guaranteeDays}-day money-back guarantee has passed.` },
+  { q: "What if the seller refunds?", a: `Then there is no payout for that seller. That's why payouts wait until the ${GUARANTEE_DAYS}-day money-back guarantee has passed.` },
   { q: "Do I have to do anything for the seller?", a: "No. Rocco is self-serve software: the seller signs up, connects Amazon and runs it. You refer; you never have to set it up or support it." },
   { q: "Who decides if I'm accepted?", a: "Praveen reads every application. The best fit is anyone with an audience of US Amazon sellers who already run ads. You'll get an email either way." },
 ];
@@ -158,7 +161,7 @@ export const HUB: PartnerPageCopy = {
   path: "/partners",
   nav: "Overview",
   metaTitle: "Partner program: earn a share of every seller you send",
-  metaDescription: `Send US Amazon sellers to Rocco and earn ${sharePct()} of their first payment, paid after the ${PLAN.guaranteeDays}-day guarantee. For ads freelancers, agencies, seller tools and community owners. No fees.`,
+  metaDescription: `Send US Amazon sellers to Rocco and earn ${sharePct()} of their first payment, paid after the ${GUARANTEE_DAYS}-day guarantee. For ads freelancers, agencies, seller tools and community owners. No fees.`,
   kicker: "Rocco partner program",
   h1: "Send sellers to Rocco. Earn a share of every sale.",
   sub: `For people US Amazon sellers already trust: ads freelancers and agencies, seller tools, community and newsletter owners. ${OFFER_LINE}`,
@@ -186,7 +189,7 @@ export const PARTNER_PAGES: PartnerPageCopy[] = [
     gets: [
       { t: "More clients, same hours", d: "Rocco lays out each account's daily jobs, ranked by money, with the reason. You approve them, or let Rocco act inside guardrails you set." },
       { t: "You stay the strategist", d: "Set the goal, target ACoS, budget ceiling and what never to touch per account. The client relationship and the strategy stay yours." },
-      { t: "Try it on one client account", d: `Once you're approved, ask for a ${PLAN.guaranteeDays}-day trial on one of your client accounts, with that client's permission. If it doesn't save you time that week, walk away.` },
+      { t: "Try it on one client account", d: `Once you're approved, ask for a ${GUARANTEE_DAYS}-day trial on one of your client accounts, with that client's permission. If it doesn't save you time in those two weeks, walk away.` },
       { t: "Or refer and earn", d: `${OFFER_LINE} For sellers you don't manage yourself.` },
     ],
     steps: [
@@ -201,7 +204,7 @@ export const PARTNER_PAGES: PartnerPageCopy[] = [
       { q: "Will Rocco take my clients?", a: "No. Rocco is software the account owner or their manager runs. There is no Rocco agency, no account managers, no calls. You keep the client." },
       { q: "Does Rocco change things without asking?", a: "Only if you choose that. The default is approve every move. You can switch an account to act inside your guardrails, or fully autonomous. Every change is checked with Amazon first, logged and can be undone." },
       { q: "How many accounts can I run?", a: "One plan covers 3 Amazon accounts (each marketplace counts as one). Extra accounts can be added from the dashboard." },
-      { q: "How does the client trial work?", a: `After approval, email human@rocco.works with the account you want to try. You need the client's permission to connect their account. The trial runs ${PLAN.guaranteeDays} days.` },
+      { q: "How does the client trial work?", a: `After approval, email human@rocco.works with the account you want to try. You need the client's permission to connect their account. The trial runs ${GUARANTEE_DAYS} days.` },
       ...BASE_FAQ.filter((x) => /earn|paid|cost/i.test(x.q)),
     ],
     applyTitle: "Apply as an agency or freelancer",
@@ -269,5 +272,5 @@ export const LANDING = {
   h1: (name: string) => `${name} recommends Rocco`,
   sub: "Rocco is an AI Amazon manager. Connect Seller Central and Amazon Ads once. Every morning Rocco lays out today's jobs, ranked by money, and makes the changes in Amazon.",
   tools: [FREE_TOOLS.leak, FREE_TOOLS.health, FREE_TOOLS.roast, FREE_TOOLS.breakeven],
-  hireNote: `${EXAMPLE.yearly} a year or ${EXAMPLE.monthly} a month, ${PLAN.guaranteeDays}-day money-back guarantee.`,
+  hireNote: `${EXAMPLE.yearly} a year or ${EXAMPLE.monthly} a month, ${GUARANTEE_DAYS}-day money-back guarantee.`,
 };

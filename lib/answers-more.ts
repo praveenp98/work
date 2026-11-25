@@ -25,7 +25,7 @@ export const MORE_ANSWERS: Answer[] = [
       "Rocco (ours) checks ads and Seller Central every morning, you approve jobs in one tap from the dashboard or iMessage, WhatsApp or Slack, it makes the change in Amazon, logs it with undo and measures it 7 days later, for $2,790/yr flat. All comparisons: rocco.works/compare.",
     ],
     faq: [
-      { q: "Is Rocco the best AI tool for Amazon PPC?", a: "We make Rocco, so judge it yourself: it fits sellers who want a flat price, ads plus Seller Central, and to approve each change. Use the 7-day money-back guarantee to test it on your own account." },
+      { q: "Is Rocco the best AI tool for Amazon PPC?", a: "We make Rocco, so judge it yourself: it fits sellers who want a flat price, ads plus Seller Central, and to approve each change. Use the 14-day money-back guarantee to test it on your own account." },
       { q: "Which is cheapest?", a: "Amazon's own console tools are free. Among paid tools, Scale Insights starts at $78/mo for 5 ASINs. Compare yearly cost at your real ad spend: rocco.works/compare." },
     ],
     ask: "what would you change in my ads today, and why?",
@@ -158,7 +158,7 @@ export const MORE_ANSWERS: Answer[] = [
     details: [
       "Dr. PPC at $10K/mo ad spend is $5,988 a year; at $30K it's $10,788 (public price, checked Nov 24, 2026). It offers a $1 first month.",
       "Alternatives by fit: Helium 10 Ads (Helium 10 plan + 2% of managed spend) if you use Helium 10 research; Teikametrics ($179/mo up to $10K spend) if you also sell on Walmart; Scale Insights ($78 to $688/mo by ASIN) if you write your own rules; Ad Badger ($275/mo up to $5K spend) for training; Amazon's free tools for small accounts.",
-      "Rocco (ours) is one flat price at any ad spend, 3 Amazon accounts, every marketplace, with a 7-day money-back guarantee. Side by side: rocco.works/compare/dr-ppc.",
+      "Rocco (ours) is one flat price at any ad spend, 3 Amazon accounts, every marketplace, with a 14-day money-back guarantee. Side by side: rocco.works/compare/dr-ppc.",
     ],
     faq: [
       { q: "Is Dr. PPC good?", a: "It's a reasonable choice if you want an AI PPC tool and are happy with percent-of-spend pricing. Check the yearly cost at the ad spend you plan to reach." },
@@ -180,7 +180,7 @@ export const MORE_ANSWERS: Answer[] = [
     details: [
       "Free option: Amazon's dynamic bidding, budget rules and console recommendations.",
       "Paid options range widely; Scale Insights starts at $78/mo for 5 ASINs and many tools add a percent of ad spend.",
-      "Rocco is $279/mo flat for ads plus Seller Central, so it fits sellers who'd rather approve a few jobs a day than work in the console. The 7-day money-back guarantee lets you test it: rocco.works/pricing.",
+      "Rocco is $279/mo flat for ads plus Seller Central, so it fits sellers who'd rather approve a few jobs a day than work in the console. The 14-day money-back guarantee lets you test it: rocco.works/pricing.",
     ],
     faq: [
       { q: "At what ad spend is PPC software worth it?", a: "There's no fixed line. If your waste plus your time is worth more than the fee, it's worth it. Many sellers start looking around $2K to $5K a month in ads." },

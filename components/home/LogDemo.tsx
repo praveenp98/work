@@ -23,7 +23,7 @@ export function LogDemo() {
   }, []);
   return (
     <div className={`ld${still ? " still" : ""}`} key={cycle} aria-label="Example change log">
-      <div className="ld-head"><b>Change log</b><span>Bamboo &amp; Co · example</span></div>
+      <div className="ld-head"><b>Change log</b><span>Bamboo &amp; Co · sample, made-up numbers</span></div>
       <ul>
         {ROWS.map((r, i) => (
           <li key={r.t} style={{ animationDelay: `${0.3 + i * 0.9}s` }}>

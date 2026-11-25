@@ -100,7 +100,7 @@ A self-serve web app that does the daily jobs of a junior Amazon account manager
 | **Agency annual** | $2,499/yr | 25 workspaces, white-label PDF reports, CSV exports |
 
 - Show monthly equivalents crossed out to make annual the default.
-- 7-day refund window, clearly stated.
+- 14-day refund window, clearly stated.
 - **Profit path to ~$40K in 30 days (outbound-heavy):** 12 Brand × $1,499 = ~$18K · 5 Agency × $2,499 = ~$12.5K · 25 Pro × $299 = ~$7.5K · 40 Appeal × $79 = ~$3.2K · 60 Single × $29 = ~$1.7K → **~$43K revenue**, minus fees and logged marketing costs.
 
 ## 8. Go-to-market engine
