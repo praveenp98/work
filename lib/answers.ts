@@ -3,6 +3,7 @@
  * then steps, details and an FAQ. Rendered at /answers/[slug] with FAQPage + HowTo JSON-LD, listed in the
  * sitemap and llms.txt. Keep answers factual and conservative; say "check in Seller Central" over guessing.
  */
+import { MORE_ANSWERS } from "./answers-more";
 export interface Answer {
   slug: string;
   q: string; // the question, as people type or ask it
@@ -15,7 +16,7 @@ export interface Answer {
   updated: string;
 }
 
-export const ANSWERS: Answer[] = [
+const BASE: Answer[] = [
   {
     slug: "can-claude-manage-amazon-ppc",
     topic: "AI & Amazon",
@@ -231,5 +232,8 @@ export const ANSWERS: Answer[] = [
     updated: "2026-11-17",
   },
 ];
+
+/** All answers: the originals plus the questions sellers ask ChatGPT and Claude (lib/answers-more.ts). */
+export const ANSWERS: Answer[] = [...BASE, ...MORE_ANSWERS];
 
 export const answerBySlug = (s: string) => ANSWERS.find((a) => a.slug === s);
