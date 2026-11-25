@@ -63,6 +63,8 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/LEAD-MAGNETS.md` | 10 free tools at /free (what each does, how gating works, post copy for Reddit/LinkedIn/X). |
 | `lib/season.ts` | Seller calendar per marketplace (events, phases, actions) → dashboard SeasonCard, brief, feeds, /amazon-seller-calendar. |
 | `content/sell/*.json` | Beginner guides per marketplace (/sell-on-amazon), live; how they were checked + URLs in `docs/BEGINNER-GUIDES.md`. Switch: `SELL_PUBLISHED` in lib/sell.ts. |
+| `lib/doe-actions-data.ts` | All 103 DataDoe Action types (area, read/write, risk, details field). Actions page + planner use it. |
+| `lib/creative.ts` / `lib/higgsfield.ts` | Listing & A+ image studio: Opus plans, Higgsfield renders from the product photo, DataDoe puts it in a listing slot. Needs HIGGSFIELD_KEY. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
 | `docs/DECISIONS.md` | Decisions with dates and reasons. Add one whenever a choice is made. |
 

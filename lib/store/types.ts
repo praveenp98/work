@@ -68,6 +68,10 @@ export interface Workspace {
     listingEdits?: import("../listings").ListingEdit[];
     /** A+ drafts and submissions (lib/aplus.ts). */
     aplus?: import("../aplus").AplusRecord[];
+    /** Images Rocco made with Higgsfield (lib/creative.ts). */
+    creatives?: import("../creative").Creative[];
+    /** "Tell Rocco what to change" plans and results (lib/action-agent.ts). */
+    actionPlans?: import("../action-agent").ActionPlan[];
     invite?: { id: string; url: string; expiresAt: string; account?: string };
     /** DataDoe recurring export ids per account and report kind (created on the first pull). */
     schedules?: Record<string, Record<string, string>>;

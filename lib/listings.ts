@@ -22,6 +22,8 @@ export const BACKEND_BYTES = 249; // Amazon indexes up to 250 bytes of backend s
 export interface Listing {
   sku: string; asin?: string; productType?: string; title: string; bullets: string[]; keywords: string; description?: string;
   issues: ListingIssue[]; status: string[];
+  /** Current product images on Amazon (main first), when DataDoe returns them. */
+  images?: string[];
 }
 export interface ListingIssue { code: string; message: string; severity: "ERROR" | "WARNING" | "INFO"; attributes: string[] }
 
@@ -67,8 +69,19 @@ export function parseListing(result: unknown, sku: string): Listing | null {
   return {
     sku, asin: String(item.asin ?? summary.asin ?? "") || undefined, productType: String(item.productType ?? summary.productType ?? "") || undefined,
     title: str(c.title ?? c.name ?? c.item_name), bullets, keywords: str(c.keywords ?? c.genericKeyword ?? c.generic_keyword), description: str(c.description) || undefined,
-    issues: dedupe(issues), status: [...new Set(status)],
+    issues: dedupe(issues), status: [...new Set(status)], images: listingImages(item),
   };
+}
+/** Amazon image URLs anywhere in a listing result (main image first, as Amazon lists it). */
+export function listingImages(result: unknown): string[] {
+  const out: string[] = [];
+  const walk = (x: unknown) => {
+    if (typeof x === "string") { if (/^https:\/\/[^\s"]+\.(jpe?g|png|webp)(\?.*)?$/i.test(x) && /media-amazon|images-amazon|ssl-images/.test(x)) out.push(x); return; }
+    if (Array.isArray(x)) { x.forEach(walk); return; }
+    if (x && typeof x === "object") Object.values(x).forEach(walk);
+  };
+  walk(result);
+  return [...new Set(out)].slice(0, 9);
 }
 const dedupe = (xs: ListingIssue[]) => [...new Map(xs.map((x) => [`${x.code}|${x.message}`, x])).values()];
 

@@ -1865,3 +1865,58 @@ h1, h2, .display { font-family: var(--display); }
 .ss-next { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; color: var(--muted); }
 .ss-next a { color: var(--accent); font-weight: 600; text-decoration: none; }
 @media (max-width: 560px) { .ss-acts li { grid-template-columns: 1fr; } }
+
+/* Actions (components/dash/ActionsStudio.tsx) */
+.ac { display: grid; gap: 18px; }
+.ac-ask { display: grid; gap: 10px; padding: 18px; border-radius: 22px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.ac-ask textarea { font: inherit; font-size: 17px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); resize: vertical; }
+.ac-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ac-ex { display: flex; flex-wrap: wrap; gap: 6px; }
+.ac-chip { font: inherit; font-size: 13.5px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--soft); cursor: pointer; text-align: left; }
+.ac-reply { padding: 18px; border-radius: 22px; border: 1px solid #c7d7fe; background: #f5f8ff; display: grid; gap: 8px; }
+.ac-reply.ok { border-color: #b7ebc9; background: #f0fdf4; } .ac-reply.bad { border-color: #fecaca; background: #fff5f5; }
+.ac-reply h3 { margin: 0; font-size: 20px; }
+.ac-reply ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.ac-head { display: flex; gap: 8px; align-items: center; } .ac-head code { font-size: 12px; color: var(--muted); }
+.ac-badge { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #e0e7ff; color: #3730a3; } .ac-badge.r-high { background: #ffedd5; color: #9a3412; }
+.ac-answer { margin: 0; font-size: 16.5px; line-height: 1.5; white-space: pre-wrap; }
+.ac-sure { display: flex; gap: 6px; align-items: center; font-size: 14px; }
+.ac-done { margin: 0; font-weight: 600; color: #18794e; }
+.ac-hist ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; } .ac-hist small { color: var(--muted); display: block; }
+.ac-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; } .ac-dot.s-done { background: #30a46c; } .ac-dot.s-failed { background: #e5484d; } .ac-dot.s-planned { background: #f5a524; }
+.ac-cat-h { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; } .ac-cat-h h2 { margin: 0; font-size: 24px; }
+.ac-cat-h input { font: inherit; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--line); min-width: min(100%, 260px); }
+.ac-area { border: 1px solid var(--line); border-radius: 16px; background: #fff; margin-top: 8px; }
+.ac-area summary { cursor: pointer; padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: baseline; }
+.ac-area summary small { color: var(--muted); } .ac-area summary em { flex-basis: 100%; font-style: normal; font-size: 13.5px; color: var(--muted); }
+.ac-area ul { list-style: none; margin: 0; padding: 0 14px 10px; display: grid; gap: 2px; }
+.ac-item { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+.ac-item div { display: grid; } .ac-item small { color: var(--muted); font-size: 12.5px; }
+
+/* Image studio (components/dash/ImageStudio.tsx) */
+.is { display: grid; gap: 18px; }
+.is-pick { display: grid; gap: 12px; padding: 18px; border-radius: 22px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.is-pick label { display: grid; gap: 6px; font-weight: 600; } .is-pick label em { font-weight: 400; color: var(--muted); font-style: normal; }
+.is-pick select, .is-pick input { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); max-width: 100%; }
+.is-kind { display: flex; gap: 8px; flex-wrap: wrap; }
+.is-kind button { font: inherit; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--soft); cursor: pointer; display: grid; text-align: left; }
+.is-kind button.on { border-color: var(--accent); background: #eef4ff; } .is-kind small { color: var(--muted); font-size: 12.5px; }
+.is-pick .btn { justify-self: start; }
+.is-thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.is-thumbs button, .is-up { width: 84px; height: 84px; border-radius: 12px; border: 2px solid var(--line); background: #fff; padding: 0; overflow: hidden; cursor: pointer; display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--accent); }
+.is-thumbs button.on { border-color: var(--accent); box-shadow: 0 0 0 3px #c7d7fe; } .is-thumbs img { width: 100%; height: 100%; object-fit: contain; }
+.is-concepts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.is-c { padding: 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: grid; gap: 8px; align-content: start; }
+.is-c-h { display: flex; gap: 8px; align-items: baseline; } .is-c-h small { margin-left: auto; color: var(--muted); }
+.is-slot { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--soft); }
+.is-c p { margin: 0; color: var(--muted); font-size: 14.5px; } .is-c textarea { font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); }
+.is-c .btn { justify-self: start; }
+.is-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+.is-m { padding: 12px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: grid; gap: 8px; align-content: start; }
+.is-m small { color: var(--muted); }
+.is-wait { aspect-ratio: 1; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9); background-size: 200% 100%; animation: is-shimmer 1.4s linear infinite; color: var(--muted); font-size: 14px; text-align: center; padding: 10px; }
+@keyframes is-shimmer { to { background-position: -200% 0; } }
+.is-img img { width: 100%; border-radius: 12px; display: block; background: var(--soft); }
+.is-act { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+.is-act select { font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line); }
+.is .ok { color: #18794e; font-weight: 600; font-size: 14px; }

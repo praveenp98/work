@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Actions (every DataDoe action) + listing/A+ image studio (Higgsfield)
+- **Actions page** (/w/[token]/actions, lib/doe-actions*.ts, lib/action-agent.ts, app/api/w/actions): catalogue of all 103 DataDoe Action types (62 changes, 41 lookups, 31 marked high-risk) read from datadoe.com/actions + the API spec; field names confirmed with free dry runs. "Tell Rocco what to change": Claude Opus picks the Action, looks up IDs with read Actions, fixes details until DataDoe's dry run validates, then shows a preview. Seller approves → re-checked on the server → made live (idempotent) → logged under their name. High-risk types need an extra confirmation; plans expire after 30 min. Vendor-only types hidden for sellers.
+- **Image studio** (/w/[token]/images, lib/creative.ts, lib/higgsfield.ts, app/api/w/creative): Opus plans 4–6 listing images (slots 2–7) or A+ images (banner + tiles) from the listing and selling searches, with Amazon's image rules built in (no badges, prices, reviews, unsupported claims). Higgsfield's Qwen Image 3 *edit* model renders each from the seller's real product photo (or an upload). "Put on my listing" writes other_product_image_locator_N through DataDoe with Amazon's check first. A+ images are downloaded and added in A+ Content Manager.
+- **Needs from Praveen:** HIGGSFIELD_KEY (key id:secret from console.higgsfield.ai) in Vercel env; in DataDoe Settings → Actions switch on the types sellers should be able to use (at least LISTINGS_PRICING_UPDATE, ORDERS_SOLICITATION_FEEDBACK_SEND, FBA_REMOVAL_ORDERS_ADD, plus the Ads/listing ones already on). Not yet tested end to end: the Opus planner (no Anthropic key in this sandbox) and a real Higgsfield render (key request was interrupted).
+- New limits: images 24/day, image plans 10/day, action plans 30/day. Tests 318.
+
+---
+
 ## 2026-11-25 · Beginner guides live: /sell-on-amazon + 8 marketplaces
 - All 9 guides fact-checked against official pages (Amazon seller sites + fee PDFs, tax authorities, Marketplace Pulse) and published (SELL_PUBLISHED=true). In sitemap, llms.txt and the footer ("Start selling"). Details, URLs and what's still unverifiable: docs/BEGINNER-GUIDES.md.
 

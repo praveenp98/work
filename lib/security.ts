@@ -35,6 +35,9 @@ export const LIMITS = {
   writes: { max: 300, hours: 24 }, // Amazon changes (items) made by Rocco
   campaigns: { max: 10, hours: 24 }, // new exact campaigns
   team: { max: 30, hours: 24 }, // teammates added
+  images: { max: 24, hours: 24 }, // Higgsfield renders (paid per image)
+  imagePlans: { max: 10, hours: 24 }, // Opus image plans
+  actionPlans: { max: 30, hours: 24 }, // Opus action plans ("tell Rocco what to change")
 } as const;
 export type LimitKey = keyof typeof LIMITS;
 
@@ -71,6 +74,9 @@ export const LIMIT_MSG: Record<LimitKey, string> = {
   writes: "Safety limit: I've already made a lot of changes in this account today. The rest can go tomorrow.",
   campaigns: "Safety limit: I've already created several campaigns today. The rest can go tomorrow.",
   team: "That's a lot of invites for one day. Try again tomorrow.",
+  images: "That's today's image limit. Make more tomorrow.",
+  imagePlans: "I've planned a lot of images today. Try again tomorrow.",
+  actionPlans: "That's a lot of requests for one day. Try again tomorrow.",
 };
 
 /**
