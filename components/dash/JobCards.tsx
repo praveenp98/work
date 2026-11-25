@@ -30,7 +30,7 @@ const post = (url: string, body: object) => fetch(url, { method: "POST", headers
  * "Restock 2 products". One Approve per job (untick anything you don't want). direct = Rocco makes it in Amazon;
  * otherwise exact steps + "I've made these changes".
  */
-export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency; restock?: RestockCtx }) {
+export function JobCards({ token, brand, jobs, direct, cur = USD, restock, week, following }: { token: string; brand: string; jobs: Job[]; direct: boolean; cur?: Currency; restock?: RestockCtx; week?: { found: number; value: number; approved: number; cooling: number }; following?: string }) {
   const $ = (n: number) => money(n, cur);
   const [res, setRes] = useState<Record<string, Res>>({});
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
@@ -95,6 +95,8 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { t
             const parts = [tap && `${tap} one-tap`, make && `${make} new campaign${make === 1 ? "" : "s"} to review`, you && `${you} step${you === 1 ? "" : "s"} for you`, done && `${done} done ✓`].filter(Boolean);
             return parts.length ? <p className="rd-split">{parts.join(" · ")} · $ values are estimates</p> : null;
           })()}
+          {following && <p className="rd-split">Following your strategy: {following}</p>}
+          {week && week.found > 0 && <p className="rd-split">This week: {week.found} distinct fix{week.found === 1 ? "" : "es"} found{week.value >= 1 ? ` (~${money(week.value, cur)}/mo, each counted once even if it shows up on several days)` : ""} · {week.approved} approved{week.cooling ? ` · ${week.cooling} on hold while I measure last week's changes` : ""}</p>}
         </div>
         {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve the {openAuto.length} one-tap jobs{openAuto.some((j) => j.value > 0) ? <> · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</> : null}</button>}
       </div>
@@ -159,6 +161,7 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
                   {job.mode !== "manual" && !state ? (
                     <label><input type="checkbox" checked={on.has(it.code)} onChange={() => setOn((s) => { const n = new Set(s); if (n.has(it.code)) n.delete(it.code); else n.add(it.code); return n; })} /> <span className="ji-l">{it.label}</span></label>
                   ) : <span className="ji-l">{it.label}</span>}
+                  {it.tag && it.tag !== "new" && <span className={`ji-tag t-${it.tag}`}>{it.tag === "repeat" ? "suggested before" : "follow-up: changed before, still off target"}</span>}
                   {it.detail && <span className="ji-d">{it.detail}</span>}
                   {it.value > 0 && <span className="ji-v">~{$(it.value)}</span>}
                 </li>

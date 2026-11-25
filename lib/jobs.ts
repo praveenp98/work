@@ -12,7 +12,7 @@ import type { ManagerView, Snapshot } from "./store/types";
 export type JobKind = "negatives" | "bids_down" | "bids_up" | "new_campaign" | "budget_up" | "budget_down" | "placement" | "stock_ads" | "structure" | "restock" | "listings" | "buybox";
 export type JobMode = "auto" | "create" | "manual";
 
-export interface JobItem { code: string; label: string; detail: string; value: number; picked?: boolean; sku?: string; qty?: number }
+export interface JobItem { code: string; label: string; detail: string; value: number; picked?: boolean; sku?: string; qty?: number; tag?: "new" | "repeat" | "follow-up" }
 export interface Job {
   id: string;
   kind: JobKind;

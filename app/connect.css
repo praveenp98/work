@@ -2043,3 +2043,7 @@ h1, h2, .display { font-family: var(--display); }
 .pt-apply form, .pt-apply [role="status"] { width: 100%; }
 @media (max-width: 860px) { .pt-steps4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 720px) { .pt-offer, .pt-steps4 { grid-template-columns: 1fr; } }
+.ji-tag { grid-column: 1; justify-self: start; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.ji-tag.t-follow-up { color: #9a5b00; background: #fff7e6; border-color: #f3d9a4; }
+.nm-costs { margin: 0 0 10px; padding: 10px 12px; border-radius: 12px; background: #fff7e6; border: 1px solid #f3d9a4; font-size: 13.5px; line-height: 1.45; }
+.nm-costs a { font-weight: 600; }

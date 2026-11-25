@@ -122,7 +122,7 @@ export function StrategyCard({ token, brand, init, plan: plan0, suggestions = []
       <fieldset className="st-q">
         <legend>3. Never cut <small>(optional)</small></legend>
         <input className="st-text" placeholder="Your brand name, launch or brand-defense campaigns, hero keywords (comma-separated)" value={protect} onChange={(e) => setProtect(e.target.value)} />
-        <small className="st-help">Searches and campaigns with these words are never blocked or cut, even when they look expensive.</small>
+        <small className="st-help">Searches and campaigns with these words are never blocked or cut, even when they look expensive. Your brand name is protected automatically: I never block it or lower its bids.</small>
       </fieldset>
 
       <fieldset className="st-q">

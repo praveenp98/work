@@ -9,9 +9,15 @@ const PRESETS = [7, 14, 30, 90, 180] as const;
  * Your account's numbers for any date range (lib/daily.ts): sales, units, sessions, conversion, ad spend, ad sales,
  * ACoS, TACoS, ROAS, CPC, each vs the period before, plus a daily chart of sales vs ad spend.
  */
-export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: string; target?: number }) {
+export function Numbers({ daily, sym = "$", target, costs }: { daily: Daily; sym?: string; target?: number; costs?: { href: string; missing: string[] } }) {
   const days = Object.keys(daily).sort();
-  const last = days.at(-1)!;
+  // Stop at the last complete day (fix list #10): today is still filling in, and a newest day with no sales after
+  // a week of sales is Amazon not having published it yet, not a crash.
+  const today = new Date().toISOString().slice(0, 10);
+  const median7 = (() => { const v = days.slice(-8, -1).map((d) => daily[d].s ?? 0).sort((a, b) => a - b); return v[v.length >> 1] ?? 0; })();
+  let lastI = days.length - 1;
+  while (lastI > 0 && (days[lastI] >= today || ((daily[days[lastI]].s ?? 0) === 0 && median7 > 0 && lastI >= days.length - 3))) lastI--;
+  const last = days[lastI];
   const first = days[0];
   const [preset, setPreset] = useState<number | "custom">(30);
   const [cFrom, setCFrom] = useState(addDays(last, -29) < first ? first : addDays(last, -29));
@@ -21,7 +27,9 @@ export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: stri
   const cur = useMemo(() => totals(daily, from, to), [daily, from, to]);
   const prevR = previousPeriod(from, to);
   const prev = useMemo(() => totals(daily, prevR.from, prevR.to), [daily, prevR.from, prevR.to]);
-  const hasPrev = prev.days >= Math.max(1, Math.round(cur.days * 0.8));
+  // Honest growth (fix list #11): only compare when the period before has real data on most of its days.
+  const active = (a: string, b: string) => days.filter((d) => d >= a && d <= b && ((daily[d].s ?? 0) > 0 || (daily[d].as ?? 0) > 0)).length;
+  const hasPrev = prevR.from >= first && prev.days >= Math.max(1, Math.round(cur.days * 0.8)) && active(prevR.from, prevR.to) >= Math.max(1, Math.round(active(from, to) * 0.8));
 
   const money = (x: number) => `${sym}${Math.round(x).toLocaleString("en-US")}`;
   const pct = (x: number | null) => (x === null ? "—" : `${(x * 100).toFixed(1)}%`);
@@ -59,7 +67,7 @@ export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: stri
   return (
     <section className="nm" aria-label="Your numbers">
       <div className="nm-h">
-        <div><h3>Your numbers</h3><small>{label(from)} – {label(to)}{hasPrev ? " · vs the period before" : ""}</small></div>
+        <div><h3>Your numbers</h3><small>{label(from)} – {label(to)}{hasPrev ? " · vs the period before" : " · not enough history before this to compare"}</small></div>
         <div className="nm-range" role="group" aria-label="Date range">
           {PRESETS.map((p) => <button key={p} className={preset === p ? "on" : ""} onClick={() => { setPreset(p); track("numbers_range", { days: p }); }}>{p}d</button>)}
           <button className={preset === "custom" ? "on" : ""} onClick={() => setPreset("custom")}>Custom</button>
@@ -70,6 +78,13 @@ export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: stri
           <label>From <input type="date" min={first} max={cTo} value={cFrom} onChange={(e) => setCFrom(e.target.value)} /></label>
           <label>To <input type="date" min={cFrom} max={last} value={cTo} onChange={(e) => setCTo(e.target.value)} /></label>
         </div>
+      )}
+      {cur.costMissing && costs && (
+        <p className="nm-costs">
+          <b>Profit is too high until product costs are in.</b>{" "}
+          {costs.missing.length ? <>Missing for {costs.missing.length} product{costs.missing.length === 1 ? "" : "s"}: {costs.missing.slice(0, 3).join(", ")}{costs.missing.length > 3 ? ` and ${costs.missing.length - 3} more` : ""}. </> : "Some sales had no product cost. "}
+          <a href={costs.href}>Add cost per unit (1 minute) →</a>
+        </p>
       )}
       <div className="nm-tiles">
         {tiles.map((t) => <div key={t.k} className="nm-t"><span>{t.k}</span><b>{t.v}</b>{t.d && <em className={t.d.c}>{t.d.t}</em>}</div>)}

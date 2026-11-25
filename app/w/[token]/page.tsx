@@ -51,6 +51,7 @@ import { hireUrl } from "@/lib/paywall";
 import { monthlyCost, PRICE } from "@/lib/pricing";
 import type { Proposal } from "@/lib/rules/types";
 import { savedPhrase, savingsOf } from "@/lib/savings";
+import { cooldown, tagAll, weekTotal } from "@/lib/job-history";
 import { getStore } from "@/lib/store";
 import type { Snapshot } from "@/lib/store/types";
 import { brandSettings, buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
@@ -187,7 +188,16 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
   // What this account taught Rocco (skips, results) decides what's shown; Claude's manager pass decides today's order.
   const tune = tuning(accountMemory(actions, ws.skips), ws.skips);
-  const { shown, held } = applyTuning(b.open, tune);
+  const tuned = applyTuning(b.open, tune);
+  // Day to day (lib/job-history.ts): nothing changed in the last 7 days comes back; each item says new / repeat / follow-up.
+  const allRuns = (await store.listRuns(ws.id, { limit: 60 })).filter((r) => r.brand === b.brand);
+  const latestIds = new Set<string>(); const kindsSeen = new Set<string>();
+  for (const r of allRuns) if (!kindsSeen.has(r.kind)) { kindsSeen.add(r.kind); latestIds.add(r.id); }
+  const brandActions = actions.filter((a) => a.brand === b.brand);
+  const { kept: shown, cooling } = cooldown(tuned.shown, brandActions);
+  const held = tuned.held;
+  const tags = tagAll(shown, allRuns.filter((r) => !latestIds.has(r.id)), brandActions);
+  const week = weekTotal(allRuns, brandActions);
   const byCode = new Map(shown.map((p) => [p.code, p]));
   const plan = ws.manager?.[b.brand];
   const planOk = plan && plan.picks.length > 0 && plan.picks.every((pk) => pk.codes.every((c) => byCode.has(c)));
@@ -195,7 +205,9 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     after(() => refreshManager(store, ws.id).catch(() => 0)); // fresh plan for the next visit
   }
   // Today's work as jobs (lib/jobs.ts): grouped the way a manager works, ordered by Claude's picks, then risks, then money.
-  const jobs = buildJobs(shown, { plan: planOk ? plan : null, inv, biz, lh }).map((j) => (j.mode === "manual" && !j.steps && j.codes[0] && byCode.get(j.codes[0]) ? { ...j, steps: howTo(byCode.get(j.codes[0])!) } : j));
+  const jobs = buildJobs(shown, { plan: planOk ? plan : null, inv, biz, lh })
+    .map((j) => (j.mode === "manual" && !j.steps && j.codes[0] && byCode.get(j.codes[0]) ? { ...j, steps: howTo(byCode.get(j.codes[0])!) } : j))
+    .map((j) => ({ ...j, items: j.items.map((it) => (tags[it.code] ? { ...it, tag: tags[it.code] } : it)) }));
   const fixCount = shown.length;
   // The plan this account actually pays for; unknown counts as monthly (the higher monthly price, so ROI is never flattered).
   const billingPlan = ws.plan ?? "monthly";
@@ -251,7 +263,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       {access !== "none" && <Office events={office.events} state={office.state} />}
       {isDirect && <DataHealth token={token} brand={b.brand} />}
-      {access !== "none" && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen={false} />}
+      {access !== "none" && !strategySet(ws.brands[b.brand]) && <StrategyCard token={token} {...strategyProps(ws, b.brand)} suggestions={productWords(b.open.map((p) => p.campaign))} startOpen />}
 
       {needsReconnect.map((a) => (
         <div key={a.id} className="rd-offer warn">
@@ -281,14 +293,14 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
       {access !== "none" && <RoiCard cur={cur} realized={last30.total} realizedMeasured={last30.measured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} acos={acos} target={target} adSpend={st ? Number(st.stats.spend) : null} />}
 
-      {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
+      {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} costs={{ href: `/w/${token}/products${account ? `?account=${account.id}` : ""}`, missing: (account ? ws.amazon?.products?.[account.id]?.items ?? [] : []).filter((x) => x.cogsMissing).map((x) => x.title.slice(0, 40)) }} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
 
 
       {access !== "none" && <SeasonCard market={marketOf(account?.country)} token={token} jobKinds={jobs.map((j) => j.kind)} />}
 
       <div className="rd-grid">
         <div>
-          {jobs.length > 0 ? <JobCards token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} restock={isDirect && account && canRestock(account.country) ? { token, account: account.id, country: account.country, from: ws.shipFrom?.[account.id], sendUrl: sendToAmazonUrl(account.country), recent: (ws.restocks ?? []).filter((r) => r.account === account.id && Date.now() - new Date(r.at).getTime() < 7 * 86_400_000).map(({ id, at, status, items, name, by }) => ({ id, at, status, items, name, by })) } : undefined} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
+          {jobs.length > 0 ? <JobCards following={(() => { const bs = brandSettings(ws, b.brand); const g = bs.mainGoal ?? "balance"; return `${g[0].toUpperCase()}${g.slice(1)} · ${Math.round((bs.targetAcos ?? 0.3) * 100)}% target ACoS${bs.monthlyAdBudget ? ` · ad budget cap ${m(bs.monthlyAdBudget)}/mo` : ""}${strategySet(ws.brands[b.brand]) ? "" : " (my defaults: set your strategy above)"}`; })()} week={{ ...week, cooling }} token={token} brand={b.brand} jobs={JSON.parse(localize(JSON.stringify(jobs), cur))} direct={isDirect} cur={cur} restock={isDirect && account && canRestock(account.country) ? { token, account: account.id, country: account.country, from: ws.shipFrom?.[account.id], sendUrl: sendToAmazonUrl(account.country), recent: (ws.restocks ?? []).filter((r) => r.account === account.id && Date.now() - new Date(r.at).getTime() < 7 * 86_400_000).map(({ id, at, status, items, name, by }) => ({ id, at, status, items, name, by })) } : undefined} /> : <div className="rd-empty"><b>Nothing worth changing today.</b><span>I&apos;ll check again tomorrow morning.</span></div>}
           {isDirect && (
             <Link className="rd-tidy" href={`/w/${token}/tidy`}>
               <span aria-hidden>🗂️</span>

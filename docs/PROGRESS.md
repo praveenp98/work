@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Dashboard fix list, part 2
+- #8 Day to day (`lib/job-history.ts`, tested): nothing changed in the last 7 days is suggested again (its result isn't in yet); each item is tagged "suggested before" or "follow-up: changed before, still off target"; the jobs header shows "This week: N distinct fixes found (~$X/mo, each counted once) · M approved · K on hold while I measure".
+- #9 Strategy: when not set, the strategy form opens before the jobs, and the jobs header says which strategy they follow ("Balance · 30% target ACoS (my defaults: set your strategy above)").
+- #10 Chart: stops at the last complete day (today and a newest zero-sales day after a selling week are left out).
+- #11 Growth %: only compared when the period before has real data on most days; otherwise "not enough history before this to compare".
+- #13 Profit: when costs are missing, a note names the products without a cost per unit and links to Products to add it.
+- Checked with fixture reports on a local preview: no page errors.
+
 ## 2026-11-25 · Dashboard fix list (Praveen's doc), part 1
 - Decisions (Praveen): free read-only audit before paying; 14-day money-back guarantee; price ladder removed; no smaller plan yet (being built by helpers in parallel).
 - #4 Brand keywords: bids on brand keywords (account name minus marketplace, plus `brandTerms` in strategy) are never lowered and never negated unless `allowBrandCuts`. Every bid reason now states the keyword's own ACoS across all its searches, so it can't look like it contradicts one search's row.
