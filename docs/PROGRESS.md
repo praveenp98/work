@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Listings / A+ question
+- Praveen enabled DataDoe actions for listings, A+ content, restock (FBA inbound) and MCF.
+- Rocco does NOT edit listings or A+ yet: listing jobs today are alerts + steps (suppressed listings, Buy Box) and listing keyword gaps as suggestions. DataDoe offers AMAZON_LISTINGS_UPDATE (title, bullets, search terms, images), AMAZON_LISTINGS_FIND, AMAZON_APLUS_CONTENT_ADD/UPDATE/VALIDATE/PUBLISH. Proposed build: one-tap backend search terms + bullets from converting searches (preview, Amazon validation, undo by saving the old values), then suppressed-listing fixes; A+ later (needs images/copy, Amazon moderation).
+- Restock (FBA inbound) is now enabled: run the 1-SKU restock test.
+- Health panel Connect button no longer full width.
+
 ## 2026-11-25 · 29 more answer pages + directory-ready connector
 - lib/answers-more.ts: 29 answers to questions sellers ask ChatGPT/Claude (best AI tool for Amazon PPC with "Rocco is made by us" disclosure and a fair shortlist priced from lib/compare.ts, fire my agency, automate PPC, not profitable, how much to spend, ROAS, wasted spend, rising CPCs, bids, auto vs manual, structure, break-even, budget runs out, Q4, brand bidding, negatives, harvesting, sales drop, real profit, conversion, sessions, out of stock, stockouts...). Merged into ANSWERS (sitemap, llms.txt, /answers). 47 answers total.
 - Check before quoting: dynamic bids up to +100% top of search, monthly budget cap = daily x days, vacation mode path, Manage Your Apps path, Brand Registry tools. Rules-of-thumb ranges are labelled as typical, not stats.
