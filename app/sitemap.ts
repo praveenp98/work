@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/pricing`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/compare/dr-ppc`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/compare`, lastModified: now, priority: 0.7 },
+    { url: `${SITE.url}/connector`, lastModified: now, priority: 0.7 },
     ...["claude", "chatgpt"].map((s) => ({ url: `${SITE.url}/compare/${s}`, lastModified: now, priority: 0.8 })),
     ...COMPETITORS.map((c) => ({ url: `${SITE.url}/compare/${c.slug}`, lastModified: now, priority: 0.7 })),
     { url: `${SITE.url}/demo`, lastModified: now, priority: 0.9 },

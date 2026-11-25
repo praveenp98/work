@@ -112,3 +112,8 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-24 · Ask for the strategy during onboarding
 - **Decision:** right after Amazon is connected, Rocco asks for the owner's strategy (goal, target, margin, budget limit, never-cut, product goals, autonomy, notes) and says the plan back. The dashboard nags until it's set.
 - **Why:** Dr. PPC's pitch is "you set the strategy, goals and budget; it does the work". The 48h first load is dead time anyway; this fills it and makes the first diagnosis fit the owner. Budget limit and never-cut are enforced by the rules, not just shown.
+
+## 2026-11-25 · List Rocco inside Claude and ChatGPT
+- **Decision:** submit Rocco's MCP connector to Claude's Connectors Directory and ChatGPT's plugin directory, pitched as "your Amazon account's memory and watchdog".
+- **Why:** sellers spend their day in those assistants; it's free distribution and the connector already exists. Homepage stays "Rocco runs your Amazon"; the listing uses "Claude gives advice. Rocco keeps the receipts."
+- **Done to pass review:** tool hints fixed, server instructions rewritten to describe (not direct) behaviour, public docs page /connector, privacy section.

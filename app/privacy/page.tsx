@@ -14,6 +14,8 @@ export default function Page() {
       <p>To rank today&apos;s work and answer your questions, Rocco sends account numbers (never passwords or payment details) to Anthropic&apos;s Claude API. Anthropic doesn&apos;t use API data to train models.</p>
       <h2>Messages</h2>
       <p>If you turn on reminders, we store your phone number or Slack workspace and which Rocco it belongs to. Rocco messages you about your account and replies to you; message rates may apply. Reply <b>STOP</b> anytime to stop and <b>START</b> to resume. We never sell or share your number.</p>
+      <h2>Rocco inside Claude or ChatGPT (the connector)</h2>
+      <p>If you add Rocco to Claude or ChatGPT, you sign in to Rocco with Google (OAuth 2.0). Rocco receives only what a tool call sends it: the report rows you ask it to analyze, the change codes you record, and the settings you save. It does not read your chat history, memory or files. Rocco keeps a summary of each analyzed report (totals, top search terms, findings), your change log, results and settings, until you delete your workspace; raw report files aren&apos;t kept. Disconnect any time in your assistant&apos;s settings. Setup and every tool: <a href="/connector">rocco.works/connector</a>.</p>
       <h2>What else we collect</h2>
       <ul>
         <li><b>Your Google sign-in email</b>, for your account, receipts and product updates.</li>

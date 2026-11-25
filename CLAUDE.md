@@ -36,6 +36,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/DEMO-SCRIPT.md` | Demo film v2: word-for-word script, shot list, recording guide, edit plan (Praveen records, Claude edits). |
 | `docs/VIDEO-SCRIPTS.md` | Marketing video scripts from sellers' home conversations (spouse, sibling, midnight), hooks, recording notes. |
 | `docs/AI-VISIBILITY.md` | Getting Rocco cited in Claude/ChatGPT answers (AEO) + listing Rocco inside Claude/ChatGPT (decision pending). |
+| `docs/DIRECTORY-LISTINGS.md` | Claude Connectors Directory + ChatGPT plugin listings (paste-ready), review checklist, pre-submit test. Public docs at /connector. |
 | `docs/X-DRPPC.md` | Launch-day posts riding Dr. PPC's launch. |
 | `docs/DATADOE-WHITELABEL-REPLY.md` | DataDoe white-label quote + draft reply (milestone deal). |
 | `lib/compare.ts` | Data for /compare/<slug> pages (competitor prices, sources, checked dates). Re-check before quoting. |

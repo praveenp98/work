@@ -22,7 +22,8 @@ import type { McpContext } from "./server";
 
 export const MAX_CSV = 3_000_000;
 const ro = { readOnlyHint: true, destructiveHint: false, openWorldHint: false };
-const rw = { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false };
+const rw = { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false }; // additive: adds records, never overwrites
+const wr = { readOnlyHint: false, destructiveHint: true, idempotentHint: false, openWorldHint: false }; // changes or overwrites saved data
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }] });
 const fail = (t: string) => ({ isError: true, content: [{ type: "text" as const, text: t }] });
 const parse = (csv: string) => Papa.parse<unknown[]>(csv, { skipEmptyLines: true }).data;
@@ -51,7 +52,7 @@ function pendingNote(pending?: { type: "apply" | "undo"; codes: string[]; by: st
   if (!pending?.length) return "";
   const L = ["## 📱 Approved by text, waiting for you"];
   for (const p of pending) L.push(`- ${p.type === "apply" ? "APPLY" : "UNDO"} ${p.codes.join(", ")} (by ${p.by}, ${p.at.slice(0, 10)})`);
-  L.push("Do these first: for APPLY, call export_changes for those codes, apply exactly them with the seller's Amazon Ads connector, then apply_changes. For UNDO, follow revert_changes. Confirm with the seller in one line before applying.", "", "");
+  L.push("These were approved by the team but aren't applied yet. export_changes returns the change list for those codes; revert_changes returns undo steps. Nothing is applied until the seller confirms.", "", "");
   return L.join("\n");
 }
 
@@ -76,7 +77,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
 
   server.registerTool("rocco_brief", {
     title: "Rocco's brief: what to do today",
-    description: "Start here (also when the seller says \"apply my approved fixes\"). Lists fixes the team approved on the dashboard or by text that are waiting to be applied, then Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
+    description: "The seller's daily brief from Rocco's memory. Lists fixes the team approved on the dashboard or by text that are waiting to be applied, then Rocco's to-do list from memory: results of past changes, changes due for a check, proposed changes not applied yet, trends per brand, which reports to refresh, and seasonal reminders.",
     inputSchema: {},
     annotations: ro,
   }, async () => { later(() => onFreshCheck(store, ws)); return text(pendingNote(ws.pending) + formatBrief(await buildBrief(store, ws)) + `\n\n_Dashboard: ${SITE.url}/w/${token} · Follow-up reminders in your calendar: webcal://${SITE.domain}/w/${token}/calendar.ics_` + (await textMe()) + (await offer())); });
@@ -151,7 +152,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       run_id: z.string().max(40).optional().describe("Proposal run id (first 8 chars ok). Defaults to the latest run for the brand."),
       note: z.string().max(500).optional(),
     },
-    annotations: rw,
+    annotations: wr,
   }, async ({ codes, brand, run_id, note }) => {
     try {
       let runId = run_id;
@@ -184,7 +185,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
     title: "Undo changes",
     description: "Mark logged changes as reverted and return the exact steps to undo each one in Amazon Ads. Use the 8-character ids from list_changes, or the codes a teammate asked to undo by text.",
     inputSchema: { change_ids: z.array(z.string().max(40)).min(1).max(100) },
-    annotations: rw,
+    annotations: wr,
   }, async ({ change_ids }) => {
     const hit = await revertChanges(store, ws, change_ids);
     if (!hit.length) return fail("No matching changes. Use the ids from list_changes.");
@@ -204,7 +205,7 @@ export function registerMemoryTools(server: McpServer, { store, ws, token }: Mcp
       protected_campaigns: z.array(z.string().max(120)).max(100).optional().describe("Campaign names (or parts) meant to spend without immediate sales: never auto-negated."),
       notes: z.string().max(1000).optional(),
     },
-    annotations: rw,
+    annotations: wr,
   }, async (a) => {
     const saved = await setBrandSettings(store, ws, a.brand || DEFAULT_BRAND, {
       targetAcos: a.target_acos_percent !== undefined ? a.target_acos_percent / 100 : undefined,

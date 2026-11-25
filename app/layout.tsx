@@ -60,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/#how">How it works</Link>
             <Link href="/pricing">Pricing</Link>
             <Link href="/compare">Compare</Link>
+            <Link href="/connector">Rocco in Claude &amp; ChatGPT</Link>
             <Link href="/tools">Free tools</Link>
             <Link href="/guides">Guides</Link>
             <Link href="/press">Press</Link>
