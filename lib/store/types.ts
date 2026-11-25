@@ -115,6 +115,8 @@ export interface Workspace {
   /** When the "You hired me" message went out (sent once, whichever confirms the payment first). */
   hiredNotifiedAt?: string;
   plan?: "annual" | "monthly";
+  /** Partner code that sent this team (lib/partners.ts): first partner wins, set before the first payment, sent to Dodo as metadata.partner. */
+  partner?: string;
   /** Free access granted by the founder for testing (/api/admin/tester). Never counted as a hire. */
   comp?: string;
   /** Fixes the team skipped on the dashboard (lib/memory.ts): Rocco learns what this account doesn't want. */

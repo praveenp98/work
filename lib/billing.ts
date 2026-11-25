@@ -3,6 +3,9 @@ import type { Store, Workspace } from "./store/types";
 import { trackServer } from "./track-server";
 import { usdFromCode } from "./currency";
 import { priceMatches } from "./ppp";
+import { cleanCode } from "./partners";
+import { PLAN } from "./pricing";
+import { markReferralRefunded, recordReferral } from "./partner-db";
 
 /**
  * Turn a Dodo webhook into the workspace's billing state. The webhook body is never trusted: it only names a
@@ -27,6 +30,8 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
   if (!ref || !/^[A-Za-z0-9-]{6,64}$/.test(ref)) return { ws: null, change: null };
   const ws = await store.getWorkspaceById(ref);
   if (!ws) return { ws: null, change: null };
+  // The partner who sent this team (checkoutUrl → metadata_partner). Not "ref", which is the workspace id above.
+  const partner = cleanCode(sub?.metadata?.partner ?? pay?.metadata?.partner) ?? cleanCode(ws.partner);
 
   // Only our own products unlock Rocco (another product on the same Dodo account must never grant access).
   const product = sub?.product_id ?? pay?.product_cart?.[0]?.product_id;
@@ -44,6 +49,7 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
     if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();
     if (sub) { ws.subscriptionId = sub.subscription_id; ws.subStatus = sub.status; }
     await store.saveWorkspace(ws);
+    if (partner) await markReferralRefunded(ws.id, pay?.payment_id); // no partner payout for a refunded or disputed sale
     trackServer(ws.id, "refunded", { kind: refunded ? "refund" : "dispute", usd: pay?.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : undefined });
     return { ws, change: "ended" };
   }
@@ -69,6 +75,12 @@ export async function syncBilling(store: Store, body: { type?: string; data?: { 
       ws.hiredAt ??= now.toISOString(); // for "Rocco has earned N× his price" on the dashboard
       if (product) ws.plan = monthly ? "monthly" : "annual";
       ws.trialEndsAt = undefined;
+      // Partner referral: stored on the team, and the first payment gets a partner_referrals row (one per team;
+      // replays and renewals are ignored). Payout is due only after the guarantee (lib/partners.ts payoutDue).
+      if (partner) {
+        ws.partner ??= partner;
+        await recordReferral({ partner, workspaceId: ws.id, paymentId: pay.payment_id, plan: monthly ? "monthly" : "annual", amountUsd: pay.total_amount ? usdFromCode(pay.total_amount / 100, pay.currency) : (monthly ? PLAN.monthlyCents : PLAN.annualCents) / 100, currency: pay.currency, paidAt: paidAt.toISOString() });
+      }
     }
   } else if (sub && ["failed", "expired", "on_hold"].includes(sub.status ?? "")) {
     if (ws.trialEndsAt && new Date(ws.trialEndsAt) > now) ws.trialEndsAt = now.toISOString();

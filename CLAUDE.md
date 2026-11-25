@@ -63,6 +63,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `docs/REDDIT-PLAN.md` | Reddit plan (Nov 25): 30/60/90, sub research method, compliant organic, capped ads test, agency verdict (none before Dec 16), weekly cadence, Inkstreak note. Reddit is not the Dec 16 lever. |
 | `docs/PARTNERSHIPS.md` | Partner plan (Nov 25): 30% of first payment after the 7-day guarantee, partner types in order (PPC freelancers/agencies first), how to find 30 targets, personal outreach, tracking, maths. |
 | `docs/PARTNER-PAGES-PROMPT.md` | Paste-ready build prompt: /partners hub + 3 type pages, noindex /p/[code], `partner` cookie → Dodo metadata (not `ref`), partners tables, /admin/partners payouts, rel="sponsored" links, light static pages. |
+| `lib/partners.ts` / `lib/partner-db.ts` | Partner program (live): copy + `PARTNER_SHARE` for /partners, /partners/agencies, /tools, /communities, /p/[code]; `proxy.ts` sets the `rocco_partner` cookie; `metadata.partner` at checkout → billing → `partner_referrals`; /admin/partners approves and records payouts. Migration 006. |
 | `docs/LEAD-MAGNETS.md` | 10 free tools at /free (what each does, how gating works, post copy for Reddit/LinkedIn/X). |
 | `lib/season.ts` | Seller calendar per marketplace (events, phases, actions) → dashboard SeasonCard, brief, feeds, /amazon-seller-calendar. |
 | `content/sell/*.json` | Beginner guides per marketplace (/sell-on-amazon), live; how they were checked + URLs in `docs/BEGINNER-GUIDES.md`. Switch: `SELL_PUBLISHED` in lib/sell.ts. |

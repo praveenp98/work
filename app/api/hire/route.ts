@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { clientIp, fromOurSite, looksLikeBot } from "@/lib/human";
 import { allowShared } from "@/lib/limits";
 import { SITE } from "@/lib/site";
+import { attachPartner, readPartnerCookie } from "@/lib/partners";
 import { getStore } from "@/lib/store";
 import { seal, unseal } from "@/lib/vault";
 import { createWorkspace, ensureLinkCode, loadWorkspace, rememberToken } from "@/lib/workspace";
@@ -37,6 +38,7 @@ export async function POST(req: Request) {
   }
   // A typed email is not proof of anything: it only prefills checkout. Ownership comes from Google sign-in.
   if (email && !ws.ownerEmail) ws.checkoutEmail = email;
+  attachPartner(ws, readPartnerCookie(h.get("cookie"))); // sent by a partner: the code rides along to checkout
   if (!ws.mode) ws.mode = modeFor(regionFromRequest(req)); // US: Claude; elsewhere: report inbox
   await store.saveWorkspace(ws);
   const res = NextResponse.json({ ok: true, url: `/w/${token}` /* unpaid: the plan step (HireCard), then checkout */ });

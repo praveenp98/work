@@ -12,7 +12,7 @@ export async function GET() {
     url: sb.url ? `set (${sb.urlName})` : "MISSING: add SUPABASE_URL (Supabase > Project Settings > API > Project URL)",
     key: sb.key ? `set (${sb.keyName}, ${sb.key.startsWith("sb_secret_") ? "new secret key" : sb.key.startsWith("sb_publishable_") ? "WRONG: that's the publishable key, use the secret key" : sb.key.startsWith("eyJ") ? "legacy JWT key" : "unknown format"})` : "MISSING: add SUPABASE_SERVICE_ROLE_KEY (Supabase > Project Settings > API Keys > secret key)",
   };
-  if (sb.url && sb.key) memory.tables = await new SupabaseStore(sb.url, sb.key).checkTables(["workspaces", "snapshots", "runs", "actions", "phones", "waitlist", "rocco_hits", "rocco_marks"]);
+  if (sb.url && sb.key) memory.tables = await new SupabaseStore(sb.url, sb.key).checkTables(["workspaces", "snapshots", "runs", "actions", "phones", "waitlist", "rocco_hits", "rocco_marks", "partners", "partner_referrals"]);
   const tables = memory.tables as Record<string, string> | undefined;
   return NextResponse.json({
     ok: !!(tables && Object.values(tables).every((v) => v === "ok")),

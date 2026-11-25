@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const r = await syncBilling(store, body);
     change = r.change;
     // Funnel only (lib/events.ts): note that this team paid, once. Reads billing's answer, changes nothing, never throws.
-    if (r.ws && (r.change === "paid" || (!r.change && hasAccess(r.ws) && r.ws.licensed))) await recordPaid(r.ws.id);
+    if (r.ws && (r.change === "paid" || (!r.change && hasAccess(r.ws) && r.ws.licensed))) await recordPaid(r.ws.id, r.ws.plan, r.ws.partner);
     // /welcome often confirms the payment before the webhook lands (then change is null): still say hello, once.
     if (r.ws && !r.change && hasAccess(r.ws) && !r.ws.hiredNotifiedAt && r.ws.licensed) r.change = "paid";
     if (r.ws && r.change) {

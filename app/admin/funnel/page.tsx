@@ -71,14 +71,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
       <Table title="Last 30 days" rows={month.rows} ok={month.ok} />
 
       <div style={{ display: "grid", gap: 8 }}>
-        <p className="fine" style={{ margin: 0 }}>Source is the visit&apos;s first utm_source, else the site it came from, else &quot;direct&quot;. Visits and checkouts count people; leads, call clicks, calls booked and paid count events. A payment takes the source of the checkout that led to it.</p>
+        <p className="fine" style={{ margin: 0 }}>Source is &quot;partner:&lt;code&gt;&quot; when the visitor came through a partner&apos;s link (rocco_partner cookie), else the visit&apos;s first utm_source, else the site it came from, else &quot;direct&quot;. Visits and checkouts count people; leads, call clicks, calls booked and paid count events. A payment takes the source of the checkout that led to it.</p>
         <form method="post" action="/admin/funnel/booked" style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <label htmlFor="src" className="fine">Log a booked call from source</label>
           <input id="src" name="source" placeholder="x, linkedin, reddit…" style={{ padding: "8px 12px", borderRadius: 10, border: "1px solid var(--line)", font: "inherit", fontSize: 14 }} />
           <button className="btn small ghost" type="submit">Log call booked</button>
           {sp.logged && <span className="fine">Logged.</span>}
         </form>
-        <p className="fine" style={{ margin: 0 }}>Newest raw events: <a href="/api/admin/events?limit=100">/api/admin/events</a> · <a href="/admin/leads">Leads</a></p>
+        <p className="fine" style={{ margin: 0 }}>Newest raw events: <a href="/api/admin/events?limit=100">/api/admin/events</a> · <a href="/admin/leads">Leads</a> · <a href="/admin/partners">Partners</a></p>
       </div>
     </section>
   );

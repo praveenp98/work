@@ -6,6 +6,7 @@
  * - Unlock: Dodo license keys, checked with the public /licenses/validate endpoint.
  * - Count: unique paying customers via the Dodo API (DODO_API_KEY, server only). Rocco never changes the Dodo price.
  */
+import { cleanCode } from "./partners";
 import { stateFor, type PlanId, type PriceState } from "./pricing";
 import { SITE } from "./site";
 
@@ -31,12 +32,15 @@ export const pastProducts = () => [PRODUCT_ID, LEGACY_PRODUCT_ID].filter(Boolean
 /** "Extra Amazon account" subscription (+$49/mo each). Unset = extra accounts are by email. */
 export const extraProduct = () => validId(process.env.DODO_PRODUCT_ID_EXTRA_ACCOUNT);
 
-export function checkoutUrl(opts: { email?: string; ref?: string; redirect?: string; plan?: PlanId | "extra" } = {}): string | null {
+export function checkoutUrl(opts: { email?: string; ref?: string; partner?: string; redirect?: string; plan?: PlanId | "extra" } = {}): string | null {
   const product = opts.plan === "extra" ? extraProduct() : productFor(opts.plan);
   if (!product) return null;
   const q = new URLSearchParams({ quantity: "1", redirect_url: opts.redirect ?? `${SITE.url}/thanks` });
   if (opts.email) q.set("email", opts.email);
   if (opts.ref) q.set("metadata_ref", opts.ref);
+  // The partner who sent this team (lib/partners.ts). Not "ref": that key is the workspace id (lib/billing.ts).
+  const partner = cleanCode(opts.partner);
+  if (partner) q.set("metadata_partner", partner);
   return `${CHECKOUT_BASE}/buy/${product}?${q.toString()}`;
 }
 
