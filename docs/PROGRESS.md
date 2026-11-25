@@ -5,6 +5,7 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 ---
 
 ## 2026-11-25 · Today tab: counts and wording
+- Job cards are now compact rows: icon, title, one-line reason, value, main button, ▾ details, Skip on the right. Items (with checkboxes), guardrails, steps and the restock form live in the dropdown. Checked on desktop and iPhone width with fixture reports.
 - "5 jobs today" vs "Approve all 2 jobs" looked like a conflict: the headline counts every job, the button only one-tap jobs. A line under the headline now splits them ("2 I make in one tap · 3 steps for you · the $ is an estimate"), and the button says "Approve the 2 one-tap jobs".
 - Out-of-stock products: "out of stock", not "0 days of stock" / "before it runs out"; the ads job says pause its ads; the restock detail says the 30-day pace undercounts demand because it was out part of that time.
 - Low-stock ads note no longer says "once your Amazon Ads data is in" (it is in): "easing one product's ads isn't one tap yet".

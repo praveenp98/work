@@ -113,34 +113,51 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
   const rsOn = job.kind === "restock" && !!restock && job.items.some((i) => i.sku);
   const verb = job.mode === "create" ? "Create campaign" : chosen.length === job.codes.length ? `Approve${job.codes.length > 1 ? ` all ${job.codes.length}` : ""}` : `Approve ${chosen.length}`;
 
+  const [exp, setExp] = useState(false);
+  const primary = !state && (
+    job.mode === "manual"
+      ? <button className="btn small" onClick={() => { setExp(true); setHow(true); }}>{rsOn ? "Plan shipment" : "Show steps"}</button>
+      : <button className="btn small" disabled={anyBusy || !chosen.length} onClick={() => onApprove(chosen)}>{busy ? (direct ? (job.mode === "create" ? "Creating…" : "Making it…") : "…") : verb}</button>
+  );
+
   return (
-    <li id={`job-${job.kind}`} className={`tw-job${state ? ` is-${state}` : ""}${first && !state ? " is-first" : ""}`}>
-      <div className="tw-top">
+    <li id={`job-${job.kind}`} className={`tw-job tw-c${exp ? " is-open" : ""}${state ? ` is-${state}` : ""}${first && !state ? " is-first" : ""}`}>
+      <div className="tw-row">
         <span className="tw-ic" aria-hidden>{job.icon}</span>
-        <div className="tw-txt">
-          <div className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</div>
-          <p className="tw-why">{job.why ?? job.summary}</p>
-          {job.manualWhy && !rsOn && <p className="tw-manual">{job.manualWhy}</p>}
-          {job.mode !== "manual" && <p className="tw-guard"><span>✓ Checked with Amazon first</span><span>⏱ Measured in 7 days</span><span>{["bids_down", "bids_up", "budget_up", "budget_down"].includes(job.kind) ? "↩ Undo armed" : "↩ Logged with undo steps"}</span></p>}
+        <button className="tw-main" onClick={() => setExp((e) => !e)} aria-expanded={exp}>
+          <span className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</span>
+          <span className="tw-why">{job.why ?? job.summary}</span>
+        </button>
+        <div className="tw-right">
+          {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
+          {primary}
+          <button className={`tw-chev${exp ? " on" : ""}`} onClick={() => setExp((e) => !e)} aria-expanded={exp} aria-label={exp ? "Hide details" : "Show details"}>▾</button>
+          {!state && <button className="tw-skip" onClick={() => setAsking(true)} aria-label="Skip">Skip</button>}
         </div>
-        {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
       </div>
 
-      {rsOn && <RestockPanel ctx={restock!} items={job.items} />}
-      {rsOn && !asking && <button className="linkbtn muted" style={{ marginTop: 6 }} onClick={() => setAsking(true)}>Skip for now</button>}
-      {!rsOn && job.items.length > 0 && (
-        <ul className="tw-items">
-          {shownItems.map((it) => (
-            <li key={it.code}>
-              {open && job.mode !== "manual" && !state ? (
-                <label><input type="checkbox" checked={on.has(it.code)} onChange={() => setOn((s) => { const n = new Set(s); if (n.has(it.code)) n.delete(it.code); else n.add(it.code); return n; })} /> <span className="ji-l">{it.label}</span></label>
-              ) : <span className="ji-l">{it.label}</span>}
-              {it.detail && <span className="ji-d">{it.detail}</span>}
-              {it.value > 0 && <span className="ji-v">~{$(it.value)}</span>}
-            </li>
-          ))}
-          {job.items.length > 3 && <li className="tw-more"><button className="linkbtn" onClick={() => setOpen((o) => !o)}>{open ? "Show less" : `Show all ${job.items.length}${job.mode !== "manual" ? " · choose" : ""}`}</button></li>}
-        </ul>
+      {exp && (
+        <div className="tw-body">
+          {job.manualWhy && !rsOn && <p className="tw-manual">{job.manualWhy}</p>}
+          {job.mode !== "manual" && <p className="tw-guard"><span>✓ Checked with Amazon first</span><span>⏱ Measured in 7 days</span><span>{["bids_down", "bids_up", "budget_up", "budget_down"].includes(job.kind) ? "↩ Undo armed" : "↩ Logged with undo steps"}</span></p>}
+          {job.mode === "create" && <p className="fine">New Sponsored Products campaign, $10–50/day, exact match. The searches stop in the old campaign.</p>}
+          {rsOn && <RestockPanel ctx={restock!} items={job.items} />}
+          {!rsOn && job.items.length > 0 && (
+            <ul className="tw-items">
+              {shownItems.map((it) => (
+                <li key={it.code}>
+                  {job.mode !== "manual" && !state ? (
+                    <label><input type="checkbox" checked={on.has(it.code)} onChange={() => setOn((s) => { const n = new Set(s); if (n.has(it.code)) n.delete(it.code); else n.add(it.code); return n; })} /> <span className="ji-l">{it.label}</span></label>
+                  ) : <span className="ji-l">{it.label}</span>}
+                  {it.detail && <span className="ji-d">{it.detail}</span>}
+                  {it.value > 0 && <span className="ji-v">~{$(it.value)}</span>}
+                </li>
+              ))}
+              {job.items.length > 3 && <li className="tw-more"><button className="linkbtn" onClick={() => setOpen((o) => !o)}>{open ? "Show less" : `Show all ${job.items.length}`}</button></li>}
+            </ul>
+          )}
+          {how && !state && job.steps && <p className="tw-steps"><b>How:</b> {job.steps}</p>}
+        </div>
       )}
 
       {state === "applied" && <p className="tw-done"><span className="rd-tick" aria-hidden>✓</span> {job.mode === "create" ? reason : `Done in Amazon: ${doneCount} change${doneCount === 1 ? "" : "s"}.`} I&apos;ll check the results in a week.{job.value > 0 && <span className="rd-gain" aria-hidden>+~{$(job.value)}/mo</span>}</p>}
@@ -153,17 +170,6 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
       {state === "failed" && <p className="rd-fail">⚠️ {reason}</p>}
       {note && <p className="err">{note}</p>}
 
-      {!state && !rsOn && (
-        <div className="tw-act">
-          {job.mode === "manual" ? (
-            <button className="btn" onClick={() => setHow((h) => !h)}>{how ? "Hide steps" : "Show me how"}</button>
-          ) : (
-            <button className="btn" disabled={anyBusy || !chosen.length} onClick={() => onApprove(chosen)}>{busy ? (direct ? (job.mode === "create" ? "Creating in Amazon…" : "Making it in Amazon…") : "…") : verb}</button>
-          )}
-          <button className="linkbtn muted" onClick={() => setAsking(true)}>Skip</button>
-          {job.mode === "create" && <span className="fine">New Sponsored Products campaign, $10–50/day, exact match. The searches stop in the old campaign.</span>}
-        </div>
-      )}
       {busy && <LoadingText steps={job.mode === "create"
         ? ["Finding the product these searches sell through…", "Creating the exact campaign in Amazon…", "Adding the ad group…", "Adding your product ad…", "Adding each search as an exact keyword…", "Blocking them in the old campaign so you don't pay twice…"]
         : direct ? ["Checking every change with Amazon first…", `Making ${chosen.length} change${chosen.length === 1 ? "" : "s"} in Amazon…`, "Logging them so I can check results in a week…"]
@@ -177,7 +183,6 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
           <button className="linkbtn muted" onClick={() => onSkip()}>Just skip</button>
         </div>
       )}
-      {how && !state && job.steps && <p className="tw-steps">{job.steps}</p>}
     </li>
   );
 }
