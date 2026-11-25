@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Wrapped plays full screen, like an app
+- Opens full screen when ready (edge to edge on phones, centred 9:16 with arrows on desktop); tap sides or swipe left/right; swipe down, ✕, Esc or the phone's Back button closes it.
+- Email unlock lives inside the story (lock slide with the form + "Skip, show my card"); unlocking plays straight into the deeper cuts.
+- Ends on a share screen: recap card + "Share my Wrapped" (phone share sheet with the story image attached; falls back to saving the image), Post on X, LinkedIn, Copy link, Replay.
+- Page keeps "▶ Play my Wrapped", the recap and share buttons after closing. Tested on iPhone 13 and desktop sizes in a browser.
+
+---
+
 ## 2026-11-25 · One free-tools page, sitemap, share-image crawl fix
 - /tools merged into /free (lists the 10 tools + calculators + checklist); /tools 308-redirects to /free; footer has one "Free tools" link.
 - robots.txt now allows /api/magnets/card (X/LinkedIn preview bots obey robots.txt; the Wrapped share image lives there).
