@@ -16,8 +16,8 @@ Code: engine `lib/magnets.ts` (pure, tested in `lib/magnets.test.ts`), UI `compo
 |---|---|---|---|---|
 | 01 | Amazon Financial Health Check | /free/amazon-health-check | Business report + search terms (+ margin) | 0–100 score, TACoS, ACoS vs break-even, conversion vs typical |
 | 02 | Roast My Amazon Account | /free/roast-my-amazon-account | Search terms | Savage AI roast (Claude) of real numbers + grade |
-| 03 | The Agency Audit | /free/amazon-agency-audit | Search terms × 2 periods (+ fee) | Did ACoS/waste move; burners never blocked |
-| 04 | Claude vs Rocco | /free/claude-vs-rocco | Pasted AI advice + search terms | Each move: agree / careful / don't / can't check |
+| 03 | The Agency Audit | /free/amazon-agency-audit | Search terms (best) or campaign report × 2 periods (+ fee) | Did ACoS/waste move; burners never blocked |
+| 04 | Second Opinion on Your AI's Ad Advice | /free/ai-ad-advice-second-opinion (old /free/claude-vs-rocco redirects) | Pasted AI advice + search terms | Each move: agree / careful / don't / can't check |
 | 05 | Amazon Seller Wrapped | /free/amazon-seller-wrapped | Business report (+ search terms) | Persona card, sales hidden by default; shared link shows the card as preview image |
 | 06 | Am I Overpaying? | /free/am-i-overpaying-amazon | Numbers or reports | vs **labelled typical ranges** + fee gap to $279/mo |
 | 07 | Money Leak Detector | /free/amazon-money-leak-detector | Search terms (+ more) | $/month and $/year leaking |
@@ -26,6 +26,17 @@ Code: engine `lib/magnets.ts` (pure, tested in `lib/magnets.test.ts`), UI `compo
 | 10 | Rocco Watches Your Business | /free/rocco-watches-your-business | Search terms (+ more) | The texts Rocco would have sent this week |
 
 **Honesty guardrails (keep):** typical ranges are labelled as published guidance that varies by category; period comparisons say "moved, not why"; roast is savage about numbers, never the person; fire-my-agency says plainly that creative, DSP and calls need people.
+
+## Trust line (on every upload)
+Green bar above the upload boxes + a lock line inside each box: "Your reports are never uploaded. Rocco reads them right here on your device…". Only exceptions, stated where they happen: the pasted advice text (#04) and summary numbers for the AI roast (#02) go to Rocco's AI; nothing is stored.
+
+## Agencies: buyers AND the audience's question (decided Nov 25)
+#03 and #09 stay live. Each shows a note above the tool: *"No offence, agencies. This is a question plenty of brand owners ask themselves quietly; Rocco is just asking it out loud…"* and invites agencies to run it on their own clients. FAQ "Is this anti-agency?" answers no. When pitching agencies (GTM channel 8), lead with the other 8 tools and offer #03 as a client-reporting tool; don't send #09 to agencies.
+
+## #03 data check (Amazon)
+- The tool **compares results from two uploaded reports**; it does not need Amazon's change history.
+- Amazon keeps about **65 days** of search term reports and about **95 days** of campaign reports, so an older "before" comes from the campaign report (supported) or the agency's own exports.
+- Amazon's change history exists (console: campaign → History tab; Ads API change history for Sponsored Products and Sponsored Brands, about 90 days, no "who changed it"; not Sponsored Display). Pointed to in the tool's FAQ. Not wired into Rocco yet; a possible "what changed" view for connected accounts later (via DataDoe if it exposes it, unchecked). The 90-day figure comes from third-party docs; check it against Amazon's official docs before quoting it anywhere public.
 
 ## Posting plan (ask before any paid boost; organic only)
 Use `?utm_source=<reddit|linkedin|x>&utm_medium=social&utm_campaign=free-tools&utm_content=<slug>` on every link.
@@ -42,11 +53,11 @@ Use `?utm_source=<reddit|linkedin|x>&utm_medium=social&utm_campaign=free-tools&u
 **X (thread starter)**
 > I built 10 free tools for Amazon sellers. No sign-up, files never leave your browser.
 > 1/ Roast My Amazon Account: savage, but every joke is a real number from your report.
-> 2/ Claude vs Rocco: paste what ChatGPT/Claude told you to do with your ads; it checks each move against your data. In our test, 1 of 7 would have blocked a search with 30 orders.
+> 2/ Second opinion on your AI's ad advice: paste what an AI assistant told you to do with your ads; it checks each move against your data. In our test, 1 of 7 would have blocked a search with 30 orders.
 > 3/ Amazon Seller Wrapped: your seller persona as a shareable card (sales hidden by default).
 > All 10: rocco.works/free
 
-Best openers by channel: Roast + Wrapped (X, shareable), Agency Audit + Could I Fire My Agency (LinkedIn), Leak Detector + Claude vs Rocco (Reddit, answer-style).
+Best openers by channel: Roast + Wrapped (X, shareable), Agency Audit + Could I Fire My Agency (LinkedIn), Leak Detector + Second Opinion (Reddit, answer-style).
 
 ## Not done / to check
 - AI roast and advice extraction need `ANTHROPIC_API_KEY` live (already used elsewhere). Without it the rule versions run.

@@ -125,3 +125,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-25 · Lead magnets are working tools, gated after a free teaser
 - **Decision:** 10 free tools at /free/<slug> on one shared engine; reports read in the browser; first 3 findings free, full result for an email; benchmarks shown as labelled typical ranges; roast tone savage (numbers only, never the person).
 - **Why:** Praveen will post them on Reddit, LinkedIn and X; a real result is what gets shared and earns the email. Shared base keeps quality even across all 10.
+
+## 2026-11-25 · Agencies are both buyers and a question brand owners ask
+- **Decision:** keep #03 Agency Audit and #09 Could I Fire My Agency? live, with a "No offence, agencies" note that frames it as the brand owner's own question, said out loud, and invites agencies to use #03 on their clients. Renamed #04 to "Second Opinion on Your AI's Ad Advice" (no other company's product name in a feature title).
+- **Why:** Praveen: it's a genuine thought in a brand owner's head; Rocco calls it out. Agency channel stays open by leading with the other tools.

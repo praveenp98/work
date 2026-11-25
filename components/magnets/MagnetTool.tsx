@@ -59,7 +59,11 @@ export function MagnetTool({ slug }: { slug: string }) {
     track("tool_result", { tool: slug, link: "sample" });
   };
 
-  const missing = m.needs.filter((k) => !now[k] || (m.periods && !before[k]));
+  const has = (r: Reports, ks: ReportKind[]) => ks.some((k) => r[k]);
+  const missing = [
+    ...m.needs.filter((k) => !now[k] || (m.periods && !before[k])),
+    ...(m.needsOneOf && (!has(now, m.needsOneOf) || (m.periods && !has(before, m.needsOneOf))) ? [m.needsOneOf[0]] : []),
+  ];
   const needsAdvice = m.fields?.some((f) => f.key === "advice") && !(form.advice ?? "").trim();
   const ready = !missing.length && !needsAdvice && (slug !== "could-i-fire-my-amazon-agency" || !!form.tasks);
 
@@ -93,21 +97,24 @@ export function MagnetTool({ slug }: { slug: string }) {
 
   return (
     <div className="mg">
+      {m.note && <p className="mg-note"><span aria-hidden>🦝</span><span>{m.note}</span></p>}
+      {!textOnly && (
+        <p className="mg-trust"><span aria-hidden>🔒</span><span><b>Your reports are never uploaded.</b> Rocco reads them right here on your device, in your browser. Nothing is sent to us or stored, and closing this tab erases them.</span></p>
+      )}
       {!textOnly && (
         <div className={`mg-slots${m.periods ? " two" : ""}`}>
           {(m.periods ? (["before", "now"] as const) : (["now"] as const)).map((slot) => (
-            <Drop key={slot} label={m.periods ? (slot === "before" ? "Before (earlier period)" : "After (last 30 days)") : "Drop your reports here"} have={slot === "now" ? now : before} kinds={kinds} needs={m.needs} busy={busy} onFiles={(f) => add(f, slot)} />
+            <Drop key={slot} label={m.periods ? (slot === "before" ? "Before (earlier period)" : "After (last 30 days)") : "Drop your reports here"} have={slot === "now" ? now : before} kinds={[...new Set(kinds)]} needs={m.needs} oneOf={m.needsOneOf} busy={busy} onFiles={(f) => add(f, slot)} />
           ))}
         </div>
       )}
       {m.fields?.map((f) => <FieldInput key={f.key} f={f} value={form[f.key] ?? ""} onChange={(v) => { setForm({ ...form, [f.key]: v }); setResult(null); }} />)}
       <p className="fine" style={{ margin: "10px 0 0" }}>
-        {!textOnly && "Files are read in your browser and never uploaded. "}
         <button className="linkbtn" disabled={busy} onClick={sample}>Try it with a sample account →</button>
       </p>
       {errors.map((e) => <p key={e} className="err">{e}</p>)}
       <button className="btn mg-go" disabled={!ready || busy} onClick={run}>
-        {busy ? "Rocco is digging…" : ready ? `Run ${m.name}` : missing.length ? `Add: ${missing.map((k) => REPORT_HELP[k].name.replace(/ \(.*\)$/, "")).join(" + ")}${m.periods ? " for both periods" : ""}` : needsAdvice ? "Paste the advice first" : "Tick what your agency does"}
+        {busy ? "Reading on your device…" : ready ? `Run ${m.name}` : missing.length ? `Add: ${m.needsOneOf && missing.length === 1 && missing[0] === m.needsOneOf[0] ? m.needsOneOf.map((k) => REPORT_HELP[k].name.replace(/ \(.*\)$/, "").replace(/^Sponsored Products /, "")).join(" or ") : missing.map((k) => REPORT_HELP[k].name.replace(/ \(.*\)$/, "")).join(" + ")}${m.periods ? " for both periods" : ""}` : needsAdvice ? "Paste the advice first" : "Tick what your agency does"}
       </button>
 
       {result && (
@@ -163,16 +170,17 @@ export function MagnetTool({ slug }: { slug: string }) {
   );
 }
 
-function Drop({ label, have, kinds, needs, busy, onFiles }: { label: string; have: Reports; kinds: ReportKind[]; needs: ReportKind[]; busy: boolean; onFiles: (f: { name: string; get: () => Promise<File> }[]) => void }) {
+function Drop({ label, have, kinds, needs, oneOf, busy, onFiles }: { label: string; have: Reports; kinds: ReportKind[]; needs: ReportKind[]; oneOf?: ReportKind[]; busy: boolean; onFiles: (f: { name: string; get: () => Promise<File> }[]) => void }) {
   const [over, setOver] = useState(false);
   const wrap = (fs: File[]) => onFiles(fs.map((f) => ({ name: f.name, get: async () => f })));
   return (
     <label className={`drop${over ? " over" : ""}${busy ? " busy" : ""}`} onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={(e) => { e.preventDefault(); setOver(false); wrap([...e.dataTransfer.files]); }}>
       <p style={{ fontWeight: 700, fontSize: 17, margin: "0 0 8px" }}>{label}</p>
       <ul className="mg-kinds">
-        {kinds.map((k) => <li key={k} className={have[k] ? "ok" : ""}>{have[k] ? "✓" : needs.includes(k) ? "•" : "+"} {REPORT_HELP[k].name.replace(/ \(.*\)$/, "")}{!needs.includes(k) && !have[k] ? " (optional)" : ""}</li>)}
+        {kinds.map((k) => <li key={k} className={have[k] ? "ok" : ""}>{have[k] ? "✓" : needs.includes(k) || oneOf?.includes(k) ? "•" : "+"} {REPORT_HELP[k].name.replace(/ \(.*\)$/, "")}{have[k] ? "" : oneOf?.includes(k) ? (k === oneOf[0] ? " (best)" : " (or this)") : !needs.includes(k) ? " (optional)" : ""}</li>)}
       </ul>
       <span className="fine">Drop .csv / .xlsx or tap to choose</span>
+      <span className="mg-lock">🔒 Stays on your device · never uploaded</span>
       <input type="file" multiple accept=".csv,.tsv,.txt,.xlsx" hidden onChange={(e) => wrap([...(e.target.files ?? [])])} />
     </label>
   );

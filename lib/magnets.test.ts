@@ -24,7 +24,7 @@ describe("free tools", () => {
   it("every tool returns a result on the sample account", async () => {
     const now = await load(NOW), before = await load(["sp-search-term-report-before.csv", "sp-campaign-report-before.csv"]);
     for (const m of MAGNETS) {
-      const advice = m.slug === "claude-vs-rocco" ? checkAdvice(parseAdviceRules('Add "free cutting board" as a negative.\nRaise the bid on "bamboo cutting board" by 40%.'), now, 35) : undefined;
+      const advice = m.slug === "ai-ad-advice-second-opinion" ? checkAdvice(parseAdviceRules('Add "free cutting board" as a negative.\nRaise the bid on "bamboo cutting board" by 40%.'), now, 35) : undefined;
       const r = m.run({ now, before, form: { tasks: "negatives,bids,creative", fee: "1500", margin: "35", agency: "1200", hide: "yes" }, advice });
       expect(r.headline, m.slug).toBeTruthy();
       expect(r.items.length, m.slug).toBeGreaterThan(0);
@@ -42,6 +42,13 @@ describe("free tools", () => {
     const r = magnet("amazon-agency-audit")!.run({ now: await load(["sp-search-term-report.csv"]), before: await load(["sp-search-term-report-before.csv"]), form: { fee: "1500" } });
     expect(r.items.some((x) => /never blocked/.test(x.title))).toBe(true);
     expect(r.sub).toMatch(/not why/);
+  });
+
+  it("agency audit works from campaign reports alone (older periods) and says what it can't see", async () => {
+    const r = magnet("amazon-agency-audit")!.run({ now: await load(["sp-campaign-report.csv"]), before: await load(["sp-campaign-report-before.csv"]), form: {} });
+    expect(r.headline).not.toMatch(/Add a/);
+    expect(r.items.some((x) => /search term reports/.test(x.title))).toBe(true);
+    expect(r.stats).toHaveLength(1);
   });
 
   it("wrapped hides money when asked", async () => {

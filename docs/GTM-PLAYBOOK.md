@@ -16,6 +16,8 @@ Contest maths: one-time, annual and lifetime payments all count as money receive
 | 6 | **Free AI assistants as lead magnets:** a custom GPT + Claude project/skill "Amazon Ads Auditor" that links to the full tool | Nov 19 | 10–20 | Free |
 | 7 | Public free-audit threads: "Reply with your ACoS + category, I'll roast your ads strategy" on X/LinkedIn | Nov 20 | 10–20 | Free |
 | 8 | Agency and freelancer partners (white-label Agency plan + referral fee) | Nov 25 | 15–30 (incl. their clients) | Commission = marketing cost |
+
+> Note (Nov 25): free tools #03 Agency Audit and #09 Could I Fire My Agency? speak to brand owners. Each carries a "No offence, agencies" note and invites agencies to run it on their clients. When pitching agencies, lead with the other tools; offer #03 as client reporting; don't send them #09. See docs/LEAD-MAGNETS.md.
 | 9 | Launch platforms: Product Hunt (Dec 2–4), TrustMRR listing, Indie Hackers, launch directories, Ship or Die/X buzz | Nov 17 + PH day | 10–20 | Free |
 | 10 | SEO + AEO tool pages, glossary, problem pages, comparison pages | Nov 18 (pays off mostly late/after) | 10–20 | Free |
 | 11 | YouTube long-form: 3–5 tutorials ("How to audit Rufus Sponsored Prompts", "Fix ad waste in 10 min") | Nov 22 | 5–15 | Free |

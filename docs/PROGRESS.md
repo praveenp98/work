@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Free tools: trust line, #04 renamed, agency note
+- Trust: green "Your reports are never uploaded" bar above every upload + lock line in each drop box; button reads "Reading on your device…".
+- #04 renamed **Second Opinion on Your AI's Ad Advice** (/free/ai-ad-advice-second-opinion; old URL 308-redirects). No Claude/ChatGPT names in the tool.
+- #03 and #09: "No offence, agencies…" note + "Is this anti-agency?" FAQ. GTM channel 8 note added.
+- #03 now also accepts campaign reports (Amazon keeps ~95 days vs ~65 for search terms) for older periods; says what it can't see without search terms. FAQ points to Amazon's campaign History tab / change-history API. 288 tests.
+
+---
+
 ## 2026-11-25 · 10 free tools (lead magnets) built as real products
 - **rocco.works/free** + 10 working tools: Health Check, Roast (savage, Claude), Agency Audit (before/after), Claude vs Rocco (pasted AI advice checked against data), Seller Wrapped (shareable card, sales hidden by default), Am I Overpaying (labelled typical ranges), Money Leak Detector, What Actually Worked (two periods), Could I Fire My Agency, Rocco Watches (the texts he'd have sent).
 - Reports read in the browser; first 3 findings free, the rest for an email (lead_magnet = tool slug); X/LinkedIn share; hire CTA with the hours/48h connect note.
