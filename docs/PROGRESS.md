@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Reddit plan from Grok's agency brief
+- `docs/REDDIT-PLAN.md`: Reddit can't carry $100k by Dec 16 (about 36 yearly plans in 3 weeks; organic takes 4 to 12 months per the agencies; ad and agency spend comes off contest profit). Plan: one honest appeal, a labelled brand account that stays out of subs that banned Praveen, comment-first, mod-approved AMA at 60 to 90 days, owned subreddit only if it has a job, monitoring, optional capped Reddit Ads test promoting a free tool (Praveen sets the cap; kill rule after the first $400).
+- Agencies: none before Dec 16. Later: InterTeam or Stackmatix (paid test), REDD or Karmic (organic). Grey: Growth Marketing Pro (aged account fleet), Foundation persona account, Karmic seeded AMA questions, Soar.
+- Open question for Praveen: is the personal account banned only in r/AmazonSeller, or suspended by Reddit site-wide? It changes what that account can do.
+
 ## 2026-11-25 · Reddit: ban, rate limit, rewrite as briefs
 - Praveen was banned on r/AmazonSeller and rate-limited posting the Black Friday post. r/FulfillmentByAmazon rules (seen Nov 25): no AI-generated text (instant ban), no promotion without mod approval, no naming buyers/sellers.
 - `marketing/copy/reddit-posts.md` rewritten: the 19 paste-ready posts are withdrawn. Now a posting playbook (appeal by modmail, no second account, 2-week comment-only warm-up, one post a week, 80/20, disclosure) + 17 topic briefs (facts with sources + questions only Praveen can answer). Praveen writes every post himself.
