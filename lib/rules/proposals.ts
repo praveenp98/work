@@ -50,11 +50,17 @@ export function proposalsFromRoast(r: RoastResult, report: ParsedReport): Propos
   });
   r.fixes.bids.forEach((b, i) => {
     const t = targets.get(k(b.campaign, b.adGroup, b.targeting, b.matchType));
-    const saving = t && b.changePct < 0 ? Math.max(0, t.spend - t.sales * r.settings.targetAcos) : 0;
+    // Net profit, not just spend removed (Nov 25 fix list #3). A bid move of p% shifts clicks, spend and sales by
+    // roughly p% (simple, conservative model). Profit before ads on a sale = break-even ACoS × sales. So:
+    //   cut:   spend saved − margin lost = p × (spend − sales × breakeven)   (positive only above break-even)
+    //   raise: margin gained − spend added = p × (sales × breakeven − spend) (positive only under break-even)
+    const be = r.settings.breakevenAcos ?? r.settings.targetAcos * 1.5;
+    const p = Math.abs(b.changePct) / 100;
+    const saving = !t ? 0 : b.changePct < 0 ? Math.max(0, p * (t.spend - t.sales * be)) : Math.max(0, p * (t.sales * be - t.spend));
     out.push({
       code: `B${i + 1}`, kind: "bid", campaign: b.campaign, adGroup: b.adGroup, target: b.targeting, matchType: b.matchType,
       current: b.currentCpc, proposed: b.newBid, reason: `${b.reason} (${b.changePct > 0 ? "+" : ""}${b.changePct}% vs avg CPC)`,
-      valueMonthly: perMonth(saving * Math.min(1, Math.abs(b.changePct) / 100 * 2)), before: t ? metricsOf(t, d) : undefined,
+      valueMonthly: perMonth(saving), before: t ? metricsOf(t, d) : undefined,
       ids: t?.ids, changePct: b.changePct,
       undo: `Set the bid on ${b.targeting} back to its previous value (avg CPC was ${b.currentCpc}).`,
     });

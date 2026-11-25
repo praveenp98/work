@@ -38,10 +38,12 @@ export function SeasonCard({ market, token, jobKinds, now = new Date() }: { mark
       <ol className="ss-acts">
         {m.actions.map((a) => {
           const job = a.job?.find((k) => jobKinds.includes(k));
+          const near = !job ? a.near?.find((x) => jobKinds.includes(x.kind)) : undefined;
           return (
             <li key={a.id}>
               <div><b>{a.text}</b><small>{a.why}</small></div>
               {job ? <a className="ss-go" href={`#job-${job}`}>In today&apos;s jobs ↓</a>
+                : near ? <a className="ss-go" href={`#job-${near.kind}`}>{near.note}</a>
                 : a.auto ? <span className="ss-auto">✓ Rocco does this</span>
                 : a.href ? <Link className="ss-go" href={href(a.href)}>Open →</Link>
                 : a.job ? <span className="ss-ok">✓ Nothing needed today</span> : null}

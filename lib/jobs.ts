@@ -44,8 +44,8 @@ function itemOf(p: Proposal): JobItem {
 
 const META: Record<Exclude<JobKind, "restock" | "listings" | "buybox">, { icon: string; title: (n: number, v: number) => string; summary: (n: number, v: number) => string; mode: JobMode }> = {
   negatives: { icon: "✂️", mode: "auto", title: (n) => `Block ${s(n, "search", "searches")} that waste money`, summary: (_, v) => `They get clicks but no orders. Blocking them saves ~${$(v)}/mo.` },
-  bids_down: { icon: "📉", mode: "auto", title: (n) => `Lower ${s(n, "bid")} that overspend`, summary: (_, v) => `Above your target ACoS. Bringing them back saves ~${$(v)}/mo.` },
-  bids_up: { icon: "📈", mode: "auto", title: (n) => `Raise ${s(n, "bid")} on winners`, summary: () => `Profitable and under target ACoS: room to win more sales.` },
+  bids_down: { icon: "📉", mode: "auto", title: (n) => `Lower ${s(n, "bid")} that overspend`, summary: (_, v) => v > 0 ? `Above your target ACoS. ~${$(v)}/mo more profit, after the sales a lower bid gives up (est.).` : `Above your target ACoS, still under break-even: brings them back to your goal.` },
+  bids_up: { icon: "📈", mode: "auto", title: (n) => `Raise ${s(n, "bid")} on winners`, summary: (_, v) => v > 0 ? `Profitable and under target ACoS: ~${$(v)}/mo more profit from the extra sales (est.).` : `Profitable and under target ACoS: room to win more sales.` },
   new_campaign: { icon: "🌱", mode: "create", title: (n) => `New exact campaign: ${s(n, "proven search", "proven searches")}`, summary: () => `These searches already sell. I'll give them their own exact campaign and stop paying twice for them in the old one.` },
   budget_up: { icon: "💰", mode: "auto", title: (n) => `Raise ${s(n, "budget")} on profitable campaigns`, summary: (_, v) => `They run out of money while under target ACoS. ~${$(v)}/mo more sales.` },
   budget_down: { icon: "🧯", mode: "auto", title: (n) => `Cut ${s(n, "budget")} on losing campaigns`, summary: (_, v) => `Spending above breakeven. ~${$(v)}/mo back while bids get fixed.` },

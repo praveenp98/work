@@ -48,7 +48,8 @@ export function findBidChanges(terms: TermStats[], s: RoastSettings): BidFix[] {
       currentCpc: cur,
       newBid: nb,
       changePct: Math.round(((nb - cur) / cur) * 100),
-      reason: t.orders === 0 ? `${t.clicks} clicks, 0 orders` : `ACoS ${(a * 100).toFixed(0)}% vs target ${(targetFor(s, t.campaign) * 100).toFixed(0)}%${targetFor(s, t.campaign) !== s.targetAcos ? " (this product's goal)" : ""}`,
+      // Keyword-level numbers (all the searches it matched), so it never reads as contradicting one search's ACoS.
+      reason: t.orders === 0 ? `This keyword: ${t.clicks} clicks, 0 orders across its searches` : `This keyword runs at ${(a * 100).toFixed(0)}% ACoS across all its searches vs target ${(targetFor(s, t.campaign) * 100).toFixed(0)}%${targetFor(s, t.campaign) !== s.targetAcos ? " (this product's goal)" : ""}`,
     });
   }
   return out.sort((a, b) => Math.abs(b.changePct * b.spend) - Math.abs(a.changePct * a.spend));

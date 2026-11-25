@@ -68,7 +68,7 @@ export async function runAnalysis(store: Store, ws: Workspace, brand: string, ta
     const last = (await store.listSnapshots(ws.id, { brand, kind: "sp_search_term", limit: 1 }))[0];
     if (last) { adSpend = Number(last.stats.spend) || undefined; adSales = Number(last.stats.sales) || undefined; }
   }
-  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, protectedCampaigns: s.protectedCampaigns, goals: s.goals, monthlyAdBudget: s.monthlyAdBudget, adSpend, adSales });
+  const out: AnalyzeOutput = analyze(table, { targetAcos: s.targetAcos, breakevenAcos: s.breakevenAcos, minClicks: s.minClicks, protectedTerms: s.protectedTerms, brandTerms: [...(brand !== DEFAULT_BRAND ? [brand] : []), ...(s.brandTerms ?? [])], allowBrandCuts: s.allowBrandCuts, protectedCampaigns: s.protectedCampaigns, goals: s.goals, monthlyAdBudget: s.monthlyAdBudget, adSpend, adSales });
   const now = new Date().toISOString();
   const terms = out.report ? termSnapshot(out.report.rows) : undefined;
   let diff: TermDiff | null = null;

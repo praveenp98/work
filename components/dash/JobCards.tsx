@@ -85,7 +85,17 @@ export function JobCards({ token, brand, jobs, direct, cur = USD, restock }: { t
   return (
     <div className="tw">
       <div className="tw-head">
-        <h2>Today&apos;s work</h2>
+        <div>
+          <h2>Today&apos;s work</h2>
+          {(() => {
+            // Live counts: they always add up to what's on screen and change as jobs are approved or skipped.
+            const isDone = (j: Job) => j.codes.length > 0 && j.codes.every((c) => res[c]?.status === "applied");
+            const left = visible.filter((j) => !isDone(j));
+            const tap = left.filter((j) => j.mode === "auto").length, make = left.filter((j) => j.mode === "create").length, you = left.filter((j) => j.mode === "manual").length, done = visible.length - left.length;
+            const parts = [tap && `${tap} one-tap`, make && `${make} new campaign${make === 1 ? "" : "s"} to review`, you && `${you} step${you === 1 ? "" : "s"} for you`, done && `${done} done ✓`].filter(Boolean);
+            return parts.length ? <p className="rd-split">{parts.join(" · ")} · $ values are estimates</p> : null;
+          })()}
+        </div>
         {openAuto.length > 1 && <button className="btn small" disabled={!!busy} onClick={approveAll}>Approve the {openAuto.length} one-tap jobs{openAuto.some((j) => j.value > 0) ? <> · ~{$(openAuto.reduce((t, j) => t + j.value, 0))}/mo</> : null}</button>}
       </div>
       <ul className="tw-list">

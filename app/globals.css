@@ -493,3 +493,6 @@ h1, h2, .display { color: var(--ink); }
 .foot-human { margin: 0 0 10px; font-size: 15px; color: var(--muted); }
 .foot-human a { color: var(--accent); font-weight: 600; }
 .sheet-human { margin: 0; text-align: center; }
+.roi-none { font-size: 22px !important; }
+.roi-est { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); }
+.roi-why { display: block; margin-top: 6px; font-size: 12.5px; line-height: 1.45; color: var(--muted); max-width: 40ch; }

@@ -44,6 +44,9 @@ export interface AnalyzeSettings {
   breakevenAcos?: number;
   minClicks?: number;
   protectedTerms?: string[];
+  /** Brand names (account brand, listing brands). Never negated; bids on them are never lowered unless allowBrandCuts. */
+  brandTerms?: string[];
+  allowBrandCuts?: boolean;
   protectedCampaigns?: string[];
   goals?: import("./rules/settings").ProductGoal[];
   monthlyAdBudget?: number;
@@ -64,6 +67,19 @@ export interface AnalyzeOutput {
   business?: BusinessRow[];
 }
 
+/** "Habit Nest US" → ["habit nest", "habitnest"]: brand phrases without the marketplace suffix. */
+export function brandPhrases(names: string[]): string[] {
+  const out = new Set<string>();
+  for (const n of names) {
+    const p = n.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\b(us|usa|uk|ca|de|fr|it|es|mx|jp|au|in|ae|sa|nl|se|pl|be|br|sg|tr|eg|ie)\b\s*$/, "").replace(/\s+/g, " ").trim();
+    if (p.length < 3) continue;
+    out.add(p);
+    if (p.includes(" ")) out.add(p.replace(/ /g, ""));
+  }
+  return [...out];
+}
+export const isBrandText = (text: string, brands: string[]) => { const t = ` ${text.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ")} `; return brands.some((b) => t.includes(` ${b} `) || t.includes(` ${b}`)); };
+
 export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOutput {
   const kind = detectKind(table);
   if (!kind) {
@@ -80,6 +96,12 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
     if (protectedSet.size) {
       const hit = (term: string) => [...protectedSet].some((p) => term.includes(p));
       r.fixes.negatives = r.fixes.negatives.filter((n) => !hit(n.keyword));
+    }
+    const brands = brandPhrases(s.brandTerms ?? []);
+    if (brands.length) {
+      const isBrand = (text: string) => isBrandText(text, brands);
+      r.fixes.negatives = r.fixes.negatives.filter((n) => !isBrand(n.keyword));
+      if (!s.allowBrandCuts) r.fixes.bids = r.fixes.bids.filter((b) => b.changePct > 0 || !isBrand(b.targeting));
     }
     return { kind, analysis: roastAnalysis(r, report), roast: r, report };
   }

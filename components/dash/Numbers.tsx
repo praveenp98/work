@@ -40,7 +40,7 @@ export function Numbers({ daily, sym = "$", target }: { daily: Daily; sym?: stri
     cur.hasSales && { k: "Conversion", v: pct(cur.conv), d: ch(cur.conv, prev.conv, false, true) },
     cur.hasAds && { k: "Ad spend", v: money(cur.adSpend), d: ch(cur.adSpend, prev.adSpend, true) },
     cur.hasAds && { k: "Ad sales", v: money(cur.adSales), d: ch(cur.adSales, prev.adSales) },
-    cur.hasAds && { k: target ? `ACoS · target ${Math.round(target * 100)}%` : "ACoS", v: pct(cur.acos), d: ch(cur.acos, prev.acos, true, true) },
+    cur.hasAds && { k: target ? `ACoS (all ads) · target ${Math.round(target * 100)}%` : "ACoS (all ads)", v: pct(cur.acos), d: ch(cur.acos, prev.acos, true, true) },
     cur.hasAds && cur.hasSales && { k: "TACoS", v: pct(cur.tacos), d: ch(cur.tacos, prev.tacos, true, true) },
     cur.hasAds && { k: "ROAS", v: cur.roas === null ? "—" : `${cur.roas.toFixed(2)}×`, d: ch(cur.roas, prev.roas) },
     cur.hasAds && { k: "Cost per click", v: cur.cpc === null ? "—" : `${sym}${cur.cpc.toFixed(2)}`, d: ch(cur.cpc, prev.cpc, true) },

@@ -50,7 +50,7 @@ import { amazonNote } from "@/lib/messages";
 import { hireUrl } from "@/lib/paywall";
 import { monthlyCost, PRICE } from "@/lib/pricing";
 import type { Proposal } from "@/lib/rules/types";
-import { savedPhrase } from "@/lib/savings";
+import { savedPhrase, savingsOf } from "@/lib/savings";
 import { getStore } from "@/lib/store";
 import type { Snapshot } from "@/lib/store/types";
 import { brandSettings, buildBrief, loadWorkspace, rememberToken } from "@/lib/workspace";
@@ -180,7 +180,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     biz && Number(biz.stats.conversionPct) > 0 && { k: "Conversion", v: `${Number(biz.stats.conversionPct).toFixed(1)}%`, d: delta("business_report", "conversionPct") },
     st && { k: "Ad spend · 30d", v: m(Number(st.stats.spend)), d: delta("sp_search_term", "spend", true) },
     st && { k: "Ad sales · 30d", v: m(Number(st.stats.sales)), d: delta("sp_search_term", "sales") },
-    st && acos !== null && { k: `ACoS · target ${target}%`, v: `${acos}%`, d: delta("sp_search_term", "acosPct", true) },
+    st && acos !== null && { k: `ACoS (SP searches) · target ${target}%`, v: `${acos}%`, d: delta("sp_search_term", "acosPct", true) },
     tacos !== null && { k: "TACoS", v: `${tacos}%`, d: null },
     st && { k: "Wasted / mo", v: m(Number(st.stats.leakMonthly)), d: delta("sp_search_term", "leakMonthly", true) },
   ].filter(Boolean) as { k: string; v: string; d: { text: string; good: boolean } | null }[];
@@ -197,7 +197,10 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   // Today's work as jobs (lib/jobs.ts): grouped the way a manager works, ordered by Claude's picks, then risks, then money.
   const jobs = buildJobs(shown, { plan: planOk ? plan : null, inv, biz, lh }).map((j) => (j.mode === "manual" && !j.steps && j.codes[0] && byCode.get(j.codes[0]) ? { ...j, steps: howTo(byCode.get(j.codes[0])!) } : j));
   const fixCount = shown.length;
-  const billingPlan = ws.plan ?? "annual";
+  // The plan this account actually pays for; unknown counts as monthly (the higher monthly price, so ROI is never flattered).
+  const billingPlan = ws.plan ?? "monthly";
+  // Value measured in the last 30 days (results checked in that window), the ROI card's headline.
+  const last30 = savingsOf(actions.filter((a) => a.brand === b.brand && a.result && Date.now() - new Date(a.result.checkedAt).getTime() < 30 * 86_400_000));
   const months = ws.hiredAt ? Math.max(1, Math.ceil((Date.now() - new Date(ws.hiredAt).getTime()) / (30 * 86_400_000))) : 1;
   const shownValue = shown.reduce((t, p) => t + p.valueMonthly, 0);
   // Approve-by-text unlocks once they've looked at today's work here (not before).
@@ -267,22 +270,16 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <div className="rd-hero">
         <Greeting className="rd-kicker" />
         <h1>{jobs.length ? (shownValue >= 1 ? <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today, worth <em>~{m(shownValue)}/mo</em>.</> : <>{jobs.length} job{jobs.length === 1 ? "" : "s"} today to <em>protect your sales</em>.</>) : "All clear today."}</h1>
-        {jobs.length > 1 && (() => {
-          // Say how the jobs split, so "N jobs" here and "Approve all" below never look like they disagree.
-          const tap = jobs.filter((j) => j.mode === "auto").length, make = jobs.filter((j) => j.mode === "create").length, you = jobs.filter((j) => j.mode === "manual").length;
-          const parts = [tap && `${tap} I make in one tap`, make && `${make} new campaign${make === 1 ? "" : "s"} to review`, you && `${you} step${you === 1 ? "" : "s"} for you`].filter(Boolean);
-          return parts.length > 1 ? <p className="rd-split">{parts.join(" · ")}{shownValue >= 1 ? " · the $ is an estimate" : ""}</p> : null;
-        })()}
         {planOk && plan!.brief && <p className="rd-brief">{localize(plan!.brief, cur)}</p>}
         {acos !== null && (
           <div className="rd-acos" aria-label={`ACoS ${acos}%, target ${target}%`}>
             <div className="rd-acos-bar"><i style={{ width: `${Math.min(100, (acos / Math.max(target * 2, 1)) * 100)}%` }} className={acos > target ? "over" : ""} /><span style={{ left: "50%" }} /></div>
-            <small>ACoS <b>{acos}%</b> · target {target}%</small>
+            <small>ACoS <b>{acos}%</b> · target {target}% · Sponsored Products searches, last 30 days</small>
           </div>
         )}
       </div>
 
-      {access !== "none" && <RoiCard cur={cur} saved={brief.saved} measured={brief.savedMeasured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} costSoFar={months * monthlyCost(billingPlan)} />}
+      {access !== "none" && <RoiCard cur={cur} realized={last30.total} realizedMeasured={last30.measured} found={shownValue} plan={billingPlan} costMonthly={monthlyCost(billingPlan)} acos={acos} target={target} adSpend={st ? Number(st.stats.spend) : null} />}
 
       {dailyNums && Object.keys(dailyNums).length >= 3 ? <Numbers daily={dailyNums} sym={cur.symbol.trim()} target={brandSettings(ws, b.brand).targetAcos} /> : <ul className="rd-kpis">{kpis.map((x) => <li key={x.k}><span>{x.k}</span><b>{x.v}</b>{x.d && <small className={x.d.good ? "good" : "bad"}>{x.d.text}</small>}</li>)}</ul>}
 

@@ -6,6 +6,8 @@ export interface BrandSettings {
   breakevenAcos?: number; // fraction
   minClicks?: number;
   protectedTerms?: string[]; // never negated (brand names, hero keywords)
+  brandTerms?: string[]; // extra brand names (the account name is always one); bids on brand keywords are never lowered
+  allowBrandCuts?: boolean; // owner opted in to lowering bids on brand keywords
   protectedCampaigns?: string[]; // launch / ranking / brand-defense campaigns: never auto-negated
   goals?: { match: string; goal: "profit" | "balance" | "growth" }[]; // goal per product (lib/rules/settings.ts targetFor)
   notes?: string; // owner's strategy notes, fed to every AI answer (lib/strategy.ts)

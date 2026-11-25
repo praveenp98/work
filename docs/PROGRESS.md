@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Dashboard fix list (Praveen's doc), part 1
+- Decisions (Praveen): free read-only audit before paying; 14-day money-back guarantee; price ladder removed; no smaller plan yet (being built by helpers in parallel).
+- #4 Brand keywords: bids on brand keywords (account name minus marketplace, plus `brandTerms` in strategy) are never lowered and never negated unless `allowBrandCuts`. Every bid reason now states the keyword's own ACoS across all its searches, so it can't look like it contradicts one search's row.
+- #3 Net value: bid value = p × (spend − sales × break-even) for cuts, p × (sales × break-even − spend) for raises (p = bid move). Cuts between target and break-even show $0 ("brings them back to your goal"); raises now carry value.
+- #1/#2 ROI card: leads with value measured in the last 30 days vs the price of the plan the account is on (unknown plan = monthly $279, never flattering). Estimates shown smaller. Below 1×, it says why (ACoS already under target, small spend).
+- #5 Season checklist: rows with no direct job link to the related one ("Budgets aren't the limit today; the bid raises on winners are ↓") instead of "Nothing needed today".
+- #6 ACoS labelled by source: hero = Sponsored Products searches, last 30 days; numbers grid = all ads, chosen range.
+- #12 Job counts live in the jobs header, add up, and change as jobs are approved ("2 one-tap · 1 step for you · 1 done ✓").
+
 ## 2026-11-25 · Out-of-stock ads in one tap + calmer job rows
 - **Out of stock → "Pause ads on 1 out-of-stock product" is one tap.** Rocco pauses that exact SKU's enabled Sponsored Products ads (product ads, not shared keywords; an FBM SKU of the same ASIN keeps running), dry-run first, ad IDs saved on the action so **Undo turns the same ads back on**. Request shape checked with a DataDoe dry run on Habit Nest (Budgeting Sidekick: 75 enabled SP ads). Module `lib/stock-ads.ts`. Low but not out: stays a step for you (pausing would lose sales). Autopilot (guardrails/auto) now does the out-of-stock pause by itself.
 - Jobs don't pile up: each morning's pull replaces the list (latest run per report); unapproved jobs come back only if still true; skips are remembered.

@@ -27,7 +27,8 @@ export function marketOf(country?: string): Market {
 }
 
 export type Kind = "peak" | "gifting" | "reset" | "fees" | "returns";
-export interface Action { id: string; text: string; why: string; job?: JobKind[]; auto?: boolean; href?: string }
+/** near: related jobs that answer the same need a different way (budgets vs bids), linked with a note instead of "nothing needed". */
+export interface Action { id: string; text: string; why: string; job?: JobKind[]; near?: { kind: JobKind; note: string }[]; auto?: boolean; href?: string }
 export interface Phase { key: string; label: string; from: number; to: number; actions: Action[] }
 export interface SeasonEvent { id: string; name: string; kind: Kind; markets: Market[]; start: string; end: string; expected?: boolean; note?: string }
 export interface Moment { event: SeasonEvent; phase: Phase; daysToStart: number; daysToEnd: number; actions: Action[] }
@@ -71,7 +72,7 @@ const A = {
   cooldown: { id: "cooldown", text: "Bring bids and budgets back toward normal", why: "Clicks stay pricey for a few days while sales fall back. I'll line up the pull-backs.", job: ["budget_down", "bids_down"] },
   review: { id: "review", text: "See what actually worked during the event", why: "Compare the event to the weeks before. Keep what earned its money, drop what didn't.", href: "/free/what-actually-worked-amazon" },
   giftPrep: { id: "giftPrep", text: "Check stock on gift-worthy products", why: "Gift demand arrives 2–3 weeks early and stops at the last delivery day.", job: ["restock"] },
-  giftBudget: { id: "giftBudget", text: "Fund gift searches that already sell", why: "Raise budgets on winners for gift searches; don't start broad new campaigns this late.", job: ["budget_up"] },
+  giftBudget: { id: "giftBudget", text: "Fund gift searches that already sell", why: "Raise budgets on winners for gift searches; don't start broad new campaigns this late.", job: ["budget_up"], near: [{ kind: "bids_up", note: "Budgets aren't the limit today; the bid raises on winners are ↓" }] },
   cutoff: { id: "cutoff", text: "Lower bids on gift searches after the last delivery day", why: "Once Prime can't deliver in time, gift clicks rarely buy. Check Amazon's delivery cutoff for your marketplace.", job: ["bids_down"] },
   q1: { id: "q1", text: "Test new keywords while clicks are cheaper", why: "After the holidays, competition and cost per click usually drop. Good weeks to find new winners.", job: ["new_campaign"] },
   returns: { id: "returns", text: "Watch returns and return reasons", why: "Holiday purchases come back in January. A spike in one reason (size, damage) points to a listing or packaging fix.", href: "products" },
