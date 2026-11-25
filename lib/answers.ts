@@ -17,6 +17,42 @@ export interface Answer {
 
 export const ANSWERS: Answer[] = [
   {
+    slug: "can-claude-manage-amazon-ppc",
+    topic: "AI & Amazon",
+    q: "Can Claude (or ChatGPT) manage my Amazon PPC?",
+    short: "It can analyse your reports and suggest good changes. On its own it won't check your account every morning, remember what it changed, keep bids inside safe limits or tell you a week later whether a change made money. Use it for ideas; for the daily work, use a system that adds those checks, like Rocco (built on Claude), and change in small steps.",
+    steps: ["Give the AI 30+ days of search term and campaign data, not a screenshot.", "Ask for specific moves with the evidence (clicks, spend, orders) behind each one.", "Change bids at most ~20% at a time and never past your break-even ACoS.", "Write down what you changed and the date.", "Check the same numbers 7 days later before doing more."],
+    details: ["Big restructures (new campaigns, many keyword swaps at once) reset learning and can drop sales for weeks: the most common way following AI advice goes wrong.", "AI chats only know what you show them and start fresh each time unless you keep notes for them.", "Rocco runs on Claude Opus 5.5 but does the loop for you: daily pull, fixed money rules, one-tap approve, change log with undo, and a result check on every change. Side by side: rocco.works/compare/claude."],
+    faq: [
+      { q: "Is it safe to let AI change my Amazon ads?", a: "Yes, if every change is capped, logged, reversible and measured. No if it rewrites your account in one go. Approve changes one job at a time." },
+      { q: "Which is better for Amazon sellers, Claude or ChatGPT?", a: "Both analyse reports well. What matters more is the loop around the AI: data every day, limits on money moves, and checking results." },
+    ],
+    ask: "what would you change in my ads today, and why?",
+    updated: "2026-11-25",
+  },
+  {
+    slug: "how-to-check-ai-amazon-ppc-advice",
+    topic: "AI & Amazon",
+    q: "How do I know if AI's advice for my Amazon ads is right?",
+    short: "Check each suggestion against three things before you act: the evidence (clicks, spend and orders over 30+ days, past the attribution lag), your economics (would it push ACoS past break-even?), and its size (one small step, not a restructure). Then measure it 7 days later. Advice without numbers, or that changes everything at once, is a red flag.",
+    steps: ["Ask the AI for the numbers behind each move.", "Confirm the numbers in the Amazon Ads console.", "Compare the target ACoS it implies with your break-even (margin before ads).", "Make one change per campaign at a time and note the date.", "Re-check spend, sales and ACoS for that campaign a week later."],
+    details: ["Red flags: blocking a search with under ~10 clicks, raising bids on campaigns already above break-even, pausing your brand campaigns, or 'start fresh' restructures.", "Rocco does this check on every job it suggests: the evidence, the cap, the break-even and the 7-day result, with undo."],
+    faq: [{ q: "How long should I wait before judging a change?", a: "About 7 days for bids and negatives (Amazon attributes orders up to 7 days after a click for Sponsored Products), longer for new campaigns." }],
+    ask: "is this change a good idea for my account?",
+    updated: "2026-11-25",
+  },
+  {
+    slug: "is-my-amazon-ppc-agency-doing-a-good-job",
+    topic: "AI & Amazon",
+    q: "How do I know if my Amazon PPC agency is doing a good job?",
+    short: "Look at what they changed and what happened next. Amazon keeps a change history for your ads: count the changes, see when the last one was made by hand, and compare ACoS, TACoS and wasted spend before and after. A good agency changes things weekly, explains why, and can show results per change, not just a monthly ACoS number.",
+    steps: ["In the Amazon Ads console, open each campaign's History tab (or ask for a change log).", "Note how many changes were made in the last 60 days and when the last one was.", "Find search terms with 10+ clicks and 0 orders that are still running: each is unblocked waste.", "Compare TACoS (ad spend ÷ total sales) over 3 months, not just ACoS.", "Ask for the result of their last 5 changes."],
+    details: ["No hand changes for weeks while the fee keeps running is the most common finding.", "Rocco reads your account's change history on day one and shows what was tried before, then logs and measures every change it makes."],
+    faq: [{ q: "What should an Amazon PPC agency cost?", a: "Usually $1,500–$8,000 a month or 10–20% of ad spend. Compare: rocco.works/compare/amazon-ppc-agency." }],
+    ask: "what did my account's change history look like before you?",
+    updated: "2026-11-25",
+  },
+  {
     slug: "connect-amazon-seller-central-to-claude",
     topic: "AI & Amazon",
     q: "How do I connect Amazon Seller Central to Claude?",

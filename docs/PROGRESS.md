@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Rocco vs Claude / ChatGPT, AI-question answers, video scripts, AI visibility plan
+- Praveen shared research (via GPT) on what sellers say at home: money, control, "is my agency/AI doing a good job?", "bro just give Claude your Excel files". Positioning to test: "Claude gives advice. Rocco keeps the receipts." / independent watchdog.
+- New: /compare/claude and /compare/chatgpt (components/compare/AiCompare.tsx; honest: Rocco runs on Claude; difference = daily unasked checks, memory, money guardrails, measured results, team). Added to /compare, sitemap, llms.txt (new Comparisons section).
+- New answers: can-claude-manage-amazon-ppc, how-to-check-ai-amazon-ppc-advice, is-my-amazon-ppc-agency-doing-a-good-job (19 answers now).
+- docs/VIDEO-SCRIPTS.md (6 scripts + hooks), docs/AI-VISIBILITY.md (what's in place, what moves AI answers, weekly check, and the open decision: list Rocco in Claude's connector directory + ChatGPT apps).
+- Reddit claims from the research are NOT used as facts anywhere.
+
 ## 2026-11-24 · Google sign-ups listed in /admin/leads
 - Sign-in emails were only stored on each team (workspaces.data.ownerEmail), never listed. /admin/leads now has a Sign-ups table: date, email (mailto), name, paid/not paid + plan, Amazon accounts connected. Not-paid sign-ups = warmest leads (reached checkout). Store.listOwnedWorkspaces added (Supabase + memory).
 

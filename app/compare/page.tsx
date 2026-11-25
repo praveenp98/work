@@ -5,14 +5,14 @@ import { PRICE } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Rocco vs Amazon PPC tools and agencies: every comparison",
-  description: `How Rocco (${PRICE.annual}/yr flat) compares with Dr. PPC, Helium 10 Ads, Teikametrics, Perpetua, Scale Insights, Ad Badger, BidX, Quartile, agencies and Amazon's free tools.`,
+  description: `How Rocco (${PRICE.annual}/yr flat) compares with Claude, ChatGPT, Dr. PPC, Helium 10 Ads, Teikametrics, Perpetua, Scale Insights, Ad Badger, BidX, Quartile, agencies and Amazon's free tools.`,
   alternates: { canonical: "/compare" },
 };
 
 const short = (name: string) => name.replace(/ \(.*\)$/, "");
 
 export default function Page() {
-  const all = [{ slug: "dr-ppc", name: "Dr. PPC", price: "$299/mo + 2% of ad spend", model: "Subscription + % of ad spend" }, ...COMPETITORS];
+  const all = [{ slug: "claude", name: "Claude", price: "From about $20/mo", model: "AI assistant: you ask, it advises" }, { slug: "chatgpt", name: "ChatGPT", price: "From about $20/mo", model: "AI assistant: you ask, it advises" }, { slug: "dr-ppc", name: "Dr. PPC", price: "$299/mo + 2% of ad spend", model: "Subscription + % of ad spend" }, ...COMPETITORS];
   return (
     <section className="pr cmp">
       <header className="pr-head">
