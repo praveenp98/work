@@ -10,6 +10,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Partner pages prompt
+- `docs/PARTNER-PAGES-PROMPT.md`: prompt for the build chat. 4 indexable pages (/partners, /agencies, /tools, /communities) from one data file, noindex /p/[code] landing, `partner` metadata key (ref is taken by billing), partners + partner_referrals tables, /admin/partners with payouts due after 7 days, `PARTNER_SHARE` = 0.30 pending Praveen, partner links rel="sponsored", static pages with no new client libraries.
+- Note: Rocco already renders listing images with Higgsfield (lib/creative.ts, lib/higgsfield.ts). That's the honest Higgsfield story to post and tag.
+
 ## 2026-11-25 · Actions (every DataDoe action) + listing/A+ image studio (Higgsfield)
 - **Actions page** (/w/[token]/actions, lib/doe-actions*.ts, lib/action-agent.ts, app/api/w/actions): catalogue of all 103 DataDoe Action types (62 changes, 41 lookups, 31 marked high-risk) read from datadoe.com/actions + the API spec; field names confirmed with free dry runs. "Tell Rocco what to change": Claude Opus picks the Action, looks up IDs with read Actions, fixes details until DataDoe's dry run validates, then shows a preview. Seller approves → re-checked on the server → made live (idempotent) → logged under their name. High-risk types need an extra confirmation; plans expire after 30 min. Vendor-only types hidden for sellers.
 - **Image studio** (/w/[token]/images, lib/creative.ts, lib/higgsfield.ts, app/api/w/creative): Opus plans 4–6 listing images (slots 2–7) or A+ images (banner + tiles) from the listing and selling searches, with Amazon's image rules built in (no badges, prices, reviews, unsupported claims). Higgsfield's Qwen Image 3 *edit* model renders each from the seller's real product photo (or an upload). "Put on my listing" writes other_product_image_locator_N through DataDoe with Amazon's check first. A+ images are downloaded and added in A+ Content Manager.
