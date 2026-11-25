@@ -4,6 +4,10 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · "Check connection now" did nothing
+- Cause: the button only pulls once an hour, even when the last pull failed. After Praveen switched Search Term Performance (Ads) on, the click just re-read the old failed status (and the message was easy to miss).
+- Fix: a failed pull can be retried after 2 minutes; a good pull is still reused for an hour (credits). The button now says what happened: "✓ Pulled N reports", "still failed", or "try again in N min". Checked live: the table is on, 100% loaded.
+
 ## 2026-11-25 · Account page + menu (sign out, settings, help, delete)
 - New **Account** page (`/w/<token>/account`): who's signed in + Sign out, plan & billing (paid until, how to cancel), team & Amazon accounts (→ Settings), help links, and **Delete my Rocco** (owner only, type DELETE).
 - Delete is blocked while a Dodo plan is active ("cancel it first"). Closing unlinks owner + teammates, releases Amazon accounts (kept in removedAccounts), stops texts, rotates the private link. Logic: `lib/account.ts` (tested). API: `POST /api/w/account`.

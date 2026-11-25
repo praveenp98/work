@@ -34,10 +34,10 @@ export function ConnectAmazon({ token, accounts, note, lastSync, pinged = false 
   }
   async function check() {
     setBusy("check"); setMsg("");
-    const d = (await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { lastSync?: { kinds: string[] }; skipped?: string } | null;
+    const d = (await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null)) as { lastSync?: { kinds: string[] }; skipped?: boolean } | null;
     setBusy("");
     if (d?.lastSync?.kinds?.length) { window.location.reload(); return; }
-    setMsg(!d ? WAIT.network : d.skipped ? `I checked less than an hour ago. Amazon's first load can take a few hours: this page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.` : `Not ready yet: Amazon is still sending me your history. This page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.`);
+    setMsg(!d ? WAIT.network : d.skipped ? `I checked a moment ago. Amazon's first load can take a few hours: this page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.` : `Not ready yet: Amazon is still sending me your history. This page opens your fixes by itself when they're in${pinged ? ", and I'll message you" : ""}.`);
   }
 
   if (!accounts.length) {

@@ -45,11 +45,14 @@ export function DataHealth({ token, brand }: { token: string; brand?: string }) 
     const s = await fetch("/api/w/amazon/sync", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token }) }).then((r) => r.json()).catch(() => null);
     const d = await load();
     setBusy(false);
-    if (s?.skipped) setMsg("Status refreshed. Data was already pulled in the last hour; the next pull is automatic.");
-    if (s?.lastSync?.kinds?.length) officeAct("desk", `Pulled ${s.lastSync.kinds.length} report${s.lastSync.kinds.length === 1 ? "" : "s"}. Running the numbers…`);
-    if (s?.skipped) { /* nothing new */ }
-    else if (s?.lastSync?.kinds?.length) { setMsg(`Pulled ${s.lastSync.kinds.length} report${s.lastSync.kinds.length === 1 ? "" : "s"} just now.`); router.refresh(); }
-    else setMsg(d?.ok ? "Status refreshed. Details below." : s?.error ?? "Couldn't reach Amazon right now. Try again in a few minutes.");
+    const n = s?.lastSync?.kinds?.length ?? 0, errs: string[] = s?.lastSync?.errors ?? [];
+    if (s?.skipped) setMsg(s.failed ? `I just tried a moment ago. Try again in ${s.retryInMin} min.` : `Your data is fresh (pulled in the last hour). I can pull again in ${s.retryInMin} min, and I pull every morning by myself.`);
+    else if (s?.ok && n) {
+      officeAct("desk", `Pulled ${n} report${n === 1 ? "" : "s"}. Running the numbers…`);
+      setMsg(`✓ Pulled ${n} report${n === 1 ? "" : "s"} just now${errs.length ? `; ${errs.length} still failed (details above)` : ". Today's jobs are updated"}.`);
+      router.refresh();
+    } else if (s?.ok) setMsg(errs.length ? `The pull ran but nothing came in. ${errs[0]}` : "The pull ran but Amazon sent nothing new.");
+    else setMsg(s?.error ?? (d?.ok ? "Status refreshed. Details above." : "Couldn't reach Amazon right now. Try again in a few minutes."));
   }
 
   if (!acc) return <div className="dh dh-wait"><span className="dh-dot loading" /> Checking your Amazon connection…</div>;
