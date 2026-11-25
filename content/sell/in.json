@@ -6,12 +6,12 @@
   "currency": "INR",
   "updated": "2026-11-25",
   "title": "How to start selling on Amazon India in 2026: the complete beginner's guide",
-  "description": "Sell on Amazon.in in 2026: zero referral fee under ₹1,000, closing and shipping fees, GSTIN, 0.5% TCS and 0.1% TDS, BIS/FSSAI rules and a first-90-days plan.",
+  "description": "Sell on Amazon.in in 2026: zero referral fee under ₹1,000, closing and shipping fees, GSTIN, 0.5% TCS and 0.1% TDS, BIS/FSSAI rules and a 90-day plan.",
   "tldr": [
-    "Since 16 March 2026 Amazon.in charges **zero referral fee on products priced under ₹1,000** across 1,800+ categories (about 12.5 crore products). Closing fees and shipping fees still apply [s1][s2].",
-    "Closing fees went **up** on 7 September 2026 by ₹1 (items up to ₹500) and ₹3 (above ₹500) for FBA, Easy Ship and Seller Flex. Third-party guides list Easy Ship closing fees of ₹2 / ₹23 / ₹48 / ₹79 across the price bands [s5][s7]. Check your exact fee in the Revenue Calculator.",
-    "You need a **GSTIN** for taxable goods from your first sale. The ₹40 lakh threshold does not protect online sellers of goods [s14][s15]. Small sellers inside one state can use an **enrolment ID** instead, but only for sales within their own state [s12][s13].",
-    "Amazon deducts **0.5% GST TCS** (Section 52) and **0.1% income-tax TDS** (Section 194-O) from your payouts. Both are credits you claim back, not extra costs [s9][s10].",
+    "Since 16 March 2026 Amazon.in charges **zero referral fee on products priced under ₹1,000** in 1,800+ categories (about 12.5 crore products). Some categories, mostly electronics, beauty and media, still charge a fee in part of that range. Closing and shipping fees still apply [s1][s2][s49].",
+    "Closing fees went **up** on 7 September 2026 by ₹1 (items up to ₹500) and ₹3 (above ₹500) for FBA, Easy Ship and Seller Flex. Easy Ship closing fees are now ₹2 / ₹23 / ₹48 / ₹79 across the price bands; Self Ship is ₹20 / ₹26 / ₹51 / ₹101 [s49].",
+    "You need a **GSTIN** for taxable goods from your first sale. The normal turnover threshold does not apply to people selling goods through e-commerce platforms [s15]. Small sellers inside one state can use an **enrolment ID** instead, but only for sales within their own state [s12][s51].",
+    "Amazon deducts **0.5% GST TCS** (Section 52) and **0.1% income-tax TDS** (Section 194-O) from your payouts. Both are credits you claim back, not extra costs [s9][s50][s10].",
     "GST moved to mainly **5% and 18% slabs** (plus 40% for luxury and sin goods) from 22 September 2025. Check your product's HSN rate [s16].",
     "Many products need **BIS certification** under Quality Control Orders, food needs an **FSSAI licence**, and every pack needs **Legal Metrology** declarations. Some QCOs were withdrawn in late 2025, so check the current list [s21][s22].",
     "Brand Registry is free but needs a trademark. Registration with IP India can take many months to years [s24][s25].",
@@ -131,12 +131,12 @@
               ],
               [
                 "16 Mar 2026",
-                "Zero referral fee under ₹1,000 across 1,800+ categories (12.5 crore+ products). Easy Ship fees for items under ₹300 cut by more than 20%. Referral fees in some high-demand categories above ₹1,000 cut by 4% to 9.5% [s1][s2][s3].",
+                "Zero referral fee under ₹1,000 across 1,800+ categories (12.5 crore+ products). Easy Ship costs for low-price items cut by about ₹15 per order. Referral fees in key categories above ₹1,000 (such as fashion, home and grocery) cut by 4% to 9.5% [s1][s2].",
                 "The biggest change for beginners. Pricing just under ₹1,000 can save a lot."
               ],
               [
                 "16 Mar 2026",
-                "Self Ship closing fee cut from ₹45 to ₹20 for items under ₹300, and from ₹35 to ₹26 for ₹300–500 [s7].",
+                "Self Ship closing fee cut from ₹45 to ₹20 for items under ₹300, and from ₹35 to ₹26 for ₹300–500 [s2].",
                 "Self Ship got cheaper for low-price items."
               ],
               [
@@ -156,7 +156,7 @@
               ],
               [
                 "7 Sep 2026",
-                "Closing fees for FBA, Easy Ship and Seller Flex up by ₹1 (items up to ₹500) and ₹3 (above ₹500) [s5][s7].",
+                "Closing fees for FBA, Easy Ship and Seller Flex up by ₹1 (items up to ₹500) and ₹3 (above ₹500), citing fuel and logistics costs [s49].",
                 "A small fee rise. Update your margin sheet."
               ],
               [
@@ -165,7 +165,7 @@
                 "The biggest sales window of the year."
               ]
             ],
-            "note": "Third-party fee guides sometimes disagree. Treat any fee here as a starting point and confirm it in Seller Central's fee schedule or the Revenue Calculator [s5][s7]."
+            "note": "Fees change often. Treat any fee here as a starting point and confirm it on Amazon's fees page or in the Revenue Calculator [s49]."
           }
         }
       ]
@@ -215,7 +215,7 @@
       "title": "Opening your Amazon.in seller account, step by step",
       "blocks": [
         {
-          "p": "Amazon.in fees are charged per order (referral, closing and shipping or weight handling) rather than as a large monthly subscription [s2][s6]. Check the current fee page in Seller Central before you sign up in case anything changes."
+          "p": "Amazon.in has no monthly subscription for a standard seller account. Fees are charged per order (referral, closing and shipping or weight handling), plus optional fees such as FBA storage [s49]. Amazon pays out every 7 days, for orders delivered at least 7 days earlier [s49]."
         },
         {
           "h3": "Documents you need"
@@ -282,7 +282,7 @@
       "title": "Every cost of selling on Amazon.in",
       "blocks": [
         {
-          "p": "Amazon.in charges up to three main fees on each order: a **referral fee** (a percentage of the sale price), a **closing fee** (a fixed amount based on price band and fulfilment method), and a **shipping or weight handling fee** (if Amazon ships the item). An 18% GST is added to Amazon's fees [s6]. The **Revenue Calculator** in Seller Central gives the exact figure for your product."
+          "p": "Amazon.in charges up to three main fees on each order: a **referral fee** (a percentage of the sale price), a **closing fee** (a fixed amount based on price band and fulfilment method), and a **shipping or weight handling fee** (if Amazon ships the item). An 18% GST is added to Amazon's fees [s49]. The **Revenue Calculator** in Seller Central gives the exact figure for your product."
         },
         {
           "h3": "Referral fee"
@@ -290,94 +290,179 @@
         {
           "table": {
             "head": [
-              "Your item's price",
-              "Referral fee",
-              "Notes"
+              "Category (examples)",
+              "Item price up to ₹1,000",
+              "Item price above ₹1,000"
             ],
             "rows": [
               [
-                "Under ₹1,000",
-                "₹0 in 1,800+ categories [s1]",
-                "Not every product qualifies automatically. One seller reported a beauty item cut below ₹1,000 still showed a fee [s45]. Check each listing."
+                "Apparel: men's T-shirts",
+                "0%",
+                "23%"
               ],
               [
-                "₹1,000 and above",
-                "Category percentage",
-                "Rates vary by category. Some high-demand categories were cut by 4% to 9.5% in March 2026 [s1][s3]."
+                "Apparel: sarees and dress materials",
+                "0%",
+                "15%"
+              ],
+              [
+                "Fashion jewellery",
+                "0%",
+                "22.5%"
+              ],
+              [
+                "Shoes",
+                "0%",
+                "8%"
+              ],
+              [
+                "Home décor products",
+                "0%",
+                "17%"
+              ],
+              [
+                "Kitchen: cookware, tableware and dinnerware",
+                "0%",
+                "12.5%"
+              ],
+              [
+                "Toys: games, puzzles and building sets",
+                "0%",
+                "12.5%"
+              ],
+              [
+                "Beauty: makeup",
+                "0%",
+                "7%"
+              ],
+              [
+                "Beauty: face wash",
+                "0% up to ₹500; 9% for ₹501–1,000",
+                "9.5%"
+              ],
+              [
+                "Grocery: dried fruits and nuts",
+                "0%",
+                "9%"
+              ],
+              [
+                "Electronics, PC and wireless accessories",
+                "0% up to ₹300; 5% for ₹301–1,000",
+                "17%"
+              ],
+              [
+                "Mobile phones",
+                "5%",
+                "5%"
+              ],
+              [
+                "Books",
+                "0% up to ₹250; 2% for ₹251–500; 4% for ₹501–1,000",
+                "13.5%"
               ]
             ],
-            "note": "We could not verify a current category-by-category referral table from Amazon's own page, so we do not list rates here. Look up your category in the Seller Central fee schedule or Revenue Calculator before you price."
+            "note": "From Amazon's referral fee table as of 25 November 2026 [s49]. Most categories are 0% up to ₹1,000, but not all, and a few rates change on set dates. Look up your exact category before you price; one seller reported a fee still showing on an item cut below ₹1,000 [s45]. Referral fee = item price × the category percentage. Rates exclude 18% GST."
           }
         },
         {
-          "h3": "Closing fee (after 7 September 2026)"
+          "h3": "Closing fee (from 7 September 2026)"
         },
         {
           "table": {
             "head": [
               "Item price",
+              "FBA",
               "Easy Ship",
-              "Self Ship"
+              "Self Ship",
+              "Seller Flex"
             ],
             "rows": [
               [
                 "Up to ₹300",
+                "₹27 standard (₹21 or ₹14 in some categories)",
                 "₹2",
-                "₹20"
+                "₹20",
+                "₹7"
               ],
               [
                 "₹301–500",
+                "₹23 standard (₹19 or ₹15 in some categories)",
                 "₹23",
-                "₹26"
+                "₹26",
+                "₹13"
               ],
               [
                 "₹501–1,000",
+                "₹30",
                 "₹48",
-                "₹51"
+                "₹51",
+                "₹38"
               ],
               [
                 "Above ₹1,000",
+                "₹55, or ₹75 in some categories",
                 "₹79",
-                "₹101"
+                "₹101",
+                "₹69"
               ]
             ],
-            "note": "From third-party fee guides as of October 2026 [s7][s5]. FBA closing fees depend on price band and category fee group, and guides disagree, so check the Revenue Calculator."
+            "note": "From Amazon's fees page; the price band uses the item price including shipping charges [s49]. FBA's lower and higher rates apply to fee-category groups that Amazon lists on that page. All fees exclude 18% GST."
           }
         },
         {
           "h3": "Weight handling (shipping) fees"
         },
         {
-          "p": "When Amazon delivers your order (FBA or Easy Ship), you pay a weight handling fee. It depends on the item's weight and whether the buyer is **local** (same city), **regional** (same zone) or **national** (anywhere else). Easy Ship fees for items under ₹300 were cut in March 2026; seller forum posts describe the saving as ₹15 per unit (₹10 off weight handling and ₹5 off the closing fee) [s3]."
+          "p": "When Amazon delivers your order (FBA or Easy Ship), you pay a weight handling fee. It is charged on the actual or volumetric weight (L × W × H in cm ÷ 5,000), whichever is higher. For **FBA** it also depends on distance: **regional** (within the same one of Amazon's four regions) or **national** (across regions). **Easy Ship** is a flat fee by weight. Rates also depend on your **STEP level** (Amazon's seller performance tiers); new sellers start at Standard [s49]. Amazon says Easy Ship sellers of low-price items save about ₹15 per order after the March 2026 changes [s2]."
         },
         {
           "table": {
             "head": [
-              "FBA, regional delivery",
-              "Weight handling fee"
+              "Weight (Standard STEP level)",
+              "FBA regional",
+              "FBA national",
+              "Easy Ship (flat)"
             ],
             "rows": [
               [
                 "First 500 g",
-                "₹39"
+                "₹39",
+                "₹65",
+                "₹55"
               ],
               [
                 "500 g to 1 kg",
-                "₹54"
+                "₹54",
+                "₹85",
+                "₹75"
               ],
               [
                 "1 kg to 2 kg",
-                "₹78"
+                "₹78",
+                "₹122",
+                "₹112"
+              ],
+              [
+                "Each extra kg after 2 kg",
+                "₹24",
+                "₹34",
+                "₹34"
+              ],
+              [
+                "Each extra kg after 5 kg",
+                "₹13",
+                "₹18",
+                "₹18"
               ]
             ],
-            "note": "From a third-party guide as of 2026 [s7]. National delivery costs more and local less. Confirm the current slabs in Seller Central."
+            "note": "Standard-size items, effective 16 March 2026, excluding GST [s49]. Premium and Advanced sellers pay a little less, Basic sellers a little more. Heavy and bulky items have separate rates."
           }
         },
         {
-          "h3": "FBA storage"
+          "h3": "FBA storage and other FBA fees"
         },
         {
-          "p": "FBA charges a monthly storage fee per cubic foot of space your stock uses. Third-party guides in 2026 quote figures from roughly ₹25 to ₹55 per cubic foot per month, with some saying the rate rises in October–December [s8][s48]. The figures conflict, so check the current fee page. The lesson is simple: don't send more stock than you can sell in about two to three months."
+          "p": "FBA charges **₹50 per cubic foot per month** for storage, plus a **pick and pack fee** of ₹17 per standard unit up to 1 kg (₹5 per extra kg up to 5 kg; ₹26 for heavy and bulky items). Removing stock costs ₹10 per standard unit with standard shipping. All exclude 18% GST [s49]. The lesson is simple: don't send more stock than you can sell in about two to three months."
         },
         {
           "h3": "Tax deductions from your payout (not costs)"
@@ -392,7 +477,7 @@
             "rows": [
               [
                 "GST TCS (Section 52)",
-                "0.5% of net taxable sales [s9]",
+                "0.5% of net taxable sales (0.25% CGST + 0.25% SGST, or 0.5% IGST) [s9][s50]",
                 "Shows in your GST electronic cash ledger; use it to pay GST [s9]."
               ],
               [
@@ -459,7 +544,7 @@
                 "**about ₹1.15–1.2 lakh plus licences**"
               ]
             ],
-            "note": "Amazon's per-order fees come out of each sale, not upfront. Under ₹1,000 the referral fee is ₹0 [s1]."
+            "note": "Amazon's per-order fees come out of each sale, not upfront. Under ₹1,000 the referral fee is ₹0 in most categories [s1][s49]."
           }
         }
       ]
@@ -479,14 +564,14 @@
           "h3": "GST registration: the key rule"
         },
         {
-          "p": "Most Indian businesses don't need GST until their turnover crosses a threshold. **Online sellers of goods are different.** Section 24 of the CGST Act requires anyone selling goods through an e-commerce operator that collects tax at source to register, whatever their turnover [s14][s15]. In practice, that means you need a GSTIN to sell taxable goods on Amazon.in."
+          "p": "Most Indian businesses don't need GST until their turnover crosses a threshold. **Online sellers of goods are different.** Section 24(ix) of the CGST Act requires anyone selling goods through an e-commerce operator that collects tax at source to register, whatever their turnover [s15]. In practice, that means you need a GSTIN to sell taxable goods on Amazon.in."
         },
         {
           "h3": "The exceptions"
         },
         {
           "ul": [
-            "**Unregistered sellers within one state.** Since 1 October 2023, a seller without GST registration can sell goods through e-commerce operators if they have a PAN, get an **enrolment number** on the GST portal, sell only within their own state, and make no inter-state sales [s12][s13].",
+            "**Unregistered sellers within one state.** Since 1 October 2023, a seller without GST registration can sell goods through e-commerce operators if they have a PAN, get an **enrolment number** on the GST portal, sell only within their own state, and make no inter-state sales [s12][s51].",
             "**Composition scheme sellers.** The composition scheme is a simpler GST option for small businesses that pay a flat rate. Composition taxpayers can now sell goods through e-commerce operators, but **only within their own state** [s12][s13].",
             "**Exempt goods.** Sellers of GST-exempt goods such as books can register on Amazon with a PAN using the exempt-seller route [s46]."
           ]
@@ -506,7 +591,7 @@
         {
           "ul": [
             "**You** charge GST to the buyer (it's inside your price) and file GST returns.",
-            "**Amazon** deducts **TCS of 0.5%** of your net taxable sales under Section 52 of the CGST Act. The rate was cut from 1% to 0.5% from 10 July 2024 [s9]. Amazon reports it in its GSTR-8 return, and the amount appears in your electronic cash ledger [s9].",
+            "**Amazon** deducts **TCS of 0.5%** of your net taxable sales under Section 52 of the CGST Act. The rate was halved from 1% to 0.5% (0.25% CGST + 0.25% SGST, or 0.5% IGST) from 10 July 2024 [s9][s50]. Amazon reports it in its GSTR-8 return, and the amount appears in your electronic cash ledger [s9].",
             "**Amazon** also deducts **TDS of 0.1%** of gross sales under income-tax Section 194-O (1% before 1 October 2024). Resident individuals and HUFs with sales under ₹5 lakh through one platform who have given a PAN or Aadhaar are exempt. Without a PAN, the rate is 5% [s10]. From 1 April 2026 this sits in Section 393 of the Income-tax Act, 2025, at the same rate [s11]."
           ]
         },
@@ -593,8 +678,8 @@
         },
         {
           "ul": [
-            "**Price:** ₹300–999 is a sweet spot in 2026 because the referral fee is ₹0 under ₹1,000 [s1]. Remember closing and shipping still apply.",
-            "**Small and light:** weight handling rises with weight [s7]. Under 500 g is easiest.",
+            "**Price:** ₹300–999 is a sweet spot in 2026 because the referral fee is ₹0 under ₹1,000 in most categories [s1][s49]. Remember closing and shipping still apply.",
+            "**Small and light:** weight handling rises with weight [s49]. Under 500 g is easiest.",
             "**Sturdy:** fragile items break and get returned.",
             "**No licence headaches for your first try,** unless you already hold BIS or FSSAI.",
             "**Room to be better:** read 1–3 star reviews of competitors and fix what buyers complain about.",
@@ -616,7 +701,7 @@
           "h3": "Margin rule of thumb, with a worked example"
         },
         {
-          "p": "Aim for at least 25–30% of the selling price as profit after all costs, including ads. Here's an **example** for a product priced at ₹799, sent by Self Ship. Amazon fees are from cited sources; the rest are assumptions."
+          "p": "Aim for at least 25–30% of the selling price as profit after all costs, including ads. Here's an **example** for a product priced at ₹799, sent by Self Ship. It assumes a category with 0% referral fee up to ₹1,000. Amazon fees are from Amazon's fees page; the rest are assumptions."
         },
         {
           "table": {
@@ -639,17 +724,17 @@
               [
                 "Referral fee",
                 "₹0.00",
-                "Under ₹1,000 [s1]"
+                "Under ₹1,000, in a 0% category [s1][s49]"
               ],
               [
                 "Self Ship closing fee (₹501–1,000 band)",
                 "−₹51.00",
-                "[s7]"
+                "[s49]"
               ],
               [
                 "18% GST on Amazon's fee",
                 "−₹9.18",
-                "[s6]; often claimable as input credit, ask your CA"
+                "[s49]; often claimable as input credit, ask your CA"
               ],
               [
                 "Your courier cost",
@@ -682,7 +767,7 @@
                 ""
               ]
             ],
-            "note": "TCS (0.5%) and TDS (0.1%) are left out because they are credits you claim back [s9][s10]. If the price were ₹1,050, the referral fee would come back and the closing fee would rise to the above-₹1,000 band [s1][s7]."
+            "note": "TCS (0.5%) and TDS (0.1%) are left out because they are credits you claim back [s9][s10]. If the price were ₹1,050, the referral fee would come back and the closing fee would rise to the above-₹1,000 band [s49]."
           }
         },
         {
@@ -714,22 +799,22 @@
             "rows": [
               [
                 "**FBA** (Fulfilment by Amazon)",
-                "You send stock to Amazon's warehouses. Amazon stores, packs, ships and handles returns. You pay weight handling and storage [s7][s8].",
+                "You send stock to Amazon's warehouses. Amazon stores, packs, ships and handles returns. You pay weight handling, pick and pack and storage fees [s49].",
                 "Fast-moving products; getting the Prime badge."
               ],
               [
                 "**Easy Ship**",
-                "You store and pack. Amazon's courier picks up from you and delivers [s7].",
+                "You store and pack. Amazon's courier picks up from you and delivers. You pay a flat weight handling fee [s49].",
                 "Beginners who want Amazon delivery without sending stock in."
               ],
               [
                 "**Self Ship**",
-                "You store, pack and ship with your own courier. Closing fees are different [s7].",
+                "You store, pack and ship with your own courier. Amazon charges no shipping fee, but Self Ship closing fees are higher [s49].",
                 "Sellers with good courier rates or bulky items."
               ],
               [
                 "**Seller Flex**",
-                "Amazon runs fulfilment from your own warehouse. Named alongside FBA and Easy Ship in the 2026 closing-fee change [s5].",
+                "Amazon runs fulfilment from your own warehouse. It has its own, lower closing fees [s49].",
                 "Larger sellers with their own warehouse; ask Amazon if you qualify."
               ]
             ]
@@ -759,7 +844,7 @@
         {
           "ul": [
             "Restock point = daily sales × (supplier lead time + transit + a safety buffer of 1–2 weeks).",
-            "Keep about 6–10 weeks of stock in FBA, not more, to control storage fees [s8].",
+            "Keep about 6–10 weeks of stock in FBA, not more, to control storage fees [s49].",
             "Build stock 4–6 weeks before the Great Indian Festival in October [s34].",
             "Running out of stock hurts your search ranking. Too much stock costs storage. Check weekly."
           ]
@@ -1027,7 +1112,7 @@
             "**Buying fake or incentivised reviews.** One of the fastest ways to lose your account.",
             "**Late dispatch on Easy Ship or Self Ship.** Ship on time and confirm shipment; late shipments hurt account health.",
             "**Opening a second account** without permission.",
-            "**Over-stocking FBA** and paying storage on slow stock [s8].",
+            "**Over-stocking FBA** and paying storage on slow stock [s49].",
             "**Not claiming TCS and TDS credits,** which are your money [s9][s10].",
             "**Using a product's old GST rate** after the September 2025 change [s16].",
             "**Exporting to the US without checking the current tariff** [s41]."
@@ -1052,7 +1137,7 @@
             "Check if it needs BIS, FSSAI or other licences.",
             "Choose a brand name and file a trademark with IP India.",
             "Get PAN and open a business bank account.",
-            "Talk to a CA and get a GSTIN (or an enrolment ID if you'll sell in one state only) [s12][s14].",
+            "Talk to a CA and get a GSTIN (or an enrolment ID if you'll sell in one state only) [s12][s15].",
             "Find the HSN code and current GST rate for your product [s16].",
             "Order samples from 2–3 suppliers.",
             "Build a margin sheet using the Revenue Calculator and the fees above.",
@@ -1082,7 +1167,7 @@
     },
     {
       "q": "Is it true Amazon charges zero commission under ₹1,000?",
-      "a": "Yes for the referral fee: since 16 March 2026 it's zero for products under ₹1,000 in 1,800+ categories. You still pay a closing fee and shipping or weight handling fees, plus 18% GST on those fees."
+      "a": "Mostly, for the referral fee: since 16 March 2026 it's zero for products under ₹1,000 in 1,800+ categories. Some categories (for example many electronics accessories, some beauty items, laptops and mobile phones) still charge a percentage in part of that range, so check Amazon's referral fee table. You still pay a closing fee and shipping or weight handling fees, plus 18% GST on Amazon's fees."
     },
     {
       "q": "How much money do I need to start selling on Amazon.in?",
@@ -1145,13 +1230,6 @@
       "date": "2026-03"
     },
     {
-      "id": "s3",
-      "title": "Amazon.in fee updates, effective March 16, 2026",
-      "publisher": "Amazon Seller Central India forums",
-      "url": "https://sellercentral.amazon.in/seller-forums/discussions/t/5edc203d-8623-4838-8ed3-b3fc6289cb45",
-      "date": "2026-03"
-    },
-    {
       "id": "s4",
       "title": "Amazon announces zero referral fees for over 1.2 crore products; highest-ever reduction in selling fees",
       "publisher": "About Amazon India",
@@ -1159,31 +1237,10 @@
       "date": "2025-04"
     },
     {
-      "id": "s5",
-      "title": "Amazon Seller Fees in India 2026: Referral, Closing and FBA",
-      "publisher": "ComplyLocal",
-      "url": "https://complylocal.com/blog/amazon-seller-fees-india/",
-      "date": "accessed 2026-11-25"
-    },
-    {
       "id": "s6",
       "title": "Amazon Seller Fees in India Explained (2026 Guide)",
       "publisher": "GrowthLife",
       "url": "https://growthlife.in/amazon-seller-fees/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s7",
-      "title": "Amazon FBA vs Easy Ship vs Self Ship India 2026: Fees",
-      "publisher": "Blooprint",
-      "url": "https://blooprint.in/blog/amazon-fba-vs-easy-ship-vs-self-ship/",
-      "date": "2026-10"
-    },
-    {
-      "id": "s8",
-      "title": "Amazon FBA Fees & Charges India 2026: Complete Fee Structure",
-      "publisher": "SW Cybernetics",
-      "url": "https://swcybernetics.in/knowledge-base/amazon-fba-fees-charges-india-2026",
       "date": "accessed 2026-11-25"
     },
     {
@@ -1219,13 +1276,6 @@
       "title": "GST Compliance for E-commerce Operators: Complete Guide",
       "publisher": "TaxGroww",
       "url": "https://taxgroww.com/gst-compliance-for-e-commerce-operators/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s14",
-      "title": "Compulsory GST Registration Under Section 24",
-      "publisher": "TaxBuddy",
-      "url": "https://www.taxbuddy.com/blog/compulsory-registration-gst-section-24",
       "date": "accessed 2026-11-25"
     },
     {
@@ -1460,11 +1510,25 @@
       "date": "accessed 2026-11-25"
     },
     {
-      "id": "s48",
-      "title": "Amazon FBA India 2026: fees, Send to Amazon, when it pays",
-      "publisher": "Blooprint",
-      "url": "https://blooprint.in/blog/amazon-fba-india-guide/",
-      "date": "2026"
+      "id": "s49",
+      "title": "Fees and Pricing for Amazon.in sellers",
+      "publisher": "Amazon (sell.amazon.in)",
+      "url": "https://sell.amazon.in/fees-and-pricing",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s50",
+      "title": "Notification No. 15/2024–Central Tax (TCS rate under Section 52 cut to 0.25% CGST)",
+      "publisher": "GST Council / CBIC",
+      "url": "https://gstcouncil.gov.in/sites/default/files/2024-09/central-tax-15-2024-11072024.pdf",
+      "date": "2024-07"
+    },
+    {
+      "id": "s51",
+      "title": "Notification No. 34/2023–Central Tax (registration waiver for intra-state suppliers through e-commerce operators)",
+      "publisher": "GST Council / CBIC",
+      "url": "https://gstcouncil.gov.in/sites/default/files/2024-05/gst-ct-34-2023.pdf",
+      "date": "2023-07"
     }
   ]
 }
