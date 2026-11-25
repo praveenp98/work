@@ -5,6 +5,7 @@ import { GUIDES } from "@/lib/guides";
 import { HELP } from "@/lib/help";
 import { SITE } from "@/lib/site";
 import { liveTools } from "@/lib/tools";
+import { MAGNETS } from "@/lib/magnets";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -24,6 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...["claude", "chatgpt"].map((s) => ({ url: `${SITE.url}/compare/${s}`, lastModified: now, priority: 0.8 })),
     ...COMPETITORS.map((c) => ({ url: `${SITE.url}/compare/${c.slug}`, lastModified: now, priority: 0.7 })),
     { url: `${SITE.url}/demo`, lastModified: now, priority: 0.9 },
+    { url: `${SITE.url}/free`, lastModified: now, priority: 0.9 },
+    ...MAGNETS.map((m) => ({ url: `${SITE.url}/free/${m.slug}`, lastModified: now, priority: 0.9 })),
     { url: `${SITE.url}/free/black-friday-checklist`, lastModified: now, priority: 0.8 },
     { url: `${SITE.url}/help`, lastModified: now, priority: 0.7 },
     ...HELP.map((h) => ({ url: `${SITE.url}/help/${h.slug}`, lastModified: new Date(h.updated), priority: 0.6 })),

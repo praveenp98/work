@@ -1,3 +1,4 @@
+import { MAGNETS } from "@/lib/magnets";
 import { ANSWERS } from "@/lib/answers";
 import { GUIDES } from "@/lib/guides";
 import { HELP } from "@/lib/help";
@@ -35,6 +36,7 @@ export function GET() {
     "",
     "## Free tools",
     ...liveTools().map((t) => `- [${t.name}](${SITE.url}/tools/${t.slug}): ${t.description}`),
+    ...MAGNETS.map((m) => `- [${m.name}](${SITE.url}/free/${m.slug}): ${m.promise}`),
     "",
     "## Rocco inside Claude and ChatGPT",
     `- [Rocco connector](${SITE.url}/connector): add Rocco to Claude or ChatGPT (MCP, OAuth 2.0 sign-in at ${SITE.url}/mcp/login). Daily brief, report analysis with a numbered approval list, change log, result checks, brand settings. Rocco never changes Amazon from a chat.`,

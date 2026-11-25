@@ -121,3 +121,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-25 · Profit per product, listing edits and A+ drafts
 - **Decision:** show profit per product from DataDoe's profit table (seller enters product cost once); let Rocco edit backend keywords, title/bullets and fix listing issues (Amazon preview first, undo for text fields); A+ as "Rocco drafts, you approve", text-only, never replacing existing A+.
 - **Why:** sellers' first worry is profit; listings drive conversion; DataDoe exposes the actions. Calm, manager-style notes instead of scary warnings.
+
+## 2026-11-25 · Lead magnets are working tools, gated after a free teaser
+- **Decision:** 10 free tools at /free/<slug> on one shared engine; reports read in the browser; first 3 findings free, full result for an email; benchmarks shown as labelled typical ranges; roast tone savage (numbers only, never the person).
+- **Why:** Praveen will post them on Reddit, LinkedIn and X; a real result is what gets shared and earns the email. Shared base keeps quality even across all 10.

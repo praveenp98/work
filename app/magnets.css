@@ -1,0 +1,53 @@
+/* Free tools (/free/<slug>, components/magnets/MagnetTool.tsx) */
+.mg-page { max-width: 1040px; margin: 0 auto; padding: 16px 0 40px; }
+.mg-hero { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; margin-bottom: 22px; }
+.mg-hero h1 { font-size: clamp(34px, 5vw, 54px); margin: 0 0 8px; }
+.mg-tag { font-size: 21px; font-weight: 600; margin: 0 0 6px; }
+@media (max-width: 640px) { .mg-hero { grid-template-columns: 1fr; } .mg-hero > svg, .mg-hero > img { display: none; } }
+.mg { display: grid; gap: 14px; }
+.mg-slots { display: grid; gap: 14px; }
+.mg-slots.two { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.mg-slots .drop { padding: 24px 16px; }
+.mg-kinds { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 4px; text-align: left; font-size: 15px; }
+.mg-kinds li.ok { color: #18794e; font-weight: 600; }
+.mg-field { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.mg-field > span, .mg-field legend { font-weight: 600; margin-bottom: 6px; }
+.mg-field em { font-style: normal; color: var(--muted); font-weight: 400; }
+.mg-field input, .mg-field select, .mg-field textarea { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; max-width: 100%; }
+.mg-checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.mg-checks label { display: flex; gap: 8px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+.mg-go { justify-self: start; }
+.mg-res { display: grid; gap: 18px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); animation: mg-in .4s ease-out; }
+@keyframes mg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.mg-res .grade { min-width: 88px; font-size: 30px; padding: 0 10px; }
+.mg-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.mg-stats div { background: var(--soft); border-radius: 14px; padding: 12px 14px; display: grid; gap: 2px; }
+.mg-stats span { font-size: 13px; color: var(--muted); }
+.mg-stats b { font-size: 20px; }
+.mg-items { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.mg-items li { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.mg-items li.t-bad { border-left: 4px solid #e5484d; }
+.mg-items li.t-warn { border-left: 4px solid #f5a524; }
+.mg-items li.t-good { border-left: 4px solid #30a46c; }
+.mg-items p { margin: 4px 0 0; color: var(--muted); }
+.mg-items em { font-style: normal; }
+.mg-roast { background: #1b1b1f; color: #fff; border-radius: 18px; padding: 18px 20px; }
+.mg-roast h3 { margin: 0 0 8px; color: #fff; }
+.mg-roast ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; font-size: 17px; }
+.mg-roast .muted { color: #bbb; }
+.mg-gate { border: 2px dashed var(--line); border-radius: 18px; padding: 16px; }
+.mg-share { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mg-texts { display: grid; gap: 10px; max-width: 560px; }
+.mg-bubble { background: #e9e9eb; border-radius: 18px 18px 18px 4px; padding: 10px 14px; }
+.mg-bubble small { color: var(--muted); }
+.mg-bubble p { margin: 2px 0 0; }
+.mg-card { background: linear-gradient(135deg, #ff5f6d, #7b2ff7); color: #fff; border-radius: 22px; padding: 24px; max-width: 460px; display: grid; gap: 6px; }
+.mg-card small { letter-spacing: .14em; font-weight: 700; opacity: .85; }
+.mg-card h3 { font-size: 32px; margin: 0; color: #fff; }
+.mg-card p { margin: 0 0 8px; opacity: .92; }
+.mg-card dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; }
+.mg-card dt { opacity: .8; }
+.mg-card dd { margin: 0; font-weight: 700; }
+.mg-card span { font-size: 13px; opacity: .8; margin-top: 8px; }
+.mg-mini { text-decoration: none; color: inherit; }
+.mg-mini small { color: var(--muted); font-weight: 700; }

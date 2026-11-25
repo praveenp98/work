@@ -4,6 +4,14 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · 10 free tools (lead magnets) built as real products
+- **rocco.works/free** + 10 working tools: Health Check, Roast (savage, Claude), Agency Audit (before/after), Claude vs Rocco (pasted AI advice checked against data), Seller Wrapped (shareable card, sales hidden by default), Am I Overpaying (labelled typical ranges), Money Leak Detector, What Actually Worked (two periods), Could I Fire My Agency, Rocco Watches (the texts he'd have sent).
+- Reports read in the browser; first 3 findings free, the rest for an email (lead_magnet = tool slug); X/LinkedIn share; hire CTA with the hours/48h connect note.
+- Engine lib/magnets.ts (+8 tests, 287 total), UI components/magnets/MagnetTool.tsx, AI route /api/magnets (rate-limited; rule fallback), share image /api/magnets/card, 'before' sample reports for the two-period tools. Footer: Free tools. Sitemap + llms.txt.
+- All 10 run end to end in a browser on the sample account. Post copy + guardrails: docs/LEAD-MAGNETS.md.
+
+---
+
 ## 2026-11-25 · Products & profit + listing edits + A+ drafts
 - **Found and fixed:** DataDoe retired `amazon_sales_and_traffic_with_cogs` on Nov 22. Business pull now reads `amazon_profit_by_sku_and_date` (traffic columns de-duplicated per ASIN+date as DataDoe requires); daily numbers read `amazon_profit_by_date` (now incl. profit). **Praveen: switch both on in DataDoe → Settings → Data (premium tables).**
 - **Products & profit** (/w/[token]/products, components/dash/ProductsStudio.tsx, lib/profit.ts): per product 30-day sales, units, fees, ads, product cost, profit, margin, break-even ACoS. Missing costs entered inline → DataDoe POST /cogs (effective 180 days back). Profit tile added to Your numbers.

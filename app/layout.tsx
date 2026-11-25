@@ -12,6 +12,7 @@ import { HumanContact } from "@/components/HumanContact";
 import { Analytics } from "@/components/Analytics";
 import { FunnelEvents } from "@/components/FunnelEvents";
 import "./globals.css";
+import "./magnets.css";
 import "./connect.css";
 
 const display = Raleway({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600"], display: "swap" });
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/answers">Answers</Link>
             <Link href="/#how">How it works</Link>
             <Link href="/pricing">Pricing</Link>
+            <Link href="/free">Free tools</Link>
             <Link href="/compare">Compare</Link>
             <Link href="/connector">Rocco in Claude &amp; ChatGPT</Link>
             <Link href="/tools">Free tools</Link>
