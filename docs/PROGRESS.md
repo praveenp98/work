@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Asked: slideshow.sh
+- What it is: Mac app for TikTok photo-carousel marketing (finds slideshows that work in a niche, remakes them for your app, schedules via TikTok; uses Claude Code/Codex etc. already on the Mac; local MCP with 58 tools). One-time price, reportedly $149 early (software: not deducted from contest profit).
+- Verdict: not now. Built for consumer apps; TikTok's Amazon crowd skews aspiring/beginner sellers, not $2,790/yr buyers; overlaps Fastlane/Higgsfield. Revisit only for top-of-funnel carousels (Seller Wrapped, beginner guides) after free hand-posted carousels show traction. Ask before buying.
+
+---
+
 ## 2026-11-25 · Asked: Fastlane (usefastlane.ai)
 - What it is: AI short-form video + paid ads platform (learns a product from its URL; makes/schedules TikTok, Reels, Shorts; Fastlane 2.0 "Senna" agent builds and runs Meta ads). Australian startup; no public API found.
 - Verdict: a marketing engine for Rocco (like Higgsfield), not a Rocco feature. Free to use for organic clips (software isn't deducted from contest profit). Senna-run Meta ads = ad spend (deducted): only with a cap Praveen sets, promoting a free tool (Seller Wrapped / Roast), with a stop rule. Log any spend. Seller-facing video later would go through Higgsfield video + Sponsored Brands video, not Fastlane.
