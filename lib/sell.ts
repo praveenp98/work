@@ -20,7 +20,7 @@ export interface SellGuide {
 }
 
 /** Guides go live (pages, sitemap, llms.txt, footer) only after the fact-check pass. */
-export const SELL_PUBLISHED = false;
+export const SELL_PUBLISHED = true;
 
 /** Order on the hub and in navigation. */
 export const SELL_ORDER = ["us", "uk", "de", "ca", "in", "au", "jp", "ae"] as const;

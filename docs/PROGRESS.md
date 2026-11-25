@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Beginner guides live: /sell-on-amazon + 8 marketplaces
+- All 9 guides fact-checked against official pages (Amazon seller sites + fee PDFs, tax authorities, Marketplace Pulse) and published (SELL_PUBLISHED=true). In sitemap, llms.txt and the footer ("Start selling"). Details, URLs and what's still unverifiable: docs/BEGINNER-GUIDES.md.
+
+---
+
 ## 2026-11-25 · Seller calendar on the dashboard + public calendars; beginner guides drafted (hidden)
 - **lib/season.ts**: the seller's year per marketplace (US, UK, DE/EU, CA, IN, AU, JP, AE). Dates computed every year (Thanksgiving→BF/CM, Easter, Mother's/Father's Day per country, Diwali/Ramadan/Eid tables); Prime Day, Prime Big Deal Days, Great Indian Festival, White Friday, 11.11, Hatsuuri marked "expected" until Amazon announces. Phases per event (prepare −35d, ramp −14d, live, cool-down +7d; gifting: gift rush, last orders; Jan reset; Q4 storage; holiday returns) with concrete account actions.
 - **Dashboard SeasonCard** (above today's jobs): today = "Black Friday & Cyber Monday in 2 days · Ramp up" with actions that jump to the matching job ("In today's jobs ↓"), say "Rocco does this" (midday budget alerts) or link to the page. Goes red "LIVE" on the day. Morning brief line now comes from the calendar (replaced hard-coded BFCM tips).

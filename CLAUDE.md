@@ -62,7 +62,7 @@ Chosen product: **Amazon Brain** — a hosted MCP server + mascot that runs an A
 | `marketing/copy/reddit-posts.md` | 19 hand-posted Reddit threads (no links), by-stage advice, sources, calendar, results log. |
 | `docs/LEAD-MAGNETS.md` | 10 free tools at /free (what each does, how gating works, post copy for Reddit/LinkedIn/X). |
 | `lib/season.ts` | Seller calendar per marketplace (events, phases, actions) → dashboard SeasonCard, brief, feeds, /amazon-seller-calendar. |
-| `content/sell/*.json` | Beginner guides per marketplace (/sell-on-amazon), hidden until `SELL_PUBLISHED` in lib/sell.ts is true. |
+| `content/sell/*.json` | Beginner guides per marketplace (/sell-on-amazon), live; how they were checked + URLs in `docs/BEGINNER-GUIDES.md`. Switch: `SELL_PUBLISHED` in lib/sell.ts. |
 | `docs/PROGRESS.md` | Running history log. **Append an entry at the end of every session.** |
 | `docs/DECISIONS.md` | Decisions with dates and reasons. Add one whenever a choice is made. |
 

@@ -9,13 +9,14 @@
   "description": "Sell on Amazon.co.uk in 2026: £25/month plan, 2026 fee cuts and 2% surcharge, VAT for UK and overseas sellers, UKCA/GPSR, and your first 90 days.",
   "tldr": [
     "Professional plan is £25/month excl. VAT; Individual is £0.75 per item, better under ~35 sales a month [s1].",
-    "Most referral fees are 8–15%; 2026 cuts took clothing to 5% up to £15 and home products to 8% up to £20 [s1][s2].",
-    "Low-Price FBA now covers most items at or below £20 [s2][s3]; a 2% fuel and logistics surcharge on FBA fees applies from 2 Nov 2026 [s1].",
+    "Most referral fees are 8–15%; 2026 cuts took clothing to 5% up to £15 and home products to 8% up to £20 [s1][s3].",
+    "Low-Price FBA now covers most items at or below £20 [s1][s4]; a 2% fuel and logistics surcharge on FBA fees applies from 2 Nov 2026 [s1].",
     "UK VAT threshold is £90,000, but overseas sellers (NETPs) must register from their first taxable sale [s13][s14].",
     "Amazon accounts for VAT on overseas sellers' sales of goods already in the UK, and on imported consignments of £135 or less [s15].",
+    "From October 2027 Amazon is due to account for VAT on sales by UK businesses too, if they're VAT registered or sell over £90,000 a year on the platform [s16].",
     "You need a GB EORI to import; the £135 customs duty relief ends by October 2028 at the latest [s17][s18].",
-    "CE marking is accepted in Great Britain indefinitely for most products; EU GPSR applies to Northern Ireland sales [s19][s20].",
-    "A UK trade mark costs £205 online (one class) and takes about 3 months; IP Accelerator gives Brand Registry benefits while pending [s27][s26][s29]."
+    "Great Britain continues to recognise CE marking for most product types; EU GPSR applies to Northern Ireland sales [s19][s41][s20].",
+    "A UK trade mark costs £205 online (one class) and takes about 3 months; Brand Registry accepts a pending application [s27][s26][s28]."
   ],
   "sections": [
     {
@@ -32,13 +33,13 @@
           "h3": "Amazon is cutting fees on cheap, everyday items"
         },
         {
-          "p": "In 2026 Amazon made what it called one of its largest-ever European fee reductions: an average cut of £0.15 per unit across its European stores [s2]. UK parcel fulfilment fees fell, referral fees dropped sharply in clothing, home and pet categories, and the cheaper **Low-Price FBA** rates were extended to most products priced at or below **£20** [s2][s3]. Read that as a signal: Amazon wants more low-priced, everyday products in the UK, and it is competing hard on price."
+          "p": "In 2026 Amazon made what it called one of its largest-ever European fee reductions: an average cut of £0.15 per unit across its European stores [s1][s3]. UK parcel fulfilment fees fell, referral fees dropped sharply in clothing, home and pet categories, and the cheaper **Low-Price FBA** rates were extended to most products priced at or below **£20** [s1][s3]. Read that as a signal: Amazon wants more low-priced, everyday products in the UK, and it is competing hard on price."
         },
         {
           "h3": "But logistics costs are creeping back"
         },
         {
-          "p": "At the same time, Amazon added a **fuel and logistics surcharge** on FBA fulfilment fees. It started at 1.5% in April 2026 [s8] and rose to **2% from 2 November 2026** for the UK and nine EU stores [s1]. A festive **peak fulfilment fee** also applies in Q4 [s5]. So the fee cuts are real, but your per-unit cost still moves during the year."
+          "p": "At the same time, Amazon added a **fuel and logistics surcharge** on FBA fulfilment fees. It was 1.5% earlier in 2026 and rose to **2% from 2 November 2026** for the UK and nine EU stores [s1][s4]. A festive **peak fulfilment fee** also applies in Q4 [s5]. So the fee cuts are real, but your per-unit cost still moves during the year."
         },
         {
           "h3": "AI shopping: from Rufus to Alexa for Shopping"
@@ -91,7 +92,7 @@
             "rows": [
               [
                 "1 Oct 2024 (in force)",
-                "GB keeps recognising CE marking indefinitely for most product rules (not medical devices, construction products and some others) [s19]",
+                "Legislation in force from 1 October 2024 continues GB recognition of CE marking for most product rules; medical devices, construction products and some other sectors have their own arrangements [s19][s41]",
                 "You can sell many products in Great Britain with either UKCA or CE marking."
               ],
               [
@@ -111,48 +112,38 @@
               ],
               [
                 "15 Dec 2025",
-                "Clothing & Accessories referral fee cut to 5% up to £15 and 10% for £15–£20 [s2]",
-                "Cheap apparel became more viable. Check your fee previews: some sellers report being charged more than the new rate [s34]."
+                "Clothing & Accessories referral fee cut to 5% up to £15 and 10% for £15–£20; FBA parcel fees cut by an average £0.26 per unit in the UK [s1][s3]",
+                "Cheap apparel and small parcels got cheaper. Check your fee previews: some sellers report being charged more than the new clothing rate [s34]."
               ],
               [
                 "5 Jan 2026",
-                "Referral cuts (e.g. Home Products 8% up to £20; Pet clothing & food 5% up to £10), Low-Price FBA extended to most items ≤£20, lower deal-fee caps [s2][s3]",
+                "Referral cuts (e.g. Home Products 8% up to £20; Pet clothing & food 5% up to £10), Low-Price FBA extended to most items ≤£20, lower deal-fee caps [s1][s3]",
                 "Products under £20 got noticeably cheaper to sell. Brought forward from 1 Feb 2026 [s3]."
               ],
               [
-                "Feb 2026",
-                "FBA parcel fees cut by an average £0.26 per unit in the UK (Amazon's announcement) [s2]",
-                "Small, light items cost a bit less to fulfil."
-              ],
-              [
-                "1 Apr 2026",
-                "UK trade mark fees rise: £205 online for one class, £60 per extra class [s27]",
-                "Budget about £205+ for your brand's UK trade mark."
-              ],
-              [
-                "17 Apr 2026",
-                "1.5% fuel and logistics surcharge on FBA fulfilment fees [s8]",
-                "Your FBA fee gained a small percentage add-on."
-              ],
-              [
-                "Mar–Jun 2026",
-                "Government consultation on marketplace product-safety duties under the new Act [s22]",
+                "31 Mar – 23 Jun 2026",
+                "OPSS consultation on a new UK product safety framework under the Act, with clearer responsibilities across the supply chain [s22]",
                 "More verification of seller contact details and product safety is likely."
               ],
               [
+                "1 Apr 2026",
+                "UK IPO fees (timeline updated 1 April 2026): £205 online for one class, £60 per extra class [s26][s27]",
+                "Budget about £205+ for your brand's UK trade mark."
+              ],
+              [
                 "13 Jul 2026",
-                "Government confirms the £135 customs duty relief for low-value imports will end by October 2028 at the latest [s18]",
+                "HMRC publishes plans to remove the £135 customs duty relief for low-value imports, by October 2028 at the latest [s18]",
                 "Direct-from-China small parcels will face duty. Plans selling cross-border at low value should model this now."
               ],
               [
                 "15 Oct 2026 – 14 Jan 2027",
-                "Q4 peak fulfilment fee (UK parcels avg £0.12/item; envelopes avg £0.07) and higher Oct–Dec storage [s5][s6]",
+                "Q4 peak fulfilment fee (UK parcels avg £0.12/item; large and extra-large envelopes avg £0.07) and higher Oct–Dec storage [s5][s4][s1]",
                 "Price for peak, and don't over-ship slow stock in Q4."
               ],
               [
-                "Oct 2026",
-                "HMRC consultation on extending VAT liability of online marketplaces [s16]",
-                "Marketplace VAT rules may widen. Watch for the outcome."
+                "28 Oct 2026",
+                "Budget: online marketplace VAT liability to be extended to UK businesses (VAT registered, or over £90,000 a year on a platform) from October 2027 [s16]",
+                "If you're a UK seller in scope, Amazon will account for VAT on your sales of goods in the UK. Watch for HMRC guidance before it starts."
               ],
               [
                 "2 Nov 2026",
@@ -181,7 +172,7 @@
           "ul": [
             "**UK residents and UK companies.** You can use the standard £90,000 VAT registration threshold [s13], get a GB EORI easily [s17], and receive payouts in GBP to a UK bank.",
             "**Sellers who want a gateway to Europe.** Once you have UK stock and a brand, Amazon's Global Selling programme can help you list in EU stores [s39], though EU VAT and customs are separate.",
-            "**Brand builders with light, small products.** UK fees in 2026 favour small parcels and items under £20 [s2]."
+            "**Brand builders with light, small products.** UK fees in 2026 favour small parcels and items under £20 [s1]."
           ]
         },
         {
@@ -203,8 +194,8 @@
         {
           "ol": [
             "**VAT from day one.** If you're a non-established taxable person (NETP), meaning no UK business establishment, the £90,000 threshold does not apply. You must register for UK VAT if you make any taxable supplies in the UK, within 30 days of the first one or of expecting to make one [s13][s14].",
-            "**Who collects VAT on Amazon.** For goods already in the UK at the point of sale (for example in an FBA warehouse), Amazon as the online marketplace is treated as the supplier and accounts for the VAT on sales to UK consumers, whatever the value [s15]. For goods shipped from abroad in consignments of £135 or less, the marketplace also charges the VAT [s15][s14]. Even so, you usually still need a UK VAT number because importing stock into the UK is itself a VAT event, and HMRC notes it is often beneficial to register so you can reclaim import VAT [s14].",
-            "**Customs.** To import into Great Britain you need a GB EORI number. If your business has no UK premises you may need someone to handle customs for you [s17]. Each shipment needs a customs declaration and duty at the rate for your commodity code [s35]."
+            "**Who collects VAT on Amazon.** For goods already in the UK at the point of sale (for example in an FBA warehouse), Amazon as the online marketplace is treated as the supplier and accounts for the VAT on sales to UK consumers, whatever the value [s15]. For goods shipped from abroad in consignments of £135 or less, the marketplace also charges the VAT [s15][s14]. Even so, you usually still need a UK VAT number because importing stock into the UK is itself a VAT event, and HMRC says you can register for VAT to reclaim the import VAT you paid [s15]. (If all your UK sales go through a marketplace, HMRC's manual says you can ask for exemption from registration, because your deemed supply to the marketplace is zero-rated, but then you can't reclaim import VAT [s14].)",
+            "**Customs.** To import into Great Britain you need a GB EORI number, which usually requires UK premises; if you're not eligible, you appoint someone (such as a customs agent) to deal with customs for you [s17]. Each shipment needs a customs declaration and duty at the rate for your commodity code [s35]."
           ]
         },
         {
@@ -332,15 +323,23 @@
             "rows": [
               [
                 "Clothing & Accessories",
-                "5% up to £15; 10% for £15–£20 [s2]. Check Seller Central for the rate above £20."
+                "5% up to £15; 10% for £15–£20; 15% above £20 (FBA and Seller Fulfilled Prime above £40: 15% on the first £40, 7% on the rest) [s1]"
               ],
               [
                 "Home Products",
-                "8% for items up to £20 (was 15%) [s2]"
+                "8% for items up to £20 (was 15%); 15% above £20 [s1]"
               ],
               [
                 "Pet clothing & food",
-                "5% for items up to £10 (was 15%) [s2]"
+                "5% for items up to £10 (was 15%); 15% above £10 [s1]"
+              ],
+              [
+                "Grocery; Vitamins, Minerals & Supplements",
+                "5% up to £10; 15% above £10 [s1]"
+              ],
+              [
+                "Beauty, Health & Personal Care; Baby",
+                "8% up to £10; 15% above £10 [s1]"
               ],
               [
                 "Computers & Consumer Electronics",
@@ -375,45 +374,45 @@
                 "15% [s1]"
               ]
             ],
-            "note": "Some rates have price bands; the reduced band applies only at or below the stated price. Confirm current rates on Amazon's UK pricing page [s1]."
+            "note": "Most categories also have a £0.25 minimum referral fee per item. Price bands apply only at or below the stated price. Confirm current rates on Amazon's UK pricing page [s1]."
           }
         },
         {
           "h3": "3. FBA fulfilment fees (examples)"
         },
         {
-          "p": "**FBA (Fulfilment by Amazon)** means Amazon stores, picks, packs, delivers and handles returns for you. The fee depends on size tier and weight. Amazon's rate card has envelope, parcel and oversize tiers; for example a standard envelope is up to 33 × 23 × 2.5 cm [s4]."
+          "p": "**FBA (Fulfilment by Amazon)** means Amazon stores, picks, packs, delivers and handles returns for you. The fee depends on size tier and weight. Amazon's rate card has envelope, parcel and oversize tiers; for example light and standard envelopes are up to 33 × 23 × 2.5 cm and small parcels up to 35 × 25 × 12 cm [s4]."
         },
         {
           "table": {
             "head": [
               "Example",
-              "Reported fee (before 2% surcharge)",
+              "Rate card fee (before 2% surcharge)",
               "With 2% surcharge"
             ],
             "rows": [
               [
                 "Light envelope, up to 20 g",
-                "£1.83 [s7]",
+                "£1.83 [s4]",
                 "about £1.87"
               ],
               [
                 "Small parcel, 400 g (up to 35 × 25 × 12 cm)",
-                "£3.00 [s7]",
+                "£3.00 [s4]",
                 "about £3.06"
               ],
               [
                 "Small parcel, 900 g",
-                "£3.04 [s7]",
+                "£3.04 [s4]",
                 "about £3.10"
               ],
               [
-                "Low-Price FBA (items ≤£20), range",
-                "£1.46 to £2.70 [s7]",
+                "Low-Price FBA (most items ≤£20 incl. VAT; ≤£10 in some categories), envelopes up to a 400 g small parcel",
+                "£1.46 to £2.70 [s4]",
                 "add 2%"
               ]
             ],
-            "note": "Third-party summaries of Amazon's rate card; verify on the official rate card [s4] or Revenue Calculator [s40]. The surcharge is 2% of the fulfilment fee from 2 Nov 2026 [s1]. A Q4 peak fee (UK parcels avg £0.12/item, envelopes avg £0.07; not oversize or Low-Price FBA) applies in peak season [s5]."
+            "note": "From Amazon's UK rate card effective 2 November 2026 [s4]. Parcels in some categories (e.g. clothing) use a separate fee table, and parcel fees use the greater of unit and dimensional weight [s4]. Low-Price FBA is capped at £10 in Beauty, Health & Personal Care, Kitchen, Grocery, Books, Office and a few others [s4]. The surcharge is 2% of the fulfilment fee from 2 Nov 2026 [s1]. In peak season (15 Oct 2026 – 14 Jan 2027) a 400 g small parcel goes from £3.00 to £3.11; peak fees average £0.12 per parcel and £0.07 per large/extra-large envelope, not oversize or Low-Price FBA [s4][s5]. Check the Revenue Calculator for your product [s40]."
           }
         },
         {
@@ -429,26 +428,31 @@
             "rows": [
               [
                 "Standard-size, non-dangerous",
-                "£0.76 per cubic foot/month [s6]",
-                "£1.51 [s6]"
+                "£0.76 per cubic foot/month [s1]",
+                "£1.51 [s1]"
               ],
               [
                 "Clothing, footwear, eyewear, bags",
-                "£0.62 [s6]",
-                "£0.82 [s6]"
+                "£0.62 [s1]",
+                "£0.82 [s1]"
               ],
               [
                 "Oversize",
-                "£0.55 [s6]",
-                "£0.87 [s6]"
+                "£0.55 [s1]",
+                "£0.87 [s1]"
               ],
               [
                 "Dangerous goods, standard-size",
-                "£0.74 [s6]",
-                "£1.30 [s6]"
+                "£0.74 [s1]",
+                "£1.30 [s1]"
+              ],
+              [
+                "Dangerous goods, oversize",
+                "£0.70 [s1]",
+                "£1.11 [s1]"
               ]
             ],
-            "note": "Third-party summary of the 2026 UK rate card. Aged inventory surcharges start from 241 days in stock and rise steeply after a year [s6]; a separate storage utilisation surcharge can apply when you hold many weeks of stock [s6]. Confirm current figures in Seller Central."
+            "note": "Per cubic foot per month, from Amazon's UK pricing page [s1]. An aged inventory surcharge applies to units stored more than 241 days, rising in bands up to 455+ days [s4]; a storage utilisation surcharge can apply when your storage utilisation ratio is above 22 weeks [s1]."
           }
         },
         {
@@ -465,27 +469,27 @@
               [
                 "Returns processing",
                 "Charged on some returned units",
-                "Clothing & shoes: 50% of the fulfilment fee. Other categories: only above a category return-rate threshold [s11]."
+                "Clothing, accessories & footwear: 50% of the fulfilment fee. Other categories: only for products above a category-specific return-rate threshold [s4]."
               ],
               [
                 "Low-inventory-level fee",
                 "Charged when stock is too low relative to sales",
-                "Applies to Pan-EU stores; one guide says UK store orders are exempt [s12]. Check your Seller Central fee page."
+                "Pan-EU fee for standard-size products when days of supply across Germany, France, Italy and Spain is under 28 days [s4]. Check your Seller Central fee page for UK-only stock."
               ],
               [
                 "Inbound placement",
                 "Fee for Amazon splitting your shipment",
-                "Reported as no charge for standard UK placement in 2026 [s12]. Check when you create a shipment."
+                "Check the fee shown when you create a shipment in Send to Amazon."
               ],
               [
                 "Manual processing",
                 "Missing box content information",
-                "£0.15 per unit in UK centres [s12]"
+                "£0.15 per unit in the UK, plus VAT if applicable [s4]"
               ],
               [
                 "Refund administration",
                 "Kept when you refund an order",
-                "Lesser of £5 or 20% of the referral fee, per item [s9][s10]"
+                "Lesser of £5 or 20% of the referral fee, per item [s1]"
               ]
             ]
           }
@@ -499,7 +503,7 @@
         {
           "ul": [
             "Referral fee: 15% × £24.99 = **£3.75** [s1]",
-            "FBA fee: £3.00 + 2% surcharge = **£3.06** [s7][s1]",
+            "FBA fee: £3.00 + 2% surcharge = **£3.06** [s4][s1]",
             "Amazon fees total: **£6.81**, leaving **£18.18** before product cost, shipping to the UK, duty, storage, ads and VAT.",
             "If you are VAT registered, part of the £24.99 is VAT you owe HMRC (or that Amazon accounts for, depending on your situation [s15]). Run the numbers both ways."
           ]
@@ -574,13 +578,13 @@
           "h3": "VAT basics"
         },
         {
-          "p": "**VAT (Value Added Tax)** is the UK's sales tax, included in the price shoppers see. HMRC runs it. The current registration threshold for UK-established businesses is **£90,000** of taxable turnover [s13][s36]. Below that you don't have to register (you can choose to)."
+          "p": "**VAT (Value Added Tax)** is the UK's sales tax, included in the price shoppers see. HMRC runs it. The current registration threshold for UK-established businesses is **£90,000** of taxable turnover [s13][s36]. Below that you don't have to register (you can choose to). The standard rate is **20%**, with a 5% reduced rate and 0% for some goods [s42]."
         },
         {
           "h3": "Overseas sellers: register from the first sale"
         },
         {
-          "p": "If you have no UK establishment, you're a **non-established taxable person (NETP)**. Since 1 December 2012 the threshold has not been available to NETPs: you must register if you make any taxable supplies in the UK, within 30 days of the first one, and HMRC can backdate your registration to that date [s13][s14]."
+          "p": "If you have no UK establishment, you're a **non-established taxable person (NETP)**. The threshold does not apply to NETPs: you must register if you make taxable supplies of any value in the UK, within 30 days of making (or expecting to make) one, and HMRC registers you from the date you became liable [s13]. If all your UK sales go through a marketplace, you can ask HMRC for exemption from registration [s14]."
         },
         {
           "h3": "When Amazon collects VAT for you (deemed supplier rules)"
@@ -610,23 +614,23 @@
               ],
               [
                 "UK-established seller",
-                "You charge and pay VAT yourself once registered"
+                "You charge and pay VAT yourself once registered. From October 2027, Amazon is due to account for it if you're VAT registered or sell over £90,000 a year on the platform [s16]"
               ]
             ],
-            "note": "The £135 test is per consignment, not per item [s15]. HMRC opened a consultation in October 2026 on extending marketplace VAT liability, so these rules may change [s16]."
+            "note": "The £135 test is per consignment, not per item [s15]. From October 2027 the government plans to extend marketplace VAT liability to UK businesses (not B2B, personal or second-hand sales) [s16]."
           }
         },
         {
-          "p": "Even when Amazon accounts for VAT on your sales, overseas sellers still import stock into the UK, which brings import VAT. That's a key reason HMRC notes many overseas businesses benefit from registering so they can reclaim it [s14]."
+          "p": "Even when Amazon accounts for VAT on your sales, overseas sellers still import stock into the UK, which brings import VAT. HMRC says you can register for VAT to reclaim it [s15]."
         },
         {
           "h3": "Customs after Brexit"
         },
         {
           "ul": [
-            "**EORI:** you need a GB EORI number to import into England, Wales or Scotland. It's free, usually issued immediately (HMRC checks can take up to 5 working days). Northern Ireland moves may also need an XI EORI [s17].",
+            "**EORI:** you need a GB EORI number to import into England, Wales or Scotland. It usually requires UK premises; if you're not eligible, appoint someone to deal with customs for you. Northern Ireland moves may also need an XI EORI [s17].",
             "**Duty:** each import needs a customs declaration and duty based on the commodity code of your product [s35]. Most sellers use a freight forwarder or customs agent.",
-            "**Low-value relief is ending:** the £135 customs duty relief for low-value imports will be removed by October 2028 at the latest, replaced by a scheme where duty on low-value consignments is paid quarterly [s18]. This mostly affects sellers shipping individual parcels from abroad, not bulk FBA imports."
+            "**Low-value relief is ending:** the £135 customs duty relief for low-value imports will be removed by October 2028 at the latest, with new customs arrangements, including a UK fiscal representative for overseas sellers [s18]. This mostly affects sellers shipping individual parcels from abroad, not bulk FBA imports."
           ]
         },
         {
@@ -661,7 +665,7 @@
           "h3": "UKCA vs CE marking"
         },
         {
-          "p": "For Great Britain (England, Scotland, Wales), the UK now recognises **CE marking indefinitely** for many product rules, so you can use UKCA or CE [s19]. This does not cover medical devices, construction products, marine equipment, rail products, cableways, transportable pressure equipment or drones [s19]. Medical devices have their own deadlines (CE-marked devices accepted until 30 June 2030 at the latest, depending on type) [s19]. UKCA can be placed on a label or accompanying document until 31 December 2027 [s19]."
+          "p": "For Great Britain (England, Scotland, Wales), legislation in force since 1 October 2024 continues to recognise **CE marking** for most product rules, so you can use UKCA or CE [s19][s41]. Some sectors have their own rules, including cableways, construction products, marine equipment, medical devices, rail products, transportable pressure equipment and drones [s19]. For example, CE-marked medical devices are recognised in GB until July 2028 or 2030, depending on the EU legislation they meet [s41]. UKCA can be placed on a label or accompanying document until 31 December 2027 [s19]."
         },
         {
           "h3": "GPSR: Great Britain vs Northern Ireland"
@@ -677,7 +681,7 @@
           "h3": "Responsible person and labelling"
         },
         {
-          "p": "Your product and packaging should show who made it and who is responsible for it, in English, with any required warnings and markings. Keep test reports and a technical file ready: Amazon and Trading Standards can ask for them. Under the Product Regulation and Metrology Act 2025, the government can require more marking, warnings and recalls, and is consulting on duties for marketplaces to verify sellers and remove unsafe products [s21][s22]."
+          "p": "Your product and packaging should show who made it and who is responsible for it, in English, with any required warnings and markings. Keep test reports and a technical file ready: Amazon and Trading Standards can ask for them. Under the Product Regulation and Metrology Act 2025, the government can require more marking, warnings and recalls, and has consulted on a new product safety framework with clearer responsibilities across the supply chain [s21][s22]."
         },
         {
           "h3": "EPR for packaging"
@@ -705,24 +709,24 @@
                 "Large producer [s23]"
               ],
               [
-                "Under 25 tonnes",
-                "Not covered by full obligations [s23]"
+                "Under 25 tonnes, or turnover £1m or less",
+                "No obligation [s23]"
               ]
             ],
-            "note": "Group totals count [s23]. Small producer registration for the 2027 reporting year: £1,303 direct with the regulator or £696 through a compliance scheme [s24]. Most beginners will be below the thresholds, but check every year."
+            "note": "Applies to UK-established businesses, with group totals counted; Amazon, as an online marketplace, is covered for packaging supplied from outside the UK [s23]. Small producer registration for the 2027 reporting year: £1,303 direct with the regulator or £696 through a compliance scheme, by 1 April 2027 [s24]. Most beginners will be below the thresholds, but check every year."
           }
         },
         {
           "h3": "WEEE (electricals)"
         },
         {
-          "p": "If you sell electrical or electronic equipment, WEEE rules apply. Since 12 August 2025, marketplaces are treated as producers for electrical goods sold by non-UK sellers to UK households, with data reporting from January 2026 [s25]. UK-based sellers of electricals have their own producer and take-back duties; read the current rules before you list."
+          "p": "If you sell electrical or electronic equipment, WEEE rules apply. Since 12 August 2025, marketplaces are treated as producers for electrical goods sold by non-UK sellers to UK households [s25]. UK-based sellers of electricals have their own producer and take-back duties; read the current rules before you list."
         },
         {
           "h3": "Trade marks and Brand Registry"
         },
         {
-          "p": "**Brand Registry** is Amazon's free programme that gives you control over your brand's listings, A+ content, Brand Store, Sponsored Brands ads and IP-reporting tools. You need an active registered trade mark, or a pending application filed through **IP Accelerator** [s28]."
+          "p": "**Brand Registry** is Amazon's free programme that gives you control over your brand's listings, A+ content, Brand Store, Sponsored Brands ads and IP-reporting tools. You need a pending or registered trade mark from the trade mark office of a country with an Amazon store, such as the UK IPO [s28]."
         },
         {
           "table": {
@@ -732,27 +736,23 @@
             ],
             "rows": [
               [
-                "Examination report",
-                "About 2 weeks [s26]"
+                "Examination",
+                "Within 2 weeks [s26]"
               ],
               [
-                "Fix objections (if any)",
-                "Up to 2 months [s26]"
+                "Publication in the trade marks journal (if no objections)",
+                "2 months [s26]"
               ],
               [
-                "Publication and opposition period",
-                "2 months (extendable to 3) [s26]"
-              ],
-              [
-                "Registration if no one objects",
-                "About 2 weeks after opposition ends; around 3 months in total [s26]"
+                "Registration if no one opposes",
+                "2 weeks after publication ends; around 3 months in total (the IPO also says 3 to 4 months) [s26][s27]"
               ]
             ],
-            "note": "Fees from April 2026: £205 online for one class, plus £60 per extra class [s27]."
+            "note": "Fees: £205 online for one class, plus £60 per extra class [s27]."
           }
         },
         {
-          "p": "**IP Accelerator** connects you with vetted IP law firms. Amazon doesn't charge for the introduction (you pay the firm), and you can get brand protection benefits while your trade mark is still pending [s29]."
+          "p": "**IP Accelerator** connects you with vetted IP law firms. Amazon doesn't charge for the introduction (you pay the firm; Amazon lists a maximum provider fee of £240 for filing a UK application), and you get a broader range of brand protection benefits sooner while your trade mark is still pending [s29]."
         }
       ]
     },
@@ -766,7 +766,7 @@
         {
           "ul": [
             "Sells for roughly £15–£40, so fees and ads don't eat the margin.",
-            "Small and light, ideally a small parcel under 1 kg (see the FBA table) [s7].",
+            "Small and light, ideally a small parcel under 1 kg (see the FBA table) [s4].",
             "Not gated, not electrical, not a toy for under-14s, not a cosmetic or food, unless you already know those rules.",
             "Steady demand all year, not just Christmas.",
             "Competitors have clear, fixable complaints in their reviews.",
@@ -777,7 +777,7 @@
           "h3": "Margin rule of thumb"
         },
         {
-          "p": "A simple rule many sellers use: aim for your **landed cost (product + shipping + duty) to be no more than about a quarter to a third of your selling price**, so Amazon fees, ads and VAT still leave profit. Using our example: on a £24.99 item, Amazon fees were £6.81 [s1][s7]. If your landed cost is £6 and you spend £3 per unit on ads, you have about £9 left before VAT and storage. If you're VAT registered, take VAT out first. That's thin but workable; a £12 landed cost would not be."
+          "p": "A simple rule many sellers use: aim for your **landed cost (product + shipping + duty) to be no more than about a quarter to a third of your selling price**, so Amazon fees, ads and VAT still leave profit. Using our example: on a £24.99 item, Amazon fees were £6.81 [s1][s4]. If your landed cost is £6 and you spend £3 per unit on ads, you have about £9 left before VAT and storage. If you're VAT registered, take VAT out first. That's thin but workable; a £12 landed cost would not be."
         },
         {
           "h3": "Validate demand with Amazon's own tools"
@@ -795,7 +795,7 @@
         },
         {
           "ul": [
-            "**Seasonal:** Christmas-only or summer-only products (storage costs double in Oct–Dec [s6]).",
+            "**Seasonal:** Christmas-only or summer-only products (standard-size storage roughly doubles in Oct–Dec [s1]).",
             "**Fragile:** glass and ceramics get damaged and returned.",
             "**Gated or regulated:** needs approvals or test reports.",
             "**Patented or branded designs:** copying a design invites IP complaints.",
@@ -846,7 +846,7 @@
           "ol": [
             "Create a shipment in Seller Central (\"Send to Amazon\").",
             "Label every unit with its FNSKU barcode (or let your supplier do it), and label every box.",
-            "Enter box contents correctly; missing box info costs £0.15 per unit [s12].",
+            "Enter box contents correctly; missing box info costs £0.15 per unit [s4].",
             "Book freight and customs clearance with your forwarder, using your GB EORI and VAT details [s17].",
             "Watch for receiving problems and open a case if units go missing."
           ]
@@ -857,7 +857,7 @@
         {
           "ul": [
             "Keep enough stock to cover sales plus your restock lead time (production + shipping), with a safety buffer.",
-            "Don't send more than about 2–3 months of stock: aged inventory and utilisation surcharges grow with time [s6].",
+            "Don't send more than about 2–3 months of stock: aged inventory and utilisation surcharges grow with time [s1][s4].",
             "Check Amazon's peak inventory deadlines before Q4 [s5][s33]."
           ]
         },
@@ -865,7 +865,7 @@
           "h3": "Europe: EFN, Pan-EU and Remote Fulfilment"
         },
         {
-          "p": "Since Brexit, moving stock between the UK and the EU is an import/export with customs and VAT on both sides. Amazon has programmes for cross-border selling, such as the **European Fulfilment Network (EFN)** for fulfilling orders in other stores from one country's stock [s11], and **Pan-European FBA** for EU stores [s12]. Check Global Selling for which programmes currently link the UK and the EU [s39], and get VAT advice first."
+          "p": "Since Brexit, moving stock between the UK and the EU is an import/export with customs and VAT on both sides. Amazon has programmes for cross-border selling, such as the **European Fulfilment Network (EFN)** for fulfilling orders in other stores from one country's stock, and **Pan-European FBA** for EU stores [s4]. Check Global Selling for which programmes currently link the UK and the EU [s39], and get VAT advice first."
         }
       ]
     },
@@ -1020,7 +1020,7 @@
               ],
               [
                 "Black Friday Week",
-                "Late November; Black Friday is 27 November 2026 [s32][s33]",
+                "Late November; Black Friday is 27 November 2026; in 2026 FBA stock had to arrive by 28 October and deals closed 18 November [s33]",
                 "Use Amazon's peak readiness guide for inventory and deal cut-offs [s33]."
               ],
               [
@@ -1031,7 +1031,7 @@
               [
                 "Christmas and Boxing Day (26 December)",
                 "December",
-                "Peak fees and storage apply from mid-October [s5][s6]."
+                "Peak fees and storage apply from mid-October [s5][s1]."
               ],
               [
                 "Mother's Day (UK)",
@@ -1061,13 +1061,13 @@
         {
           "ol": [
             "**Using old fee numbers.** 2026 fees changed several times, including a surcharge rise on 2 November [s1]. Always use the current Revenue Calculator [s40].",
-            "**Not registering for VAT as an overseas seller.** NETPs must register from the first taxable supply, and HMRC can backdate [s14]. Amazon can suspend listings without a valid VAT number.",
+            "**Not registering for VAT as an overseas seller.** NETPs must register from the first taxable supply, and HMRC can backdate [s14]. Marketplaces can remove sellers who should be VAT registered but aren't [s15].",
             "**Ignoring customs.** No GB EORI means stock stuck at the border [s17].",
             "**Missing compliance documents.** No UKCA/CE marking, test reports or responsible person information can lead to listing removals [s19][s20].",
             "**Copying a brand or design.** IP complaints are a fast route to account health problems. Search the UKIPO register first [s26].",
             "**Starting without a trade mark.** No trade mark means no Brand Registry, no A+ content and little protection from hijackers [s28].",
             "**Fake or incentivised reviews.** Paying, gifting or rebating for reviews breaks Amazon policy and can get you banned.",
-            "**Sending too much stock.** Aged inventory surcharges start from 241 days [s6].",
+            "**Sending too much stock.** Aged inventory surcharges start after 241 days [s4].",
             "**Running out of stock.** You lose ranking and the momentum from ads.",
             "**Late shipment or high cancellation (FBM).** These hurt account health. Use FBA if you can't ship reliably.",
             "**Mismatched documents at sign-up.** Names and addresses must match exactly.",
@@ -1097,7 +1097,7 @@
             "Create the listing (title, bullets, images, backend keywords).",
             "Place the first order (small: 2–3 months of sales).",
             "Arrange freight and customs with your forwarder [s35].",
-            "Create the FBA shipment, label units and boxes correctly [s12].",
+            "Create the FBA shipment, label units and boxes correctly [s4].",
             "Apply for Brand Registry [s28].",
             "Add A+ Content and enrol in Vine.",
             "Launch an automatic Sponsored Products campaign.",
@@ -1124,7 +1124,7 @@
     },
     {
       "q": "Do I need to be VAT registered to sell on Amazon UK?",
-      "a": "UK-based sellers only have to register once taxable turnover passes £90,000. Overseas sellers with no UK establishment must register from their first taxable sale in the UK. Amazon may account for VAT on many sales, but you usually still need a number for imports."
+      "a": "UK-based sellers only have to register once taxable turnover passes £90,000. Overseas sellers with no UK establishment must register from their first taxable sale in the UK. Amazon accounts for VAT on many overseas sellers' sales, and from October 2027 on VAT-registered UK sellers' sales too."
     },
     {
       "q": "Can I sell on Amazon UK from India or China?",
@@ -1136,11 +1136,11 @@
     },
     {
       "q": "How long does a UK trade mark take for Brand Registry?",
-      "a": "Around 3 months if nobody objects. With IP Accelerator you can get brand protection benefits while the application is still pending. The online fee is £205 for one class."
+      "a": "Around 3 months if nobody objects (the IPO says 3 to 4 months). Brand Registry accepts a pending application, and IP Accelerator unlocks more protection benefits while it's pending. The online fee is £205 for one class."
     },
     {
       "q": "Do I need UKCA or is CE fine?",
-      "a": "For most product types sold in Great Britain, CE marking is accepted indefinitely, and UKCA is also fine. Medical devices, construction products and a few other sectors have their own rules."
+      "a": "For most product types sold in Great Britain, CE marking continues to be recognised, and UKCA is also fine. Medical devices, construction products and a few other sectors have their own rules."
     },
     {
       "q": "What is GPSR and does it apply to UK sellers?",
@@ -1148,7 +1148,7 @@
     },
     {
       "q": "What are FBA fees in the UK?",
-      "a": "They depend on size and weight. Third-party summaries of the 2026 rate card put a 400 g small parcel at about £3.00 before the 2% surcharge. Use Amazon's Revenue Calculator for your exact product."
+      "a": "They depend on size and weight. Amazon's rate card (effective 2 November 2026) puts a 400 g small parcel at £3.00 before the 2% surcharge. Use Amazon's Revenue Calculator for your exact product."
     },
     {
       "q": "Why did my FBA fees go up in November?",
@@ -1170,7 +1170,7 @@
   "sources": [
     {
       "id": "s1",
-      "title": "Amazon FBA Calculator / Pricing (selling plans, referral fees, surcharge)",
+      "title": "Amazon selling fees and pricing (plans, referral fees, FBA, storage, surcharge)",
       "publisher": "Amazon (sell.amazon.co.uk)",
       "url": "https://sell.amazon.co.uk/pricing",
       "date": "accessed 2026-11-25"
@@ -1191,7 +1191,7 @@
     },
     {
       "id": "s4",
-      "title": "Rate Card Europe, fees effective as of 2 November 2026, Fulfilment by Amazon",
+      "title": "Rate Card Europe: Fulfilment by Amazon fees effective 2 November 2026",
       "publisher": "Amazon",
       "url": "https://m.media-amazon.com/images/G/02/sell/images/261014-FBA-Rate-Card-EN.pdf",
       "date": "2026-10"
@@ -1202,55 +1202,6 @@
       "publisher": "Amazon Seller Central UK forums",
       "url": "https://sellercentral.amazon.co.uk/seller-forums/discussions/t/d8c34b0b-86ed-4aec-9b0a-8be6eabb8fb0",
       "date": "2026"
-    },
-    {
-      "id": "s6",
-      "title": "Amazon FBA UK Rate Card 2026: Fees, Storage & Peak Rates",
-      "publisher": "AMZ Prep",
-      "url": "https://amzprep.com/europe/amazon-fba-uk-rate-card/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s7",
-      "title": "Amazon UK FBA Rate Card 2026: Fulfilment Fees by Size",
-      "publisher": "Axivelo",
-      "url": "https://axivelo.app/blog/amazon-fba-rate-card-uk/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s8",
-      "title": "Amazon FBA fees UK 2026: rate card, storage and peak fees",
-      "publisher": "Mr Prime",
-      "url": "https://mrprime.com/insights/amazon-fba-fees-uk/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s9",
-      "title": "How much does it cost to sell on Amazon",
-      "publisher": "WorldFirst UK",
-      "url": "https://www.worldfirst.com/uk/blog/global-business-tips/how-much-does-it-cost-to-sell-on-amazon/",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s10",
-      "title": "Refund fees (seller forum thread)",
-      "publisher": "Amazon Seller Central UK forums",
-      "url": "https://sellercentral.amazon.co.uk/seller-forums/discussions/t/f29481bb-ca17-41bf-a861-537a55cc872d",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s11",
-      "title": "Amazon Returns Processing Fee: Rates and Thresholds",
-      "publisher": "AmazonWay",
-      "url": "https://www.amazonway.eu/en/post/amazon-returns-processing-fee",
-      "date": "accessed 2026-11-25"
-    },
-    {
-      "id": "s12",
-      "title": "Amazon Seller Fees Explained: FBA, Referral, Storage and More for UK Sellers",
-      "publisher": "TrueBooks",
-      "url": "https://truebooks.co.uk/guides/amazon-fees",
-      "date": "accessed 2026-11-25"
     },
     {
       "id": "s13",
@@ -1275,10 +1226,10 @@
     },
     {
       "id": "s16",
-      "title": "Extending VAT online marketplace liability (consultation)",
-      "publisher": "HMRC / GOV.UK",
-      "url": "https://www.gov.uk/government/consultations/extending-online-marketplace-liability-to-combat-non-compliance/extending-vat-online-marketplace-liability-to-combat-non-compliance",
-      "date": "2026-10"
+      "title": "Extending VAT online marketplace liability: summary of responses (Budget 2026)",
+      "publisher": "HMRC and HM Treasury / GOV.UK",
+      "url": "https://www.gov.uk/government/consultations/extending-online-marketplace-liability-to-combat-non-compliance/outcome/extending-vat-online-marketplace-liability-to-combat-non-compliance-summary-of-responses",
+      "date": "2026-10-28"
     },
     {
       "id": "s17",
@@ -1289,10 +1240,10 @@
     },
     {
       "id": "s18",
-      "title": "UK Low Value Import Relief to be Removed by October 2028",
-      "publisher": "Baker McKenzie Global Import Blog",
-      "url": "https://globalimportblog.bakermckenzie.com/2026/07/24/uk-low-value-import-relief-to-be-removed-by-october-2028/",
-      "date": "2026-07-24"
+      "title": "Reforming the customs treatment of low value imports into the UK",
+      "publisher": "HMRC / GOV.UK",
+      "url": "https://www.gov.uk/government/publications/reforming-customs-rules-for-low-value-imports/reforming-the-customs-treatment-of-low-value-imports-into-the-uk",
+      "date": "2026-10-28"
     },
     {
       "id": "s19",
@@ -1317,10 +1268,10 @@
     },
     {
       "id": "s22",
-      "title": "From Passive Host to Proactive Gatekeeper: Online Marketplaces under the PRMA Reforms",
-      "publisher": "Herbert Smith Freehills Kramer",
-      "url": "https://www.hsfkramer.com/notes/tmt/2026-posts/from-passive-host-to-proactive-gatekeeper-online-marketplaces-in-the-spotlight",
-      "date": "2026"
+      "title": "Product regulation: the UK's new product safety framework (consultation)",
+      "publisher": "OPSS and Department for Business and Trade / GOV.UK",
+      "url": "https://www.gov.uk/government/consultations/product-regulation-the-uks-new-product-safety-framework",
+      "date": "2026-03-31"
     },
     {
       "id": "s23",
@@ -1338,10 +1289,10 @@
     },
     {
       "id": "s25",
-      "title": "UK WEEE Compliance 2026: A Practical Guide for Producers",
-      "publisher": "ERP UK",
-      "url": "https://erp-recycling.org/uk/news-and-events/2026/04/uk-weee-compliance-2026-a-practical-guide-for-producers/",
-      "date": "2026-04"
+      "title": "Electrical and electronic equipment (EEE): producer responsibilities",
+      "publisher": "Environment Agency / GOV.UK",
+      "url": "https://www.gov.uk/guidance/electrical-and-electronic-equipment-eee-producer-responsibility",
+      "date": "2025-08-12"
     },
     {
       "id": "s26",
@@ -1359,9 +1310,9 @@
     },
     {
       "id": "s28",
-      "title": "Brand Building in Amazon UK",
+      "title": "Amazon Brand Registry UK",
       "publisher": "Amazon (sell.amazon.co.uk)",
-      "url": "https://sell.amazon.co.uk/brand-owners",
+      "url": "https://sell.amazon.co.uk/brand-registry",
       "date": "accessed 2026-11-25"
     },
     {
@@ -1446,6 +1397,20 @@
       "title": "Amazon FBA Revenue Calculator UK: Profit Estimation Guide",
       "publisher": "Amazon (sell.amazon.co.uk)",
       "url": "https://sell.amazon.co.uk/learn/fba-revenue-calculator",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s41",
+      "title": "Product regulations by sector and current approaches to product marking (UKCA and CE)",
+      "publisher": "OPSS / GOV.UK",
+      "url": "https://www.gov.uk/government/publications/product-regulations-by-sector-and-current-approaches-to-product-marking-ukca-and-ce-regimes/product-regulations-by-sector-and-current-approaches-to-product-marking-ukca-and-ce-regimes",
+      "date": "accessed 2026-11-25"
+    },
+    {
+      "id": "s42",
+      "title": "VAT rates",
+      "publisher": "HMRC / GOV.UK",
+      "url": "https://www.gov.uk/vat-rates",
       "date": "accessed 2026-11-25"
     }
   ]
