@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Asked: Fastlane (usefastlane.ai)
+- What it is: AI short-form video + paid ads platform (learns a product from its URL; makes/schedules TikTok, Reels, Shorts; Fastlane 2.0 "Senna" agent builds and runs Meta ads). Australian startup; no public API found.
+- Verdict: a marketing engine for Rocco (like Higgsfield), not a Rocco feature. Free to use for organic clips (software isn't deducted from contest profit). Senna-run Meta ads = ad spend (deducted): only with a cap Praveen sets, promoting a free tool (Seller Wrapped / Roast), with a stop rule. Log any spend. Seller-facing video later would go through Higgsfield video + Sponsored Brands video, not Fastlane.
+
+---
+
 ## 2026-11-25 · Actions (every DataDoe action) + listing/A+ image studio (Higgsfield)
 - **Actions page** (/w/[token]/actions, lib/doe-actions*.ts, lib/action-agent.ts, app/api/w/actions): catalogue of all 103 DataDoe Action types (62 changes, 41 lookups, 31 marked high-risk) read from datadoe.com/actions + the API spec; field names confirmed with free dry runs. "Tell Rocco what to change": Claude Opus picks the Action, looks up IDs with read Actions, fixes details until DataDoe's dry run validates, then shows a preview. Seller approves → re-checked on the server → made live (idempotent) → logged under their name. High-risk types need an extra confirmation; plans expire after 30 min. Vendor-only types hidden for sellers.
 - **Image studio** (/w/[token]/images, lib/creative.ts, lib/higgsfield.ts, app/api/w/creative): Opus plans 4–6 listing images (slots 2–7) or A+ images (banner + tiles) from the listing and selling searches, with Amazon's image rules built in (no badges, prices, reviews, unsupported claims). Higgsfield's Qwen Image 3 *edit* model renders each from the seller's real product photo (or an upload). "Put on my listing" writes other_product_image_locator_N through DataDoe with Amazon's check first. A+ images are downloaded and added in A+ Content Manager.
