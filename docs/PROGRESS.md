@@ -5,7 +5,7 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 ---
 
 ## 2026-11-25 · 29 more answer pages + directory-ready connector
-- lib/answers-more.ts: 29 answers to questions sellers ask ChatGPT/Claude (best AI tool for Amazon PPC with "Rocco is made by us" disclosure and a fair shortlist priced from lib/compare.ts, fire my agency, automate PPC, not profitable, how much to spend, ROAS, wasted spend, rising CPCs, bids, auto vs manual, structure, break-even, budget runs out, Q4, brand bidding, negatives, harvesting, sales drop, real profit, conversion, sessions, out of stock, stockouts...). Merged into ANSWERS (sitemap, llms.txt, /answers). 48 answers total.
+- lib/answers-more.ts: 29 answers to questions sellers ask ChatGPT/Claude (best AI tool for Amazon PPC with "Rocco is made by us" disclosure and a fair shortlist priced from lib/compare.ts, fire my agency, automate PPC, not profitable, how much to spend, ROAS, wasted spend, rising CPCs, bids, auto vs manual, structure, break-even, budget runs out, Q4, brand bidding, negatives, harvesting, sales drop, real profit, conversion, sessions, out of stock, stockouts...). Merged into ANSWERS (sitemap, llms.txt, /answers). 47 answers total.
 - Check before quoting: dynamic bids up to +100% top of search, monthly budget cap = daily x days, vacation mode path, Manage Your Apps path, Brand Registry tools. Rules-of-thumb ranges are labelled as typical, not stats.
 - Connector: review-safe instructions + hints, /connector docs, privacy section, docs/DIRECTORY-LISTINGS.md (Praveen submits).
 - No hidden text or AI-targeted instructions anywhere (would get penalised and rejected).
