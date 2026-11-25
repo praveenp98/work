@@ -2004,3 +2004,24 @@ h1, h2, .display { font-family: var(--display); }
   .tw-right .tw-val { padding-left: 42px; font-size: 15px; }
   .tw-chev { width: 30px; height: 30px; }
 }
+
+/* Job rows, polish (Nov 25): calmer buttons, aligned values, tighter rhythm. */
+.tw-list { gap: 8px; }
+.tw-job.tw-c { padding: 12px 14px 12px 16px; border-radius: 16px; box-shadow: none; }
+.tw-job.tw-c:hover { box-shadow: 0 8px 22px -18px rgba(31, 111, 235, .5); }
+.tw-job.tw-c.is-first { box-shadow: 0 10px 26px -20px rgba(31, 111, 235, .6); }
+.tw-c .tw-title { gap: 8px; }
+.tw-c .tw-title b { font-size: 15px; font-weight: 600; letter-spacing: -.005em; }
+.tw-c .tw-why { font-size: 13px; color: var(--muted); }
+.tw-right { gap: 6px; }
+.tw-right .tw-val { min-width: 84px; text-align: right; font-size: 15px; }
+.tw-right .btn.small { min-width: 132px; justify-content: center; text-align: center; padding: 8px 14px; font-size: 13.5px; border-radius: 999px; box-shadow: none; }
+.tw-right .btn.ghost.small { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+.tw-right .btn.ghost.small:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); color: var(--accent); }
+.tw-chev { width: 30px; height: 30px; border-radius: 999px; font-size: 11px; }
+.tw-skip { font-size: 12.5px; min-width: 30px; text-align: center; }
+.tw-body { padding-top: 10px; border-top: 1px dashed var(--line); }
+@media (max-width: 640px) {
+  .tw-right .tw-val { min-width: 0; text-align: left; }
+  .tw-right .btn.small { min-width: 0; }
+}

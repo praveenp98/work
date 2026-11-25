@@ -26,7 +26,8 @@ export function autoEligible(p: Proposal, level: Autonomy): boolean {
   const down = typeof p.proposed === "number" && typeof p.current === "number" && p.proposed < p.current;
   if (p.kind === "negative") return true;
   if (p.kind === "bid" || p.kind === "budget") return level === "auto" || down;
-  return false; // harvest (new campaign), placement, ads_down, structure: always a tap
+  if (p.kind === "ads_down") return p.current === 0; // out of stock: pausing its own ads only saves money, and undoes in one tap
+  return false; // harvest (new campaign), placement, structure: always a tap
 }
 
 export interface AutoResult { made: Proposal[]; failed: number }
@@ -54,7 +55,7 @@ export async function runAutopilot(store: Store, wsId: string, account: { id: st
   for (const r of results) {
     const x = todo.find((t) => t.p.code === r.code)!;
     if (r.status === "applied") {
-      await applyChanges(store, ws, [r.code], { brand, runId: x.runId, note: `made by Rocco automatically (${level === "auto" ? "fully autonomous" : "inside guardrails"})${r.actionId ? ` (action ${r.actionId})` : ""}` }).catch(() => null);
+      await applyChanges(store, ws, [r.code], { brand, runId: x.runId, note: `made by Rocco automatically (${level === "auto" ? "fully autonomous" : "inside guardrails"})${r.actionId ? ` (action ${r.actionId})` : ""}${r.paused ? `: paused ${r.paused} ads (out of stock)` : ""}`, patch: x.p.ids?.adIds ? { [r.code]: { ids: x.p.ids } } : undefined }).catch(() => null);
       made.push(x.p);
     } else if (r.status === "failed") failed++;
   }

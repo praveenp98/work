@@ -42,7 +42,7 @@ export function analyzeStock(rows: InventoryRow[]): Analysis {
           line: out ? `${label} is out. Every ad click on it is wasted.` : `${label} is about to run dry. Ads are just speeding that up.`, valueMonthly: 0 });
       }
       const state = r.available <= 0 ? "out of stock" : `${Math.round(cover)} days of stock`;
-      proposals.push({ code: `S${s}`, kind: "ads_down", campaign: "(all campaigns advertising this SKU)", adGroup: "", target: id, reason: `${label}: ${state}. ${r.available <= 0 ? "Pause its ads" : "Lower bids 20% on its ads (or pause it in broad/auto)"} until stock lands`, valueMonthly: 0, undo: "Restore the previous bids (or re-enable the ads) once inbound stock is received." });
+      proposals.push({ code: `S${s}`, kind: "ads_down", campaign: "(all campaigns advertising this SKU)", adGroup: "", target: id, current: r.available, reason: `${label}: ${state}. ${r.available <= 0 ? "Pause its ads" : "Lower bids 20% on its ads (or pause it in broad/auto)"} until stock lands`, valueMonthly: 0, undo: "Restore the previous bids (or re-enable the ads) once inbound stock is received." });
     } else if (cover <= 21) {
       findings.push({ severity: "medium", title: `${label}: ~${Math.round(cover)} days of stock`, detail: "Don't raise budgets or bids on this SKU until more stock is on the way.", valueMonthly: 0 });
     } else if (cover > 180) {

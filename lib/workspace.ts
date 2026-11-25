@@ -125,7 +125,7 @@ export async function latestRuns(store: Store, ws: Workspace, brand: string): Pr
 }
 
 /** Record approved proposals as applied changes with a follow-up date. */
-export async function applyChanges(store: Store, ws: Workspace, codes: string[], opts: { runId?: string; brand?: string; note?: string; freeLimit?: number } = {}) {
+export async function applyChanges(store: Store, ws: Workspace, codes: string[], opts: { runId?: string; brand?: string; note?: string; freeLimit?: number; patch?: Record<string, Partial<Proposal>> } = {}) {
   const brand = opts.brand || DEFAULT_BRAND;
   const runs = opts.runId ? [await store.getRun(ws.id, opts.runId)].filter((r): r is Run => !!r) : await latestRuns(store, ws, brand);
   if (!runs.length) throw new Error("No proposals yet. Analyze a report first.");
@@ -144,7 +144,7 @@ export async function applyChanges(store: Store, ws: Workspace, codes: string[],
       if (existing.has(p.code)) continue;
       if (allowed && !allowed.has(p.code)) { locked.push(p.code); continue; }
       actions.push({
-        id: randomUUID(), workspaceId: ws.id, brand: run.brand, runId: run.id, code: p.code, proposal: p,
+        id: randomUUID(), workspaceId: ws.id, brand: run.brand, runId: run.id, code: p.code, proposal: opts.patch?.[p.code] ? { ...p, ...opts.patch[p.code] } : p,
         appliedAt: new Date(now).toISOString(),
         followUpAt: new Date(now + (p.kind === "harvest" ? 14 : 7) * DAY).toISOString(),
         status: "applied", note: opts.note,

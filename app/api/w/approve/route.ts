@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const results = await applyMany(account.id, todo.map((c) => props.get(c)!.p), `rocco:${ws.id}:${todo.map((c) => `${props.get(c)!.runId.slice(0, 8)}${c}`).join(",").slice(0, 80)}`);
     for (const r of results) {
       const { p } = props.get(r.code)!;
-      if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}${by}` });
+      if (r.status === "applied") await applyChanges(store, ws, [r.code], { brand, note: `made by Rocco in Amazon${r.actionId ? ` (action ${r.actionId})` : ""}${r.paused ? `: paused ${r.paused} ad${r.paused === 1 ? "" : "s"}` : ""}${by}`, patch: p.ids?.adIds ? { [r.code]: { ids: p.ids } } : undefined });
       out.push(r.status === "applied" ? r : { ...r, how: howTo(p) });
     }
     trackServer(ws.id, "changes_made", { made: out.filter((x) => x.status === "applied").length, failed: out.filter((x) => x.status === "failed").length });

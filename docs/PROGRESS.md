@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Out-of-stock ads in one tap + calmer job rows
+- **Out of stock → "Pause ads on 1 out-of-stock product" is one tap.** Rocco pauses that exact SKU's enabled Sponsored Products ads (product ads, not shared keywords; an FBM SKU of the same ASIN keeps running), dry-run first, ad IDs saved on the action so **Undo turns the same ads back on**. Request shape checked with a DataDoe dry run on Habit Nest (Budgeting Sidekick: 75 enabled SP ads). Module `lib/stock-ads.ts`. Low but not out: stays a step for you (pausing would lose sales). Autopilot (guardrails/auto) now does the out-of-stock pause by itself.
+- Jobs don't pile up: each morning's pull replaces the list (latest run per report); unapproved jobs come back only if still true; skips are remembered.
+- Job rows polish: only approve actions are solid blue (steps are outline), values in an aligned column, "Rocco's pick" only on the top job, tighter spacing.
+
 ## 2026-11-25 · Today tab: counts and wording
 - Job cards are now compact rows: icon, title, one-line reason, value, main button, ▾ details, Skip on the right. Items (with checkboxes), guardrails, steps and the restock form live in the dropdown. Checked on desktop and iPhone width with fixture reports.
 - "5 jobs today" vs "Approve all 2 jobs" looked like a conflict: the headline counts every job, the button only one-tap jobs. A line under the headline now splits them ("2 I make in one tap · 3 steps for you · the $ is an estimate"), and the button says "Approve the 2 one-tap jobs".

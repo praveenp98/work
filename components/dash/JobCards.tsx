@@ -116,7 +116,7 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
   const [exp, setExp] = useState(false);
   const primary = !state && (
     job.mode === "manual"
-      ? <button className="btn small" onClick={() => { setExp(true); setHow(true); }}>{rsOn ? "Plan shipment" : "Show steps"}</button>
+      ? <button className="btn ghost small" onClick={() => { setExp(true); setHow(true); }}>{rsOn ? "Plan shipment" : "Show steps"}</button>
       : <button className="btn small" disabled={anyBusy || !chosen.length} onClick={() => onApprove(chosen)}>{busy ? (direct ? (job.mode === "create" ? "Creating…" : "Making it…") : "…") : verb}</button>
   );
 
@@ -125,11 +125,11 @@ function JobCard({ restock, cur, job, first, res, busy, anyBusy, direct, note, o
       <div className="tw-row">
         <span className="tw-ic" aria-hidden>{job.icon}</span>
         <button className="tw-main" onClick={() => setExp((e) => !e)} aria-expanded={exp}>
-          <span className="tw-title"><b>{job.title}</b>{job.why && <span className="tw-pick">Rocco&apos;s pick</span>}</span>
+          <span className="tw-title"><b>{job.title}</b>{job.why && first && <span className="tw-pick">Rocco&apos;s pick</span>}</span>
           <span className="tw-why">{job.why ?? job.summary}</span>
         </button>
         <div className="tw-right">
-          {job.value > 0 && <span className="tw-val">~{$(job.value)}<small>/mo</small></span>}
+          <span className="tw-val">{job.value > 0 ? <>~{$(job.value)}<small>/mo</small></> : null}</span>
           {primary}
           <button className={`tw-chev${exp ? " on" : ""}`} onClick={() => setExp((e) => !e)} aria-expanded={exp} aria-label={exp ? "Hide details" : "Show details"}>▾</button>
           {!state && <button className="tw-skip" onClick={() => setAsking(true)} aria-label="Skip">Skip</button>}

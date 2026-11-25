@@ -1,3 +1,4 @@
+import { pauseSkuAds } from "./stock-ads";
 import { runAction, type ActionResult } from "./datadoe";
 import type { Proposal } from "./rules/types";
 
@@ -33,7 +34,7 @@ export function planFor(p: Proposal): ActionPlan | null {
 }
 
 export type ApplyOutcome =
-  | { code: string; status: "applied"; actionId?: string }
+  | { code: string; status: "applied"; actionId?: string; paused?: number }
   | { code: string; status: "manual"; reason: string }
   | { code: string; status: "failed"; reason: string };
 
@@ -61,6 +62,14 @@ export async function applyMany(accountId: string, ps: Proposal[], key: string):
   const out = new Map<string, ApplyOutcome>();
   const groups = new Map<string, { field: string; items: { p: Proposal; value: Record<string, unknown> }[] }>();
   for (const p of ps) {
+    if (p.kind === "ads_down" && (p.current ?? 1) > 0) { out.set(p.code, { code: p.code, status: "manual", reason: "It still has stock, so I don't pause its ads: lower its bids by hand until the shipment lands." }); continue; }
+    if (p.kind === "ads_down") {
+      // Pause this SKU's own product ads (lib/stock-ads.ts); the ad IDs ride on the proposal for undo.
+      const r = await pauseSkuAds(accountId, p.target, `${key}:${p.code}`).catch((e) => ({ ok: false as const, error: String(e) }));
+      if (r.ok) { p.ids = { ...(p.ids ?? {}), adIds: r.adIds }; out.set(p.code, { code: p.code, status: "applied", paused: r.adIds.length }); }
+      else out.set(p.code, "none" in r && r.none ? { code: p.code, status: "manual", reason: r.error } : liveFailure(p.code, r.error));
+      continue;
+    }
     const i = item(p);
     if (!i) { out.set(p.code, { code: p.code, status: "manual", reason: manualReason(p) }); continue; }
     const g = groups.get(i.type) ?? { field: i.field, items: [] };

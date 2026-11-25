@@ -93,7 +93,7 @@ export const MANUAL_WHY: Partial<Record<JobKind, string>> = {
   restock: "Steps for you in Seller Central (about 10 minutes). Connect Amazon directly and I create the shipment plan for you.",
   listings: "You do this one: fixing a suppressed listing means editing it in Seller Central.",
   buybox: "You do this one: price and offer changes stay with you.",
-  stock_ads: "You do this one for now: easing one product's ads isn't one tap yet. Steps below.",
+  stock_ads: "It still has some stock, so I don't pause its ads: lower its bids by hand until the shipment lands. Once it's out of stock, pausing is one tap.",
   placement: "You do this one for now: placement changes aren't one-tap yet.",
   structure: "You do this one for now: structure fixes need a look before anything moves.",
 };
@@ -111,7 +111,10 @@ export function buildJobs(proposals: Proposal[], o: { plan?: ManagerView | null;
     const value = ps.reduce((t, p) => t + p.valueMonthly, 0);
     const pick = sorted.map((p) => picked.get(p.code)).filter(Boolean).sort((a, b) => a!.order - b!.order)[0];
     jobs.push({
-      id: k, kind: k, icon: m.icon, mode: m.mode, title: m.title(ps.length, value), summary: m.summary(ps.length, value), value,
+      // Out of stock: pausing that SKU's own ads is one tap (lib/stock-ads.ts). Still some stock: steps for you.
+      id: k, kind: k, icon: m.icon, mode: k === "stock_ads" && ps.every((p) => p.current === 0) ? "auto" : m.mode,
+      title: k === "stock_ads" && ps.every((p) => p.current === 0) ? `Pause ads on ${s(ps.length, "out-of-stock product")}` : m.title(ps.length, value),
+      summary: k === "stock_ads" && ps.every((p) => p.current === 0) ? "Clicks can't turn into sales until stock lands. I pause its own product ads; Undo turns them back on." : m.summary(ps.length, value), value,
       codes: sorted.map((p) => p.code), items: sorted.map((p) => ({ ...itemOf(p), picked: picked.has(p.code) })), why: pick?.why,
       rank: pick ? pick.order : 100 + (RISK.includes(k) ? -50 : 0) - Math.min(value, 49_999) / 1000,
     });

@@ -87,3 +87,22 @@ describe("stock wording", () => {
     expect(a.proposals[0].reason).toMatch(/out of stock\. Pause its ads/);
   });
 });
+
+
+import { adIdsForSku } from "./stock-ads";
+import { reversePlan } from "./undo";
+describe("out-of-stock ads", () => {
+  it("one tap pauses only that SKU's enabled SP ads; undo turns the same ads back on", () => {
+    const ad = (id: string, sku: string, state = "ENABLED", type = "SPONSORED_PRODUCTS") => ({ ad_id: id, ad_campaign_type: type, ad_state: state, ad_creative_products: JSON.stringify([{ productId: "B0X", productIdType: "ASIN" }, { productId: sku, productIdType: "SKU" }]) });
+    expect(adIdsForSku([ad("1", "BSJ"), ad("2", "BSJ FBM"), ad("3", "BSJ", "PAUSED"), ad("4", "BSJ", "ENABLED", "SPONSORED_BRANDS"), ad("5", "BSJ")], "BSJ")).toEqual(["1", "5"]);
+    const out = analyzeStock([{ sku: "BSJ", asin: "B0X", name: "Budgeting Sidekick Journal", available: 0, inbound: 0, sold30: 2, daysOfSupply: 0 } as never]).proposals;
+    const jobs = buildJobs(out);
+    expect(jobs[0].mode).toBe("auto");
+    expect(jobs[0].title).toMatch(/Pause ads on 1 out-of-stock product/);
+    const low = analyzeStock([{ sku: "B", asin: "B0Y", name: "Other", available: 10, inbound: 0, sold30: 60, daysOfSupply: 5 } as never]).proposals;
+    expect(buildJobs(low)[0].mode).toBe("manual");
+    const plan = reversePlan({ ...out[0], ids: { adIds: ["1", "5"] } });
+    expect(plan?.type).toBe("AMAZON_ADS_ADS_UPDATE");
+    expect(plan?.details.ads).toEqual([{ adId: "1", adProduct: "SPONSORED_PRODUCTS", state: "ENABLED" }, { adId: "5", adProduct: "SPONSORED_PRODUCTS", state: "ENABLED" }]);
+  });
+});

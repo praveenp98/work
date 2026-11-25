@@ -38,7 +38,7 @@ export interface Proposal {
   before?: Metrics;
   undo: string;
   /** Amazon IDs when known (data pulled through the Ads API), so the change can be applied by Amazon's connector. */
-  ids?: { campaignId?: string; adGroupId?: string; keywordId?: string };
+  ids?: { campaignId?: string; adGroupId?: string; keywordId?: string; /** ads Rocco paused (low stock), for undo */ adIds?: string[] };
   /** Bid moves as a % so the AI can apply them to the live bid. */
   changePct?: number;
 }
