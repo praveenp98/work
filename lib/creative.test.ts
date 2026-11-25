@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { cleanConcepts, imageSlotBody, promptProblems } from "./creative";
-import { listingImages } from "./listings";
+import { keywordPlan, listingImages, parseListing, termsForListing } from "./listings";
 import { parseStatus } from "./higgsfield";
 import { actionByType, availableFor, catalogueText, DOE_ACTIONS, itemCount } from "./doe-actions";
 import { dryRunText, planFresh, resultText, type ActionPlan } from "./action-agent";
@@ -65,5 +65,24 @@ describe("actions catalogue", () => {
     expect(planFresh({ ...p, at: new Date().toISOString() })).toBe(true);
     expect(resultText({ status: "COMPLETED" })).toMatch(/Done/);
     expect(resultText({ status: "FAILED", error: { m: "x" } })).toMatch(/Amazon said no/);
+  });
+});
+
+describe("listing keywords", () => {
+  const raw = { result: [{ sku: "GB-1", asin: "B0TEST0001", attributes: { brand: [{ value: "Habit Nest" }] }, content: { itemName: "The Weightlifting Transformation Gym Buddy Journal by Habit Nest", genericKeyword: "workout log book, fitness planner", bulletPoints: ["12-week workout journal"] } }] };
+  it("reads the title from Amazon's itemName and the brand from attributes", () => {
+    const l = parseListing(raw, "GB-1")!;
+    expect(l.title).toMatch(/^The Weightlifting/);
+    expect(l.brand).toBe("Habit Nest");
+    expect(l.bullets).toHaveLength(1);
+  });
+  it("only uses searches that belong to this product, never the brand or a sibling's name", () => {
+    const l = parseListing(raw, "GB-1")!;
+    const terms = [["habit nest", 31], ["weightlifting transformation journal", 24], ["finally become fit book", 19], ["habit nest stretching journal", 12], ["gym journal for beginners", 5]].map(([t, o]) => ({ t: t as string, s: 0, sa: (o as number) * 30, o: o as number, c: 0 }));
+    const mine = termsForListing(l, terms, ["Finally Become Fit Workout Journal", "Habit Nest Stretching Journal"]).map((t) => t.t);
+    expect(mine).toEqual(["weightlifting transformation journal", "gym journal for beginners"]);
+    const p = keywordPlan(l, termsForListing(l, terms, []));
+    expect(p.added).not.toContain("habit");
+    expect(p.added).not.toContain("nest");
   });
 });

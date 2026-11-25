@@ -20,7 +20,7 @@ export const languageTag = (country: string) => LANG[country.toUpperCase()] ?? "
 export const BACKEND_BYTES = 249; // Amazon indexes up to 250 bytes of backend search terms; stay under
 
 export interface Listing {
-  sku: string; asin?: string; productType?: string; title: string; bullets: string[]; keywords: string; description?: string;
+  sku: string; asin?: string; productType?: string; brand?: string; title: string; bullets: string[]; keywords: string; description?: string;
   issues: ListingIssue[]; status: string[];
   /** Current product images on Amazon (main first), when DataDoe returns them. */
   images?: string[];
@@ -53,6 +53,13 @@ function allWith(x: unknown, pred: (o: Record<string, unknown>) => boolean, out:
   return out;
 }
 
+/** Amazon listing attributes look like { item_name: [{ value, marketplace_id }] }, nested somewhere in the result. */
+function attrAll(item: unknown, name: string): string[] {
+  const holder = firstWith(item, (o) => Array.isArray(o[name]));
+  return holder ? (holder[name] as unknown[]).map(str).filter(Boolean) : [];
+}
+const attr = (item: unknown, name: string) => attrAll(item, name)[0] ?? "";
+
 /** DataDoe's AMAZON_LISTINGS_FIND result → the listing for one SKU (defensive: the model is Amazon's, nested). */
 export function parseListing(result: unknown, sku: string): Listing | null {
   const item = firstWith(result, (o) => String(o.sku ?? "") === sku) ?? firstWith(result, (o) => "content" in o);
@@ -68,7 +75,9 @@ export function parseListing(result: unknown, sku: string): Listing | null {
   const status = allWith(item, (o) => Array.isArray(o.status)).flatMap((o) => (o.status as unknown[]).map(String));
   return {
     sku, asin: String(item.asin ?? summary.asin ?? "") || undefined, productType: String(item.productType ?? summary.productType ?? "") || undefined,
-    title: str(c.title ?? c.name ?? c.item_name), bullets, keywords: str(c.keywords ?? c.genericKeyword ?? c.generic_keyword), description: str(c.description) || undefined,
+    title: str(c.itemName ?? c.title ?? c.name ?? c.item_name) || attr(item, "item_name"), bullets: bullets.length ? bullets : attrAll(item, "bullet_point"),
+    keywords: str(c.genericKeyword ?? c.keywords ?? c.generic_keyword) || attr(item, "generic_keyword"), description: str(c.productDescription ?? c.description) || undefined,
+    brand: attr(item, "brand") || undefined,
     issues: dedupe(issues), status: [...new Set(status)], images: listingImages(item),
   };
 }
@@ -104,11 +113,31 @@ export interface KeywordPlan {
 }
 
 /**
- * Words from searches that already sell (orders > 0) that the listing doesn't contain anywhere. Never adds: words
- * in `never` (competitor brands the seller lists, plus anything protected), ASINs, stop words, or duplicates.
+ * The selling searches that belong to THIS product. The search-term report is account-wide (no ASIN), so without this
+ * a journal would be told to add a sibling product's name. A search counts when its words (minus the brand) match this
+ * listing at least as well as any of the seller's other product titles. Pure brand searches ("habit nest") are skipped.
  */
-export function keywordPlan(l: Pick<Listing, "title" | "bullets" | "keywords">, terms: TermLite[], never: string[] = []): KeywordPlan {
-  const block = new Set(never.flatMap(tokens).map(stem));
+export function termsForListing(l: Pick<Listing, "title" | "bullets" | "keywords" | "description" | "brand">, terms: TermLite[], otherTitles: string[]): TermLite[] {
+  const brand = new Set(tokens(l.brand ?? "").map(stem));
+  const mine = new Set(tokens([l.title, ...l.bullets, l.keywords, l.description ?? ""].join(" ")).map(stem));
+  const others = otherTitles.filter((t) => t && t !== l.title).map((t) => new Set(tokens(t).map(stem)));
+  return terms.filter((t) => {
+    const core = tokens(t.t).map(stem).filter((w) => !brand.has(w));
+    if (!core.length) return false;
+    const score = (set: Set<string>) => core.filter((w) => set.has(w)).length;
+    const me = score(mine);
+    return me > 0 && others.every((o) => score(o) <= me);
+  });
+}
+
+/**
+ * Words from searches that already sell (orders > 0) that the listing doesn't contain anywhere. Never adds: words
+ * in `never` (competitor brands the seller lists, plus anything protected), the listing's own brand, ASINs, stop words,
+ * or duplicates.
+ */
+export function keywordPlan(l: Pick<Listing, "title" | "bullets" | "keywords"> & { brand?: string }, terms: TermLite[], never: string[] = []): KeywordPlan {
+  // Your own brand is already indexed from the brand field, so it never needs a backend slot.
+  const block = new Set([...never, l.brand ?? ""].flatMap(tokens).map(stem));
   const inTitle = new Set(tokens(l.title).map(stem));
   const inBullets = new Set(tokens(l.bullets.join(" ")).map(stem));
   const inKw = new Set(tokens(l.keywords).map(stem));

@@ -4,7 +4,7 @@ import { aplusProblems, canAplus, draftAplus, hasAplus, newAplus, submitAplus, t
 import { currencyOf } from "@/lib/currency";
 import { datadoeOn, missingCogs, upsertCogs } from "@/lib/datadoe";
 import { allow } from "@/lib/human";
-import { attributeBody, checkCopy, fetchListings, isSuppressed, keywordPlan, newEdit, updateBody, verifiedWrite, type Listing } from "@/lib/listings";
+import { attributeBody, checkCopy, fetchListings, isSuppressed, keywordPlan, newEdit, termsForListing, updateBody, verifiedWrite, type Listing } from "@/lib/listings";
 import { cogsRows } from "@/lib/profit";
 import { LIMIT_MSG, spend } from "@/lib/security";
 import { getStore } from "@/lib/store";
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
     const l = r.listings[0];
     if (!l) return NextResponse.json({ ok: false, error: r.error ?? "Amazon didn't return this listing." });
     const aplus = canAplus(account.country) && l.asin ? await hasAplus(account.id, l.asin) : null;
-    return NextResponse.json({ ok: true, listing: l, plan: keywordPlan(l, terms, never), suppressed: isSuppressed(l), aplus: { possible: canAplus(account.country), has: aplus }, edits: (ws.amazon?.listingEdits ?? []).filter((e) => e.sku === sku && e.account === account.id).slice(-10) });
+    return NextResponse.json({ ok: true, listing: l, plan: keywordPlan(l, termsForListing(l, terms, (ws.amazon?.products?.[account.id]?.items ?? []).filter((x) => x.sku !== sku).map((x) => x.title)), never), suppressed: isSuppressed(l), aplus: { possible: canAplus(account.country), has: aplus }, edits: (ws.amazon?.listingEdits ?? []).filter((e) => e.sku === sku && e.account === account.id).slice(-10) });
   }
 
   if (b.op === "keywords" || b.op === "title" || b.op === "bullets" || b.op === "attribute") {

@@ -92,13 +92,26 @@ export function findId(x: unknown, key: string): string | undefined {
  * Run one DataDoe Action (POST /actions). dryRun validates for free without touching Amazon. idempotencyKey makes a
  * retried live write safe. Write Actions need the account's DataDoe access level to be Read and write.
  */
+/**
+ * DataDoe accepts idempotency keys of letters, digits and : _ . - only (a SKU with a space or "+" got a 400). Other
+ * characters become "-", plus a short hash of the original so two different SKUs never share a key. Same input →
+ * same key, so retries stay safe.
+ */
+export function idemKey(k: string): string {
+  const clean = k.replace(/[^A-Za-z0-9:_.-]/g, "-");
+  if (clean === k) return k.slice(0, 120);
+  let h = 0x811c9dc5;
+  for (let i = 0; i < k.length; i++) h = Math.imul(h ^ k.charCodeAt(i), 0x01000193) >>> 0;
+  return `${clean.slice(0, 111)}.${h.toString(36)}`;
+}
+
 export async function runAction(sellerOrVendorId: string, type: string, details: Record<string, unknown>, o: { dryRun?: boolean; idempotencyKey?: string } = {}): Promise<ActionResult> {
   // Kill switch (lib/security): ROCCO_WRITES_OFF=1 stops every live Amazon change at once. Dry runs still work.
   if (!o.dryRun && process.env.ROCCO_WRITES_OFF === "1") return { ok: false, error: "Changes are paused for a few minutes for maintenance. Nothing was changed." };
   const res = await fetch(`${BASE}/actions`, {
     method: "POST",
     headers: { "datadoe-api-key": process.env.DATADOE_API_KEY ?? "", "content-type": "application/json" },
-    body: JSON.stringify({ type, sellerOrVendorId, details, ...(o.dryRun ? { dryRun: true } : {}), ...(o.idempotencyKey ? { idempotencyKey: o.idempotencyKey.slice(0, 120) } : {}) }),
+    body: JSON.stringify({ type, sellerOrVendorId, details, ...(o.dryRun ? { dryRun: true } : {}), ...(o.idempotencyKey ? { idempotencyKey: idemKey(o.idempotencyKey) } : {}) }),
     cache: "no-store",
   });
   const body = (await res.json().catch(() => ({}))) as { id?: string; actionId?: string; status?: string; message?: unknown };

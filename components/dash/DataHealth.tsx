@@ -49,7 +49,7 @@ export function DataHealth({ token, brand }: { token: string; brand?: string }) 
     if (s?.skipped) setMsg(s.failed ? `I just tried a moment ago. Try again in ${s.retryInMin} min.` : `Your data is fresh (pulled in the last hour). I can pull again in ${s.retryInMin} min, and I pull every morning by myself.`);
     else if (s?.ok && n) {
       officeAct("desk", `Pulled ${n} report${n === 1 ? "" : "s"}. Running the numbers…`);
-      setMsg(`✓ Pulled ${n} report${n === 1 ? "" : "s"} just now${errs.length ? `; ${errs.length} still failed (details above)` : ". Today's jobs are updated"}.`);
+      setMsg(`✓ Pulled ${n} report${n === 1 ? "" : "s"} just now${errs.length ? `; ${errs.length} still failed (details above)` : ""}. Give me a minute to work out today's jobs, then reload this page.`);
       router.refresh();
     } else if (s?.ok) setMsg(errs.length ? `The pull ran but nothing came in. ${errs[0]}` : "The pull ran but Amazon sent nothing new.");
     else setMsg(s?.error ?? (d?.ok ? "Status refreshed. Details above." : "Couldn't reach Amazon right now. Try again in a few minutes."));
@@ -91,7 +91,7 @@ export function DataHealth({ token, brand }: { token: string; brand?: string }) 
           ))}
           <div className="dh-act">
             <button className="btn small" disabled={busy} onClick={check}>{busy ? "Checking…" : "Check connection now"}</button>
-            <span className="fine">The first full load takes up to 48 hours after connecting (DataDoe emails when it&apos;s done). After that I pull every morning by myself.</span>
+            <span className="fine">After you tap it, wait about a minute, then reload the page. The first full load takes up to 48 hours after connecting (DataDoe emails when it&apos;s done). After that I pull every morning by myself.</span>
           </div>
           {msg && <p className="fine" role="status">{msg}</p>}
         </div>

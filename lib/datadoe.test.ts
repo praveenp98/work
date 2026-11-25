@@ -117,3 +117,15 @@ describe("Connect Amazon through DataDoe", () => {
     expect(calls.filter((c) => c.url.endsWith("/invite"))).toHaveLength(2);
   });
 });
+
+import { idemKey } from "./datadoe";
+describe("idempotency keys", () => {
+  it("only sends characters DataDoe accepts, stays unique and stable", () => {
+    expect(idemKey("rocco:w1:list:SKU-1:keywords")).toBe("rocco:w1:list:SKU-1:keywords");
+    const a = idemKey("rocco:w1:list:Gym Buddy Journal-Grey:keywords"), b = idemKey("rocco:w1:list:Gym+Buddy Journal-Grey:keywords");
+    expect(a).toMatch(/^[A-Za-z0-9:_.-]+$/);
+    expect(a).not.toBe(b);
+    expect(idemKey("rocco:w1:list:Gym Buddy Journal-Grey:keywords")).toBe(a);
+    expect(idemKey("x ".repeat(200)).length).toBeLessThanOrEqual(120);
+  });
+});

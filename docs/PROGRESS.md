@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Products tab: search-term fix error + wrong suggestions
+- **"idempotencyKey: has an invalid format"**: DataDoe only takes letters, digits and `: _ . -` in that key; SKU "Gym Buddy Journal-Grey" has spaces. `idemKey()` in lib/datadoe.ts now cleans every key (with a short hash so keys stay unique), for all actions. Checked with a DataDoe dry run.
+- **Title showed empty and "missing" words were already in it**: Amazon sends the title as `content.itemName`; Rocco only looked for title/name. Fixed (plus attribute fallbacks; brand read from attributes).
+- **Suggestions came from the whole account**: the search-term report has no ASIN, so Gym Buddy was told to add "habit nest", "finally become fit", "stretching" (brand + sibling products). New `termsForListing()`: a search counts only if it fits this listing at least as well as any other product title; brand words are never suggested. For Gym Buddy the honest answer is now "nothing to add".
+- Check connection: message now says wait a minute, then reload.
+- Next (better): map search terms to products through ad groups' advertised ASINs (Ads (raw) table).
+
 ## 2026-11-25 · "Check connection now" did nothing
 - Cause: the button only pulls once an hour, even when the last pull failed. After Praveen switched Search Term Performance (Ads) on, the click just re-read the old failed status (and the message was easy to miss).
 - Fix: a failed pull can be retried after 2 minutes; a good pull is still reused for an hour (credits). The button now says what happened: "✓ Pulled N reports", "still failed", or "try again in N min". Checked live: the table is on, 100% loaded.
