@@ -25,7 +25,7 @@ describe("skip reasons teach Rocco the team's style", () => {
   it("Amazon return codes become plain next steps", () => {
     expect(amazonNote("SC_ACCOUNT_LACKING_PERMISSIONS")).toMatch(/primary user/);
     expect(amazonNote("unknown")).toMatch(/fresh one/);
-    expect(amazonNote("connected")).toMatch(/first fixes/);
+    expect(amazonNote("connected")).toMatch(/first load .*up to 48/);
   });
 });
 
