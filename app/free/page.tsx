@@ -3,6 +3,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { Rocco } from "@/components/Rocco";
 import { MAGNETS } from "@/lib/magnets";
+import { liveTools } from "@/lib/tools";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = { title: "10 free tools for Amazon sellers", description: "Health check, roast, agency audit, AI advice check, Seller Wrapped, overpaying check, money leak detector and more. Drop your Amazon reports; they're read in your browser.", alternates: { canonical: "/free" } };
@@ -20,6 +21,10 @@ export default function Page() {
       </div>
       <div className="grid">
         {MAGNETS.map((m) => <Link key={m.slug} className="card mg-mini" href={`/free/${m.slug}`}><small>{m.n}</small><h3>{m.name}</h3><p className="muted">{m.tagline}</p><span className="more">Try it →</span></Link>)}
+      </div>
+      <h2 style={{ fontSize: 28, margin: "44px 0 14px" }}>Calculators and quick checks</h2>
+      <div className="grid">
+        {liveTools().map((t) => <Link key={t.slug} className="card mg-mini" href={`/tools/${t.slug}`}><small>CALCULATOR</small><h3>{t.name}</h3><p className="muted">{t.short}</p><span className="more">Open →</span></Link>)}
         <Link className="card mg-mini" href="/free/black-friday-checklist"><small>PDF</small><h3>Black Friday ads checklist</h3><p className="muted">Day by day, with bid and budget guardrails.</p><span className="more">Get it →</span></Link>
       </div>
       <p className="fine" style={{ marginTop: 18 }}>{SITE.disclaimer}</p>

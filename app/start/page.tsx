@@ -16,7 +16,7 @@ export default function Page() {
   const links = [
     { id: "what-rocco-does", href: "/#how", title: "See what Rocco does", sub: "The morning list, approve, done. 2 minutes.", event: "link_click" as const },
     ...(isLive(LINKS.setupCall) ? [{ id: "setup-call", href: LINKS.setupCall, title: "Book a 15-min setup call", sub: "Bring your Seller Central login.", event: "call_click" as const }] : []),
-    { id: "free-tools", href: "/tools", title: "Free Amazon tools", sub: "Ad audit, coupon and breakeven calculators. No login.", event: "link_click" as const },
+    { id: "free-tools", href: "/free", title: "Free Amazon tools", sub: "Health check, roast, Seller Wrapped, calculators. No login.", event: "link_click" as const },
     ...(isLive(LINKS.latestVideo) ? [{ id: "latest-video", href: LINKS.latestVideo, title: "Latest video", sub: "One Amazon ads problem and its fix.", event: "link_click" as const }] : []),
   ];
   return (

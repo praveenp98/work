@@ -4,6 +4,13 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · One free-tools page, sitemap, share-image crawl fix
+- /tools merged into /free (lists the 10 tools + calculators + checklist); /tools 308-redirects to /free; footer has one "Free tools" link.
+- robots.txt now allows /api/magnets/card (X/LinkedIn preview bots obey robots.txt; the Wrapped share image lives there).
+- Sitemap: https://rocco.works/sitemap.xml (131 URLs, incl. all /free tools). Submit it once in Google Search Console and Bing Webmaster Tools.
+
+---
+
 ## 2026-11-25 · Site QA (dead buttons, errors, layout) + Seller Wrapped v2
 - **Dead buttons fixed:** demo Skip buttons had no handler (now skip + Undo); demo goal buttons (Profit/Balance/Growth) were static (now selectable). Click-tested every button in /demo and the homepage demo pop-up at phone and desktop: all respond.
 - **Site-wide audit script** (Playwright, 47 pages × phone/desktop): dead buttons, covered controls, sideways overflow, console errors. Clean except the intended title card on /demo/film.

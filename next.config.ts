@@ -41,6 +41,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/connect", destination: "/", permanent: true },
       { source: "/setup", destination: "/", permanent: true },
+      { source: "/tools", destination: "/free", permanent: true },
       { source: "/free/claude-vs-rocco", destination: "/free/ai-ad-advice-second-opinion", permanent: true },
 // Profile links (marketing/brand/profiles): one short link per account, so /admin/funnel can tell them apart.
       // Temporary redirects on purpose: the destination can change without browsers remembering the old one.
