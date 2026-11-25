@@ -14,6 +14,7 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 - Root cause (checked live against DataDoe, read-only): the **"Search Term Performance (Ads)" table is switched off** in DataDoe → Settings → Data tables. DataDoe refuses the search-term export ("Export source is disabled for this organization"); campaign data still comes in (8,843 rows). Every ads job (block waste, harvest to exact, bids) is built from search terms, so only stock jobs showed. **Praveen: switch it back on, then Check connection now on the Rocco page.**
 - The connection card now says exactly this (which table, where to turn it on; customers are told it's on Rocco's side) instead of "The last pull failed".
 - Removing PlugX: Rocco page → Settings → Amazon accounts → Remove (owner). DataDoe has no API to disconnect, so also delete it in DataDoe → Accounts so it stops costing.
+- Checked all 10 DataDoe tables Rocco reads (read-only `/exports/sources`): only **Search Term Performance (Ads)** (`amazon_ads_search_terms_by_campaign_by_date`) is off. On: Ad Performance by Campaign & Date, Profit by SKU & Date, Profit by Date, FBA Inventory Health, Ad Entity History, Ad Campaigns (raw), Ads (raw), Ad Targets (raw), Ads Product Catalog. The "Access" button on a table is permissions, not on/off; leave it.
 - Site "Menu" button hidden on dashboard pages (the dashboard has its own bottom bar on phones).
 
 ---
