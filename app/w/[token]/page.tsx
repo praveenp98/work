@@ -317,7 +317,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             {brief.season && <p className="fine">📅 {brief.season}</p>}
           </section>
           {access !== "none" && (
-            <details className="rd-set">
+            <details className="rd-set" id="settings">
               <summary><span>⚙️ Settings</span><small>Team · goals &amp; autonomy · Amazon accounts · messages</small></summary>
           {team}
           {<GoalsCard token={token} brand={b.brand} target={brandSettings(ws, b.brand).targetAcos} initial={ws.brands[b.brand]?.goals ?? []} suggestions={productWords(b.open.map((p) => p.campaign))} autoUndo={!!ws.autoUndo} autonomy={ws.autonomy ?? "approve"} />}
@@ -325,16 +325,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           {<ReminderCard token={token} initial={ws.reminders ?? null} seen={!!ws.seenJobsAt || jobs.length > 0} slackOn={slackConfigured()} sample={{ value: shownValue >= 1 ? m(shownValue) : "", jobs: jobs.map((j) => ({ title: localize(j.title, cur), codes: j.mode === "manual" ? [] : j.codes })) }} />}
             </details>
           )}
-          <nav className="rd-links" aria-label="More">
-            <Link href={`/w/${token}/products`}>💰 Products &amp; profit</Link>
-            <Link href={`/w/${token}/actions`}>⚡ Actions</Link>
-            <Link href={`/w/${token}/images`}>🎨 Listing images</Link>
-            <Link href={`/w/${token}/analytics`}>📈 Analytics</Link>
-            <Link href={`/w/${token}/log`}>🧾 Change log</Link>
-            <Link href={`/w/${token}/tidy`}>🗂️ Tidy campaigns</Link>
-            <Link href={`/w/${token}/report`}>📄 Report</Link>
-            <Link href="/help">❓ Help</Link>
-          </nav>
         </aside>
       </div>
 

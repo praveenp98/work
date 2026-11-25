@@ -23,7 +23,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const paid = accessOf(ws) !== "none";
   return (
     <section className="ps-page">
-      <p className="fine"><Link href={`/w/${token}`}>← Today&apos;s work</Link></p>
       <h1>Actions</h1>
       <p className="hello-lede">Ask for any change in plain words. Rocco works out the exact Amazon change, checks it with Amazon, shows you the before and after, and makes it when you approve.</p>
       {accounts.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{accounts.map((a) => <Link key={a.id} href={`/w/${token}/actions?account=${a.id}`} className={a.id === account?.id ? "on" : ""}>{acctLabel(a)}</Link>)}</nav>}

@@ -25,7 +25,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const paid = accessOf(ws) !== "none";
   return (
     <section className="ps-page">
-      <p className="fine"><Link href={`/w/${token}`}>← Today&apos;s work</Link></p>
       <h1>Products &amp; profit</h1>
       <p className="hello-lede">What each product really made in the last 30 days, and the listing work that helps it sell.</p>
       {accounts.length > 1 && <nav className="rd-tabs" aria-label="Accounts">{accounts.map((a) => <Link key={a.id} href={`/w/${token}/products?account=${a.id}`} className={a.id === account?.id ? "on" : ""}>{acctLabel(a)}</Link>)}</nav>}

@@ -57,7 +57,6 @@ export default async function Page({ params }: { params: Promise<{ token: string
 
   return (
     <section className="dash">
-      <p className="fine"><Link href={`/w/${token}`}>← Your Rocco</Link></p>
       <h1 className="dash-h1">Change log</h1>
       <p className="muted">Every change in your Amazon: what changed, who approved it, and whether it worked when I checked a week later.</p>
 

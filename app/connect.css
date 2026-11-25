@@ -1920,3 +1920,29 @@ h1, h2, .display { font-family: var(--display); }
 .is-act { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
 .is-act select { font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line); }
 .is .ok { color: #18794e; font-weight: 600; font-size: 14px; }
+
+/* Dashboard menu (components/dash/DashNav.tsx) */
+.dn { position: sticky; top: 60px; z-index: 18; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); margin: 0 0 16px; }
+.dn-in { max-width: 1120px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.dn-in::-webkit-scrollbar { display: none; }
+@media (min-width: 721px) { .dn-in { flex-wrap: wrap; justify-content: center; overflow: visible; } }
+.dn a { flex: none; display: inline-flex; gap: 6px; align-items: center; padding: 7px 11px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: 14.5px; font-weight: 600; white-space: nowrap; }
+.dn a:hover { background: var(--soft); color: var(--ink); }
+.dn a.on { background: var(--ink); color: #fff; }
+.dn-bar, .dn-sheet { display: none; }
+@media (max-width: 720px) {
+  .dn { display: none; }
+  .dn-bar { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid var(--line); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 24px -18px rgba(28,36,51,.4); }
+  .dn-bar a, .dn-bar button { display: grid; justify-items: center; gap: 2px; padding: 4px 0; text-decoration: none; color: var(--muted); font: inherit; background: none; border: 0; cursor: pointer; }
+  .dn-bar span { font-size: 20px; line-height: 1; } .dn-bar small { font-size: 11.5px; font-weight: 600; }
+  .dn-bar .on { color: var(--accent); }
+  .dn-sheet { display: block; position: fixed; inset: 0; z-index: 39; background: rgba(15,23,42,.35); }
+  .dn-sheet-in { position: absolute; left: 8px; right: 8px; bottom: calc(70px + env(safe-area-inset-bottom)); background: #fff; border-radius: 20px; padding: 8px; display: grid; gap: 2px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.4); animation: dn-up .2s ease-out; }
+  @keyframes dn-up { from { transform: translateY(12px); opacity: 0; } }
+  .dn-sheet a { padding: 13px 14px; border-radius: 12px; text-decoration: none; color: var(--ink); font-weight: 600; }
+  .dn-sheet a.on { background: var(--soft); }
+  .dn-sheet form { padding: 8px 14px; }
+  body.has-dashbar { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  body.has-dashbar .human-pill { bottom: calc(82px + env(safe-area-inset-bottom)); }
+  body.has-dashbar .sticky-hire { display: none; }
+}

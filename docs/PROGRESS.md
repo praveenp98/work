@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Dashboard menu
+- One menu on every /w/<token> page (app/w/[token]/layout.tsx + components/dash/DashNav.tsx): desktop sticky tabs (Today, Actions, Products, Images, Analytics, Change log, Tidy campaigns, Report, Settings); phones get an app-style bottom bar (Today, Actions, Products, Images, More) with a More sheet (the rest + Help + Sign out). Settings opens and scrolls to the settings panel on Today. Removed the old link row and "← Today's work" links.
+
+---
+
 ## 2026-11-25 · Asked: slideshow.sh
 - What it is: Mac app for TikTok photo-carousel marketing (finds slideshows that work in a niche, remakes them for your app, schedules via TikTok; uses Claude Code/Codex etc. already on the Mac; local MCP with 58 tools). One-time price, reportedly $149 early (software: not deducted from contest profit).
 - Verdict: not now. Built for consumer apps; TikTok's Amazon crowd skews aspiring/beginner sellers, not $2,790/yr buyers; overlaps Fastlane/Higgsfield. Revisit only for top-of-funnel carousels (Seller Wrapped, beginner guides) after free hand-posted carousels show traction. Ask before buying.

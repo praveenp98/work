@@ -20,7 +20,6 @@ export default async function Page({ params }: { params: Promise<{ token: string
   const saved = account ? ws.tidy?.[account.id] : undefined;
   return (
     <section className="td">
-      <p className="fine"><Link href={`/w/${token}`}>← Today&apos;s work</Link></p>
       <TidyClient token={token} account={account ? { id: account.id, name: account.name } : null} plan={saved?.plan ?? null} done={saved?.done ?? null} paid={accessOf(ws) !== "none"} hire={hireUrl(ws)} />
     </section>
   );
