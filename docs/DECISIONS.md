@@ -129,3 +129,7 @@ Praveen: "Skip trial direct pay $99 and mention… prices go up $10 every hire" 
 ## 2026-11-25 · Agencies are both buyers and a question brand owners ask
 - **Decision:** keep #03 Agency Audit and #09 Could I Fire My Agency? live, with a "No offence, agencies" note that frames it as the brand owner's own question, said out loud, and invites agencies to use #03 on their clients. Renamed #04 to "Second Opinion on Your AI's Ad Advice" (no other company's product name in a feature title).
 - **Why:** Praveen: it's a genuine thought in a brand owner's head; Rocco calls it out. Agency channel stays open by leading with the other tools.
+
+## 2026-11-25 · Wrapped share links carry numbers only
+- **Decision:** the public Wrapped link is a short code of numbers (persona, units, pace, top share, conversion, period; sales only if shown). Product names and search terms appear only on the seller's own screen.
+- **Why:** the old link was a long base64 blob that looked broken on X and exposed product names; no database table needed.

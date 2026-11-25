@@ -39,6 +39,24 @@ export function Office({ events, state, variant, holdMs = 7000, scope, onRocco }
   const [logOpen, setLogOpen] = useState(false);
   const poke = () => { if (onRocco) onRocco(); else setSay(pos === "bed" ? "I'm up! Everything's done for now. I'll do my next rounds in the morning." : `I'm ${DOING[pos]}. ${say}`.slice(0, 160)); };
   const timers = useRef<number[]>([]);
+  const bubble = useRef<HTMLDivElement>(null);
+  // Keep the speech bubble inside the room, every frame (Rocco walks and the bubble moves with him).
+  useEffect(() => {
+    let raf = 0;
+    const fit = () => {
+      const b = bubble.current, room = b?.closest(".of-stage");
+      if (b && room) {
+        const cur = parseFloat(b.style.getPropertyValue("--nudge")) || 0;
+        const r = b.getBoundingClientRect(), o = room.getBoundingClientRect();
+        const left = r.left - cur, right = r.right - cur;
+        const d = left < o.left + 6 ? o.left + 6 - left : right > o.right - 6 ? o.right - 6 - right : 0;
+        if (Math.abs(d - cur) > 0.5) b.style.setProperty("--nudge", `${Math.round(d)}px`);
+      }
+      raf = requestAnimationFrame(fit);
+    };
+    raf = requestAnimationFrame(fit);
+    return () => cancelAnimationFrame(raf);
+  }, []);
   const here = useRef<Station>(state.station);
 
   const go = useCallback((to: Station, text: string) => {
@@ -112,7 +130,7 @@ export function Office({ events, state, variant, holdMs = 7000, scope, onRocco }
               </div>
             ))}
             <div className={`of-rocco${walking ? " walk" : ""}${left ? " left" : ""}${pos === "bed" ? " sleepy" : ""}${x(pos) < 20 ? " edge-l" : x(pos) > 80 ? " edge-r" : ""}`} style={{ ["--x" as string]: `${x(pos)}%` }}>
-              <div className="of-bubble" key={say}>{say}</div>
+              <div className="of-bubble" key={say} ref={bubble}>{say}</div>
               <button type="button" className="of-body" onClick={poke} aria-label={onRocco ? "Try Rocco's demo account" : "Ask Rocco what he's doing"}><Rocco pose={POSE[pos]} size={96} /></button>
             </div>
             <div className="of-floor" aria-hidden />

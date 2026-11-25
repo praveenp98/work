@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { accessOf } from "@/lib/access";
 import { syncBilling } from "@/lib/billing";
@@ -57,7 +56,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
     <section className="start-page">
       <h1>{paid && accessOf(paid) !== "none" ? "You hired Rocco 🎉" : "Almost there"}</h1>
       <p className="hello-lede">{paid && accessOf(paid) !== "none" ? "Sign in with Google to open your team's Rocco and connect Amazon." : "Sign in with the Google account you hired Rocco with, and I'll open your team's Rocco."}</p>
-      <Link className="btn" href="/api/auth/google?intent=signin" rel="nofollow">Sign in</Link>
+      <a className="btn" href="/api/auth/google?intent=signin" rel="nofollow">Sign in</a>
     </section>
   );
 }

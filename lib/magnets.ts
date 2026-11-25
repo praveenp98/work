@@ -2,6 +2,7 @@ import type { AnalyzeOutput, ReportKind } from "./analyze";
 import { accountScore } from "./rules/score";
 import type { Finding } from "./rules/types";
 import { PLAN } from "./pricing";
+import { buildWrapped, PERIODS, type Wrapped } from "./wrapped";
 
 /**
  * The 10 free lead-magnet tools (/free/<slug>). Reports are read in the visitor's browser (lib/analyze, the same
@@ -24,8 +25,8 @@ export interface Result {
   roastFacts?: string;
   /** Rule-based punchlines, used when the AI roast is unavailable. */
   roastLines?: string[];
-  /** Wrapped share card data. */
-  card?: Record<string, string>;
+  /** Seller Wrapped story. */
+  wrapped?: Wrapped;
 }
 export interface Field { key: string; label: string; type: "number" | "text" | "select" | "checks" | "textarea"; placeholder?: string; options?: string[]; help?: string; optional?: boolean }
 export interface Magnet {
@@ -224,35 +225,15 @@ function adviceCheck(i: Inputs): Result {
   };
 }
 
-// ---------------------------------------------------------------- 5. Seller Wrapped
-const PERSONA = (acos: number, leak: number, conv: number) =>
-  leak > 25 ? ["The Generous Donor", "Funds half of Amazon's ad revenue, unknowingly."] :
-  acos > 0 && acos < 20 ? ["The Sniper", "Every ad dollar has a target."] :
-  conv > 15 ? ["The Closer", "Shoppers come, shoppers buy."] :
-  leak < 10 ? ["The Accountant", "Tight, tidy, profitable."] : ["The Hustler", "Lots of action, some of it profitable."];
+// ---------------------------------------------------------------- 5. Seller Wrapped (lib/wrapped.ts)
 function wrapped(i: Inputs): Result {
-  const biz = i.now.business_report, st = i.now.sp_search_term?.roast;
-  const hide = i.form.hide === "yes";
-  const sales = stat(i.now, "business_report", "sales"), units = stat(i.now, "business_report", "units"), conv = stat(i.now, "business_report", "conversionPct");
-  const best = biz?.analysis.findings.find((f) => f.severity === "win" && /^Best seller/.test(f.title))?.title.replace(/^Best seller:\s*/, "");
-  const acos = st ? st.totals.acos * 100 : 0, leak = st ? st.leakPct * 100 : 0;
-  const [persona, line] = PERSONA(acos, leak, conv);
-  const card: Record<string, string> = {
-    p: persona, l: line,
-    s: hide || !Number.isFinite(sales) ? "" : $(sales), u: Number.isFinite(units) ? Math.round(units).toLocaleString("en-US") : "",
-    b: best ?? "", w: st?.win?.term ?? "", x: st?.eaten[0]?.term ?? "", a: st ? pct(acos) : "",
-  };
+  const st = i.now.sp_search_term;
+  const w = buildWrapped({ biz: i.now.business_report?.business ?? [], terms: st?.report?.rows, roast: st?.roast, period: i.form.period || "This year so far", hide: i.form.hide !== "no" });
+  if (!w) return { headline: "Add your Business Report.", stats: [], items: [], share: "" };
   return {
-    headline: `You're ${persona}.`, sub: line,
-    stats: [card.s && { k: "Sales", v: card.s }, card.u && { k: "Units", v: card.u }, Number.isFinite(conv) && { k: "Conversion", v: pct(conv) }, card.a && { k: "ACoS", v: card.a }].filter(Boolean) as Result["stats"],
-    items: [
-      best && { title: `Your MVP: ${best}`, detail: "Your best-selling product this period.", tone: "good" as Tone },
-      st?.win && { title: `Search of the year: "${st.win.term}"`, detail: `${$(st.win.sales)} in ad sales at ${pct(st.win.acos * 100)} ACoS.`, tone: "good" as Tone },
-      st?.eaten[0] && { title: `Most expensive mistake: "${st.eaten[0].term}"`, detail: `${$(st.eaten[0].spend)} on a search that never sold.`, tone: "bad" as Tone },
-      st && { title: `${pct(leak)} of ad spend went nowhere`, detail: `${$(st.leakYearly)} a year at this pace.`, tone: leak > 15 ? "bad" as Tone : "info" as Tone },
-    ].filter(Boolean) as Item[],
-    share: `My Amazon Seller Wrapped: I'm ${persona}. ${line}`,
-    card,
+    headline: `You're ${w.persona.name}.`, sub: w.persona.line, stats: [],
+    items: w.slides.map((s) => ({ title: `${s.kicker}: ${s.big}`, detail: `${s.line} ${s.sub ?? ""}`.trim(), tone: "info" as Tone })),
+    share: `My Amazon Seller Wrapped: I'm ${w.persona.name}.`, wrapped: w,
   };
 }
 
@@ -386,7 +367,7 @@ export const MAGNETS: Magnet[] = [
   { slug: "roast-my-amazon-account", n: "02", name: "Roast My Amazon Account", tagline: "Brutally honest. Painfully accurate.", promise: "Rocco tears through your ads and tells you exactly where the money burns. No mercy, all receipts.", pose: "judge", needs: ["sp_search_term"], optional: ["sp_campaign", "business_report", "inventory"], faq: [howTo, connect, { q: "Is it really savage?", a: "About the numbers, yes. Never about you." }], run: roast },
   { slug: "amazon-agency-audit", n: "03", name: "The Agency Audit", tagline: "What did your agency actually change?", promise: "Compare before and after: did ACoS, waste and sales move, and what did they leave running?", pose: "judge", needs: [], needsOneOf: ["sp_search_term", "sp_campaign"], optional: ["sp_search_term", "sp_campaign"], periods: true, note: "No offence, agencies. This is a question plenty of brand owners ask themselves quietly; Rocco is just asking it out loud. A good agency comes out of this looking great, and agencies are welcome to run it on their own clients and send them the result.", fields: [{ key: "fee", label: "What you pay them per month ($)", type: "number", optional: true }], faq: [{ q: "What do I upload?", a: "The same report for two periods: one before (or early in) the agency, one for the last 30 days. Best: the search term report, which shows wasted searches and whether they were ever blocked; Amazon keeps about 65 days of it. For an older 'before', use the campaign report (Amazon keeps about 95 days) or exports your agency sent you." }, { q: "Can I see exactly what my agency changed?", a: "In the Amazon Ads console, open a campaign and its History tab: it lists bid, budget and status changes. Amazon's API offers the same change history for Sponsored Products and Sponsored Brands (about 90 days back, without who made each change). This free tool compares results instead, because results are what you pay for." }, { q: "Is this anti-agency?", a: "No. Plenty of agencies do great work, and this shows it. Agencies can run it on their own clients first and share the result." }, howTo, connect], run: agencyAudit },
   { slug: "ai-ad-advice-second-opinion", n: "04", name: "Second Opinion on Your AI's Ad Advice", tagline: "Check AI ad advice before it costs you.", promise: "Paste what an AI assistant (or anyone) told you to do with your ads. Rocco checks every move against your real numbers.", pose: "hero", needs: ["sp_search_term"], optional: [], fields: [{ key: "advice", label: "Paste the recommendations", type: "textarea", placeholder: "e.g. Add 'free cutting board' as a negative. Raise the bid on 'bamboo cutting board' by 40%. Restructure into single-keyword campaigns…", help: "Only this text is read by Rocco's AI to pick out the moves. Your reports stay on your device." }, { key: "margin", label: "Your margin before ads (%)", type: "number", optional: true }], faq: [{ q: "Whose advice can I paste?", a: "Any AI assistant's, an agency's, a freelancer's or your own notes. Rocco pulls out each concrete move and checks it against your search term report." }, { q: "Why would AI advice be wrong?", a: "General advice can't see your numbers. 'Block this search' sounds sensible until the report shows it sold 30 times." }, howTo], run: adviceCheck },
-  { slug: "amazon-seller-wrapped", n: "05", name: "Amazon Seller Wrapped", tagline: "Your year on Amazon, in one card.", promise: "Your seller persona, MVP product, search of the year and most expensive mistake, as a card you can share (money hidden if you like).", pose: "party", needs: ["business_report"], optional: ["sp_search_term"], fields: [{ key: "hide", label: "Hide my sales numbers on the card", type: "select", options: ["yes", "no"] }], faq: [{ q: "Which period?", a: "Download the business report and search term report for the longest range Amazon allows (business report: any range; search terms: up to 65 days)." }, howTo], run: wrapped },
+  { slug: "amazon-seller-wrapped", n: "05", name: "Amazon Seller Wrapped", tagline: "Your year on Amazon, told as a story.", promise: "Your seller personality, your MVP, your hidden gem, the product leaking shoppers, the zombies, your donation to Amazon and your resolution for next year. A story you can tap through, and a card you can share without showing your numbers.", pose: "party", needs: ["business_report"], optional: ["sp_search_term"], fields: [{ key: "period", label: "Which period is your Business Report?", type: "select", options: Object.keys(PERIODS), help: "Business Report → pick the date range at the top (e.g. Jan 1 to today) → download. Any range works." }, { key: "hide", label: "Hide my sales numbers", type: "select", options: ["yes", "no"], help: "Units and percentages still show. The share link never includes product names or searches either way." }], faq: [{ q: "Which period should I pick?", a: "The longest you have: in Seller Central, Business Reports let you choose any date range (e.g. January 1 to today). Add a search term report (Amazon keeps about 65 days of it) for the ads chapters." }, { q: "What does the share link show?", a: "Only your persona and a few numbers (units, pace, top-product share, conversion; sales only if you choose). Product names and search terms stay on your device." }, howTo], run: wrapped },
   { slug: "am-i-overpaying-amazon", n: "06", name: "Am I Overpaying?", tagline: "Ad costs and management fees, sense-checked.", promise: "Your TACoS, ACoS, waste and management costs against typical ranges, and what you'd save.", pose: "hero", needs: [], optional: ["business_report", "sp_search_term"], fields: [{ key: "sales", label: "Monthly sales ($)", type: "number", optional: true }, { key: "adspend", label: "Monthly ad spend ($)", type: "number", optional: true }, { key: "agency", label: "Agency fee per month ($)", type: "number", optional: true }, { key: "software", label: "PPC software per month ($)", type: "number", optional: true }], faq: [{ q: "Where do the ranges come from?", a: "Typical ranges published by Amazon seller tools and agencies. They vary a lot by category and price, so they're a sense check. As more sellers opt in, Rocco will compare you with real anonymous sellers like you." }, howTo], run: overpaying },
   { slug: "amazon-money-leak-detector", n: "07", name: "The Amazon Money Leak Detector", tagline: "Every avoidable dollar, in one number.", promise: "Wasted searches, losing campaigns, starved winners, stock-outs, Buy Box: each leak priced per month.", pose: "judge", needs: ["sp_search_term"], optional: ["sp_campaign", "business_report", "inventory", "sp_placement"], faq: [howTo, connect], run: leaks },
   { slug: "what-actually-worked-amazon", n: "08", name: "What Actually Worked?", tagline: "Receipts for every change you made.", promise: "Compare two periods: which campaigns got better, which got worse, what's new and what stopped.", pose: "hero", needs: ["sp_campaign"], optional: ["sp_search_term"], periods: true, faq: [{ q: "What do I upload?", a: "The campaign report (and optionally search terms) for two periods, e.g. the month before your changes and the month after." }, howTo, connect], run: whatWorked },

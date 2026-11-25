@@ -18,7 +18,7 @@ Code: engine `lib/magnets.ts` (pure, tested in `lib/magnets.test.ts`), UI `compo
 | 02 | Roast My Amazon Account | /free/roast-my-amazon-account | Search terms | Savage AI roast (Claude) of real numbers + grade |
 | 03 | The Agency Audit | /free/amazon-agency-audit | Search terms (best) or campaign report × 2 periods (+ fee) | Did ACoS/waste move; burners never blocked |
 | 04 | Second Opinion on Your AI's Ad Advice | /free/ai-ad-advice-second-opinion (old /free/claude-vs-rocco redirects) | Pasted AI advice + search terms | Each move: agree / careful / don't / can't check |
-| 05 | Amazon Seller Wrapped | /free/amazon-seller-wrapped | Business report (+ search terms) | Persona card, sales hidden by default; shared link shows the card as preview image |
+| 05 | Amazon Seller Wrapped | /free/amazon-seller-wrapped | Business report for any range (+ search terms) | Tap-through story (see below); share link /w/<code> + story/post images |
 | 06 | Am I Overpaying? | /free/am-i-overpaying-amazon | Numbers or reports | vs **labelled typical ranges** + fee gap to $279/mo |
 | 07 | Money Leak Detector | /free/amazon-money-leak-detector | Search terms (+ more) | $/month and $/year leaking |
 | 08 | What Actually Worked? | /free/what-actually-worked-amazon | Campaign report × 2 periods | Campaigns better/worse ("moved, not why") |
@@ -26,6 +26,14 @@ Code: engine `lib/magnets.ts` (pure, tested in `lib/magnets.test.ts`), UI `compo
 | 10 | Rocco Watches Your Business | /free/rocco-watches-your-business | Search terms (+ more) | The texts Rocco would have sent this week |
 
 **Honesty guardrails (keep):** typical ranges are labelled as published guidance that varies by category; period comparisons say "moved, not why"; roast is savage about numbers, never the person; fire-my-agency says plainly that creative, DSP and calls need people.
+
+## Seller Wrapped v2 (Nov 25): a story, not a card
+Engine `lib/wrapped.ts` (tested in `lib/wrapped.test.ts`), player `components/magnets/WrappedStory.tsx`, images `lib/wrapped-image.tsx`.
+- **Free slides:** units sold + pace ("one every 22 minutes"), sales + average sale (if shown), shoppers + conversion, MVP share + "N of M products made 80% of the money", seller personality with the reason.
+- **Unlocked by email (8 more):** hidden gem (converts ≥1.5× average on little traffic), leaky bucket (big traffic, low conversion → units/$ it would add), zombies (traffic, zero sales), someone else's Buy Box, search of the year + "N searches made half your ad sales", donation to Amazon (wasted spend = price of N of your own products), most expensive click, ads vs organic share, Rocco's resolution for next year (biggest provable lever).
+- **10 personalities**, chosen by rules from the numbers: One-Hit Wonder, Generous Donor, Ad Junkie, Closer, Window Display, Sniper, Organic Legend, Collector, Accountant, Grinder.
+- **Sharing:** short link `rocco.works/free/amazon-seller-wrapped/w/<code>`; the code is numbers only (persona, units, pace, top share, conversion, period; sales only if the seller shows them). No product names or searches ever leave the device. The link opens a page with the card + "Get my Wrapped"; preview image = 1200×630 post card. Buttons to download the 1080×1920 story image and the post image.
+- Sample = a 12-product year (`public/samples/business-report-year.csv`).
 
 ## Trust line (on every upload)
 Green bar above the upload boxes + a lock line inside each box: "Your reports are never uploaded. Rocco reads them right here on your device…". Only exceptions, stated where they happen: the pasted advice text (#04) and summary numbers for the AI roast (#02) go to Rocco's AI; nothing is stored.

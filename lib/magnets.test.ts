@@ -51,10 +51,10 @@ describe("free tools", () => {
     expect(r.stats).toHaveLength(1);
   });
 
-  it("wrapped hides money when asked", async () => {
+  it("wrapped returns the story and hides sales by default", async () => {
     const now = await load(["business-report.csv", "sp-search-term-report.csv"]);
-    expect(magnet("amazon-seller-wrapped")!.run({ now, form: { hide: "yes" } }).card!.s).toBe("");
-    expect(magnet("amazon-seller-wrapped")!.run({ now, form: { hide: "no" } }).card!.s).toMatch(/^\$/);
+    expect(magnet("amazon-seller-wrapped")!.run({ now, form: {} }).wrapped!.share.sales).toBeUndefined();
+    expect(magnet("amazon-seller-wrapped")!.run({ now, form: { hide: "no" } }).wrapped!.share.sales).toBeGreaterThan(0);
   });
 
   it("advice check rejects blocking a search that sells, agrees on a dead one, cautions on big jumps", async () => {

@@ -8,7 +8,8 @@ export function useInView<T extends Element>(threshold = 0.25) {
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") { setIn(true); return; }
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setIn(true); io.disconnect(); } }, { threshold });
+    // Any part of it past the lower ~quarter of the screen counts, so tall blocks on phones still trigger.
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setIn(true); io.disconnect(); } }, { threshold: 0, rootMargin: `0px 0px -${Math.round(Math.min(0.5, threshold) * 50)}% 0px` });
     io.observe(el);
     return () => io.disconnect();
   }, [threshold]);

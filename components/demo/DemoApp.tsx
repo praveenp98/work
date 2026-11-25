@@ -52,6 +52,8 @@ export function DemoApp({ film = false }: { film?: boolean }) {
   const [level, setLevel] = useState<Level>("approve");
   const [step, setStep] = useState<number | null>(null);
   const [phone, setPhone] = useState(0);
+  const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [goals, setGoals] = useState<Record<string, string>>({ "Cutting Board Large": "Profit", "Serving Tray": "Balance", "Knife Block (new)": "Growth" });
   const pane = useRef<HTMLDivElement>(null);
 
   const run = useCallback((id: string) => {
@@ -128,9 +130,11 @@ export function DemoApp({ film = false }: { film?: boolean }) {
                       <div className="dm-jt"><span className="dm-ic" aria-hidden>{j.ic}</span><div><b>{j.title}{j.pick && <span className="dm-pick">Rocco&apos;s pick</span>}</b><small>{j.why}</small></div>{j.value > 0 && <span className="dm-v">~{$(j.value)}<small>/mo</small></span>}</div>
                       <ul className="dm-items">{j.items.map((it) => <li key={it.label}><span>{it.label}</span><small>{it.detail}</small>{it.v && <em>{it.v}</em>}</li>)}</ul>
                       <p className="dm-guard"><span>✓ Checked with Amazon first</span><span>⏱ Measured in 7 days</span><span>{j.undo ? "↩ Undo armed" : "↩ Logged with undo steps"}</span></p>
-                      {s === "done"
+                      {skipped.has(j.id)
+                        ? <p className="dm-skipped">Skipped. It comes back tomorrow if it still matters. <button className="linkbtn" onClick={() => setSkipped((x) => { const n = new Set(x); n.delete(j.id); return n; })}>Undo</button></p>
+                        : s === "done"
                         ? <p className="dm-done"><span>✓</span> {j.done}. {j.kind === "restock" ? "Next: box it in Send to Amazon (5 min)." : "I'll check the result in a week."}</p>
-                        : <div className="dm-act"><button className="btn" disabled={s !== "open"} onClick={() => { run(j.id); track("demo_approve", { job: j.id }); }}>{s === "open" ? j.btn : s === "checking" ? "Checking with Amazon…" : j.making}</button>{s === "open" && <button className="linkbtn muted">Skip</button>}</div>}
+                        : <div className="dm-act"><button className="btn" disabled={s !== "open"} onClick={() => { run(j.id); track("demo_approve", { job: j.id }); }}>{s === "open" ? j.btn : s === "checking" ? "Checking with Amazon…" : j.making}</button>{s === "open" && <button className="linkbtn muted" onClick={() => { setSkipped((x) => new Set([...x, j.id])); track("demo_skip", { job: j.id }); }}>Skip</button>}</div>}
                     </li>
                   );
                 })}
@@ -165,8 +169,8 @@ export function DemoApp({ film = false }: { film?: boolean }) {
               </div>
               <div id="dm-goals" className={`dm-goals${cls("dm-goals")}`}>
                 <h3>Goal per product</h3>
-                {[["Cutting Board Large", "Profit"], ["Serving Tray", "Balance"], ["Knife Block (new)", "Growth"]].map(([p, g]) => (
-                  <div key={p} className="dm-goal"><span>{p}</span><div className="gl-seg">{["Profit", "Balance", "Growth"].map((x) => <button key={x} className={x === g ? "on" : ""}>{x}</button>)}</div></div>
+                {Object.entries(goals).map(([p, g]) => (
+                  <div key={p} className="dm-goal"><span>{p}</span><div className="gl-seg" role="radiogroup" aria-label={`Goal for ${p}`}>{["Profit", "Balance", "Growth"].map((x) => <button key={x} role="radio" aria-checked={x === g} className={x === g ? "on" : ""} onClick={() => setGoals((o) => ({ ...o, [p]: x }))}>{x}</button>)}</div></div>
                 ))}
                 <label className="gl-undo"><input type="checkbox" defaultChecked /> <span><b>Undo automatically if it got worse.</b> After the 7-day check, I put the old bid or budget back.</span></label>
               </div>

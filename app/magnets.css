@@ -55,3 +55,6 @@
 .mg-trust b { color: #0f5132; }
 .mg-lock { margin-top: 6px; font-size: 13px; font-weight: 600; color: #18794e; }
 .mg-note { display: flex; gap: 10px; margin: 0; padding: 12px 14px; border-radius: 14px; background: var(--soft); font-size: 15px; color: var(--muted); font-style: italic; }
+.mg-where { font-size: 14px; color: var(--muted); }
+.mg-where summary { cursor: pointer; font-weight: 600; color: var(--accent); padding: 6px 0; }
+.mg-where ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; }

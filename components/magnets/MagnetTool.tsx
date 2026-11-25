@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { analyze, detectKind, REPORT_HELP, type ReportKind } from "@/lib/analyze";
 import { checkAdvice, FREE_ITEMS, magnet, parseAdviceRules, type Advice, type Reports, type Result } from "@/lib/magnets";
 import { readTables } from "@/lib/readTable";
 import { track } from "@/lib/track";
 import { LeadCapture } from "../LeadCapture";
 import { Rocco } from "../Rocco";
+import { WrappedStory } from "./WrappedStory";
 
 const SAMPLE: Partial<Record<ReportKind, string>> = { sp_search_term: "sp-search-term-report.csv", sp_campaign: "sp-campaign-report.csv", sp_placement: "sp-placement-report.csv", business_report: "business-report.csv", inventory: "restock-inventory.csv" };
 const SAMPLE_BEFORE: Partial<Record<ReportKind, string>> = { sp_search_term: "sp-search-term-report-before.csv", sp_campaign: "sp-campaign-report-before.csv" };
@@ -39,22 +40,26 @@ export function MagnetTool({ slug }: { slug: string }) {
     const next = { ...(slot === "now" ? now : before) };
     for (const f of files) {
       try {
-        const t = (await readTables(await f.get())).find((x) => detectKind(x));
-        if (!t) { errs.push(`${f.name}: not an Amazon report Rocco reads.`); continue; }
+        const file = await f.get();
+        if (!file.size) { errs.push(`${f.name} is empty. Download it again from Amazon and drop the new file.`); continue; }
+        if (/\.(png|jpe?g|gif|webp|heic|pdf)$/i.test(f.name)) { errs.push(`${f.name} is a picture or PDF. Rocco needs the .csv or .xlsx file Amazon lets you download.`); continue; }
+        const t = (await readTables(file)).find((x) => detectKind(x));
+        if (!t) { errs.push(`${f.name} isn't a report Rocco recognizes. ${m.needs.length ? `This tool needs the ${m.needs.map((k) => `${REPORT_HELP[k].name}: ${REPORT_HELP[k].where}`).join(". And the ")}.` : "Use the reports listed in the box."}`); continue; }
         const out = analyze(t);
         if (!kinds.includes(out.kind)) errs.push(`${f.name}: that's a ${REPORT_HELP[out.kind].name}; this tool doesn't use it (still read).`);
         next[out.kind] = out;
-      } catch (e) { errs.push(`${f.name}: ${e instanceof Error ? e.message : "couldn't read it"}`); }
+      } catch { errs.push(`${f.name} couldn't be opened. Save it again as .csv (or .xlsx) and drop it here.`); }
     }
     (slot === "now" ? setNow : setBefore)(next);
     setErrors(errs); setBusy(false); setResult(null);
   }
   const sample = async () => {
     const pick = (map: typeof SAMPLE, list: ReportKind[]) => list.filter((k) => map[k]).map((k) => ({ name: map[k]!, get: async () => new File([await (await fetch(`/samples/${map[k]}`)).text()], map[k]!) }));
-    await add(pick(SAMPLE, kinds), "now");
+    await add(pick(slug === "amazon-seller-wrapped" ? { ...SAMPLE, business_report: "business-report-year.csv" } : SAMPLE, kinds), "now");
     if (m.periods) await add(pick(SAMPLE_BEFORE, kinds), "before");
     if (m.fields?.some((f) => f.key === "advice")) setForm((f) => ({ ...f, advice: f.advice || SAMPLE_ADVICE }));
     if (m.fields?.some((f) => f.key === "tasks")) setForm((f) => ({ ...f, tasks: f.tasks || "negatives,bids,harvest,budgets,reporting,creative", fee: f.fee || "1500" }));
+    if (slug === "amazon-seller-wrapped") setForm((f) => ({ ...f, hide: "no" })); // sample data is made up: show the money
     if (slug === "am-i-overpaying-amazon") setForm((f) => ({ ...f, agency: f.agency || "1200" }));
     track("tool_result", { tool: slug, link: "sample" });
   };
@@ -87,11 +92,7 @@ export function MagnetTool({ slug }: { slug: string }) {
   }
 
   const url = `https://rocco.works/free/${slug}`;
-  const shareUrl = useMemo(() => {
-    if (!result?.card) return url;
-    const d = typeof window === "undefined" ? "" : btoa(unescape(encodeURIComponent(JSON.stringify(result.card)))).replace(/=+$/, "");
-    return `${url}?card=${encodeURIComponent(d)}`;
-  }, [result, url]);
+  const shareUrl = url;
   const free = result?.items.slice(0, FREE_ITEMS) ?? [];
   const rest = result?.items.slice(FREE_ITEMS) ?? [];
 
@@ -112,12 +113,19 @@ export function MagnetTool({ slug }: { slug: string }) {
       <p className="fine" style={{ margin: "10px 0 0" }}>
         <button className="linkbtn" disabled={busy} onClick={sample}>Try it with a sample account →</button>
       </p>
-      {errors.map((e) => <p key={e} className="err">{e}</p>)}
+      {!textOnly && (
+        <details className="mg-where">
+          <summary>Where do I download these?</summary>
+          <ul>{[...new Set(kinds)].map((k) => <li key={k}><b>{REPORT_HELP[k].name}:</b> {REPORT_HELP[k].where}</li>)}</ul>
+        </details>
+      )}
+      {errors.map((e) => <p key={e} className="err" role="alert">{e}</p>)}
       <button className="btn mg-go" disabled={!ready || busy} onClick={run}>
         {busy ? "Reading on your device…" : ready ? `Run ${m.name}` : missing.length ? `Add: ${m.needsOneOf && missing.length === 1 && missing[0] === m.needsOneOf[0] ? m.needsOneOf.map((k) => REPORT_HELP[k].name.replace(/ \(.*\)$/, "").replace(/^Sponsored Products /, "")).join(" or ") : missing.map((k) => REPORT_HELP[k].name.replace(/ \(.*\)$/, "")).join(" + ")}${m.periods ? " for both periods" : ""}` : needsAdvice ? "Paste the advice first" : "Tick what your agency does"}
       </button>
 
-      {result && (
+      {result?.wrapped && <div id="mg-result" className="mg-res"><WrappedStory key={result.wrapped.code + (form.hide ?? "")} w={result.wrapped} /><HireNote slug={slug} /></div>}
+      {result && !result.wrapped && (
         <div id="mg-result" className="mg-res">
           <div className="verdict">
             {(result.score !== undefined || result.grade) && <div className={`grade g-${result.grade ?? (result.score! >= 75 ? "A" : result.score! >= 50 ? "C" : "F")}`}>{slug === "amazon-money-leak-detector" ? `$${result.score!.toLocaleString("en-US")}` : result.score ?? result.grade}</div>}
@@ -138,7 +146,6 @@ export function MagnetTool({ slug }: { slug: string }) {
             </div>
           )}
 
-          {result.card && <WrappedCard card={result.card} />}
 
           {slug === "rocco-watches-your-business" ? <Texts items={free} /> : <Items items={free} />}
 
@@ -157,15 +164,21 @@ export function MagnetTool({ slug }: { slug: string }) {
             <button className="btn ghost small" onClick={() => { navigator.clipboard?.writeText(`${result.share} ${shareUrl}`); track("link_click", { link: "share_copy", tool: slug }); }}>Copy</button>
           </div>
 
-          <div className="cta-inline mg-hire">
-            <div style={{ flex: "1 1 280px" }}>
-              <b>Want this every morning, done for you?</b>
-              <p className="muted" style={{ margin: 0 }}>Hire Rocco and connect Amazon once. Sales and stock usually show up within hours; Amazon takes up to 48 hours to send ads history the first time. Then Rocco runs these checks daily and makes the fixes you approve.</p>
-            </div>
-            <Link className="btn small" href={`/?utm_source=free_tool&utm_content=${slug}#price`} onClick={() => track("hire_click", { tool: slug })}>Hire Rocco →</Link>
-          </div>
+          <HireNote slug={slug} />
         </div>
       )}
+    </div>
+  );
+}
+
+function HireNote({ slug }: { slug: string }) {
+  return (
+    <div className="cta-inline mg-hire">
+      <div style={{ flex: "1 1 280px" }}>
+        <b>Want this every morning, done for you?</b>
+        <p className="muted" style={{ margin: 0 }}>Hire Rocco and connect Amazon once. Sales and stock usually show up within hours; Amazon takes up to 48 hours to send ads history the first time. Then Rocco runs these checks daily and makes the fixes you approve.</p>
+      </div>
+      <Link className="btn small" href={`/?utm_source=free_tool&utm_content=${slug}#price`} onClick={() => track("hire_click", { tool: slug })}>Hire Rocco →</Link>
     </div>
   );
 }
@@ -221,24 +234,6 @@ function Texts({ items }: { items: Result["items"] }) {
       {items.map((x, i) => { const [when, ...t] = x.title.split(" · "); return (
         <div key={i} className="mg-bubble"><small>{when} · Rocco</small><p><b>{t.join(" · ")}</b> {x.detail}{x.value ? ` (~$${Math.round(x.value).toLocaleString("en-US")}/mo)` : ""}</p></div>
       ); })}
-    </div>
-  );
-}
-
-function WrappedCard({ card }: { card: Record<string, string> }) {
-  return (
-    <div className="mg-card">
-      <small>AMAZON SELLER WRAPPED</small>
-      <h3>{card.p}</h3>
-      <p>{card.l}</p>
-      <dl>
-        {card.s && <><dt>Sales</dt><dd>{card.s}</dd></>}
-        {card.u && <><dt>Units</dt><dd>{card.u}</dd></>}
-        {card.b && <><dt>MVP</dt><dd>{card.b}</dd></>}
-        {card.w && <><dt>Search of the year</dt><dd>“{card.w}”</dd></>}
-        {card.x && <><dt>Priciest mistake</dt><dd>“{card.x}”</dd></>}
-      </dl>
-      <span>rocco.works/free/amazon-seller-wrapped</span>
     </div>
   );
 }

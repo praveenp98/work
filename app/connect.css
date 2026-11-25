@@ -1657,7 +1657,7 @@ h1, h2, .display { font-family: var(--display); }
 .of-rocco.walk .of-body svg { animation: ofWalk .28s ease-in-out infinite alternate; }
 .of-rocco.sleepy .of-body { opacity: .85; }
 @keyframes ofWalk { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-6px) rotate(3deg); } }
-.of-bubble { position: absolute; bottom: 104px; width: max-content; max-width: 260px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 7px 11px; font-size: 12.5px; line-height: 1.35; box-shadow: 0 6px 18px -8px rgba(28,36,51,.35); animation: ofPop .35s cubic-bezier(.2,1.4,.4,1) both; }
+.of-bubble { position: absolute; bottom: 104px; translate: var(--nudge, 0px) 0; width: max-content; max-width: 260px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 7px 11px; font-size: 12.5px; line-height: 1.35; box-shadow: 0 6px 18px -8px rgba(28,36,51,.35); animation: ofPop .35s cubic-bezier(.2,1.4,.4,1) both; }
 .of-bubble::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 10px; height: 10px; background: #fff; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
 @keyframes ofPop { from { opacity: 0; transform: translateY(6px) scale(.9); } }
 .of-fx { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); pointer-events: none; }

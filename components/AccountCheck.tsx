@@ -26,12 +26,15 @@ export function AccountCheck() {
     const next = { ...results };
     for (const f of files) {
       try {
-        const tables = await readTables(await f.get());
+        const file = await f.get();
+        if (!file.size) { errs.push(`${f.name} is empty. Download it again from Amazon.`); continue; }
+        if (/\.(png|jpe?g|gif|webp|heic|pdf)$/i.test(f.name)) { errs.push(`${f.name} is a picture or PDF. Rocco needs the .csv or .xlsx file Amazon lets you download.`); continue; }
+        const tables = await readTables(file);
         const t = tables.find((x) => detectKind(x));
-        if (!t) { errs.push(`${f.name}: Rocco didn't recognize this report.`); continue; }
+        if (!t) { errs.push(`${f.name} isn't a report Rocco recognizes. Rocco reads: ${Object.values(REPORT_HELP).map((h) => h.name).join(", ")}.`); continue; }
         const out = analyze(t);
         next[out.kind] = out.analysis;
-      } catch (e) { errs.push(`${f.name}: ${e instanceof Error ? e.message : "couldn't read"}`); }
+      } catch { errs.push(`${f.name} couldn't be opened. Save it again as .csv (or .xlsx) and drop it here.`); }
     }
     setResults(next); setErrors(errs); setBusy(false);
   }

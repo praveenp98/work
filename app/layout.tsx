@@ -13,6 +13,7 @@ import { Analytics } from "@/components/Analytics";
 import { FunnelEvents } from "@/components/FunnelEvents";
 import "./globals.css";
 import "./magnets.css";
+import "./wrapped.css";
 import "./connect.css";
 
 const display = Raleway({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600"], display: "swap" });
@@ -63,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/free">Free tools</Link>
             <Link href="/compare">Compare</Link>
             <Link href="/connector">Rocco in Claude &amp; ChatGPT</Link>
-            <Link href="/tools">Free tools</Link>
+            <Link href="/tools">Calculators</Link>
             <Link href="/guides">Guides</Link>
             <Link href="/press">Press</Link>
             <Link href="/privacy">Privacy</Link>

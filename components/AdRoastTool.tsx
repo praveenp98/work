@@ -77,7 +77,7 @@ export function AdRoastTool() {
         {error && <p className="err" style={{ marginTop: 12 }}>{error}</p>}
         <p className="fine" style={{ marginTop: 12 }}>
           Your file is read inside your browser. It is never uploaded to our servers. No login.{" "}
-          <button className="linkish" style={{ background: "none", border: 0, color: "var(--accent)", cursor: "pointer", padding: 0, fontWeight: 600 }}
+          <button className="linkish" style={{ background: "none", border: 0, color: "var(--accent)", cursor: "pointer", font: "inherit", padding: "10px 0", fontWeight: 600 }}
             onClick={async () => { const r = await fetch("/sample-search-term-report.csv"); handle(await r.blob(), "sample.csv"); }}>
             No report handy? Try a sample.
           </button>

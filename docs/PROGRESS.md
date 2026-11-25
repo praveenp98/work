@@ -4,6 +4,15 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-25 · Site QA (dead buttons, errors, layout) + Seller Wrapped v2
+- **Dead buttons fixed:** demo Skip buttons had no handler (now skip + Undo); demo goal buttons (Profit/Balance/Growth) were static (now selectable). Click-tested every button in /demo and the homepage demo pop-up at phone and desktop: all respond.
+- **Site-wide audit script** (Playwright, 47 pages × phone/desktop): dead buttons, covered controls, sideways overflow, console errors. Clean except the intended title card on /demo/film.
+- **Fixed:** /welcome sign-in link was prefetched by Next (console errors) → plain link; footer had "Free tools" twice (/tools is now "Calculators"); floating Email pill covered the footer on phones (padding); sticky Hire bar now hides over the price section and can't be tabbed to while hidden; scroll animations trigger for tall blocks on phones; office speech bubble no longer spills outside the scene (checked every frame, 0/80 samples outside); tiny "Try a sample" tap target on Ad Roast.
+- **Error states:** uploads now say what's wrong (empty file, picture/PDF, wrong report) and where to download the right one; "Where do I download these?" under every upload.
+- **Seller Wrapped v2:** story with 13 possible slides, 10 personalities, email unlocks the deeper 8, short share links (numbers only), story + post images. 293 tests.
+
+---
+
 ## 2026-11-25 · Free tools: trust line, #04 renamed, agency note
 - Trust: green "Your reports are never uploaded" bar above every upload + lock line in each drop box; button reads "Reading on your device…".
 - #04 renamed **Second Opinion on Your AI's Ad Advice** (/free/ai-ad-advice-second-opinion; old URL 308-redirects). No Claude/ChatGPT names in the tool.

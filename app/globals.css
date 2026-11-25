@@ -486,6 +486,7 @@ h1, h2, .display { color: var(--ink); }
   .human-pill { right: 12px; bottom: 12px; padding: 10px; }
   .human-pill .human-t { display: none; }
   .human-pill.home { bottom: 92px; } /* above the sticky Hire button */
+  .foot-in { padding-bottom: 76px; } /* room for the floating Email pill */
 }
 @media print { .human-pill { display: none; } }
 .foot-human { margin: 0 0 10px; font-size: 15px; color: var(--muted); }

@@ -8,16 +8,13 @@ import { Rocco } from "@/components/Rocco";
 import { magnet, MAGNETS } from "@/lib/magnets";
 import { SITE } from "@/lib/site";
 
-type P = { params: Promise<{ slug: string }>; searchParams: Promise<{ card?: string }> };
+type P = { params: Promise<{ slug: string }> };
 
-export async function generateMetadata({ params, searchParams }: P): Promise<Metadata> {
+export async function generateMetadata({ params }: P): Promise<Metadata> {
   const m = magnet((await params).slug);
   if (!m) return {};
-  const card = (await searchParams).card;
   const title = `${m.name}: free tool for Amazon sellers`;
-  // A shared Wrapped link shows that seller's card as the preview image.
-  const images = card && m.slug === "amazon-seller-wrapped" ? [`/api/magnets/card?d=${encodeURIComponent(card.slice(0, 1500))}`] : undefined;
-  return { title, description: `${m.tagline} ${m.promise}`, alternates: { canonical: `/free/${m.slug}` }, openGraph: { title: m.name, description: m.promise, ...(images ? { images } : {}) }, twitter: images ? { card: "summary_large_image", images } : undefined };
+  return { title, description: `${m.tagline} ${m.promise}`, alternates: { canonical: `/free/${m.slug}` }, openGraph: { title: m.name, description: m.promise } };
 }
 
 export default async function Page({ params }: P) {

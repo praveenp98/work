@@ -1,5 +1,5 @@
 import { isBulkSheet, parseBulkRows } from "./parsers/bulk";
-import { isBusinessReport, parseBusinessReport } from "./parsers/business";
+import { isBusinessReport, parseBusinessReport, type BusinessRow } from "./parsers/business";
 import { isCampaignReport, parseCampaignReport, type CampaignRow } from "./parsers/campaign";
 import { isInventoryReport, parseInventoryReport } from "./parsers/inventory";
 import { isPlacementReport, parsePlacementReport } from "./parsers/placement";
@@ -60,6 +60,8 @@ export interface AnalyzeOutput {
   report?: ParsedReport;
   /** Present for campaign reports (used for budget result checks). */
   campaigns?: { rows: CampaignRow[]; days: number };
+  /** Present for business reports: one row per child ASIN. */
+  business?: BusinessRow[];
 }
 
 export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOutput {
@@ -86,7 +88,7 @@ export function analyze(table: unknown[][], s: AnalyzeSettings = {}): AnalyzeOut
     return { kind, analysis: analyzeBudgets(rows, days, { targetAcos: target, breakevenAcos: breakeven, goals: s.goals, monthlyAdBudget: s.monthlyAdBudget }), campaigns: { rows, days } };
   }
   if (kind === "sp_placement") return { kind, analysis: analyzePlacements(parsePlacementReport(table), { targetAcos: target, breakevenAcos: breakeven }) };
-  if (kind === "business_report") return { kind, analysis: analyzeBusiness(parseBusinessReport(table), { adSpend: s.adSpend, adSales: s.adSales }) };
+  if (kind === "business_report") { const rows = parseBusinessReport(table); return { kind, analysis: analyzeBusiness(rows, { adSpend: s.adSpend, adSales: s.adSales }), business: rows }; }
   if (kind === "inventory") return { kind, analysis: analyzeStock(parseInventoryReport(table)) };
   if (kind === "listing_health") return { kind, analysis: analyzeListings(parseListingsReport(table)) };
   return { kind, analysis: analyzeStructure(parseBulkRows(table)) };
