@@ -4,7 +4,7 @@ Rocco has no audience. Partners do. The plan: find people US Amazon sellers alre
 
 ## The offer (one, simple)
 
-- **30% of the first payment** for every seller a partner sends who stays past the 7-day guarantee.
+- **20% of the first payment** for every seller a partner sends who stays past the 7-day guarantee.
   - Yearly plan (2,790) → partner gets about 837. Rocco keeps about 1,950.
   - Monthly plan (279) → partner gets about 84.
 - Paid by Praveen after day 8, by Wise or PayPal. **Every payout is a marketing cost: log it** (hard rule 4).
@@ -12,16 +12,16 @@ Rocco has no audience. Partners do. The plan: find people US Amazon sellers alre
 - Agencies can also use Rocco on their own clients (see "agencies" below).
 - No retainers, no upfront fees, no paid posts before a sale. Anything paid upfront is ad spend and comes off profit.
 
-Why 30% of the first payment: big enough to matter for a yearly sale, small enough that each sale is still clearly profitable, and simple to explain in one line. Change it only after the first 5 partners.
+Why 20% of the first payment: big enough to matter for a yearly sale, small enough that each sale is still clearly profitable, and simple to explain in one line. Change it only after the first 5 partners.
 
 ## Who to partner with (in order)
 
 | # | Partner type | Why they'd say yes | What you give them | Realistic by Dec 16 |
 |---|---|---|---|---|
-| 1 | **Small PPC freelancers and agencies** (1 to 30 clients, US sellers) | Rocco does the daily grind (negatives, bids, stock checks); they keep the client and the strategy, and can take more clients | 30% referral, or use Rocco on their clients; the Agency Audit tool as client reporting | best odds: 2 to 5 partners, 3 to 15 sellers |
+| 1 | **Small PPC freelancers and agencies** (1 to 30 clients, US sellers) | Rocco does the daily grind (negatives, bids, stock checks); they keep the client and the strategy, and can take more clients | 20% referral, or use Rocco on their clients; the Agency Audit tool as client reporting | best odds: 2 to 5 partners, 3 to 15 sellers |
 | 2 | **Your warm network** (past clients, seller friends, ex-colleagues) | they know you | ask each for 2 intros, not a sale | 1 to 5 sellers |
 | 3 | **Tools sellers already pay for that don't compete** (DataDoe, accounting/profit tools, review or inventory tools, prep centers, 3PLs, freight forwarders) | a useful add-on for their customers, no cost | co-written guide or webinar, listing on each other's partner/integrations page, referral | slower; 0 to 3 sellers |
-| 4 | **Seller community owners** (paid Facebook/Discord/Slack groups, masterminds, newsletters, small YouTube channels for sellers) | a free perk for their members (the free tools, a live account review session) | 30% referral; a members-only "free money leak check" session | 1 to 5 sellers |
+| 4 | **Seller community owners** (paid Facebook/Discord/Slack groups, masterminds, newsletters, small YouTube channels for sellers) | a free perk for their members (the free tools, a live account review session) | 20% referral; a members-only "free money leak check" session | 1 to 5 sellers |
 | 5 | **Amazon courses and coaches** | their students graduate and need to run ads | perk for alumni | mostly beginners: low odds at 279 a month |
 | 6 | **Higgsfield** (prize sponsor) | content showing Higgsfield helping Amazon sellers | free content tagged @higgsfield_ai; no money before Dec 16 | reshare only |
 
@@ -49,14 +49,14 @@ Keep a list in a sheet: name, type, link, why them, date contacted, reply, next 
 No template blast. Each message is personal and short:
 1. Something specific you noticed about them (a post, a client type, a tool they use).
 2. One line on what Rocco does for *their* sellers or *their* time.
-3. The offer in one line (30% of the first payment, or a free trial on one client).
+3. The offer in one line (20% of the first payment, or a free trial on one client).
 4. One easy ask: "worth a 10-minute look at the demo?" with the demo video link.
 
 10 personal messages a day for 10 days = 100 conversations. Expect 10 to 20 replies and 3 to 6 real partners. Follow up once after 3 days, then stop.
 
 ## Tracking (built Nov 25: /partners, /admin/partners)
 
-Pages: `/partners` (hub + apply form), `/partners/agencies`, `/partners/tools`, `/partners/communities` (indexable, static), `/p/<code>` (the partner's own page: noindex, canonical `/`, only for approved codes, anything else redirects home). All copy and the share live in `lib/partners.ts` (`PARTNER_SHARE = 0.30`, TODO Praveen confirm). Never link "Could I Fire My Agency?" from a partner page (a test checks this).
+Pages: `/partners` (hub + apply form), `/partners/agencies`, `/partners/tools`, `/partners/communities` (indexable, static), `/p/<code>` (the partner's own page: noindex, canonical `/`, only for approved codes, anything else redirects home). All copy and the share live in `lib/partners.ts` (`PARTNER_SHARE = 0.20`, confirmed by Praveen Nov 25). Never link "Could I Fire My Agency?" from a partner page (a test checks this).
 
 How a sale is tracked:
 1. A seller opens `rocco.works/p/<code>` or any page with `?partner=<code>`. `proxy.ts` sets the first-party cookie `rocco_partner` (httpOnly, 60 days) only if the code belongs to an approved partner, and never replaces an existing one (first partner wins). `?partner=` links redirect to the clean URL.

@@ -11,7 +11,7 @@ import { PLAN } from "./pricing";
  */
 
 /** Share of the seller's first payment paid to the partner. */
-export const PARTNER_SHARE = 0.3; // TODO(Praveen): confirm 30%
+export const PARTNER_SHARE = 0.2; // Praveen confirmed 20% (Nov 25, 2026)
 /** How long a referral cookie lasts. */
 export const COOKIE_DAYS = 60;
 export const PARTNER_COOKIE = "rocco_partner";
