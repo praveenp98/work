@@ -4,6 +4,12 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-26 · Discussion: one-tap listings + A+ in the brand's own tone
+- Today: backend search terms one tap (exact searches); title/bullets = seller edits with suggested words; A+ = Claude drafts text modules, seller edits, one tap submits (Amazon reviews up to 7 days); images = Higgsfield renders from the real product photo, one tap into listing slots 2–8.
+- Gap 1: no brand kit yet (tone, colours, claims from the seller's own website). Proposed: seller pastes their site URL → Rocco reads their own pages (not Amazon, so no scraping rule issue) → brand kit used by every draft and image brief.
+- Gap 2: A+ images can't go in by API: DataDoe has no A+ image upload (Amazon's A+ image modules need an Amazon upload ID). A+ images are made by Rocco, then added by hand in A+ Content Manager. Ask DataDoe whether they plan an upload action.
+- Image engines (web check, Nov 26; vendor-written rankings): Google Nano Banana 2, OpenAI GPT Image 1.5/2, FLUX.2, Seedream lead for product shots; Kling's developer API is billed separately from the app plan. Plan: make the engine pluggable and test 2–3 on Habit Nest photos before choosing.
+
 ## 2026-11-25 · Instant first look while history loads
 - Praveen asked for it after the free-audit test (history takes hours). New `lib/first-look.ts` (tested) + `POST /api/w/amazon/first-look` + `components/start/FirstLook.tsx` on the waiting screen.
 - Two live reads: the **Listings** snapshot (`amazon_listings_with_cogs`, no date range, so it's there right after connecting) + Amazon's own issue check on the top 20 active SKUs. Findings with real counts and named products: out of stock at Amazon with nothing inbound, stranded stock, listing errors, inactive, no backend search terms, fewer than 3 bullets, no product cost.
