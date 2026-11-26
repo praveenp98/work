@@ -4,6 +4,11 @@ Newest entries at the top. Each session adds: date, what happened, decisions, ne
 
 ---
 
+## 2026-11-26 · Discussion: Rocco for beginners and non-US sellers (no build)
+- Not before Dec 16: both are lower-paying buyers, and the contest is scored on profit. Exception: let established sellers in other marketplaces in fully (UK, DE, CA, AU, JP), since DataDoe, currency display and local prices already work there.
+- Found: `lib/region.ts` picks the version of Rocco by the visitor's IP country (non-US → report-email mode) at signup (`app/api/hire`, Google callback). It should go by the Amazon marketplace connected, not where the person is. No VAT handling anywhere: EU/UK sales include VAT, which inflates sales and makes ACoS and break-even look better than they are.
+- Beginners later: a "launch" mode (listing readiness, first campaigns with a hard spend cap, plain-word daily explanations, reorder dates), approve-every-move only, a cheaper plan capped by ad spend that upgrades itself when spend grows (price is Praveen's call). Until then: free tools, guides, free audit.
+
 ## 2026-11-26 · Discussion: one-tap listings + A+ in the brand's own tone
 - Today: backend search terms one tap (exact searches); title/bullets = seller edits with suggested words; A+ = Claude drafts text modules, seller edits, one tap submits (Amazon reviews up to 7 days); images = Higgsfield renders from the real product photo, one tap into listing slots 2–8.
 - Gap 1: no brand kit yet (tone, colours, claims from the seller's own website). Proposed: seller pastes their site URL → Rocco reads their own pages (not Amazon, so no scraping rule issue) → brand kit used by every draft and image brief.
